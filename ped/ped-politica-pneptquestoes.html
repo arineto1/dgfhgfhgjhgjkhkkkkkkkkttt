@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz PNEPT (Estilo Instituto AOCP)</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carrega a fonte Inter, que é excelente para leitura -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Define a fonte Inter como padrão */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Estilos personalizados para feedback de resposta */
+        .correct-answer-label {
+            background-color: #f0fdf4; /* green-50 */
+            border-color: #22c55e; /* green-500 */
+            border-width: 1px;
+        }
+        .correct-answer-label .option-text {
+            font-weight: 600;
+            color: #15803d; /* green-700 */
+        }
+
+        .incorrect-answer-label {
+            background-color: #fef2f2; /* red-50 */
+            border-color: #ef4444; /* red-500 */
+            border-width: 1px;
+        }
+        .incorrect-answer-label .option-text {
+            text-decoration: line-through;
+            color: #b91c1c; /* red-700 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <main class="max-w-4xl mx-auto p-4 sm:p-8">
+        
+        <header class="mb-10 text-center">
+            <h1 class="text-3xl font-bold text-gray-900">Quiz: Política Nacional de Educação Profissional e Tecnológica</h1>
+            <p class="text-lg text-gray-600 mt-2">(Estilo Instituto AOCP)</p>
+        </header>
+
+        <!-- Formulário do Quiz -->
+        <form id="quizForm">
+            
+            <!-- Questão 01 -->
+            <div class="bg-white p-6 rounded-lg shadow-sm mb-6">
+                <p class="text-lg font-semibold text-gray-900 mb-4">
+                    <strong class="text-blue-700">Questão 01:</strong> De acordo com o Decreto nº 5.154/2004, que regulamenta a Educação Profissional e Tecnológica (EPT) no Brasil, a EPT será desenvolvida por meio de cursos e programas organizados em níveis específicos. Assinale a alternativa que apresenta corretamente os três níveis de desenvolvimento da educação profissional previstos no referido decreto.
+                </p>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q1" value="a" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">a) Formação de tecnólogos, educação profissional técnica de nível médio e cursos de especialização técnica.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q1" value="b" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">b) Qualificação profissional, inclusive formação inicial e continuada de trabalhadores; educação profissional técnica de nível médio; e educação profissional tecnológica de graduação e de pós-graduação.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q1" value="c" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">c) Cursos de aprendizagem industrial; ensino médio integrado; e cursos superiores de tecnologia.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q1" value="d" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">d) Formação inicial e continuada de trabalhadores; educação profissional de nível básico; e educação profissional de nível superior.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q1" value="e" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">e) Cursos de capacitação profissional; educação profissional subsequente; e cursos de mestrado e doutorado profissional.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 02 -->
+            <div class="bg-white p-6 rounded-lg shadow-sm mb-6">
+                <p class="text-lg font-semibold text-gray-900 mb-4">
+                    <strong class="text-blue-700">Questão 02:</strong> O Decreto nº 5.154/2004, com as alterações promovidas pelo Decreto nº 8.268/2014, introduziu o conceito de "itinerários formativos" como um dos elementos organizacionais da Educação Profissional e Tecnológica. Conforme a legislação, qual é a definição e o propósito desses itinerários?
+                </p>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q2" value="a" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">a) São trajetórias rígidas e predefinidas pelo Ministério da Educação que determinam a progressão obrigatória do aluno, sem possibilidade de aproveitamento de estudos anteriores.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q2" value="b" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">b) Referem-se exclusivamente aos programas de pós-graduação, permitindo que os egressos da graduação tecnológica articulem seus estudos com o mestrado profissional.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q2" value="c" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">c) Constituem um conjunto de disciplinas eletivas de caráter geral, desvinculadas de uma área profissional específica, com o objetivo de promover a formação humanística do trabalhador.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q2" value="d" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">d) São as unidades curriculares de cursos e programas da educação profissional, em uma determinada área, que possibilitam o aproveitamento contínuo e articulado dos estudos, favorecendo a continuidade da formação.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q2" value="e" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">e) Correspondem aos projetos de cursos experimentais com carga horária reduzida, destinados unicamente à qualificação de trabalhadores com baixa escolaridade.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 03 -->
+            <div class="bg-white p-6 rounded-lg shadow-sm mb-6">
+                <p class="text-lg font-semibold text-gray-900 mb-4">
+                    <strong class="text-blue-700">Questão 03:</strong> O Art. 2º do Decreto nº 5.154/2004 estabelece as premissas que devem ser observadas pela educação profissional. Essas premissas funcionam como diretrizes fundamentais para a organização e oferta dos cursos e programas. Assinale a alternativa que indica uma dessas premissas.
+                </p>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q3" value="a" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">a) A centralidade exclusiva na formação teórica, dissociada das práticas laboratoriais e profissionais.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q3" value="b" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">b) A organização por áreas profissionais, em função da estrutura sócio-ocupacional e tecnológica.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q3" value="c" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">c) A desvinculação completa dos arranjos produtivos, sociais e culturais locais e regionais.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q3" value="d" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">d) A oferta restrita a instituições de ensino superior, vedando a participação de escolas de nível médio.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q3" value="e" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">e) A adoção de um currículo único e padronizado em nível nacional para todas as áreas profissionais.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 04 -->
+            <div class="bg-white p-6 rounded-lg shadow-sm mb-6">
+                <p class="text-lg font-semibold text-gray-900 mb-4">
+                    <strong class="text-blue-700">Questão 04:</strong> A Lei nº 11.892, de 29 de dezembro de 2008, instituiu a Rede Federal de Educação Profissional, Científica e Tecnológica. A composição dessa rede é explicitamente definida em seu Art. 1º. Analise as afirmativas a seguir sobre as instituições que constituem a referida rede:
+                </p>
+                <div class="space-y-2 mb-4 pl-4 border-l-4 border-gray-200">
+                    <p class="text-gray-700">I. Os Institutos Federais de Educação, Ciência e Tecnologia.</p>
+                    <p class="text-gray-700">II. A Universidade Tecnológica Federal do Paraná (UTFPR).</p>
+                    <p class="text-gray-700">III. Os Centros Federais de Educação Tecnológica (CEFET) Celso Suckow da Fonseca e de Minas Gerais.</p>
+                    <p class="text-gray-700">IV. Todas as Universidades Federais que oferecem cursos de engenharia e tecnologia.</p>
+                </div>
+                <p class="text-gray-800 font-medium mb-4">Estão corretas apenas as afirmativas:</p>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q4" value="a" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">a) I e IV.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q4" value="b" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">b) II e III.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q4" value="c" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">c) I, II e III.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q4" value="d" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">d) II, III e IV.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q4" value="e" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">e) I, II, III e IV.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 05 -->
+            <div class="bg-white p-6 rounded-lg shadow-sm mb-6">
+                <p class="text-lg font-semibold text-gray-900 mb-4">
+                    <strong class="text-blue-700">Questão 05:</strong> A Lei nº 11.892/2008 define a natureza jurídica e o escopo da autonomia dos Institutos Federais (IFs). Sobre essas características, é correto afirmar que os Institutos Federais:
+                </p>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q5" value="a" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">a) são fundações de direito privado, com autonomia didático-pedagógica, mas dependem de autorização prévia do Conselho Nacional de Educação para criar ou extinguir cursos técnicos.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q5" value="b" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">b) possuem natureza jurídica de autarquia, detentoras de autonomia administrativa, patrimonial, financeira, didático-pedagógica e disciplinar, sendo equiparados às universidades federais para fins de regulação, avaliação e supervisão.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q5" value="c" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">c) são órgãos da administração direta vinculados ao Ministério da Educação, com autonomia limitada à gestão de pessoal e à execução de projetos de extensão.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q5" value="d" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">d) possuem natureza jurídica de empresa pública, com autonomia financeira para captar recursos no mercado, mas sua autonomia didático-pedagógica é supervisionada diretamente pelas Secretarias Estaduais de Educação.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q5" value="e" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">e) são autarquias com autonomia plena, exceto para o registro de diplomas, que é uma atribuição exclusiva das universidades federais às quais estão vinculados.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 06 -->
+            <div class="bg-white p-6 rounded-lg shadow-sm mb-6">
+                <p class="text-lg font-semibold text-gray-900 mb-4">
+                    <strong class="text-blue-700">Questão 06:</strong> O Art. 7º da Lei nº 11.892/2008 elenca os objetivos dos Institutos Federais. No que se refere à educação profissional técnica de nível médio, a lei estabelece um direcionamento específico para a sua oferta. Assinale a alternativa que descreve corretamente esse objetivo.
+                </p>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q6" value="a" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">a) Ofertar cursos técnicos de nível médio exclusivamente na forma subsequente, para garantir que os alunos já tenham concluído o ensino médio regular.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q6" value="b" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">b) Ministrar educação profissional técnica de nível médio, prioritariamente na forma de cursos integrados, para os concluintes do ensino fundamental e para o público da educação de jovens e adultos.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q6" value="c" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">c) Fomentar a educação profissional técnica de nível médio apenas em parceria com o setor privado, por meio de programas de aprendizagem profissional.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q6" value="d" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">d) Ministrar cursos técnicos de nível médio exclusivamente na modalidade a distância, visando à ampliação do acesso em todo o território nacional.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q6" value="e" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">e) Substituir a oferta de ensino médio regular pela educação profissional técnica, tornando-a obrigatória em todas as unidades da Rede Federal.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 07 -->
+            <div class="bg-white p-6 rounded-lg shadow-sm mb-6">
+                <p class="text-lg font-semibold text-gray-900 mb-4">
+                    <strong class="text-blue-700">Questão 07:</strong> Além do ensino, a pesquisa e a extensão são pilares fundamentais da atuação dos Institutos Federais, conforme os objetivos listados na Lei nº 11.892/2008. Sobre as atividades de pesquisa e extensão, é correto afirmar que os IFs têm como objetivos:
+                </p>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q7" value="a" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">a) Realizar prioritariamente pesquisas de natureza básica e teórica, desvinculadas de aplicações imediatas, e desenvolver atividades de extensão de caráter assistencialista.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q7" value="b" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">b) Focar a pesquisa exclusivamente no desenvolvimento de patentes para comercialização e limitar as atividades de extensão à oferta de cursos pagos de curta duração para a comunidade.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q7" value="c" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">c) Realizar pesquisas aplicadas, estimulando o desenvolvimento de soluções técnicas e tecnológicas, e desenvolver atividades de extensão em articulação com o mundo do trabalho e os segmentos sociais.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q7" value="d" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">d) Conduzir pesquisas apenas em áreas de ciências humanas e sociais e desenvolver atividades de extensão cultural, sem articulação com os setores produtivos locais.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q7" value="e" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">e) Terceirizar todas as atividades de pesquisa para universidades parceiras e focar a extensão na organização de eventos acadêmicos e científicos.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 08 -->
+            <div class="bg-white p-6 rounded-lg shadow-sm mb-6">
+                <p class="text-lg font-semibold text-gray-900 mb-4">
+                    <strong class="text-blue-700">Questão 08:</strong> A Lei nº 11.892/2008 confere aos Institutos Federais uma ampla gama de atuação no campo da educação superior. Assinale a alternativa que descreve corretamente a abrangência dos cursos e programas de nível superior que os IFs têm como objetivo ministrar.
+                </p>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q8" value="a" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">a) Apenas cursos superiores de tecnologia e cursos de pós-graduação lato sensu (especialização).</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q8" value="b" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">b) Cursos de licenciatura e programas especiais de formação pedagógica, sendo vedada a oferta de bacharelados, engenharias e pós-graduação stricto sensu.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q8" value="c" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">c) Exclusivamente cursos de bacharelado e engenharia, visando atender à demanda do setor industrial.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q8" value="d" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">d) Cursos superiores de tecnologia, cursos de licenciatura, bacharelados, engenharias, e cursos de pós-graduação lato sensu e stricto sensu (mestrado e doutorado).</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q8" value="e" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">e) Apenas cursos de pós-graduação stricto sensu (mestrado e doutorado), atuando como centros de excelência em pesquisa tecnológica.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 09 -->
+            <div class="bg-white p-6 rounded-lg shadow-sm mb-6">
+                <p class="text-lg font-semibold text-gray-900 mb-4">
+                    <strong class="text-blue-700">Questão 09:</strong> Um Instituto Federal, localizado em uma região com forte vocação para a agricultura familiar e o cooperativismo, estabelece uma parceria com cooperativas locais para desenvolver um novo curso técnico em Agroecologia. O projeto pedagógico do curso prevê a incubação de pequenas agroindústrias geridas pelos próprios estudantes e suas famílias, visando à agregação de valor à produção local. Essa iniciativa exemplifica diretamente o cumprimento de qual objetivo da Lei nº 11.892/2008?
+                </p>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q9" value="a" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">a) Ministrar cursos de licenciatura para a formação de professores para a educação básica.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q9" value="b" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">b) Realizar pesquisas aplicadas para o desenvolvimento de soluções técnicas e tecnológicas.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q9" value="c" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">c) Exercer o papel de instituição acreditadora e certificadora de competências profissionais.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q9" value="d" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">d) Estimular e apoiar processos educativos que levem à geração de trabalho e renda e à emancipação do cidadão na perspectiva do desenvolvimento socioeconômico local e regional.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q9" value="e" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">e) Ministrar cursos de pós-graduação stricto sensu para promover o estabelecimento de bases sólidas em educação, ciência e tecnologia.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 10 -->
+            <div class="bg-white p-6 rounded-lg shadow-sm mb-6">
+                <p class="text-lg font-semibold text-gray-900 mb-4">
+                    <strong class="text-blue-700">Questão 10:</strong> Considerando os princípios, as diretrizes e os objetivos da Política Nacional de Educação Profissional e Tecnológica, conforme o Decreto nº 5.154/2004 e a Lei nº 11.892/2008, assinale a alternativa INCORRETA.
+                </p>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q10" value="a" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">a) A educação profissional e tecnológica abrange cursos de qualificação profissional, de educação profissional técnica de nível médio e de educação profissional tecnológica de graduação e pós-graduação.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q10" value="b" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">b) Os Institutos Federais são autarquias, equiparadas às universidades federais para fins de regulação, e possuem autonomia para criar cursos e registrar os diplomas correspondentes.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q10" value="c" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">c) A educação profissional deve observar a premissa de organização por áreas profissionais, em função da estrutura sócio-ocupacional e tecnológica.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q10" value="d" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">d) Um dos objetivos dos Institutos Federais é ministrar educação profissional técnica de nível médio exclusivamente na forma integrada ao ensino médio.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-150">
+                        <input type="radio" name="q10" value="e" class="mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-base text-gray-700 option-text">e) A Rede Federal de Educação Profissional, Científica e Tecnológica é composta, entre outras instituições, pelos Institutos Federais, pela UTFPR e pelos CEFET-RJ e CEFET-MG.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Botão de Verificação -->
+            <button type="submit" id="submitButton" class="w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 transition-transform duration-150 active:scale-[0.98]">
+                Verificar Respostas
+            </button>
+        </form>
+
+        <!-- Seção de Resultados (oculta por padrão) -->
+        <div id="results" class="hidden text-center mt-10">
+            <h2 id="score" class="text-3xl font-bold text-gray-900 mb-4"></h2>
+            <p class="text-lg text-gray-600">Abaixo você pode conferir a resolução detalhada de cada questão.</p>
+        </div>
+
+        <!-- Seção de Resoluções (oculta por padrão) -->
+        <div id="resolutions" class="mt-12 space-y-8">
+            
+            <!-- Resolução Questão 01 -->
+            <div id="res-q1" class="hidden bg-white p-6 rounded-lg shadow-sm border-l-4 border-blue-500">
+                <h3 class="text-xl font-bold text-blue-700 mb-3">Resolução da Questão 01</h3>
+                <p class="font-semibold text-green-700 bg-green-100 inline-block px-3 py-1 rounded-md mb-4">Gabarito: B</p>
+                <div class="text-gray-700 space-y-3 leading-relaxed">
+                    <p class="text-md font-semibold text-gray-800 mt-4 mb-2">Fundamentação Normativa:</p>
+                    <p>A resposta correta está fundamentada no Art. 1º do Decreto nº 5.154, de 23 de julho de 2004, com a redação atualizada pelo Decreto nº 8.268, de 2014. O artigo estabelece a estrutura da educação profissional da seguinte forma: "Art. 1º A educação profissional, [...] será desenvolvida por meio de cursos e programas de: I - qualificação profissional, inclusive formação inicial e continuada de trabalhadores; II - educação profissional técnica de nível médio; e III - educação profissional tecnológica de graduação e de pós-graduação." [1]</p>
+                    <p class="text-md font-semibold text-gray-800 mt-4 mb-2">Análise Criteriosa das Alternativas:</p>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>**Alternativa A (Incorreta):** Esta alternativa apresenta termos que, embora relacionados à educação profissional, não correspondem à estrutura tripartite definida no decreto.</li>
+                        <li>**Alternativa B (Correta):** Descreve com exatidão os três níveis previstos no Art. 1º do decreto. O primeiro nível abrange a qualificação profissional (FIC). O segundo é a educação profissional técnica de nível médio. O terceiro engloba a educação superior de tecnologia (graduação e pós-graduação).</li>
+                        <li>**Alternativa C (Incorreta):** Mistura modalidades e tipos de curso. "Ensino médio integrado" é uma forma de articulação, não um nível em si.</li>
+                        <li>**Alternativa D (Incorreta):** Utiliza terminologias genéricas e incorretas. O decreto não utiliza a expressão "educação profissional de nível básico".</li>
+                        <li>**Alternativa E (Incorreta):** "Educação profissional subsequente" é uma forma de oferta do nível técnico, não um nível autônomo.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Resolução Questão 02 -->
+            <div id="res-q2" class="hidden bg-white p-6 rounded-lg shadow-sm border-l-4 border-blue-500">
+                <h3 class="text-xl font-bold text-blue-700 mb-3">Resolução da Questão 02</h3>
+                <p class="font-semibold text-green-700 bg-green-100 inline-block px-3 py-1 rounded-md mb-4">Gabarito: D</p>
+                <div class="text-gray-700 space-y-3 leading-relaxed">
+                    <p class="text-md font-semibold text-gray-800 mt-4 mb-2">Fundamentação Normativa:</p>
+                    <p>A base para a resposta correta encontra-se no Art. 1º, § 2º, do Decreto nº 5.154/2004, incluído pelo Decreto nº 8.268/2014: "§ 2º Para os fins do disposto neste Decreto, consideram-se itinerários formativos ou trajetórias de formação as unidades curriculares de cursos e programas da educação profissional, em uma determinada área, que possibilitem o aproveitamento contínuo e articulado dos estudos." [1]</p>
+                    <p class="text-md font-semibold text-gray-800 mt-4 mb-2">Análise Criteriosa das Alternativas:</p>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>**Alternativa A (Incorreta):** O erro está em descrever os itinerários como "rígidos". O propósito é exatamente o oposto: promover a flexibilidade e o aproveitamento contínuo.</li>
+                        <li>**Alternativa B (Incorreta):** A alternativa restringe indevidamente o conceito apenas à pós-graduação, quando se aplica a todos os níveis da EPT.</li>
+                        <li>**Alternativa C (Incorreta):** Descreve os itinerários como desvinculados de uma área profissional, o que contradiz a norma ("em uma determinada área").</li>
+                        <li>**Alternativa D (Correta):** Apresenta a definição praticamente literal do texto do decreto, focando no "aproveitamento contínuo e articulado dos estudos".</li>
+                        <li>**Alternativa E (Incorreta):** Associa os itinerários apenas a cursos experimentais, o que não é o conceito central, mas sim uma diretriz organizacional para todos os cursos.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Resolução Questão 03 -->
+            <div id="res-q3" class="hidden bg-white p-6 rounded-lg shadow-sm border-l-4 border-blue-500">
+                <h3 class="text-xl font-bold text-blue-700 mb-3">Resolução da Questão 03</h3>
+                <p class="font-semibold text-green-700 bg-green-100 inline-block px-3 py-1 rounded-md mb-4">Gabarito: B</p>
+                <div class="text-gray-700 space-y-3 leading-relaxed">
+                    <p class="text-md font-semibold text-gray-800 mt-4 mb-2">Fundamentação Normativa:</p>
+                    <p>A resposta correta é extraída diretamente do Art. 2º do Decreto nº 5.154/2004, que lista as premissas da educação profissional: "Art. 2º A educação profissional observará as seguintes premissas: I - organização, por áreas profissionais, em função da estrutura sócio-ocupacional e tecnológica; [...]" [1]</p>
+                    <p class="text-md font-semibold text-gray-800 mt-4 mb-2">Análise Criteriosa das Alternativas:</p>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>**Alternativa A (Incorreta):** Contradiz o princípio da indissociabilidade entre teoria e prática, fundamental na EPT.</li>
+                        <li>**Alternativa B (Correta):** Reproduz fielmente o inciso I do Art. 2º. A EPT deve ser organizada de acordo com as demandas do mundo do trabalho (eixos tecnológicos).</li>
+                        <li>**Alternativa C (Incorreta):** A EPT busca justamente a articulação com os arranjos produtivos locais e regionais, não a desvinculação.</li>
+                        <li>**Alternativa D (Incorreta):** A EPT não se restringe ao ensino superior, sendo uma parte crucial da educação básica (nível médio técnico).</li>
+                        <li>**Alternativa E (Incorreta):** A EPT valoriza a flexibilidade curricular e a adequação às realidades locais, não um currículo único e padronizado.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Resolução Questão 04 -->
+            <div id="res-q4" class="hidden bg-white p-6 rounded-lg shadow-sm border-l-4 border-blue-500">
+                <h3 class="text-xl font-bold text-blue-700 mb-3">Resolução da Questão 04</h3>
+                <p class="font-semibold text-green-700 bg-green-100 inline-block px-3 py-1 rounded-md mb-4">Gabarito: C</p>
+                <div class="text-gray-700 space-y-3 leading-relaxed">
+                    <p class="text-md font-semibold text-gray-800 mt-4 mb-2">Fundamentação Normativa:</p>
+                    <p>A composição da Rede Federal está definida no Art. 1º da Lei nº 11.892/2008. O artigo lista: "I - Institutos Federais de Educação, Ciência e Tecnologia [...]; II - Universidade Tecnológica Federal do Paraná - UTFPR; III - Centros Federais de Educação Tecnológica Celso Suckow da Fonseca - CEFET-RJ e de Minas Gerais - CEFET-MG; IV - Escolas Técnicas Vinculadas às Universidades Federais." [2] (Posteriormente, o Colégio Pedro II também foi incluído).</p>
+                    <p class="text-md font-semibold text-gray-800 mt-4 mb-2">Análise Criteriosa das Alternativas:</p>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>**Afirmativa I (Correta):** Os Institutos Federais são a espinha dorsal da rede.</li>
+                        <li>**Afirmativa II (Correta):** A UTFPR é explicitamente mencionada no inciso II.</li>
+                        <li>**Afirmativa III (Correta):** Os CEFETs do Rio de Janeiro e de Minas Gerais são expressamente listados no inciso III.</li>
+                        <li>**Afirmativa IV (Incorreta):** A lei não inclui "todas as Universidades Federais", mas sim as "Escolas Técnicas Vinculadas às Universidades Federais", o que é muito mais específico.</li>
+                        <li>Portanto, as afirmativas I, II e III estão corretas.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Resolução Questão 05 -->
+            <div id="res-q5" class="hidden bg-white p-6 rounded-lg shadow-sm border-l-4 border-blue-500">
+                <h3 class="text-xl font-bold text-blue-700 mb-3">Resolução da Questão 05</h3>
+                <p class="font-semibold text-green-700 bg-green-100 inline-block px-3 py-1 rounded-md mb-4">Gabarito: B</p>
+                <div class="text-gray-700 space-y-3 leading-relaxed">
+                    <p class="text-md font-semibold text-gray-800 mt-4 mb-2">Fundamentação Normativa:</p>
+                    <p>A resposta se baseia no Art. 1º, Parágrafo único (natureza jurídica de autarquia e autonomia) e no Art. 2º, § 1º (equiparação às universidades federais para regulação, avaliação e supervisão) da Lei nº 11.892/2008. [2, 3]</p>
+                    <p class="text-md font-semibold text-gray-800 mt-4 mb-2">Análise Criteriosa das Alternativas:</p>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>**Alternativa A (Incorreta):** Erra a natureza jurídica (são autarquias, não fundações) e a autonomia (podem criar cursos mediante aprovação do Conselho Superior, não do CNE).</li>
+                        <li>**Alternativa B (Correta):** Descreve com precisão a natureza de autarquia, o escopo completo da autonomia e a equiparação às universidades federais para fins de regulação.</li>
+                        <li>**Alternativa C (Incorreta):** Erra ao classificar os IFs como "órgãos da administração direta" (são da indireta).</li>
+                        <li>**Alternativa D (Incorreta):** Erra a natureza jurídica ("empresa pública") e a supervisão (são do sistema federal, não estadual).</li>
+                        <li>**Alternativa E (Incorreta):** Limita indevidamente a autonomia, pois o Art. 2º, § 3º, da lei garante aos IFs a autonomia para registrar os diplomas dos cursos que oferecem. [3]</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Resolução Questão 06 -->
+            <div id="res-q6" class="hidden bg-white p-6 rounded-lg shadow-sm border-l-4 border-blue-500">
+                <h3 class="text-xl font-bold text-blue-700 mb-3">Resolução da Questão 06</h3>
+                <p class="font-semibold text-green-700 bg-green-100 inline-block px-3 py-1 rounded-md mb-4">Gabarito: B</p>
+                <div class="text-gray-700 space-y-3 leading-relaxed">
+                    <p class="text-md font-semibold text-gray-800 mt-4 mb-2">Fundamentação Normativa:</p>
+                    <p>A resposta está textualmente no Art. 7º, inciso I, da Lei nº 11.892/2008: "Art. 7º [...] I - ministrar educação profissional técnica de nível médio, prioritariamente na forma de cursos integrados, para os concluintes do ensino fundamental e para o público da educação de jovens e adultos;" [3]</p>
+                    <p class="text-md font-semibold text-gray-800 mt-4 mb-2">Análise Criteriosa das Alternativas:</p>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>**Alternativa A (Incorreta):** A lei não estabelece "exclusivamente na forma subsequente", mas sim "prioritariamente na forma integrada".</li>
+                        <li>**Alternativa B (Correta):** Esta alternativa é uma paráfrase precisa do inciso I do Art. 7º, destacando a prioridade ao "integrado" e o público-alvo (concluintes do fundamental e EJA).</li>
+                        <li>**Alternativa C (Incorreta):** A oferta não é restrita a parcerias com o setor privado; os IFs são instituições públicas.</li>
+                        <li>**Alternativa D (Incorreta):** A oferta não é "exclusivamente na modalidade a distância".</li>
+                        <li>**Alternativa E (Incorreta):** O objetivo não é "substituir" o ensino médio regular, mas sim "integrá-lo" à formação profissional.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Resolução Questão 07 -->
+            <div id="res-q7" class="hidden bg-white p-6 rounded-lg shadow-sm border-l-4 border-blue-500">
+                <h3 class="text-xl font-bold text-blue-700 mb-3">Resolução da Questão 07</h3>
+                <p class="font-semibold text-green-700 bg-green-100 inline-block px-3 py-1 rounded-md mb-4">Gabarito: C</p>
+                <div class="text-gray-700 space-y-3 leading-relaxed">
+                    <p class="text-md font-semibold text-gray-800 mt-4 mb-2">Fundamentação Normativa:</p>
+                    <p>A resposta se baseia nos incisos III (pesquisa aplicada) e IV (extensão articulada com o mundo do trabalho) do Art. 7º da Lei nº 11.892/2008. [3]</p>
+                    <p class="text-md font-semibold text-gray-800 mt-4 mb-2">Análise Criteriosa das Alternativas:</p>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>**Alternativa A (Incorreta):** A lei enfatiza a "pesquisa aplicada", não a básica. A extensão não é assistencialista.</li>
+                        <li>**Alternativa B (Incorreta):** Reduz a pesquisa a uma atividade comercial e a extensão a cursos pagos, o que é uma visão limitada e incorreta dos objetivos.</li>
+                        <li>**Alternativa C (Correta):** Sintetiza perfeitamente o espírito dos incisos III e IV. A pesquisa é "aplicada" (soluções técnicas) e a extensão é "articulada" com a sociedade e o setor produtivo.</li>
+                        <li>**Alternativa D (Incorreta):** Limita indevidamente o escopo da pesquisa e da extensão; os IFs atuam em diversas áreas (eixos tecnológicos).</li>
+                        <li>**Alternativa E (Incorreta):** A pesquisa e a extensão são atividades finalísticas e indissociáveis do ensino nos IFs, não sendo terceirizadas.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Resolução Questão 08 -->
+            <div id="res-q8" class="hidden bg-white p-6 rounded-lg shadow-sm border-l-4 border-blue-500">
+                <h3 class="text-xl font-bold text-blue-700 mb-3">Resolução da Questão 08</h3>
+                <p class="font-semibold text-green-700 bg-green-100 inline-block px-3 py-1 rounded-md mb-4">Gabarito: D</p>
+                <div class="text-gray-700 space-y-3 leading-relaxed">
+                    <p class="text-md font-semibold text-gray-800 mt-4 mb-2">Fundamentação Normativa:</p>
+                    <p>A resposta está consolidada no Art. 7º, inciso VI, da Lei nº 11.892/2008, que detalha a oferta de educação superior, incluindo: "a) cursos superiores de tecnologia [...]; b) cursos de licenciatura [...]; c) cursos de bacharelado e engenharia [...]; d) cursos de pós-graduação lato sensu [...]; e e) cursos de pós-graduação stricto sensu de mestrado e doutorado [...]." [3]</p>
+                    <p class="text-md font-semibold text-gray-800 mt-4 mb-2">Análise Criteriosa das Alternativas:</p>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>**Alternativa A (Incorreta):** Visão muito restrita, omitindo licenciaturas, bacharelados, engenharias e pós *stricto sensu*.</li>
+                        <li>**Alternativa B (Incorreta):** Veda indevidamente a oferta de bacharelados, engenharias e pós *stricto sensu*.</li>
+                        <li>**Alternativa C (Incorreta):** Restringe aos bacharelados e engenharias, ignorando os populares cursos superiores de tecnologia e as licenciaturas.</li>
+                        <li>**Alternativa D (Correta):** Descreve de forma completa e precisa toda a gama de cursos de educação superior que os IFs estão autorizados a ofertar.</li>
+                        <li>**Alternativa E (Incorreta):** Afirma que os IFs atuam "apenas" na pós-graduação *stricto sensu*, o que é falso.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Resolução Questão 09 -->
+            <div id="res-q9" class="hidden bg-white p-6 rounded-lg shadow-sm border-l-4 border-blue-500">
+                <h3 class="text-xl font-bold text-blue-700 mb-3">Resolução da Questão 09</h3>
+                <p class="font-semibold text-green-700 bg-green-100 inline-block px-3 py-1 rounded-md mb-4">Gabarito: D</p>
+                <div class="text-gray-700 space-y-3 leading-relaxed">
+                    <p class="text-md font-semibold text-gray-800 mt-4 mb-2">Fundamentação Normativa:</p>
+                    <p>O cenário descrito na questão se alinha perfeitamente com o objetivo expresso no Art. 7º, inciso V, da Lei nº 11.892/2008: "V - estimular e apoiar processos educativos que levem à geração de trabalho e renda e à emancipação do cidadão na perspectiva do desenvolvimento socioeconômico local e regional;" [3]</p>
+                    <p class="text-md font-semibold text-gray-800 mt-4 mb-2">Análise Criteriosa das Alternativas:</p>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>**Alternativa A (Incorreta):** A ação não se refere à formação de professores (licenciatura).</li>
+                        <li>**Alternativa B (Incorreta):** Embora possa envolver pesquisa aplicada, o foco principal é o desenvolvimento socioeconômico e a geração de renda.</li>
+                        <li>**Alternativa C (Incorreta):** A acreditação de competências refere-se ao reconhecimento de saberes extrassistêmicos, o que não é o foco aqui.</li>
+                        <li>**Alternativa D (Correta):** A iniciativa é um exemplo clássico do cumprimento deste objetivo: alinhamento à vocação local, parceria com a comunidade e fomento à "geração de trabalho e renda" como agente de "desenvolvimento socioeconômico local".</li>
+                        <li>**Alternativa E (Incorreta):** A ação envolve um curso de nível técnico, não de pós-graduação *stricto sensu*.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Resolução Questão 10 -->
+            <div id="res-q10" class="hidden bg-white p-6 rounded-lg shadow-sm border-l-4 border-blue-500">
+                <h3 class="text-xl font-bold text-blue-700 mb-3">Resolução da Questão 10</h3>
+                <p class="font-semibold text-green-700 bg-green-100 inline-block px-3 py-1 rounded-md mb-4">Gabarito: D</p>
+                <div class="text-gray-700 space-y-3 leading-relaxed">
+                    <p class="text-md font-semibold text-gray-800 mt-4 mb-2">Fundamentação Normativa:</p>
+                    <p>A questão exige a identificação da afirmativa INCORRETA. O erro na alternativa D está na palavra "exclusivamente", que distorce o Art. 7º, inciso I, da Lei nº 11.892/2008.</p>
+                    <p class="text-md font-semibold text-gray-800 mt-4 mb-2">Análise Criteriosa das Alternativas:</p>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>**Alternativa A (Correta):** De acordo com o Art. 1º do Decreto nº 5.154/2004 (níveis da EPT).</li>
+                        <li>**Alternativa B (Correta):** Em conformidade com a Lei nº 11.892/2008 (autarquia, equiparação e autonomia para diplomas).</li>
+                        <li>**Alternativa C (Correta):** Corresponde a uma premissa do Art. 2º do Decreto nº 5.154/2004 (organização por áreas).</li>
+                        <li>**Alternativa D (Incorreta):** Esta afirmativa contém o erro. O Art. 7º, I, da Lei nº 11.892/2008, diz "**prioritariamente** na forma de cursos integrados", e não "exclusivamente". Bancas como o Instituto AOCP frequentemente usam esses advérbios (exclusivamente, prioritariamente, apenas) para testar o conhecimento preciso da lei.</li>
+                        <li>**Alternativa E (Correta):** Corresponde à composição da Rede Federal (Art. 1º da Lei nº 11.892/2008).</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // Lógica do Quiz
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Impede o envio real do formulário
+
+            const correctAnswers = {
+                q1: 'b', q2: 'd', q3: 'b', q4: 'c', q5: 'b',
+                q6: 'b', q7: 'c', q8: 'd', q9: 'd', q10: 'd'
+            };
+
+            let score = 0;
+            const formData = new FormData(e.target);
+            const questionNames = Object.keys(correctAnswers);
+
+            // Itera sobre cada questão
+            for (const questionName of questionNames) {
+                const userAnswer = formData.get(questionName);
+                const correctAnswer = correctAnswers[questionName];
+                const questionNumber = questionName.substring(1); // 'q1' -> '1'
+
+                const radioButtons = document.querySelectorAll(`input[name="${questionName}"]`);
+
+                // Aplica feedback visual e desabilita opções
+                radioButtons.forEach(radio => {
+                    radio.disabled = true; // Desabilita o radio button
+                    const label = radio.closest('label');
+                    const optionValue = radio.value;
+
+                    if (optionValue === correctAnswer) {
+                        // Marca a resposta correta
+                        label.classList.add('correct-answer-label');
+                    } else if (userAnswer === optionValue && userAnswer !== correctAnswer) {
+                        // Marca a resposta incorreta do usuário
+                        label.classList.add('incorrect-answer-label');
+                    } else {
+                        // Esmaece as outras opções
+                        label.classList.add('opacity-60');
+                    }
+                });
+
+                if (userAnswer === correctAnswer) {
+                    score++;
+                }
+
+                // Mostra a resolução da questão
+                const resolutionElement = document.getElementById(`res-q${questionNumber}`);
+                if (resolutionElement) {
+                    resolutionElement.classList.remove('hidden');
+                }
+            }
+
+            // Exibe a pontuação
+            const scoreElement = document.getElementById('score');
+            scoreElement.textContent = `Seu resultado: ${score} de 10 acertos.`;
+            document.getElementById('results').classList.remove('hidden');
+
+            // Esconde o botão de submissão
+            document.getElementById('submitButton').classList.add('hidden');
+
+            // Rola a tela para os resultados
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+
+</body>
+</html>

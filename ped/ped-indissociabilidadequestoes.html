@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Indissociabilidade na EPT</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilo para um layout de leitura confortável */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <main class="max-w-4xl mx-auto p-6 sm:p-10">
+        
+        <header class="text-center mb-10">
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-800">Quiz: Indissociabilidade na EPT</h1>
+            <p class="text-lg text-gray-600 mt-2">Teste seus conhecimentos sobre Ensino, Pesquisa e Extensão.</p>
+        </header>
+
+        <!-- Container onde as questões do quiz serão injetadas -->
+        <form id="quiz-form">
+            <div id="quiz-container" class="space-y-10">
+                <!-- As questões serão carregadas aqui via JavaScript -->
+            </div>
+
+            <!-- Botão de Envio -->
+            <div class="mt-12 text-center">
+                <button type="submit" id="submit-btn" class="w-full sm:w-auto bg-blue-600 text-white font-bold py-3 px-10 rounded-lg hover:bg-blue-700 transition duration-300 text-lg shadow-md hover:shadow-lg">
+                    Verificar Respostas
+                </button>
+            </div>
+        </form>
+
+        <!-- Container dos Resultados (inicialmente oculto) -->
+        <section id="results-container" class="hidden mt-16">
+            <h2 id="score" class="text-3xl font-bold text-center mb-10 text-gray-800"></h2>
+
+            <h3 class="text-2xl font-bold mb-6 text-gray-700">Resoluções Comentadas</h3>
+            <div id="resolutions-container" class="space-y-6">
+                <!-- As resoluções serão carregadas aqui -->
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // --- BANCO DE DADOS DAS QUESTÕES ---
+        // Conteúdo completo com as 10 questões e resoluções
+        const quizData = [
+            {
+                question: "1. O princípio da indissociabilidade entre ensino, pesquisa e extensão, fundamental para a concepção da Educação Profissional e Tecnológica (EPT) nos Institutos Federais, encontra seu principal amparo legal, por equiparação, em qual documento normativo?",
+                options: [
+                    "a) Na Lei de Diretrizes e Bases da Educação Nacional (LDB), Lei nº 9.394/96, que detalha a organização da EPT.",
+                    "b) Na Constituição Federal de 1988, que estabelece o princípio para as universidades, ao qual os Institutos Federais se equiparam.",
+                    "c) No Decreto nº 5.154/04, que regulamenta a articulação da educação profissional técnica de nível médio.",
+                    "d) No Plano de Desenvolvimento Institucional (PDI) de cada Instituto Federal, que define as políticas internas.",
+                    "e) No Plano Nacional de Educação (PNE), que estabelece metas para a educação brasileira em um decênio."
+                ],
+                correctAnswer: 1, // index de "b)"
+                resolution: "Comentário: A base legal primária para o princípio da indissociabilidade é o Artigo 207 da Constituição Federal de 1988. Este artigo estabelece que as universidades \"obedecerão ao princípio de indissociabilidade entre ensino, pesquisa e extensão\". Com a criação dos Institutos Federais de Educação, Ciência e Tecnologia pela Lei nº 11.892/2008, estas instituições foram equiparadas às universidades para diversos fins, incluindo a adesão a este princípio fundamental. Portanto, a Constituição é a fonte normativa máxima que estabelece essa diretriz."
+            },
+            {
+                question: "2. O Projeto Político Pedagógico Institucional (PPPI) de um Instituto Federal define o princípio da indissociabilidade como um “marco epistemológico da identidade institucional, [que] trata de um tripé que coaduna saber, investigação e ação comunitária, que se interligam aos arranjos produtivos dos territórios, às tecnologias sociais e à inovação tecnológica”. Com base nessa definição, o que o princípio representa primordialmente para a instituição?",
+                options: [
+                    "a) Um conjunto de atividades extracurriculares opcionais para os estudantes com melhor desempenho acadêmico.",
+                    "b) Uma exigência burocrática do Ministério da Educação para fins de avaliação e credenciamento de cursos.",
+                    "c) Um pilar central da missão e da identidade da instituição, que integra a produção de conhecimento com a ação transformadora na comunidade.",
+                    "d) Uma metodologia de ensino focada exclusivamente na preparação técnica para o mercado de trabalho, sem vínculo com a pesquisa.",
+                    "e) Uma diretriz aplicável apenas aos cursos de pós-graduação, onde a pesquisa e a extensão são mais desenvolvidas."
+                ],
+                correctAnswer: 2, // index de "c)"
+                resolution: "Comentário: A definição apresentada no enunciado, extraída de um PPPI, é rica em significado. Termos como \"marco epistemológico\" (ou seja, um referencial sobre como o conhecimento é concebido e produzido) e \"identidade institucional\" indicam que o princípio não é uma mera formalidade, mas sim um elemento central que define a natureza e a missão da instituição. A tríade \"saber (ensino), investigação (pesquisa) e ação comunitária (extensão)\" conectada aos \"arranjos produtivos dos territórios\" reforça a ideia de que a instituição existe para integrar a produção de conhecimento com a transformação social e o desenvolvimento local, o que corresponde perfeitamente à alternativa C."
+            },
+            {
+                question: "3. Um Plano de Desenvolvimento Institucional (PDI) afirma que “a indissociabilidade do ensino-pesquisa-extensão é alinhada à prática pedagógica [...] através do ensino pela pesquisa, pesquisando ao ensinar e intervindo nos contextos local e regional”. A partir dessa perspectiva, qual inferência pode ser feita sobre a relação entre os três componentes?",
+                options: [
+                    "a) Eles se retroalimentam em um processo pedagógico integrado e dinâmico, no qual não há uma hierarquia ou sequência rígida entre eles.",
+                    "b) Eles seguem uma ordem linear, na qual o ensino precede a pesquisa, e a extensão é η etapa final de aplicação do conhecimento.",
+                    "c) O ensino é o componente principal, sendo a pesquisa e a extensão atividades de suporte secundárias para enriquecer a sala de aula.",
+                    "d) A pesquisa é o elemento prioritário, e as atividades de ensino e extensão servem como campo de provas para as investigações científicas.",
+                    "e) Eles são componentes independentes que, embora importantes, podem ser desenvolvidos de forma isolada sem comprometer a formação do estudante."
+                ],
+                correctAnswer: 0, // index de "a)"
+                resolution: "Comentário: A expressão \"ensino pela pesquisa, pesquisando ao ensinar\" descreve um processo cíclo e de mútua influência, não uma sequência linear. Ela sugere que a prática de ensinar é, em si, um ato investigativo, e que a pesquisa nutre diretamente o processo de ensino. A intervenção nos contextos locais (extensão) alimenta tanto o ensino quanto a pesquisa com problemas e demandas reais, e ao mesmo tempo aplica o conhecimento gerado. Isso caracteriza uma relação simbiótica, onde os três elementos se complementam e se retroalimentam, como descrito na alternativa A."
+            },
+            {
+                question: "4. Considerando a concepção da Educação Profissional e Tecnológica (EPT) e os documentos que a norteiam, o objetivo fundamental da promoção da indissociabilidade entre ensino, pesquisa e extensão é",
+                options: [
+                    "a) aumentar o número de publicações científicas e o prestígio acadêmico da instituição em rankings nacionais e internacionais.",
+                    "b) cumprir uma formalidade legal prevista na Constituição, garantindo a autonomia didático-científica da instituição.",
+                    "c) otimizar a alocação de recursos financeiros, unificando os orçamentos destinados a projetos de ensino, pesquisa e extensão.",
+                    "d) viabilizar uma relação transformadora entre a instituição de ensino e a sociedade, contribuindo para o desenvolvimento social e regional.",
+                    "e) focar exclusivamente na formação da laboralidade do estudante, desenvolvendo habilidades técnicas específicas exigidas pelo setor produtivo."
+                ],
+                correctAnswer: 3, // index de "d)"
+                resolution: "Comentário: A essência da indissociabilidade na EPT é transcender os muros da instituição. O objetivo não é apenas a excelência acadêmica interna, mas o impacto social externo. A articulação dos três pilares visa a uma \"educação realmente transformadora\" que promova o \"desenvolvimento social brasileiro\". Documentos institucionais reforçam essa visão ao afirmar que a extensão, articulada ao ensino e à pesquisa, deve \"viabilizar uma relação transformadora entre o IF [...] e a sociedade\". Portanto, o propósito maior é fazer da instituição um agente ativo de desenvolvimento social, cultural e tecnológico em seu território de atuação."
+            },
+            {
+                question: "5. Estudos sobre os fundamentos da Educação Profissional e Tecnológica (EPT) caracterizam o princípio da indissociabilidade entre ensino, pesquisa e extensão como um desafio a ser superado na prática pedagógica. Do ponto de vista teórico, essa tríade é frequentemente descrita como um",
+                options: [
+                    "a) procedimento administrativo de fácil implementação.",
+                    "b) modelo de gestão focado na captação de recursos externos.",
+                    "c) conjunto de diretrizes metodológicas opcionais para o docente.",
+                    "d) estratégia de marketing para atrair novos estudantes para a instituição.",
+                    "e) princípio paradigmático e epistemologicamente complexo."
+                ],
+                correctAnswer: 4, // index de "e)"
+                resolution: "Comentário: A literatura acadêmica sobre o tema aponta que a indissociabilidade não é uma simples mudança de método, mas uma alteração profunda nos fundamentos do ensino, da pesquisa e da extensão. Por isso, é caracterizada como um \"princípio paradigmático e epistemologicamente complexo\". \"Paradigmático\" porque exige uma mudança de paradigma, de um modelo fragmentado para um modelo integrado de educação. \"Epistemologicamente complexo\" porque mexe com a própria natureza do conhecimento, sua produção, validação e aplicação social."
+            },
+            {
+                question: "6. Para que o princípio da indissociabilidade entre ensino, pesquisa e extensão não se torne “letra morta” nos Institutos Federais, é fundamental a adoção de ações institucionais concretas. Assinale a alternativa que apresenta uma ação essencial para a efetivação desse princípio.",
+                options: [
+                    "a) A contratação exclusiva de docentes com título de doutor, independentemente de sua experiência com ensino ou extensão.",
+                    "b) A previsão explícita da indissociabilidade em todos os documentos norteadores (PDI, PPPI, PPCs) e a criação de condições para sua execução.",
+                    "c) A separação rigorosa dos orçamentos para ensino, pesquisa e extensão, a fim de garantir a autonomia de cada área.",
+                    "d) A restrição de projetos integrados apenas aos programas de pós-graduação, onde os estudantes possuem maior maturidade acadêmica.",
+                    "e) A priorização de ações de extensão de caráter assistencialista, desvinculadas dos currículos dos cursos técnicos e superiores."
+                ],
+                correctAnswer: 1, // index de "b)"
+                resolution: "Comentário: A concretização do princípio da indissociabilidade depende de um planejamento institucional robusto e intencional. Não basta que o princípio seja mencionado; ele precisa estar previsto e detalhado em todos os documentos que orientam a vida acadêmica da instituição, como o Plano de Desenvolvimento Institucional (PDI), o Projeto Político Pedagógico Institucional (PPPI) e os Projetos Pedagógicos de Curso (PPCs). Além da previsão documental, a instituição deve \"criar condições para que isso ocorra\", o que envolve estrutura, fomento, cultura organizacional e formação docente."
+            },
+            {
+                question: "7. Dentro da tríade indissociável, a extensão desempenha um papel crucial como elo entre a instituição e a sociedade. Conforme o Regulamento das Atividades de Extensão de Institutos Federais, ela é definida como",
+                options: [
+                    "a) um processo educativo, cultural e científico que articula o ensino e a pesquisa de forma indissociável, viabilizando uma relação transformadora com a sociedade.",
+                    "b) um conjunto de cursos pagos de curta duração, oferecidos à comunidade externa com o objetivo principal de gerar receita para a instituição.",
+                    "c) a atividade de estágio supervisionado obrigatório, na qual o estudante aplica os conhecimentos técnicos adquiridos em sala de aula.",
+                    "d) a divulgação científica dos resultados de projetos de pesquisa para o público acadêmico por meio de artigos e eventos.",
+                    "e) um programa de voluntariado para estudantes, focado em ações sociais pontuais e desarticulado do projeto pedagógico do curso."
+                ],
+                correctAnswer: 0, // index de "a)"
+                resolution: "Comentário: A definição apresentada na alternativa A reflete com precisão o papel da extensão conforme documentos norteadores. A extensão é um \"processo educativo, cultural e científico\" que, de forma \"indissociável\" do ensino e da pesquisa, \"viabiliza uma relação transformadora entre o IF [...] e a sociedade\". Essa definição destaca a natureza multifacetada da extensão e seu papel central na articulação da tríade e na concretização da missão social da instituição."
+            },
+            {
+                question: "8. A Lei de Diretrizes e Bases da Educação Nacional (LDB) e o Decreto nº 5.154/04 estruturam a Educação Profissional e Tecnológica (EPT) de forma integrada às dimensões do trabalho, da ciência e da tecnologia. Nesse contexto, o princípio da indissociabilidade entre ensino, pesquisa e extensão contribui para essa integração ao",
+                options: [
+                    "a) substituir a necessidade de articulação com o setor produtivo por projetos de pesquisa teórica.",
+                    "b) ser uma exigência legal que se aplica somente à modalidade de ensino médio integrado, excluindo as formas concomitante e subsequente.",
+                    "c) fornecer o alicerce pedagógico e epistemológico para que a formação profissional (ensino) seja fundamentada na investigação científica (pesquisa) e relevante para as demandas sociais (extensão).",
+                    "d) ser um princípio opcional, cuja aplicação depende da decisão autônoma de cada campus, não sendo um requisito para a integração curricular.",
+                    "e) limitar a autonomia dos docentes na elaboração de seus planos de ensino, impondo um modelo curricular rígido e unificado."
+                ],
+                correctAnswer: 2, // index de "c)"
+                resolution: "Comentário: A LDB e o Decreto 5.154/04 estabelecem o \"quê\": uma educação que articula trabalho, ciência e tecnologia. O princípio da indissociabilidade oferece o \"como\": o alicerce pedagógico para que essa articulação aconteça na prática. O ensino (formação para o trabalho) é enriquecido pela pesquisa (dimensão da ciência) e validado pela extensão (aplicação da tecnologia em resposta a demandas sociais). Dessa forma, o princípio é o mecanismo que operacionaliza a integração prevista na legislação, garantindo que a formação seja sólida, atualizada e socialmente relevante."
+            },
+            {
+                question: "9. Analise as asserções a seguir e a relação proposta entre elas.<br><br>I. A indissociabilidade entre ensino, pesquisa e extensão na EPT fortalece a formação integral dos estudantes, promovendo o desenvolvimento de competências que transcendem o aspecto puramente técnico.<br><br><b>PORQUE</b><br><br>II. Essa articulação viabiliza uma relação dialógica e transformadora com a comunidade, permitindo que o conhecimento acadêmico seja aplicado e ressignificado em contextos sociais reais.<br><br><b>A respeito dessas asserções, assinale a alternativa correta.</b>",
+                options: [
+                    "a) As asserções I e II são proposições verdadeiras, e a II é uma justificativa correta da I.",
+                    "b) As asserções I e II são proposições verdadeiras, mas a II não é uma justificativa correta da I.",
+                    "c) A asserção I é uma proposição verdadeira, e a II é uma proposição falsa.",
+                    "d) A asserção I é uma proposição falsa, e a II é uma proposição verdadeira.",
+                    "e) As asserções I e II são proposições falsas."
+                ],
+                correctAnswer: 0, // index de "a)"
+                resolution: "Comentário: Ambas as asserções são verdadeiras e a segunda justifica a primeira. A asserção I é verdadeira porque a integração do ensino com a pesquisa (que desenvolve o pensamento crítico e investigativo) e com a extensão (que desenvolve a sensibilidade social e a cidadania) resulta em uma formação integral, que vai além do \"saber fazer\" técnico. A asserção II também é verdadeira, pois a extensão, articulada com o ensino e a pesquisa, promove uma interação dinâmica e transformadora com a sociedade. A relação de causalidade é correta: a formação se torna integral (I) *precisamente porque* o estudante é exposto a problemas reais e participa de uma relação dialógica com a comunidade (II). É essa conexão com o mundo real, proporcionada pela articulação, que permite o desenvolvimento de competências sociais, éticas e críticas, justificando a formação para além da técnica."
+            },
+            {
+                question: "10. No discurso acadêmico e normativo sobre a Educação Profissional e Tecnológica, os termos “indissociabilidade” e “articulação” são frequentemente utilizados. Embora relacionados, o conceito de “indissociabilidade” é mais profundo e pressupõe",
+                options: [
+                    "a) uma simples cooperação pontual entre projetos de ensino e pesquisa, sem a necessidade de envolvimento da extensão.",
+                    "b) a subordinação da pesquisa e da extensão aos objetivos do ensino, que é considerado o pilar mais importante da educação.",
+                    "c) uma conexão planejada entre os três pilares, mas que permite que eles funcionem de maneira autônoma e independente na maior parte do tempo.",
+                    "d) uma relação intrínseca e de mútua constituição entre ensino, pesquisa e extensão, onde um não se realiza plenamente sem os outros.",
+                    "e) a fusão completa dos três pilares em uma única atividade, eliminando as distinções conceituais entre ensino, pesquisa e extensão."
+                ],
+                correctAnswer: 3, // index de "d)"
+                resolution: "Comentário: Embora na prática os termos possam ser usados de forma intercambiável, há uma nuance conceitual importante. \"Articulação\" pode se referir a uma conexão ou coordenação entre partes que ainda mantêm sua autonomia. \"Indissociabilidade\", por outro lado, sugere um grau de integração muito mais profundo. Pressupõe uma relação intrínseca, onde ensino, pesquisa e extensão são mutuamente constitutivos, ou seja, a existência plena de um depende da existência dos outros. Eles se retroalimentam e se definem mutuamente dentro de um mesmo processo pedagógico. Portanto, a indissociabilidade aponta para uma fusão orgânica, e não apenas uma colaboração planejada."
+            }
+        ];
+
+        // --- LÓGICA DO QUIZ ---
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const quizContainer = document.getElementById('quiz-container');
+            const quizForm = document.getElementById('quiz-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const resultsContainer = document.getElementById('results-container');
+            const scoreEl = document.getElementById('score');
+            const resolutionsContainer = document.getElementById('resolutions-container');
+
+            // 1. Renderizar o Quiz
+            function renderQuiz() {
+                let quizHTML = '';
+                quizData.forEach((item, questionIndex) => {
+                    // Monta o HTML para cada questão
+                    quizHTML += `
+                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                            <p class="text-lg font-semibold text-gray-800 mb-5 leading-relaxed">${item.question}</p>
+                            <div class="space-y-3">
+                    `;
+                    
+                    // Monta o HTML para cada opção
+                    item.options.forEach((option, optionIndex) => {
+                        quizHTML += `
+                            <label class="flex items-center p-4 rounded-lg border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors">
+                                <input type="radio" name="question-${questionIndex}" value="${optionIndex}" class="form-radio text-blue-600 focus:ring-blue-500 h-5 w-5">
+                                <span class="ml-4 text-gray-700 leading-snug">${option}</span>
+                            </label>
+                        `;
+                    });
+
+                    quizHTML += `</div></div>`;
+                });
+                quizContainer.innerHTML = quizHTML;
+            }
+
+            // 2. Mostrar Resultados ao Enviar
+            quizForm.addEventListener('submit', (e) => {
+                e.preventDefault(); // Impede o envio real do formulário
+                
+                let score = 0;
+                let resolutionsHTML = '';
+                
+                // Itera sobre cada questão para verificar a resposta
+                quizData.forEach((item, questionIndex) => {
+                    const selectedOption = quizForm.querySelector(`input[name="question-${questionIndex}"]:checked`);
+                    
+                    let userAnswerIndex = -1;
+                    let isCorrect = false;
+
+                    if (selectedOption) {
+                        // --- CORREÇÃO APLICADA AQUI ---
+                        // Corrigido de selectedGabarito.value para selectedOption.value
+                        userAnswerIndex = parseInt(selectedOption.value); 
+                        if (userAnswerIndex === item.correctAnswer) {
+                            score++;
+                            isCorrect = true;
+                        }
+                    }
+
+                    // Monta o card de resolução para esta questão
+                    const cardBg = isCorrect ? 'bg-green-50 border-green-300' : 'bg-red-50 border-red-300';
+                    const answerStatus = isCorrect 
+                        ? `<p class="font-semibold text-green-700">Sua resposta: "${item.options[userAnswerIndex]}" (Correta)</p>`
+                        : `<p class="font-semibold text-red-700">Sua resposta: ${userAnswerIndex !== -1 ? `"${item.options[userAnswerIndex]}"` : '(Não respondida)'} (Incorreta)</p>`;
+
+                    resolutionsHTML += `
+                        <div class="p-5 rounded-lg border ${cardBg}">
+                            <strong class="text-lg text-gray-900">${item.question.split('.')[0]}.</strong>
+                            <div class="mt-3 space-y-2">
+                                ${answerStatus}
+                                <!-- --- CORREÇÃO APLICADA AQUI --- -->
+                                <!-- Corrigido de "Gabarito correta" para "Resposta correta" -->
+                                ${!isCorrect ? `<p class="font-semibold text-gray-700">Resposta correta: "${item.options[item.correctAnswer]}"</p>` : ''}
+                            </div>
+                            <hr class="my-4 border-gray-300">
+                            <p class="text-gray-800 leading-relaxed">${item.resolution}</p>
+                        </div>
+                    `;
+                });
+
+                // Exibe o placar final
+                scoreEl.textContent = `Você acertou ${score} de 10 questões.`;
+                
+                // Adiciona as resoluções
+                resolutionsContainer.innerHTML = resolutionsHTML;
+                
+                // Exibe a seção de resultados e oculta o botão
+                resultsContainer.classList.remove('hidden');
+                submitBtn.classList.add('hidden');
+
+                // Rola a página para os resultados
+                resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+
+            // Inicia o quiz ao carregar a página
+            renderQuiz();
+        });
+
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Avaliação no Processo de Ensino-Aprendizagem</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Importa a fonte Inter para uma melhor legibilidade -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Define a fonte Inter como padrão e melhora a renderização do texto */
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        /* Preserva as quebras de linha e espaços do texto das resoluções */
+        .resolution-text {
+            white-space: pre-wrap;
+            line-height: 1.6; /* Melhora a legibilidade do texto da resolução */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Container principal com largura máxima para leitura confortável -->
+    <main class="max-w-3xl mx-auto p-6 md:p-10 bg-white shadow-xl rounded-lg my-10">
+
+        <header class="mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2">Quiz: A Avaliação no Processo de Ensino-Aprendizagem</h1>
+            <p class="text-lg text-gray-600">Estilo Instituto AOCP</p>
+            <p class="text-gray-500 mt-4">Responda às 10 questões abaixo e clique em "Verificar Respostas" ao final para ver seu desempenho e as resoluções comentadas.</p>
+        </header>
+
+        <!-- Formulário do Quiz -->
+        <form id="quizForm">
+            <!-- As questões serão injetadas aqui pelo JavaScript -->
+            <div id="questionsContainer" class="space-y-8"></div>
+
+            <!-- Botão de Submissão -->
+            <button type="submit" class="w-full mt-10 px-6 py-4 bg-blue-600 text-white font-semibold text-lg rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200">
+                Verificar Respostas
+            </button>
+        </form>
+
+        <!-- Seção de Resultados (inicialmente oculta) -->
+        <section id="resultsSection" class="hidden mt-12 border-t border-gray-200 pt-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Resultados</h2>
+            
+            <!-- Pontuação Total -->
+            <div id="score" class="text-2xl font-bold mb-8 p-6 bg-blue-50 text-blue-800 rounded-lg"></div>
+
+            <h3 class="text-2xl font-bold text-gray-900 mb-6">Resoluções Comentadas</h3>
+            
+            <!-- As resoluções serão injetadas aqui pelo JavaScript -->
+            <div id="resolutionsContainer" class="space-y-6"></div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-6 text-gray-500 text-sm">
+        Criado com base no conteúdo solicitado.
+    </footer>
+
+    <script>
+        // --- BANCO DE DADOS DO QUIZ ---
+        // Contém todas as 10 questões, opções, respostas corretas e resoluções completas.
+        const quizData = [
+            {
+                id: 'q1',
+                question: "No início do ano letivo, uma professora do 4º ano do Ensino Fundamental aplica uma atividade lúdica de produção textual com o objetivo de identificar os conhecimentos prévios de seus alunos sobre a estrutura narrativa e o nível de desenvolvimento da escrita de cada um. A partir dos resultados, ela planeja as sequências didáticas para o primeiro bimestre. A prática descrita evidencia, predominantemente, qual função da avaliação?",
+                options: [
+                    { value: 'A', text: "Diagnóstica" },
+                    { value: 'B', text: "Somativa" },
+                    { value: 'C', text: "Punitiva" },
+                    { value: 'D', text: "Formativa" },
+                    { value: 'E', text: "Classificatória" }
+                ],
+                correctAnswer: 'A',
+                resolution: `**Gabarito: A**
+
+**Comentário:**
+* **(A) CORRETA.** A alternativa descreve com precisão a **avaliação diagnóstica**. Essa modalidade ocorre no início de um processo (ano letivo, unidade temática, etc.) e tem como finalidade principal investigar os conhecimentos, as habilidades e as dificuldades dos alunos. Seu propósito não é atribuir notas, mas sim fornecer ao professor informações essenciais para o planejamento e a adequação de suas estratégias de ensino às necessidades reais da turma.
+* **(B) INCORRETA.** A avaliação **somativa** acontece ao final do processo, com o objetivo de sintetizar e classificar os resultados da aprendizagem, geralmente expressos em notas ou conceitos.
+* **(C) INCORRETA.** A visão da avaliação como **punitiva** é uma concepção ultrapassada e contrária aos princípios pedagógicos atuais, que veem o erro como parte do processo de aprendizagem. O Instituto AOCP frequentemente utiliza essa visão tradicional como um distrator.
+* **(D) INCORRETA.** A avaliação **formativa** ocorre *durante* todo o processo de ensino-aprendizagem, com o objetivo de monitorar o progresso e reorientar o trabalho pedagógico. Embora relacionada, a função específica de sondagem *inicial* para fins de planejamento é mais precisamente denominada diagnóstica. Trata-se de um distrator "próximo" que testa a precisão conceitual do candidato.
+* **(E) INCORRETA.** A função **classificatória** é característica da avaliação somativa e se opõe ao propósito da prática descrita, que é de conhecer para planejar, e não de hierarquizar os estudantes.
+
+**Síntese:** A questão exige a diferenciação entre as funções da avaliação. A chave é associar o momento (início do processo) e o propósito (subsidiar o planejamento) à função diagnóstica.`
+            },
+            {
+                id: 'q2',
+                question: "Considerando uma perspectiva pedagógica contemporânea e democrática, a avaliação da aprendizagem é um componente fundamental do processo educativo. Para o professor, a avaliação cumpre seu papel mais importante quando é utilizada como um instrumento para",
+                options: [
+                    { value: 'A', text: "classificar os alunos em níveis de desempenho, facilitando a organização de turmas de reforço." },
+                    { value: 'B', text: "refletir sobre a própria prática pedagógica, identificando a necessidade de redimensionar estratégias de ensino." },
+                    { value: 'C', text: "manter a disciplina em sala de aula, pois a iminência de uma prova incentiva o bom comportamento dos estudantes." },
+                    { value: 'D', text: "cumprir as exigências burocráticas do sistema de ensino, gerando notas e conceitos para o preenchimento de boletins." },
+                    { value: 'E', text: "comprovar a eficácia do seu método de ensino perante a coordenação pedagógica e os pais dos alunos." }
+                ],
+                correctAnswer: 'B',
+                resolution: `**Gabarito: B**
+
+**Comentário:**
+* **(B) CORRETA.** Em uma perspectiva crítica e emancipatória, a avaliação é uma ferramenta de diálogo entre o ensino e a aprendizagem. Os resultados dos alunos (sejam eles acertos, erros ou dificuldades) são um espelho do processo como um todo. Portanto, seu principal valor para o docente é servir como um termômetro de sua própria prática, permitindo que ele reflita sobre o que funcionou e o que precisa ser ajustado para garantir a aprendizagem de todos.
+* **(A) INCORRETA.** Classificar alunos em níveis de desempenho é uma característica da avaliação classificatória, que pode levar à estigmatização e segregação, contrariando os princípios de uma educação inclusiva.
+* **(C) INCORRETA.** Utilizar a avaliação como mecanismo de controle e disciplina é uma distorção de sua função pedagógica, transformando-a em um instrumento de poder e coerção.
+* **(D) INCORRETA.** Embora a geração de notas seja uma realidade administrativa, reduzi-la a uma mera formalidade burocrática esvazia seu potencial pedagógico de apoiar a aprendizagem.
+* **(E) INCORRETA.** A avaliação não deve ser usada para "provar" a eficácia do professor, mas sim para investigar e aprimorar o processo de ensino-aprendizagem de forma contínua e colaborativa.
+
+**Síntese:** A questão aborda o papel da avaliação na prática docente. A resposta correta se alinha à visão de que a avaliação é um instrumento de reflexão e autoavaliação do trabalho do professor, visando à melhoria do ensino.`
+            },
+            {
+                id: 'q3',
+                question: "De acordo com as Diretrizes Curriculares Nacionais Gerais para a Educação Básica, a avaliação no ambiente educacional compreende três dimensões básicas que são articuladas entre si. Assinale a alternativa que as apresenta corretamente.",
+                options: [
+                    { value: 'A', text: "Avaliação da aprendizagem; Avaliação institucional interna e externa; e Avaliação de redes de Educação Básica." },
+                    { value: 'B', text: "Avaliação do rendimento escolar; Avaliação do Projeto Político-Pedagógico; e Avaliação dos sistemas de ensino municipais." },
+                    { value: 'C', text: "Avaliação diagnóstica; Avaliação formativa; e Avaliação somativa." },
+                    { value: 'D', text: "Avaliação da aprendizagem; Avaliação do currículo; e Avaliação da gestão escolar." },
+                    { value: 'E', text: "Avaliação da aprendizagem; Avaliação institucional interna e externa; e Avaliação de redes de Educação Plena." }
+                ],
+                correctAnswer: 'A',
+                resolution: `**Gabarito: A**
+
+**Comentário:**
+* **(A) CORRETA.** Esta alternativa reproduz exatamente as três dimensões da avaliação previstas na Resolução CNE/CEB nº 4/2010, que institui as Diretrizes Curriculares Nacionais Gerais para a Educação Básica. São elas: a **avaliação da aprendizagem** (focada no aluno), a **avaliação institucional interna e externa** (focada na escola e em seus processos) e a **avaliação de redes de Educação Básica** (focada nos sistemas de ensino).
+* **(B) INCORRETA.** Embora sejam elementos relacionados à avaliação, "Avaliação do Projeto Político-Pedagógico" e "Avaliação dos sistemas de ensino municipais" não correspondem à nomenclatura exata e completa das três dimensões oficiais.
+* **(C) INCORRETA.** Estes são os tipos ou funções da avaliação da aprendizagem (diagnóstica, formativa e somativa), e não as três dimensões gerais da avaliação no ambiente educacional, que são mais amplas.
+* **(D) INCORRETA.** "Avaliação do currículo" e "Avaliação da gestão escolar" são componentes da avaliação institucional, mas não constituem as três dimensões macro definidas pelas DCNs.
+* **(E) INCORRETA.** Este é um distrator "próximo", típico do Instituto AOCP. A troca do termo "Educação Básica" por "Educação Plena" torna a alternativa incorreta, testando a atenção e o conhecimento preciso da norma pelo candidato.
+
+**Síntese:** A questão exige conhecimento literal da legislação educacional, um padrão de cobrança comum da banca. A resposta correta é a que cita as três dimensões da avaliação conforme estabelecido nas DCNs.`
+            },
+            {
+                id: 'q4',
+                question: "Em uma abordagem construtivista do processo de ensino-aprendizagem, o erro cometido pelo aluno durante uma atividade avaliativa deve ser compreendido pelo educador como",
+                options: [
+                    { value: 'A', text: "um indicativo de falta de estudo ou desatenção, que deve ser prontamente corrigido e sancionado." },
+                    { value: 'B', text: "uma evidência da etapa do desenvolvimento cognitivo do aluno e um valioso ponto de partida para a intervenção pedagógica." },
+                    { value: 'C', text: "um resultado indesejável que compromete o processo, devendo ser evitado por meio de instruções mais claras e diretas." },
+                    { value: 'D', text: "uma demonstração de dificuldade de aprendizagem que sinaliza a necessidade de encaminhamento para serviços especializados." },
+                    { value: 'E', text: "um desvio da resposta correta que deve ser ignorado para não constranger o aluno perante os colegas." }
+                ],
+                correctAnswer: 'B',
+                resolution: `**Gabarito: B**
+
+**Comentário:**
+* **(B) CORRETA.** Na perspectiva construtivista, o erro não é visto como uma falha, mas como uma "hipótese" que o aluno elaborou na tentativa de resolver um problema. Ele revela o raciocínio do estudante, mostrando ao professor como ele está pensando. Portanto, o erro é uma ferramenta diagnóstica riquíssima, indicando o ponto exato onde a intervenção pedagógica se faz necessária para promover o avanço da aprendizagem.
+* **(A) INCORRETA.** Esta alternativa reflete uma visão tradicional e punitiva da avaliação, que associa o erro à culpa ou à falta de capacidade do aluno, o que é pedagogicamente contraproducente.
+* **(C) INCORRETA.** O erro é parte integrante e inevitável do processo de construção do conhecimento. Tentar evitá-lo a todo custo pode inibir a criatividade e a disposição do aluno para arriscar e formular hipóteses.
+* **(D) INCORRETA.** Um erro pontual não é, por si só, um sinal de transtorno de aprendizagem. A generalização e a patologização do erro são práticas que devem ser evitadas.
+* **(E) INCORRETA.** Ignorar o erro é omitir-se do papel de mediador. O erro precisa ser acolhido, compreendido e trabalhado pedagogicamente para que a aprendizagem ocorra.
+
+**Síntese:** A questão avalia a compreensão do papel do erro no processo de aprendizagem. A resposta correta alinha-se às teorias construtivistas, que enxergam o erro como uma janela para o pensamento do aluno e um catalisador para a intervenção docente.`
+            },
+            {
+                id: 'q5',
+                question: "O Art. 24, inciso V, alínea ‘a’, da Lei de Diretrizes e Bases da Educação Nacional (Lei nº 9.394/96) estabelece que, na avaliação do rendimento escolar, devem prevalecer os aspectos qualitativos sobre os quantitativos e os resultados ao longo do período sobre os de eventuais provas finais. Em uma reunião do conselho de classe, discute-se o caso de um aluno cuja média aritmética final foi ligeiramente inferior à necessária para aprovação. No entanto, os registros do professor demonstram um notável avanço em sua capacidade de argumentação, participação em debates e colaboração em projetos em grupo ao longo do ano. Diante desse cenário e com base na legislação, a decisão pedagogicamente mais acertada do conselho seria",
+                options: [
+                    { value: 'A', text: "reprovar o aluno, pois a média quantitativa é o critério objetivo e final para a tomada de decisão." },
+                    { value: 'B', text: "aprovar o aluno, fundamentando a decisão nos registros de seu progresso qualitativo, que, por lei, prevalecem sobre o dado quantitativo final." },
+                    { value: 'C', text: "submeter o aluno a uma nova prova final de recuperação, desconsiderando os registros do processo." },
+                    { value: 'D', text: "aprovar o aluno sob a condição de que ele realize atividades de reforço no contraturno durante todo o ano seguinte." },
+                    { value: 'E', text: "solicitar uma avaliação psicopedagógica externa para validar as observações do professor antes de tomar qualquer decisão." }
+                ],
+                correctAnswer: 'B',
+                resolution: `**Gabarito: B**
+
+**Comentário:**
+* **(B) CORRETA.** A LDB é clara ao determinar a prevalência dos aspectos qualitativos (o processo, o progresso, o desenvolvimento de habilidades) sobre os quantitativos (a nota final). No cenário apresentado, os registros do professor constituem a evidência qualitativa do avanço do aluno. Portanto, a decisão legal e pedagogicamente correta é aprovar o aluno, valorizando seu percurso de aprendizagem em detrimento de um resultado numérico isolado.
+* **(A) INCORRETA.** Esta opção ignora deliberadamente o que está prescrito na LDB, apegando-se a uma visão burocrática e classificatória da avaliação.
+* **(C) INCORRETA.** Submeter o aluno a uma nova prova final desconsidera todo o processo de aprendizagem do ano, contrariando o princípio da avaliação contínua e a determinação da LDB de que "os resultados ao longo do período" devem prevalecer.
+* **(D) INCORRETA.** Condicionar a aprovação a atividades futuras pode ser uma medida complementar, mas a decisão sobre a aprovação no ano em questão deve ser tomada com base no que foi observado durante o período letivo, conforme a lei.
+* **(E) INCORRETA.** Embora uma avaliação psicopedagógica possa ser útil em alguns casos, solicitá-la apenas para "validar" as observações de um professor competente desvaloriza o trabalho docente e a avaliação contínua realizada em sala de aula.
+
+**Síntese:** A questão exige a aplicação de um dispositivo legal (LDB) a uma situação prática do cotidiano escolar, testando a capacidade do candidato de articular teoria, lei e prática pedagógica.`
+            },
+            {
+                id: 'q6',
+                question: "Uma docente, ao acompanhar a resolução de um problema matemático em duplas, circula pela sala, observa as estratégias utilizadas pelos alunos, faz perguntas que os levam a refletir sobre seus próprios raciocínios e promove o diálogo entre eles para que confrontem suas hipóteses. Suas intervenções não oferecem respostas prontas, mas mobilizam o pensamento dos estudantes. Essa prática avaliativa é um exemplo característico do conceito de",
+                options: [
+                    { value: 'A', text: "avaliação classificatória." },
+                    { value: 'B', text: "testagem padronizada." },
+                    { value: 'C', text: "avaliação somativa." },
+                    { value: 'D', text: "avaliação mediadora." },
+                    { value: 'E', text: "avaliação por competências." }
+                ],
+                correctAnswer: 'D',
+                resolution: `**Gabarito: D**
+
+**Comentário:**
+* **(D) CORRETA.** A prática descrita corresponde exatamente ao conceito de **avaliação mediadora**, cunhado pela teórica Jussara Hoffmann. Nessa concepção, o avaliador (professor) atua como um mediador da aprendizagem, intervindo não para dar respostas, mas para provocar a reflexão, o diálogo e a tomada de consciência do aluno sobre seu próprio processo de aprender. O foco está na qualificação da aprendizagem em processo.
+* **(A) INCORRETA.** A avaliação **classificatória** visa apenas a atribuir uma nota ou conceito ao final, sem se preocupar com o processo de construção do conhecimento.
+* **(B) INCORRETA.** A **testagem padronizada** refere-se à aplicação de provas iguais para todos, geralmente em larga escala, com correção objetiva, o que não corresponde à prática interativa e dialógica descrita.
+* **(C) INCORRETA.** A avaliação **somativa** tem um caráter finalístico e de balanço, ao contrário da ação contínua e processual da mediação.
+* **(E) INCORRETA.** Embora a avaliação por competências também seja processual, o termo "avaliação mediadora" descreve com maior especificidade a natureza da *intervenção* docente detalhada no enunciado (questionar, promover diálogo, mediar).
+
+**Síntese:** A questão requer a identificação de um conceito teórico específico (avaliação mediadora) a partir da descrição de uma prática pedagógica.`
+            },
+            {
+                id: 'q7',
+                question: "Ao planejar o semestre, um professor de História decide substituir a tradicional prova bimestral única por um portfólio. Este instrumento será composto por uma coletânea dos trabalhos realizados pelos alunos, incluindo pesquisas, resenhas críticas, rascunhos de textos e fichas de autoavaliação. A escolha do portfólio como principal instrumento avaliativo reflete, fundamentalmente, uma concepção de avaliação que valoriza",
+                options: [
+                    { value: 'A', text: "a objetividade e a padronização na atribuição de notas." },
+                    { value: 'B', text: "a classificação dos alunos com base em um único momento de verificação." },
+                    { value: 'C', text: "o processo de aprendizagem, a reflexão e o desenvolvimento contínuo do aluno." },
+                    { value: 'D', text: "a facilidade e a rapidez no processo de correção para o professor." },
+                    { value: 'E', text: "a memorização de conteúdos factuais como principal evidência de aprendizagem." }
+                ],
+                correctAnswer: 'C',
+                resolution: `**Gabarito: C**
+
+**Comentário:**
+* **(C) CORRETA.** O portfólio é um instrumento que, por sua natureza, permite registrar e analisar o percurso de aprendizagem de um aluno ao longo do tempo. Ele inclui diferentes tipos de produção, rascunhos e autoavaliações, evidenciando não apenas o produto final, mas todo o **processo** de construção do conhecimento, o **desenvolvimento contínuo** e a capacidade de **reflexão** do estudante sobre seu próprio aprendizado.
+* **(A) INCORRETA.** O portfólio é, por excelência, um instrumento de avaliação qualitativa e individualizada, o que se contrapõe à ideia de objetividade e padronização.
+* **(B) INCORRETA.** A escolha do portfólio representa justamente a superação do modelo de avaliação baseado em um único momento (prova final), em favor de uma avaliação contínua.
+* **(D) INCORRETA.** A análise de um portfólio é, em geral, mais complexa e demorada para o professor do que a correção de uma prova objetiva. A escolha desse instrumento se baseia em princípios pedagógicos, não em conveniência.
+* **(E) INCORRETA.** Enquanto uma prova tradicional pode focar na memorização, o portfólio permite avaliar competências mais complexas, como a capacidade de pesquisa, argumentação, criatividade e metacognição.
+
+**Síntese:** A questão explora a relação entre instrumentos avaliativos e as concepções pedagógicas que os sustentam. A resposta correta identifica o portfólio como uma ferramenta alinhada a uma visão processual e reflexiva da avaliação.`
+            },
+            {
+                id: 'q8',
+                question: "A avaliação institucional interna é uma ferramenta estratégica para a gestão democrática da escola. Qual é a principal relação entre a avaliação institucional e o Projeto Político-Pedagógico (PPP) da unidade escolar?",
+                options: [
+                    { value: 'A', text: "A avaliação institucional é um processo independente do PPP, focado apenas em mensurar a satisfação da comunidade escolar." },
+                    { value: 'B', text: "A avaliação institucional serve principalmente para gerar dados para o ranking de desempenho dos professores, sem conexão direta com o PPP." },
+                    { value: 'C', text: "A avaliação institucional é o principal instrumento para verificar se os objetivos, metas e princípios definidos no PPP estão sendo alcançados, subsidiando seu replanejamento coletivo." },
+                    { value: 'D', text: "O PPP é elaborado com base nos resultados da avaliação institucional externa (larga escala), não havendo necessidade de uma avaliação interna." },
+                    { value: 'E', text: "A avaliação institucional é um requisito burocrático exigido pela secretaria de educação, cujos resultados são arquivados e não precisam influenciar o PPP." }
+                ],
+                correctAnswer: 'C',
+                resolution: `**Gabarito: C**
+
+**Comentário:**
+* **(C) CORRETA.** O Projeto Político-Pedagógico (PPP) é o documento que define a identidade, os objetivos e as metas da escola. A avaliação institucional interna é o processo pelo qual a comunidade escolar (gestores, professores, alunos, pais e funcionários) analisa suas próprias práticas para verificar em que medida está conseguindo realizar o que foi proposto no PPP. Seus resultados são, portanto, a principal fonte de informações para o replanejamento das ações e o aprimoramento contínuo da escola.
+* **(A) INCORRETA.** A avaliação institucional não é independente do PPP; ao contrário, ela só faz sentido se estiver a serviço do projeto da escola.
+* **(B) INCORRETA.** Reduzir a avaliação institucional a um ranking de professores é uma distorção de seu propósito, que é coletivo e focado na melhoria da instituição como um todo, e não na punição individual.
+* **(D) INCORRETA.** A avaliação interna é fundamental, pois reflete a realidade e a perspectiva da própria comunidade escolar. Ela complementa, e não é substituída, pela avaliação externa.
+* **(E) INCORRETA.** Se a avaliação institucional for tratada como mera burocracia, ela perde todo o seu potencial transformador. Sua finalidade é justamente gerar reflexão e ação para a melhoria da qualidade da educação, em consonância com o PPP.
+
+**Síntese:** A questão aborda a articulação entre dois conceitos centrais da gestão pedagógica: avaliação institucional e PPP. A resposta correta estabelece a relação de retroalimentação entre eles.`
+            },
+            {
+                id: 'q9',
+                question: "As avaliações em larga escala, como o Sistema de Avaliação da Educação Básica (SAEB), são aplicadas em todo o território nacional e geram uma grande quantidade de dados sobre a educação. O objetivo primordial dessas avaliações é",
+                options: [
+                    { value: 'A', text: "classificar individualmente os alunos, definindo sua aprovação ou reprovação no ano escolar." },
+                    { value: 'B', text: "criar um ranking nacional de escolas para orientar a escolha dos pais e promover a competição entre as instituições." },
+                    { value: 'C', text: "diagnosticar a qualidade da educação oferecida pelas redes de ensino e subsidiar a formulação e o monitoramento de políticas públicas." },
+                    { value: 'D', text: "definir um currículo único e obrigatório para todas as escolas do país, com base nos itens de maior acerto." },
+                    { value: 'E', text: "identificar e punir as escolas e os professores com os resultados mais baixos, por meio de cortes de verbas." }
+                ],
+                correctAnswer: 'C',
+                resolution: `**Gabarito: C**
+
+**Comentário:**
+* **(C) CORRETA.** As avaliações em larga escala, como o SAEB, não têm como foco o indivíduo (aluno, professor ou escola), mas sim o sistema educacional como um todo. Seu objetivo é produzir diagnósticos amplos sobre a qualidade da educação, as desigualdades existentes e os fatores associados ao desempenho dos estudantes. Esses diagnósticos são insumos essenciais para que os gestores públicos (em nível federal, estadual e municipal) possam formular, monitorar e aprimorar as políticas educacionais.
+* **(A) INCORRETA.** As avaliações em larga escala são amostrais e seus resultados não são utilizados para fins de aprovação ou reprovação individual dos alunos.
+* **(B) INCORRETA.** Embora os dados possam ser usados indevidamente para criar rankings, este não é o objetivo oficial ou pedagógico dessas avaliações. Tal prática é, inclusive, criticada por especialistas por gerar competição predatória entre escolas.
+* **(D) INCORRETA.** O currículo nacional é definido por documentos como a Base Nacional Comum Curricular (BNCC), e não pelos resultados de uma prova. A avaliação verifica a aprendizagem em relação a um currículo já estabelecido.
+* **(E) INCORRETA.** A finalidade das avaliações sistêmicas é diagnóstica e propositiva, não punitiva. O uso de seus resultados para punir escolas ou professores é uma distorção de seu propósito.
+
+**Síntese:** A questão testa o conhecimento sobre a finalidade das avaliações sistêmicas (larga escala). A resposta correta as define como ferramentas de diagnóstico para a formulação de políticas públicas.`
+            },
+            {
+                id: 'q10',
+                question: "Segundo o pensamento do autor Cipriano Luckesi, um dos mais influentes teóricos da avaliação educacional no Brasil, a prática avaliativa da aprendizagem, para cumprir sua função pedagógica, deve ser compreendida como um ato de",
+                options: [
+                    { value: 'A', text: "julgar e classificar o aluno ao final de um percurso para determinar seu mérito." },
+                    { value: 'B', text: "medir com precisão a quantidade de conteúdo que o aluno conseguiu memorizar." },
+                    { value: 'C', text: "acolher, diagnosticar e incluir, visando subsidiar decisões para a melhoria da qualidade da aprendizagem de todos." },
+                    { value: 'D', text: "controlar o comportamento dos alunos e selecionar os mais aptos a prosseguir nos estudos." },
+                    { value: 'E', text: "testar os limites do conhecimento do aluno através de instrumentos que gerem um ranking de desempenho." }
+                ],
+                correctAnswer: 'C',
+                resolution: `**Gabarito: C**
+
+**Comentário:**
+* **(C) CORRETA.** Cipriano Luckesi é um defensor da avaliação a serviço da aprendizagem. Para ele, a avaliação deve superar seu caráter histórico de exame e classificação para se tornar um instrumento de diagnóstico. Nesse sentido, ela deve ser um ato de **acolhimento**, que investiga as dificuldades do aluno sem julgá-lo; um ato **diagnóstico**, que busca compreender as causas dessas dificuldades; e um ato **inclusivo**, que utiliza essas informações para planejar intervenções pedagógicas que garantam a aprendizagem de todos, sem exceção.
+* **(A) INCORRETA.** A ideia de "julgar" e "classificar" para determinar o "mérito" é exatamente o que Luckesi critica como a "pedagogia do exame", que a avaliação da aprendizagem deveria superar.
+* **(B) INCORRETA.** A avaliação não deve se limitar a "medir" a memorização, mas sim a compreender qualitativamente o processo de construção do conhecimento, que é muito mais complexo.
+* **(D) INCORRETA.** As funções de "controlar" e "selecionar" são autoritárias e excludentes, contrárias à concepção democrática e inclusiva de educação defendida pelo autor.
+* **(E) INCORRETA.** "Testar limites" e "gerar ranking" são práticas associadas à competição e à classificação, e não ao apoio e à qualificação da aprendizagem, que são os focos da teoria de Luckesi.
+
+**Síntese:** A questão exige o conhecimento do pensamento de um autor específico, Cipriano Luckesi. A resposta correta sintetiza sua visão da avaliação como um ato diagnóstico, acolhedor e inclusivo, em oposição ao modelo tradicional de exame.`
+            }
+        ];
+
+        // --- LÓGICA DO QUIZ ---
+
+        // Referências aos elementos do DOM
+        const questionsContainer = document.getElementById('questionsContainer');
+        const quizForm = document.getElementById('quizForm');
+        const resultsSection = document.getElementById('resultsSection');
+        const scoreElement = document.getElementById('score');
+        const resolutionsContainer = document.getElementById('resolutionsContainer');
+
+        /**
+         * Carrega e renderiza as questões do quiz no formulário.
+         */
+        function loadQuiz() {
+            let questionsHTML = '';
+
+            quizData.forEach((item, index) => {
+                // Monta as opções de resposta
+                let optionsHTML = '';
+                item.options.forEach(option => {
+                    optionsHTML += `
+                        <label class="option-label block w-full p-4 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-200 transition-all duration-150 cursor-pointer">
+                            <div class="flex items-center">
+                                <input type="radio" name="${item.id}" value="${option.value}" class="mr-3 text-blue-600 focus:ring-blue-500" required>
+                                <span class="text-gray-700"><strong>(${option.value})</strong> ${option.text}</span>
+                            </div>
+                        </label>
+                    `;
+                });
+
+                // Monta o bloco da questão
+                questionsHTML += `
+                    <div class="p-6 bg-gray-50 rounded-xl shadow-sm border border-gray-100">
+                        <p class="text-lg font-semibold text-gray-900 mb-5">
+                            <strong>Questão ${index + 1}:</strong> ${item.question}
+                        </p>
+                        <div class="space-y-3">
+                            ${optionsHTML}
+                        </div>
+                    </div>
+                `;
+            });
+
+            questionsContainer.innerHTML = questionsHTML;
+        }
+
+        /**
+         * Processa o envio do formulário, calcula a pontuação e exibe os resultados.
+         * @param {Event} event O evento de submit do formulário.
+         */
+        function showResults(event) {
+            event.preventDefault(); // Impede o recarregamento da página
+
+            const formData = new FormData(quizForm);
+            let score = 0;
+            let resolutionsHTML = '';
+
+            quizData.forEach((item, index) => {
+                const userAnswer = formData.get(item.id);
+                const isCorrect = userAnswer === item.correctAnswer;
+
+                if (isCorrect) {
+                    score++;
+                }
+
+                // Formata o texto da resolução
+                // Remove referências numéricas (ex: [1], [2]) e converte **negrito** para <strong>
+                let formattedResolution = item.resolution
+                    .replace(/\[\d+\]/g, '') // Remove [1], [2], etc.
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); // Converte **texto** para <strong>texto</strong>
+
+
+                // Determina a cor do feedback (verde para correto, vermelho para incorreto)
+                const feedbackClass = isCorrect ? 'text-green-600' : 'text-red-600';
+                const feedbackText = isCorrect ? '(Correta)' : '(Incorreta)';
+                
+                // Monta o HTML para o bloco de resolução
+                resolutionsHTML += `
+                    <div class="p-5 border border-gray-200 rounded-lg bg-white shadow-sm">
+                        <h4 class="text-lg font-bold text-gray-800 mb-3">Questão ${index + 1}</h4>
+                        <p class="text-base font-medium text-gray-600 mb-3">${item.question}</p>
+                        
+                        <div class="space-y-1 mb-4">
+                            <p class="text-base">
+                                <strong>Sua resposta:</strong> 
+                                <span class="${feedbackClass} font-semibold">
+                                    ${userAnswer ? `(${userAnswer})` : 'Não respondida'} ${feedbackText}
+                                </span>
+                            </p>
+                            <p class="text-base">
+                                <strong>Gabarito:</strong> 
+                                <span class="font-semibold text-green-700">(${item.correctAnswer})</span>
+                            </p>
+                        </div>
+
+                        <!-- Oculta/Exibe o comentário -->
+                        <details class="mt-4">
+                            <summary class="font-semibold text-blue-600 cursor-pointer hover:text-blue-700">
+                                Ver Resolução Comentada
+                            </summary>
+                            <div class="resolution-text mt-3 pt-3 border-t border-gray-200 text-gray-700">
+                                ${formattedResolution}
+                            </div>
+                        </details>
+                    </div>
+                `;
+            });
+
+            // Atualiza a pontuação
+            scoreElement.innerHTML = `Você acertou <span class="text-blue-700">${score}</span> de <span class="text-blue-700">${quizData.length}</span> questões.`;
+            
+            // Exibe as resoluções
+            resolutionsContainer.innerHTML = resolutionsHTML;
+            
+            // Exibe a seção de resultados e rola a tela até ela
+            resultsSection.classList.remove('hidden');
+            resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // --- INICIALIZAÇÃO ---
+        
+        // Carrega o quiz quando o DOM estiver pronto
+        document.addEventListener('DOMContentLoaded', loadQuiz);
+        
+        // Adiciona o listener para o envio do formulário
+        quizForm.addEventListener('submit', showResults);
+
+    </script>
+</body>
+</html>
+

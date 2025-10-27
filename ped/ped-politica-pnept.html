@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PNEPT - Resumo para Concurso IFPB</title>
+    <!-- Carrega o Tailwind CSS para estilização -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Importa a fonte Inter para melhor legibilidade -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Define a fonte Inter como padrão */
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Garante que o conteúdo das tabelas quebre a linha e não cause scroll horizontal */
+        table td, table th {
+            word-break: break-word;
+            hyphens: auto;
+        }
+
+        /* Converte os marcadores de citação em sobrescrito */
+        sup {
+            font-size: 0.75em;
+            vertical-align: super;
+            margin-left: 2px;
+        }
+
+        /* Estilo de marca-texto amarelo suave */
+        mark {
+            background-color: #fef9c3; /* Cor Tailwind 'yellow-100' */
+            color: inherit; /* Mantém a cor original do texto */
+            padding: 0 2px;
+            border-radius: 3px;
+            font-weight: 600; /* Dá um leve destaque ao texto marcado */
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900 leading-relaxed">
+
+    <!-- Container principal com largura máxima para boa legibilidade -->
+    <div class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+
+        <!-- 1. Reprodutor de Áudio -->
+        <div class="mb-8 p-4 bg-gray-50 rounded-lg shadow-sm border border-gray-200">
+            <h3 class="text-lg font-semibold mb-3 text-gray-800">Resumo em Áudio da Aula</h3>
+            <!-- 
+                PLAYER DE ÁUDIO:
+                Instrução: Renomeie o seu arquivo de áudio para "resumo_pnept.mp3" 
+                e coloque-o na mesma pasta deste arquivo .html
+                OU
+                Altere o valor de 'src' abaixo para o nome do seu arquivo.
+            -->
+            <audio controls class="w-full">
+                <source src="ped-politica-pnept.mp3" type="audio/mpeg">
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
+            <p class="text-sm text-gray-600 mt-2">
+                <strong>Instrução:</strong> Coloque seu arquivo MP3 na mesma pasta que este HTML e atualize o nome do arquivo no código-fonte se for diferente de "resumo_pnept.mp3".
+            </p>
+        </div>
+
+        <!-- 2. Conteúdo da Página 1 -->
+        <section class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 border-b-2 border-gray-200 pb-2 mb-6">
+                Página 1: A Política (PNEPT) - O Que Você Precisa Decorar
+            </h1>
+
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">
+                1. O DNA da PNEPT: Princípios Essenciais (Decreto nº 12.603/2025, Art. 2º)
+            </h2>
+
+            <!-- Tabela 1: Princípios -->
+            <div class="w-full mb-6">
+                <table class="w-full border-collapse border border-gray-300 table-fixed rounded-lg overflow-hidden shadow">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="border border-gray-300 p-3 text-left font-semibold text-gray-800 w-[30%]">Princípio (Palavra-Chave)</th>
+                            <th class="border border-gray-300 p-3 text-left font-semibold text-gray-800 w-[40%]">Conceito Central para a Prova</th>
+                            <th class="border border-gray-300 p-3 text-left font-semibold text-gray-800 w-[30%]">Exemplo-Gatilho para Memorizar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-white">
+                            <td class="border border-gray-300 p-3 align-top"><strong>I - <mark>Inovação Indissociável</mark></strong></td>
+                            <td class="border border-gray-300 p-3 align-top">O tripé clássico (Ensino, Pesquisa, Extensão) agora tem um 4º pilar obrigatório: <mark>Inovação</mark>. As quatro atividades devem ocorrer juntas, de forma integrada.</td>
+                            <td class="border border-gray-300 p-3 align-top"><strong>Polo de Inovação do IFPB</strong><sup>[1]</sup>: Projeto com empresa que envolve alunos (ensino), gera conhecimento (pesquisa), beneficia a sociedade (extensão) e cria um produto novo (inovação).</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="border border-gray-300 p-3 align-top"><strong>II - <mark>Trabalho como Princípio Educativo</mark></strong></td>
+                            <td class="border border-gray-300 p-3 align-top">O <mark>mundo do trabalho</mark> não é só o destino do aluno, é o <mark>meio</mark> pelo qual ele aprende. A educação é estruturada a partir de problemas e práticas profissionais reais.</td>
+                            <td class="border border-gray-300 p-3 align-top"><strong>Metodologias Ágeis (Scrum/Kanban)</strong><sup>[2]</sup> em aulas de desenvolvimento de software. A teoria é aprendida para resolver um problema prático, e não o contrário.</td>
+                        </tr>
+                        <tr class="bg-white">
+                            <td class="border border-gray-300 p-3 align-top"><strong>III - <mark>Integração</mark> (Ciência, Tecnologia, Sustentabilidade, Cultura)</strong></td>
+                            <td class="border border-gray-300 p-3 align-top">A formação técnica não pode ser isolada. Deve, obrigatoriamente, conectar-se com responsabilidade ambiental, social e respeito à cultura local.</td>
+                            <td class="border border-gray-300 p-3 align-top">Curso de <strong>Agente de Fiscalização Ambiental</strong><sup>[3]</sup> ou projeto de extensão para coleta seletiva em uma comunidade.<sup>[4]</sup></td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="border border-gray-300 p-3 align-top"><strong>IV - <mark>Educação e Prática Social</mark></strong></td>
+                            <td class="border border-gray-300 p-3 align-top">O conhecimento do IFPB deve ser usado para entender e <mark>transformar a realidade social</mark> da comunidade. É a base da extensão.</td>
+                            <td class="border border-gray-300 p-3 align-top">Projeto que cria uma rádio comunitária para combater fake news ("Nas Ondas da Verdade").<sup>[5]</sup></td>
+                        </tr>
+                        <tr class="bg-white">
+                            <td class="border border-gray-300 p-3 align-top"><strong>V - <mark>Teoria e Prática</mark></strong></td>
+                            <td class="border border-gray-300 p-3 align-top">O fundamento da EPT. O conhecimento teórico e a aplicação prática devem ser <mark>simultâneos e interligados</mark>.</td>
+                            <td class="border border-gray-300 p-3 align-top">Aulas em laboratórios de programação, onde cada conceito é imediatamente testado e aplicado.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">
+                2. A Missão e o Mapa da PNEPT: Finalidade e Diretrizes
+            </h2>
+
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">A Grande Missão (Finalidade - Art. 1º):</h3>
+            <ul class="list-disc list-inside space-y-2 mb-6 pl-4">
+                <li><strong>Objetivo Principal:</strong> Formação <mark>integral e cidadã</mark>.<sup>[6]</sup></li>
+                <li><strong>Foco:</strong> Promover <mark>inclusão social</mark> e <mark>inserção socioprodutiva</mark>.<sup>[6, 7, 8]</sup></li>
+                <li><strong>Estratégia:</strong> Articulação obrigatória com <mark>outras políticas públicas</mark> (saúde, emprego, ciência e tecnologia, etc.).<sup>[6, 9]</sup> O IFPB não é uma ilha; é um "hub" de políticas nacionais.</li>
+            </ul>
+
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">O Mapa Estratégico (Diretrizes - O "Como Fazer"):</h3>
+            <ul class="list-disc list-inside space-y-2 mb-6 pl-4">
+                <li><strong>Acesso, <mark>Permanência e Êxito</mark>:</strong> Não basta o aluno entrar, ele precisa se formar. <strong>Ações:</strong> Assistência Estudantil, programas de nivelamento e apoio psicopedagogico.<sup>[7, 2, 9]</sup></li>
+                <li><strong><mark>Itinerários Formativos</mark>:</strong> Criar um caminho contínuo e sem barreiras para o aluno. <strong>Ação Principal:</strong> <mark>Verticalização do ensino</mark> (o aluno pode cursar o técnico, a graduação e o mestrado no mesmo IFPB).<sup>[7, 10, 11, 12]</sup></li>
+                <li><strong><mark>Formação Digital e Sustentabilidade</mark>:</strong> Ofertar cursos alinhados às demandas atuais. <strong>Exemplos:</strong> Cursos FIC de "Editor de Vídeos para Dispositivos Móveis"<sup>[13]</sup> ou "Agente de Fiscalização Ambiental".<sup>[3]</sup></li>
+                <li><strong><mark>Ampliação Territorial</mark>:</strong> Levar a educação para o interior do estado, reduzindo desigualdades. <strong>Ação Principal:</strong> Criação de novos campi (a própria existência do IFPB em várias cidades é a materialização disso).<sup>[14, 15, 16]</sup></li>
+            </ul>
+        </section>
+
+        <!-- Divisor entre as páginas -->
+        <hr class="my-10 border-t-2 border-gray-200">
+
+        <!-- 3. Conteúdo da Página 2 -->
+        <section class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 border-b-2 border-gray-200 pb-2 mb-6">
+                Página 2: A Execução (Lei 11.892/2008) - O Papel do IFPB
+            </h1>
+
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">
+                3. A Identidade do IF: Finalidades (Art. 6º - O "PORQUÊ" da existência do IF)
+            </h2>
+            <ul class="list-disc list-inside space-y-2 mb-6 pl-4">
+                <li><strong>Foco no Desenvolvimento Local:</strong> A oferta de cursos deve fortalecer os <mark>Arranjos Produtivos Locais (APLs)</mark>. O IFPB deve servir à economia da sua região.<sup>[17]</sup></li>
+                <li><strong><mark>Integração e Verticalização</mark>:</strong> A estrutura do IF deve permitir que o aluno siga o "itinerário formativo" (do técnico ao doutorado).<sup>[17]</sup></li>
+                <li><strong><mark>Excelência em Ciências</mark>:</strong> Ser um centro de referência no ensino de ciências e matemática.<sup>[17]</sup></li>
+            </ul>
+
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">
+                4. As Ações do IF: Objetivos (Art. 7º - O "O QUE" o IFPB faz)
+            </h2>
+            <ul class="list-disc list-inside space-y-2 mb-6 pl-4">
+                <li>Ministrar cursos técnicos, <strong class="text-red-700 font-bold uppercase"><mark>prioritariamente</mark></strong> na forma <mark>integrada</mark>. <span class="text-sm font-medium text-red-600">(Atenção máxima a essa palavra na prova!)</span>.<sup>[17]</sup></li>
+                <li><strong>Cursos <mark>FIC</mark>:</strong> Oferecer cursos de Formação Inicial e Continuada (rápidos, para qualificação de trabalhadores).<sup>[17]</sup> Exemplos: Inglês Básico, Preparatório para Concursos<sup>[18]</sup>, Libras.</li>
+                <li><strong><mark>Pesquisa Aplicada</mark>:</strong> Realizar pesquisa voltada para a <mark>solução de problemas práticos</mark> da sociedade e do setor produtivo.<sup>[17]</sup></li>
+                <li><strong>Atividades de <mark>Extensão</mark>:</strong> Conectar o IFPB com a comunidade e o mundo do trabalho.<sup>[17]</sup> Exemplo: Parque Tecnológico Sinergia.<sup>[1, 19]</sup></li>
+                <li class="mt-2">
+                    <strong>Educação Superior (Ponto Crítico!):</strong> O IFPB pode (e deve) ministrar <mark>TUDO</mark>:
+                    <ol class="list-[lower-alpha] list-inside space-y-1 mt-2 pl-6">
+                        <li><mark>Cursos Superiores de Tecnologia</mark> (Ex: ADS).</li>
+                        <li><mark>Licenciaturas</mark> (Formar professores).</li>
+                        <li><mark>Bacharelados e Engenharias</mark> (Ex: Engenharia de Computação).</li>
+                        <li><Pós-Graduação <mark>Lato Sensu</mark></mark> (Especialização).</li>
+                        <li>Pós-Graduação <mark>Stricto Sensu</mark> (Mestrado e Doutorado).<sup>[17]</sup></li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">
+                5. Tabela de Memorização Cruzada: Da Política à Ação
+            </h2>
+
+            <!-- Tabela 2: Memorização Cruzada -->
+            <div class="w-full mb-6">
+                <table class="w-full border-collapse border border-gray-300 table-fixed rounded-lg overflow-hidden shadow">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="border border-gray-300 p-3 text-left font-semibold text-gray-800 w-1/3">Se a PNEPT (o plano) diz...</th>
+                            <th class="border border-gray-300 p-3 text-left font-semibold text-gray-800 w-1/3">A Lei 11.892/2008 (a ordem) determina que o IFPB...</th>
+                            <th class="border border-gray-300 p-3 text-left font-semibold text-gray-800 w-1/3">Na prática, o IFPB faz...</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-white">
+                            <td class="border border-gray-300 p-3 align-top">"Promova itinerários formativos."</td>
+                            <td class="border border-gray-300 p-3 align-top">Deve promover a <mark>verticalização</o> do ensino (Art. 6º).</td>
+                            <td class="border border-gray-300 p-3 align-top">Um aluno cursa o Técnico em Informática e depois a graduação em Engenharia de Computação no mesmo campus.</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="border border-gray-300 p-3 align-top">"Garanta a formação continuada de trabalhadores."</td>
+                            <td class="border border-gray-300 p-3 align-top">Deve ministrar <mark>cursos FIC</mark> (Art. 7º).</td>
+                            <td class="border border-gray-300 p-3 align-top">Abre edital para um curso de "Editor de Vídeos"<sup>[13]</sup> para a comunidade.</td>
+                        </tr>
+                        <tr class="bg-white">
+                            <td class="border border-gray-300 p-3 align-top">"Articule-se com o mundo do trabalho."</td>
+                            <td class="border border-gray-300 p-3 align-top">Deve desenvolver <mark>pesquisa aplicada</mark> e <mark>extensão</mark> (Art. 7º).</td>
+                            <td class="border border-gray-300 p-3 align-top">Cria o Parque Tecnológico Sinergia<sup>[1]</sup> para conectar a pesquisa acadêmica com as necessidades das empresas.</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="border border-gray-300 p-3 align-top">"Estimule a inovação."</td>
+                            <td class="border border-gray-300 p-3 align-top">Deve realizar <strong>pesquisa</strong> e ofertar <mark>pós-graduação</mark> (<i>stricto sensu</i>) (Art. 7º).</td>
+                            <td class="border border-gray-300 p-3 align-top">Firma parceria com a empresa HI-MIX para desenvolver um novo software, com participação de alunos do mestrado.<sup>[20, 21]</sup></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 4. Botão de Questões -->
+        <footer class="text-center my-10">
+            <a href="ped-politica-pneptquestoes.html" 
+               class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg text-lg shadow-md hover:bg-blue-700 transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                Praticar com Questões
+            </a>
+        </footer>
+
+    </div> <!-- Fim do container principal -->
+
+</body>
+</html>
+

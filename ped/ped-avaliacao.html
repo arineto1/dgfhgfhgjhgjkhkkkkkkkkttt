@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo para Concurso: Avaliação da Aprendizagem</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Carrega a fonte Inter para melhor legibilidade -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Define a fonte padrão como Inter */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Garante que o fundo seja sempre branco */
+        body, html {
+            background-color: #ffffff;
+        }
+        /* Estilos para o texto escuro e legível */
+        p, li, td, th {
+            color: #1f2937; /* text-gray-800 */
+        }
+        h1, h2, h3 {
+            color: #111827; /* text-gray-900 */
+        }
+    </style>
+</head>
+<body class="bg-white">
+
+    <!-- Container principal com largura máxima para boa leitura -->
+    <div class="max-w-4xl mx-auto p-6 sm:p-10">
+
+        <!-- 1. Reprodutor de Áudio -->
+        <div class="bg-gray-50 border border-gray-200 rounded-lg p-5 mb-10">
+            <h2 class="text-xl font-semibold mb-2">Resumo em Áudio</h2>
+            <p class="text-sm text-gray-600 mb-4">
+                Coloque o nome do seu arquivo (ex: "audio_aula.mp3") no atributo 
+                <code>src</code> da tag <code>&lt;source&gt;</code> abaixo.
+            </p>
+            <!-- Player de Áudio HTML5 -->
+            <audio controls class="w-full">
+                <!-- ADICIONE SEU ARQUIVO AQUI -->
+                <source src="ped-avaliacao.mp3" type="audio/mpeg">
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
+        </div>
+
+        <!-- 2. Conteúdo do Resumo -->
+        
+        <!-- PÁGINA 1 -->
+        <h1 class="text-3xl font-bold mb-6 border-b pb-3">Página 1: Fundamentos da Avaliação para Concursos</h1>
+
+        <h2 class="text-2xl font-semibold mt-8 mb-4">1. As 3 Funções Essenciais da Avaliação (Palavras-chave para a prova)</h2>
+        <p class="mb-5 leading-relaxed">
+            A distinção entre as funções não está no instrumento (prova, trabalho), mas na <strong>INTENÇÃO</strong> do professor.
+        </p>
+
+        <!-- Tabela 1: Funções da Avaliação -->
+        <div class="overflow-x-auto mb-8">
+            <table class="w-full border-collapse border border-gray-300">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="border border-gray-300 px-4 py-3 text-left font-bold text-gray-700 uppercase text-sm">Função</th>
+                        <th class="border border-gray-300 px-4 py-3 text-left font-bold text-gray-700 uppercase text-sm">Objetivo Principal (Palavra-chave)</th>
+                        <th class="border border-gray-300 px-4 py-3 text-left font-bold text-gray-700 uppercase text-sm">Momento de Aplicação</th>
+                        <th class="border border-gray-300 px-4 py-3 text-left font-bold text-gray-700 uppercase text-sm">Foco</th>
+                        <th class="border border-gray-300 px-4 py-3 text-left font-bold text-gray-700 uppercase text-sm">Exemplo Chave (Informática)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="border border-gray-300 px-4 py-3 align-top"><strong>Diagnóstica</strong></td>
+                        <td class="border border-gray-300 px-4 py-3 align-top"><strong>Identificar / Sondar</strong></td>
+                        <td class="border border-gray-300 px-4 py-3 align-top"><strong>INÍCIO</strong> (de curso, unidade, tópico)</td>
+                        <td class="border border-gray-300 px-4 py-3 align-top">Conhecimentos prévios, pré-requisitos, lacunas.</td>
+                        <td class="border border-gray-300 px-4 py-3 align-top">Teste de nivelamento de lógica de programação antes de iniciar a disciplina.</td>
+                    </tr>
+                    <tr>
+                        <td class="border border-gray-300 px-4 py-3 align-top"><strong>Formativa</strong></td>
+                        <td class="border border-gray-300 px-4 py-3 align-top"><strong>Acompanhar / Regular / Orientar</strong></td>
+                        <td class="border border-gray-300 px-4 py-3 align-top"><strong>DURANTE</strong> (processo contínuo)</td>
+                        <td class="border border-gray-300 px-4 py-3 align-top">O <strong>PROCESSO</strong> de aprendizagem, o progresso, as dificuldades.</td>
+                        <td class="border border-gray-300 px-4 py-3 align-top">Sessões de <em>code review</em> para dar feedback contínuo em um projeto.</td>
+                    </tr>
+                    <tr>
+                        <td class="border border-gray-300 px-4 py-3 align-top"><strong>Somativa</strong></td>
+                        <td class="border border-gray-300 px-4 py-3 align-top"><strong>Classificar / Certificar / Mensurar</strong></td>
+                        <td class="border border-gray-300 px-4 py-3 align-top"><strong>FINAL</strong> (de curso, unidade, semestre)</td>
+                        <td class="border border-gray-300 px-4 py-3 align-top">O <strong>PRODUTO</strong> final, o resultado alcançado.</td>
+                        <td class="border border-gray-300 px-4 py-3 align-top">Prova prática final para desenvolver um sistema e obter a nota do semestre.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="text-2xl font-semibold mt-8 mb-4">2. Teóricos Essenciais: Luckesi vs. Hoffmann (Como diferenciar na prova)</h2>
+
+        <!-- Tabela 2: Teóricos -->
+        <div class="overflow-x-auto mb-8">
+            <table class="w-full border-collapse border border-gray-300">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="border border-gray-300 px-4 py-3 text-left font-bold text-gray-700 uppercase text-sm">Teórico</th>
+                        <th class="border border-gray-300 px-4 py-3 text-left font-bold text-gray-700 uppercase text-sm">Conceito Central</th>
+                        <th class="border border-gray-300 px-4 py-3 text-left font-bold text-gray-700 uppercase text-sm">Foco Principal</th>
+                        <th class="border border-gray-300 px-4 py-3 text-left font-bold text-gray-700 uppercase text-sm">Visão da Avaliação</th>
+                        <th class="border border-gray-300 px-4 py-3 text-left font-bold text-gray-700 uppercase text-sm">Palavras-Chave para a Prova</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="border border-gray-300 px-4 py-3 align-top"><strong>Cipriano Luckesi</strong></td>
+                        <td class="border border-gray-300 px-4 py-3 align-top">Avaliação como <strong>Ato de Acolhimento</strong></td>
+                        <td class="border border-gray-300 px-4 py-3 align-top">Crítica à "Pedagogia do Exame".</td>
+                        <td class="border border-gray-300 px-4 py-3 align-top">A avaliação <strong>diagnostica para INCLUIR</strong>. O exame classifica para <strong>EXCLUIR</strong>.</td>
+                        <td class="border border-gray-300 px-4 py-3 align-top">Acolhimento, Inclusão, Tomada de Decisão, Diagnóstico.</td>
+                    </tr>
+                    <tr>
+                        <td class="border border-gray-300 px-4 py-3 align-top"><strong>Jussara Hoffmann</strong></td>
+                        <td class="border border-gray-300 px-4 py-3 align-top">Avaliação <strong>Mediadora</strong></td>
+                        <td class="border border-gray-300 px-4 py-3 align-top">Na prática do professor em sala de aula.</td>
+                        <td class="border border-gray-300 px-4 py-3 align-top">O professor <strong>MEDIA</strong> a aprendizagem a partir do <strong>erro CONSTRUTIVO</strong> do aluno, através do diálogo.</td>
+                        <td class="border border-gray-300 px-4 py-3 align-top">Mediação, Diálogo, Erro Construtivo, Observação, Intervenção Pedagógica.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p class="mb-4 leading-relaxed"><strong>Memorize:</strong></p>
+        <ul class="list-disc list-inside mb-6 space-y-2 leading-relaxed">
+            <li><strong>Luckesi:</strong> Fala do <strong>PORQUÊ</strong> avaliar (para incluir, não excluir). É mais filosófico.</li>
+            <li><strong>Hoffmann:</strong> Fala do <strong>COMO</strong> avaliar (mediando, dialogando, usando o erro). É mais prático.</li>
+        </ul>
+
+        <h2 class="text-2xl font-semibold mt-8 mb-4">3. O que diz a LDB (Lei 9.394/96) - O Artigo que Cai em Prova</h2>
+        <p class="mb-4 leading-relaxed">
+            O ponto mais importante da legislação sobre avaliação está no <strong>Art. 24, Inciso V, alínea 'a'</strong>.
+        </p>
+        <p class="mb-3 leading-relaxed"><strong>Decore a frase:</strong></p>
+        
+        <!-- Bloco de citação para a LDB -->
+        <blockquote class="bg-blue-50 border-l-4 border-blue-400 text-blue-900 p-5 my-6 rounded-r-lg">
+            <p class="font-medium italic">
+                "A avaliação deve ser <strong>'contínua e cumulativa, com prevalência dos aspectos qualitativos sobre os quantitativos e dos resultados ao longo do período sobre os de eventuais provas finais'</strong>.[1, 2]"
+            </p>
+        </blockquote>
+
+        <p class="mb-3 leading-relaxed"><strong>Tradução para o concurso:</strong></p>
+        <ul class="list-disc list-inside mb-5 space-y-2 leading-relaxed">
+            <li><strong>Qualitativo > Quantitativo:</strong> A <strong>qualidade</strong> da aprendizagem (compreensão, aplicação) vale mais que a <strong>quantidade</strong> (nota, pontuação).[3, 4]</li>
+            <li><strong>Processo > Prova Final:</strong> O conjunto de atividades feitas <strong>ao longo do período</strong> tem mais peso que uma única prova no final.[1]</li>
+        </ul>
+        <p class="leading-relaxed">
+            Qualquer prática avaliativa que valorize apenas a nota final em detrimento do processo está em desacordo com a LDB.
+        </p>
+
+        <!-- PÁGINA 2 -->
+        <h1 class="text-3xl font-bold mt-12 mb-6 border-b pb-3">Página 2: Aplicações Práticas e Estratégia de Prova</h1>
+
+        <h2 class="text-2xl font-semibold mt-8 mb-4">4. Instrumentos Avaliativos e Suas Funções (Foco na Formativa)</h2>
+
+        <!-- Tabela 3: Instrumentos -->
+        <div class="overflow-x-auto mb-8">
+            <table class="w-full border-collapse border border-gray-300">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="border border-gray-300 px-4 py-3 text-left font-bold text-gray-700 uppercase text-sm">Instrumento</th>
+                        <th class="border border-gray-300 px-4 py-3 text-left font-bold text-gray-700 uppercase text-sm">Palavra-Chave</th>
+                        <th class="border border-gray-300 px-4 py-3 text-left font-bold text-gray-700 uppercase text-sm">Vantagem Principal</th>
+                        <th class="border border-gray-300 px-4 py-3 text-left font-bold text-gray-700 uppercase text-sm">Aplicação na Área de Informática</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="border border-gray-300 px-4 py-3 align-top"><strong>Portfólio</strong></td>
+                        <td class="border border-gray-300 px-4 py-3 align-top"><strong>Processo / Evolução</strong></td>
+                        <td class="border border-gray-300 px-4 py-3 align-top">Mostra o percurso de aprendizagem do aluno, incluindo suas reflexões.[5]</td>
+                        <td class="border border-gray-300 px-4 py-3 align-top">Um repositório no GitHub com os projetos desenvolvidos ao longo do semestre.</td>
+                    </tr>
+                    <tr>
+                        <td class="border border-gray-300 px-4 py-3 align-top"><strong>Rubrica</strong></td>
+                        <td class="border border-gray-300 px-4 py-3 align-top"><strong>Critérios / Transparência</strong></td>
+                        <td class="border border-gray-300 px-4 py-3 align-top">Torna a avaliação objetiva e clara, definindo níveis de desempenho para cada critério.[6]</td>
+                        <td class="border border-gray-300 px-4 py-3 align-top">Grade para avaliar a qualidade de um código (clareza, eficiência, documentação).</td>
+                    </tr>
+                    <tr>
+                        <td class="border border-gray-300 px-4 py-3 align-top"><strong>Observação e Registro</strong></td>
+                        <td class="border border-gray-300 px-4 py-3 align-top"><strong>Atitudes / Processual</strong></td>
+                        <td class="border border-gray-300 px-4 py-3 align-top">Captura aspectos comportamentais e do processo que uma prova não consegue medir.[7, 8]</td>
+                        <td class="border border-gray-300 px-4 py-3 align-top">Anotar como um aluno colabora em equipe durante um projeto prático.</td>
+                    </tr>
+                    <tr>
+                        <td class="border border-gray-300 px-4 py-3 align-top"><strong>Autoavaliação</strong></td>
+                        <td class="border border-gray-300 px-4 py-3 align-top"><strong>Autonomia / Metacognição</strong></td>
+                        <td class="border border-gray-300 px-4 py-3 align-top">Desenvolve no aluno a capacidade de refletir sobre seu próprio aprendizado ("aprender a aprender").[9, 10]</td>
+                        <td class="border border-gray-300 px-4 py-3 align-top">Aluno preenche um formulário analisando suas dificuldades e aprendizados em um projeto.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="text-2xl font-semibold mt-8 mb-4">5. Avaliação por Competências (Essencial para o Ensino Técnico)</h2>
+        <p class="mb-4 leading-relaxed">
+            A avaliação deve ir além do conteúdo teórico e verificar se o aluno sabe mobilizar seus saberes para resolver problemas reais.
+        </p>
+        <p class="mb-3 leading-relaxed"><strong>Modelo-Chave para Memorizar: C.H.A.</strong> [11]</p>
+        <ul class="list-disc list-inside mb-5 space-y-3 leading-relaxed bg-gray-50 p-5 rounded-lg border">
+            <li><strong>C - Conhecimento (Saber):</strong> A base teórica. <em>Ex: Saber os princípios da Orientação a Objetos.</em></li>
+            <li><strong>H - Habilidade (Saber Fazer):</strong> A aplicação prática (<em>Hard Skill</em>). <em>Ex: Programar em Java aplicando os conceitos de herança e polimorfismo.</em></li>
+            <li><strong>A - Atitude (Saber Ser):</strong> O comportamento (<em>Soft Skill</em>). <em>Ex: Ter resiliência para depurar um código e colaborar com a equipe.</em></li>
+        </ul>
+        <p class="leading-relaxed">
+            <strong>Como avaliar por competências?</strong> Através de projetos integrados que exijam do aluno a mobilização dos três eixos, utilizando <strong>rubricas</strong> que avaliem critérios de Conhecimento, Habilidade e Atitude.[12]
+        </p>
+
+        <h2 class="text-2xl font-semibold mt-8 mb-4">6. Estratégia para a Banca Instituto AOCP</h2>
+        <p class="mb-4 leading-relaxed">
+            A banca AOCP não cobra apenas a definição, mas a <strong>aplicação do conceito em um cenário prático</strong>.[13, 14]
+        </p>
+        <p class="mb-3 leading-relaxed"><strong>Ao ler uma questão, faça 3 perguntas-chave:</strong></p>
+        
+        <!-- Lista Ordenada para a Estratégia -->
+        <ol class="list-decimal list-inside space-y-4 leading-relaxed">
+            <li>
+                <strong>Qual a INTENÇÃO do professor?</strong>
+                <ul class="list-disc list-inside ml-6 mt-2 space-y-1">
+                    <li>É <em>sondar/planejar</em>? <strong>(Diagnóstica)</strong></li>
+                    <li>É <em>acompanhar/regular</em>? <strong>(Formativa)</strong></li>
+                    <li>É <em>classificar/certificar</em>? <strong>(Somativa)</strong></li>
+                </ul>
+            </li>
+            <li>
+                <strong>Qual a POSTURA do professor?</strong>
+                <ul class="list-disc list-inside ml-6 mt-2 space-y-1">
+                    <li>Ele está preocupado com a <strong>inclusão</strong> de todos? (Pense em <strong>Luckesi</strong>)</li>
+                    <li>Ele está <strong>dialogando</strong> e usando o <strong>erro</strong> do aluno para ensinar? (Pense em <strong>Hoffmann</strong>)</li>
+                </ul>
+            </li>
+            <li>
+                <strong>A prática está de acordo com a LDB?</strong>
+                <ul class="list-disc list-inside ml-6 mt-2 space-y-1">
+                    <li>Ela valoriza o <strong>processo</strong> ou só a <strong>prova final</strong>?</li>
+                    <li>Ela foca na <strong>qualidade</strong> da aprendizagem ou só na <strong>nota</strong>?</li>
+                </ul>
+            </li>
+        </ol>
+
+        <p class="mt-6 font-semibold text-lg leading-relaxed p-4 bg-yellow-50 border border-yellow-300 rounded-lg">
+            A resposta correta estará sempre alinhada com a <strong>avaliação formativa</strong>, com as ideias de <strong>inclusão e mediação</strong>, e com o princípio da <strong>prevalência do qualitativo sobre o quantitativo</strong> da LDB.
+        </p>
+
+        <!-- 3. Botão para Questões -->
+        <div class="text-center mt-12 mb-8">
+            <a href="ped-avaliacaoquestoes.html" 
+               class="inline-block bg-blue-600 text-white font-bold py-3 px-10 rounded-lg text-lg transition-colors duration-300 hover:bg-blue-700 shadow-md">
+                Ir para Questões
+            </a>
+        </div>
+
+    </div> <!-- Fim do container principal -->
+
+</body>
+</html>

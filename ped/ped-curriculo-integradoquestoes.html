@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz EPT - Currículo Integrado (Estilo AOCP)</title>
+    <!-- Carrega o Tailwind CSS para estilização -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilos personalizados para melhorar a legibilidade */
+        body {
+            font-family: 'Inter', sans-serif; /* O Tailwind usa 'Inter' por padrão se disponível */
+        }
+        /* Classe para o texto da resolução, melhorando a leitura */
+        .resolution-text p {
+            margin-bottom: 0.75rem; /* 12px */
+            line-height: 1.6;
+        }
+        .resolution-text strong {
+            color: #1f2937; /* text-gray-800 */
+        }
+        /* Estilo para a opção de rádio selecionada */
+        input[type="radio"]:checked + label {
+            border-color: #2563eb; /* blue-600 */
+            background-color: #eff6ff; /* blue-50 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-900 leading-relaxed">
+
+    <!-- Container principal com largura máxima para leitura confortável -->
+    <div class="max-w-4xl mx-auto p-6 md:p-10">
+
+        <header class="text-center mb-10">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">Quiz: Currículo na EPT</h1>
+            <p class="text-lg text-gray-600">Teste seus conhecimentos sobre Concepções de Currículo e Currículo Integrado na Educação Profissional e Tecnológica (Estilo Instituto AOCP).</p>
+        </header>
+
+        <!-- Formulário do Quiz -->
+        <form id="quizForm">
+            
+            <!-- Bloco da Questão 1 -->
+            <div class="bg-white shadow-lg rounded-lg p-6 md:p-8 mb-6 border border-gray-200">
+                <h2 class="text-xl font-bold mb-4">Questão 1</h2>
+                <p class="text-base mb-5">O Decreto nº 5.154/2004 representou uma mudança paradigmática na Educação Profissional e Tecnológica (EPT) no Brasil, revogando o Decreto nº 2.208/1997. A principal alteração de concepção introduzida pelo Decreto nº 5.154/2004 refere-se à</p>
+                <div class="space-y-3">
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q1" value="A" class="mr-3">
+                        (A) extinção da oferta de cursos técnicos na modalidade subsequente, priorizando exclusivamente a articulação com o ensino médio.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q1" value="B" class="mr-3">
+                        (B) obrigatoriedade da matrícula única para todas as formas de articulação da EPT, incluindo a concomitante e a subsequente.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q1" value="C" class="mr-3">
+                        (C) superação da separação compulsória entre o ensino médio e a educação profissional, permitindo a sua integração orgânica em um mesmo currículo.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q1" value="D" class="mr-3">
+                        (D) criação de um currículo profissionalizante único e centralizado pelo Ministério da Educação, eliminando a autonomia das instituições de ensino.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q1" value="E" class="mr-3">
+                        (E) substituição do princípio do trabalho como eixo educativo pela pedagogia das competências, alinhando a EPT estritamente às demandas do mercado.
+                    </label>
+                </div>
+            </div>
+
+            <!-- Bloco da Questão 2 -->
+            <div class="bg-white shadow-lg rounded-lg p-6 md:p-8 mb-6 border border-gray-200">
+                <h2 class="text-xl font-bold mb-4">Questão 2</h2>
+                <p class="text-base mb-5">De acordo com o Art. 4º do Decreto nº 5.154/2004, a articulação entre a educação profissional técnica de nível médio e o ensino médio pode ocorrer de forma integrada, concomitante ou subsequente. Assinale a alternativa que descreve corretamente as características da forma <strong>integrada</strong>.</p>
+                <div class="space-y-3">
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q2" value="A" class="mr-3">
+                        (A) Ofertada a quem já tenha concluído o ensino médio, com currículo focado exclusivamente na formação técnica.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q2" value="B" class="mr-3">
+                        (B) Ofertada a quem está cursando o ensino médio, pressupondo matrículas distintas para cada curso, ainda que na mesma instituição.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q2" value="C" class="mr-3">
+                        (C) Ofertada somente a quem já concluiu o ensino fundamental, sendo o curso planejado de modo a conduzir o aluno à habilitação profissional técnica ao mesmo tempo em que cursa o ensino médio na mesma instituição e sob matrícula única.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q2" value="D" class="mr-3">
+                        (D) Ofertada em instituições distintas por meio de convênios de intercomplementaridade, nos quais o aluno cursa a formação geral em uma escola e a formação profissional em outra, com projetos pedagógicos independentes.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q2" value="E" class="mr-3">
+                        (E) Ofertada como um itinerário formativo flexível, no qual o aluno pode escolher livremente as disciplinas profissionais que deseja cursar, sem a necessidade de completar a formação geral do ensino médio.
+                    </label>
+                </div>
+            </div>
+
+            <!-- Bloco da Questão 3 -->
+            <div class="bg-white shadow-lg rounded-lg p-6 md:p-8 mb-6 border border-gray-200">
+                <h2 class="text-xl font-bold mb-4">Questão 3</h2>
+                <p class="text-base mb-5">Uma instituição federal de educação oferece um curso técnico em Informática articulado ao ensino médio. Os estudantes que ingressam após a conclusão do ensino fundamental podem se matricular em ambos os cursos, que são ofertados no mesmo campus. Contudo, o sistema acadêmico da instituição exige que o estudante realize duas matrículas distintas: uma para o ensino médio regular e outra para o curso técnico. Os horários são organizados de forma que o aluno curse as disciplinas da formação geral em um turno e as disciplinas técnicas no contraturno.
+                Considerando a situação hipotética e as formas de articulação previstas no Decreto nº 5.154/2004, essa oferta é classificada como</p>
+                <div class="space-y-3">
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q3" value="A" class="mr-3">
+                        (A) integrada, pois ocorre na mesma instituição e visa à formação integral do aluno.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q3" value="B" class="mr-3">
+                        (B) subsequente, pois os cursos, apesar de simultâneos, são tratados como etapas independentes.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q3" value="C" class="mr-3">
+                        (C) concomitante, pois a complementaridade entre os cursos se dá com matrículas distintas.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q3" value="D" class="mr-3">
+                        (D) de intercomplementaridade, pois os projetos pedagógicos são unificados em um único currículo.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q3" value="E" class="mr-3">
+                        (E) experimental, pois não se enquadra em nenhuma das modalidades previstas na legislação.
+                    </label>
+                </div>
+            </div>
+
+            <!-- Bloco da Questão 4 -->
+            <div class="bg-white shadow-lg rounded-lg p-6 md:p-8 mb-6 border border-gray-200">
+                <h2 class="text-xl font-bold mb-4">Questão 4</h2>
+                <p class="text-base mb-5">O "Documento Base da Educação Profissional Técnica de Nível Médio Integrada ao Ensino Médio" (2007) estabelece como um de seus princípios norteadores o conceito de "Formação Humana Integral". No contexto do currículo integrado na EPT, esse princípio significa</p>
+                <div class="space-y-3">
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q4" value="A" class="mr-3">
+                        (A) a formação focada prioritariamente no desenvolvimento de competências socioemocionais, em detrimento dos conhecimentos técnicos e científicos.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q4" value="B" class="mr-3">
+                        (B) a soma da carga horária do ensino médio com a carga horária de um curso técnico, resultando em uma formação de tempo integral.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q4" value="C" class="mr-3">
+                        (C) a preparação do estudante exclusivamente para o prosseguimento dos estudos em nível superior, tratando a formação profissional como secundária.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q4" value="D" class="mr-3">
+                        (D) a superação da dualidade histórica entre formação propedêutica e formação profissional, visando ao desenvolvimento do ser humano em todas as suas dimensões: intelectual, social, cultural, ética e produtiva.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q4" value="E" class="mr-3">
+                        (E) a garantia de que o estudante domine todas as técnicas e tecnologias de uma determinada área profissional, tornando-o um especialista altamente qualificado para o mercado.
+                    </label>
+                </div>
+            </div>
+
+            <!-- Bloco da Questão 5 -->
+            <div class="bg-white shadow-lg rounded-lg p-6 md:p-8 mb-6 border border-gray-200">
+                <h2 class="text-xl font-bold mb-4">Questão 5</h2>
+                <p class="text-base mb-5">Um dos pilares conceituais do currículo integrado na EPT é o "trabalho como princípio educativo". A aplicação pedagógica desse princípio em um projeto político-pedagógico integrado se manifesta de forma mais coerente quando</p>
+                <div class="space-y-3">
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q5" value="A" class="mr-3">
+                        (A) os estudantes são inseridos em longos períodos de estágio obrigatório em empresas, a fim de aprenderem na prática as rotinas do mercado de trabalho.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q5" value="B" class="mr-3">
+                        (B) o currículo é organizado para treinar os estudantes em tarefas específicas e repetitivas, visando à máxima eficiência e produtividade em uma função laboral.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q5" value="C" class="mr-3">
+                        (C) o trabalho é abordado como uma categoria de análise para a compreensão da realidade, articulando os conhecimentos científicos, históricos, sociais e culturais aos processos produtivos.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q5" value="D" class="mr-3">
+                        (D) as disciplinas de formação geral são eliminadas do currículo para dar mais espaço às aulas práticas em laboratórios e oficinas, focando no "aprender a fazer".
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q5" value="E" class="mr-3">
+                        (E) os projetos desenvolvidos pelos estudantes visam exclusivamente à criação de produtos e serviços com potencial de comercialização, simulando um ambiente de empreendedorismo.
+                    </label>
+                </div>
+            </div>
+
+            <!-- Bloco da Questão 6 -->
+            <div class="bg-white shadow-lg rounded-lg p-6 md:p-8 mb-6 border border-gray-200">
+                <h2 class="text-xl font-bold mb-4">Questão 6</h2>
+                <p class="text-base mb-5">Após a promulgação do Decreto nº 5.154/2004, que abriu a possibilidade legal para o ensino médio integrado, o Ministério da Educação publicou, em 2007, o "Documento Base da Educação Profissional Técnica de Nível Médio Integrada ao Ensino Médio". A principal finalidade desse documento foi</p>
+                <div class="space-y-3">
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q6" value="A" class="mr-3">
+                        (A) substituir o Decreto nº 5.154/2004, estabelecendo novas regras jurídicas para a oferta de cursos técnicos e revogando as formas concomitante e subsequente.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q6" value="B" class="mr-3">
+                        (B) detalhar os pressupostos, concepções e princípios pedagógicos para a construção de projetos político-pedagógicos integrados, oferecendo um referencial teórico para a política de integração.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q6" value="C" class="mr-3">
+                        (C) criar um catálogo nacional de cursos técnicos, definindo cargas horárias mínimas, perfis profissionais de conclusão e infraestrutura obrigatória para cada habilitação.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q6" value="D" class="mr-3">
+                        (D) regulamentar exclusivamente o financiamento da EPT por meio do Programa Brasil Profissionalizado, sem adentrar em questões curriculares ou pedagógicas.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q6" value="E" class="mr-3">
+                        (E) apresentar um modelo curricular único e obrigatório para todos os cursos técnicos integrados do país, padronizando a oferta em nível nacional.
+                    </label>
+                </div>
+            </div>
+
+            <!-- Bloco da Questão 7 -->
+            <div class="bg-white shadow-lg rounded-lg p-6 md:p-8 mb-6 border border-gray-200">
+                <h2 class="text-xl font-bold mb-4">Questão 7</h2>
+                <p class="text-base mb-5">No debate sobre a organização curricular na Educação Profissional e Tecnológica, é fundamental distinguir os conceitos de interdisciplinaridade e currículo integrado. Embora relacionados, não são sinônimos. A característica que define essencialmente um currículo como <strong>integrado</strong>, para além da interdisciplinaridade, é</p>
+                <div class="space-y-3">
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q7" value="A" class="mr-3">
+                        (A) a realização de projetos pontuais que envolvem professores de diferentes disciplinas para abordar um tema comum, mantendo a estrutura disciplinar fragmentada.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q7" value="B" class="mr-3">
+                        (B) a justaposição de disciplinas da base comum e da base técnica no mesmo turno, sem que haja articulação entre seus conteúdos e objetivos.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q7" value="C" class="mr-3">
+                        (C) a organização do conhecimento em torno de eixos estruturantes, como trabalho, ciência, cultura e tecnologia, buscando a superação da dicotomia entre teoria e prática e a compreensão da totalidade social.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q7" value="D" class="mr-3">
+                        (D) a fusão de todas as disciplinas em uma única área de conhecimento, eliminando as fronteiras entre os saberes específicos.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q7" value="E" class="mr-3">
+                        (E) a simples inclusão de palestras e visitas técnicas no plano de curso para conectar os estudantes com o mundo do trabalho.
+                    </label>
+                </div>
+            </div>
+
+            <!-- Bloco da Questão 8 -->
+            <div class="bg-white shadow-lg rounded-lg p-6 md:p-8 mb-6 border border-gray-200">
+                <h2 class="text-xl font-bold mb-4">Questão 8</h2>
+                <p class="text-base mb-5">O Art. 2º do Decreto nº 5.154/2004 estabelece as premissas que a educação profissional deve observar. Assinale a alternativa que apresenta uma premissa que <strong>NÃO</strong> consta no referido artigo.</p>
+                <div class="space-y-3">
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q8" value="A" class="mr-3">
+                        (A) A organização, por áreas profissionais, em função da estrutura sócio-ocupacional e tecnológica.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q8" value="B" class="mr-3">
+                        (B) A articulação de esforços das áreas da educação, do trabalho e emprego, e da ciência e tecnologia.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q8" value="C" class="mr-3">
+                        (C) A centralidade do trabalho como princípio educativo.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q8" value="D" class="mr-3">
+                        (D) A indissociabilidade entre teoria e prática.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q8" value="E" class="mr-3">
+                        (E) A priorização da pedagogia das competências como modelo avaliativo.
+                    </label>
+                </div>
+            </div>
+
+            <!-- Bloco da Questão 9 -->
+            <div class="bg-white shadow-lg rounded-lg p-6 md:p-8 mb-6 border border-gray-200">
+                <h2 class="text-xl font-bold mb-4">Questão 9</h2>
+                <p class="text-base mb-5">Alguns teóricos da educação defendem que a concepção de currículo integrado na EPT pode se constituir como uma proposta contra-hegemônica. Nessa perspectiva, um currículo contra-hegemônico se opõe à concepção hegemônica tradicional ao</p>
+                <div class="space-y-3">
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q9" value="A" class="mr-3">
+                        (A) focar exclusivamente na formação para a empregabilidade, adaptando o trabalhador de forma acrítica às necessidades imediatas do setor produtivo.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q9" value="B" class="mr-3">
+                        (B) conceber o trabalho apenas em sua dimensão técnica e instrumental, como um conjunto de habilidades a serem adquiridas para o incremento do capital.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q9" value="C" class="mr-3">
+                        (C) promover uma formação que, além de preparar para o exercício de uma profissão, possibilite ao estudante a compreensão crítica das relações sociais de produção e o desenvolvimento pleno de suas capacidades humanas.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q9" value="D" class="mr-3">
+                        (D) separar rigorosamente a formação intelectual da formação manual, destinando a primeira às elites e a segunda à classe trabalhadora, reforçando a dualidade educacional.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q9" value="E" class="mr-3">
+                        (E) adotar um modelo de ensino baseado na memorização de conteúdos descontextualizados da realidade social e produtiva dos estudantes.
+                    </label>
+                </div>
+            </div>
+
+            <!-- Bloco da Questão 10 -->
+            <div class="bg-white shadow-lg rounded-lg p-6 md:p-8 mb-6 border border-gray-200">
+                <h2 class="text-xl font-bold mb-4">Questão 10</h2>
+                <p class="text-base mb-5">O Parecer CNE/CEB nº 39/2004 desempenhou um papel fundamental no período de transição normativa após a publicação do Decreto nº 5.154/2004. A principal contribuição desse parecer foi</p>
+                <div class="space-y-3">
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q10" value="A" class="mr-3">
+                        (A) revogar o Decreto nº 5.154/2004 por considerá-lo incompatível com a Lei de Diretrizes e Bases da Educação Nacional (LDB).
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q10" value="B" class="mr-3">
+                        (B) proibir a oferta de cursos na forma integrada, recomendando que as instituições mantivessem o modelo de separação curricular do decreto anterior.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q10" value="C" class="mr-3">
+                        (C) orientar os sistemas de ensino sobre a aplicação do novo decreto, esclarecendo que a forma integrada, antes vedada por normas infraconstitucionais, passava a ser uma possibilidade legal e legítima de organização curricular.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q10" value="D" class="mr-3">
+                        (D) estabelecer que a educação profissional passaria a ser uma etapa da educação básica, equivalente ao ensino fundamental e médio.
+                    </label>
+                    <label class="block w-full p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-all">
+                        <input type="radio" name="q10" value="E" class="mr-3">
+                        (E) determinar que todas as ofertas de ensino médio no país deveriam, compulsoriamente, ser integradas a uma formação profissional.
+                    </label>
+                </div>
+            </div>
+
+            <!-- Botão de Envio -->
+            <button type="submit" class="w-full bg-blue-600 text-white font-bold text-lg py-4 px-8 rounded-lg shadow-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 mt-4">
+                Finalizar Quiz e Ver Resultados
+            </button>
+        </form>
+
+        <!-- Seção de Resultados (oculta por padrão) -->
+        <section id="results" class="hidden mt-12 bg-white shadow-xl rounded-lg border border-gray-200">
+            <header class="p-6 md:p-10 border-b border-gray-200">
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-4">Resultados e Resoluções</h2>
+                <p id="score" class="text-4xl font-extrabold text-blue-600 text-center"></p>
+                <p id="score-text" class="text-lg text-gray-600 text-center mt-2"></p>
+            </header>
+            
+            <!-- Container para as resoluções -->
+            <div id="resolutions-container" class="p-6 md:p-10">
+                <!-- As resoluções individuais serão injetadas aqui pelo JavaScript -->
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // --- GABARITO E RESOLUÇÕES ---
+
+        // Gabarito oficial
+        const correctAnswers = {
+            q1: 'C', q2: 'C', q3: 'C', q4: 'D', q5: 'C',
+            q6: 'B', q7: 'C', q8: 'E', q9: 'C', q10: 'C'
+        };
+
+        // Textos das resoluções (convertidos para HTML)
+        const resolutions = {
+            q1: `
+                <p><strong>Gabarito: C</strong></p>
+                <p><strong>Análise da Alternativa Correta:</strong> A alternativa (C) descreve com precisão a essência da mudança legislativa e pedagógica promovida pelo Decreto nº 5.154/2004. O decreto anterior, de nº 2.208/1997, instituído em um contexto de reformas neoliberais, impunha uma separação rígida entre a formação geral (ensino médio) e a formação profissional. A educação profissional técnica só podia ser oferecida de forma sequencial (após o ensino médio) ou, no máximo, concomitante, mas sempre em currículos e matrículas distintas, o que na prática reforçava a histórica dualidade educacional brasileira: uma educação propedêutica para as elites e uma formação estritamente instrumental para os trabalhadores. Ao revogar essa norma, o Decreto nº 5.154/2004 reintroduziu a possibilidade de uma articulação orgânica entre essas duas dimensões da formação, permitindo que fossem planejadas e executadas dentro de um mesmo projeto político-pedagógico e de um currículo unificado, materializado na "forma integrada". Essa mudança não foi meramente administrativa, mas sim uma retomada de uma concepção de educação que busca a formação integral do cidadão-trabalhador.</p>
+                <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                <p>(A) Incorreta. O Decreto nº 5.154/2004 não extinguiu a modalidade subsequente. Pelo contrário, ele manteve as três formas de articulação: integrada, concomitante e subsequente, ampliando as possibilidades de oferta em vez de restringi-las.</p>
+                <p>(B) Incorreta. A matrícula única é uma exigência específica da forma <strong>integrada</strong>. A forma concomitante, por definição, pressupõe matrículas distintas, e a subsequente se destina a quem já concluiu o ensino médio, não se aplicando o conceito de matrícula articulada.</p>
+                <p>(D) Incorreta. O decreto não propôs um currículo centralizado. Ele estabeleceu diretrizes gerais, mas a construção dos projetos pedagógicos e dos currículos plenos permaneceu como atribuição de cada instituição e sistema de ensino, respeitando suas vocações e as realidades locais, em consonância com os princípios da LDB.</p>
+                <p>(E) Incorreta. A mudança foi no sentido oposto. O Decreto nº 5.154/2004 resgatou e reforçou a "centralidade do trabalho como princípio educativo" como uma de suas premissas fundamentais (Art. 2º), o que representa uma visão mais crítica e ampla do que a pedagogia das competências, frequentemente associada a um alinhamento mais restrito e instrumental às demandas do mercado.</p>
+            `,
+            q2: `
+                <p><strong>Gabarito: C</strong></p>
+                <p><strong>Análise da Alternativa Correta:</strong> A alternativa (C) sintetiza perfeitamente a definição legal da forma integrada, conforme o Art. 4º, § 1º, inciso I, do Decreto nº 5.154/2004. Os elementos-chave que a caracterizam são: 1) ser ofertada apenas a quem já concluiu o ensino fundamental, pois se trata de uma modalidade do ensino médio; 2) possuir um planejamento curricular unificado que articula a formação geral com a profissional; 3) ocorrer na mesma instituição de ensino; e 4) ser efetivada sob uma <strong>matrícula única</strong> para cada estudante. Este último ponto é o diferenciador jurídico e pedagógico crucial, pois obriga a instituição a conceber e executar um projeto político-pedagógico coeso, onde os conhecimentos não são meramente justapostos, mas verdadeiramente integrados para proporcionar uma formação completa.</p>
+                <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                <p>(A) Incorreta. Esta alternativa descreve a forma <strong>subsequente</strong>, que se destina a estudantes que já finalizaram o ensino médio e buscam apenas a habilitação profissional.</p>
+                <p>(B) Incorreta. A descrição de matrículas distintas para cada curso, mesmo que na mesma instituição, caracteriza a forma <strong>concomitante</strong>. A integração exige a unificação da matrícula, simbolizando a unificação do projeto pedagógico.</p>
+                <p>(D) Incorreta. A oferta em instituições distintas, mesmo com convênios, é uma das possibilidades da forma <strong>concomitante</strong> (especificamente, a concomitância por intercomplementaridade). Na forma integrada, tanto a formação geral quanto a profissional devem ocorrer na mesma instituição e sob o mesmo projeto.</p>
+                <p>(E) Incorreta. O currículo integrado não é um arranjo flexível e desarticulado de disciplinas. Pelo contrário, ele é um projeto intencionalmente planejado para ser coeso e completo, exigindo a conclusão de todos os seus componentes (formação geral e profissional) para a certificação.</p>
+            `,
+            q3: `
+                <p><strong>Gabarito: C</strong></p>
+                <p><strong>Análise da Alternativa Correta:</strong> A alternativa (C) é a correta porque o elemento central que define a modalidade de articulação no cenário descrito é a existência de <strong>matrículas distintas</strong>. De acordo com o Decreto nº 5.154/2004, a forma <strong>concomitante</strong> é aquela "oferecida a quem ingresse no ensino médio ou já o esteja cursando, na qual a complementaridade entre a educação profissional técnica de nível médio e o ensino médio pressupõe a existência de matrículas distintas para cada curso". O fato de a oferta ocorrer na mesma instituição e com horários complementares não a classifica como integrada, pois falta o requisito legal e pedagógico fundamental da matrícula única e, consequentemente, de um projeto político-pedagógico unificado desde sua concepção. A separação das matrículas indica que, administrativamente e, muitas vezes, pedagogicamente, os cursos são tratados como percursos paralelos, ainda que complementares, e não como um todo orgânico.</p>
+                <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                <p>(A) Incorreta. Para ser classificada como integrada, a oferta deveria ter uma matrícula única e um currículo único, que articula os componentes desde o início. A existência de duas matrículas descaracteriza a integração nos termos da lei.</p>
+                <p>(B) Incorreta. A forma subsequente é destinada a quem já concluiu o ensino médio, o que não é o caso dos estudantes do cenário, que cursam ambos simultaneamente.</p>
+                <p>(D) Incorreta. A intercomplementaridade é uma estratégia que pode ser usada na forma concomitante, geralmente entre instituições distintas, para unificar projetos. No entanto, o fator determinante da classificação como concomitante continua sendo as matrículas distintas. Além disso, a descrição não garante que os projetos sejam unificados, apenas que os cursos são oferecidos no mesmo local.</p>
+                <p>(E) Incorreta. A situação descrita se enquadra perfeitamente na definição de concomitância ofertada na mesma instituição, uma das modalidades claramente previstas no Art. 4º do Decreto nº 5.154/2004, não sendo, portanto, um caso experimental ou atípico.</p>
+            `,
+            q4: `
+                <p><strong>Gabarito: D</strong></p>
+                <p><strong>Análise da Alternativa Correta:</strong> A alternativa (D) expressa a concepção central do princípio da "Formação Humana Integral". Este conceito, fundamental para o currículo integrado, propõe ir além da visão reducionista que opõe a formação para o trabalho (profissional) à formação para a vida e para o prosseguimento dos estudos (propedêutica). A formação integral busca o desenvolvimento omnilateral do sujeito, ou seja, em todas as suas dimensões: a cognitiva e intelectual (ciência), a produtiva (trabalho), a social e política (cidadania), a ética e a estética (cultura). Trata-se de um projeto educativo que entende que a preparação para o mundo do trabalho não pode estar desvinculada de uma sólida formação científica, humanística e cultural, pois é essa base que permite ao indivíduo não apenas executar uma função, mas compreender criticamente seu lugar no mundo, na sociedade e nos processos produtivos.</p>
+                <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                <p>(A) Incorreta. A formação integral não prioriza uma dimensão em detrimento de outras. Pelo contrário, ela busca o equilíbrio e a articulação entre todas as dimensões do desenvolvimento humano, incluindo a socioemocional, a técnica e a científica.</p>
+                <p>(B) Incorreta. Embora muitos cursos integrados sejam ofertados em tempo integral, o conceito de "formação integral" é pedagógico e filosófico, não se resumindo a uma questão de carga horária. É possível ter um curso de tempo integral que não promova a formação integral, caso mantenha os saberes fragmentados.</p>
+                <p>(C) Incorreta. Esta alternativa descreve a lógica da educação puramente propedêutica, que é exatamente um dos polos da dualidade que a formação integral visa superar. No currículo integrado, a formação profissional não é secundária, mas sim um dos eixos estruturantes do projeto formativo.</p>
+                <p>(E) Incorreta. Esta visão descreve uma formação tecnicista, focada estritamente na especialização para o mercado. A formação integral, embora qualifique para o trabalho, tem um objetivo mais amplo: a formação do cidadão em sua totalidade, capaz de atuar de forma consciente e crítica na sociedade.</p>
+            `,
+            q5: `
+                <p><strong>Gabarito: C</strong></p>
+                <p><strong>Análise da Alternativa Correta:</strong> A alternativa (C) representa a mais correta e profunda aplicação do "trabalho como princípio educativo". Nessa concepção, o trabalho transcende a dimensão do mero fazer, do treinamento ou do emprego. Ele é entendido como uma atividade humana fundamental que transforma a natureza e a si mesmo, sendo, portanto, uma categoria central para a compreensão da sociedade e da produção do conhecimento. Quando o trabalho é tomado como princípio educativo, o currículo se organiza de forma a permitir que os estudantes compreendam os fenômenos e processos produtivos em sua totalidade, articulando os fundamentos científicos e tecnológicos com suas implicações históricas, sociais, econômicas, culturais e ambientais. Assim, o estudante não aprende apenas a operar uma máquina, mas entende os princípios físicos de seu funcionamento, o contexto histórico de sua invenção e o impacto social de sua utilização.</p>
+                <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                <p>(A) Incorreta. Embora o estágio possa ser um componente formativo, reduzir o princípio do trabalho ao estágio em empresas pode reforçar uma visão de adaptação ao mercado, e não de compreensão crítica do mundo do trabalho.</p>
+                <p>(B) Incorreta. O treinamento em tarefas específicas e repetitivas é característico do modelo taylorista-fordista de produção e de uma pedagogia tecnicista, que é o oposto da formação crítica e integral proposta pelo princípio do trabalho como eixo educativo.</p>
+                <p>(D) Incorreta. A eliminação das disciplinas de formação geral seria uma contradição fundamental com a proposta de currículo integrado. O trabalho como princípio educativo pressupõe justamente a articulação, e não a exclusão, dos saberes gerais para a compreensão dos saberes técnicos.</p>
+                <p>(E) Incorreta. Focar exclusivamente no empreendedorismo e na comercialização pode limitar a compreensão do trabalho à sua dimensão mercantil, ignorando seus aspectos sociais, históricos e culturais, que são centrais para este princípio educativo.</p>
+            `,
+            q6: `
+                <p><strong>Gabarito: B</strong></p>
+                <p><strong>Análise da Alternativa Correta:</strong> A alternativa (B) define com exatidão o propósito do "Documento Base" de 2007. Enquanto o Decreto nº 5.154/2004 estabeleceu o arcabouço legal que permitia a integração, havia a necessidade de um referencial que aprofundasse as bases conceituais, filosóficas e pedagógicas dessa proposta. O "Documento Base" cumpriu esse papel ao contextualizar historicamente a política de integração, apresentar seus princípios norteadores (como a formação humana integral, o trabalho como princípio educativo, a pesquisa como princípio pedagógico e a indissociabilidade entre trabalho, ciência, tecnologia e cultura) e oferecer fundamentos para que as instituições de ensino pudessem construir seus próprios projetos político-pedagógicos integrados de forma consistente e qualificada. Portanto, ele serviu como um guia teórico e político para dar substância à mudança legal.</p>
+                <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                <p>(A) Incorreta. O "Documento Base" não é um dispositivo legal e não tem poder para substituir ou revogar um decreto. Ele é um documento de orientação política e pedagógica, subordinado à legislação vigente, incluindo o Decreto nº 5.154/2004.</p>
+                <p>(C) Incorreta. A criação do Catálogo Nacional de Cursos Técnicos (CNCT) é uma outra iniciativa do MEC/SETEC, com o objetivo de organizar e orientar a oferta de cursos em nível nacional. Embora relacionado à EPT, não foi a finalidade principal do "Documento Base", que tem um foco mais conceitual e pedagógico na integração.</p>
+                <p>(D) Incorreta. O documento aborda, sim, a questão do financiamento e menciona o Programa Brasil Profissionalizado, mas seu foco principal e sua maior contribuição residem na densa discussão sobre as concepções e princípios pedagógicos do ensino médio integrado.</p>
+                <p>(E) Incorreta. O "Documento Base" explicitamente se opõe à ideia de um modelo curricular único e padronizado. Ele oferece princípios e fundamentos para que cada instituição, a partir de sua realidade, construa seu próprio projeto integrado, fomentando a autonomia e a diversidade.</p>
+            `,
+            q7: `
+                <p><strong>Gabarito: C</strong></p>
+                <p><strong>Análise da Alternativa Correta:</strong> A alternativa (C) captura a essência do que diferencia um currículo verdadeiramente integrado de abordagens meramente interdisciplinares. Enquanto a interdisciplinaridade promove diálogos e conexões entre disciplinas distintas, ela pode ocorrer de forma pontual dentro de uma estrutura curricular que permanece fragmentada. O currículo integrado, por sua vez, propõe uma reorganização epistemológica e estrutural mais profunda. Ele parte de eixos estruturantes (trabalho, ciência, cultura e tecnologia) que servem como elementos unificadores do conhecimento. Nesse modelo, as disciplinas não são vistas como fins em si mesmas, mas como ferramentas que, de forma articulada, contribuem para a compreensão de problemas complexos da realidade e para a formação integral do estudante. A superação da dicotomia entre teoria e prática e a busca pela compreensão da totalidade são, portanto, marcas distintivas da integração, que pressupõe a interdisciplinaridade, mas vai além dela ao visar a uma unidade orgânica do projeto formativo.</p>
+                <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                <p>(A) Incorreta. A realização de projetos pontuais é uma excelente prática interdisciplinar, mas não garante, por si só, que o currículo como um todo seja integrado. A integração exige que essa articulação seja o princípio organizador de todo o currículo, e não uma atividade esporádica.</p>
+                <p>(B) Incorreta. A justaposição de disciplinas, mesmo que no mesmo espaço físico ou temporal, representa a antítese da integração. É um modelo fragmentado, onde os saberes coexistem sem diálogo, o que o currículo integrado busca superar.</p>
+                <p>(D) Incorreta. A integração não propõe a fusão ou o desaparecimento das disciplinas, mas sim a sua articulação significativa. As diferentes áreas do conhecimento mantêm suas especificidades, mas são trabalhadas de forma a se relacionarem e se complementarem na análise dos eixos estruturantes.</p>
+                <p>(E) Incorreta. Palestras e visitas técnicas são atividades complementares importantes, mas não constituem o núcleo da integração curricular. A integração se dá na concepção e na prática pedagógica cotidiana, na forma como os conhecimentos são selecionados, organizados e trabalhados em sala de aula e nos laboratórios.</p>
+            `,
+            q8: `
+                <p><strong>Gabarito: E</strong></p>
+                <p><strong>Análise da Alternativa Correta:</strong> A alternativa (E) é a correta porque a "priorização da pedagogia das competências como modelo avaliativo" <strong>não</strong> é uma das premissas listadas no Art. 2º do Decreto nº 5.154/2004. As premissas explicitamente mencionadas no texto legal são: I - organização, por áreas profissionais; II - articulação de esforços das áreas da educação, do trabalho e da ciência e tecnologia; III - centralidade do trabalho como princípio educativo; e IV - indissociabilidade entre teoria e prática. A pedagogia das competências, embora seja um referencial teórico presente no campo da educação profissional, não foi estabelecida como uma premissa obrigatória pelo referido decreto. Na verdade, a ênfase do decreto em conceitos como "trabalho como princípio educativo" e "formação integral" aponta para uma base filosófica que, em muitos aspectos, se contrapõe a uma aplicação meramente instrumental da pedagogia das competências. Questões como esta, que exigem o conhecimento literal da legislação, são comuns no estilo da banca Instituto AOCP.</p>
+                <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                <p>(A) Incorreta. A "organização, por áreas profissionais, em função da estrutura sócio-ocupacional e tecnológica" é o inciso I do Art. 2º do Decreto nº 5.154/2004.</p>
+                <p>(B) Incorreta. A "articulação de esforços das áreas da educação, do trabalho e emprego, e da ciência e tecnologia" é o inciso II do Art. 2º do Decreto nº 5.154/2004, com redação ligeiramente alterada por decretos posteriores, mas mantendo o mesmo sentido.</p>
+                <p>(C) Incorreta. A "centralidade do trabalho como princípio educativo" é o inciso III do Art. 2º do Decreto nº 5.154/2004 e um dos pilares da concepção de currículo integrado.</p>
+                <p>(D) Incorreta. A "indissociabilidade entre teoria e prática" é o inciso IV do Art. 2º do Decreto nº 5.154/2004, reforçando a superação da dicotomia entre o saber e o fazer.</p>
+            `,
+            q9: `
+                <p><strong>Gabarito: C</strong></p>
+                <p><strong>Análise da Alternativa Correta:</strong> A alternativa (C) define adequadamente o potencial contra-hegemônico do currículo integrado. A concepção hegemônica da EPT, historicamente, esteve atrelada à lógica do capital, visando formar mão de obra para atender às demandas do mercado de trabalho de forma eficiente e, muitas vezes, acrítica. Um currículo contra-hegemônico, em contraste, busca romper com essa lógica. Ele não nega a importância da preparação para o mundo do trabalho, mas a ressignifica. Ao promover uma formação que articula o conhecimento técnico com uma sólida base científica, histórica, social e cultural, ele visa capacitar o estudante não apenas para "fazer", mas para "entender o que faz, por que faz e para quem faz". Essa compreensão crítica das relações de produção, do desenvolvimento tecnológico e de seu papel na sociedade é o que permite o pleno desenvolvimento das capacidades humanas e abre caminho para a atuação cidadã e a transformação social, em vez da simples adaptação ao <em>status quo</em>.</p>
+                <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                <p>(A) Incorreta. Esta alternativa descreve precisamente a concepção hegemônica, adaptativa e instrumental, que a proposta contra-hegemônica busca superar.</p>
+                <p>(B) Incorreta. Esta é outra caracterização da visão hegemônica, que reduz o trabalho à sua dimensão de mercadoria ou fator de produção, ignorando seu potencial como atividade criativa e de realização humana.</p>
+                <p>(D) Incorreta. A separação rigorosa entre formação intelectual e manual é a manifestação da dualidade educacional, um pilar da estrutura social hegemônica que o currículo integrado visa combater por meio da união entre teoria e prática e entre formação geral e profissional.</p>
+                <p>(E) Incorreta. Um currículo baseado em conteúdos descontextualizados é alienante e funcional à manutenção da ordem vigente. A proposta contra-hegemônica, ao contrário, parte da realidade concreta e do trabalho como princípio educativo para construir um conhecimento significativo e libertador.</p>
+            `,
+            q10: `
+                <p><strong>Gabarito: C</strong></p>
+                <p><strong>Análise da Alternativa Correta:</strong> A alternativa (C) descreve com precisão a função histórica e normativa do Parecer CNE/CEB nº 39/2004. Após a publicação do Decreto nº 5.154/2004, surgiram muitas dúvidas nos sistemas de ensino sobre como aplicá-lo, especialmente porque a forma integrada de oferta havia sido expressamente proibida por resoluções anteriores do próprio Conselho Nacional de Educação (CNE), emitidas sob a égide do Decreto nº 2.208/1997. O Parecer nº 39/2004, intitulado "Aplicação do Decreto nº 5.154/2004 na Educação Profissional Técnica de nível médio e no Ensino Médio", serviu como um documento oficial de interpretação e orientação do CNE. Ele esclareceu que, com a revogação do decreto anterior, as normas que impediam a integração perdiam sua validade, e que a forma integrada passava a ser uma alternativa plenamente legal e pedagogicamente desejável, alinhada com a LDB. Dessa forma, o parecer deu segurança jurídica e legitimidade pedagógica para que as instituições começassem a desenvolver e a implementar os projetos de ensino médio integrado.</p>
+                <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                <p>(A) Incorreta. Um parecer do CNE não tem poder para revogar um decreto presidencial. Sua função é interpretar e regulamentar a aplicação da legislação no âmbito educacional. O parecer, na verdade, validou a conformidade do decreto com a LDB.</p>
+                <p>(B) Incorreta. O parecer fez o oposto: ele confirmou a legalidade da forma integrada e orientou sua implementação, alinhando-se à nova legislação.</p>
+                <p>(D) Incorreta. A educação profissional é uma modalidade da educação nacional que perpassa diferentes níveis, mas não é, em si, uma etapa da educação básica. Ela se articula com o ensino médio (que é a última etapa da educação básica) e com o ensino superior.</p>
+                <p>(E) Incorreta. O parecer não tornou a forma integrada compulsória. Ele a apresentou como uma das três possibilidades de articulação (junto com a concomitante e a subsequente), deixando a escolha a critério dos sistemas e das instituições de ensino.</p>
+            `
+        };
+
+        // --- LÓGICA DO QUIZ ---
+
+        const quizForm = document.getElementById('quizForm');
+        const resultsSection = document.getElementById('results');
+        const scoreElement = document.getElementById('score');
+        const scoreTextElement = document.getElementById('score-text');
+        const resolutionsContainer = document.getElementById('resolutions-container');
+        const totalQuestions = 10;
+
+        quizForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede o envio real do formulário
+
+            let score = 0;
+            const formData = new FormData(quizForm);
+            resolutionsContainer.innerHTML = ''; // Limpa resoluções anteriores
+
+            // Itera por todas as 10 questões
+            for (let i = 1; i <= totalQuestions; i++) {
+                const questionKey = 'q' + i;
+                const userAnswer = formData.get(questionKey);
+                const correctAnswer = correctAnswers[questionKey];
+                const resolutionText = resolutions[questionKey];
+
+                let isCorrect = (userAnswer === correctAnswer);
+                if (isCorrect) {
+                    score++;
+                }
+
+                // Cria o HTML para o bloco de resolução
+                const resolutionBlock = document.createElement('div');
+                resolutionBlock.className = 'resolution-block border-b border-gray-200 py-6 last:border-b-0';
+
+                let feedbackClass = '';
+                let feedbackText = '';
+
+                if (!userAnswer) {
+                    feedbackClass = 'text-yellow-600 font-bold';
+                    feedbackText = 'Você não respondeu esta questão.';
+                } else if (isCorrect) {
+                    feedbackClass = 'text-green-600 font-bold';
+                    feedbackText = 'Você acertou!';
+                } else {
+                    feedbackClass = 'text-red-600 font-bold';
+                    feedbackText = 'Você errou.';
+                }
+
+                resolutionBlock.innerHTML = `
+                    <h3 class="text-xl font-bold mb-3">Questão ${i}</h3>
+                    <div class="space-y-2 mb-4 text-base">
+                        <p><strong>Sua resposta:</strong> ${userAnswer ? `( ${userAnswer} )` : 'Nenhuma'}</p>
+                        <p><strong>Resposta correta:</strong> ( ${correctAnswer} )</p>
+                        <p class="${feedbackClass}">${feedbackText}</p>
+                    </div>
+                    <div class="resolution-text bg-gray-50 border border-gray-200 rounded-md p-4 mt-4 text-sm">
+                        <h4 class="text-base font-bold mb-2 text-gray-800">Análise da Questão</h4>
+                        ${resolutionText}
+                    </div>
+                `;
+                
+                resolutionsContainer.appendChild(resolutionBlock);
+            }
+
+            // Exibe o placar final
+            scoreElement.textContent = `${score} de ${totalQuestions} acertos`;
+            let scoreMessage = '';
+            if (score <= 3) {
+                scoreMessage = 'Continue estudando! O tema é complexo.';
+            } else if (score <= 6) {
+                scoreMessage = 'Bom resultado! Mas revise as resoluções para fixar o conteúdo.';
+            } else if (score <= 9) {
+                scoreMessage = 'Ótimo desempenho! Você está no caminho certo.';
+            } else {
+                scoreMessage = 'Parabéns! Você gabaritou o quiz!';
+            }
+            scoreTextElement.textContent = scoreMessage;
+
+
+            // Esconde o formulário e exibe os resultados
+            quizForm.classList.add('hidden');
+            resultsSection.classList.remove('hidden');
+
+            // Rola a página para o topo dos resultados
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+        });
+
+    </script>
+</body>
+</html>
+

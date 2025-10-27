@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Educação Profissional e Tecnológica (EPT)</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Importa a fonte Inter para uma melhor legibilidade -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Define a fonte Inter como padrão e aplica um fundo claro */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa; /* Fundo claro (cinza muito suave) */
+            color: #212529; /* Texto escuro (preto suave) */
+            line-height: 1.6; /* Altura da linha para leitura longa */
+        }
+        
+        /* Estilos personalizados para os botões de rádio */
+        .radio-label:has(input:checked) {
+            background-color: #e6f7ff; /* Azul bem claro */
+            border-color: #007bff; /* Azul primário */
+            box-shadow: 0 0 0 1px #007bff;
+        }
+        
+        /* Garante que o conteúdo das resoluções quebre a linha corretamente */
+        .resolution-content p, 
+        .resolution-content li {
+            margin-bottom: 0.75rem; /* 12px */
+        }
+        .resolution-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        .resolution-content th, 
+        .resolution-content td {
+            border: 1px solid #dee2e6; /* Borda da tabela */
+            padding: 0.75rem; /* 12px */
+            text-align: left;
+        }
+        .resolution-content th {
+            background-color: #f1f3f5; /* Fundo do cabeçalho da tabela */
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="container mx-auto max-w-4xl p-4 sm:p-8">
+        
+        <!-- Cabeçalho do Quiz -->
+        <header class="text-center mb-8">
+            <h1 class="text-3xl sm:text-4xl font-bold text-blue-900">Quiz: Educação Profissional e Tecnológica</h1>
+            <p class="text-lg text-gray-700 mt-2">Estilo Instituto AOCP</p>
+        </header>
+
+        <!-- Formulário do Quiz -->
+        <form id="quizForm" class="space-y-6">
+            <!-- As questões serão injetadas aqui pelo JavaScript -->
+        </form>
+
+        <!-- Botão de Submissão -->
+        <button id="submitButton" type="submit" form="quizForm" class="w-full mt-8 bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors duration-200 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+            Finalizar Quiz e Ver Resultados
+        </button>
+
+        <!-- Seção de Resultados (inicialmente oculta) -->
+        <section id="results" class="hidden mt-10 text-center bg-white p-6 rounded-lg shadow-lg border border-gray-200">
+            <h2 id="scoreSummary" class="text-3xl font-bold text-blue-900"></h2>
+            <button id="resetButton" class="mt-6 bg-gray-600 text-white py-2 px-5 rounded-lg font-semibold text-md hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+                Refazer Quiz
+            </button>
+        </section>
+
+        <!-- Seção de Resoluções (inicialmente oculta) -->
+        <section id="resolutions" class="hidden mt-8 space-y-6">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Gabarito e Resoluções Comentadas</h2>
+            <!-- As resoluções serão injetadas aqui -->
+        </section>
+
+    </div>
+
+    <script>
+        // --- BANCO DE DADOS DAS QUESTÕES ---
+        // (Extraído diretamente do documento fornecido)
+        const quizData = [
+            {
+                id: "q1",
+                question: "O marco inicial da Educação Profissional e Tecnológica (EPT) como política pública no Brasil é o Decreto nº 7.566, de 23 de setembro de 1909, assinado pelo então presidente Nilo Peçanha. Esse decreto instituiu a primeira rede de escolas profissionais no país. De acordo com o contexto histórico e o texto do referido decreto, assinale a alternativa que descreve corretamente o nome e o principal objetivo dessas instituições pioneiras.",
+                options: {
+                    a: "Centros Federais de Educação Tecnológica (CEFETs), com o objetivo de formar mão de obra qualificada para a nascente indústria nacional.",
+                    b: "Escolas Técnicas Federais, com o objetivo de oferecer ensino secundário com viés técnico para as elites locais.",
+                    c: "Escolas de Aprendizes Artífices, com o objetivo de oferecer ensino primário e profissional aos filhos dos \"desfavorecidos da fortuna\", visando afastá-los da ociosidade e prepará-los para ofícios manuais.",
+                    d: "Escolas do Sistema S (SENAI), com o objetivo de atender à demanda por trabalhadores especializados gerada pelo processo de industrialização do Estado Novo.",
+                    e: "Liceus de Artes e Ofícios, com o objetivo de promover a formação artística e cultural, desvinculada da preparação para o trabalho industrial."
+                },
+                correct: "c",
+                resolution: `
+                    <p><strong>Análise da Alternativa Correta:</strong> A alternativa está correta ao identificar as instituições criadas pelo Decreto nº 7.566/1909 como "Escolas de Aprendizes Artífices". O objetivo principal, explicitado nos considerandos do decreto, não era primariamente econômico, mas sim social e assistencialista. A norma visava atender às "classes proletárias" e habilitar os "filhos dos desfavorecidos da fortuna", oferecendo-lhes um ofício para evitar que caíssem na "ociosidade ignorante, escola de vício e crime". Essa visão inicial da EPT como um instrumento de amparo social e controle é fundamental para compreender sua trajetória histórica no Brasil.</p>
+                    <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>a) Os CEFETs surgiram muito depois, a partir da transformação de Escolas Técnicas Federais em 1978.</li>
+                        <li>b) As Escolas Técnicas Federais são uma denominação posterior, de 1959, e o ensino não se destinava às elites, mas sim às camadas populares.</li>
+                        <li>d) O SENAI foi criado em 1942, durante o Estado Novo, em um contexto de industrialização acelerada, com um objetivo claramente focado em qualificar mão de obra para a indústria, diferentemente do caráter assistencialista de 1909.</li>
+                        <li>e) Os Liceus de Artes e Ofícios foram importantes instituições, mas surgiram no século XIX por iniciativa privada ou de associações, com focos variados, e não compõem a rede federal criada em 1909.</li>
+                    </ul>
+                `
+            },
+            {
+                id: "q2",
+                question: "A Lei de Diretrizes e Bases da Educação Nacional (LDB), Lei nº 9.394/96, estabelece os princípios e fins da educação no Brasil. A Educação Profissional e Tecnológica, como modalidade de ensino, encontra seu fundamento em um desses princípios basilares. Assinale a alternativa que apresenta o princípio da LDB que estabelece a conexão fundamental entre a formação geral e a preparação para o mundo produtivo.",
+                options: {
+                    a: "Gratuidade do ensino público em estabelecimentos oficiais.",
+                    b: "Gestão democrática do ensino público, na forma desta Lei e da legislação dos sistemas de ensino.",
+                    c: "Valorização da experiência extraescolar.",
+                    d: "Vinculação entre a educação escolar, o trabalho e as práticas sociais.",
+                    e: "Pluralismo de ideias e de concepções pedagógicas."
+                },
+                correct: "d",
+                resolution: `
+                    <p><strong>Análise da Alternativa Correta:</strong> A alternativa está correta. O inciso XI do Art. 3º da Lei nº 9.394/96 estabelece a "vinculação entre a educação escolar, o trabalho e as práticas sociais" como um dos princípios norteadores do ensino no país. Este princípio é a base filosófica e legal que sustenta toda a estrutura da Educação Profissional e Tecnológica. Ele legitima a EPT não como um apêndice do sistema educacional, mas como uma parte intrínseca dele, cuja missão é integrar a formação humana, científica e cultural à preparação para a vida produtiva e o exercício da cidadania. Legislações posteriores, como o Decreto nº 5.154/2004 e a Lei nº 11.892/2008, podem ser vistas como a materialização e a regulamentação deste princípio fundamental da LDB.</p>
+                    <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>a), b), c) e e) são, de fato, princípios da LDB listados no Art. 3º, mas não são o princípio específico que fundamenta a relação entre educação e mundo do trabalho, que é o cerne da EPT.</li>
+                    </ul>
+                `
+            },
+            {
+                id: "q3",
+                question: "O Decreto nº 5.154/2004 regulamenta a Educação Profissional Técnica de Nível Médio, estabelecendo diferentes formas de articulação com o Ensino Médio. Uma dessas formas é caracterizada por ser oferecida somente a quem já concluiu o ensino fundamental, com um projeto pedagógico unificado e matrícula única na mesma instituição de ensino. Essa descrição corresponde à forma:",
+                options: {
+                    a: "concomitante.",
+                    b: "subsequente.",
+                    c: "integrada.",
+                    d: "modular.",
+                    e: "especial."
+                },
+                correct: "c",
+                resolution: `
+                    <p><strong>Análise da Alternativa Correta:</strong> A alternativa está correta. A forma <strong>integrada</strong> é precisely definida no Art. 4º, § 1º, inciso I, do Decreto nº 5.154/2004. Suas características essenciais são: ser oferecida a quem já concluiu o ensino fundamental, possuir um currículo que integra os componentes da formação geral e da formação profissional em um projeto pedagógico único, e ser formalizada por meio de uma matrícula única para o curso, que conduz o aluno à habilitação profissional técnica de nível médio ao mesmo tempo em que conclui o ensino médio.</p>
+                    <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>a) A forma <strong>concomitante</strong> pressupõe matrículas distintas, uma para o ensino médio e outra para o curso técnico, podendo ocorrer na mesma instituição ou em instituições diferentes.</li>
+                        <li>b) A forma <strong>subsequente</strong> é destinada exclusivamente a quem já concluiu o ensino médio.</li>
+                        <li>d) e e) "Modular" e "especial" não são formas de articulação previstas no Art. 4º do referido decreto.</li>
+                    </ul>
+                    <p class="mt-4">Para maior clareza, a tabela a seguir resume as diferenças:</p>
+                    <table class="min-w-full border-collapse border border-gray-300">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="border border-gray-300 p-2 text-left">Forma de Articulação</th>
+                                <th class="border border-gray-300 p-2 text-left">Requisito de Ingresso</th>
+                                <th class="border border-gray-300 p-2 text-left">Matrícula</th>
+                                <th class="border border-gray-300 p-2 text-left">Organização Pedagógica</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border border-gray-300 p-2"><strong>Integrada</strong></td>
+                                <td class="border border-gray-300 p-2">Conclusão do Ensino Fundamental</td>
+                                <td class="border border-gray-300 p-2">Matrícula Única</td>
+                                <td class="border border-gray-300 p-2">Projeto Pedagógico Unificado na mesma instituição</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 p-2"><strong>Concomitante</strong></td>
+                                <td class="border border-gray-300 p-2">Cursando o Ensino Médio</td>
+                                <td class="border border-gray-300 p-2">Matrículas Distintas</td>
+                                <td class="border border-gray-300 p-2">Cursos distintos (na mesma ou em diferentes instituições)</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 p-2"><strong>Subsequente</strong></td>
+                                <td class="border border-gray-300 p-2">Conclusão do Ensino Médio</td>
+                                <td class="border border-gray-300 p-2">Matrícula no Curso Técnico</td>
+                                <td class="border border-gray-300 p-2">Curso independente, após o Ensino Médio</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                `
+            },
+            {
+                id: "q4",
+                question: "A Lei nº 11.892, de 29 de dezembro de 2008, instituiu a Rede Federal de Educação Profissional, Científica e Tecnológica. Essa rede é composta por um conjunto diversificado de instituições vinculadas ao Ministério da Educação. Assinale a alternativa que apresenta APENAS instituições que compõem a referida Rede Federal.",
+                options: {
+                    a: "Institutos Federais (IFs), Escolas Técnicas Estaduais (ETEs) e o Serviço Nacional de Aprendizagem Industrial (SENAI).",
+                    b: "Centros Federais de Educação Tecnológica (CEFETs), Universidade Tecnológica Federal do Paraná (UTFPR) e o Serviço Nacional de Aprendizagem Comercial (SENAC).",
+                    c: "Institutos Federais (IFs), Universidade Tecnológica Federal do Paraná (UTFPR), CEFET-RJ, CEFET-MG e o Colégio Pedro II.",
+                    d: "Colégio Pedro II, Escolas Técnicas Vinculadas às Universidades Federais e as Secretarias Estaduais de Educação.",
+                    e: "Universidades Federais, Institutos Federais (IFs) e as instituições privadas de ensino técnico."
+                },
+                correct: "c",
+                resolution: `
+                    <p><strong>Análise da Alternativa Correta:</strong> A alternativa está correta, pois lista apenas instituições que, segundo o Art. 1º da Lei nº 11.892/2008, compõem a Rede Federal de Educação Profissional, Científica e Tecnológica. A rede é constituída por: I - Institutos Federais (IFs); II - Universidade Tecnológica Federal do Paraná (UTFPR); III - CEFET-RJ e CEFET-MG; IV - Escolas Técnicas Vinculadas às Universidades Federais; e V - Colégio Pedro II.</p>
+                    <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>a) Escolas Técnicas Estaduais (ETEs) e SENAI não fazem parte da Rede Federal, pois pertencem, respectivamente, às redes estaduais e ao Sistema S.</li>
+                        <li>b) O SENAC, assim como o SENAI, pertence ao Sistema S e não à Rede Federal.</li>
+                        <li>d) As Secretarias Estaduais de Educação são órgãos de gestão das redes estaduais, não instituições da Rede Federal.</li>
+                        <li>e) Universidades Federais (com exceção da UTFPR, que é listada especificamente) e instituições privadas não integram a Rede Federal de EPT definida por esta lei.</li>
+                    </ul>
+                `
+            },
+            {
+                id: "q5",
+                question: "O Decreto nº 5.154/2004, com as alterações promovidas pelo Decreto nº 8.268/2014, estabelece premissas fundamentais para a organização da Educação Profissional e Tecnológica. Dentre elas, destaca-se um princípio que orienta a organização curricular e as práticas pedagógicas, reconhecendo a dimensão educativa das atividades laborais. Assinale a alternativa que apresenta corretamente esse princípio.",
+                options: {
+                    a: "A separação rigorosa entre teoria e prática.",
+                    b: "A priorização da formação acadêmica em detrimento da formação técnica.",
+                    c: "A centralidade do trabalho como princípio educativo.",
+                    d: "A organização curricular estritamente por disciplinas isoladas.",
+                    e: "A articulação exclusiva com o setor primário da economia."
+                },
+                correct: "c",
+                resolution: `
+                    <p><strong>Análise da Alternativa Correta:</strong> A alternativa está correta. O Decreto nº 5.154/2004, em seu Art. 2º, inciso III (incluído pelo Decreto nº 8.268/2014), estabelece "a centralidade do trabalho como princípio educativo" como uma das premissas da educação profissional. Isso significa que o trabalho não é visto apenas como um conjunto de técnicas a serem aprendidas, mas como uma atividade humana fundamental que produz conhecimento, cultura e a própria sociedade. Portanto, as práticas pedagógicas e os currículos da EPT devem ser organizados em torno desse princípio, integrando ciência, tecnologia, cultura e trabalho.</p>
+                    <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>a) A norma prega o contrário, a "indissociabilidade entre teoria e prática" (Art. 2º, inciso IV).</li>
+                        <li>b) A EPT busca a integração entre a formação acadêmica (geral) e a formação técnica, não a sobreposição de uma pela outra.</li>
+                        <li>d) A organização curricular da EPT tende a ser por eixos tecnológicos e competências, superando o modelo disciplinar isolado.</li>
+                        <li>e) A EPT deve se articular com todos os setores da economia, conforme as potencialidades locais e regionais.</li>
+                    </ul>
+                `
+            },
+            {
+                id: "q6",
+                question: "Em 2004, a publicação do Decreto nº 5.154 representou uma mudança significativa na política para a Educação Profissional Técnica de Nível Médio, revogando expressamente o Decreto nº 2.208/97. A principal mudança de paradigma entre a norma revogada e a nova norma consistiu em:",
+                options: {
+                    a: "extinguir a oferta de cursos técnicos subsequentes ao ensino médio.",
+                    b: "proibir a oferta de educação profissional por instituições privadas.",
+                    c: "superar o modelo de separação entre a formação geral (ensino médio) e a formação profissional, permitindo e incentivando a oferta integrada.",
+                    d: "tornar a matrícula na educação profissional obrigatória para todos os estudantes do ensino médio.",
+                    e: "transferir a responsabilidade pela educação profissional da União para os municípios."
+                },
+                correct: "c",
+                resolution: `
+                    <p><strong>Análise da Alternativa Correta:</strong> A alternativa está correta. O Decreto nº 2.208/97, editado no contexto da reforma educacional dos anos 1990, estabelecia uma separação rígida entre o ensino médio e a educação profissional, que só poderia ser ofertada de forma subsequente ou concomitante (em matrículas separadas). O Decreto nº 5.154/2004 revogou essa norma e reintroduziu a possibilidade da oferta <strong>integrada</strong>, permitindo a construção de um projeto pedagógico unificado que articula formação geral e profissional. Essa mudança representou a superação de um modelo dualista, que separava o "pensar" do "fazer", em favor de uma concepção de formação humana integral.</p>
+                    <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>a) O Decreto nº 5.154/2004 manteve a oferta de cursos subsequentes, ampliando as possibilidades, não as restringindo.</li>
+                        <li>b) Não houve proibição da oferta privada; a legislação se aplica a ambas as redes.</li>
+                        <li>d) A matrícula na EPT permaneceu voluntária.</li>
+                        <li>e) A responsabilidade pela EPT continua compartilhada entre os entes federados, com a União mantendo sua rede federal.</li>
+                    </ul>
+                `
+            },
+            {
+                id: "q7",
+                question: "Os Institutos Federais de Educação, Ciência e Tecnologia (IFs) são definidos como instituições pluricurriculares e multicampi, com uma organização que lhes permite atuar em diversos níveis e modalidades de ensino. Essa característica, que possibilita ao estudante ingressar em um curso de qualificação básica e prosseguir seus estudos até a pós-graduação na mesma instituição, é conhecida como:",
+                options: {
+                    a: "horizontalização do ensino.",
+                    b: "fragmentação curricular.",
+                    c: "especialização produtiva.",
+                    d: "verticalização do ensino.",
+                    e: "autonomia didático-pedagógica."
+                },
+                correct: "d",
+                resolution: `
+                    <p><strong>Análise da Alternativa Correta:</strong> A alternativa está correta. A <strong>verticalização do ensino</strong> é uma das características centrais do modelo dos Institutos Federais, conforme previsto na Lei nº 11.892/2008. Ela se refere à possibilidade de a instituição oferecer uma trajetória formativa completa, desde a formação inicial e continuada (FIC) e cursos técnicos de nível médio, passando pela graduação (tecnologia, licenciatura, bacharelado) até a pós-graduação (especialização, mestrado e doutorado). Essa estrutura permite a integração entre os diferentes níveis de ensino e otimiza o uso de recursos, além de criar um ambiente acadêmico rico e diversificado.</p>
+                    <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>a) "Horizontalização" seria o oposto, focando em apenas um nível de ensino.</li>
+                        <li>b) A verticalização busca a integração, e não a fragmentação curricular.</li>
+                        <li>c) "Especialização produtiva" é um conceito econômico, não pedagógico.</li>
+                        <li>e) A autonomia didático-pedagógica é uma característica dos IFs, mas não descreve a oferta de múltiplos níveis de ensino. A verticalização é uma das formas como essa autonomia se manifesta.</li>
+                    </ul>
+                `
+            },
+            {
+                id: "q8",
+                question: "O Decreto nº 5.154/2004 prevê que os cursos e programas de educação profissional podem ser organizados de modo a permitir o aproveitamento contínuo e articulado dos estudos. Essa organização, que compõe um conjunto de etapas formativas em uma determinada área, permitindo saídas intermediárias com certificação de qualificação para o trabalho, é denominada:",
+                options: {
+                    a: "grade curricular fechada.",
+                    b: "itinerário formativo.",
+                    c: "dependência disciplinar.",
+                    d: "currículo oculto.",
+                    e: "projeto político-pedagógico."
+                },
+                correct: "b",
+                resolution: `
+                    <p><strong>Análise da Alternativa Correta:</strong> A alternativa está correta. O conceito de <strong>itinerário formativo</strong> é definido no Decreto nº 5.154/2004 como "o conjunto de etapas que compõem a organização da educação profissional em uma determinada área, possibilitando o aproveitamento contínuo e articulado dos estudos". Uma característica importante dos itinerários é a possibilidade de "etapas com terminalidade", que permitem ao estudante, ao concluir uma etapa, obter um certificado de qualificação profissional, mesmo antes de finalizar o curso técnico ou de graduação completo. Isso confere flexibilidade e reconhecimento às aprendizagens parciais.</p>
+                    <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>a) Uma "grade curricular fechada" é um modelo rígido, contrário à flexibilidade proposta pelos itinerários formativos.</li>
+                        <li>c) "Dependência disciplinar" refere-se à situação de um aluno reprovado em uma disciplina específica.</li>
+                        <li>d) "Currículo oculto" refere-se a aprendizagens não explícitas no currículo formal.</li>
+                        <li>e) O "projeto político-pedagógico" é o documento que orienta toda a instituição, dentro do qual os itinerários formativos são planejados.</li>
+                    </ul>
+                `
+            },
+            {
+                id: "q9",
+                question: "A década de 1940 foi um período de intensa transformação para a Educação Profissional no Brasil, impulsionada pelo projeto de desenvolvimento nacional do governo de Getúlio Vargas (Estado Novo). Nesse contexto, foi criada uma importante instituição paraestatal com o objetivo de organizar e administrar escolas de aprendizagem para os trabalhadores da indústria. Assinale a alternativa que identifica corretamente essa instituição.",
+                options: {
+                    a: "Serviço Nacional de Aprendizagem Rural (SENAR).",
+                    b: "Centros de Atenção Integral à Criança e ao Adolescente (CAICs).",
+                    c: "Movimento Brasileiro de Alfabetização (MOBRAL).",
+                    d: "Serviço Nacional de Aprendizagem Industrial (SENAI).",
+                    e: "Legião Brasileira de Assistência (LBA)."
+                },
+                correct: "d",
+                resolution: `
+                    <p><strong>Análise da Alternativa Correta:</strong> A alternativa está correta. O Serviço Nacional de Aprendizagem Industrial (SENAI) foi criado pelo Decreto-Lei nº 4.048, de 22 de janeiro de 1942, durante o governo de Getúlio Vargas. Sua criação está diretamente ligada ao projeto de industrialização do país, que demandava a formação de um grande contingente de trabalhadores qualificados para operar nas novas fábricas. O SENAI, junto com outras institutions do "Sistema S" (como o SENAC, criado em 1946), marcou a consolidação de um modelo de EPT voltado diretamente para as necessidades do mercado de trabalho, em paralelo à rede pública de ensino.</p>
+                    <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>a) O SENAR foi criado muito mais tarde, em 1991, para atender ao setor rural.</li>
+                        <li>b), c) e e) são instituições de outras áreas (educação básica, alfabetização e assistência social, respectivamente) e de diferentes períodos históricos.</li>
+                    </ul>
+                `
+            },
+            {
+                id: "q10",
+                question: "A Lei de criação dos Institutos Federais (Lei nº 11.892/2008) estabelece, entre suas finalidades, que a oferta de cursos e programas deve ser orientada por um critério fundamental, que vincula a atuação da instituição às necessidades e potencialidades de seu território. De acordo com a lei, os IFs devem orientar sua oferta formativa em benefício da consolidação e fortalecimento dos:",
+                options: {
+                    a: "mercados financeiros internacionais.",
+                    b: "grandes conglomerados industriais multinacionais.",
+                    c: "arranjos produtivos, sociais e culturais locais.",
+                    d: "partidos políticos da situação governamental.",
+                    e: "modelos educacionais importados de países desenvolvidos."
+                },
+                correct: "c",
+                resolution: `
+                    <p><strong>Análise da Alternativa Correta:</strong> A alternativa está correta. O Art. 6º, inciso IV, da Lei nº 11.892/2008 estabelece como uma das finalidades dos Institutos Federais "orientar sua oferta formativa em benefício da consolidação e fortalecimento dos <strong>arranjos produtivos, sociais e culturais locais</strong>". Este é um princípio fundamental que diferencia os IFs de outras instituições de ensino. Eles não devem apenas oferecer cursos, mas atuar como agentes de desenvolvimento regional, diagnosticando as potencialidades de seu território e criando programas de ensino, pesquisa e extensão que respondam a essas vocações e contribuam para o desenvolvimento sustentável da comunidade em que estão inseridos.</p>
+                    <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>a), b), d) e e) representam interesses que não são o foco principal da atuação dos IFs conforme sua lei de criação. A lei enfatiza o desenvolvimento endógeno, a partir das realidades locais, e não a subordinação a interesses externos, partidários ou a modelos descontextualizados.</li>
+                    </ul>
+                `
+            }
+        ];
+
+        // --- LÓGICA DO QUIZ ---
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const quizForm = document.getElementById('quizForm');
+            const submitButton = document.getElementById('submitButton');
+            const resultsDiv = document.getElementById('results');
+            const scoreSummary = document.getElementById('scoreSummary');
+            const resolutionsDiv = document.getElementById('resolutions');
+            const resetButton = document.getElementById('resetButton');
+
+            // 1. Gerar o HTML do quiz dinamicamente
+            function generateQuiz() {
+                let quizHTML = '';
+                quizData.forEach((item, index) => {
+                    quizHTML += `
+                        <div class="question-block bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                            <p class="question-text font-semibold text-lg mb-4 text-gray-900">
+                                ${index + 1}. ${item.question}
+                            </p>
+                            <div class="options-group space-y-3">
+                    `;
+                    
+                    // Adicionar opções de resposta
+                    for (const letter in item.options) {
+                        quizHTML += `
+                            <label class="radio-label flex items-center p-3 rounded-md border border-gray-200 hover:bg-blue-50 cursor-pointer transition-colors duration-150">
+                                <input type="radio" name="${item.id}" value="${letter}" class="mr-3 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                <span class="flex-1 text-gray-800">${letter}) ${item.options[letter]}</span>
+                            </label>
+                        `;
+                    }
+                    
+                    quizHTML += `</div></div>`;
+                });
+                quizForm.innerHTML = quizHTML;
+            }
+
+            // 2. Lidar com a submissão do formulário
+            quizForm.addEventListener('submit', (event) => {
+                event.preventDefault(); // Impedir o recarregamento da página
+
+                const formData = new FormData(quizForm);
+                let score = 0;
+                let resolutionsHTML = '';
+                const userAnswers = {};
+
+                // Processar respostas
+                for (const entry of formData.entries()) {
+                    userAnswers[entry[0]] = entry[1];
+                }
+
+                // Calcular pontuação e gerar resoluções
+                quizData.forEach((item, index) => {
+                    const userAnswer = userAnswers[item.id];
+                    const correctAnswer = item.correct;
+                    const isCorrect = userAnswer === correctAnswer;
+
+                    if (isCorrect) {
+                        score++;
+                    }
+
+                    // Gerar HTML para a resolução individual
+                    resolutionsHTML += `
+                        <div class="resolution-block bg-white p-6 rounded-lg shadow-sm border ${isCorrect ? 'border-green-300' : 'border-red-300'}">
+                            <h3 class="text-xl font-bold mb-3 text-gray-900">Questão ${index + 1}</h3>
+                            <p class="text-gray-700 mb-3">${item.question}</p>
+                            
+                            <div class="space-y-2 mb-4">
+                                <p class="text-gray-800"><strong>Sua Resposta:</strong> 
+                                    <span class="${isCorrect ? 'text-green-700' : 'text-red-700'} font-medium">
+                                        ${userAnswer ? `${userAnswer.toUpperCase()}) ${item.options[userAnswer]}` : 'Não respondida'}
+                                    </span>
+                                </p>
+                                <p class="text-gray-800"><strong>Gabarito:</strong> 
+                                    <span class="text-green-700 font-medium">
+                                        ${correctAnswer.toUpperCase()}) ${item.options[correctAnswer]}
+                                    </span>
+                                </p>
+                            </div>
+
+                            <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold ${isCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+                                ${isCorrect ? 'Você acertou' : 'Você errou'}
+                            </span>
+
+                            <hr class="my-4">
+
+                            <h4 class="font-semibold text-lg mb-2 text-gray-800">Resolução Comentada:</h4>
+                            <div class="resolution-content text-gray-700 space-y-3">${item.resolution}</div>
+                        </div>
+                    `;
+                });
+
+                // 3. Exibir resultados e resoluções
+                scoreSummary.textContent = `Você acertou ${score} de 10 questões.`;
+                resultsDiv.classList.remove('hidden');
+                
+                resolutionsDiv.innerHTML = resolutionsHTML;
+                resolutionsDiv.classList.remove('hidden');
+
+                // 4. Ocultar formulário e botão de submissão
+                quizForm.classList.add('hidden');
+                submitButton.classList.add('hidden');
+                
+                // Rolar para o topo dos resultados
+                resultsDiv.scrollIntoView({ behavior: 'smooth' });
+            });
+
+            // 5. Lidar com o botão de "Refazer Quiz"
+            resetButton.addEventListener('click', () => {
+                location.reload(); // Simplesmente recarrega a página
+            });
+
+            // Iniciar o quiz ao carregar a página
+            generateQuiz();
+        });
+    </script>
+
+</body>
+</html>

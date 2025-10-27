@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plano de Estudos</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Fonte personalizada similar ao Duolingo */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Estilo para o botão pressionado */
+        .aula-btn:active {
+            transform: translateY(2px);
+            filter: brightness(0.9);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-4 md:p-8">
+
+    <div class="max-w-3xl mx-auto">
+        
+        <h1 class="text-3xl font-black text-gray-800 text-center mb-8">Meu Plano de Estudos</h1>
+
+        <!-- Seção 1: Língua Portuguesa -->
+        <section class="bg-white rounded-2xl shadow-lg p-6 mb-6 border-t-8 border-green-500">
+            <div class="flex items-center mb-6">
+                <!-- Ícone da Seção -->
+                <svg class="w-10 h-10 text-green-500 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">Área 1: Língua Portuguesa</h2>
+                    <p class="text-sm text-gray-500">Total: 10 questões (Peso 2,0)</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-6">
+                <!-- Lista de Aulas (Botões) -->
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="lp-1" data-page="lp-leitura-textos.html" data-color="green">
+                        Leitura, compreensão e interpretação de textos
+                    </button>
+                    <div id="timer-lp-1" class="aula-timer"></div>
+                </div>
+                
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="lp-2" data-page="lp-sequencias-textuais.html" data-color="green">
+                        Sequências textuais
+                    </button>
+                    <div id="timer-lp-2" class="aula-timer"></div>
+                </div>
+
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="lp-3" data-page="lp-generos-textuais.html" data-color="green">
+                        Gêneros textuais/discursivos
+                    </button>
+                    <div id="timer-lp-3" class="aula-timer"></div>
+                </div>
+
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="lp-4" data-page="lp-textualidade.html" data-color="green">
+                        Fatores de textualidade (coerência e coesão)
+                    </button>
+                    <div id="timer-lp-4" class="aula-timer"></div>
+                </div>
+
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="lp-5" data-page="lp-ortografia.html" data-color="green">
+                        Ortografia oficial
+                    </button>
+                    <div id="timer-lp-5" class="aula-timer"></div>
+                </div>
+
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="lp-6" data-page="lp-acentuacao.html" data-color="green">
+                        Acentuação gráfica
+                    </button>
+                    <div id="timer-lp-6" class="aula-timer"></div>
+                </div>
+
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="lp-7" data-page="lp-crase.html" data-color="green">
+                        Emprego da crase
+                    </button>
+                    <div id="timer-lp-7" class="aula-timer"></div>
+                </div>
+
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="lp-8" data-page="lp-pontuacao.html" data-color="green">
+                        Pontuação
+                    </button>
+                    <div id="timer-lp-8" class="aula-timer"></div>
+                </div>
+
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="lp-9" data-page="lp-concordancia.html" data-color="green">
+                        Concordância nominal e verbal
+                    </button>
+                    <div id="timer-lp-9" class="aula-timer"></div>
+                </div>
+
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="lp-10" data-page="lp-regencia.html" data-color="green">
+                        Regência nominal e verbal
+                    </button>
+                    <div id="timer-lp-10" class="aula-timer"></div>
+                </div>
+
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="lp-11" data-page="lp-relacoes-sintatico-semantico.html" data-color="green">
+                        Relações sintático-semântico-discursivas
+                    </button>
+                    <div id="timer-lp-11" class="aula-timer"></div>
+                </div>
+
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="lp-12" data-page="lp-classes-palavras.html" data-color="green">
+                        Classes de palavras
+                    </button>
+                    <div id="timer-lp-12" class="aula-timer"></div>
+                </div>
+
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="lp-13" data-page="lp-organizacao-sintatica.html" data-color="green">
+                        Organização sintática do período
+                    </button>
+                    <div id="timer-lp-13" class="aula-timer"></div>
+                </div>
+
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="lp-14" data-page="lp-relacoes-semanticas.html" data-color="green">
+                        Relações semânticas entre palavras
+                    </button>
+                    <div id="timer-lp-14" class="aula-timer"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção 2: Legislação -->
+        <section class="bg-white rounded-2xl shadow-lg p-6 mb-6 border-t-8 border-blue-500">
+            <div class="flex items-center mb-6">
+                <!-- Ícone da Seção -->
+                <svg class="w-10 h-10 text-blue-500 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12l-1.879-1.879m0 0a2.5 2.5 0 10-4.242-2.122m4.242 2.122L15 14.25m-2.121-2.121a2.5 2.5 0 10-2.122-4.242m2.122 4.242L10.75 15M3 12l1.879 1.879m0 0a2.5 2.5 0 104.242 2.122M4.879 13.879L9 9.75m2.121 2.121a2.5 2.5 0 102.122 4.242m-2.122-4.242L13.25 9m8.621 3.121a2.5 2.5 0 10-4.242 2.122m4.242-2.122L15 9.75"></path></svg>
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">Área 2: Legislação</h2>
+                    <p class="text-sm text-gray-500">Total: 15 questões (Peso 1,0)</p>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-6">
+                <!-- Botões de Legislação -->
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="leg-1" data-page="leg-constituicao-federal.html" data-color="blue">
+                        Constituição Federal de 1988
+                    </button>
+                    <div id="timer-leg-1" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="leg-2" data-page="leg-lei-8112.html" data-color="blue">
+                        Lei 8.112/1990 (Regime Jurídico)
+                    </button>
+                    <div id="timer-leg-2" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="leg-3" data-page="leg-lei-9394.html" data-color="blue">
+                        Lei 9.394/1996 (LDB)
+                    </button>
+                    <div id="timer-leg-3" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="leg-4" data-page="leg-decreto-5840.html" data-color="blue">
+                        Decreto 5.840/2006 (PROEJA)
+                    </button>
+                    <div id="timer-leg-4" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="leg-5" data-page="leg-lei-11892.html" data-color="blue">
+                        Lei 11.892/2008 (Rede Federal)
+                    </button>
+                    <div id="timer-leg-5" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="leg-6" data-page="leg-lei-12772.html" data-color="blue">
+                        Lei 12.772/2012 (Plano de Carreiras)
+                    </button>
+                    <div id="timer-leg-6" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="leg-7" data-page="leg-decreto-5154.html" data-color="blue">
+                        Decreto 5.154/2004
+                    </button>
+                    <div id="timer-leg-7" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="leg-8" data-page="leg-decreto-1171.html" data-color="blue">
+                        Decreto 1.171/1994 (Código de Ética)
+                    </button>
+                    <div id="timer-leg-8" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="leg-9" data-page="leg-lei-13146.html" data-color="blue">
+                        Lei 13.146/2015 (LBI)
+                    </button>
+                    <div id="timer-leg-9" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="leg-10" data-page="leg-lei-7853.html" data-color="blue">
+                        Lei 7.853/1989 (Política de Inclusão)
+                    </button>
+                    <div id="timer-leg-10" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="leg-11" data-page="leg-decreto-7611.html" data-color="blue">
+                        Decreto 7.611/2011 (Educação Especial)
+                    </button>
+                    <div id="timer-leg-11" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="leg-12" data-page="leg-lei-12288.html" data-color="blue">
+                        Lei 12.288/2010 (Estatuto de Igualdade Racial)
+                    </button>
+                    <div id="timer-leg-12" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="leg-13" data-page="leg-portaria-6719.html" data-color="blue">
+                        Portaria MGI 6.719/2024 (Assédio)
+                    </button>
+                    <div id="timer-leg-13" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="leg-14" data-page="leg-crimes-adm-publica.html" data-color="blue">
+                        Crimes contra a Administração Pública
+                    </button>
+                    <div id="timer-leg-14" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="leg-15" data-page="leg-lei-9784.html" data-color="blue">
+                        Lei 9.784/1999 (Processo Administrativo)
+                    </button>
+                    <div id="timer-leg-15" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="leg-16" data-page="leg-lei-8429.html" data-color="blue">
+                        Lei 8.429/1992 (Improbidade Adm.)
+                    </button>
+                    <div id="timer-leg-16" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="leg-17" data-page="leg-estatuto-ifpb.html" data-color="blue">
+                        Estatuto do IFPB
+                    </button>
+                    <div id="timer-leg-17" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="leg-18" data-page="leg-lei-13709.html" data-color="blue">
+                        Lei 13.709/2018 (LGPD)
+                    </button>
+                    <div id="timer-leg-18" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="leg-19" data-page="leg-lei-8027.html" data-color="blue">
+                        Lei 8.027/1990 (Normas de Conduta)
+                    </button>
+                    <div id="timer-leg-19" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="leg-20" data-page="leg-lei-12527.html" data-color="blue">
+                        Lei 12.527/2011 (LAI)
+                    </button>
+                    <div id="timer-leg-20" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="leg-21" data-page="leg-decreto-7724.html" data-color="blue">
+                        Decreto 7.724/2012 (Regulamenta LAI)
+                    </button>
+                    <div id="timer-leg-21" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="leg-22" data-page="leg-decreto-12603.html" data-color="blue">
+                        Decreto 12.603/2025 (PNEPT)
+                    </button>
+                    <div id="timer-leg-22" class="aula-timer"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção 3: Conhecimentos Específicos, Pedagógicos e EPT -->
+        <section class="bg-white rounded-2xl shadow-lg p-6 mb-6 border-t-8 border-orange-500">
+            <div class="flex items-center mb-6">
+                <!-- Ícone da Seção -->
+                <svg class="w-10 h-10 text-orange-500 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">Área 3: Conhec. Específicos e Pedagógicos</h2>
+                    <p class="text-sm text-gray-500">Total: 25 questões (Peso 2,6)</p>
+                </div>
+            </div>
+
+            <!-- Subseção A: Pedagógicos -->
+            <h3 class="text-lg font-bold text-orange-600 mb-4">A. Conhecimentos Pedagógicos e EPT</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-6 mb-6">
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="ped-1" data-page="ped/ped-didatica.html" data-color="orange">
+                        Didática e formação de professores
+                    </button>
+                    <div id="timer-ped-1" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="ped-2" data-page="ped/ped-acao-docente.html" data-color="orange">
+                        Ação docente (Planejamento e Metodologias)
+                    </button>
+                    <div id="timer-ped-2" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="ped-3" data-page="ped/ped-avaliacao.html" data-color="orange">
+                        Avaliação no processo de ensino-aprendizagem
+                    </button>
+                    <div id="timer-ped-3" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="ped-4" data-page="ped/ped-relacao-professor-aluno.html" data-color="orange">
+                        Relação professor-aluno
+                    </button>
+                    <div id="timer-ped-4" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="ped-5" data-page="ped/ped-novas-tecnologias.html" data-color="orange">
+                        Novas tecnologias de informação e comunicação
+                    </button>
+                    <div id="timer-ped-5" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="ped-6" data-page="ped/ped-historia-ept.html" data-color="orange">
+                        História, Princípios e Legislação da EPT
+                    </button>
+                    <div id="timer-ped-6" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="ped-7" data-page="ped/ped-indissociabilidade.html" data-color="orange">
+                        Indissociabilidade ensino, pesquisa e extensão
+                    </button>
+                    <div id="timer-ped-7" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="ped-8" data-page="ped/ped-curriculo-integrado.html" data-color="orange">
+                        Currículo integrado na EPT
+                    </button>
+                    <div id="timer-ped-8" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="ped-9" data-page="ped/ped-metodologias-ept.html" data-color="orange">
+                        Metodologias de ensino e interdisciplinaridade na EPT
+                    </button>
+                    <div id="timer-ped-9" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="ped-10" data-page="ped/ped-politica-pnept.html" data-color="orange">
+                        Política Nacional de EPT (PNEPT)
+                    </button>
+                    <div id="timer-ped-10" class="aula-timer"></div>
+                </div>
+            </div>
+
+            <!-- Subseção B: Específicos -->
+            <h3 class="text-lg font-bold text-orange-600 mb-4">B. Conhecimentos Específicos (Informática)</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-6">
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-1" data-page="esp-fundamentos-programacao.html" data-color="orange-dark">
+                        Fundamentos de programação
+                    </button>
+                    <div id="timer-esp-1" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-2" data-page="esp-linguagens-programacao.html" data-color="orange-dark">
+                        Linguagens (Python, JS, C/C++, Java)
+                    </button>
+                    <div id="timer-esp-2" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-3" data-page="esp-poo.html" data-color="orange-dark">
+                        Programação orientada a objetos
+                    </button>
+                    <div id="timer-esp-3" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-4" data-page="esp-estrutura-dados.html" data-color="orange-dark">
+                        Estrutura de dados
+                    </button>
+                    <div id="timer-esp-4" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-5" data-page="esp-busca-ordenacao.html" data-color="orange-dark">
+                        Algoritmos de busca e ordenação
+                    </button>
+                    <div id="timer-esp-5" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-6" data-page="esp-complexidade-algoritmos.html" data-color="orange-dark">
+                        Complexidade de algoritmos
+                    </button>
+                    <div id="timer-esp-6" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-7" data-page="esp-fundamentos-bd.html" data-color="orange-dark">
+                        Fundamentos de Banco de dados
+                    </button>
+                    <div id="timer-esp-7" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-8" data-page="esp-modelos-dados.html" data-color="orange-dark">
+                        Modelos de dados
+                    </button>
+                    <div id="timer-esp-8" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-9" data-page="esp-normalizacao.html" data-color="orange-dark">
+                        Normalização
+                    </button>
+                    <div id="timer-esp-9" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-10" data-page="esp-sql.html" data-color="orange-dark">
+                        Linguagens de consulta (SQL)
+                    </button>
+                    <div id="timer-esp-10" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-11" data-page="esp-sgbds-relacionais.html" data-color="orange-dark">
+                        SGBDs Relacionais
+                    </button>
+                    <div id="timer-esp-11" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-12" data-page="esp-seguranca-bd.html" data-color="orange-dark">
+                        Segurança em banco de dados
+                    </button>
+                    <div id="timer-esp-12" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-13" data-page="esp-nosql.html" data-color="orange-dark">
+                        Bancos de Dados NoSQL
+                    </button>
+                    <div id="timer-esp-13" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-14" data-page="esp-fundamentos-so-redes.html" data-color="orange-dark">
+                        Fundamentos de SO e Redes
+                    </button>
+                    <div id="timer-esp-14" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-15" data-page="esp-processos-threads.html" data-color="orange-dark">
+                        Processos e threads
+                    </button>
+                    <div id="timer-esp-15" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-16" data-page="esp-sistemas-arquivo.html" data-color="orange-dark">
+                        Sistemas de arquivo
+                    </button>
+                    <div id="timer-esp-16" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-17" data-page="esp-gerenciamento-memoria.html" data-color="orange-dark">
+                        Gerenciamento de memória
+                    </button>
+                    <div id="timer-esp-17" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-18" data-page="esp-virtualizacao-containers.html" data-color="orange-dark">
+                        Virtualização e Containers
+                    </button>
+                    <div id="timer-esp-18" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-19" data-page="esp-topologia-redes.html" data-color="orange-dark">
+                        Topologia e elementos de rede
+                    </button>
+                    <div id="timer-esp-19" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-20" data-page="esp-modelo-osi-tcpip.html" data-color="orange-dark">
+                        Modelo OSI e Arquitetura TCP/IP
+                    </button>
+                    <div id="timer-esp-20" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-21" data-page="esp-protocolos-tcp-udp-quic.html" data-color="orange-dark">
+                        Protocolos TCP, UDP e QUIC
+                    </button>
+                    <div id="timer-esp-21" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-22" data-page="esp-analise-projeto-oo.html" data-color="orange-dark">
+                        Análise e projeto OO (UML, Padrões, SOLID)
+                    </button>
+                    <div id="timer-esp-22" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-23" data-page="esp-arquitetura-software.html" data-color="orange-dark">
+                        Arquitetura de software (Estilos, C4, Microsserviços)
+                    </button>
+                    <div id="timer-esp-23" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-24" data-page="esp-processos-gerenciamento-projetos.html" data-color="orange-dark">
+                        Processos e gerenciamento de projetos (Ágil, Scrum)
+                    </button>
+                    <div id="timer-esp-24" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-25" data-page="esp-analise-requisitos.html" data-color="orange-dark">
+                        Análise de requisitos
+                    </button>
+                    <div id="timer-esp-25" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-26" data-page="esp-metodologias-gerenciamento.html" data-color="orange-dark">
+                        Metodologias de gerenciamento de projetos
+                    </button>
+                    <div id="timer-esp-26" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-27" data-page="esp-desenvolvimento-software.html" data-color="orange-dark">
+                        Desenvolvimento (Front, Back, Mobile)
+                    </button>
+                    <div id="timer-esp-27" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-28" data-page="esp-fundamentos-web.html" data-color="orange-dark">
+                        Fundamentos de HTML, CSS e JavaScript
+                    </button>
+                    <div id="timer-esp-28" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-29" data-page="esp-frameworks-frontend.html" data-color="orange-dark">
+                        Frameworks (React, Vue.js)
+                    </button>
+                    <div id="timer-esp-29" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-30" data-page="esp-design-responsivo-acessibilidade.html" data-color="orange-dark">
+                        Design responsivo e acessibilidade
+                    </button>
+                    <div id="timer-esp-30" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-31" data-page="esp-apis-frontend.html" data-color="orange-dark">
+                        Integração com APIs e gerenciamento de estado
+                    </button>
+                    <div id="timer-esp-31" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-32" data-page="esp-testes-frontend.html" data-color="orange-dark">
+                        Testes e depuração de aplicações front-end
+                    </button>
+                    <div id="timer-esp-32" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-33" data-page="esp-tecnologias-backend.html" data-color="orange-dark">
+                        Tecnologias Back-end (Node, Django, Laravel, Spring)
+                    </button>
+                    <div id="timer-esp-33" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-34" data-page="esp-apis-backend.html" data-color="orange-dark">
+                        APIs RESTful e GraphQL
+                    </button>
+                    <div id="timer-esp-34" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-35" data-page="esp-sistemas-mensageria.html" data-color="orange-dark">
+                        Sistemas de mensageria
+                    </button>
+                    <div id="timer-esp-35" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-36" data-page="esp-desempenho-escalabilidade.html" data-color="orange-dark">
+                        Desempenho e escalabilidade
+                    </button>
+                    <div id="timer-esp-36" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-37" data-page="esp-autenticacao-seguranca.html" data-color="orange-dark">
+                        Autenticação e segurança de aplicações
+                    </button>
+                    <div id="timer-esp-37" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-38" data-page="esp-programacao-mobile.html" data-color="orange-dark">
+                        Programação para dispositivos móveis
+                    </button>
+                    <div id="timer-esp-38" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-39" data-page="esp-validacao-testes.html" data-color="orange-dark">
+                        Técnicas de validação e Testes de software
+                    </button>
+                    <div id="timer-esp-39" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-40" data-page="esp-ihc.html" data-color="orange-dark">
+                        Interação humano-computador (IHC)
+                    </button>
+                    <div id="timer-esp-40" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-41" data-page="esp-design-interfaces-usabilidade.html" data-color="orange-dark">
+                        Design de interfaces, Usabilidade e Acessibilidade
+                    </button>
+                    <div id="timer-esp-41" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-42" data-page="esp-interacao-multimodal.html" data-color="orange-dark">
+                        Interação multimodal (toque, voz, gestos)
+                    </button>
+                    <div id="timer-esp-42" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-43" data-page="esp-avaliacao-interacao.html" data-color="orange-dark">
+                        Avaliação de interação e testes de usabilidade
+                    </button>
+                    <div id="timer-esp-43" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-44" data-page="esp-ergonomia.html" data-color="orange-dark">
+                        Ergonomia e design centrado no usuário
+                    </button>
+                    <div id="timer-esp-44" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-45" data-page="esp-devops.html" data-color="orange-dark">
+                        Fundamentos de DevOps
+                    </button>
+                    <div id="timer-esp-45" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-46" data-page="esp-observabilidade.html" data-color="orange-dark">
+                        Conceitos de observabilidade
+                    </button>
+                    <div id="timer-esp-46" class="aula-timer"></div>
+                </div>
+                <div class="aula-container">
+                    <button class="aula-btn" data-aula-id="esp-47" data-page="esp-ci-cd.html" data-color="orange-dark">
+                        Conceitos de pipeline CI/CD
+                    </button>
+                    <div id="timer-esp-47" class="aula-timer"></div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Estilos CSS dos Botões (embutidos para Tailwind) -->
+    <style>
+        .aula-btn {
+            width: 100%;
+            display: flex; /* Adicionado para centralizar verticalmente */
+            align-items: center; /* Adicionado para centralizar verticalmente */
+            justify-content: center; /* Adicionado para centralizar horizontalmente */
+            min-height: 7rem; /* Adicionado (112px) para altura uniforme */
+            text-align: center;
+            font-weight: 700;
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 1rem; /* rounded-2xl - Alterado para estilo Duolingo */
+            border-bottom-width: 4px;
+            transition: all 0.1s ease-in-out;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+        }
+
+        .aula-timer {
+            text-align: center;
+            font-size: 0.75rem; /* 12px */
+            color: #6B7280; /* text-gray-500 */
+            margin-top: 0.125rem; /* 2px - Margem ajustada */
+            padding-right: 0;
+            height: 1rem; /* Garante espaço */
+        }
+
+        /* Cores Verdes (Português) */
+        .aula-btn[data-color="green"] {
+            background-color: #22C55E; /* bg-green-500 */
+            border-color: #16A34A; /* border-green-700 */
+        }
+        .aula-btn[data-color="green"]:hover {
+            background-color: #1FAD55; /* hover:bg-green-600 */
+        }
+        .aula-btn[data-color="green"]:active {
+             border-bottom-width: 2px;
+             margin-top: 2px;
+        }
+
+        /* Cores Azuis (Legislação) */
+        .aula-btn[data-color="blue"] {
+            background-color: #3B82F6; /* bg-blue-500 */
+            border-color: #2563EB; /* border-blue-700 */
+        }
+        .aula-btn[data-color="blue"]:hover {
+            background-color: #2672F4; /* hover:bg-blue-600 */
+        }
+        .aula-btn[data-color="blue"]:active {
+             border-bottom-width: 2px;
+             margin-top: 2px;
+        }
+
+        /* Cores Laranja (Pedagógicos) */
+        .aula-btn[data-color="orange"] {
+            background-color: #F97316; /* bg-orange-500 */
+            border-color: #EA580C; /* border-orange-700 */
+        }
+        .aula-btn[data-color="orange"]:hover {
+            background-color: #F86A04; /* hover:bg-orange-600 */
+        }
+        .aula-btn[data-color="orange"]:active {
+             border-bottom-width: 2px;
+             margin-top: 2px;
+        }
+
+        /* Cores Laranja Escuro (Específicos) */
+        .aula-btn[data-color="orange-dark"] {
+            background-color: #D97706; /* bg-amber-600 */
+            border-color: #B45309; /* border-amber-800 */
+        }
+        .aula-btn[data-color="orange-dark"]:hover {
+            background-color: #CA6F05; /* hover:bg-amber-700 */
+        }
+        .aula-btn[data-color="orange-dark"]:active {
+             border-bottom-width: 2px;
+             margin-top: 2px;
+        }
+    </style>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const aulaButtons = document.querySelectorAll('.aula-btn');
+            
+            // --- Bloco de código removido ---
+
+            // Função para calcular diferença de dias
+            function getDaysAgo(timestamp) {
+                const now = new Date();
+                const lastAccessed = new Date(parseInt(timestamp, 10));
+                
+                // Zera as horas para comparar apenas datas
+                now.setHours(0, 0, 0, 0);
+                lastAccessed.setHours(0, 0, 0, 0);
+
+                const diffTime = now.getTime() - lastAccessed.getTime();
+                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                return diffDays;
+            }
+
+            // Função para formatar a mensagem
+            function formatMessage(days) {
+                if (days === 0) {
+                    return 'Acessado hoje';
+                }
+                if (days === 1) {
+                    return 'Acessado há 1 dia';
+                }
+                return `Acessado há ${days} dias`;
+            }
+
+            // Função para atualizar todos os contadores
+            function updateAllTimers() {
+                aulaButtons.forEach(button => {
+                    const aulaId = button.dataset.aulaId;
+                    const timerElement = document.getElementById(`timer-${aulaId}`);
+                    const timestamp = localStorage.getItem(`aulaTimestamp_${aulaId}`);
+
+                    if (timestamp) {
+                        const daysAgo = getDaysAgo(timestamp);
+                        timerElement.textContent = formatMessage(daysAgo);
+                    } else {
+                        timerElement.textContent = ''; // Limpa se nunca foi acessado
+                    }
+                });
+            }
+
+            // Adiciona listener de clique para cada botão
+            aulaButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const aulaId = button.dataset.aulaId;
+                    const pageName = button.dataset.page;
+                    
+                    // 1. Salva o timestamp atual no localStorage
+                    const now = new Date().getTime();
+                    localStorage.setItem(`aulaTimestamp_${aulaId}`, now.toString());
+                    
+                    // 2. Atualiza o contador imediatamente
+                    const timerElement = document.getElementById(`timer-${aulaId}`);
+                    timerElement.textContent = formatMessage(0); // Mostra "Acessado hoje"
+
+                    // 3. Redireciona para a página da aula (simulação)
+                    console.log(`Redirecionando para: ${pageName}`);
+                    window.location.href = pageName; 
+                    // A linha acima está comentada para não sair desta página de exemplo.
+                    // Descomente a linha acima para habilitar o redirecionamento.
+                });
+            });
+
+            // 4. Atualiza todos os contadores ao carregar a página
+            updateAllTimers();
+        });
+    </script>
+
+</body>
+</html>
+
+
+
+
+

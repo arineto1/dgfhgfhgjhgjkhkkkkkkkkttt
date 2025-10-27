@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: EPT - Metodologias e Interdisciplinaridade</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Carrega a fonte Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Define a fonte Inter como padrão e ajusta o espaçamento */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa; /* Fundo claro (um cinza muito leve) */
+            color: #212529; /* Texto escuro principal */
+            line-height: 1.6; /* Altura da linha para melhor legibilidade */
+        }
+        
+        /* Remove a seta padrão dos inputs de rádio (o Tailwind cuida do estilo) */
+        input[type="radio"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        /* Estilos personalizados para os destaques de acerto/erro */
+        .correct-answer-label {
+            background-color: #e6f7eb;
+            border-color: #b7e1c8;
+            border-width: 2px;
+        }
+        .incorrect-answer-label {
+            background-color: #fff1f0;
+            border-color: #ffccc7;
+            border-width: 2px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <main class="max-w-4xl mx-auto p-4 sm:p-8">
+        
+        <!-- Título do Quiz -->
+        <header class="text-center mb-10">
+            <h1 class="text-3xl sm:text-4xl font-bold text-blue-800">Quiz: Metodologias de Ensino e Interdisciplinaridade na EPT</h1>
+            <p class="mt-2 text-lg text-gray-600">Teste seus conhecimentos no estilo da banca Instituto AOCP.</p>
+        </header>
+
+        <!-- Div para exibir o resultado/pontuação -->
+        <div id="scoreSummary" class="hidden mb-8 p-6 bg-white rounded-lg shadow-md border border-gray-200">
+            <h2 id="scoreText" class="text-2xl font-bold text-center text-gray-800"></h2>
+        </div>
+
+        <!-- Formulário do Quiz -->
+        <form id="quizForm">
+            
+            <!-- Questão 1 -->
+            <fieldset class="mb-8 p-6 bg-white rounded-lg shadow-sm border border-gray-200">
+                <legend class="text-xl font-semibold text-gray-800 px-2 mb-4">Questão 1</legend>
+                <p class="text-gray-700 text-justify leading-relaxed">As Diretrizes Curriculares Nacionais Gerais para a Educação Profissional e Tecnológica (EPT), estabelecidas pela Resolução CNE/CP nº 1, de 5 de janeiro de 2021, definem um conjunto de princípios norteadores para esta modalidade de ensino. Assinale a alternativa que apresenta CORRETAMENTE alguns desses princípios.</p>
+                <div class="mt-4 space-y-3">
+                    <label for="q1a" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q1a" name="q1" value="a" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1" required>
+                        <span class="ml-3 text-gray-700">Foco exclusivo na empregabilidade imediata, separação rígida entre formação geral e formação técnica e avaliação puramente classificatória.</span>
+                    </label>
+                    <label for="q1b" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q1b" name="q1" value="b" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">A centralidade do trabalho como princípio educativo, a interdisciplinaridade assegurada no planejamento curricular e a articulação com o desenvolvimento socioeconômico e os arranjos produtivos locais.</span>
+                    </label>
+                    <label for="q1c" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q1c" name="q1" value="c" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">A priorização de um currículo por competências estritamente técnicas, a desvinculação da pesquisa como princípio pedagógico e a autonomia ilimitada das instituições em relação às demandas sociais.</span>
+                    </label>
+                    <label for="q1d" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q1d" name="q1" value="d" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">A adoção de um modelo curricular fragmentado para facilitar a gestão, a ênfase na memorização de conteúdos técnicos e a subordinação do projeto pedagógico às necessidades imediatas do mercado.</span>
+                    </label>
+                    <label for="q1e" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q1e" name="q1" value="e" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">O estímulo à competição entre estudantes como método pedagógico, a dissociação entre teoria e prática para otimizar o tempo de formação e a centralidade na transmissão de conhecimento pelo docente.</span>
+                    </label>
+                </div>
+            </fieldset>
+
+            <!-- Questão 2 -->
+            <fieldset class="mb-8 p-6 bg-white rounded-lg shadow-sm border border-gray-200">
+                <legend class="text-xl font-semibold text-gray-800 px-2 mb-4">Questão 2</legend>
+                <p class="text-gray-700 text-justify leading-relaxed">Um docente de um curso técnico em Meio Ambiente na modalidade de Educação Profissional e Tecnológica (EPT) percebe que seus alunos demonstram baixo engajamento em aulas expositivas sobre gestão de resíduos sólidos. Ele deseja adotar uma metodologia que promova o protagonismo discente, a capacidade de diagnóstico e a resolução de problemas complexos e contextualizados com a realidade local. Qual das seguintes metodologias ativas é a mais adequada para atingir esses objetivos?</p>
+                <div class="mt-4 space-y-3">
+                    <label for="q2a" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q2a" name="q2" value="a" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1" required>
+                        <span class="ml-3 text-gray-700">Aprendizagem Baseada em Problemas (PBL), pois parte de um problema real e não estruturado, exigindo que os alunos investiguem, integrem diferentes saberes e proponham soluções viáveis.</span>
+                    </label>
+                    <label for="q2b" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q2b" name="q2" value="b" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">Sala de Aula Invertida, pois garantiria que os alunos estudassem o conteúdo teórico em casa, otimizando o tempo em sala para tirar dúvidas.</span>
+                    </label>
+                    <label for="q2c" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q2c" name="q2" value="c" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">Gamificação, pois utilizaria elementos de jogos para aumentar a motivação e a competição saudável entre os alunos.</span>
+                    </label>
+                    <label for="q2d" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q2d" name="q2" value="d" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">Instrução por Pares, pois permitiria que os alunos debatessem conceitos teóricos em pequenos grupos, fortalecendo a aprendizagem colaborativa.</span>
+                    </label>
+                    <label for="q2e" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q2e" name="q2" value="e" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">Seminário Expositivo, pois desenvolveria a habilidade de oratória dos alunos ao apresentarem pesquisas sobre o tema.</span>
+                    </label>
+                </div>
+            </fieldset>
+
+            <!-- Questão 3 -->
+            <fieldset class="mb-8 p-6 bg-white rounded-lg shadow-sm border border-gray-200">
+                <legend class="text-xl font-semibold text-gray-800 px-2 mb-4">Questão 3</legend>
+                <p class="text-gray-700 text-justify leading-relaxed">A Educação Profissional e Tecnológica (EPT) no Brasil, em sua perspectiva mais avançada, defende a adoção do Currículo Integrado. Assinale a alternativa que melhor define essa concepção curricular.</p>
+                <div class="mt-4 space-y-3">
+                    <label for="q3a" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q3a" name="q3" value="a" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1" required>
+                        <span class="ml-3 text-gray-700">Um modelo em que as disciplinas técnicas são ministradas no contraturno das disciplinas da base comum, sem que haja necessariamente uma articulação pedagógica entre elas.</span>
+                    </label>
+                    <label for="q3b" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q3b" name="q3" value="b" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">Um arranjo curricular focado exclusivamente no desenvolvimento de habilidades técnicas exigidas pelo mercado de trabalho, utilizando as disciplinas gerais apenas como suporte instrumental.</span>
+                    </label>
+                    <label for="q3c" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q3c" name="q3" value="c" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">Uma justaposição de diferentes disciplinas em um mesmo projeto, onde cada uma contribui com sua perspectiva de forma isolada, caracterizando uma abordagem multidisciplinar.</span>
+                    </label>
+                    <label for="q3d" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q3d" name="q3" value="d" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">Uma proposta que articula os conhecimentos da formação geral (propedêutica) com os da formação profissional, tendo o trabalho, a ciência, a tecnologia e a cultura como eixos integradores, visando à formação humana integral e superando a dicotomia entre pensar e fazer.</span>
+                    </label>
+                    <label for="q3e" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q3e" name="q3" value="e" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">Um currículo em que a formação profissional ocorre de forma subsequente à conclusão do ensino médio, garantindo a especialização do estudante após a consolidação da base geral.</span>
+                    </label>
+                </div>
+            </fieldset>
+
+            <!-- Questão 4 -->
+            <fieldset class="mb-8 p-6 bg-white rounded-lg shadow-sm border border-gray-200">
+                <legend class="text-xl font-semibold text-gray-800 px-2 mb-4">Questão 4</legend>
+                <p class="text-gray-700 text-justify leading-relaxed">A interdisciplinaridade é um princípio fundamental para a efetivação de um currículo integrado na Educação Profissional e Tecnológica (EPT). Sobre a contribuição das práticas interdisciplinares para o objetivo da formação integral, é correto afirmar que elas:</p>
+                <div class="mt-4 space-y-3">
+                    <label for="q4a" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q4a" name="q4" value="a" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1" required>
+                        <span class="ml-3 text-gray-700">servem principalmente para otimizar a carga horária dos docentes, permitindo que um único projeto aborde conteúdos de múltiplas disciplinas simultaneamente.</span>
+                    </label>
+                    <label for="q4b" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q4b" name="q4" value="b" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">visam superar a fragmentação do conhecimento, permitindo ao estudante compreender os fenômenos complexos do mundo do trabalho e da vida em sua totalidade, articulando saberes de diferentes áreas.</span>
+                    </label>
+                    <label for="q4c" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q4c" name="q4" value="c" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">têm como objetivo principal tornar as aulas mais dinâmicas e atrativas, sem, contudo, alterar a estrutura disciplinar e a lógica de avaliação de cada componente curricular.</span>
+                    </label>
+                    <label for="q4d" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q4d" name="q4" value="d" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">focam na substituição dos conhecimentos das ciências humanas pelos conhecimentos técnicos, por considerá-los mais relevantes para a formação profissional.</span>
+                    </label>
+                    <label for="q4e" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q4e" name="q4" value="e" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">são aplicáveis apenas em projetos de extensão, mantendo a organização curricular tradicional e disciplinar nas atividades regulares de ensino.</span>
+                    </label>
+                </div>
+            </fieldset>
+
+            <!-- Questão 5 -->
+            <fieldset class="mb-8 p-6 bg-white rounded-lg shadow-sm border border-gray-200">
+                <legend class="text-xl font-semibold text-gray-800 px-2 mb-4">Questão 5</legend>
+                <p class="text-gray-700 text-justify leading-relaxed">A Base Nacional Comum Curricular (BNCC) e a reforma do Ensino Médio (Lei nº 13.415/2017) reconfiguraram a organização da educação básica, impactando diretamente a oferta da Educação Profissional e Tecnológica (EPT). O principal mecanismo de articulação entre a BNCC e a EPT no Ensino Médio é:</p>
+                <div class="mt-4 space-y-3">
+                    <label for="q5a" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q5a" name="q5" value="a" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1" required>
+                        <span class="ml-3 text-gray-700">a definição, pela BNCC, de competências técnicas específicas para cada um dos eixos tecnológicos da EPT, padronizando a formação em nível nacional.</span>
+                    </label>
+                    <label for="q5b" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q5b" name="q5" value="b" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">a instituição dos Itinerários Formativos, em especial o de Formação Técnica e Profissional, que permite ao estudante aprofundar seus estudos em uma área de seu interesse, articulando a formação geral básica com a qualificação profissional.</span>
+                    </label>
+                    <label for="q5c" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q5c" name="q5" value="c" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">a substituição completa das diretrizes curriculares específicas da EPT pela BNCC, que passa a ser o único documento normativo para a modalidade.</span>
+                    </label>
+                    <label for="q5d" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q5d" name="q5" value="d" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">a exigência de que todos os estudantes do Ensino Médio cursem, obrigatoriamente, ao menos um curso de Formação Inicial e Continuada (FIC) previsto na BNCC.</span>
+                    </label>
+                    <label for="q5e" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q5e" name="q5" value="e" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">a criação de um sistema de avaliação unificado (Sinaept) que integra as avaliações da educação básica (Saeb) com as da EPT, a partir de critérios definidos exclusivamente pela BNCC.</span>
+                    </label>
+                </div>
+            </fieldset>
+
+            <!-- Questão 6 -->
+            <fieldset class="mb-8 p-6 bg-white rounded-lg shadow-sm border border-gray-200">
+                <legend class="text-xl font-semibold text-gray-800 px-2 mb-4">Questão 6</legend>
+                <p class="text-gray-700 text-justify leading-relaxed">Um dos conceitos mais caros à fundamentação teórica da Educação Profissional e Tecnológica (EPT) na perspectiva do currículo integrado é o de "trabalho como princípio educativo". A correta compreensão desse conceito implica entendê-lo como:</p>
+                <div class="mt-4 space-y-3">
+                    <label for="q6a" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q6a" name="q6" value="a" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1" required>
+                        <span class="ml-3 text-gray-700">a preparação do estudante para se adaptar de forma acrítica às exigências e flutuações do mercado de trabalho, focando na empregabilidade.</span>
+                    </label>
+                    <label for="q6b" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q6b" name="q6" value="b" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">a realização de atividades práticas, como estágios e visitas técnicas, que servem como complemento ilustrativo ao conteúdo teórico ministrado em sala de aula.</span>
+                    </label>
+                    <label for="q6c" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q6c" name="q6" value="c" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">a compreensão do trabalho em sua dimensão histórico-ontológica, como a atividade humana que transforma a natureza e a si mesma, servindo como eixo articulador entre ciência, cultura e produção material para uma formação integral.</span>
+                    </label>
+                    <label for="q6d" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q6d" name="q6" value="d" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">um sinônimo de "aprender a fazer", priorizando o desenvolvimento de habilidades manuais e operacionais em detrimento da reflexão teórica e crítica.</span>
+                    </label>
+                    <label for="q6e" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q6e" name="q6" value="e" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">um tema transversal a ser abordado exclusivamente nas disciplinas de Sociologia e Filosofia, sem conexão direta com os componentes curriculares da área técnica.</span>
+                    </label>
+                </div>
+            </fieldset>
+
+            <!-- Questão 7 -->
+            <fieldset class="mb-8 p-6 bg-white rounded-lg shadow-sm border border-gray-200">
+                <legend class="text-xl font-semibold text-gray-800 px-2 mb-4">Questão 7</legend>
+                <p class="text-gray-700 text-justify leading-relaxed">A gestão de uma instituição de EPT decide fomentar a realização de projetos interdisciplinares entre os docentes dos cursos técnicos integrados ao ensino médio. Após um semestre, a avaliação da iniciativa revela que, apesar do entusiasmo inicial, a maioria dos projetos não conseguiu superar a fase de planejamento ou resultou em uma mera justaposição de atividades disciplinares. Com base na literatura sobre os desafios da interdisciplinaridade na educação, a causa mais provável para esse insucesso é:</p>
+                <div class="mt-4 space-y-3">
+                    <label for="q7a" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q7a" name="q7" value="a" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1" required>
+                        <span class="ml-3 text-gray-700">a falta de interesse e a resistência dos estudantes em participar de atividades que fogem do modelo tradicional de aula.</span>
+                    </label>
+                    <label for="q7b" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q7b" name="q7" value="b" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">a complexidade inerente aos temas escolhidos para os projetos, que exigiam um conhecimento prévio que os alunos não possuíam.</span>
+                    </label>
+                    <label for="q7c" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q7c" name="q7" value="c" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">a ausência de recursos financeiros e de laboratórios adequados para a execução das atividades práticas propostas.</span>
+                    </label>
+                    <label for="q7d" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q7d" name="q7" value="d" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">a falta de tempo institucionalmente garantido para o planejamento coletivo e a carência de formação continuada para os docentes sobre metodologias de trabalho interdisciplinar.</span>
+                    </label>
+                    <label for="q7e" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q7e" name="q7" value="e" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">a incompatibilidade entre os perfis profissionais dos egressos e as propostas dos projetos, que se mostraram muito teóricos e distantes da realidade do mercado.</span>
+                    </label>
+                </div>
+            </fieldset>
+
+            <!-- Questão 8 -->
+            <fieldset class="mb-8 p-6 bg-white rounded-lg shadow-sm border border-gray-200">
+                <legend class="text-xl font-semibold text-gray-800 px-2 mb-4">Questão 8</legend>
+                <p class="text-gray-700 text-justify leading-relaxed">A filosofia educacional de Paulo Freire oferece uma base crítica fundamental para as práticas pedagógicas na Educação Profissional e Tecnológica (EPT). A crítica freiriana à "educação bancária", na qual o educador "deposita" conteúdos no educando, encontra sua superação em práticas que valorizam o diálogo e o protagonismo. Assinale a alternativa que descreve uma prática na EPT diretamente alinhada a essa superação.</p>
+                <div class="mt-4 space-y-3">
+                    <label for="q8a" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q8a" name="q8" value="a" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1" required>
+                        <span class="ml-3 text-gray-700">A utilização de apostilas padronizadas e manuais técnicos detalhados que visam garantir que todos os alunos recebam exatamente o mesmo conteúdo, assegurando a uniformidade da formação.</span>
+                    </label>
+                    <label for="q8b" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q8b" name="q8" value="b" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">A implementação de metodologias ativas, como a problematização, que partem da realidade e dos saberes dos estudantes para a construção conjunta do conhecimento, transformando-os em sujeitos ativos da aprendizagem.</span>
+                    </label>
+                    <label for="q8c" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q8c" name="q8" value="c" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">A aplicação de avaliações somativas ao final de cada módulo, com questões de múltipla escolha que visam verificar a capacidade do aluno de memorizar e reproduzir as informações transmitidas pelo professor.</span>
+                    </label>
+                    <label for="q8d" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q8d" name="q8" value="d" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">A organização do espaço da sala de aula em fileiras voltadas para o professor, reforçando sua posição como figura central e única detentora do saber a ser transmitido.</span>
+                    </label>
+                    <label for="q8e" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q8e" name="q8" value="e" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">A priorização de aulas expositivas e teóricas, por se considerar que o conhecimento científico e técnico deve ser apresentado de forma sistematizada antes de qualquer aplicação prática.</span>
+                    </label>
+                </div>
+            </fieldset>
+
+            <!-- Questão 9 -->
+            <fieldset class="mb-8 p-6 bg-white rounded-lg shadow-sm border border-gray-200">
+                <legend class="text-xl font-semibold text-gray-800 px-2 mb-4">Questão 9</legend>
+                <p class="text-gray-700 text-justify leading-relaxed">Considerando uma abordagem pedagógica na EPT que se fundamenta em metodologias ativas e na interdisciplinaridade para promover a formação integral, o processo avaliativo deve ser coerente com esses princípios. Nesse contexto, a abordagem de avaliação mais adequada é a:</p>
+                <div class="mt-4 space-y-3">
+                    <label for="q9a" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q9a" name="q9" value="a" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1" required>
+                        <span class="ml-3 text-gray-700">somativa, aplicada exclusivamente ao final do curso, para classificar os alunos com base em seu desempenho em uma prova abrangente que simula as condições do mercado de trabalho.</span>
+                    </label>
+                    <label for="q9b" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q9b" name="q9" value="b" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">diagnóstica, utilizada apenas no início do processo para nivelar a turma, sem que seus resultados influenciem o planejamento das etapas seguintes da aprendizagem.</span>
+                    </label>
+                    <label for="q9c" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q9c" name="q9" value="c" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">formativa, concebida como um processo contínuo e integrado ao ensino, que oferece feedback constante a alunos e professores, valoriza o desenvolvimento de competências e a autoavaliação, e orienta a trajetória de aprendizagem.</span>
+                    </label>
+                    <label for="q9d" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q9d" name="q9" value="d" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">classificatória, baseada em um ranking de notas que visa estimular a competição entre os alunos e premiar os de melhor desempenho, preparando-os para ambientes de trabalho competitivos.</span>
+                    </label>
+                    <label for="q9e" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q9e" name="q9" value="e" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">externa, realizada por agências de avaliação do mercado, que mede a qualidade do curso unicamente pela taxa de empregabilidade dos egressos, desconsiderando o processo pedagógico.</span>
+                    </label>
+                </div>
+            </fieldset>
+
+            <!-- Questão 10 -->
+            <fieldset class="mb-8 p-6 bg-white rounded-lg shadow-sm border border-gray-200">
+                <legend class="text-xl font-semibold text-gray-800 px-2 mb-4">Questão 10</legend>
+                <p class="text-gray-700 text-justify leading-relaxed">Analise as afirmativas a seguir sobre a relação entre metodologias de ensino, interdisciplinaridade e os marcos normativos da Educação Profissional e Tecnológica (EPT).
+                <br><br>
+                I. A efetiva aplicação de metodologias como a Aprendizagem Baseada em Projetos na EPT pressupõe uma prática interdisciplinar, uma vez que os problemas e projetos do mundo real raramente se restringem aos limites de uma única disciplina.
+                <br>
+                II. A adoção dos itinerários formativos pela BNCC, incluindo o de Formação Técnica e Profissional, torna desnecessária a observância de diretrizes específicas da EPT, como a Resolução CNE/CP nº 1/2021, pois a Base já contempla todos os aspectos da modalidade.
+                <br>
+                III. O princípio da "pesquisa como princípio pedagógico", presente nas diretrizes da EPT, está em consonância com as metodologias ativas, pois estimula a autonomia, a curiosidade e o protagonismo do estudante na construção do conhecimento.
+                <br>
+                IV. O principal objetivo das metodologias ativas na EPT é acelerar o processo de formação técnica, reduzindo a carga horária de estudos teóricos para atender mais rapidamente às demandas emergenciais do setor produtivo.
+                <br><br>
+                Estão corretas apenas as afirmativas:</p>
+                <div class="mt-4 space-y-3">
+                    <label for="q10a" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q10a" name="q10" value="a" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1" required>
+                        <span class="ml-3 text-gray-700">I e II.</span>
+                    </label>
+                    <label for="q10b" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q10b" name="q10" value="b" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">I e III.</span>
+                    </label>
+                    <label for="q10c" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q10c" name="q10" value="c" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">II e IV.</span>
+                    </label>
+                    <label for="q10d" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q10d" name="q10" value="d" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">I, III e IV.</span>
+                    </label>
+                    <label for="q10e" class="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+                        <input type="radio" id="q10e" name="q10" value="e" class="h-5 w-5 border-gray-300 rounded-full text-blue-600 focus:ring-blue-500 mt-1">
+                        <span class="ml-3 text-gray-700">II, III e IV.</span>
+                    </label>
+                </div>
+            </fieldset>
+
+            <!-- Botões de Ação -->
+            <div class="mt-10 text-center">
+                <button id="submitButton" type="submit" class="w-full sm:w-auto px-10 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 transition-colors duration-200">
+                    Finalizar Quiz e Ver Resultados
+                </button>
+                
+                <button id="resetButton" type="button" class="hidden w-full sm:w-auto px-10 py-3 bg-gray-600 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-75 transition-colors duration-200">
+                    Tentar Novamente
+                </button>
+            </div>
+            
+        </form>
+
+    </main>
+
+    <script>
+        // --- BANCO DE DADOS DO QUIZ ---
+        // Armazena o gabarito e as resoluções
+        const quizData = [
+            { // Questão 1
+                correct: 'b',
+                resolution: `A questão exige o conhecimento dos princípios norteadores da Educação Profissional e Tecnológica (EPT) conforme a Resolução CNE/CP nº 1/2021, que é o marco regulatório mais atual e importante da área.<br><br>
+                * **Alternativa B (Correta):** Esta alternativa cita três princípios centrais e explícitos do Art. 3º da referida resolução: IV - "centralidade do trabalho assumido como princípio educativo"; VIII - "interdisciplinaridade assegurada no planejamento curricular e na prática pedagógica"; e X - "articulação com o desenvolvimento socioeconômico e os arranjos produtivos locais". Esses princípios refletem a concepção de uma EPT integrada, contextualizada e voltada para a formação humana integral.<br>
+                * **Alternativa A (Incorreta):** Os itens desta alternativa contradizem diretamente a filosofia da resolução. A EPT busca a formação integral, e não apenas a "empregabilidade imediata"; defende a integração, e não a "separação rígida" entre formação geral e técnica; e valoriza a avaliação formativa, em oposição à "puramente classificatória".<br>
+                * **Alternativa C (Incorreta):** A resolução fala em competências, mas não de forma "estritamente técnica", e sim articulando saberes cognitivos e socioemocionais. Além disso, a "pesquisa como princípio pedagógico" é um pilar fundamental (inciso V), e a autonomia institucional deve estar em consonância com as demandas sociais, e não desvinculada delas.<br>
+                * **Alternativa D (Incorreta):** A EPT contemporânea combate o "modelo curricular fragmentado" em favor da integração e da interdisciplinaridade. A ênfase é no desenvolvimento de competências e no pensamento crítico, não na mera "memorização". A subordinação exclusiva ao mercado imediato é uma visão tecnicista superada pela busca da formação cidadã.<br>
+                * **Alternativa E (Incorreta):** Os princípios da EPT valorizam a colaboração e a construção coletiva do conhecimento, não a "competição". A "indissociabilidade entre teoria e prática" é um mandamento (inciso VII), e a centralidade é no estudante (metodologias ativas), não na "transmissão de conhecimento pelo docente".`
+            },
+            { // Questão 2
+                correct: 'a',
+                resolution: `A questão apresenta um cenário prático que demanda a escolha da metodologia ativa mais apropriada para os objetivos pedagógicos descritos: protagonismo, diagnóstico e resolução de problemas complexos e contextualizados.<br><br>
+                * **Alternativa A (Correta):** A Aprendizagem Baseada em Problemas (Problem-Based Learning - PBL) é a metodologia mais completa para o cenário. Ela se inicia com um problema autêntico e mal definido (ex: "Como podemos melhorar a gestão de resíduos sólidos no nosso bairro?"), o que força os alunos a se tornarem protagonistas de sua aprendizagem, investigando, diagnosticando o problema em profundidade, mobilizando conhecimentos de diversas áreas (interdisciplinaridade) e colaborando para criar uma solução. Essa abordagem está alinhada à formação de um profissional crítico e reflexivo, capaz de lidar com os desafios reais de sua área de atuação.<br>
+                * **Alternativa B (Incorreta):** A Sala de Aula Invertida é uma excelente metodologia para otimizar o tempo em sala, mas seu foco principal é a inversão da lógica "exposição em sala, tarefa em casa". Embora libere tempo para atividades mais práticas, ela, por si só, não garante a abordagem de problemas complexos e não estruturados como o PBL faz.<br>
+                * **Alternativa C (Incorreta):** A Gamificação é eficaz para aumentar o engajamento e a motivação. Contudo, seu foco está na aplicação de mecânicas de jogos (pontos, fases, rankings). Ela pode ser uma ferramenta de apoio, mas não é a metodologia central para desenvolver a capacidade de diagnóstico e resolução de problemas complexos e abertos.<br>
+                * **Alternativa D (Incorreta):** A Instrução por Pares é uma técnica poderosa para aprofundar a compreensão de conceitos específicos por meio do debate entre colegas. É mais focada na aprendizagem conceitual do que na resolução de problemas práticos e abrangentes como os propostos no cenário.<br>
+                * **Alternativa E (Incorreta):** O Seminário Expositivo, embora possa desenvolver habilidades de pesquisa e comunicação, ainda mantém uma lógica de transmissão de informação (do aluno para a turma), sendo menos interativo e menos focado na construção colaborativa de uma solução para um problema prático.`
+            },
+            { // Questão 3
+                correct: 'd',
+                resolution: `A questão aborda um conceito central da EPT: o Currículo Integrado. É fundamental diferenciar essa concepção de outras formas de organização curricular.<br><br>
+                * **Alternativa D (Correta):** Esta alternativa apresenta a definição mais completa e precisa do Currículo Integrado. Seus elementos-chave são: a **articulação** (e não justaposição) entre formação geral e profissional; o uso de **eixos integradores** (trabalho, ciência, tecnologia e cultura) que dão sentido a essa articulação; o objetivo final da **formação humana integral**; e a **superação da dicotomia** histórica entre trabalho manual (fazer) e trabalho intelectual (pensar). Essa concepção entende a EPT não como um ensino menor, mas como uma via de formação completa do cidadão-trabalhador.<br>
+                * **Alternativa A (Incorreta):** Descreve a oferta de cursos na forma **concomitante**, onde o aluno cursa o ensino médio em uma instituição e o técnico em outra, ou na mesma, mas com matrículas e projetos pedagógicos distintos. Falta a integração curricular.<br>
+                * **Alternativa B (Incorreta):** Apresenta uma visão **tecnicista** e instrumental do currículo, onde a formação geral é secundária e serve apenas para dar suporte à formação técnica. Isso contradiz o princípio da formação integral.<br>
+                * **Alternativa C (Incorreta):** Define uma abordagem **multidisciplinar**, na qual várias disciplinas olham para um mesmo tema, mas sem que haja um diálogo profundo ou uma fusão de suas fronteiras para construir um novo conhecimento. O currículo integrado pressupõe a **interdisciplinaridade** como método.<br>
+                * **Alternativa E (Incorreta):** Descreve a oferta na forma **subsequente**, destinada a quem já concluiu o ensino médio. Embora seja uma modalidade válida de EPT, não corresponde à definição de Currículo Integrado ao Ensino Médio.`
+            },
+            { // Questão 4
+                correct: 'b',
+                resolution: `A questão investiga o papel da interdisciplinaridade como método para alcançar o objetivo filosófico da formação integral na EPT.<br><br>
+                * **Alternativa B (Correta):** Esta alternativa capta a essência da interdisciplinaridade. Seu propósito é epistemológico e pedagógico: superar a visão fragmentada da realidade que a organização disciplinar tradicional impõe. Ao conectar saberes, o estudante desenvolve uma compreensão mais holística e crítica dos fenômenos, especialmente os do mundo do trabalho, que são, por natureza, complexos e multifacetados. A interdisciplinaridade é, portanto, a ponte metodológica para a construção de um currículo verdadeiramente integrado.<br>
+                * **Alternativa A (Incorreta):** A otimização da carga horária pode ser um efeito secundário, mas não é o objetivo principal da interdisciplinaridade. Reduzir sua função a um aspecto gerencial é esvaziar seu potencial pedagógico e transformador.<br>
+                * **Alternativa C (Incorreta):** Embora práticas interdisciplinares possam tornar as aulas mais dinâmicas, seu objetivo vai além do engajamento. Elas implicam, necessariamente, uma alteração na estrutura e na lógica de planejamento e avaliação, exigindo colaboração docente e novas formas de pensar o currículo.<br>
+                * **Alternativa D (Incorreta):** Esta alternativa é diametralmente oposta ao conceito de formação integral. A interdisciplinaridade busca o diálogo e a integração entre as áreas do conhecimento (humanas, exatas, técnicas), e não a sobreposição de uma sobre a outra.<br>
+                * **Alternativa E (Incorreta):** A interdisciplinaridade deve permear toda a prática pedagógica e o currículo, não se restringindo a atividades pontuais ou periféricas como projetos de extensão. Para que a integração ocorra, ela deve estar no cerne do ensino regular.`
+            },
+            { // Questão 5
+                correct: 'b',
+                resolution: `A questão avalia o conhecimento sobre a estrutura do Novo Ensino Médio e como a EPT se insere nela.<br><br>
+                * **Alternativa B (Correta):** A Lei nº 13.415/2017 estruturou o currículo do Ensino Médio em duas partes: a Formação Geral Básica (definida pela BNCC) e os Itinerários Formativos. Um desses cinco itinerários é o de Formação Técnica e Profissional (FTP). Este é o principal mecanismo legal e estrutural que articula a EPT ao currículo comum, permitindo a flexibilização e a escolha do estudante.<br>
+                * **Alternativa A (Incorreta):** A BNCC define competências e habilidades para a Formação Geral Básica, não para a parte diversificada dos itinerários. As competências técnicas específicas da EPT são definidas em outros documentos, como o Catálogo Nacional de Cursos Técnicos (CNCT) e as diretrizes da EPT, não na BNCC.<br>
+                * **Alternativa C (Incorreta):** A BNCC não substitui as diretrizes específicas da EPT. Pelo contrário, a oferta do itinerário de FTP deve observar tanto a BNCC (na parte comum) quanto as normativas próprias da EPT, como a Resolução CNE/CP nº 1/2021, que se complementam.<br>
+                * **Alternativa D (Incorreta):** Não há obrigatoriedade de que todos os estudantes cursem um itinerário de EPT. A proposta do Novo Ensino Médio é baseada na escolha do estudante entre as opções de itinerários ofertados pela rede de ensino.<br>
+                * **Alternativa E (Incorreta):** O Sistema Nacional de Avaliação da Educação Profissional e Tecnológica (Sinaept) foi instituído por decreto presidencial em 2025 e é um processo nacional de avaliação para a EPT, articulado, mas distinto, do Saeb. Seus critérios são específicos para a modalidade, não definidos exclusivamente pela BNCC.`
+            },
+            { // Questão 6
+                correct: 'c',
+                resolution: `A questão exige a definição de um conceito filosófico-pedagógico central para a EPT: "trabalho como princípio educativo".<br><br>
+                * **Alternativa C (Correta):** Esta alternativa oferece a definição correta e completa. O trabalho é entendido não apenas como emprego, mas como uma categoria central para a compreensão da formação do ser humano e da sociedade (dimensão histórico-ontológica). Nessa perspectiva, ele se torna um eixo que articula os diferentes saberes (científicos, culturais, tecnológicos) com a prática social, possibilitando uma formação que une teoria e prática, pensamento e ação, com vistas à formação integral.<br>
+                * **Alternativa A (Incorreta):** Reduz o conceito de trabalho à "empregabilidade", uma visão instrumental e adaptativa que o princípio educativo busca justamente criticar e superar em favor de uma compreensão mais ampla e emancipatória.<br>
+                * **Alternativa B (Incorreta):** Descreve o trabalho como uma atividade meramente complementar ou ilustrativa. Como princípio educativo, o trabalho é o elemento central e estruturante do currículo, e não um apêndice da teoria.<br>
+                * **Alternativa D (Incorreta):** Apresenta uma visão reducionista do trabalho como simples "fazer" manual, reeditando a dicotomia entre trabalho intelectual e manual que o currículo integrado visa superar.<br>
+                * **Alternativa E (Incorreta):** Isola a discussão sobre o trabalho em disciplinas específicas, quando, na verdade, como princípio educativo, ele deve perpassar e integrar todos os componentes curriculares, tanto da formação geral quanto da específica.`
+            },
+            { // Questão 7
+                correct: 'd',
+                resolution: `A questão apresenta um cenário de falha na implementação de uma inovação pedagógica e pede um diagnóstico sistêmico.<br><br>
+                * **Alternativa D (Correta):** Esta alternativa aponta para as barreiras estruturais e formativas mais citadas na literatura como impeditivos à interdisciplinaridade. A prática interdisciplinar não é espontânea; ela exige que os professores, formados em uma lógica disciplinar, aprendam a colaborar. Isso demanda **formação continuada** específica e, crucialmente, **tempo institucional** para que possam se reunir, planejar, debater e avaliar coletivamente os projetos. A ausência desses dois fatores é a causa raiz mais comum para o fracasso de tais iniciativas.<br>
+                * **Alternativa A (Incorreta):** Embora a resistência discente possa ocorrer, ela geralmente é um sintoma de projetos mal planejados ou mal conduzidos, e não a causa primária do fracasso. Muitas vezes, os alunos se engajam em propostas inovadoras quando bem estruturadas.<br>
+                * **Alternativa B (Incorreta):** A complexidade do tema não é, em si, um impeditivo, mas um desafio a ser enfrentado com bom planejamento pedagógico. Atribuir o fracasso ao tema é desviar o foco dos problemas processuais e estruturais.<br>
+                * **Alternativa C (Incorreta):** A falta de recursos pode ser um obstáculo, mas muitos projetos interdisciplinares de grande impacto podem ser realizados com recursos simples, focando na integração de conhecimentos e na investigação da realidade local. É uma causa possível, mas menos fundamental do que a falta de tempo e formação para o planejamento.<br>
+                * **Alternativa E (Incorreta):** A suposta distância da realidade do mercado é uma crítica que pode surgir, mas o cenário descreve uma falha na fase de planejamento e execução entre os docentes, um problema de ordem pedagógica e organizacional, e não de adequação do conteúdo ao mundo do trabalho.`
+            },
+            { // Questão 8
+                correct: 'b',
+                resolution: `A questão solicita a identificação de uma prática pedagógica na EPT que represente a superação da "educação bancária" de Paulo Freire.<br><br>
+                * **Alternativa B (Correta):** Esta alternativa descreve a essência da pedagogia freiriana aplicada à EPT. A superação da "educação bancária" ocorre quando a educação se torna dialógica e libertadora. Isso se materializa em metodologias ativas, como a problematização, que partem da realidade concreta dos estudantes ("temas geradores"), valorizam seus saberes prévios e os colocam como sujeitos ativos e co-construtores do conhecimento, em um processo de leitura crítica e transformação do mundo.<br>
+                * **Alternativa A (Incorreta):** O uso de material padronizado e a busca pela uniformidade são características da educação bancária, que trata os alunos como receptores homogêneos de um conhecimento pronto e acabado, desconsiderando suas individualidades e contextos.<br>
+                * **Alternativa C (Incorreta):** A avaliação focada na memorização e reprodução é o instrumento por excelência da educação bancária. Ela mede a capacidade do aluno de "armazenar o depósito" feito pelo professor, em vez de avaliar sua capacidade de pensar criticamente e aplicar o conhecimento.<br>
+                * **Alternativa D (Incorreta):** A organização espacial que reforça a centralidade do professor é um símbolo da relação vertical e antidialógica criticada por Freire. A pedagogia freiriana propõe relações mais horizontais, como as que ocorrem em um "círculo de cultura".<br>
+                * **Alternativa E (Incorreta):** A priorização da exposição teórica, desvinculada da prática e da realidade do aluno, e a rígida separação entre teoria e prática são marcas do ensino tradicional que Freire combatia. Para ele, o conhecimento se constrói na relação dialética entre ação e reflexão (práxis).`
+            },
+            { // Questão 9
+                correct: 'c',
+                resolution: `A questão busca a coerência entre os princípios pedagógicos (metodologias ativas, interdisciplinaridade) e a prática avaliativa.<br><br>
+                * **Alternativa C (Correta):** Se a pedagogia é centrada no processo, na construção, no protagonismo e na formação integral, a avaliação deve seguir a mesma lógica. A **avaliação formativa** é a única que cumpre esse papel. Ela não é um evento pontual no final, mas um componente intrínseco e contínuo do processo de ensino-aprendizagem. Seu objetivo não é classificar, mas **regular a aprendizagem**, fornecendo informações (feedback) para que alunos e professores possam ajustar suas ações e superar dificuldades. Ela valoriza o percurso, o erro como oportunidade de aprender e o desenvolvimento de competências complexas.<br>
+                * **Alternativa A (Incorreta):** A avaliação somativa tem seu lugar, mas não pode ser a abordagem principal em uma pedagogia processual. Seu caráter classificatório e finalístico pode anular os esforços de uma prática focada no desenvolvimento contínuo.<br>
+                * **Alternativa B (Incorreta):** A avaliação diagnóstica é fundamental, mas seu propósito é mapear os conhecimentos prévios para **informar o planejamento inicial**. Usá-la de forma isolada, sem continuidade, a torna ineficaz.<br>
+                * **Alternativa D (Incorreta):** A avaliação classificatória e competitiva vai na contramão dos princípios de colaboração e desenvolvimento integral, incentivando o aprendizado para a nota, e não para a vida e para o trabalho.<br>
+                * **Alternativa E (Incorreta):** A avaliação externa pela empregabilidade é um indicador de relevância do curso, mas não pode ser o único critério de qualidade, pois desconsidera toda a dimensão pedagógica e de formação cidadã, que são centrais na EPT.`
+            },
+            { // Questão 10
+                correct: 'b',
+                resolution: `A questão exige a análise de quatro afirmativas, integrando diversos conceitos abordados.<br><br>
+                * **Afirmativa I (Correta):** Metodologias como Aprendizagem Baseada em Projetos ou Problemas lidam com situações complexas do mundo real. Tais situações, por definição, não se encaixam nas fronteiras de uma única disciplina (ex: um projeto de saneamento básico envolve Química, Biologia, Sociologia, Geografia, Matemática). Portanto, a interdisciplinaridade não é apenas desejável, mas uma condição necessária para a aplicação efetiva dessas metodologias.<br>
+                * **Afirmativa II (Incorreta):** A BNCC e as diretrizes da EPT são documentos complementares, não excludentes. A BNCC estrutura a Formação Geral Básica, enquanto a Resolução CNE/CP nº 1/2021 e outras normas específicas detalham os princípios, a organização e as diretrizes para a parte profissional do currículo, incluindo o itinerário de FTP. Uma norma não revoga a outra.<br>
+                * **Afirmativa III (Correta):** O princípio da "pesquisa como princípio pedagógico" desloca o eixo da educação da mera recepção de informações para a investigação e produção de conhecimento. Isso se alinha perfeitamente com as metodologias ativas, que posicionam o estudante como um investigador autônomo e protagonista de sua aprendizagem.<br>
+                * **Afirmativa IV (Incorreta):** Esta afirmativa apresenta uma visão tecnicista e reducionista das metodologias ativas. Seu principal objetivo na EPT não é a aceleração da formação, mas a qualificação do processo de aprendizagem, visando a uma formação mais sólida, crítica, reflexiva e integral, que prepare o estudante para os desafios complexos do trabalho e da vida, e não apenas para executar tarefas de forma mais rápida.<br><br>
+                Portanto, as afirmativas corretas são a I e a III.`
+            }
+        ];
+
+        // --- LÓGICA DO QUIZ ---
+        
+        // Seleciona os elementos do DOM
+        const quizForm = document.getElementById('quizForm');
+        const submitButton = document.getElementById('submitButton');
+        const resetButton = document.getElementById('resetButton');
+        const scoreSummaryDiv = document.getElementById('scoreSummary');
+        const scoreText = document.getElementById('scoreText');
+
+        // Adiciona o listener de evento para o envio do formulário
+        quizForm.addEventListener('submit', handleQuizSubmit);
+        
+        // Adiciona o listener de evento para o botão de resetar
+        resetButton.addEventListener('click', handleQuizReset);
+
+        /**
+         * Função chamada quando o quiz é enviado
+         */
+        function handleQuizSubmit(event) {
+            event.preventDefault(); // Impede o recarregamento da página
+            
+            let score = 0;
+            const formData = new FormData(quizForm);
+            const questionBlocks = document.querySelectorAll('#quizForm fieldset');
+
+            // Limpa resoluções e destaques anteriores (caso o usuário envie de novo)
+            clearPreviousResults(questionBlocks);
+
+            // Itera sobre cada questão para verificar as respostas
+            quizData.forEach((question, index) => {
+                const questionIndex = index + 1;
+                const userAnswer = formData.get('q' + questionIndex);
+                const correctAnswer = question.correct;
+                const resolutionText = question.resolution;
+                
+                const block = questionBlocks[index];
+                const radios = block.querySelectorAll('input[type="radio"]');
+                
+                // Desabilita os botões de rádio após o envio
+                radios.forEach(radio => radio.disabled = true);
+
+                const correctLabel = block.querySelector(`label[for="q${questionIndex}${correctAnswer}"]`);
+                const userLabel = userAnswer ? block.querySelector(`label[for="q${questionIndex}${userAnswer}"]`) : null;
+
+                // Destaca a resposta correta e a incorreta (se houver)
+                if (userAnswer === correctAnswer) {
+                    score++;
+                    correctLabel.classList.add('correct-answer-label');
+                } else {
+                    if (userLabel) {
+                        userLabel.classList.add('incorrect-answer-label');
+                    }
+                    correctLabel.classList.add('correct-answer-label');
+                }
+                
+                // Cria e insere a caixa de resolução abaixo da questão
+                const resolutionEl = document.createElement('div');
+                resolutionEl.className = 'resolution-box mt-6 p-4 bg-gray-100 rounded-lg border border-gray-200 text-gray-800';
+                resolutionEl.innerHTML = `
+                    <h3 class="font-bold text-lg text-gray-900">Gabarito e Resolução Comentada</h3>
+                    <p class="mt-2"><strong class="text-green-700">Gabarito: ${correctAnswer.toUpperCase()}</strong></p>
+                    <p class="mt-3 text-justify leading-relaxed">${resolutionText.replace(/\* /g, '<br>• ').replace(/<br><br>/g, '<br>')}</p>
+                `;
+                block.appendChild(resolutionEl);
+            });
+
+            // Exibe a pontuação
+            scoreText.textContent = `Seu resultado: ${score} de 10 acertos`;
+            scoreSummaryDiv.classList.remove('hidden');
+
+            // Alterna os botões
+            submitButton.classList.add('hidden');
+            resetButton.classList.remove('hidden');
+            
+            // Rola a tela para o topo para mostrar o resultado
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /**
+         * Função chamada para resetar o quiz
+         */
+        function handleQuizReset() {
+            quizForm.reset(); // Limpa as seleções do formulário
+            const questionBlocks = document.querySelectorAll('#quizForm fieldset');
+            
+            // Limpa resoluções e destaques
+            clearPreviousResults(questionBlocks);
+
+            // Reabilita os botões de rádio
+            questionBlocks.forEach(block => {
+                block.querySelectorAll('input[type="radio"]').forEach(radio => radio.disabled = false);
+            });
+
+            // Esconde a pontuação
+            scoreSummaryDiv.classList.add('hidden');
+            
+            // Alterna os botões
+            submitButton.classList.remove('hidden');
+            resetButton.classList.add('hidden');
+
+            // Rola a tela para o topo
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /**
+         * Helper para limpar destaques e resoluções
+         */
+        function clearPreviousResults(questionBlocks) {
+            questionBlocks.forEach(block => {
+                // Remove as caixas de resolução
+                const resolutionBox = block.querySelector('.resolution-box');
+                if (resolutionBox) {
+                    resolutionBox.remove();
+                }
+                
+                // Remove as classes de destaque das labels
+                block.querySelectorAll('label').forEach(label => {
+                    label.classList.remove('correct-answer-label', 'incorrect-answer-label');
+                });
+            });
+        }
+
+    </script>
+</body>
+</html>

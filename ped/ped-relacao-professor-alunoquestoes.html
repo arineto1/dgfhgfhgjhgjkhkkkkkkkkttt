@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Relação Professor-Aluno</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carrega a fonte Inter para melhor legibilidade -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Define a fonte padrão e o fundo claro */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa; /* Fundo claro (cinza muito sutil) */
+            color: #212529; /* Texto escuro */
+        }
+        /* Melhora o estilo dos botões de rádio */
+        input[type="radio"]:checked {
+            accent-color: #2563eb; /* Azul */
+        }
+        /* Estilos para o conteúdo da resolução (para manter a formatação) */
+        .resolution-content strong {
+            color: #1f2937; /* Um pouco mais escuro para ênfase */
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Container Principal com largura máxima para leitura confortável -->
+    <div class="max-w-4xl mx-auto p-6 md:p-10">
+
+        <header class="text-center mb-10">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900">Quiz: A Relação Professor-Aluno</h1>
+            <p class="text-lg text-gray-700 mt-2">Abordagens e Concepções (Estilo Instituto AOCP)</p>
+        </header>
+
+        <!-- Formulário do Quiz (Questões 1-10) -->
+        <form id="quizForm" class="space-y-10">
+
+            <!-- Questão 1 -->
+            <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-gray-200">
+                <h2 class="text-xl font-bold text-gray-900 mb-5">Questão 1</h2>
+                <p class="text-gray-800 leading-relaxed mb-6">
+                    Considerando a perspectiva de Paulo Freire sobre a relação professor-aluno, assinale a alternativa que descreve corretamente sua concepção.
+                </p>
+                <div class="space-y-4">
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q1" value="a" class="mr-3">
+                        <span class="text-gray-800">Uma relação verticalizada, na qual o professor, como detentor do saber, deposita o conhecimento em um aluno passivo, em um processo denominado "educação bancária".</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q1" value="b" class="mr-3">
+                        <span class="text-gray-800">Uma relação de diálogo e horizontalidade, em que educador e educando aprendem juntos, em um movimento de intercomunicação e respeito mútuo, buscando a humanização de ambos.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q1" value="c" class="mr-3">
+                        <span class="text-gray-800">Uma relação focada exclusivamente na afetividade, na qual o conteúdo programático é secundário em relação ao bem-estar emocional do aluno, isentando o professor de seu papel instrutivo.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q1" value="d" class="mr-3">
+                        <span class="text-gray-800">Uma relação técnica, em que o professor atua como um mediador neutro, utilizando o conhecimento prévio do aluno apenas como ponto de partida para a transmissão eficiente do conteúdo curricular.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q1" value="e" class="mr-3">
+                        <span class="text-gray-800">Uma relação de autoridade, na qual a severidade e o distanciamento do professor são vistos como ferramentas necessárias para garantir a disciplina e o rigor acadêmico em sala de aula.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 2 -->
+            <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-gray-200">
+                <h2 class="text-xl font-bold text-gray-900 mb-5">Questão 2</h2>
+                <p class="text-gray-800 leading-relaxed mb-6">
+                    De acordo com a abordagem sociointeracionista de Lev Vygotsky, o papel do professor no processo de ensino-aprendizagem é fundamental. Assinale a alternativa que define adequadamente a função do professor nessa perspectiva.
+                </p>
+                <div class="space-y-4">
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q2" value="a" class="mr-3">
+                        <span class="text-gray-800">Criar situações de desequilíbrio cognitivo para que o aluno, por si só, reconstrua suas estruturas mentais e avance em seu desenvolvimento.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q2" value="b" class="mr-3">
+                        <span class="text-gray-800">Atuar como um facilitador não diretivo, garantindo um clima de confiança e aceitação incondicional para que o aluno possa se auto-orientar em sua aprendizagem.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q2" value="c" class="mr-3">
+                        <span class="text-gray-800">Agir como mediador da aprendizagem, sendo o parceiro mais experiente que intervém intencionalmente na Zona de Desenvolvimento Proximal (ZDP) do aluno para promover o desenvolvimento.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q2" value="d" class="mr-3">
+                        <span class="text-gray-800">Transmitir o conhecimento de forma organizada e sistemática, utilizando reforços positivos para modelar o comportamento esperado dos alunos.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q2" value="e" class="mr-3">
+                        <span class="text-gray-800">Problematizar a realidade concreta dos alunos, utilizando temas geradores para promover a conscientização e a práxis transformadora.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 3 -->
+            <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-gray-200">
+                <h2 class="text-xl font-bold text-gray-900 mb-5">Questão 3</h2>
+                <p class="text-gray-800 leading-relaxed mb-6">
+                    Uma professora de Ciências, ao introduzir o conceito de densidade, não apresenta a fórmula diretamente. Em vez disso, ela organiza os alunos em grupos e lhes entrega diversos objetos de materiais, massas e volumes diferentes, juntamente com um tanque de água. Ela lança o desafio: "Descubram por que alguns objetos afundam e outros flutuam, e tentem criar uma regra para prever o que acontecerá com um novo objeto". A professora circula pelos grupos, fazendo perguntas que estimulam a observação e o debate, sem fornecer respostas prontas.
+                    Essa prática pedagógica é mais condizente com a concepção da relação professor-aluno da abordagem:
+                </p>
+                <div class="space-y-4">
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q3" value="a" class="mr-3">
+                        <span class="text-gray-800">Tradicional, pois o professor detém o controle da atividade e dos materiais.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q3" value="b" class="mr-3">
+                        <span class="text-gray-800">Construtivista Piagetiana, pois o professor cria uma situação-problema que gera conflito cognitivo, levando os alunos a construírem ativamente o conhecimento.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q3" value="c" class="mr-3">
+                        <span class="text-gray-800">Humanista Rogeriana, pois o foco está na liberdade total dos alunos para explorarem seus próprios interesses, independentemente do currículo.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q3" value="d" class="mr-3">
+                        <span class="text-gray-800">Comportamentalista, pois a atividade visa reforçar o comportamento de experimentar até encontrar a resposta correta.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q3" value="e" class="mr-3">
+                        <span class="text-gray-800">Libertadora de Paulo Freire, pois parte de um problema da realidade social dos alunos para a transformação do mundo.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 4 -->
+            <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-gray-200">
+                <h2 class="text-xl font-bold text-gray-900 mb-5">Questão 4</h2>
+                <p class="text-gray-800 leading-relaxed mb-6">
+                    Carl Rogers, um dos principais teóricos da abordagem humanista, defende que o professor, para facilitar uma aprendizagem significativa, deve manifestar um conjunto de atitudes fundamentais em sua relação com o aluno. Esse conjunto é conhecido como "Tríade Rogeriana". Assinale a alternativa que apresenta corretamente as três condições dessa tríade.
+                </p>
+                <div class="space-y-4">
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q4" value="a" class="mr-3">
+                        <span class="text-gray-800">Mediação, Intervenção e Avaliação Formativa.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q4" value="b" class="mr-3">
+                        <span class="text-gray-800">Diálogo, Problematização e Conscientização.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q4" value="c" class="mr-3">
+                        <span class="text-gray-800">Desequilíbrio, Assimilação e Acomodação.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q4" value="d" class="mr-3">
+                        <span class="text-gray-800">Empatia, Aceitação Incondicional e Autenticidade (Congruência).</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q4" value="e" class="mr-3">
+                        <span class="text-gray-800">Autoridade, Disciplina e Transmissão de Conteúdo.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 5 -->
+            <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-gray-200">
+                <h2 class="text-xl font-bold text-gray-900 mb-5">Questão 5</h2>
+                <p class="text-gray-800 leading-relaxed mb-6">
+                    Analise as afirmativas a seguir sobre as diferentes concepções da relação professor-aluno e marque (V) para Verdadeiro ou (F) para Falso.
+                </p>
+                <p class="text-gray-800 leading-relaxed mb-6 pl-4 border-l-4 border-gray-200">
+                    ( ) Na perspectiva sociointeracionista de Vygotsky, a interação social é a origem e o motor do desenvolvimento das funções psicológicas superiores, e o professor atua como mediador cultural nesse processo.<br>
+                    ( ) Para Jean Piaget, a afetividade e a cognição são aspectos indissociáveis do desenvolvimento, sendo a afetividade considerada a energia que impulsiona as ações e a construção do conhecimento.<br>
+                    ( ) Na abordagem tradicional, a relação professor-aluno é marcada pela verticalidade, onde o aluno é visto como um sujeito ativo e o professor como um facilitador que aprende junto com ele.<br>
+                    ( ) Paulo Freire defende que a relação educativa deve superar a contradição educador-educando, de modo que ambos se tornem sujeitos do processo de ensino e aprendizagem, ensinando e aprendendo mutuamente.
+                </p>
+                <p class="text-gray-800 leading-relaxed mb-6">
+                    A sequência correta, de cima para baixo, é:
+                </p>
+                <div class="space-y-4">
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q5" value="a" class="mr-3">
+                        <span class="text-gray-800">V - V - F - V.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q5" value="b" class="mr-3">
+                        <span class="text-gray-800">V - F - V - F.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q5" value="c" class="mr-3">
+                        <span class="text-gray-800">F - V - F - V.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q5" value="d" class="mr-3">
+                        <span class="text-gray-800">V - V - V - F.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q5" value="e" class="mr-3">
+                        <span class="text-gray-800">F - F - V - V.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 6 -->
+            <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-gray-200">
+                <h2 class="text-xl font-bold text-gray-900 mb-5">Questão 6</h2>
+                <p class="text-gray-800 leading-relaxed mb-6">
+                    Embora tanto a abordagem construtivista de Piaget quanto a sociointeracionista de Vygotsky valorizem a interação social, elas atribuem papéis distintos a essa interação na relação professor-aluno e no processo de aprendizagem. A principal diferença entre as duas perspectivas nesse quesito é que:
+                </p>
+                <div class="space-y-4">
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q6" value="a" class="mr-3">
+                        <span class="text-gray-800">para Piaget, a interação social é irrelevante, enquanto para Vygotsky é o único fator de aprendizagem.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q6" value="b" class="mr-3">
+                        <span class="text-gray-800">para Vygotsky, a interação com o professor e os colegas é o que constitui a aprendizagem e internaliza a cultura, enquanto para Piaget, a interação é principalmente uma fonte de conflito cognitivo que desafia as estruturas mentais individuais.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q6" value="c" class="mr-3">
+                        <span class="text-gray-800">para Piaget, o professor deve intervir diretamente para transmitir a cultura, enquanto para Vygotsky, o professor deve apenas observar o desenvolvimento natural do aluno.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q6" value="d" class="mr-3">
+                        <span class="text-gray-800">para Vygotsky, o desenvolvimento deve ocorrer antes da aprendizagem, enquanto para Piaget, a aprendizagem impulsiona o desenvolvimento.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q6" value="e" class="mr-3">
+                        <span class="text-gray-800">ambas as teorias veem a interação social da mesma forma, como um processo de modelagem de comportamento por meio de reforços sociais.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 7 -->
+            <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-gray-200">
+                <h2 class="text-xl font-bold text-gray-900 mb-5">Questão 7</h2>
+                <p class="text-gray-800 leading-relaxed mb-6">
+                    A afetividade é um componente crucial da relação professor-aluno em diversas teorias pedagógicas. Contudo, sua função específica varia conforme a abordagem. Na teoria de Jean Piaget, a afetividade é entendida como:
+                </p>
+                <div class="space-y-4">
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q7" value="a" class="mr-3">
+                        <span class="text-gray-800">o principal elemento para a criação de um clima terapêutico em sala de aula, que permite ao aluno a autoatualização.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q7" value="b" class="mr-3">
+                        <span class="text-gray-800">um instrumento para a conscientização política e o engajamento na transformação da realidade opressora.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q7" value="c" class="mr-3">
+                        <span class="text-gray-800">a energia do comportamento, um motor que impulsiona o indivíduo a agir e a buscar o equilíbrio cognitivo, funcionando de forma paralela e inseparável da cognição.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q7" value="d" class="mr-3">
+                        <span class="text-gray-800">um fator que deve ser controlado pelo professor, pois a excessiva proximidade emocional pode prejudicar a objetividade do ensino e a disciplina.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q7" value="e" class="mr-3">
+                        <span class="text-gray-800">o resultado da mediação cultural, sendo construída exclusivamente nas interações sociais com indivíduos mais experientes.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 8 -->
+            <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-gray-200">
+                <h2 class="text-xl font-bold text-gray-900 mb-5">Questão 8</h2>
+                <p class="text-gray-800 leading-relaxed mb-6">
+                    A concepção da relação de poder em sala de aula é um divisor de águas entre a abordagem tradicional e as abordagens críticas, como a de Paulo Freire. Assinale a alternativa que contrasta corretamente essas duas visões.
+                </p>
+                <div class="space-y-4">
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q8" value="a" class="mr-3">
+                        <span class="text-gray-800">A abordagem tradicional propõe uma relação de poder horizontal e dialógica, enquanto a abordagem freireana defende uma estrutura vertical para garantir a ordem.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q8" value="b" class="mr-3">
+                        <span class="text-gray-800">Ambas as abordagens criticam o autoritarismo, mas a tradicional o faz por meio da não diretividade, e a freireana, por meio da mediação cultural.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q8" value="c" class="mr-3">
+                        <span class="text-gray-800">A abordagem tradicional se baseia em uma relação vertical e autoritária, na qual o professor detém o poder e o saber; em contrapartida, a abordagem freireana propõe uma relação horizontal, de respeito mútuo, que visa superar a opressão por meio do diálogo.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q8" value="d" class="mr-3">
+                        <span class="text-gray-800">Na visão tradicional, o poder é compartilhado entre todos os sujeitos da aprendizagem, ao passo que, na visão de Freire, o poder deve ser centralizado no professor para que ele possa libertar os alunos.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q8" value="e" class="mr-3">
+                        <span class="text-gray-800">A abordagem tradicional ignora a dimensão do poder, focando apenas no conteúdo, enquanto a abordagem de Freire a considera importante, mas secundária em relação ao desenvolvimento cognitivo.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 9 -->
+            <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-gray-200">
+                <h2 class="text-xl font-bold text-gray-900 mb-5">Questão 9</h2>
+                <p class="text-gray-800 leading-relaxed mb-6">
+                    Uma professora de História, trabalhando com uma turma do Ensino Médio em uma comunidade periférica, propõe um projeto em que os alunos devem pesquisar as histórias de vida de seus familiares e vizinhos mais velhos, relacionando-as com os grandes eventos da história do Brasil estudados em aula. O objetivo é construir um "museu vivo" da memória local e discutir criticamente como a "grande história" impacta a vida das pessoas comuns. Essa prática reflete uma concepção de relação professor-aluno alinhada à abordagem:
+                </p>
+                <div class="space-y-4">
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q9" value="a" class="mr-3">
+                        <span class="text-gray-800">Humanista, pois valoriza os sentimentos e as experiências individuais dos alunos de forma irrestrita.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q9" value="b" class="mr-3">
+                        <span class="text-gray-800">Comportamentalista, pois utiliza um estímulo (a história local) para gerar uma resposta desejada (o aprendizado da história oficial).</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q9" value="c" class="mr-3">
+                        <span class="text-gray-800">Libertadora (Freireana), pois parte da realidade e da cultura dos educandos para construir um conhecimento crítico e promover a conscientização de seu papel como sujeitos históricos.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q9" value="d" class="mr-3">
+                        <span class="text-gray-800">Construtivista (Piagetiana), pois o foco principal é levar os alunos a um novo estágio de desenvolvimento do pensamento lógico-formal por meio do desequilíbrio.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q9" value="e" class="mr-3">
+                        <span class="text-gray-800">Tradicional, pois a professora ainda é a figura central que define o projeto e avalia o resultado final.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 10 -->
+            <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-gray-200">
+                <h2 class="text-xl font-bold text-gray-900 mb-5">Questão 10</h2>
+                <p class="text-gray-800 leading-relaxed mb-6">
+                    O termo "facilitador" é frequentemente usado para descrever o papel do professor em abordagens pedagógicas que se opõem ao modelo tradicional. No entanto, o significado dessa função difere entre a abordagem construtivista de Piaget e a humanista de Rogers. A distinção fundamental é que:
+                </p>
+                <div class="space-y-4">
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q10" value="a" class="mr-3">
+                        <span class="text-gray-800">o facilitador piagetiano foca na criação de um ambiente emocionalmente seguro, enquanto o rogeriano se concentra em apresentar desafios cognitivos.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q10" value="b" class="mr-3">
+                        <span class="text-gray-800">o facilitador rogeriano intervém ativamente para mediar o conhecimento, enquanto o piagetiano adota uma postura de total não interferência.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q10" value="c" class="mr-3">
+                        <span class="text-gray-800">o facilitador piagetiano cria ativamente situações-problema para provocar o desequilíbrio e a reequilibração das estruturas cognitivas do aluno, enquanto o facilitador rogeriano se concentra em estabelecer um clima psicológico de empatia, aceitação e autenticidade para que o aluno possa conduzir seu próprio aprendizado.</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q10" value="d" class="mr-3">
+                        <span class="text-gray-800">para Piaget, "facilitador" é sinônimo de "instrutor", enquanto para Rogers, é sinônimo de "terapeuta".</span>
+                    </label>
+                    <label class="block p-5 rounded-lg border border-gray-200 hover:bg-gray-50 transition duration-150 cursor-pointer">
+                        <input type="radio" name="q10" value="e" class="mr-3">
+                        <span class="text-gray-800">não há diferença significativa, pois em ambas as abordagens o professor tem o papel passivo de apenas disponibilizar materiais e aguardar a iniciativa do aluno.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Botão de Envio -->
+            <button type="submit" id="submitBtn" class="w-full text-lg font-bold text-white bg-blue-600 rounded-lg py-4 px-6 hover:bg-blue-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                Finalizar e Ver Resultados
+            </button>
+
+        </form>
+
+        <!-- Seção de Resultados (oculta por padrão) -->
+        <section id="resultsSection" class="hidden mt-12 bg-white rounded-xl shadow-lg border border-gray-200">
+            <header class="p-8 border-b border-gray-200">
+                <h2 class="text-3xl font-bold text-gray-900 text-center">Resultados</h2>
+                <p id="score" class="text-2xl font-bold text-center text-blue-600 mt-4"></p>
+                <p id="scoreMessage" class="text-lg text-gray-700 text-center mt-2"></p>
+            </header>
+            
+            <div id="resolutionsContainer" class="p-6 md:p-8 space-y-8">
+                <!-- As resoluções comentadas (do banco de dados abaixo) serão inseridas aqui via JavaScript -->
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // --- Banco de Dados do Quiz ---
+        // Armazena todos os dados das questões, incluindo as resoluções completas.
+        // Este conteúdo é usado para construir a seção de resultados dinamicamente.
+        const quizData = [
+            // Questão 1
+            {
+                stem: "Considerando a perspectiva de Paulo Freire sobre a relação professor-aluno, assinale a alternativa que descreve corretamente sua concepção.",
+                options: {
+                    a: "Uma relação verticalizada, na qual o professor, como detentor do saber, deposita o conhecimento em um aluno passivo, em um processo denominado \"educação bancária\".",
+                    b: "Uma relação de diálogo e horizontalidade, em que educador e educando aprendem juntos, em um movimento de intercomunicação e respeito mútuo, buscando a humanização de ambos.",
+                    c: "Uma relação focada exclusivamente na afetividade, na qual o conteúdo programático é secundário em relação ao bem-estar emocional do aluno, isentando o professor de seu papel instrutivo.",
+                    d: "Uma relação técnica, em que o professor atua como um mediador neutro, utilizando o conhecimento prévio do aluno apenas como ponto de partida para a transmissão eficiente do conteúdo curricular.",
+                    e: "Uma relação de autoridade, na qual a severidade e o distanciamento do professor são vistos como ferramentas necessárias para garantir a disciplina e o rigor acadêmico em sala de aula."
+                },
+                correct: "b",
+                resolution: "<strong>Gabarito:</strong> B<br><strong>Análise da Alternativa Correta:</strong> A alternativa (B) descreve com precisão o cerne da proposta de Paulo Freire. Ele critica a \"educação bancária\", na qual o professor \"deposita\" conhecimento em alunos passivos, e propõe, em seu lugar, uma educação dialógica e problematizadora. Nessa concepção, a relação é horizontal, baseada no respeito e na intercomunicação, onde todos ensinam e aprendem em um processo de humanização mútua.[1, 2]<br><strong>Análise das Alternativas Incorretas:</strong><br>(A) Descreve exatamente o modelo que Freire critica, a \"educação bancária\".<br>(C) Embora a afetividade seja importante para Freire, sua proposta não negligencia o conteúdo; pelo contrário, o conhecimento é construído de forma rigorosa a partir da leitura crítica do mundo.<br>(D) A neutralidade do professor é um mito para Freire. O ato educativo é sempre um ato político. O professor não é um técnico, mas um parceiro engajado no diálogo.<br>(E) Esta alternativa descreve uma postura autoritária, frontalmente oposta à pedagogia do diálogo e do respeito defendida por Freire, que critica o professor \"severo, mais frio, mais distante\".[3]"
+            },
+            // Questão 2
+            {
+                stem: "De acordo com a abordagem sociointeracionista de Lev Vygotsky, o papel do professor no processo de ensino-aprendizagem é fundamental. Assinale a alternativa que define adequadamente a função do professor nessa perspectiva.",
+                options: {
+                    a: "Criar situações de desequilíbrio cognitivo para que o aluno, por si só, reconstrua suas estruturas mentais e avance em seu desenvolvimento.",
+                    b: "Atuar como um facilitador não diretivo, garantindo um clima de confiança e aceitação incondicional para que o aluno possa se auto-orientar em sua aprendizagem.",
+                    c: "Agir como mediador da aprendizagem, sendo o parceiro mais experiente que intervém intencionalmente na Zona de Desenvolvimento Proximal (ZDP) do aluno para promover o desenvolvimento.",
+                    d: "Transmitir o conhecimento de forma organizada e sistemática, utilizando reforços positivos para modelar o comportamento esperado dos alunos.",
+                    e: "Problematizar a realidade concreta dos alunos, utilizando temas geradores para promover a conscientização e a práxis transformadora."
+                },
+                correct: "c",
+                resolution: "<strong>Gabarito:</strong> C<br><strong>Análise da Alternativa Correta:</strong> A alternativa (C) capta a essência do papel do professor na teoria de Vygotsky. O conceito central é a mediação. O professor, como membro mais experiente da cultura, intervém de forma intencional na Zona de Desenvolvimento Proximal (ZDP) — a distância entre o que o aluno consegue fazer sozinho e o que consegue fazer com ajuda — para auxiliá-lo a alcançar novos patamares de desenvolvimento.[4, 5]<br><strong>Análise das Alternativas Incorretas:</strong><br>(A) Descreve o papel do professor na perspectiva construtivista de Piaget, que foca na criação de desequilíbrios cognitivos para a reestruturação individual do conhecimento.[6]<br>(B) Apresenta a função do professor na abordagem humanista de Carl Rogers, que enfatiza a não diretividade e a criação de um clima psicológico favorável.[7]<br>(D) Corresponde à abordagem comportamentalista, focada na transmissão de conhecimento e modelagem de comportamento por meio de estímulo-resposta e reforço.<br>(E) Refere-se à pedagogia libertadora de Paulo Freire, cujo foco é a conscientização por meio de temas geradores e da práxis."
+            },
+            // Questão 3
+            {
+                stem: "Uma professora de Ciências, ao introduzir o conceito de densidade, não apresenta a fórmula diretamente. [...] Essa prática pedagógica é mais condizente com a concepção da relação professor-aluno da abordagem:",
+                options: {
+                    a: "Tradicional, pois o professor detém o controle da atividade e dos materiais.",
+                    b: "Construtivista Piagetiana, pois o professor cria uma situação-problema que gera conflito cognitivo, levando os alunos a construírem ativamente o conhecimento.",
+                    c: "Humanista Rogeriana, pois o foco está na liberdade total dos alunos para explorarem seus próprios interesses, independentemente do currículo.",
+                    d: "Comportamentalista, pois a atividade visa reforçar o comportamento de experimentar até encontrar a resposta correta.",
+                    e: "Libertadora de Paulo Freire, pois parte de um problema da realidade social dos alunos para a transformação do mundo."
+                },
+                correct: "b",
+                resolution: "<strong>Gabarito:</strong> B<br><strong>Análise da Alternativa Correta:</strong> A alternativa (B) é a correta porque o cenário descrito ilustra perfeitamente a aplicação da teoria construtivista de Jean Piaget. O professor não transmite o conhecimento pronto, mas age como um facilitador que organiza um ambiente de aprendizagem desafiador. Ao apresentar um problema (\"por que uns afundam e outros flutuam?\"), ele gera um conflito cognitivo (desequilíbrio) que mobiliza os alunos a agirem sobre os objetos, levantarem hipóteses e, através da interação e do raciocínio, construírem ativamente o conceito de densidade.[6, 8]<br><strong>Análise das Alternativas Incorretas:</strong><br>(A) Na abordagem tradicional, o professor explicaria a fórmula da densidade e depois pediria exercícios de aplicação, não um desafio de descoberta.<br>(C) Na abordagem humanista, a atividade seria provavelmente escolhida pelos próprios alunos com base em seus interesses, e o foco do professor seria mais no processo de autodescoberta do que na construção de um conceito científico específico.<br>(D) A abordagem comportamentalista se concentraria em treinar os alunos para dar a resposta correta por meio de repetição e reforço, não na exploração e construção de regras.<br>(E) Embora a atividade seja prática, ela não parte necessariamente de um problema social da comunidade dos alunos para a transformação da realidade, que é a marca da pedagogia freireana."
+            },
+            // Questão 4
+            {
+                stem: "Carl Rogers, um dos principais teóricos da abordagem humanista, defende que o professor, para facilitar uma aprendizagem significativa, deve manifestar um conjunto de atitudes fundamentais em sua relação com o aluno. Esse conjunto é conhecido como \"Tríade Rogeriana\". Assinale a alternativa que apresenta corretamente as três condições dessa tríade.",
+                options: {
+                    a: "Mediação, Intervenção e Avaliação Formativa.",
+                    b: "Diálogo, Problematização e Conscientização.",
+                    c: "Desequilíbrio, Assimilação e Acomodação.",
+                    d: "Empatia, Aceitação Incondicional e Autenticidade (Congruência).",
+                    e: "Autoridade, Disciplina e Transmissão de Conteúdo."
+                },
+                correct: "d",
+                resolution: "<strong>Gabarito:</strong> D<br><strong>Análise da Alternativa Correta:</strong> A alternativa (D) lista precisamente as três condições que Carl Rogers considerava essenciais para criar um clima que facilita a aprendizagem centrada no aluno. São elas: a Empatia (a capacidade de compreender o mundo do aluno a partir do ponto de vista dele), a Aceitação Incondicional (valorizar o aluno como pessoa, sem julgamentos) e a Autenticidade ou Congruência (o professor ser genuíno e verdadeiro em sua relação com os alunos).[7, 9]<br><strong>Análise das Alternativas Incorretas:</strong><br>(A) São termos relacionados a diversas práticas pedagógicas, especialmente a vygotskyana (mediação) e a avaliação processual, mas não formam a tríade de Rogers.<br>(B) São conceitos-chave da pedagogia de Paulo Freire.<br>(C) São os mecanismos centrais do processo de equilibração na teoria de Jean Piaget.<br>(E) São características da abordagem tradicional de ensino."
+            },
+            // Questão 5
+            {
+                stem: "Analise as afirmativas a seguir sobre as diferentes concepções da relação professor-aluno e marque (V) para Verdadeiro ou (F) para Falso. [...] A sequência correta, de cima para baixo, é:",
+                options: {
+                    a: "V - V - F - V.",
+                    b: "V - F - V - F.",
+                    c: "F - V - F - V.",
+                    d: "V - V - V - F.",
+                    e: "F - F - V - V."
+                },
+                correct: "a",
+                resolution: "<strong>Gabarito:</strong> A<br><strong>Análise das Afirmativas:</strong><br><strong>(V)</strong> A primeira afirmativa está correta. Para Vygotsky, as funções mentais superiores (pensamento, linguagem, etc.) têm origem nas relações sociais e são internalizadas através da mediação de instrumentos e signos culturais, papel desempenhado pelo professor e pelos pares mais experientes.[4]<br><strong>(V)</strong> A segunda afirmativa está correta. Piaget via o desenvolvimento cognitivo e o afetivo como duas faces da mesma moeda. A afetividade (interesses, valores, sentimentos) fornece a \"energia\" para a ação, enquanto a cognição fornece a \"estrutura\".[10, 11]<br><strong>(F)</strong> A terceira afirmativa está incorreta. A abordagem tradicional é caracterizada justamente pelo oposto: uma relação vertical, onde o professor é a autoridade máxima e o aluno é um receptor passivo do conhecimento.[12]<br><strong>(V)</strong> A quarta afirmativa está correta. Este é um dos pilares do pensamento de Freire: a superação da dicotomia educador-educando. No processo dialógico, ambos são sujeitos ativos que ensinam e aprendem, mediatizados pelo mundo.[1] A sequência correta é V - V - F - V."
+            },
+            // Questão 6
+            {
+                stem: "Embora tanto a abordagem construtivista de Piaget quanto a sociointeracionista de Vygotsky valorizem a interação social, elas atribuem papéis distintos a essa interação na relação professor-aluno e no processo de aprendizagem. A principal diferença entre as duas perspectivas nesse quesito é que:",
+                options: {
+                    a: "para Piaget, a interação social é irrelevante, enquanto para Vygotsky é o único fator de aprendizagem.",
+                    b: "para Vygotsky, a interação com o professor e os colegas é o que constitui a aprendizagem e internaliza a cultura, enquanto para Piaget, a interação é principalmente uma fonte de conflito cognitivo que desafia as estruturas mentais individuais.",
+                    c: "para Piaget, o professor deve intervir diretamente para transmitir a cultura, enquanto para Vygotsky, o professor deve apenas observar o desenvolvimento natural do aluno.",
+                    d: "para Vygotsky, o desenvolvimento deve ocorrer antes da aprendizagem, enquanto para Piaget, a aprendizagem impulsiona o desenvolvimento.",
+                    e: "ambas as teorias veem a interação social da mesma forma, como um processo de modelagem de comportamento por meio de reforços sociais."
+                },
+                correct: "b",
+                resolution: "<strong>Gabarito:</strong> B<br><strong>Análise da Alternativa Correta:</strong> A alternativa (B) aponta a distinção crucial. Para Vygotsky, a interação social não é apenas um auxílio, ela é a gênese do desenvolvimento mental; o conhecimento é construído *entre* as pessoas (nível interpsicológico) antes de ser internalizado pelo indivíduo (nível intrapsicológico).[4] O professor é um mediador cultural essencial. Para Piaget, embora a interação social seja importante, ela funciona principalmente como um catalisador que gera conflitos sociocognitivos, forçando o indivíduo a sair de seu egocentrismo e a reestruturar seu próprio pensamento para atingir um novo equilíbrio.[6, 13]<br><strong>Análise das Alternativas Incorretas:</strong><br>(A) É uma simplificação extrema e incorreta. Piaget valoriza a interação social.<br>(C) Inverte os papéis. A intervenção direta para transmitir cultura é mais próxima de Vygotsky (mediação) do que de Piaget.<br>(D) A relação entre aprendizagem e desenvolvimento é o oposto: para Vygotsky, a boa aprendizagem é aquela que se adianta ao desenvolvimento, puxando-o; para Piaget, o desenvolvimento (estágios) é uma condição para que certas aprendizagens possam ocorrer.[14]<br>(E) Descreve a perspectiva comportamentalista, que não corresponde nem a Piaget nem a Vygotsky."
+            },
+            // Questão 7
+            {
+                stem: "A afetividade é um componente crucial da relação professor-aluno em diversas teorias pedagógicas. Contudo, sua função específica varia conforme a abordagem. Na teoria de Jean Piaget, a afetividade é entendida como:",
+                options: {
+                    a: "o principal elemento para a criação de um clima terapêutico em sala de aula, que permite ao aluno a autoatualização.",
+                    b: "um instrumento para a conscientização política e o engajamento na transformação da realidade opressora.",
+                    c: "a energia do comportamento, um motor que impulsiona o indivíduo a agir e a buscar o equilíbrio cognitivo, funcionando de forma paralela e inseparável da cognição.",
+                    d: "um fator que deve ser controlado pelo professor, pois a excessiva proximidade emocional pode prejudicar a objetividade do ensino e a disciplina.",
+                    e: "o resultado da mediação cultural, sendo construída exclusivamente nas interações sociais com indivíduos mais experientes."
+                },
+                correct: "c",
+                resolution: "<strong>Gabarito:</strong> C<br><strong>Análise da Alternativa Correta:</strong> A alternativa (C) está correta. Conforme a teoria de Piaget, o desenvolvimento humano possui dois componentes indissociáveis: o cognitivo e o afetivo. A afetividade abrange sentimentos, interesses e valores, e funciona como a \"energia\" ou o \"motor\" que impulsiona o comportamento, enquanto a cognição (inteligência) fornece a estrutura e a lógica para essas ações.[10, 11]<br><strong>Análise das Alternativas Incorretas:</strong><br>(A) Descreve a visão de Carl Rogers, que via a afetividade como central para a criação de um clima facilitador e terapêutico.[7]<br>(B) Corresponde à perspectiva de Paulo Freire, que liga a afetividade (amorosidade) à luta por justiça e transformação social.<br>(D) Representa uma visão tradicional ou tecnicista da educação, que muitas vezes desvaloriza ou reprime a dimensão afetiva.<br>(E) Embora a afetividade também se manifeste nas interações, esta descrição é mais alinhada à ênfase de Vygotsky na mediação social como constitutiva dos processos psicológicos.[15]"
+            },
+            // Questão 8
+            {
+                stem: "A concepção da relação de poder em sala de aula é um divisor de águas entre a abordagem tradicional e as abordagens críticas, como a de Paulo Freire. Assinale a alternativa que contrasta corretamente essas duas visões.",
+                options: {
+                    a: "A abordagem tradicional propõe uma relação de poder horizontal e dialógica, enquanto a abordagem freireana defende uma estrutura vertical para garantir a ordem.",
+                    b: "Ambas as abordagens criticam o autoritarismo, mas a tradicional o faz por meio da não diretividade, e a freireana, por meio da mediação cultural.",
+                    c: "A abordagem tradicional se baseia em uma relação vertical e autoritária, na qual o professor detém o poder e o saber; em contrapartida, a abordagem freireana propõe uma relação horizontal, de respeito mútuo, que visa superar a opressão por meio do diálogo.",
+                    d: "Na visão tradicional, o poder é compartilhado entre todos os sujeitos da aprendizagem, ao passo que, na visão de Freire, o poder deve ser centralizado no professor para que ele possa libertar os alunos.",
+                    e: "A abordagem tradicional ignora a dimensão do poder, focando apenas no conteúdo, enquanto a abordagem de Freire a considera importante, mas secundária em relação ao desenvolvimento cognitivo."
+                },
+                correct: "c",
+                resolution: "<strong>Gabarito:</strong> C<br><strong>Análise da Alternativa Correta:</strong> A alternativa (C) sintetiza a oposição fundamental entre as duas abordagens no que tange ao poder. A pedagogia tradicional se estrutura em uma relação de poder assimétrica e vertical, na qual o professor é a autoridade inquestionável que detém o conhecimento.[12] A pedagogia libertadora de Paulo Freire, por sua vez, critica veementemente essa estrutura autoritária e propõe uma relação dialógica, horizontal e baseada no respeito, na qual o poder é compartilhado e a autoridade do professor se reconstrói na sua competência e no seu compromisso com a liberdade dos educandos.[1, 16]<br><strong>Análise das Alternativas Incorretas:</strong><br>(A) Inverte completamente os conceitos das duas abordagens.<br>(B) A abordagem tradicional não critica o autoritarismo, ela o legitima. A não diretividade é característica da abordagem humanista.<br>(D) Inverte os papéis, afirmando que o poder é compartilhado na visão tradicional e centralizado na visão de Freire, o que é o exato oposto do que os teóricos defendem.<br>(E) A abordagem tradicional está intrinsecamente ligada a uma relação de poder, e para Freire, a dimensão política (e, portanto, de poder) é central e inseparável do ato educativo."
+            },
+            // Questão 9
+            {
+                stem: "Uma professora de História, trabalhando com uma turma do Ensino Médio em uma comunidade periférica, propõe um projeto [...] Essa prática reflete uma concepção de relação professor-aluno alinhada à abordagem:",
+                options: {
+                    a: "Humanista, pois valoriza os sentimentos e as experiências individuais dos alunos de forma irrestrita.",
+                    b: "Comportamentalista, pois utiliza um estímulo (a história local) para gerar uma resposta desejada (o aprendizado da história oficial).",
+                    c: "Libertadora (Freireana), pois parte da realidade e da cultura dos educandos para construir um conhecimento crítico e promover a conscientização de seu papel como sujeitos históricos.",
+                    d: "Construtivista (Piagetiana), pois o foco principal é levar os alunos a um novo estágio de desenvolvimento do pensamento lógico-formal por meio do desequilíbrio.",
+                    e: "Tradicional, pois a professora ainda é a figura central que define o projeto e avalia o resultado final."
+                },
+                correct: "c",
+                resolution: "<strong>Gabarito:</strong> C<br><strong>Análise da Alternativa Correta:</strong> A alternativa (C) é a correta. A prática descrita pela professora é um exemplo claro da pedagogia libertadora de Paulo Freire. Ela parte da realidade concreta e da cultura dos alunos (as histórias de suas famílias e comunidade), valorizando seus saberes. A partir daí, estabelece um diálogo com o conhecimento sistematizado (a história do Brasil), não para mera reprodução, mas para uma análise crítica que leva à conscientização do aluno como sujeito histórico, capaz de compreender e, potencialmente, transformar sua realidade.[17, 18]<br><strong>Análise das Alternativas Incorretas:</strong><br>(A) Embora valorize as experiências, o foco da abordagem freireana não é apenas a expressão individual, mas a análise crítica e política dessa experiência.<br>(B) A atividade não se baseia em um esquema de estímulo-resposta-reforço.<br>(D) O objetivo principal não é a mudança de estágio cognitivo nos moldes piagetianos, mas a conscientização e a leitura crítica do mundo.<br>(E) Embora a professora organize a atividade, sua postura não é a de uma transmissora de conhecimento, mas de uma problematizadora e parceira na construção do saber, o que a afasta do modelo tradicional."
+            },
+            // Questão 10
+            {
+                stem: "O termo \"facilitador\" é frequentemente usado para descrever o papel do professor em abordagens pedagógicas que se opõem ao modelo tradicional. No entanto, o significado dessa função difere entre a abordagem construtivista de Piaget e a humanista de Rogers. A distinção fundamental é que:",
+                options: {
+                    a: "o facilitador piagetiano foca na criação de um ambiente emocionalmente seguro, enquanto o rogeriano se concentra em apresentar desafios cognitivos.",
+                    b: "o facilitador rogeriano intervém ativamente para mediar o conhecimento, enquanto o piagetiano adota uma postura de total não interferência.",
+                    c: "o facilitador piagetiano cria ativamente situações-problema para provocar o desequilíbrio e a reequilibração das estruturas cognitivas do aluno, enquanto o facilitador rogeriano se concentra em estabelecer um clima psicológico de empatia, aceitação e autenticidade para que o aluno possa conduzir seu próprio aprendizado.",
+                    d: "para Piaget, \"facilitador\" é sinônimo de \"instrutor\", enquanto para Rogers, é sinônimo de \"terapeuta\".",
+                    e: "não há diferença significativa, pois em ambas as abordagens o professor tem o papel passivo de apenas disponibilizar materiais e aguardar a iniciativa do aluno."
+                },
+                correct: "c",
+                resolution: "<strong>Gabarito:</strong> C<br><strong>Análise da Alternativa Correta:</strong> A alternativa (C) explica a diferença sutil, mas fundamental, entre os dois conceitos de \"facilitador\". Para Piaget, o professor facilita a aprendizagem ao atuar como um designer de ambientes de aprendizagem, propondo desafios e problemas que causam um desequilíbrio cognitivo no aluno, incentivando-o a buscar ativamente uma nova forma de equilíbrio (aprendizagem).[6, 8] Para Rogers, o professor facilita a aprendizagem ao se concentrar primariamente na qualidade da relação interpessoal, criando um clima psicológico seguro, empático e autêntico, no qual o aluno se sente livre para explorar seus próprios interesses e dirigir seu processo de aprendizagem significativa.[9, 19]<br><strong>Análise das Alternativas Incorretas:</strong><br>(A) Inverte os papéis: o foco no ambiente emocionalmente seguro é rogeriano, e o foco nos desafios cognitivos é piagetiano.<br>(B) É incorreta. O facilitador piagetiano não é não interferente; ele interfere ao propor os problemas. A mediação ativa do conhecimento é um conceito vygotskyano.<br>(D) É uma caricatura. Embora a teoria de Rogers tenha origem na terapia, seu papel como facilitador na educação não é ser um terapeuta. E para Piaget, facilitador é o oposto de um mero instrutor.<br>(E) Ambas as abordagens veem o professor como ativo, embora de maneiras diferentes, e não como uma figura passiva."
+            }
+        ];
+
+        // --- Lógica do Quiz ---
+
+        // Seleciona os elementos do DOM
+        const quizForm = document.getElementById('quizForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const resultsSection = document.getElementById('resultsSection');
+        const scoreElement = document.getElementById('score');
+        const scoreMessageElement = document.getElementById('scoreMessage');
+        const resolutionsContainer = document.getElementById('resolutionsContainer');
+
+        // Adiciona o evento de 'submit' ao formulário
+        quizForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede o envio real do formulário
+            
+            // Desativa o botão para evitar envios duplicados
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Calculando...';
+
+            let score = 0;
+            const formData = new FormData(quizForm);
+            
+            // Limpa resoluções anteriores
+            resolutionsContainer.innerHTML = '';
+
+            // Itera sobre cada questão no banco de dados
+            quizData.forEach((question, index) => {
+                const questionKey = `q${index + 1}`; // ex: q1, q2, ...
+                const userAnswer = formData.get(questionKey); // ex: 'a', 'b', ...
+                const correctAnswer = question.correct;
+                
+                const isCorrect = (userAnswer === correctAnswer);
+                if (isCorrect) {
+                    score++;
+                }
+
+                // Cria o card de resolução para esta questão
+                const resolutionCard = document.createElement('div');
+                resolutionCard.className = `p-6 rounded-lg border ${isCorrect ? 'bg-green-50 border-green-300' : 'bg-red-50 border-red-300'}`;
+                
+                // Mapeia as letras 'a', 'b', 'c' para o texto da opção
+                const userAnswerText = userAnswer ? question.options[userAnswer] : "Não respondida";
+                const correctAnswerText = question.options[correctAnswer];
+
+                resolutionCard.innerHTML = `
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Questão ${index + 1}</h3>
+                    <p class="text-gray-800 leading-relaxed text-sm mb-4">${question.stem}</p>
+                    <div class="space-y-2 text-sm">
+                        <p><strong>Sua resposta:</strong> <span class="font-medium ${isCorrect ? 'text-green-800' : 'text-red-800'}">${userAnswerText}</span></p>
+                        <p><strong>Resposta correta:</strong> <span class="font-medium text-green-800">${correctAnswerText}</span></p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-300">
+                        <h4 class="font-semibold text-gray-900 mb-2">Resolução Comentada</h4>
+                        <div class="resolution-content text-gray-800 leading-relaxed text-sm">
+                            ${question.resolution}
+                        </div>
+                    </div>
+                `;
+                
+                resolutionsContainer.appendChild(resolutionCard);
+            });
+
+            // Atualiza a pontuação total
+            scoreElement.textContent = `Você acertou ${score} de 10 questões.`;
+            
+            // Adiciona uma mensagem de feedback
+            let message = "Continue estudando!";
+            if (score >= 9) {
+                message = "Excelente desempenho!";
+            } else if (score >= 7) {
+                message = "Muito bom! Você está no caminho certo.";
+            } else if (score >= 5) {
+                message = "Bom resultado, mas revise as resoluções.";
+            }
+            scoreMessageElement.textContent = message;
+
+            // Mostra a seção de resultados
+            resultsSection.classList.remove('hidden');
+            
+            // Reativa o botão e muda o texto
+            submitBtn.textContent = 'Quiz Finalizado';
+            
+            // Rola a página para que os resultados fiquem visíveis
+            resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+    </script>
+
+</body>
+</html>
+

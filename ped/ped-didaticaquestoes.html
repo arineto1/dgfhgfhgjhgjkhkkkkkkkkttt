@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Didática e Formação Docente</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carrega a fonte Inter para uma melhor legibilidade -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Define a fonte Inter como padrão e melhora o espaçamento entre linhas */
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Estilos para a tabela na resolução da Questão 1 */
+        .resolution-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+            overflow-x: auto;
+            display: block;
+        }
+        .resolution-table th,
+        .resolution-table td {
+            border: 1px solid #d1d5db; /* gray-300 */
+            padding: 0.75rem;
+            text-align: left;
+        }
+        .resolution-table th {
+            background-color: #f3f4f6; /* gray-100 */
+            font-weight: 600;
+        }
+        .resolution-table td {
+            background-color: #ffffff; /* white */
+        }
+        
+        /* Estilos para os blocos de resolução */
+        .resolution-box {
+            background-color: #f9fafb; /* gray-50 */
+            border: 1px solid #e5e7eb; /* gray-200 */
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-top: 1.5rem;
+        }
+        .resolution-box h4 {
+            font-weight: 600;
+            color: #1f2937; /* gray-800 */
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        .resolution-box p {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Efeito de hover nas opções */
+        label.option-label:hover {
+            background-color: #f4f5f7;
+        }
+        
+        /* Estilos para respostas */
+        .correct-answer {
+            background-color: #dcfce7 !important; /* green-100 */
+            border-color: #86efac !important; /* green-300 */
+            font-weight: 500;
+        }
+        .incorrect-answer {
+            background-color: #fee2e2 !important; /* red-100 */
+            border-color: #fca5a5 !important; /* red-300 */
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-900 min-h-screen p-4 md:p-10">
+
+    <main class="max-w-3xl mx-auto bg-white p-6 md:p-10 rounded-xl shadow-lg">
+        
+        <header class="text-center mb-10">
+            <h1 class="text-3xl font-bold text-gray-800">Quiz: Didática e Formação de Professores</h1>
+            <p class="text-lg text-gray-600 mt-2">Estilo Instituto AOCP</p>
+        </header>
+
+        <!-- Formulário do Quiz -->
+        <form id="quiz-form">
+            
+            <!-- Contêiner onde as questões serão injetadas -->
+            <div id="quiz-container" class="space-y-10">
+                <!-- As questões serão carregadas aqui via JS -->
+            </div>
+
+            <!-- Contêiner de Resultados (inicialmente oculto) -->
+            <div id="results-container" class="text-center mt-12 hidden">
+                <h2 id="score" class="text-3xl font-bold text-gray-800 mb-6"></h2>
+            </div>
+
+            <!-- Botão de Envio -->
+            <button type="submit" id="submit-btn" class="w-full mt-10 bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg text-lg hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                Finalizar Quiz
+            </button>
+
+        </form>
+
+    </main>
+
+    <script>
+        // --- BANCO DE DADOS DO QUIZ ---
+        // Todo o conteúdo (10 questões e 10 resoluções completas) está armazenado
+        // nesta variável 'quizData' abaixo. A página já está completa, conforme solicitado.
+        const quizData = [
+            {
+                question: "Questão 1\nSobre a classificação das tendências pedagógicas proposta por José Carlos Libâneo, assinale a alternativa correta.",
+                options: [
+                    "(A) As tendências liberais visam à transformação radical da estrutura social por meio da educação.",
+                    "(B) As tendências progressistas defendem a manutenção do status quo social, adaptando o indivíduo à sociedade.",
+                    "(C) A pedagogia liberal entende que a escola tem a função de preparar os indivíduos para o desempenho de papéis sociais, sem questionar a estrutura social vigente.",
+                    "(D) A pedagogia progressista, em todas as sua vertentes, desconsidera os conhecimentos historicamente acumulados, focando apenas na experiência do aluno.",
+                    "(E) Libâneo classifica as tendências em \"críticas\" e \"não-críticas\", sendo as primeiras focadas exclusivamente na prática e as segundas, na teoria."
+                ],
+                correctAnswer: 2, // Índice da alternativa (C)
+                resolution: `
+                    <h4>Gabarito: C</h4>
+                    <p><strong>Análise da Alternativa Correta:</strong></p>
+                    <p>(C) A pedagogia liberal entende que a escola tem a função de preparar os indivíduos para o desempenho de papéis sociais, sem questionar a estrutura social vigente. Esta alternativa descreve com precisão o cerne do pensamento pedagógico liberal, conforme classificado por Libâneo e outros teóricos. O termo "liberal" neste contexto não se refere a uma postura progressista, mas sim à manutenção da sociedade de classes (capitalista). A função da escola, sob essa ótica, é adaptar os indivíduos à sociedade, preparando-os para ocupar as posições sociais existentes, sustentando assim a harmonia social e o status quo.</p>
+                    <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                    <ul>
+                        <li><strong>(A) INCORRETA.</strong> Esta é a definição do objetivo das tendências progressistas. As tendências liberais são conservadoras e visam à manutenção da ordem social.</li>
+                        <li><strong>(B) INCORRETA.</strong> Esta alternativa inverte os conceitos. A manutenção do status quo é a característica central da pedagogia liberal.</li>
+                        <li><strong>(D) INCORRETA.</strong> Esta é uma generalização equivocada. A tendência Crítico-Social dos Conteúdos (progressista), por exemplo, defende a apropriação do saber universal.</li>
+                        <li><strong>(E) INCORRETA.</strong> A classificação principal de Libâneo é em "Liberais" e "Progressistas". Dermeval Saviani utiliza a classificação de teorias "críticas" e "não-críticas".</li>
+                    </ul>
+                    
+                    <table class="resolution-table">
+                        <thead>
+                            <tr>
+                                <th colspan="5">Tabela Comparativa das Tendências Pedagógicas (segundo Libâneo)</th>
+                            </tr>
+                            <tr>
+                                <th>Tendência</th>
+                                <th>Papel da Escola</th>
+                                <th>Conteúdos</th>
+                                <th>Metodologia</th>
+                                <th>Relação Professor-Aluno</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>LIBERAL TRADICIONAL</strong></td>
+                                <td>Preparação intelectual e moral; transmissão da cultura.</td>
+                                <td>Conhecimentos universais e clássicos, acumulados pela humanidade.</td>
+                                <td>Exposição verbal pelo professor; exercícios de repetição e memorização.</td>
+                                <td>Vertical, autoritária. Professor como detentor do saber.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>LIBERAL RENOVADA</strong></td>
+                                <td>Adequar as necessidades individuais ao meio social.</td>
+                                <td>Baseados na experiência do aluno ("aprender a aprender").</td>
+                                <td>Pesquisa, descoberta, experimentação. Aluno ativo.</td>
+                                <td>Facilitador-aluno. Relação de respeito e cooperação.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>LIBERAL TECNICISTA</strong></td>
+                                <td>Formar mão de obra para o mercado; modelar comportamentos.</td>
+                                <td>Informações objetivas e procedimentos técnicos.</td>
+                                <td>Instrução programada, uso de tecnologias, reforço.</td>
+                                <td>Professor como técnico, executor de um plano. Relação objetiva.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>PROGRESSISTA LIBERTADORA</strong></td>
+                                <td>Promover a conscientização para a transformação da realidade.</td>
+                                <td>"Temas geradores" extraídos da realidade dos alunos.</td>
+                                <td>Diálogo, problematização, círculos de cultura.</td>
+                                <td>Horizontal, dialógica. Educador-educando e educando-educador.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>PROGRESSISTA LIBERTÁRIA</strong></td>
+                                <td>Promover a autogestão e a transformação social a partir do grupo.</td>
+                                <td>Colocados à disposição, mas não exigidos. Valorização da experiência vivida.</td>
+                                <td>Vivência grupal, assembleias, autogestão. Não-diretiva.</td>
+                                <td>Antiautoritária. Professor é um orientador e membro do grupo.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>PROGRESSISTA CRÍTICO-SOCIAL DOS CONTEÚDOS</strong></td>
+                                <td>Difundir os conteúdos vivos e articulá-los com a realidade social.</td>
+                                <td>Conteúdos culturais universais, confrontados com a realidade social.</td>
+                                <td>Método dialético; articulação entre teoria e prática.</td>
+                                <td>Mediadora. Professor e aluno são sujeitos ativos no processo.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                `
+            },
+            {
+                question: "Questão 2\nA Tendência Pedagógica Liberal Tradicional, que marcou o início da organização da educação no Brasil, possui características didáticas específicas. Qual das alternativas a seguir descreve corretamente essa abordagem?",
+                options: [
+                    "(A) A metodologia é centrada na experimentação e na descoberta pelo aluno, que é o protagonista do processo de aprendizagem.",
+                    "(B) O professor atua como um facilitador, organizando situações de aprendizagem e respeitando o ritmo individual de cada estudante.",
+                    "(C) A relação professor-aluno é vertical e autoritária, o ensino é verbalista e a aprendizagem ocorre por meio da memorização e repetição de conteúdos.",
+                    "(D) A avaliação da aprendizagem é prioritariamente formativa, buscando diagnosticar dificuldades para reorientar o ensino de forma contínua.",
+                    "(E) Os conteúdos são organizados em módulos e o ensino é planejado de forma a garantir a máxima eficiência e produtividade, com base em princípios técnicos."
+                ],
+                correctAnswer: 2, // Índice da alternativa (C)
+                resolution: `
+                    <h4>Gabarito: C</h4>
+                    <p><strong>Análise da Alternativa Correta:</strong></p>
+                    <p>(C) A relação professor-aluno é vertical e autoritária, o ensino é verbalista e a aprendizagem ocorre por meio da memorização e repetição de conteúdos. Esta alternativa sintetiza os pilares da didática tradicional. Nela, o professor é a figura central, o detentor do conhecimento, que é transmitido aos alunos de forma expositiva (verbalismo). Aos alunos, cabe o papel de receptores passivos, cuja aprendizagem é medida pela capacidade de memorizar e reproduzir fielmente o que foi ensinado.</p>
+                    <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                    <ul>
+                        <li><strong>(A) INCORRETA.</strong> Descrição da Tendência Liberal Renovada (Escola Nova).</li>
+                        <li><strong>(B) INCORRETA.</strong> Papel do professor na Tendência Liberal Renovada.</li>
+                        <li><strong>(D) INCORRETA.</strong> A avaliação na pedagogia tradicional é somativa e classificatória.</li>
+                        <li><strong>(E) INCORRETA.</strong> Abordagem da Tendência Liberal Tecnicista.</li>
+                    </ul>
+                `
+            },
+            {
+                question: "Questão 3\nA Tendência Liberal Tecnicista, influenciada pelo behaviorismo e pela teoria de sistemas, concebe a didática de uma forma particular. Assinale a alternativa que corresponde a essa concepção.",
+                options: [
+                    "(A) A didática é vista como um processo de diálogo e construção conjunta do conhecimento entre professor e aluno, partindo da realidade social.",
+                    "(B) A didática é entendida como um conjunto de técnicas e procedimentos objetivos e neutros, que visam garantir a eficiência do processo de ensino-aprendizagem para formar mão de obra para o mercado.",
+                    "(C) A didática se concentra no desenvolvimento emocional e nas relações interpessoais, valorizando a autoavaliação e o crescimento pessoal do aluno.",
+                    "(D) A didática é um instrumento de luta política, cujo objetivo é a conscientização dos alunos para a transformação das estruturas sociais opressoras.",
+                    "(E) A didática valoriza a espontaneidade e a liberdade do aluno, eliminando qualquer forma de intervenção diretiva por parte do professor."
+                ],
+                correctAnswer: 1, // Índice da alternativa (B)
+                resolution: `
+                    <h4>Gabarito: B</h4>
+                    <p><strong>Análise da Alternativa Correta:</strong></p>
+                    <p>(B) A didática é entendida como um conjunto de técnicas e procedimentos objetivos e neutros, que visam garantir a eficiência do processo de ensino-aprendizagem para formar mão de obra para o mercado. Esta alternativa captura a essência da didática tecnicista. A educação é vista como um investimento, e a escola, como uma empresa que deve produzir indivíduos "competentes" para o mercado de trabalho. A didática, nesse modelo, torna-se instrumental.</p>
+                    <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                    <ul>
+                        <li><strong>(A) INCORRETA.</strong> Concepção de didática das tendências progressistas.</li>
+                        <li><strong>(C) INCORRETA.</strong> Descrição alinhada à Tendência Liberal Renovada Não-Diretiva.</li>
+                        <li><strong>(D) INCORRETA.</strong> Finalidade da didática na Tendência Progressista Libertadora.</li>
+                        <li><strong>(E) INCORRETA.</strong> Característica da Tendência Progressista Libertária.</li>
+                    </ul>
+                `
+            },
+            {
+                question: "Questão 4\nA Tendência Progressista Libertadora, imortalizada pelo pensamento de Paulo Freire, propõe uma prática educativa transformadora. Sobre sua metodologia, é correto afirmar que",
+                options: [
+                    "(A) se baseia na transmissão de conteúdos clássicos e universais, considerados essenciais para a formação crítica.",
+                    "(B) utiliza os \"temas geradores\", extraídos da problematização da realidade dos educandos, como ponto de partida para o diálogo e a conscientização.",
+                    "(C) defende a autogestão pedagógica, na qual os próprios alunos definem os conteúdos e as formas de organização do trabalho escolar, sem a mediação do professor.",
+                    "(D) prioriza a aprendizagem por meio da resolução de problemas práticos e da experimentação científica em laboratório.",
+                    "(E) foca na modelagem do comportamento por meio de reforços positivos, garantindo que os objetivos de ensino sejam alcançados de forma eficaz."
+                ],
+                correctAnswer: 1, // Índice da alternativa (B)
+                resolution: `
+                    <h4>Gabarito: B</h4>
+                    <p><strong>Análise da Alternativa Correta:</strong></p>
+                    <p>(B) utiliza os "temas geradores", extraídos da problematização da realidade dos educandos, como ponto de partida para o diálogo e a conscientização. Esta alternativa descreve o núcleo da metodologia freiriana. O processo educativo parte da investigação da realidade concreta dos alunos para identificar os "temas geradores", que são debatidos em "círculos de cultura" através do diálogo, levando à conscientização.</p>
+                    <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                    <ul>
+                        <li><strong>(A) INCORRETA.</strong> A transmissão de conteúdos prontos é criticada por Freire como "educação bancária".</li>
+                        <li><strong>(C) INCORRETA.</strong> Esta é a proposta da Tendência Progressista Libertária.</li>
+                        <li><strong>(D) INCORRETA.</strong> Metodologia associada à Tendência Liberal Renovada Progressivista (John Dewey).</li>
+                        <li><strong>(E) INCORRETA.</strong> Base da Tendência Liberal Tecnicista.</li>
+                    </ul>
+                `
+            },
+            {
+                question: "Questão 5\nEmbora ambas pertençam ao campo progressista, as tendências Libertadora e Libertária possuem diferenças conceituais e metodológicas significativas. Assinale a alternativa que distingue corretamente as duas abordagens.",
+                options: [
+                    "(A) A Libertadora valoriza a vivência grupal e a autogestão, enquanto a Libertária se baseia em temas geradores e na relação dialógica horizontal.",
+                    "(B) A Libertadora não prevê a cobrança de conteúdos, que são apenas disponibilizados, enquanto a Libertária utiliza a discussão em grupo para aprofundar temas extraídos da realidade.",
+                    "(C) A Libertadora, de Paulo Freire, propõe a conscientização por meio do diálogo sobre temas geradores, com uma relação dialógica entre educador-educando; a Libertária valoriza a vivência grupal, a autogestão e a não-diretividade.",
+                    "(D) A Libertadora é focada na formação de indivíduos para o mercado de trabalho, enquanto a Libertária visa à formação de lideranças políticas.",
+                    "(E) Ambas as tendências são idênticas em seus métodos, diferenciando-se apenas nos autores de referência, sendo a primeira de Freire e a segunda de Saviani."
+                ],
+                correctAnswer: 2, // Índice da alternativa (C)
+                resolution: `
+                    <h4>Gabarito: C</h4>
+                    <p><strong>Análise da Alternativa Correta:</strong></p>
+                    <p>(C) A Libertadora, de Paulo Freire, propõe a conscientização por meio do diálogo sobre temas geradores, com uma relação dialógica entre educador-educando; a Libertária valoriza a vivência grupal, a autogestão e a não-diretividade. Esta alternativa apresenta a distinção fundamental. A Libertadora tem um método estruturado em torno do diálogo problematizador. A Libertária foca na transformação da instituição em um espaço de autogestão e vivência grupal.</p>
+                    <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                    <ul>
+                        <li><strong>(A) INCORRETA.</strong> A alternativa inverte os conceitos das duas tendências.</li>
+                        <li><strong>(B) INCORRETA.</strong> A não cobrança de conteúdos é mais próxima da Libertária.</li>
+                        <li><strong>(D) INCORRETA.</strong> Nenhuma das duas visa à formação para o mercado de trabalho.</li>
+                        <li><strong>(E) INCORRETA.</strong> Os métodos são diferentes e Saviani é referência da Histórico-Crítica.</li>
+                    </ul>
+                `
+            },
+            {
+                question: "Questão 6\nA Tendência Progressista Crítico-Social dos Conteúdos, proposta por José Carlos Libâneo, representa uma síntese de outras abordagens. Sua principal característica didática é",
+                options: [
+                    "(A) a negação dos conteúdos culturais universais em favor do conhecimento popular e da experiência imediata dos alunos.",
+                    "(B) a valorização dos conteúdos escolares historicamente acumulados, articulando-os com as realidades sociais dos alunos para promover a transformação social.",
+                    "(C) o foco exclusivo no desenvolvimento das habilidades socioemocionais do aluno, sem a preocupação com a transmissão de conhecimentos específicos.",
+                    "(D) a organização do ensino de forma estritamente técnica e neutra, com o professor atuando como um mero executor de um planejamento pré-definido.",
+                    "(E) a defesa de uma educação não-diretiva, na qual o professor atua como um terapeuta, auxiliando o aluno em seu desenvolvimento pessoal."
+                ],
+                correctAnswer: 1, // Índice da alternativa (B)
+                resolution: `
+                    <h4>Gabarito: B</h4>
+                    <p><strong>Análise da Alternativa Correta:</strong></p>
+                    <p>(B) a valorização dos conteúdos escolares historicamente acumulados, articulando-os com as realidades sociais dos alunos para promover a transformação social. Esta alternativa define o cerne da proposta de Libâneo. Defende que a apropriação crítica do saber universal é uma condição indispensável para que os alunos das classes populares possam atuar de forma transformadora em sua realidade. A didática é a mediação entre o conteúdo e a prática social.</p>
+                    <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                    <ul>
+                        <li><strong>(A) INCORRETA.</strong> Esta é uma crítica que a Crítico-Social faz a outras tendências.</li>
+                        <li><strong>(C) INCORRETA.</strong> Característica da Tendência Liberal Renovada Não-Diretiva.</li>
+                        <li><strong>(D) INCORRETA.</strong> Descrição da Tendência Liberal Tecnicista.</li>
+                        <li><strong>(E) INCORRETA.</strong> Proposta da Tendência Liberal Renovada Não-Diretiva.</li>
+                    </ul>
+                `
+            },
+            {
+                question: "Questão 7\nDermeval Saviani é o principal teórico da Pedagogia Histórico-Crítica. Segundo essa perspectiva, o papel fundamental da escola e do trabalho docente é",
+                options: [
+                    "(A) garantir que o aluno \"aprenda a aprender\", desenvolvendo competências para buscar informações de forma autônoma.",
+                    "(B) criar um ambiente acolhedor para o desenvolvimento psicológico e afetivo da criança, sem a imposição de conteúdos formais.",
+                    "(C) socializar o saber historicamente produzido e sistematizado, garantindo o acesso das classes populares aos instrumentos culturais e científicos necessários para a luta por transformação social.",
+                    "(D) partir exclusivamente dos saberes espontâneos e da cultura popular dos alunos, desconsiderando o conhecimento erudito como forma de dominação.",
+                    "(E) treinar os alunos em habilidades e competências específicas demandadas pelo mercado de trabalho, de forma eficiente e objetiva."
+                ],
+                correctAnswer: 2, // Índice da alternativa (C)
+                resolution: `
+                    <h4>Gabarito: C</h4>
+                    <p><strong>Análise da Alternativa Correta:</strong></p>
+                    <p>(C) socializar o saber historicamente produzido e sistematizado, garantindo o acesso das classes populares aos instrumentos culturais e científicos necessários para a luta por transformação social. Esta alternativa expressa a tese central da Pedagogia Histórico-Crítica. Saviani defende que a especificidade da escola é o trabalho com o conhecimento em sua forma mais elaborada (o "saber objetivo"), garantindo que as classes trabalhadoras dominem esse saber como ferramenta de luta.</p>
+                    <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                    <ul>
+                        <li><strong>(A) INCORRETA.</strong> Lema da Tendência Liberal Renovada (Escola Nova).</li>
+                        <li><strong>(B) INCORRETA.</strong> Visão da Tendência Liberal Renovada Não-Diretiva.</li>
+                        <li><strong>(D) INCORRETA.</strong> Saviani critica essa visão; o saber popular é o ponto de partida, mas não o de chegada.</li>
+                        <li><strong>(E) INCORRETA.</strong> Finalidade da escola na Tendência Liberal Tecnicista.</li>
+                    </ul>
+                `
+            },
+            {
+                question: "Questão 8\nA avaliação da aprendizagem cumpre diferentes funções no processo didático. Com base nos estudos de autores como Luckesi, a avaliação que ocorre no início do processo, com o objetivo de identificar os conhecimentos prévios e as necessidades dos alunos para subsidiar o planejamento, é denominada",
+                options: [
+                    "(A) somativa.",
+                    "(B) formativa.",
+                    "(C) classificatória.",
+                    "(D) diagnóstica.",
+                    "(E) processual."
+                ],
+                correctAnswer: 3, // Índice da alternativa (D)
+                resolution: `
+                    <h4>Gabarito: D</h4>
+                    <p><strong>Análise da Alternativa Correta:</strong></p>
+                    <p>(D) diagnóstica. A avaliação diagnóstica é realizada no início de um período letivo ou unidade. Seu objetivo não é classificar, mas sim verificar o que os alunos já sabem (conhecimentos prévios) e quais são suas dificuldades, a fim de que o professor possa planejar sua ação pedagógica de forma adequada.</p>
+                    <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                    <ul>
+                        <li><strong>(A) INCORRETA.</strong> A avaliação somativa ocorre ao final do processo e visa classificar.</li>
+                        <li><strong>(B) INCORRETA.</strong> A avaliação formativa ocorre *durante* o processo para reorientar o ensino.</li>
+                        <li><strong>(C) INCORRETA.</strong> "Classificatória" é a função da avaliação somativa.</li>
+                        <li><strong>(E) INCORRETA.</strong> "Processual" é uma característica da avaliação, mas o nome específico para a etapa inicial é diagnóstica.</li>
+                    </ul>
+                `
+            },
+            {
+                question: "Questão 9\nA Didática, como campo de estudo e componente curricular na formação de professores, passou por transformações conceituais. A abordagem contemporânea da Didática a compreende como",
+                options: [
+                    "(A) um conjunto de regras e técnicas de ensino desvinculadas de um contexto político e social, aplicáveis a qualquer situação.",
+                    "(B) uma disciplina focada exclusivamente no planejamento burocrático, como o preenchimento de diários de classe e planos de aula.",
+                    "(C) um campo de conhecimento que investiga a articulação entre o ensino e a aprendizagem em contextos situados, fundamentando a prática pedagógica reflexiva e crítica do professor.",
+                    "(D) uma área que se restringe ao estudo das metodologias específicas de cada disciplina, sem uma teoria geral do ensino.",
+                    "(E) um sinônimo de psicologia da aprendizagem, focando apenas nos processos cognitivos dos alunos."
+                ],
+                correctAnswer: 2, // Índice da alternativa (C)
+                resolution: `
+                    <h4>Gabarito: C</h4>
+                    <p><strong>Análise da Alternativa Correta:</strong></p>
+                    <p>(C) um campo de conhecimento que investiga a articulação entre o ensino e a aprendizagem em contextos situados, fundamentando a prática pedagógica reflexiva e crítica do professor. Esta alternativa reflete a superação da visão meramente instrumental. Hoje, a Didática é entendida como uma área que estuda o fenômeno educativo em sua complexidade, considerando a relação entre professor, aluno e conhecimento em um contexto social, histórico e cultural específico, visando uma prática consciente e reflexiva.</p>
+                    <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                    <ul>
+                        <li><strong>(A) INCORRETA.</strong> Visão da didática instrumental (tradicional e tecnicista), hoje superada.</li>
+                        <li><strong>(B) INCORRETA.</strong> O planejamento é um objeto da Didática, mas ela não se resume a aspectos burocráticos.</li>
+                        <li><strong>(D) INCORRETA.</strong> A Didática Geral fornece os fundamentos, enquanto as didáticas específicas aprofundam.</li>
+                        <li><strong>(E) INCORRETA.</strong> A Didática se apoia na psicologia da aprendizagem, mas não se confunde com ela; seu foco é o *ensino*.</li>
+                    </ul>
+                `
+            },
+            {
+                question: "Questão 10\nNo processo didático, a relação entre planejamento e avaliação da aprendizagem é fundamental para a qualidade do ensino. Assinale a alternativa que descreve corretamente essa relação.",
+                options: [
+                    "(A) A avaliação é uma etapa final e independente do planejamento, servindo apenas para atribuir notas e classificar os alunos.",
+                    "(B) O planejamento deve ser rígido e imutável, e a avaliação deve verificar se ele foi cumprido à risca pelo professor.",
+                    "(C) Planejamento e avaliação são processos dissociados; o primeiro é uma responsabilidade do professor, enquanto o segundo é de responsabilidade do sistema de ensino.",
+                    "(D) A avaliação fornece dados sobre o processo de ensino-aprendizagem que devem ser utilizados para reorientar e replanejar a prática pedagógica, constituindo um ciclo contínuo.",
+                    "(E) O planejamento eficaz elimina a necessidade de avaliação, pois garante que todos os alunos aprenderão da mesma forma e no mesmo ritmo."
+                ],
+                correctAnswer: 3, // Índice da alternativa (D)
+                resolution: `
+                    <h4>Gabarito: D</h4>
+                    <p><strong>Análise da Alternativa Correta:</strong></p>
+                    <p>(D) A avaliação fornece dados sobre o processo de ensino-aprendizagem que devem ser utilizados para reorientar e replanejar a prática pedagógica, constituindo um ciclo contínuo. Esta alternativa descreve a relação dialética e indissociável entre planejamento e avaliação. O planejamento estabelece os objetivos, e a avaliação (diagnóstica e formativa) verifica o andamento, fornecendo informações para ajustes e replanejamento. É um ciclo permanente de ação-reflexão-ação.</p>
+                    <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                    <ul>
+                        <li><strong>(A) INCORRETA.</strong> Visão reducionista, que considera apenas a função somativa.</li>
+                        <li><strong>(B) INCORRETA.</strong> Concepção burocrática; o planejamento deve ser flexível.</li>
+                        <li><strong>(C) INCORRETA.</strong> A avaliação da aprendizagem é parte intrínseca do trabalho docente.</li>
+                        <li><strong>(E) INCORRETA.</strong> Premissa falsa; os alunos são diversos e a avaliação ajuda a lidar com essa diversidade.</li>
+                    </ul>
+                `
+            }
+        ];
+
+
+        // --- LÓGICA DO QUIZ ---
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const quizContainer = document.getElementById('quiz-container');
+            const quizForm = document.getElementById('quiz-form');
+            const resultsContainer = document.getElementById('results-container');
+            const scoreElement = document.getElementById('score');
+            const submitButton = document.getElementById('submit-btn');
+
+            // 1. Renderizar o Quiz na tela
+            function renderQuiz() {
+                quizContainer.innerHTML = ''; // Limpa o contêiner
+
+                quizData.forEach((item, index) => {
+                    // Cria o bloco da questão
+                    const questionBlock = document.createElement('div');
+                    questionBlock.className = 'question-block p-6 border border-gray-200 rounded-lg shadow-sm';
+                    
+                    // Adiciona o texto da questão (preservando quebras de linha)
+                    const questionText = document.createElement('h3');
+                    questionText.className = 'text-xl font-semibold mb-6 text-gray-800';
+                    questionText.innerText = item.question;
+                    questionBlock.appendChild(questionText);
+
+                    // Cria o contêiner das opções
+                    const optionsContainer = document.createElement('div');
+                    optionsContainer.className = 'space-y-4';
+
+                    // Adiciona cada opção como um radio button
+                    item.options.forEach((option, optionIndex) => {
+                        const label = document.createElement('label');
+                        label.className = 'option-label flex items-center p-4 border border-gray-200 rounded-lg cursor-pointer transition-all duration-200';
+                        
+                        const radio = document.createElement('input');
+                        radio.type = 'radio';
+                        radio.name = `question${index}`;
+                        radio.value = optionIndex;
+                        radio.className = 'mr-4 h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300';
+                        
+                        const optionText = document.createElement('span');
+                        optionText.className = 'text-md text-gray-700';
+                        optionText.innerText = option;
+
+                        label.appendChild(radio);
+                        label.appendChild(optionText);
+                        optionsContainer.appendChild(label);
+                    });
+
+                    questionBlock.appendChild(optionsContainer);
+                    quizContainer.appendChild(questionBlock);
+                });
+            }
+
+            // 2. Lógica de Envio do Formulário
+            function handleSubmit(event) {
+                event.preventDefault();
+
+                // Se o botão for "Refazer Quiz", recarrega a página
+                if (submitButton.textContent === 'Refazer Quiz') {
+                    window.location.reload();
+                    return;
+                }
+
+                let score = 0;
+                const formData = new FormData(quizForm);
+                const allQuestionBlocks = quizContainer.querySelectorAll('.question-block');
+
+                // Limpa resoluções antigas, se houver
+                const oldResolutions = quizContainer.querySelectorAll('.resolution-box');
+                oldResolutions.forEach(res => res.remove());
+
+                // Itera por cada bloco de questão
+                allQuestionBlocks.forEach((block, index) => {
+                    const data = quizData[index];
+                    const userAnswer = formData.get(`question${index}`); // "0", "1", "2"... ou null
+                    const correctAnswerIndex = data.correctAnswer; // 0, 1, 2...
+                    
+                    const optionLabels = block.querySelectorAll('label.option-label');
+                    const radioButtons = block.querySelectorAll('input[type="radio"]');
+
+                    // Desabilita os botões de rádio
+                    radioButtons.forEach(radio => radio.disabled = true);
+
+                    // Reseta estilos (caso o usuário tente enviar de novo)
+                    optionLabels.forEach(label => {
+                        label.classList.remove('correct-answer', 'incorrect-answer');
+                    });
+                    
+                    // Verifica se a resposta está correta
+                    const isCorrect = userAnswer == correctAnswerIndex;
+
+                    if (isCorrect) {
+                        score++;
+                        // Destaca a resposta correta (que o usuário marcou)
+                        if (userAnswer !== null) {
+                            optionLabels[userAnswer].classList.add('correct-answer');
+                        }
+                    } else {
+                        // Destaca a resposta incorreta (que o usuário marcou)
+                        if (userAnswer !== null) {
+                            optionLabels[userAnswer].classList.add('incorrect-answer');
+                        }
+                        // Destaca qual era a resposta correta
+                        optionLabels[correctAnswerIndex].classList.add('correct-answer');
+                    }
+
+                    // Cria e insere o bloco de resolução
+                    const resolutionDiv = document.createElement('div');
+                    resolutionDiv.className = 'resolution-box';
+                    resolutionDiv.innerHTML = data.resolution;
+                    block.appendChild(resolutionDiv);
+                });
+
+                // 3. Exibir Resultados
+                scoreElement.textContent = `Resultado Final: ${score} de ${quizData.length} acertos.`;
+                resultsContainer.classList.remove('hidden');
+
+                // Altera o botão para "Refazer"
+                submitButton.textContent = 'Refazer Quiz';
+                submitButton.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+                submitButton.classList.add('bg-gray-700', 'hover:bg-gray-800');
+
+                // Rola para os resultados
+                resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
+            // --- Inicialização ---
+            renderQuiz();
+            quizForm.addEventListener('submit', handleSubmit);
+        });
+    </script>
+
+</body>
+</html>
+

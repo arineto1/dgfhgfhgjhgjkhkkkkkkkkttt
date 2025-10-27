@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Ação Docente Crítica</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Importa a fonte Inter, excelente para leitura -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Define a fonte Inter como padrão e aplica anti-aliasing */
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        /* A classe prose do Tailwind é usada nas resoluções para formatar o texto longo */
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="container mx-auto max-w-4xl p-6 md:p-10">
+        
+        <!-- Cabeçalho do Quiz -->
+        <header class="mb-8 md:mb-12">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-3">Quiz: Ação Docente Crítica</h1>
+            <p class="text-lg text-slate-600">Teste seus conhecimentos sobre planejamento e novas metodologias no estilo da banca Instituto AOCP.</p>
+        </header>
+
+        <!-- Formulário do Quiz -->
+        <form id="quizForm" class="bg-white shadow-xl rounded-2xl p-6 md:p-10">
+
+            <!-- Questão 1 -->
+            <div id="question-1" class="question-block mb-10 pb-6 border-b border-slate-200">
+                <p class="text-lg font-semibold text-slate-900 mb-5">1. Na perspectiva da pedagogia crítica, o conceito de práxis é fundamental para a ação docente transformadora. Assinale a alternativa que define CORRETAMENTE a práxis nesse contexto.</p>
+                <div class="space-y-3">
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q1" value="A" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>A)</strong> A aplicação eficiente de técnicas e métodos de ensino previamente validados pela ciência, visando otimizar a transmissão de conteúdos e garantir o alcance de objetivos mensuráveis.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q1" value="B" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>B)</strong> A experiência prática acumulada pelo professor ao longo de sua carreira, que se sobrepõe ao conhecimento teórico e serve como principal guia para a sua atuação em sala de aula.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q1" value="C" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>C)</strong> A unidade dialética e indissociável entre a reflexão crítica sobre a realidade e a ação transformadora sobre ela, em um processo contínuo de aprender e ensinar.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q1" value="D" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>D)</strong> A ação do professor focada exclusively na transmissão do conhecimento historicamente acumulado, considerando a prática como a execução fiel do currículo prescrito.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q1" value="E" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>E)</strong> Um momento de reflexão teórica que deve ocorrer separadamente da prática docente, geralmente em cursos de formação continuada, para posterior aplicação em sala de aula.</span>
+                    </label>
+                </div>
+                <!-- Seção de Resolução (inicialmente oculta) -->
+                <div id="resolution-1" class="resolution-block hidden mt-6"></div>
+            </div>
+
+            <!-- Questão 2 -->
+            <div id="question-2" class="question-block mb-10 pb-6 border-b border-slate-200">
+                <p class="text-lg font-semibold text-slate-900 mb-5">2. Um professor, ao elaborar seu planejamento de ensino a partir de uma perspectiva crítica, deve superar a visão meramente técnica ou burocrática. Qual das seguintes características melhor descreve um planejamento de ensino emancipatório?</p>
+                <div class="space-y-3">
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q2" value="A" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>A)</strong> É um documento rígido e detalhado, elaborado no início do ano letivo, que lista os conteúdos a serem vencidos e os instrumentos de avaliação classificatória, devendo ser seguido sem desvios.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q2" value="B" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>B)</strong> Centra-se nos interesses espontâneos dos alunos, desconsiderando os conhecimentos sistematizados, e visa primordialmente o desenvolvimento psicológico e a auto-realização individual.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q2" value="C" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>C)</strong> É um processo flexível, dialógico e participativo, que parte da análise crítica da realidade social dos estudantes para articular os conteúdos curriculares de forma significativa, visando à conscientização e à transformação social.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q2" value="D" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>D)</strong> Consiste em um roteiro de atividades e objetivos operacionais, definidos com base em uma lógica de eficiência e produtividade, neutro em relação aos valores e ideologias sociais.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q2" value="E" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>E)</strong> Baseia-se na repetição de planos de aula de anos anteriores que obtiveram sucesso, priorizando a manutenção de métodos e conteúdos já consolidados pela tradição escolar.</span>
+                    </label>
+                </div>
+                <!-- Seção de Resolução (inicialmente oculta) -->
+                <div id="resolution-2" class="resolution-block hidden mt-6"></div>
+            </div>
+
+            <!-- Questão 3 -->
+            <div id="question-3" class="question-block mb-10 pb-6 border-b border-slate-200">
+                <p class="text-lg font-semibold text-slate-900 mb-5">3. Considerando a tendência pedagógica crítico-social dos conteúdos, conforme sistematizada por José Carlos Libâneo, o papel do professor no processo de ensino-aprendizagem é o de:</p>
+                <div class="space-y-3">
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q3" value="A" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>A)</strong> um técnico especialista em comportamento humano, responsável por aplicar sistemas de instrução programada para garantir a aquisição de competências e habilidades específicas.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q3" value="B" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>B)</strong> um facilitador da aprendizagem que deve interferir o mínimo possível no processo, criando um ambiente psicologicamente seguro para que o aluno se desenvolva livremente a partir de suas próprias motivações.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q3" value="C" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>C)</strong> a autoridade máxima em sala de aula, cuja função é transmitir verbalmente os conhecimentos universais e verdadeiros, que devem ser absorvidos e memorizados pelos alunos.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q3" value="D" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>D)</strong> um mediador entre os saberes historicamente construídos e a realidade sociocultural dos alunos, promovendo o confronto crítico entre o saber do aluno e o saber sistematizado para a construção de uma consciência crítica.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q3" value="E" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>E)</strong> um coordenador de atividades que atua de forma não-diretiva, garantindo a livre expressão e a autogestão do grupo, sem a preocupação com a transmissão de um conteúdo específico.</span>
+                    </label>
+                </div>
+                <!-- Seção de Resolução (inicialmente oculta) -->
+                <div id="resolution-3" class="resolution-block hidden mt-6"></div>
+            </div>
+
+            <!-- Questão 4 -->
+            <div id="question-4" class="question-block mb-10 pb-6 border-b border-slate-200">
+                <p class="text-lg font-semibold text-slate-900 mb-5">4. A adoção de novas metodologias no processo de ensino-aprendizagem é uma exigência da prática docente contemporânea. Em uma perspectiva crítica, que busca a autonomia e a emancipação dos estudantes, a abordagem metodológica mais coerente é aquela que:</p>
+                <div class="space-y-3">
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q4" value="A" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>A)</strong> prioriza aulas expositivas e a leitura de textos canônicos, por entender que o acesso ao conhecimento erudito é o principal instrumento de libertação.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q4" value="B" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>B)</strong> utiliza a repetição e a memorização como estratégias centrais, garantindo que todos os alunos dominem um conjunto básico de informações considerado essencial.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q4" value="C" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>C)</strong> se baseia em metodologias ativas, como a aprendizagem baseada em problemas e projetos, que colocam o estudante como protagonista na construção do conhecimento a partir da investigação de sua realidade.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q4" value="D" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>D)</strong> adota um sistema de instrução programada com reforço positivo para os acertos, modelando o comportamento dos alunos em direção aos objetivos de aprendizagem predefinidos.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q4" value="E" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>E)</strong> foca em dinâmicas de grupo que visam exclusivamente o bem-estar emocional e a integração social, deixando o desenvolvimento cognitivo e a apropriação de conteúdos em segundo plano.</span>
+                    </label>
+                </div>
+                <!-- Seção de Resolução (inicialmente oculta) -->
+                <div id="resolution-4" class="resolution-block hidden mt-6"></div>
+            </div>
+
+            <!-- Questão 5 -->
+            <div id="question-5" class="question-block mb-10 pb-6 border-b border-slate-200">
+                <p class="text-lg font-semibold text-slate-900 mb-5">5. No âmbito de uma ação docente crítica, a avaliação da aprendizagem transcende a função classificatória. Assinale a alternativa que apresenta a concepção de avaliação alinhada a essa perspectiva.</p>
+                <div class="space-y-3">
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q5" value="A" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>A)</strong> A avaliação é um instrumento de poder utilizado para disciplinar os alunos e ranqueá-los de acordo com seu desempenho, servindo como principal critério para aprovação e reprovação.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q5" value="B" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>B)</strong> A avaliação deve ser predominantemente somativa, realizada ao final do processo por meio de provas objetivas que medem a quantidade de informação que o aluno foi capaz de reter.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q5" value="C" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>C)</strong> A avaliação é um processo contínuo, diagnóstico e dialógico, que busca compreender os avanços e as dificuldades dos estudantes para reorientar a prática pedagógica e promover a aprendizagem de todos.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q5" value="D" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>D)</strong> A avaliação foca na mensuração de comportamentos observáveis e específicos, verificando se os objetivos instrucionais foram alcançados com eficiência ao final de cada unidade de ensino.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q5" value="E" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>E)</strong> A avaliação é desnecessária, pois em uma perspectiva libertadora, o processo de conscientização do aluno é subjetivo e não pode ser medido ou julgado pelo professor.</span>
+                    </label>
+                </div>
+                <!-- Seção de Resolução (inicialmente oculta) -->
+                <div id="resolution-5" class="resolution-block hidden mt-6"></div>
+            </div>
+
+            <!-- Questão 6 -->
+            <div id="question-6" class="question-block mb-10 pb-6 border-b border-slate-200">
+                <p class="text-lg font-semibold text-slate-900 mb-5">6. Segundo o pensamento de Paulo Freire, o diálogo é um elemento central da prática educativa. Nesse sentido, o diálogo é compreendido como:</p>
+                <div class="space-y-3">
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q6" value="A" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>A)</strong> uma técnica de ensino para tornar as aulas mais dinâmicas e participativas, na qual o professor concede a palavra aos alunos para que expressem suas opiniões sobre o conteúdo.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q6" value="B" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>B)</strong> uma conversa informal entre professor e alunos, que ocorre nos momentos de intervalo ou de forma espontânea, sem uma intencionalidade pedagógica clara.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q6" value="C" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>C)</strong> um método socrático em que o professor, por meio de perguntas, conduz o aluno a descobrir as verdades que o próprio professor já detém.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q6" value="D" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>D)</strong> uma relação de troca de ideias em que o professor busca convencer os alunos sobre a validade de seus pontos de vista, utilizando sua autoridade intelectual.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q6" value="E" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>E)</strong> uma relação horizontal e amorosa entre sujeitos do conhecimento, em que, pela problematização da realidade, professor e alunos ensinam e aprendem mutuamente, transformando o mundo.</span>
+                    </label>
+                </div>
+                <!-- Seção de Resolução (inicialmente oculta) -->
+                <div id="resolution-6" class="resolution-block hidden mt-6"></div>
+            </div>
+
+            <!-- Questão 7 -->
+            <div id="question-7" class="question-block mb-10 pb-6 border-b border-slate-200">
+                <p class="text-lg font-semibold text-slate-900 mb-5">7. A relação entre o conteúdo escolar e a realidade sociocultural dos alunos é um ponto central na pedagogia crítica. De acordo com essa perspectiva, a seleção e a organização dos conteúdos devem:</p>
+                <div class="space-y-3">
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q7" value="A" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>A)</strong> seguir rigorosamente o que é determinado pelos livros didáticos e pelas diretrizes curriculares oficiais, pois estes representam o saber validado e neutro.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q7" value="B" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>B)</strong> priorizar exclusivamente os saberes populares e as experiências imediatas dos alunos, desvalorizando o conhecimento científico e universal por considerá-lo elitista.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q7" value="C" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>C)</strong> partir dos "temas geradores" extraídos do universo vivencial dos alunos, para, a partir deles e em diálogo com eles, trabalhar de forma crítica os conhecimentos historicamente sistematizados.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q7" value="D" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>D)</strong> ser organizada de forma linear e fragmentada em disciplinas isoladas, garantindo que a lógica da ciência seja transmitida de forma pura e sem interferências do cotidiano.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name_q7" value="E" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>E)</strong> focar em conteúdos práticos e instrumentais que preparem o aluno diretamente para o mercado de trabalho, sem se preocupar com a formação para a cidadania crítica.</span>
+                    </label>
+                </div>
+                <!-- Seção de Resolução (inicialmente oculta) -->
+                <div id="resolution-7" class="resolution-block hidden mt-6"></div>
+            </div>
+
+            <!-- Questão 8 -->
+            <div id="question-8" class="question-block mb-10 pb-6 border-b border-slate-200">
+                <p class="text-lg font-semibold text-slate-900 mb-5">8. Dentre as novas metodologias de ensino, a Aprendizagem Baseada em Problemas (PBL) tem se destacado. Qual alternativa descreve corretamente as características fundamentais da PBL em consonância com uma prática docente inovadora?</p>
+                <div class="space-y-3">
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q8" value="A" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>A)</strong> O professor apresenta um problema já com a solução, e os alunos devem seguir um passo a passo para chegar à mesma resposta, treinando a aplicação de uma fórmula ou procedimento.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q8" value="B" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>B)</strong> Os alunos recebem um problema complexo, aberto e pouco estruturado, retirado de um contexto real, e, em grupos, buscam ativamente o conhecimento necessário para compreendê-lo e propor soluções.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q8" value="C" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>C)</strong> Consiste na resolução de listas de exercícios ao final de cada capítulo do livro didático, onde o "problema" é uma aplicação direta da teoria recém-exposta pelo professor.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q8" value="D" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>D)</strong> É uma metodologia individual em que cada aluno recebe um problema diferente e deve resolvê-lo sem a colaboração dos colegas, sendo avaliado pela rapidez e exatidão da resposta.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q8" value="E" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>E)</strong> O foco principal é a criação de um produto final (um projeto), sendo o problema apenas um pretexto inicial, sem a necessidade de uma investigação teórica aprofundada para sua resolução.</span>
+                    </label>
+                </div>
+                <!-- Seção de Resolução (inicialmente oculta) -->
+                <div id="resolution-8" class="resolution-block hidden mt-6"></div>
+            </div>
+
+            <!-- Questão 9 -->
+            <div id="question-9" class="question-block mb-10 pb-6 border-b border-slate-200">
+                <p class="text-lg font-semibold text-slate-900 mb-5">9. Um docente, inspirado pelos saberes necessários à prática educativa discutidos por Paulo Freire em "Pedagogia da Autonomia", depara-se com uma turma que demonstra grande apatia e descrença em sua própria capacidade de aprender. A atitude do docente que melhor reflete uma pedagogia da autonomia é:</p>
+                <div class="space-y-3">
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q9" value="A" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>A)</strong> intensificar a cobrança por meio de mais provas e trabalhos, acreditando que a pressão externa levará os alunos a se dedicarem mais aos estudos.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q9" value="B" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>B)</strong> ignorar a apatia e continuar a ministrar o conteúdo de forma expositiva, partindo do pressuposto de que sua obrigação é ensinar, e a de aprender é exclusivamente do aluno.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q9" value="C" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>C)</strong> criar um ambiente de diálogo e escuta, buscando compreender as razões do descrédito dos alunos, valorizando seus saberes prévios e propondo desafios que os tornem sujeitos ativos e curiosos na construção do conhecimento.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q9" value="D" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>D)</strong> simplificar drasticamente o conteúdo, oferecendo atividades lúdicas e fáceis, para evitar a frustração dos alunos e garantir que todos se sintam bem, mesmo que a aprendizagem significativa seja comprometida.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q9" value="E" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>E)</strong> adotar uma postura paternalista, elogiando excessivamente qualquer pequeno esforço e realizando as tarefas pelos alunos para que eles não se sintam incapazes.</span>
+                    </label>
+                </div>
+                <!-- Seção de Resolução (inicialmente oculta) -->
+                <div id="resolution-9" class="resolution-block hidden mt-6"></div>
+            </div>
+
+            <!-- Questão 10 -->
+            <div id="question-10" class="question-block mb-6">
+                <p class="text-lg font-semibold text-slate-900 mb-5">10. José Carlos Libâneo classifica as tendências pedagógicas em dois grandes grupos: Liberais e Progressistas. Dentro do grupo Progressista, há nuances importantes. Assinale a alternativa que associa corretamente a tendência à sua principal característica.</p>
+                <div class="space-y-3">
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q10" value="A" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>A)</strong> Libertadora: defende a primazia dos conteúdos culturais universais, que devem ser dominados pelos alunos como condição para a participação efetiva nas lutas sociais.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q10" value="B" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>B)</strong> Libertária: propõe uma educação baseada na problematização da realidade social do aluno por meio do diálogo, visando à conscientização e à superação da opressão, com forte atuação do educador.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q10" value="C" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>C)</strong> Crítico-social dos conteúdos: valoriza a autogestão pedagógica e a transformação da escola em um espaço de vivência democrática e antiautoritária, com ênfase na experiência grupal.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q10" value="D" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>D)</strong> Libertadora: tem como foco a educação não-formal e a transformação da consciência dos oprimidos por meio da problematização de sua realidade, tendo em Paulo Freire seu principal expoente.</span>
+                    </label>
+                    <label class="option-label flex items-start p-4 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="radio" name="q10" value="E" class="flex-shrink-0 mt-1 mr-3 text-blue-600 focus:ring-blue-500">
+                        <span class="text-slate-700"><strong>E)</strong> Libertária: busca articular os conteúdos escolares com as questões sociais, mas sem questionar a estrutura da sociedade, focando na preparação do aluno para o mercado de trabalho.</span>
+                    </label>
+                </div>
+                <!-- Seção de Resolução (inicialmente oculta) -->
+                <div id="resolution-10" class="resolution-block hidden mt-6"></div>
+            </div>
+
+            <!-- Seção de Resultados (inicialmente oculta) -->
+            <div id="resultsSection" class="hidden mt-10 text-center">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-3">Resultados</h2>
+                <p id="score" class="text-xl text-slate-600 mb-6"></p>
+                <p class="text-lg font-semibold text-slate-800">Confira abaixo o gabarito e as resoluções comentadas para cada questão.</p>
+            </div>
+
+            <!-- Botão de Envio -->
+            <button type="button" id="submitButton" class="w-full mt-8 bg-blue-600 text-white py-3 px-6 rounded-lg font-bold text-lg hover:bg-blue-700 transition-all shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                Finalizar Quiz e Ver Resultados
+            </button>
+
+        </form>
+    </div>
+
+    <!-- Script da Lógica do Quiz -->
+    <script>
+        // Objeto com as respostas corretas
+        const correctAnswers = {
+            q1: 'C', q2: 'C', q3: 'D', q4: 'C', q5: 'C',
+            q6: 'E', q7: 'C', q8: 'B', q9: 'C', q10: 'D'
+        };
+
+        // Objeto com as resoluções (HTML)
+        // ESTE É O CONTEÚDO COMPLETO DAS RESOLUÇÕES
+        const resolutions = {
+            q1: `
+                <div class="prose prose-slate max-w-none">
+                    <h4>Resolução Comentada (Questão 1)</h4>
+                    <p><strong>Gabarito:</strong> C</p>
+                    <p><strong>Análise da Alternativa Correta:</strong> A alternativa (C) define com precisão o conceito de práxis na perspectiva da pedagogia crítica, especialmente a freireana. Práxis não é apenas ação nem apenas reflexão, mas a relação dialética entre ambas. É o ato de refletir criticamente sobre a prática para poder transformá-la, e essa nova prática, por sua vez, se torna objeto de uma nova reflexão. Este ciclo contínuo é o que caracteriza uma educação transformadora, que visa não apenas a adaptação ao mundo, mas a sua humanização.</p>
+                    <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                    <ul>
+                        <li><strong>A (Incorreta):</strong> Esta alternativa descreve uma visão da tendência Tecnicista. A ênfase na "aplicação eficiente de técnicas", "otimizar a transmissão" e "objetivos mensuráveis" é característica de uma abordagem que vê a educação como um processo técnico e neutro.</li>
+                        <li><strong>B (Incorreta):</strong> Esta opção reflete um empirismo ingênuo, onde a prática por si só, desprovida de uma reflexão teórica e crítica, seria suficiente.</li>
+                        <li><strong>D (Incorreta):</strong> Esta alternativa corresponde à visão da tendência Tradicional. A prática é reduzida à "execução fiel do currículo".</li>
+                        <li><strong>E (Incorreta):</strong> O erro aqui é a cisão entre teoria e prática. A práxis exige que reflexão e ação sejam simultâneas e interdependentes.</li>
+                    </ul>
+                </div>
+            `,
+            q2: `
+                <div class="prose prose-slate max-w-none">
+                    <h4>Resolução Comentada (Questão 2)</h4>
+                    <p><strong>Gabarito:</strong> C</p>
+                    <p><strong>Análise da Alternativa Correta:</strong> A alternativa (C) sintetiza os elementos centrais de um planejamento crítico-emancipatório. Ele é <strong>flexível</strong> porque a realidade é dinâmica; <strong>dialógico</strong> porque se constrói na interação com os alunos; e <strong>participativo</strong> porque os envolve no processo. O ponto de partida é a <strong>realidade social dos estudantes</strong>, e o objetivo final é a <strong>conscientização e a transformação social</strong>.</p>
+                    <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                    <ul>
+                        <li><strong>A (Incorreta):</strong> Descreve um planejamento típico da pedagogia Tradicional, caracterizado pela rigidez.</li>
+                        <li><strong>B (Incorreta):</strong> Apresenta características da tendência Renovada Não-Diretiva (Escola Nova), que a perspectiva crítica questiona pela ausência de uma análise social e política.</li>
+                        <li><strong>D (Incorreta):</strong> Esta é a definição de um planejamento Tecnicista (eficiência, produtividade, neutralidade).</li>
+                        <li><strong>E (Incorreta):</strong> Reflete uma prática docente acomodada e acrítica, baseada na mera reprodução.</li>
+                    </ul>
+                </div>
+            `,
+            q3: `
+                <div class="prose prose-slate max-w-none">
+                    <h4>Resolução Comentada (Questão 3)</h4>
+                    <p><strong>Gabarito:</strong> D</p>
+                    <p><strong>Análise da Alternativa Correta:</strong> A alternativa (D) expressa o cerne da pedagogia crítico-social dos conteúdos. Nessa perspectiva (Libâneo, Saviani), o conhecimento sistematizado não é negado, mas ressignificado. O professor atua como um <strong>mediador</strong> que ajuda os alunos a se apropriarem criticamente da cultura letrada para que possam compreender e atuar em sua realidade. O objetivo é o confronto dialético entre o saber cotidiano e o saber científico.</p>
+                    <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                    <ul>
+                        <li><strong>A (Incorreta):</strong> Descreve o professor na tendência Tecnicista.</li>
+                        <li><strong>B (Incorreta):</strong> Corresponde ao papel do professor na tendência Renovada Não-Diretiva.</li>
+                        <li><strong>C (Incorreta):</strong> Representa o papel do professor na tendência Tradicional.</li>
+                        <li><strong>E (Incorreta):</strong> Aponta para o papel do educador na tendência Libertária (foco na autogestão).</li>
+                    </ul>
+                </div>
+            `,
+            q4: `
+                <div class="prose prose-slate max-w-none">
+                    <h4>Resolução Comentada (Questão 4)</h4>
+                    <p><strong>Gabarito:</strong> C</p>
+                    <p><strong>Análise da Alternativa Correta:</strong> A alternativa (C) estabelece a conexão causal entre a filosofia da pedagogia crítica e a prática das metodologias ativas. Uma educação que visa à emancipação não pode se basear em métodos que colocam o aluno em posição de passividade. As metodologias ativas (PBL, projetos) promovem o protagonismo, a resolução de problemas reais e a construção colaborativa do conhecimento.</p>
+                    <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                    <ul>
+                        <li><strong>A (Incorreta):</strong> Aulas expositivas reforçam o modelo de "educação bancária" (Freire).</li>
+                        <li><strong>B (Incorreta):</strong> Repetição e memorização são da pedagogia Tradicional.</li>
+                        <li><strong>D (Incorreta):</strong> Instrução programada e reforço são da abordagem Tecnicista/Comportamentalista.</li>
+                        <li><strong>E (Incorreta):</strong> Descreve um desvio da pedagogia Renovada (espontaneísmo) que negligencia o conhecimento rigoroso.</li>
+                    </ul>
+                </div>
+            `,
+            q5: `
+                <div class="prose prose-slate max-w-none">
+                    <h4>Resolução Comentada (Questão 5)</h4>
+                    <p><strong>Gabarito:</strong> C</p>
+                    <p><strong>Análise da Alternativa Correta:</strong> A alternativa (C) descreve a avaliação na perspectiva formativa, coerente com a pedagogia crítica. A avaliação deixa de ser um fim em si mesma (classificar) e se torna um meio para a melhoria da aprendizagem. Ela é <strong>contínua</strong>, <strong>diagnóstica</strong> (identifica dificuldades) e <strong>dialógica</strong> (envolve o aluno), servindo para <strong>reorientar a prática</strong>.</p>
+                    <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                    <ul>
+                        <li><strong>A (Incorreta):</strong> Visão da avaliação na pedagogia Tradicional (instrumento de poder e seleção).</li>
+                        <li><strong>B (Incorreta):</strong> Ênfase na avaliação somativa (final), típica da abordagem Tradicional e Tecnicista.</li>
+                        <li><strong>D (Incorreta):</strong> Mensuração de "comportamentos observáveis" é pilar da avaliação Tecnicista.</li>
+                        <li><strong>E (Incorreta):</strong> Visão ingênua. A avaliação não é descartada, ela assume uma nova forma não-classificatória.</li>
+                    </ul>
+                </div>
+            `,
+            q6: `
+                <div class="prose prose-slate max-w-none">
+                    <h4>Resolução Comentada (Questão 6)</h4>
+                    <p><strong>Gabarito:</strong> E</p>
+                    <p><strong>Análise da Alternativa Correta:</strong> A alternativa (E) captura a profundidade do conceito de diálogo em Paulo Freire. Não é uma técnica, mas uma "exigência existencial". É uma <strong>relação horizontal</strong> (supera a contradição educador-educando), <strong>amorosa</strong> (respeito profundo) e epistemológica (o conhecimento se constrói no diálogo). É o encontro de sujeitos que problematizam e buscam transformar a realidade.</p>
+                    <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                    <ul>
+                        <li><strong>A (Incorreta):</strong> Reduz o diálogo a uma simples técnica.</li>
+                        <li><strong>B (Incorreta):</strong> Confunde diálogo com conversa informal, sem intencionalidade pedagógica.</li>
+                        <li><strong>C (Incorreta):</strong> Descreve o método socrático (maiêutica), onde o mestre já sabe a verdade. No diálogo freireano, o conhecimento é construído.</li>
+                        <li><strong>D (Incorreta):</strong> Apresenta uma visão de manipulação, que Freire chamaria de "antidiálogo".</li>
+                    </ul>
+                </div>
+            `,
+            q7: `
+                <div class="prose prose-slate max-w-none">
+                    <h4>Resolução Comentada (Questão 7)</h4>
+                    <p><strong>Gabarito:</strong> C</p>
+                    <p><strong>Análise da Alternativa Correta:</strong> A alternativa (C) descreve o método Paulo Freire. O ponto de partida é a realidade dos educandos, de onde se extraem os <strong>"temas geradores"</strong>. Esses temas são problematizados, e o conhecimento sistematizado (científico, etc.) é mobilizado para ajudar a decodificar criticamente essa realidade. Há uma articulação dialética entre o saber popular e o saber erudito.</p>
+                    <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                    <ul>
+                        <li><strong>A (Incorreta):</strong> Visão acrítica e burocrática do currículo (Tradicional).</li>
+                        <li><strong>B (Incorreta):</strong> Representa um populismo pedagógico, que nega o conhecimento universal e acaba por privar os alunos.</li>
+                        <li><strong>D (Incorreta):</strong> Organização curricular positivista (Tradicional/Tecnicista).</li>
+                        <li><strong>E (Incorreta):</strong> Visão utilitarista e instrumental, alinhada à lógica de mercado (Tecnicista).</li>
+                    </ul>
+                </div>
+            `,
+            q8: `
+                <div class="prose prose-slate max-w-none">
+                    <h4>Resolução Comentada (Questão 8)</h4>
+                    <p><strong>Gabarito:</strong> B</p>
+                    <p><strong>Análise da Alternativa Correta:</strong> A alternativa (B) descreve com exatidão a Aprendizagem Baseada em Problemas (PBL). Seus elementos-chave são: um <strong>problema autêntico, complexo e mal estruturado</strong> como ponto de partida; o trabalho em <strong>grupos colaborativos</strong>; e o papel do aluno como <strong>investigador ativo</strong>. O professor atua como tutor. Alinha-se à perspectiva crítica por promover autonomia e pensamento crítico.</p>
+                    <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                    <ul>
+                        <li><strong>A (Incorreta):</strong> Descreve um exercício de aplicação, não um problema real.</li>
+                        <li><strong>C (Incorreta):</strong> Confunde PBL com resolução de exercícios de fixação (tradicional).</li>
+                        <li><strong>D (Incorreta):</strong> Contradiz o pilar da PBL, que é o aprendizado colaborativo.</li>
+                        <li><strong>E (Incorreta):</strong> Confunde PBL com Aprendizagem Baseada em Projetos (PjBL), onde o foco é o produto final.</li>
+                    </ul>
+                </div>
+            `,
+            q9: `
+                <div class="prose prose-slate max-w-none">
+                    <h4>Resolução Comentada (Questão 9)</h4>
+                    <p><strong>Gabarito:</strong> C</p>
+                    <p><strong>Análise da Alternativa Correta:</strong> A alternativa (C) reflete os princípios da "Pedagogia da Autonomia" de Freire. A ação docente crítica exige <strong>escuta sensível</strong>, <strong>respeito aos saberes prévios</strong> e a crença na capacidade do aluno. O professor deve criar um ambiente de <strong>diálogo</strong> e propor <strong>desafios</strong> que instiguem a <strong>curiosidade epistemológica</strong>, tornando os alunos sujeitos da aprendizagem.</p>
+                    <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                    <ul>
+                        <li><strong>A (Incorreta):</strong> Atitude autoritária e coercitiva, que gera medo, não autonomia.</li>
+                        <li><strong>B (Incorreta):</strong> Representa a omissão do professor; Freire afirma que "ensinar exige querer bem".</li>
+                        <li><strong>D (Incorreta):</strong> Atitude que subestima a capacidade dos alunos; respeito não significa abrir mão do rigor.</li>
+                        <li><strong>E (Incorreta):</strong> O paternalismo é tão prejudicial quanto o autoritarismo, pois também impede a autonomia.</li>
+                    </ul>
+                </div>
+            `,
+            q10: `
+                <div class="prose prose-slate max-w-none">
+                    <h4>Resolução Comentada (Questão 10)</h4>
+                    <p><strong>Gabarito:</strong> D</p>
+                    <p><strong>Análise da Alternativa Correta:</strong> A alternativa (D) descreve corretamente a <strong>tendência Libertadora</strong>. Seu principal teórico é Paulo Freire. Caracteriza-se por uma atuação preferencialmente <strong>não-formal</strong> (fora da escola), pelo método da <strong>problematização da realidade</strong> e pelo objetivo de promover a <strong>conscientização</strong> para a superação da opressão.</p>
+                    <p><strong>Análise das Alternativas Incorretas:</strong></p>
+                    <ul>
+                        <li><strong>A (Incorreta):</strong> A defesa dos conteúdos universais é característica da tendência <strong>Crítico-social dos conteúdos</strong>.</li>
+                        <li><strong>B (Incorreta):</strong> A descrição é da Libertadora, mas está atribuída à <strong>Libertária</strong>.</li>
+                        <li><strong>C (Incorreta):</strong> A valorização da autogestão é o cerne da tendência <strong>Libertária</strong>.</li>
+                        <li><strong>E (Incorreta):</strong> A descrição não corresponde à tendência Libertária, que é crítica à estrutura da sociedade.</li>
+                    </ul>
+                </div>
+            `
+        };
+
+        // Adiciona o listener ao botão de submit
+        document.getElementById('submitButton').addEventListener('click', function() {
+            let score = 0;
+            const form = document.getElementById('quizForm');
+            const formData = new FormData(form);
+            const userAnswers = {};
+
+            // Desabilita todos os inputs para evitar novas respostas
+            form.querySelectorAll('input[type="radio"]').forEach(input => {
+                input.disabled = true;
+            });
+
+            // Itera por todas as 10 questões
+            for (let i = 1; i <= 10; i++) {
+                const questionKey = `q${i}`;
+                const userAnswer = formData.get(questionKey);
+                userAnswers[questionKey] = userAnswer;
+
+                const correctAnswer = correctAnswers[questionKey];
+                const questionBlock = document.getElementById(`question-${i}`);
+                const resolutionBlock = document.getElementById(`resolution-${i}`);
+                
+                let feedbackHTML = '';
+
+                // Verifica a resposta e define o feedback
+                if (userAnswer === correctAnswer) {
+                    score++;
+                    feedbackHTML = `
+                        <div class="feedback-box p-4 rounded-md bg-green-50 border-l-4 border-green-500 text-green-800">
+                            <p class="font-bold">Você acertou!</p>
+                            <p>Sua resposta: ${userAnswer}. Resposta Correta: ${correctAnswer}.</p>
+                        </div>
+                    `;
+                } else if (userAnswer) {
+                    feedbackHTML = `
+                        <div class="feedback-box p-4 rounded-md bg-red-50 border-l-4 border-red-500 text-red-800">
+                            <p class="font-bold">Você errou.</p>
+                            <p>Sua resposta: ${userAnswer}. Resposta Correta: ${correctAnswer}.</p>
+                        </div>
+                    `;
+                } else {
+                    feedbackHTML = `
+                        <div class="feedback-box p-4 rounded-md bg-yellow-50 border-l-4 border-yellow-500 text-yellow-800">
+                            <p class="font-bold">Você não respondeu.</p>
+                            <p>Resposta Correta: ${correctAnswer}.</p>
+                        </div>
+                    `;
+                }
+
+                // Estiliza as labels das opções
+                const labels = questionBlock.querySelectorAll('.option-label');
+                labels.forEach(label => {
+                    const input = label.querySelector('input');
+                    label.classList.remove('hover:bg-slate-50', 'cursor-pointer');
+                    
+                    if (input.value === correctAnswer) {
+                        // Destaca a resposta correta
+                        label.classList.add('bg-green-50', 'border-green-300', 'ring-2', 'ring-green-200');
+                    } else if (input.value === userAnswer && userAnswer !== correctAnswer) {
+                        // Destaca a resposta incorreta do usuário
+                        label.classList.add('bg-red-50', 'border-red-300', 'ring-2', 'ring-red-200');
+                    } else {
+                        // Opções não selecionadas
+                        label.classList.add('opacity-70');
+                    }
+                });
+
+                // Adiciona o feedback e a resolução
+                resolutionBlock.innerHTML = feedbackHTML + resolutions[questionKey];
+                resolutionBlock.classList.remove('hidden');
+            }
+
+            // Exibe a pontuação final
+            const resultsSection = document.getElementById('resultsSection');
+            const scoreElement = document.getElementById('score');
+            scoreElement.textContent = `Você acertou ${score} de 10 questões.`;
+            resultsSection.classList.remove('hidden');
+
+            // Oculta o botão de submit
+            this.classList.add('hidden');
+
+            // Rola a tela para a seção de resultados
+            resultsSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+
+    </script>
+
+</body>
+</html>
+

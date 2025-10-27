@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: TICs na Educação</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuração da fonte Inter para melhor legibilidade -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa; /* Fundo claro */
+            color: #212529; /* Texto escuro */
+        }
+        /* Estilo para preservar as quebras de linha nas resoluções */
+        .whitespace-pre-wrap {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        /* Melhora o foco nos botões de rádio */
+        input[type="radio"]:focus {
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Container principal com largura máxima para leitura -->
+    <div class="max-w-3xl mx-auto p-6 md:p-10">
+        
+        <!-- Cabeçalho do Quiz -->
+        <header class="mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2">Quiz: TICs na Educação</h1>
+            <p class="text-lg text-gray-700 leading-relaxed">Teste seus conhecimentos sobre as novas tecnologias de informação e comunicação na educação.</p>
+        </header>
+
+        <!-- Formulário do Quiz -->
+        <form id="quizForm">
+            <!-- As questões serão injetadas aqui pelo JavaScript -->
+        </form>
+
+        <!-- Seção de Resultados (oculta por padrão) -->
+        <section id="resultsSection" class="hidden mt-12 border-t border-gray-300 pt-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Seu Resultado</h2>
+            <!-- Sumário da pontuação -->
+            <p id="scoreSummary" class="text-2xl font-semibold mb-8"></p>
+
+            <h3 class="text-2xl font-bold text-gray-900 mb-6">Resoluções Comentadas</h3>
+            <!-- As resoluções serão injetadas aqui -->
+            <div id="resolutionsContainer" class="space-y-6">
+                <!-- Conteúdo dinâmico -->
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // --- BANCO DE DADOS DO QUIZ ---
+        // Contém todas as questões, opções, resposta correta e resolução.
+        const quizData = [
+            {
+                question: "1. Um Ambiente Virtual de Aprendizagem (AVA) é uma ferramenta central na educação contemporânea, transcendendo a função de um mero repositório de arquivos. Considerando sua estrutura e propósito pedagógico, assinale a alternativa que descreve corretamente a principal característica de um AVA.",
+                options: {
+                    a: "Consiste em uma plataforma de armazenamento em nuvem, otimizada para que professores disponibilizem materiais de leitura em formato PDF e os alunos realizem o download.",
+                    b: "Trata-se de um software de videoconferência que permite a realização de aulas síncronas, focando exclusivamente na transmissão de conteúdo em tempo real.",
+                    c: "É um sistema integrado que simula uma sala de aula virtual, oferecendo um conjunto de ferramentas para disponibilização de conteúdo, comunicação síncrona e assíncrona (chats e fóruns), e aplicação de atividades avaliativas.",
+                    d: "Refere-se a um grupo em uma rede social, onde professores e alunos podem interagir de maneira informal, compartilhar links e agendar encontros presenciais.",
+                    e: "É uma aplicação para a criação de apresentações de slides interativas, que podem ser utilizadas pelo professor durante a exposição de um conteúdo em sala de aula."
+                },
+                correct: "c",
+                resolution: `**Gabarito: C**
+                
+**Análise da Alternativa Correta:** A alternativa (C) descreve com precisão o que é um AVA. Ele não é uma ferramenta isolada, mas um sistema complexo e integrado projetado para gerenciar o processo de ensino-aprendizagem. A sua principal característica é a combinação de funcionalidades que simulam e expandem as possibilidades de uma sala de aula física, incluindo a entrega de materiais, ferramentas de comunicação síncrona (chat) e assíncrona (fórum), e mecanismos de avaliação.
+                
+**Análise das Alternativas Incorretas:**
+* (A) descreve um repositório de arquivos, como Google Drive ou Dropbox, que, embora útil, não possui as ferramentas pedagógicas integradas de um AVA.
+* (B) descreve uma ferramenta de videoconferência, como Zoom ou Google Meet, que é apenas um dos possíveis componentes de um AVA, mas não o sistema completo.
+* (D) descreve o uso de uma rede social, que permite interação, mas carece da estrutura, organização e ferramentas de gestão de aprendizagem específicas de um AVA.
+* (E) descreve um software de apresentação, como PowerPoint ou Prezi, que é uma ferramenta de apoio à instrução, não um ambiente de aprendizagem.`
+            },
+            {
+                question: "2. Uma professora de Biologia do Ensino Médio deseja reestruturar suas aulas sobre Genética. Seu objetivo é que, em uma mesma aula, parte dos alunos realize uma pesquisa online sobre as Leis de Mendel, outro grupo trabalhe de forma colaborativa na resolução de problemas de heredogramas, e um terceiro grupo receba instrução direta dela para sanar dificuldades específicas. A professora planeja que os grupos troquem de atividade ao longo da aula. Qual modelo de ensino híbrido melhor se adapta a esse planejamento?",
+                options: {
+                    a: "Sala de Aula Invertida",
+                    b: "Rotação por Estações",
+                    c: "Flex",
+                    d: "À La Carte",
+                    e: "Virtual Enriquecido"
+                },
+                correct: "b",
+                resolution: `**Gabarito: B**
+                
+**Análise da Alternativa Correta:** A alternativa (B) é a correta porque o cenário descrito corresponde exatamente ao modelo de Rotação por Estações. Nesse modelo, a sala é dividida em diferentes "estações", cada uma com uma atividade distinta sobre o mesmo tópico. Os alunos rotacionam entre elas, permitindo que o professor trabalhe com diferentes abordagens (online, colaborativa, instrução direta) simultaneamente e atue como mediador do processo.
+
+**Análise das Alternativas Incorretas:**
+* (A) Sala de Aula Invertida envolve o estudo prévio do conteúdo em casa e a realização de atividades práticas em sala.
+* (C) O modelo Flex oferece roteiros de estudo individualizados e flexíveis, com o aluno tendo maior controle sobre seu percurso.
+* (D) O modelo À La Carte permite que o aluno curse disciplinas inteiras online, complementando sua grade curricular presencial.
+* (E) O modelo Virtual Enriquecido é para alunos que realizam a maior parte do curso online, mas têm encontros presenciais obrigatórios.`
+            },
+            {
+                question: "3. No campo das tecnologias educacionais, os termos \"Gamificação\" e \"Jogos Sérios\" são frequentemente utilizados, mas representam conceitos distintos. A confusão entre eles pode levar a planejamentos pedagógicos inadequados. Assinale a alternativa que apresenta a distinção conceitual correta entre os dois termos.",
+                options: {
+                    a: "Gamificação e Jogos Sérios são sinônimos, referindo-se a qualquer uso de jogos digitais no contexto educacional.",
+                    b: "A Gamificação consiste na utilização de jogos completos, com narrativas e personagens, para ensinar um conteúdo específico, enquanto Jogos Sérios são atividades analógicas que usam regras de jogos.",
+                    c: "Jogos Sérios são utilizados exclusivamente na educação infantil, enquanto a Gamificação é uma abordagem voltada para o treinamento corporativo e o ensino superior.",
+                    d: "A Gamificação aplica elementos e mecânicas de jogos (como pontos, medalhas e rankings) em atividades que não são jogos, para aumentar o engajamento, enquanto Jogos Sérios são jogos projetados desde o início com um propósito primário de aprendizado.",
+                    e: "Gamificação refere-se ao uso de jogos de entretenimento comercial em sala de aula, enquanto Jogos Sérios são desenvolvidos exclusivamente por instituições de ensino, sem fins lucrativos."
+                },
+                correct: "d",
+                resolution: `**Gabarito: D**
+
+**Análise da Alternativa Correta:** A alternativa (D) captura a essência da diferença. A gamificação é a aplicação de mecânicas de jogos em contextos que não são jogos, visando motivar e engajar. Um exemplo é um sistema de tarefas de casa que concede pontos e medalhas. Já os Jogos Sérios (ou *Serious Games*) são jogos completos, projetados desde sua concepção com um objetivo principal que vai além do entretenimento, como educação, treinamento ou saúde.
+
+**Análise das Alternativas Incorretas:**
+* (A) é incorreta, pois os termos não são sinônimos.
+* (B) inverte e confunde os conceitos.
+* (C) estabelece uma falsa limitação de público para cada conceito.
+* (E) cria uma definição restritiva e incorreta para ambos os termos.`
+            },
+            {
+                question: "4. A Base Nacional Comum Curricular (BNCC) estabelece a Cultura Digital como a Competência Geral 5, definindo que o aluno deve ser capaz de \"compreender, utilizar e criar tecnologias digitais de informação e comunicação de forma crítica, significativa, reflexiva e ética\". Qual das seguintes atividades pedagógicas está mais alinhada com o desenvolvimento integral dessa competência, conforme preconizado pela BNCC?",
+                options: {
+                    a: "Realizar um exercício de digitação cronometrado para aumentar a velocidade e a precisão dos alunos ao usar o teclado.",
+                    b: "Ensinar os alunos a utilizarem todas as ferramentas de formatação de texto e inserção de imagens de um software de apresentação de slides.",
+                    c: "Propor que os alunos assistam a um documentário histórico disponível em uma plataforma de streaming e, em seguida, respondam a um questionário de múltipla escolha sobre o conteúdo.",
+                    d: "Desenvolver um projeto no qual os alunos investigam a disseminação de notícias falsas (fake news) em redes sociais, analisam seus impactos e, ao final, criam uma campanha digital de conscientização sobre letramento midiático.",
+                    e: "Utilizar um aplicativo de calculadora em tablets para agilizar a resolução de uma lista de problemas matemáticos complexos."
+                },
+                correct: "d",
+                resolution: `**Gabarito: D**
+
+**Análise da Alternativa Correta:** A alternativa (D) representa a aplicação mais completa da Competência 5. Ela não se limita ao uso instrumental da tecnologia ("saber usar"), mas avança para as dimensões "crítica" (analisar o fenômeno das fake news), "reflexiva" (compreender seus impactos) e "ética" (criar uma campanha de conscientização), além de promover o protagonismo e a autoria do aluno.
+
+**Análise das Alternativas Incorretas:**
+* (A), (B) e (E) focam apenas no aspecto instrumental do uso da tecnologia – o domínio de ferramentas ou habilidades técnicas –, sem abordar as dimensões crítica, reflexiva e ética que são centrais para a competência.
+* (C) envolve o uso de tecnologia para acessar informação, mas a atividade avaliativa proposta é passiva e não promove a criação, a crítica ou a reflexão aprofundada.`
+            },
+            {
+                question: "5. As políticas públicas de inclusão digital na educação no Brasil têm evoluído ao longo dos anos, com a implementação de diversos programas federais. Com base em análises sobre a efetividade desses programas, como a \"Estratégia Nacional de Escolas Conectadas\", assinale a alternativa que aponta o principal foco dessas iniciativas e, ao mesmo tempo, o desafio mais significativo para sua plena eficácia pedagógica.",
+                options: {
+                    a: "O foco principal tem sido a capacitação intensiva de professores em metodologias ativas, mas o desafio é a resistência dos alunos em utilizar as tecnologias.",
+                    b: "As políticas concentram-se na aquisição de softwares e licenças de uso para as escolas, com o desafio de garantir que os computadores sejam potentes o suficiente para rodá-los.",
+                    c: "O foco predominante tem sido a expansão da infraestrutura tecnológica – como conectividade à internet e distribuição de equipamentos –, mas o grande desafio reside na carência de formação pedagógica contínua e integrada para que os professores utilizem esses recursos de forma eficaz no processo de ensino-aprendizagem.",
+                    d: "As iniciativas priorizam a criação de conteúdo digital pelo Ministério da Educação, sendo o maior desafio a distribuição desse conteúdo para escolas em áreas rurais.",
+                    e: "O foco exclusivo tem sido a segurança digital e a proteção de dados dos alunos, com o desafio de implementar sistemas de controle de acesso em todas as escolas públicas do país."
+                },
+                correct: "c",
+                resolution: `**Gabarito: C**
+
+**Análise da Alternativa Correta:** A alternativa (C) sintetiza a realidade das políticas de inclusão digital no Brasil. Programas como a "Estratégia Nacional de Escolas Conectadas" e "Internet Brasil" têm tido sucesso em ampliar o acesso à internet e a dispositivos. No entanto, estudos e análises críticas apontam que um gargalo persistente é a falta de investimento proporcional na formação de professores, que precisam de suporte pedagógico para transformar essa infraestrutura em aprendizado significativo.
+
+**Análise das Alternativas Incorretas:**
+* (A), (B), (D) e (E) apresentam focos ou desafios que não correspondem à análise predominante sobre o tema, que consistentemente aponta a lacuna entre a disponibilização de infraestrutura e a capacitação docente.`
+            },
+            {
+                question: "6. A adoção de modelos de ensino híbrido implica uma transformação fundamental no papel do professor, que se distancia da figura de mero transmissor de informações. Nesse novo contexto, qual das alternativas descreve de forma mais completa e precisa as novas atribuições do docente?",
+                options: {
+                    a: "O professor atua principalmente como um técnico de suporte de TI, resolvendo problemas de hardware e software que os alunos possam encontrar durante as atividades online.",
+                    b: "A principal função do professor passa a ser a de um curador de conteúdo, selecionando vídeos e textos online para que os alunos estudem de forma totalmente autônoma, sem necessidade de intervenção.",
+                    c: "O docente assume um papel multifacetado de designer de experiências de aprendizagem, curador de recursos educacionais, mediador do conhecimento, facilitador de discussões e tutor que oferece suporte personalizado aos alunos.",
+                    d: "O professor se torna um avaliador, com a responsabilidade exclusiva de criar e corrigir provas e trabalhos, uma vez que o conteúdo é aprendido pelos alunos por meio de plataformas adaptativas.",
+                    e: "A função do professor é reduzida à de um supervisor de sala, garantindo o silêncio e a disciplina enquanto os alunos realizam individualmente suas tarefas em dispositivos digitais."
+                },
+                correct: "c",
+                resolution: `**Gabarito: C**
+
+**Análise da Alternativa Correta:** A alternativa (C) é a mais completa, pois reconhece a complexidade do novo papel docente. No ensino híbrido, o professor deixa de ser o único detentor do conhecimento para se tornar um arquiteto de ambientes de aprendizagem. Isso envolve curar (selecionar e organizar) materiais de qualidade, desenhar percursos de aprendizagem que integrem o online e o presencial, mediar e facilitar a construção do conhecimento pelos alunos e oferecer um acompanhamento mais próximo e personalizado.
+
+**Análise das Alternativas Incorretas:**
+* (A), (B), (D) e (E) reduzem o papel do professor a uma única função (suporte técnico, curador, avaliador, supervisor), ignorando a natureza multifacetada e central que ele assume na mediação pedagógica em modelos híbridos.`
+            },
+            {
+                question: "7. Em um Ambiente Virtual de Aprendizagem (AVA), um professor de Sociologia deseja propor uma atividade que estimule um debate aprofundado e reflexivo sobre as teorias de Karl Marx. Ele quer que os alunos tenham tempo para elaborar seus argumentos, pesquisar fontes e responder às postagens dos colegas ao longo de uma semana, sem a pressão da interação em tempo real. Qual ferramenta do AVA é a mais adequada para esse objetivo pedagógico?",
+                options: {
+                    a: "Chat em tempo real",
+                    b: "Biblioteca virtual",
+                    c: "Ferramenta de avaliação com questões de múltipla escolha",
+                    d: "Fórum de discussão",
+                    e: "Módulo de envio de tarefa individual"
+                },
+                correct: "d",
+                resolution: `**Gabarito: D**
+
+**Análise da Alternativa Correta:** A alternativa (D) é a mais adequada. O Fórum de Discussão é uma ferramenta de comunicação assíncrona, o que significa que os participantes não precisam estar online ao mesmo tempo. Isso permite a construção de argumentos mais elaborados, a consulta a fontes externas e a reflexão sobre as contribuições dos colegas, sendo ideal para debates aprofundados que se estendem por vários dias.
+
+**Análise das Alternativas Incorretas:**
+* (A) O Chat é síncrono, ideal para interações rápidas e imediatas, não para debates longos e reflexivos.
+* (B) A Biblioteca virtual é um repositório para consulta de materiais, não uma ferramenta de interação.
+* (C) e (E) são ferramentas de avaliação e entrega de trabalhos, não de debate colaborativo.`
+            },
+            {
+                question: "8. A Base Nacional Comum Curricular (BNCC), em seu complemento sobre Computação, estrutura o desenvolvimento do letramento digital em três eixos fundamentais e interconectados. Assinale a alternativa que associa corretamente um desses eixos à sua respectiva área de desenvolvimento de habilidades.",
+                options: {
+                    a: "Mundo Digital: refere-se exclusivamente à capacidade de programar em diferentes linguagens, como Python e Java.",
+                    b: "Cultura Digital: foca no desenvolvimento do raciocínio lógico e na capacidade de criar algoritmos para resolver problemas cotidianos.",
+                    c: "Pensamento Computacional: aborda a compreensão crítica, reflexiva e ética dos impactos da tecnologia na sociedade, incluindo temas como privacidade, segurança e cidadania digital.",
+                    d: "Mundo Digital: envolve a compreensão do funcionamento da internet, das redes de computadores, do hardware e dos softwares, constituindo o eixo mais técnico.",
+                    e: "Pensamento Computacional: concentra-se na habilidade de utilizar softwares de edição de texto e planilhas eletrônicas com proficiência."
+                },
+                correct: "d",
+                resolution: `**Gabarito: D**
+
+**Análise da Alternativa Correta:** A alternativa (D) descreve corretamente o eixo Mundo Digital. Este eixo é responsável por prover o conhecimento técnico sobre como as tecnologias digitais funcionam, incluindo hardware, software, redes e a internet. É a base de conhecimento que permite ao aluno compreender o ambiente em que atua.
+
+**Análise das Alternativas Incorretas:**
+* (A) descreve uma habilidade específica, mas não a totalidade do eixo Mundo Digital.
+* (B) descreve o eixo Cultura Digital, mas o atribui incorretamente.
+* (C) descreve o eixo Cultura Digital, mas o associa ao termo Pensamento Computacional.
+* (E) descreve habilidades instrumentais básicas, enquanto o Pensamento Computacional envolve conceitos mais abstratos como decomposição, reconhecimento de padrões e algoritmos.`
+            },
+            {
+                question: "9. O programa \"Internet Brasil\" é uma política pública de inclusão digital resultante de uma parceria entre o Ministério das Comunicações e o Ministério da Educação. Considerando o público-alvo e a metodologia de ação, qual é o objetivo primário deste programa?",
+                options: {
+                    a: "Instalar antenas de internet via satélite e redes Wi-Fi de alta velocidade em todas as escolas públicas de educação básica do país.",
+                    b: "Doar computadores e tablets recondicionados para laboratórios de informática de escolas localizadas em comunidades vulneráveis.",
+                    c: "Oferecer cursos de capacitação em programação e robótica para professores da rede pública de ensino.",
+                    d: "Promover a inclusão digital de estudantes da educação básica e suas famílias por meio da distribuição gratuita de chips com pacotes de dados móveis.",
+                    e: "Financiar o desenvolvimento de plataformas educacionais e Ambientes Virtuais de Aprendizagem para uso unificado em todo o território nacional."
+                },
+                correct: "d",
+                resolution: `**Gabarito: D**
+
+**Análise da Alternativa Correta:** A alternativa (D) define com exatidão o propósito do programa "Internet Brasil". Sua ação específica é a distribuição de chips com pacotes de dados para alunos da rede pública, visando garantir que eles tenham conectividade para acessar conteúdos educacionais e participar de atividades online fora do ambiente escolar, combatendo a exclusão digital que ocorre pela falta de acesso em casa.
+
+**Análise das Alternativas Incorretas:**
+* (A) descreve o objetivo da "Estratégia Nacional de Escolas Conectadas".
+* (B) descreve o objetivo do programa "Computadores para Inclusão".
+* (C) e (E) descrevem outras possíveis políticas públicas na área de tecnologia educacional, mas não o foco específico do programa "Internet Brasil".`
+            },
+            {
+                question: "10. O modelo de ensino híbrido conhecido como \"Sala de Aula Invertida\" (ou *Flipped Classroom*) é um dos mais difundidos e propõe uma reorganização da estrutura tradicional da aula. Qual alternativa descreve com maior precisão a reestruturação pedagógica que caracteriza este modelo?",
+                options: {
+                    a: "O modelo elimina completamente os encontros presenciais, tornando o curso 100% online e assíncrono.",
+                    b: "A inversão consiste em os alunos ensinarem o conteúdo aos professores, que assumem o papel de aprendizes para avaliar a didática dos estudantes.",
+                    c: "A instrução direta, tradicionalmente realizada pelo professor em sala (como aulas expositivas), é movida para o ambiente individual de estudo do aluno (geralmente por meio de videoaulas), liberando o tempo em sala para atividades práticas, discussões e aprofundamento do conteúdo com o apoio do docente.",
+                    d: "Trata-se de um rodízio entre laboratório de informática e sala de aula, onde os alunos alternam entre atividades online e offline em uma mesma aula.",
+                    e: "O professor utiliza exclusivamente jogos digitais para apresentar novos conteúdos, e os alunos utilizam o tempo em casa para ler os livros didáticos tradicionais."
+                },
+                correct: "c",
+                resolution: `**Gabarito: C**
+
+**Análise da Alternativa Correta:** A alternativa (C) é a definição canônica do modelo de Sala de Aula Invertida. A "inversão" está na lógica de uso do tempo: o momento de primeiro contato com o conteúdo (tradicionalmente uma aula expositiva) é transferido para fora da sala de aula, de forma individual. Isso otimiza o tempo presencial, que se torna um espaço para aprendizado ativo, colaborativo e com suporte direto do professor para resolver dúvidas e aplicar o conhecimento.
+
+**Análise das Alternativas Incorretas:**
+* (A) descreve um curso totalmente a distância, não um modelo híbrido.
+* (B) é uma interpretação literal e incorreta do termo "inversão".
+* (D) descreve o modelo de Laboratório Rotacional, que é um tipo de Rotação.
+* (E) descreve uma troca de mídias, mas não a inversão da lógica de instrução e prática que caracteriza o modelo.`
+            }
+        ];
+
+        // --- LÓGICA DO QUIZ ---
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const quizForm = document.getElementById('quizForm');
+            
+            // 1. Gera as questões dinamicamente
+            loadQuestions();
+
+            // 2. Adiciona o listener para o envio do formulário
+            quizForm.addEventListener('submit', handleSubmit);
+        });
+
+        function loadQuestions() {
+            const quizForm = document.getElementById('quizForm');
+            let formHTML = '';
+
+            quizData.forEach((item, index) => {
+                const questionIndex = index + 1;
+                let optionsHTML = '';
+
+                // Gera o HTML para cada opção (a, b, c, d, e)
+                for (const [key, value] of Object.entries(item.options)) {
+                    optionsHTML += `
+                        <label for="q${questionIndex}_${key}" class="block p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-100 transition-colors duration-150 has-[:checked]:bg-blue-50 has-[:checked]:border-blue-400">
+                            <input type="radio" name="q${questionIndex}" id="q${questionIndex}_${key}" value="${key}" class="mr-3 text-blue-600 focus:ring-blue-500" required>
+                            <span class="text-gray-800 leading-relaxed">${value}</span>
+                        </label>
+                    `;
+                }
+
+                // Gera o HTML para a questão completa
+                formHTML += `
+                    <div class="mb-8 bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                        <p class="text-lg font-semibold text-gray-900 mb-5 leading-relaxed">${item.question}</p>
+                        <div class="space-y-3">
+                            ${optionsHTML}
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Adiciona o botão de submit ao final do formulário
+            formHTML += `
+                <button type="submit" id="submitButton" class="w-full bg-blue-600 text-white p-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                    Finalizar Quiz e Ver Resoluções
+                </button>
+            `;
+
+            quizForm.innerHTML = formHTML;
+        }
+
+        function handleSubmit(e) {
+            e.preventDefault(); // Impede o recarregamento da página
+
+            let score = 0;
+            const formData = new FormData(e.target);
+            const resultsSection = document.getElementById('resultsSection');
+            const resolutionsContainer = document.getElementById('resolutionsContainer');
+            
+            // Limpa resoluções anteriores
+            resolutionsContainer.innerHTML = ''; 
+
+            // 3. Corrige cada questão e gera a resolução
+            quizData.forEach((item, index) => {
+                const questionIndex = index + 1;
+                const questionId = `q${questionIndex}`;
+                
+                const userAnswerKey = formData.get(questionId);
+                const correctAnswerKey = item.correct;
+                
+                const userAnswerText = userAnswerKey ? item.options[userAnswerKey] : "Não respondida";
+                const correctAnswerText = item.options[correctAnswerKey];
+                
+                const isCorrect = (userAnswerKey === correctAnswerKey);
+                if (isCorrect) {
+                    score++;
+                }
+
+                // Cria o card de resolução
+                const resolutionHTML = `
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                        <h4 class="text-xl font-bold text-gray-900 mb-3">${item.question.split('.')[0]}. ${item.question.split('.').slice(1).join('.').trim()}</h4>
+                        
+                        <!-- Feedback da resposta -->
+                        <div class="space-y-2 mb-4">
+                            <p class="text-base leading-relaxed ${isCorrect ? 'text-green-700 font-medium' : 'text-red-700 font-medium'}">
+                                <span class="font-bold">Sua resposta:</span> ${userAnswerText} ${isCorrect ? ' (Correta)' : ' (Incorreta)'}
+                            </p>
+                            ${!isCorrect ? `
+                            <p class="text-base leading-relaxed text-gray-800">
+                                <span class="font-bold">Resposta correta:</span> ${correctAnswerText}
+                            </p>
+                            ` : ''}
+                        </div>
+
+                        <!-- Resolução comentada -->
+                        <div class="mt-4 pt-4 border-t border-gray-200">
+                            <h5 class="text-lg font-semibold text-gray-800 mb-2">Resolução Comentada:</h5>
+                            <p class="text-gray-700 leading-relaxed whitespace-pre-wrap">${item.resolution.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-gray-800">$1</strong>')}</p>
+                        </div>
+                    </div>
+                `;
+                resolutionsContainer.innerHTML += resolutionHTML;
+            });
+
+            // 4. Exibe o sumário da pontuação
+            const scoreSummary = document.getElementById('scoreSummary');
+            scoreSummary.textContent = `Você acertou ${score} de ${quizData.length} questões.`;
+
+            // 5. Exibe a seção de resultados e rola até ela
+            resultsSection.classList.remove('hidden');
+            resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // Opcional: Desabilitar o botão de submit após o envio
+            document.getElementById('submitButton').disabled = true;
+            document.getElementById('submitButton').textContent = 'Quiz Finalizado';
+            document.getElementById('submitButton').classList.add('bg-gray-500', 'hover:bg-gray-500');
+        }
+
+    </script>
+</body>
+</html>
+
