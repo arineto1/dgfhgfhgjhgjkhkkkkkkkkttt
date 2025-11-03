@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula Detalhada SGBDR (IFPB - AOCP)</title>
+    <!-- Carrega o Tailwind CSS para estilização rápida e responsiva -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Define a fonte Inter como padrão, que é limpa e ótima para leitura */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #18181b; /* Usando um cinza-escuro (Zinc 900) para não cansar a vista */
+            line-height: 1.6;
+        }
+
+        /* Títulos */
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            color: #1f2937; /* Gray 800 */
+        }
+        
+        h1 { margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid #e5e7eb; }
+        h2 { margin-top: 2.5rem; margin-bottom: 1rem; }
+        h3 { margin-top: 2rem; margin-bottom: 0.75rem; }
+        h4 { margin-top: 1.5rem; margin-bottom: 0.5rem; }
+        
+        /* Parágrafos e Listas */
+        p { margin-bottom: 1rem; }
+        ul, ol { margin-left: 1.5rem; margin-bottom: 1rem; padding-left: 0.5rem; }
+        li { margin-bottom: 0.5rem; }
+        
+        /* Destaques "grifados" */
+        mark {
+            background-color: #fef9c3; /* Amarelo 100 - Sutil */
+            padding: 0.125rem 0.25rem;
+            border-radius: 0.25rem;
+            font-weight: 600; /* Dando um leve destaque */
+        }
+
+        /* Bloco de Código SQL */
+        pre {
+            background-color: #f9fafb; /* Gray 50 - Fundo quase branco */
+            border: 1px solid #e5e7eb; /* Gray 200 */
+            border-radius: 0.5rem;
+            padding: 1rem;
+            overflow-x: auto; /* Permite rolar o código se for muito longo */
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        /* Tabelas */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+        th, td {
+            border: 1px solid #d1d5db; /* Gray 300 */
+            padding: 0.75rem;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #f3f4f6; /* Gray 100 */
+            font-weight: 700;
+        }
+        
+        /* Botão */
+        .btn {
+            display: inline-block;
+            background-color: #2563eb; /* Blue 600 */
+            color: #ffffff;
+            font-weight: 700;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+        .btn:hover {
+            background-color: #1d4ed8; /* Blue 700 */
+        }
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Container Principal com largura máxima para leitura confortável -->
+    <div class="max-w-5xl mx-auto p-4 md:p-10">
+
+        <!-- 1. REPRODUTOR DE ÁUDIO -->
+        <div class="mb-8 p-4 border border-gray-200 rounded-lg bg-gray-50">
+            <p class="text-base font-semibold text-gray-700 mb-2">Resumo em Áudio da Aula:</p>
+            <!-- 
+              INSTRUÇÃO: 
+              Substitua "SEU_ARQUIVO.mp3" abaixo pelo nome do seu arquivo de áudio.
+              O arquivo MP3 deve estar na mesma pasta que este arquivo HTML.
+            -->
+            <audio controls class="w-full">
+                <source src="esp-sql.mp3" type="audio/mpeg">
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
+        </div>
+
+        <!-- 2. CONTEÚDO DA AULA (HTML gerado a partir do Markdown) -->
+        
+        <h1 class="text-3xl md:text-4xl">Aula Preparatória: Sistemas de Gerenciamento de Banco de Dados Relacionais</h1>
+        <p class="text-lg text-gray-600 -mt-4 mb-6">(Foco: Concurso IFPB - Banca Instituto AOCP)</p>
+
+        <h2 class="text-2xl md:text-3xl">A Estrutura Fundamental do Modelo Relacional</h2>
+
+        <h3 class="text-xl md:text-2xl">Terminologia Essencial: A Base Formal</h3>
+        
+        <p>Para um concurso de alto nível, é crucial dominar a terminologia formal do modelo relacional, que tem origem na teoria dos conjuntos e na álgebra relacional. Frequentemente, bancas como o Instituto AOCP testam o vocabulário formal em vez do vocabulário prático.</p>
+
+        <ul class="list-disc">
+            <li><strong>Relação (ou Entidade):</strong> É o termo formal para o que é comumente chamado de <strong>Tabela</strong>. Define uma estrutura bidimensional que armazena dados sobre um assunto específico (ex: <code>Alunos</code>).</li>
+            <li><strong>Tupla (ou Registro):</strong> É o termo formal para a <strong>Linha</strong> da tabela. Cada tupla representa uma única ocorrência ou item dentro da relação (ex: os dados do aluno 'João da Silva').</li>
+            <li><strong>Atributo (ou Campo):</strong> É o termo formal para a <strong>Coluna</strong> da tabela. Define uma propriedade específica que cada tupla na relação possui (ex: o atributo <code>Nome</code> ou o atributo <code>Matricula</code>).</li>
+        </ul>
+
+        <p>A tabela a seguir consolida essa terminologia, que é fundamental para a interpretação correta das questões.</p>
+
+        <p class="text-center font-semibold mt-6 mb-2">Tabela 1: Mapeamento de Terminologia (Formal vs. Prática)</p>
+        <div class="overflow-x-auto"> <!-- Wrapper para responsividade em telas pequenas -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Termo Formal (Teoria)</th>
+                        <th>Termo Comum (Prática)</th>
+                        <th>Descrição Didática</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Relação</strong></td>
+                        <td>Tabela</td>
+                        <td>A estrutura completa que armazena dados sobre um assunto (ex: <code>T_CLIENTES</code>).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tupla</strong></td>
+                        <td>Linha (ou Registro)</td>
+                        <td>Uma ocorrência única de dados dentro da tabela (ex: O cliente 'José').</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Atributo</strong></td>
+                        <td>Coluna (ou Campo)</td>
+                        <td>Uma propriedade específica da tabela (ex: O campo <code>CPF</code> do cliente).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Domínio</strong></td>
+                        <td>Tipo de Dado</td>
+                        <td>O conjunto de valores permitidos para um atributo (ex: <code>VARCHAR(100)</code>, <code>INT</code>).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Grau</strong></td>
+                        <td>Número de Colunas</td>
+                        <td>A quantidade de atributos que a relação possui.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cardinalidade</strong></td>
+                        <td>Número de Linhas</td>
+                        <td>A quantidade de tuplas que a relação possui em um dado momento.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="text-xl md:text-2xl">O Alicerce da Integridade: O Papel das Chaves</h3>
+        <p>Os SGBDs Relacionais garantem a confiabilidade dos dados através de regras de integridade. A base dessa integridade está no uso de chaves para identificar e relacionar tuplas de forma inequívoca.</p>
+
+        <h4 class="text-lg md:text-xl">Chave Candidata (Candidate Key)</h4>
+        <ul class="list-disc">
+            <li><strong>Definição:</strong> É um atributo, ou um conjunto de atributos, que possui a capacidade de identificar unicamente cada tupla (linha) dentro de uma relação.</li>
+            <li><strong>Características:</strong> Para ser uma chave candidata, o atributo deve ser <mark>único (sem valores duplicados)</mark> e <mark>não nulo</mark> para todas as tuplas.</li>
+            <li><strong>Exemplo Prático:</strong> Em uma tabela <code>T_FUNCIONARIO</code>, tanto o atributo <code>CPF</code> quanto o atributo <code>NumeroMatricula</code> poderiam, teoricamente, servir como chaves candidatas, pois ambos são únicos e (geralmente) obrigatórios.</li>
+        </ul>
+
+        <h4 class="text-lg md:text-xl">Chave Primária (Primary Key - PK)</h4>
+        <ul class="list-disc">
+            <li><strong>Definição:</strong> A Chave Primária é a <strong>Chave Candidata que foi escolhida</strong> pelo projetista do banco de dados para ser o identificador principal e oficial da tabela.</li>
+            <li><strong>Características:</strong> A PK implementa a <strong>Integridade de Entidade</strong>. Para fins de concurso, isso significa duas regras absolutas que a banca AOCP pode testar:
+                <ol class="list-decimal pl-6 mt-2">
+                    <li><mark>A Chave Primária <strong>NÃO PODE</strong> conter valores NULOS</mark>.</li>
+                    <li><mark>A Chave Primária <strong>NÃO PODE</strong> conter valores duplicados</mark>.</li>
+                </ol>
+            </li>
+            <li><strong>Exemplo Prático:</strong> Na tabela <code>T_FUNCIONARIO</code>, se <code>NumeroMatricula</code> for escolhido como a PK, o <code>CPF</code> (que era outra chave candidata) passa a ser chamado de <strong>Chave Alternativa</strong>.</li>
+        </ul>
+
+        <h4 class="text-lg md:text-xl">Chave Estrangeira (Foreign Key - FK)</h4>
+        <ul class="list-disc">
+            <li><strong>Definição:</strong> Este é o conceito que torna o banco de dados "relacional". Uma Chave Estrangeira é um atributo (ou conjunto de atributos) em uma tabela (ex: Tabela <code>Funcionario</code>) que faz referência direta à Chave Primária de outra tabela (ex: Tabela <code>Departamento</code>).</li>
+            <li><strong>Função:</strong> A FK implementa a <strong>Integridade Referencial</strong>. Esta é a regra que impede a existência de "dados órfãos" no banco de dados.</li>
+            <li><strong>Exemplo Prático:</strong>
+                <ul class="list-disc pl-6 mt-2">
+                    <li><code>T_DEPARTAMENTO</code> (PK: <code>ID_Depto</code>)</li>
+                    <li><code>T_FUNCIONARIO</code> (PK: <code>Matricula</code>, FK: <code>ID_Depto_Func</code>)</li>
+                    <li>O atributo <code>ID_Depto_Func</code> na tabela <code>T_FUNCIONARIO</code> <em>referencia</em> o atributo <code>ID_Depto</code> na <code>T_DEPARTAMENTO</code>.</li>
+                    <li><strong>Implicação (Alerta de Concurso):</strong> Por padrão, a Integridade Referencial impede duas ações:
+                        <ol class="list-decimal pl-6 mt-2">
+                            <li>Você não pode inserir um funcionário com <code>ID_Depto_Func = 50</code> se o departamento 50 não existir na <code>T_DEPARTAMENTO</code>.</li>
+                            <li>Você não pode deletar o departamento 50 da <code>T_DEPARTAMENTO</code> se ainda existirem funcionários associados a ele na <code>T_FUNCIONARIO</code>.</li>
+                        </ol>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <h4 class="text-lg md:text-xl">Restrição <code>UNIQUE</code> (Chave Alternativa)</h4>
+        <ul class="list-disc">
+            <li><strong>Definição:</strong> Uma restrição <code>UNIQUE</code> garante que todos os valores em uma coluna (ou conjunto de colunas) sejam únicos, assim como a PK.</li>
+            <li><strong>Alerta de Concurso (PK vs. UNIQUE):</strong> As bancas adoram explorar a diferença sutil entre <code>PRIMARY KEY</code> e <code>UNIQUE</code>.
+                <ul class="list-disc pl-6 mt-2">
+                    <li><mark>Uma tabela só pode ter <strong>UMA</strong> Chave Primária</mark>.</li>
+                    <li>Uma tabela pode ter <strong>VÁRIAS</strong> restrições <code>UNIQUE</code>.</li>
+                    <li>A <code>PRIMARY KEY</code> <mark><strong>NÃO PERMITE NULOS</strong></mark>.</li>
+                    <li>A restrição <code>UNIQUE</code>, na maioria dos SGBDs (como SQL Server e PostgreSQL), <mark><strong>PERMITE</strong> valores NULOS</mark> (geralmente apenas um, mas isso varia).</li>
+                </ul>
+            </li>
+        </ul>
+
+        <p class="text-center font-semibold mt-6 mb-2">Tabela 2: Comparativo de Restrições (Foco Concurso)</p>
+        <div class="overflow-x-auto">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Restrição</th>
+                        <th>Propósito Principal</th>
+                        <th>Permite Nulo?</th>
+                        <th>Permite Duplicado?</th>
+                        <th>Quantas por Tabela?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong><code>PRIMARY KEY</code></strong></td>
+                        <td>Integridade de Entidade (Identificador único)</td>
+                        <td><mark><strong>Não</strong></mark></td>
+                        <td><mark><strong>Não</strong></mark></td>
+                        <td>Apenas <mark><strong>UMA</strong></mark></td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>FOREIGN KEY</code></strong></td>
+                        <td>Integridade Referencial (Relacionamento)</td>
+                        <td>Sim (a menos que especificado <code>NOT NULL</code>)</td>
+                        <td>Sim</td>
+                        <td>Múltiplas</td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>UNIQUE</code></strong></td>
+                        <td>Integridade de Domínio (Chave Alternativa)</td>
+                        <td><mark>Sim (Geralmente)</mark></td>
+                        <td><mark><strong>Não</strong></mark></td>
+                        <td>Múltiplas</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="text-2xl md:text-3xl">Anomalias e o Processo de Normalização</h2>
+
+        <h3 class="text-xl md:text-2xl">Os Problemas da Redundância: Anomalias</h3>
+        <p>A normalização existe para resolver problemas. Quando um banco de dados é mal projetado, geralmente por armazenar dados de múltiplos "assuntos" (ex: funcionários e agências) na mesma tabela, ele sofre de anomalias, que são inconsistências geradas por operações de DML (inserção, atualização, exclusão).</p>
+
+        <ul class="list-disc">
+            <li><strong>Anomalia de Inserção:</strong>
+                <ul class="list-disc pl-6 mt-2">
+                    <li><strong>Definição:</strong> Ocorre quando não é possível adicionar dados de um assunto sem ser forçado a adicionar dados de outro assunto.</li>
+                    <li><strong>Exemplo Prático:</strong> Em uma tabela <code>Funcionario_Agencia</code> que armazena dados do funcionário e da agência (endereço, telefone) na mesma linha. Para cadastrar uma <em>nova agência</em> que ainda não possui funcionários, o SGBD falharia, pois a Chave Primária do funcionário não poderia ser nula.</li>
+                </ul>
+            </li>
+            <li><strong>Anomalia de Exclusão:</strong>
+                <ul class="list-disc pl-6 mt-2">
+                    <li><strong>Definição:</strong> Ocorre quando a exclusão de uma tupla (linha) acarreta na perda indesejada de informações de outro assunto.</li>
+                    <li><strong>Exemplo Prático:</strong> Na mesma tabela <code>Funcionario_Agencia</code>, se o funcionário 'João' é o <em>único</em> funcionário da 'Agência Centro'. Ao demitir 'João' e apagar sua tupla, todos os dados da 'Agência Centro' (endereço, telefone) são perdidos permanentemente, pois estavam armazenados naquela linha.</li>
+                </ul>
+            </li>
+            <li><strong>Anomalia de Atualização (ou Modificação):</strong>
+                <ul class="list-disc pl-6 mt-2">
+                    <li><strong>Definição:</strong> Ocorre devido à redundância de dados. Uma simples alteração exige que múltiplas tuplas sejam atualizadas. Se a atualização falhar em apenas uma delas, o banco se torna inconsistente.</li>
+                    <li><strong>Exemplo Prático:</strong> Se a 'Agência Centro' (com 50 funcionários) mudar de endereço, seria necessário atualizar o campo <code>Endereco_Agencia</code> nas 50 tuplas (linhas) de seus funcionários. Se o sistema atualizar 49 e falhar na última, o banco ficará inconsistente, mostrando dois endereços diferentes para a mesma agência.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3 class="text-xl md:text-2xl">A Solução: Normalização de Dados</h3>
+        <p>Normalização é um processo formal e passo a passo para decompor tabelas (relações) complexas em tabelas menores e mais estáveis, com o objetivo de reduzir a redundância e eliminar as anomalias. O processo baseia-se no conceito de <strong>Dependência Funcional</strong> (onde um atributo "A" determina o valor de um atributo "B", representado por $A \rightarrow B$).</p>
+
+        <h3 class="text-xl md:text-2xl">Guia Prático: As Formas Normais (1FN, 2FN, 3FN)</h3>
+
+        <h4 class="text-lg md:text-xl">Primeira Forma Normal (1FN)</h4>
+        <ul class="list-disc">
+            <li><strong>Regra:</strong> Todos os atributos devem ser <strong>atômicos</strong> (indivisíveis). <mark>Uma célula da tabela não pode conter múltiplos valores</mark> ou "listas".</li>
+            <li><strong>Problema que Resolve:</strong> Elimina "grupos repetidos".</li>
+            <li><strong>Exemplo Prático:</strong>
+                <ul class="list-disc pl-6 mt-2">
+                    <li><em>Não-Normalizado (Viola 1FN):</em><br>
+                        Tabela <code>CLIENTE</code> (ID_Cliente, Nome, <strong>Telefones</strong>)<br>
+                        Tupla: (1, 'Ana', '(83) 9999-1111, (83) 8888-2222')</li>
+                    <li><em>Aplicação da 1FN (Decomposição):</em><br>
+                        <code>CLIENTE</code> (PK: ID_Cliente, Nome)<br>
+                        <code>TELEFONE_CLIENTE</code> (PK: ID_Telefone, FK: ID_Cliente, Telefone)</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h4 class="text-lg md:text-xl">Segunda Forma Normal (2FN)</h4>
+        <ul class="list-disc">
+            <li><strong>Pré-requisito:</strong> A tabela deve estar em 1FN.</li>
+            <li><strong>Regra:</strong> Todos os atributos não-chave devem depender <em>funcionalmente da Chave Primária inteira</em>. A 2FN busca eliminar <strong>Dependências Parciais</strong>.</li>
+            <li><strong>O que é Dependência Parcial?</strong> Ocorre quando um atributo não-chave depende de <mark><em>apenas uma parte</em> de uma Chave Primária <em>Composta</em></mark>.</li>
+            <li><strong>Exemplo Prático:</strong>
+                <ul class="list-disc pl-6 mt-2">
+                    <li><em>Em 1FN (mas viola 2FN):</em><br>
+                        Tabela <code>ITEM_PEDIDO</code> (PK: {ID_Pedido, ID_Produto}, Nome_Produto, Qtd)</li>
+                    <li><em>Análise de Dependência:</em>
+                        <ul class="list-disc pl-6 mt-2">
+                            <li>A Chave Primária é composta: {ID_Pedido, ID_Produto}.</li>
+                            <li><code>Qtd</code> depende da chave <em>inteira</em> (a quantidade é daquele produto <em>naquele</em> pedido).</li>
+                            <li><code>Nome_Produto</code> depende <em>parcialmente</em> da chave (depende apenas de <code>ID_Produto</code>).</li>
+                        </ul>
+                    </li>
+                    <li><em>Aplicação da 2FN (Decomposição):</em><br>
+                        <code>PEDIDO_ITENS</code> (PK: {ID_Pedido, ID_Produto}, FK: ID_Pedido, FK: ID_Produto, Qtd)<br>
+                        <code>PRODUTO</code> (PK: ID_Produto, Nome_Produto)</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h4 class="text-lg md:text-xl">Terceira Forma Normal (3FN)</h4>
+        <ul class="list-disc">
+            <li><strong>Pré-requisito:</strong> A tabela deve estar em 2FN.</li>
+            <li><strong>Regra:</strong> Nenhum atributo não-chave pode depender de outro atributo não-chave. A 3FN busca eliminar <strong>Dependências Transitivas</strong>.</li>
+            <li><strong>O que é Dependência Transitiva?</strong> Ocorre quando $PK \rightarrow A$ e $A \rightarrow B$, onde A e B são atributos não-chave. <mark>O atributo B depende da PK <em>apenas através</em> de A</mark>.</li>
+            <li><strong>Exemplo Prático:</strong>
+                <ul class="list-disc pl-6 mt-2">
+                    <li><em>Em 2FN (mas viola 3FN):</em><br>
+                        Tabela <code>FUNCIONARIO</code> (PK: ID_Funcionario, Nome, ID_Depto, Nome_Depto)</li>
+                    <li><em>Análise de Dependência:</em>
+                        <ul class="list-disc pl-6 mt-2">
+                            <li>$ID\_Funcionario \rightarrow ID\_Depto$ (Dependência direta da PK).</li>
+                            <li>$ID\_Depto \rightarrow Nome\_Depto$ (Dependência de um não-chave em outro não-chave).</li>
+                            <li>Isso é uma dependência transitiva ($ID\_Funcionario \rightarrow ID\_Depto \rightarrow Nome\_Depto$).</li>
+                        </ul>
+                    </li>
+                    <li><em>Aplicação da 3FN (Decomposição):</em><br>
+                        <code>FUNCIONARIO</code> (PK: ID_Funcionario, Nome, FK: ID_Depto)<br>
+                        <code>DEPARTAMENTO</code> (PK: ID_Depto, Nome_Depto)</li>
+                </ul>
+            </li>
+        </ul>
+
+        <p class="text-center font-semibold mt-6 mb-2">Tabela 3: Resumo das Formas Normais (Foco Concurso)</p>
+        <div class="overflow-x-auto">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Forma Normal</th>
+                        <th>Regra Principal</th>
+                        <th>O que Elimina?</th>
+                        <th>Mnemônico / Foco</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1FN</strong></td>
+                        <td>Atributos devem ser Atômicos</td>
+                        <td>Grupos Repetidos (listas na mesma célula)</td>
+                        <td><mark>"Uma célula, um valor único"</mark></td>
+                    </tr>
+                    <tr>
+                        <td><strong>2FN</strong></td>
+                        <td>Estar em 1FN + Sem Dependência Parcial</td>
+                        <td>Atributo não-chave depende só de <em>parte</em> da PK</td>
+                        <td>Foco em Chaves Primárias <mark><strong>Compostas</strong></mark></td>
+                    </tr>
+                    <tr>
+                        <td><strong>3FN</strong></td>
+                        <td>Estar em 2FN + Sem Dependência Transitiva</td>
+                        <td>Atributo não-chave depende de <em>outro</em> atributo não-chave</td>
+                        <td><mark>"Um atributo não-chave não pode determinar outro"</mark></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="text-2xl md:text-3xl">DDL (Data Definition Language): Construindo o Esquema</h2>
+        <p>A DDL é o subconjunto da SQL usado para criar, alterar e excluir as <em>estruturas</em> (o esquema) do banco de dados, como tabelas, índices e visões.</p>
+
+        <h3 class="text-xl md:text-2xl"><code>CREATE TABLE</code>: Definindo a Estrutura e as <em>Constraints</em></h3>
+        <p>Este comando cria uma nova relação (tabela). A parte mais importante para concursos é a definição das <em>constraints</em> (regras de integridade).</p>
+
+        <p><strong>Exemplo Prático Completo:</strong></p>
+<pre><code>
+/* * Primeiro, criamos a tabela 'forte' (T_DEPARTAMENTO), 
+ * que não depende de nenhuma outra tabela para existir.
+ */
+CREATE TABLE T_DEPARTAMENTO (
+    ID_Depto INT PRIMARY KEY,  -- Define a PK na própria linha (inline)
+    Nome_Depto VARCHAR(100) NOT NULL, -- Impede valores nulos
+    Cod_Centro_Custo VARCHAR(10) UNIQUE -- Chave alternativa
+);
+
+/* * Segundo, criamos a tabela 'fraca' (T_FUNCIONARIO),
+ * que depende (referencia) a tabela T_DEPARTAMENTO.
+ */
+CREATE TABLE T_FUNCIONARIO (
+    ID_Funcionario INT,
+    Nome_Funcionario VARCHAR(200) NOT NULL,
+    Email VARCHAR(100) NOT NULL,
+    Salario DECIMAL(10, 2),
+    ID_Depto_FK INT,  -- Coluna que irá referenciar T_DEPARTAMENTO
+
+    /* Definindo constraints ao final da tabela (out-of-line) */
+    
+    -- Constraint de Chave Primária
+    CONSTRAINT PK_Funcionario PRIMARY KEY (ID_Funcionario),
+    
+    -- Constraint de Chave Única
+    CONSTRAINT UK_Funcionario_Email UNIQUE (Email),
+    
+    -- Constraint de Chave Estrangeira
+    CONSTRAINT FK_Funcionario_Depto FOREIGN KEY (ID_Depto_FK)
+        REFERENCES T_DEPARTAMENTO (ID_Depto)
+        ON DELETE SET NULL  -- Ação de integridade referencial
+        ON UPDATE CASCADE;  -- Ação de integridade referencial
+);
+</code></pre>
+
+        <p><strong>Análise das Ações de Integridade Referencial (Alerta de Concurso):</strong></p>
+        <p>As cláusulas <code>ON DELETE</code> e <code>ON UPDATE</code> definem o que acontece na tabela <code>T_FUNCIONARIO</code> quando um registro na <code>T_DEPARTAMENTO</code> é alterado ou excluído:</p>
+        <ul class="list-disc">
+            <li><code>ON DELETE SET NULL</code>: Se um departamento for <em>deletado</em> da <code>T_DEPARTAMENTO</code> (ex: Depto 10), o campo <code>ID_Depto_FK</code> dos funcionários que pertenciam a esse depto será automaticamente atualizado para <code>NULL</code>.</li>
+            <li><code>ON UPDATE CASCADE</code>: Se o <code>ID_Depto</code> de um departamento for <em>atualizado</em> na <code>T_DEPARTAMENTO</code> (ex: de 10 para 110), o <code>ID_Depto_FK</code> de todos os funcionários daquele depto será automaticamente atualizado para 110.</li>
+            <li>Outras ações comuns incluem <code>NO ACTION</code> (padrão, rejeita a operação) e <code>RESTRICT</code> (similar ao <code>NO ACTION</code>).</li>
+        </ul>
+
+        <h3 class="text-xl md:text-2xl"><code>ALTER TABLE</code>: Modificando Estruturas Existentes</h3>
+        <p>O comando <code>ALTER TABLE</code> é usado para modificar a estrutura de uma tabela existente, como adicionar, remover ou modificar colunas e constraints.</p>
+        <p><strong>Exemplos Práticos:</strong></p>
+<pre><code>
+-- 1. Adicionar uma nova coluna
+ALTER TABLE T_FUNCIONARIO
+ADD Data_Nascimento DATE;
+
+-- 2. Modificar o tipo de dado de uma coluna
+-- (Sintaxe varia: ALTER COLUMN no SQL Server/PostgreSQL; MODIFY no MySQL/Oracle)
+ALTER TABLE T_FUNCIONARIO
+ALTER COLUMN Nome_Funcionario VARCHAR(250) NOT NULL;
+
+-- 3. Remover uma coluna
+ALTER TABLE T_FUNCIONARIO
+DROP COLUMN Salario;
+
+-- 4. Adicionar uma nova constraint
+ALTER TABLE T_FUNCIONARIO
+ADD CONSTRAINT CHK_Salario_Minimo CHECK (Salario > 1500.00);
+</code></pre>
+
+        <h3 class="text-xl md:text-2xl"><code>DROP TABLE</code>: Removendo Tabelas</h3>
+        <p>Este é um comando DDL destrutivo que remove permanentemente a definição da tabela, todos os seus dados, índices e constraints associadas.</p>
+        <p><strong>Alerta de Concurso (O Perigo do <code>DROP TABLE</code> com FK):</strong></p>
+        <ul class="list-disc">
+            <li><strong>Problema:</strong> Você <mark><em>não pode</em> executar <code>DROP TABLE T_DEPARTAMENTO;</code></mark> enquanto a tabela <code>T_FUNCIONARIO</code> existir e a referenciar através de uma Chave Estrangeira. A Integridade Referencial impede a operação.</li>
+            <li><strong>Ordem Correta da Operação:</strong> Para apagar ambas, deve-se primeiro apagar a tabela que <em>referencia</em> (a tabela "fraca") e, em seguida, a tabela <em>referenciada</em> (a tabela "forte").
+                <ol class="list-decimal pl-6 mt-2">
+                    <li><code>DROP TABLE T_FUNCIONARIO;</code></li>
+                    <li><code>DROP TABLE T_DEPARTAMENTO;</code></li>
+                </ol>
+            </li>
+        </ul>
+
+        <h2 class="text-2xl md:text-3xl">DML (Data Manipulation Language): Manipulando os Dados</h2>
+        <p>A DML é o subconjunto da SQL usado para <em>manipular</em> os dados <em>dentro</em> das tabelas: inserir, atualizar e apagar.</p>
+
+        <h3 class="text-xl md:text-2xl"><code>INSERT INTO</code>: Adicionando Registros</h3>
+        <p>Usado para adicionar novas tuplas (linhas) a uma tabela.</p>
+        <p><strong>Exemplos Práticos:</strong></p>
+<pre><code>
+-- Sintaxe 1: Especificando as colunas (Forma segura e recomendada)
+INSERT INTO T_DEPARTAMENTO (ID_Depto, Nome_Depto)
+VALUES (10, 'Desenvolvimento');
+
+-- Sintaxe 2: Omitindo colunas (Perigoso, depende da ordem exata da tabela)
+INSERT INTO T_DEPARTAMENTO
+VALUES (20, 'Recursos Humanos', 'CC200');
+
+-- Sintaxe 3: Inserindo múltiplas linhas de uma vez
+INSERT INTO T_DEPARTAMENTO (ID_Depto, Nome_Depto)
+VALUES
+    (30, 'Financeiro'),
+    (40, 'Marketing');
+
+-- Sintaxe 4: Inserindo o resultado de uma consulta (INSERT... SELECT)
+INSERT INTO T_FUNCIONARIO_BACKUP (ID_Funcionario, Nome_Funcionario)
+SELECT ID_Funcionario, Nome_Funcionario
+FROM T_FUNCIONARIO
+WHERE ID_Depto_FK = 10;
+</code></pre>
+
+        <h3 class="text-xl md:text-2xl"><code>UPDATE... SET... WHERE</code>: A Atualização Segura</h3>
+        <p>Usado para modificar dados em tuplas que já existem na tabela.</p>
+        <p><strong>Exemplo Prático:</strong></p>
+<pre><code>
+UPDATE T_FUNCIONARIO
+SET Salario = Salario * 1.10,  -- Aumenta o salário em 10%
+    Email = 'novo.email@ifpb.edu.br'
+WHERE ID_Funcionario = 123; -- Filtra *exclusivamente* o funcionário 123
+</code></pre>
+
+        <h3 class="text-xl md:text-2xl"><code>DELETE FROM... WHERE</code>: A Remoção Segura</h3>
+        <p>Usado para remover tuplas (linhas) da tabela.</p>
+        <p><strong>Exemplo Prático:</strong></p>
+<pre><code>
+DELETE FROM T_FUNCIONARIO
+WHERE ID_Funcionario = 123; -- Remove *exclusivamente* o funcionário 123
+</code></pre>
+
+        <h3 class="text-xl md:text-2xl">Alerta Crítico de Concurso: O Risco de Omitir a Cláusula <code>WHERE</code></h3>
+        <p>Este é um dos conceitos mais testados sobre DML, pois diferencia comandos sintaticamente válidos de comandos logicamente seguros.</p>
+        <p><strong>O que a AOCP pode perguntar (Certo/Errado):</strong> "O comando <code>DELETE FROM T_FUNCIONARIO;</code> é sintaticamente inválido, pois a cláusula <code>WHERE</code> é obrigatória."</p>
+        <p><strong>Resposta:</strong> <mark><strong>Errado</strong>. O comando é <em>sintaticamente válido</em></mark>. A cláusula <code>WHERE</code> é <em>opcional</em>.</p>
+        <p><strong>O Efeito Desastroso da Omissão:</strong></p>
+        <ul class="list-disc">
+            <li><code>UPDATE T_FUNCIONARIO SET Salario = 0;</code>
+                <ul>
+                    <li><strong>Resultado:</strong> <mark><em>Todos</em> os registros</mark> da tabela <code>T_FUNCIONARIO</code> terão seu salário atualizado para 0.</li>
+                </ul>
+            </li>
+            <li><code>DELETE FROM T_FUNCIONARIO;</code>
+                <ul>
+                    <li><strong>Resultado:</strong> <mark><em>Todas</em> as linhas</mark> da tabela <code>T_FUNCIONARIO</code> serão removidas. (Note que isso é diferente de <code>DROP TABLE</code>. O <code>DELETE</code> esvazia a tabela, mas a estrutura da tabela permanece).</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h2 class="text-2xl md:text-3xl">DQL (Data Query Language): A Arte da Consulta</h2>
+        <p>A DQL (ou DRL - Data Retrieval Language) foca na recuperação de dados, sendo composta essencialmente pelo comando <code>SELECT</code>.</p>
+
+        <h3 class="text-xl md:text-2xl">Estrutura Base e Filtragem (<code>SELECT</code>, <code>FROM</code>, <code>WHERE</code>)</h3>
+        <p>A cláusula <code>WHERE</code> é usada para filtrar <em>linhas</em> (tuplas) antes que qualquer agrupamento ou agregação ocorra.</p>
+        <p><strong>Operadores de Filtragem Comuns:</strong></p>
+<pre><code>
+SELECT Nome_Funcionario, Salario, ID_Depto_FK
+FROM T_FUNCIONARIO
+WHERE
+    -- 1. LIKE: Busca por padrões (Wildcards)
+    -- % (qualquer sequência) e _ (um caractere)
+    Nome_Funcionario LIKE 'João%'  -- Nomes que começam com 'João'
+
+    -- 2. BETWEEN: Intervalos (inclui os limites)
+    AND Salario BETWEEN 2000.00 AND 5000.00
+
+    -- 3. IN: Lista de valores (equivalente a múltiplos OR)
+    AND ID_Depto_FK IN (10, 20, 30); -- Onde o Depto é 10 OU 20 OU 30
+</code></pre>
+
+        <h3 class="text-xl md:text-2xl">Agregação (<code>GROUP BY</code>) e Funções</h3>
+        <p>Funções de agregação operam sobre um <em>conjunto</em> de linhas para retornar um <em>único valor</em>.</p>
+        <ul class="list-disc">
+            <li><code>COUNT(*)</code>: Conta o número total de linhas no grupo.</li>
+            <li><code>COUNT(Coluna)</code>: Conta o número de linhas onde a <code>Coluna</code> específica <mark><strong>não é NULA</strong></mark>.</li>
+            <li><code>SUM(Coluna)</code>: Soma todos os valores da coluna.</li>
+            <li><code>AVG(Coluna)</code>: Calcula a média aritmética dos valores.</li>
+            <li><code>MAX(Coluna)</code> / <code>MIN(Coluna)</code>: Encontra o valor máximo / mínimo.</li>
+        </ul>
+        <p>A cláusula <code>GROUP BY</code> divide a tabela em grupos menores, permitindo que as funções de agregação sejam aplicadas a <em>cada grupo</em> individualmente.</p>
+
+        <h3 class="text-xl md:text-2xl">A Diferença Crítica: <code>WHERE</code> vs. <code>HAVING</code></h3>
+        <p>Este é um tópico clássico em concursos. A confusão é intencional. A diferença é definida pela <em>ordem de execução lógica</em> da consulta SQL.</p>
+        <ol class="list-decimal">
+            <li><code>FROM</code> / <code>JOIN</code> (Define a fonte dos dados)</li>
+            <li><code>WHERE</code> (Filtra <strong>LINHAS</strong> individuais, <mark><em>antes</em> de agrupar</mark>)</li>
+            <li><code>GROUP BY</code> (Agrupa as linhas restantes)</li>
+            <li><code>HAVING</code> (Filtra <strong>GRUPOS</strong> inteiros, <mark><em>depois</em> de agrupar</mark>)</li>
+            <li><code>SELECT</code> (Define as colunas a serem exibidas)</li>
+            <li><code>ORDER BY</code> (Ordena o resultado final)</li>
+        </ol>
+
+        <p><strong>Alerta de Concurso (AOCP):</strong></p>
+        <ul class="list-disc">
+            <li><mark>A cláusula <code>WHERE</code> <strong>não pode</strong> conter funções de agregação</mark> (ex: <code>COUNT</code>, <code>SUM</code>), pois ela é executada <em>antes</em> da agregação.</li>
+            <li><mark>A cláusula <code>HAVING</code> <strong>existe para</strong> filtrar com base em funções de agregação</mark>, pois é executada <em>depois</em> da agregação.</li>
+        </ul>
+
+        <p><strong>Exemplo Prático (Combinando <code>WHERE</code>, <code>GROUP BY</code> e <code>HAVING</code>):</strong></p>
+        <p><em>Consulta:</em> "Listar o salário médio por departamento, mas apenas para funcionários ativos (<code>WHERE</code>) e apenas para departamentos cuja média salarial seja superior a 5000 (<code>HAVING</code>)."</p>
+<pre><code>
+SELECT
+    ID_Depto_FK,
+    AVG(Salario) AS Media_Salarial -- 4. Calcula a agregação
+FROM
+    T_FUNCIONARIO
+WHERE
+    Status = 'Ativo' -- 1. Filtra LINHAS (dados brutos)
+GROUP BY
+    ID_Depto_FK      -- 2. Agrupa as linhas 'Ativas'
+HAVING
+    AVG(Salario) > 5000; -- 3. Filtra os GRUPOS com base na agregação
+</code></pre>
+
+        <p class="text-center font-semibold mt-6 mb-2">Tabela 4: WHERE vs. HAVING (A Diferença Definitiva)</p>
+        <div class="overflow-x-auto">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Característica</th>
+                        <th><code>WHERE</code></th>
+                        <th><code>HAVING</code></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>O que Filtra?</strong></td>
+                        <td>Linhas (Tuplas)</td>
+                        <td>Grupos (Resultado do <code>GROUP BY</code>)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Quando Executa?</strong></td>
+                        <td><mark><strong>Antes</strong> do <code>GROUP BY</code></mark></td>
+                        <td><mark><strong>Depois</strong> do <code>GROUP BY</code></mark></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Aceita Funções de Agregação?</strong></td>
+                        <td><mark><strong>Não</strong></mark> (Ex: <code>WHERE COUNT(*) > 1</code> = ERRO)</td>
+                        <td><mark><strong>Sim</strong></mark> (Ex: <code>HAVING COUNT(*) > 1</code> = OK)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Requer <code>GROUP BY</code>?</strong></td>
+                        <td>Não</td>
+                        <td>Praticamente Sim (é sua finalidade)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="text-2xl md:text-3xl">Consultas Complexas: Junções (JOINs) e Subconsultas</h2>
+
+        <h3 class="text-xl md:text-2xl">Junções (JOINs): Combinando Relações</h3>
+        <p><code>JOINs</code> são a forma padrão de combinar tuplas de duas ou mais tabelas com base em uma coluna de relacionamento (geralmente PK-FK).</p>
+
+        <ul class="list-disc">
+            <li><strong><code>INNER JOIN</code> (Junção Interna):</strong>
+                <ul class="list-disc pl-6 mt-2">
+                    <li><strong>Resultado:</strong> Retorna <em>apenas</em> as linhas que possuem correspondência em <strong>ambas</strong> as tabelas. É a interseção.</li>
+                    <li><strong>Exemplo:</strong> <code>T_FUNCIONARIO INNER JOIN T_DEPARTAMENTO</code> -> Retorna apenas funcionários que <em>têm</em> um departamento válido associado. Funcionários com <code>ID_Depto_FK</code> NULO não aparecem.</li>
+                </ul>
+<pre><code>
+SELECT F.Nome_Funcionario, D.Nome_Depto
+FROM T_FUNCIONARIO F
+INNER JOIN T_DEPARTAMENTO D ON F.ID_Depto_FK = D.ID_Depto;
+</code></pre>
+            </li>
+            <li><strong><code>LEFT JOIN</code> (Junção Externa à Esquerda):</strong>
+                <ul class="list-disc pl-6 mt-2">
+                    <li><strong>Resultado:</strong> Retorna <strong>TODAS</strong> as linhas da tabela da <em>esquerda</em> (a primeira tabela, <code>T_FUNCIONARIO</code>) e as correspondentes da <em>direita</em> (<code>T_DEPARTAMENTO</code>).</li>
+                    <li><strong>Exemplo:</strong> Se um funcionário tiver <code>ID_Depto_FK</code> NULO, ele <em>ainda assim aparecerá</em> no resultado, com o <code>Nome_Depto</code> NULO.</li>
+                </ul>
+<pre><code>
+SELECT F.Nome_Funcionario, D.Nome_Depto
+FROM T_FUNCIONARIO F -- Tabela da Esquerda
+LEFT JOIN T_DEPARTAMENTO D ON F.ID_Depto_FK = D.ID_Depto;
+</code></pre>
+            </li>
+            <li><strong><code>RIGHT JOIN</code> (Junção Externa à Direita):</strong>
+                <ul class="list-disc pl-6 mt-2">
+                    <li><strong>Resultado:</strong> Retorna <strong>TODAS</strong> as linhas da tabela da <em>direita</em> (<code>T_DEPARTAMENTO</code>).</li>
+                    <li><strong>Exemplo:</strong> Se um departamento não tiver nenhum funcionário associado, ele <em>ainda assim aparecerá</em> no resultado, com <code>Nome_Funcionario</code> NULO.</li>
+                </ul>
+            </li>
+            <li><strong>Alerta de Concurso (O "Excluding JOIN"):</strong>
+                <ul class="list-disc pl-6 mt-2">
+                    <li>Um uso comum de <code>LEFT</code>/<code>RIGHT JOIN</code> é encontrar registros que <em>não têm</em> correspondência.</li>
+                    <li><em>Consulta:</em> "Encontrar todos os departamentos que <em>não possuem</em> funcionários."</li>
+                </ul>
+<pre><code>
+SELECT D.Nome_Depto
+FROM T_FUNCIONARIO F
+RIGHT JOIN T_DEPARTAMENTO D ON F.ID_Depto_FK = D.ID_Depto
+WHERE F.ID_Funcionario IS NULL; -- O filtro-chave: busca onde a correspondência falhou
+</code></pre>
+            </li>
+        </ul>
+
+        <p class="text-center font-semibold mt-6 mb-2">Tabela 5: Guia Rápido de JOINs</p>
+        <div class="overflow-x-auto">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tipo de JOIN</th>
+                        <th>Quem é Retornado? (Baseado em <code>A JOIN B</code>)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong><code>INNER JOIN</code></strong></td>
+                        <td>Apenas linhas que A e B têm em comum (Interseção).</td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>LEFT JOIN</code></strong></td>
+                        <td><strong>Todos</strong> de A. Se B tiver correspondência, mostra B; senão, mostra <code>NULL</code>.</td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>RIGHT JOIN</code></strong></td>
+                        <td><strong>Todos</strong> de B. Se A tiver correspondência, mostra A; senão, mostra <code>NULL</code>.</td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>FULL OUTER JOIN</code></strong></td>
+                        <td><strong>Todos</strong> de A e <strong>Todos</strong> de B. Preenche com <code>NULL</code> onde não há correspondência.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="text-xl md:text-2xl">Consultas Aninhadas (Subqueries)</h3>
+        <p>Uma subconsulta (ou <em>subquery</em>) é um comando <code>SELECT</code> completo que é executado dentro de outro comando SQL (seja <code>SELECT</code>, <code>UPDATE</code>, <code>DELETE</code> ou <code>INSERT</code>).</p>
+        <p><strong>Alerta de Concurso (AOCP): O Perigo de <code>=</code> vs. <code>IN</code>:</strong></p>
+        <p>Este é um erro conceitual clássico testado em provas.</p>
+        <ul class="list-disc">
+            <li>O operador de igualdade (<code>=</code>) só pode ser usado se a subconsulta retornar <mark><strong>exatamente um valor</strong></mark> (uma coluna, uma linha).</li>
+            <li>Se a subconsulta retornar <mark><strong>múltiplas linhas</strong></mark> (uma lista de valores), o uso do <code>=</code> causará um erro em tempo de execução.</li>
+            <li>Nesses casos, deve-se usar o operador <code>IN</code> (ou <code>NOT IN</code>), que é projetado para comparar um valor contra um <em>conjunto</em> de valores.</li>
+        </ul>
+
+        <p><strong>Exemplo Prático:</strong></p>
+        <p><em>Consulta:</em> "Mostrar o nome de todos os funcionários que <em>não</em> estão alocados em projetos ativos."</p>
+<pre><code>
+SELECT Nome_Funcionario
+FROM T_FUNCIONARIO
+WHERE ID_Funcionario NOT IN (
+    /* * Esta subconsulta retorna um CONJUNTO de valores (uma lista de IDs),
+     * por isso, o uso de 'IN' / 'NOT IN' é obrigatório.
+     * Usar '=' aqui causaria um ERRO.
+     */
+    SELECT ID_Funcionario_FK
+    FROM T_PROJETOS_ATIVOS
+    WHERE Status = 'Ativo'
+);
+</code></pre>
+
+        <h2 class="text-2xl md:text-3xl">Garantindo a Integridade: Transações (ACID) e TCL</h2>
+
+        <h3 class="text-xl md:text-2xl">O Conceito de Transação: O Bloco "Tudo ou Nada"</h3>
+        <p>Uma transação é uma sequência de uma ou mais operações SQL (ex: um <code>UPDATE</code> e um <code>INSERT</code>) que o SGBD trata como uma <em>única unidade lógica de trabalho</em>. Ou todas as operações da transação são executadas com sucesso, ou nenhuma delas é permanentemente aplicada ao banco de dados.</p>
+
+        <h3 class="text-xl md:text-2xl">As 4 Propriedades (ACID)</h3>
+        <p>ACID é o acrônimo que define as quatro garantias fundamentais que um SGBDR oferece para transações. O exemplo clássico para entender o ACID é uma transferência bancária.</p>
+
+        <p class="text-center font-semibold mt-6 mb-2">Tabela 6: As Propriedades ACID: Conceito e Exemplo Prático</p>
+        <p class="text-sm text-center text-gray-600 -mt-4 mb-2"><strong>Cenário de Exemplo:</strong> Transferência de R$ 100 da Conta A para a Conta B. (Transação = 1. Debitar A; 2. Creditar B).</p>
+        <div class="overflow-x-auto">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Propriedade</th>
+                        <th>Conceito (O que é?)</th>
+                        <th>Exemplo Prático (Transferência Bancária)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>A</strong>tomicidade</td>
+                        <td><strong>"Tudo ou Nada"</strong>. A transação é indivisível.</td>
+                        <td>O SGBD garante que R$ 100 <em>saiam</em> de A <strong>E</strong> <em>entrem</em> em B. Se o sistema falhar após o débito, mas antes do crédito, a transação inteira é desfeita (ROLLBACK). O banco nunca fica no estado "parcial".</td>
+                    </tr>
+                    <tr>
+                        <td><strong>C</strong>onsistência</td>
+                        <td>O banco de dados vai de um <strong>estado válido</strong> para outro <strong>estado válido</strong>.</td>
+                        <td>Se (A+B) = R$ 1000 antes, (A+B) deve = R$ 1000 depois. A transação não pode violar regras de negócio (como criar ou destruir dinheiro) nem restrições de integridade.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>I</strong>solamento</td>
+                        <td>Transações concorrentes (simultâneas) não podem interferir umas nas outras.</td>
+                        <td>Se duas transações tentarem debitar R$ 100 da Conta A <em>ao mesmo tempo</em>, o Isolamento as coloca em "fila". Uma transação não "vê" os dados intermediários da outra, impedindo que a conta fique negativa indevidamente.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>D</strong>urabilidade</td>
+                        <td>Uma vez que a transação é confirmada (<code>COMMIT</code>), ela é <strong>permanente</strong>.</td>
+                        <td>Após a transferência ser confirmada, os novos saldos de A e B estão salvos em disco (ex: logs de transação) e não serão perdidos, mesmo que o servidor desligue da tomada um segundo depois.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="text-xl md:text-2xl">TCL (Transaction Control Language): <code>COMMIT</code> e <code>ROLLBACK</code></h3>
+        <p>TCL são os comandos que o desenvolvedor usa para gerenciar o ciclo de vida da transação.</p>
+        <ul class="list-disc">
+            <li><code>COMMIT</code>: <mark>Salva permanentemente</mark> todas as alterações feitas <em>dentro</em> da transação (garante a Durabilidade).</li>
+            <li><code>ROLLBACK</code>: <mark>Desfaz todas as alterações</mark> feitas <em>dentro</em> da transação, revertendo o banco ao estado em que estava antes do início da transação.</li>
+        </ul>
+
+        <p><strong>Exemplo Prático (Controle de Transação):</strong></p>
+<pre><code>
+/* * Em muitos SGBDs, é preciso iniciar a transação manualmente 
+ * para desabilitar o "autocommit".
+ */
+START TRANSACTION; -- (ou BEGIN TRANSACTION)
+
+-- Operação 1: Debitar R$ 100 da Conta A
+UPDATE T_CONTAS SET Saldo = Saldo - 100 WHERE ID_Conta = 'A';
+
+-- Operação 2: Creditar R$ 100 na Conta B
+UPDATE T_CONTAS SET Saldo = Saldo + 100 WHERE ID_Conta = 'B';
+
+/* * Neste ponto, as alterações SÓ SÃO VISÍVEIS para a *sua* sessão.
+ * Elas ainda não são permanentes (não são Duráveis).
+ */
+
+-- Ocorreu algum erro na lógica de aplicação (ex: Saldo ficou negativo)?
+IF (/* Ocorreu um erro */) THEN
+    -- Desfaz TUDO (Operação 1 e 2).
+    ROLLBACK;
+ELSE
+    -- Confirma TUDO permanentemente.
+    COMMIT;
+END IF;
+</code></pre>
+        <p><strong>Alerta de Concurso:</strong> <mark>Uma vez que o comando <code>COMMIT</code> é executado, as alterações daquela transação tornam-se permanentes</mark>. Um comando <code>ROLLBACK</code> executado <em>após</em> o <code>COMMIT</code> não terá efeito sobre as alterações já confirmadas.</p>
+
+        <h2 class="text-2xl md:text-3xl">Tópicos Avançados e Otimização (Foco Especial: AOCP)</h2>
+
+        <h3 class="text-xl md:text-2xl">Visões (<code>VIEW</code>): Simplificando Consultas e Segurança</h3>
+        <p>Uma <code>VIEW</code> (Visão) é uma <strong>tabela virtual</strong>. Ela <mark>não armazena dados fisicamente</mark>. Em essência, uma <code>VIEW</code> é apenas um comando <code>SELECT</code> complexo que fica armazenado no banco de dados com um nome.</p>
+        <ul class="list-disc">
+            <li><strong>Vantagens (Por que usar?):</strong>
+                <ol class="list-decimal pl-6 mt-2">
+                    <li><strong>Segurança e Abstração de Colunas:</strong> Você pode ter uma tabela base <code>T_FUNCIONARIO</code> (com <code>ID</code>, <code>Nome</code>, <code>Cargo</code>, <code>Salario</code>). É possível criar uma <code>VIEW</code> chamada <code>VW_FUNCIONARIOS_RH</code> que seleciona apenas <code>Nome</code> e <code>Cargo</code>. Em seguida, você dá permissão ao usuário de RH para acessar a <code>VIEW</code>, mas <em>nega</em> o acesso à tabela base. O usuário de RH nunca verá a coluna <code>Salario</code>.</li>
+                    <li><strong>Abstração de Complexidade:</strong> Se uma consulta requer 5 <code>JOINs</code>, você pode "esconder" essa complexidade dentro de uma <code>VIEW</code> (<code>VW_RELATORIO_GERAL</code>). O usuário final simplesmente executa <code>SELECT * FROM VW_RELATORIO_GERAL;</code>.</li>
+                </ol>
+            </li>
+            <li><strong>Desvantagem:</strong> A performance. Como a <code>VIEW</code> é virtual, ela <mark>re-executa a consulta complexa</mark> (com os 5 <code>JOINs</code>) <em>toda vez</em> que é acessada.</li>
+        </ul>
+
+        <h3 class="text-xl md:text-2xl">Alerta de Concurso (AOCP): <code>VIEW</code> vs. <code>MATERIALIZED VIEW</code></h3>
+        <p><strong>Este é um tópico avançado que o Instituto AOCP já cobrou explicitamente</strong>. A confusão entre os dois tipos de visão é uma "pegadinha" comum.</p>
+        <ul class="list-disc">
+            <li><strong>O que é <code>MATERIALIZED VIEW</code> (MV)?:</strong>
+                <ul class="list-disc pl-6 mt-2">
+                    <li>Diferente de uma <code>VIEW</code> normal, uma Visão Materializada (MV) é um <strong>objeto físico</strong>. Ela <mark>armazena o resultado da consulta</mark> (o <em>snapshot</em>) fisicamente em disco, como se fosse uma tabela real.</li>
+                    <li><strong>Performance (Pró):</strong> A leitura de uma MV é <em>extremamente rápida</em>, pois os dados (resultado dos 5 <code>JOINs</code>) já estão pré-calculados e armazenados.</li>
+                    <li><strong>Atualização (Contra):</strong> Os dados da MV são "stale" (obsoletos). Eles <mark><em>não</em> são atualizados em tempo real</mark> quando as tabelas base mudam. A MV precisa ser "atualizada" (executar um <code>REFRESH</code>) periodicamente (ex: toda madrugada).</li>
+                </ul>
+            </li>
+        </ul>
+
+        <p class="text-center font-semibold mt-6 mb-2">Tabela 7: Comparativo Definitivo: View vs. Materialized View (Foco AOCP)</p>
+        <div class="overflow-x-auto">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Característica</th>
+                        <th><code>CREATE VIEW</code> (Visão Padrão)</th>
+                        <th><code>CREATE MATERIALIZED VIEW</code> (Visão Materializada)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Armazenamento Físico</strong></td>
+                        <td><mark><strong>Não</strong></mark> (É virtual, armazena só a query)</td>
+                        <td><mark><strong>Sim</strong></mark> (Armazena os dados resultantes em disco)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Atualização dos Dados</strong></td>
+                        <td><mark><strong>Tempo Real</strong></mark> (A query é executada a cada acesso)</td>
+                        <td><mark><strong>Obsoletos ("Stale")</strong></mark> (São um snapshot; precisam de <code>REFRESH</code>)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Performance de Leitura</strong></td>
+                        <td>Lenta (se a query for complexa)</td>
+                        <td>Rápida (dados pré-calculados)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Uso Ideal</strong></td>
+                        <td>Segurança, Abstração, Dados em tempo real.</td>
+                        <td>Data Warehousing, BI, Relatórios pesados em dados que mudam pouco.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="text-xl md:text-2xl">Índices (Indexes): Otimização vs. Custo</h3>
+        <p>Um índice é uma estrutura de dados auxiliar (como uma Árvore-B) que o SGBD usa para acelerar drasticamente a <em>localização</em> de linhas, funcionando de forma análoga ao índice de um livro.</p>
+        <p><strong>O Trade-Off (Custo vs. Benefício):</strong></p>
+        <ul class="list-disc">
+            <li><strong>Benefício (Acelera <code>SELECT</code>):</strong>
+                <ul class="list-disc pl-6 mt-2">
+                    <li>Sem um índice, uma consulta como <code>SELECT * FROM T_FUNCIONARIO WHERE CPF = '...';</code> em uma tabela com 10 milhões de linhas forçaria um "Table Scan" (o SGBD leria todas as 10 milhões de linhas).</li>
+                    <li>Com um índice na coluna <code>CPF</code>, o SGBD faz um "Index Seek" (navega na Árvore-B) e encontra a linha quase instantaneamente.</li>
+                </ul>
+            </li>
+            <li><strong>Custo (Desacelera DML: <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>):</strong>
+                <ul class="list-disc pl-6 mt-2">
+                    <li>Este é o custo que as bancas testam. Índices não são "de graça".</li>
+                    <li>Quando você executa <code>INSERT INTO T_FUNCIONARIO...</code>, o SGBD precisa salvar o dado na tabela <strong>E</strong> <mark>atualizar <em>todos os índices</em> associados</mark> a essa tabela (o índice de CPF, o índice de Matrícula, etc.) para incluir o novo registro.</li>
+                    <li><strong>Alerta de Concurso:</strong> Em tabelas com altíssima frequência de escrita (ex: tabelas de log), <mark>um excesso de índices <em>piora</em> a performance de <code>INSERT</code></mark>, causando contenção.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3 class="text-xl md:text-2xl">Gatilhos (Triggers): Automatizando Ações</h3>
+        <p>Triggers (Gatilhos) são procedimentos especiais (blocos de código) armazenados no banco que são executados (disparados) <em>automaticamente</em> em resposta a um evento DML (<code>INSERT</code>, <code>UPDATE</code> ou <code>DELETE</code>) em uma tabela específica.</p>
+        <p><strong>Usos Práticos (Foco Concurso):</strong></p>
+        <ol class="list-decimal">
+            <li><strong>Auditoria (Log de Alterações):</strong>
+                <ul class="list-disc pl-6 mt-2">
+                    <li><strong>Cenário:</strong> "Quero um log de <em>quem</em> alterou o salário de <em>qual</em> funcionário, <em>quando</em>, e qual era o valor <em>antigo</em> e <em>novo*</em>."</li>
+                    <li><strong>Implementação:</strong> Cria-se um <code>TRIGGER AFTER UPDATE ON T_FUNCIONARIO</code>. Dentro do trigger, o código acessa as pseudo-tabelas <code>inserted</code> (contém o valor novo) e <code>deleted</code> (contém o valor antigo) e insere essas informações em uma <code>T_LOG_AUDITORIA</code>.</li>
+                </ul>
+            </li>
+            <li><strong>Manutenção da Lógica de Negócio (Integridade):</strong>
+                <ul class="list-disc pl-6 mt-2">
+                    <li><strong>Cenário:</strong> "Quando um item for vendido (um <code>INSERT</code> na <code>T_VENDAS</code>), o estoque daquele item deve ser subtraído automaticamente na <code>T_PRODUTOS</code>."</li>
+                    <li><strong>Implementação:</strong> Cria-se um <code>TRIGGER AFTER INSERT ON T_VENDAS</code> que executa um <code>UPDATE T_PRODUTOS SET Estoque = Estoque - [Qtd_Vendida]</code> para o produto correspondente.</li>
+                </ul>
+            </li>
+            <li><strong>Implementação de Deleção Lógica:</strong>
+                <ul class="list-disc pl-6 mt-2">
+                    <li><strong>Cenário:</strong> "Por regras de negócio, registros de funcionários nunca podem ser fisicamente apagados; eles devem apenas ser marcados como 'Inativos'."</li>
+                    <li><strong>Implementação:</strong> Cria-se um <code>TRIGGER INSTEAD OF DELETE ON T_FUNCIONARIO</code>. Quando o usuário executa <code>DELETE... WHERE ID = 123</code>, o trigger "intercepta" o comando. Em vez de apagar, ele executa um <code>UPDATE T_FUNCIONARIO SET Ativo = 0 WHERE ID = 123</code>.</li>
+                </ul>
+            </li>
+        </ol>
+
+        <!-- 3. BOTÃO DE QUESTÕES -->
+        <div class="text-center mt-12 pt-8 border-t border-gray-200">
+            <a href="questoes.html" class="btn">
+                Ir para Questões
+            </a>
+            <p class="text-sm text-gray-500 mt-2">Teste seus conhecimentos sobre o conteúdo da aula.</p>
+        </div>
+
+    </div>
+
+</body>
+</html>

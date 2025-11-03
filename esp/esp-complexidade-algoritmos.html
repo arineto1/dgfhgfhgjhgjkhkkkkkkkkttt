@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo para Concurso: Complexidade de Algoritmos</title>
+    <!-- Importa a fonte Inter para uma boa legibilidade -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Estilos CSS embutidos para manter em um único arquivo,
+           com cores neutras, fundo branco e texto escuro. */
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1f2937; /* Cor de texto escura (Tailwind gray-800) */
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px; /* Largura máxima do conteúdo */
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* --- Tipografia --- */
+        h1, h2, h3 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            line-height: 1.3;
+            color: #111827; /* Mais escuro para títulos (gray-900) */
+        }
+
+        h1 {
+            font-size: 2.25rem; /* 36px */
+            text-align: center;
+            border-bottom: 2px solid #f3f4f6; /* gray-100 */
+            padding-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 1.875rem; /* 30px */
+            border-bottom: 2px solid #e5e7eb; /* gray-200 */
+            padding-bottom: 0.5rem;
+            margin-top: 2.5rem;
+        }
+
+        h3 {
+            font-size: 1.5rem; /* 24px */
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+        }
+
+        li {
+            margin-bottom: 0.75rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        /* --- Destaque ("Grifado") --- */
+        /* Usado para os termos chave que precisam de memorização */
+        .highlight {
+            background-color: #fef9c3; /* Amarelo bem claro (yellow-100) */
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        /* --- Blocos de Código (Pseudocódigo) --- */
+        pre {
+            background-color: #f3f4f6; /* Cinza claro (gray-100) */
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto; /* Scroll se o código for muito longo */
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+            font-size: 0.9rem;
+            color: #111827;
+            border: 1px solid #e5e7eb; /* gray-200 */
+        }
+        
+        code {
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+            font-size: 0.9em;
+        }
+
+        /* --- Tabelas Responsivas --- */
+        /* O 'wrapper' permite que a tabela role horizontalmente
+           sem quebrar o layout da página em telas pequenas. */
+        .table-wrapper {
+            overflow-x: auto;
+            width: 100%;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #d1d5db; /* gray-300 */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem; /* Texto menor para caber melhor */
+            /* Largura mínima para forçar o scroll em vez de quebrar o texto */
+            min-width: 700px; 
+        }
+
+        th, td {
+            border: 1px solid #d1d5db; /* gray-300 */
+            padding: 0.75rem;
+            text-align: left;
+            vertical-align: top; /* Alinha no topo para listas longas */
+        }
+
+        th {
+            background-color: #f9fafb; /* Cinza bem claro (gray-50) */
+            font-weight: 600;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9fafb; /* Zebrado sutil */
+        }
+
+        /* --- Player de Áudio --- */
+        .audio-player {
+            background-color: #f3f4f6; /* gray-100 */
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .audio-player p {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin: 0 0 0.5rem 0;
+            text-align: center;
+        }
+
+        audio {
+            width: 100%; /* Ocupa toda a largura do container */
+            margin-top: 0.5rem;
+        }
+
+        /* --- Botão --- */
+        .button-container {
+            text-align: center;
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e5e7eb; /* gray-200 */
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #1f2937; /* Cor escura (gray-800) */
+            color: #ffffff;
+            font-weight: 600;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            font-size: 1.1rem;
+            border: 2px solid transparent;
+        }
+
+        .btn:hover {
+            background-color: #374151; /* gray-700 */
+        }
+
+        /* --- Citações (Superscript) --- */
+        sup {
+            font-size: 0.65rem;
+            line-height: 1;
+            vertical-align: super;
+            background-color: #e5e7eb; /* gray-200 */
+            color: #4b5563; /* gray-600 */
+            padding: 2px 4px;
+            border-radius: 3px;
+            margin-left: 2px;
+            font-weight: 600;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- 1. Player de Áudio (Conforme Solicitado) -->
+        <div class="audio-player">
+            <p>Resumo em Áudio (MP3)</p>
+            <audio controls preload="metadata">
+                <!-- 
+                  IMPORTANTE: Substitua 'SEU_ARQUIVO_AQUI.mp3' pelo nome
+                  real do seu arquivo de áudio. Ele deve estar na mesma
+                  pasta que este arquivo HTML.
+                -->
+                <source src="esp-complexidade-algoritmos.mp3" type="audio/mpeg">
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
+        </div>
+
+        <!-- Título Principal -->
+        <h1>Resumo para Concurso: Complexidade de Algoritmos</h1>
+
+        <!-- 2. Conteúdo do Resumo (Convertido do Markdown) -->
+
+        <h2>Página 1: Fundamentos, Notações e Regras de Cálculo</h2>
+
+        <h3>1. Tempo vs. Espaço</h3>
+        <ul>
+            <li>
+                <strong>Complexidade de Tempo (<span class="highlight">T(n)</span>):</strong> Mede o <strong>número de operações relevantes</strong> (ex: comparações, trocas) em função do tamanho da entrada ($n$). <span class="highlight">Não mede segundos</span>.<sup>[1]</sup>
+            </li>
+            <li>
+                <strong>Complexidade de Espaço (<span class="highlight">S(n)</span>):</strong> Mede o <strong>espaço auxiliar (memória extra)</strong> que um algoritmo precisa alocar em função do tamanho da entrada ($n$).<sup>[1]</sup>
+                <ul>
+                    <li><strong>Espaço <span class="highlight">O(1)</span> (Constante):</strong> Ideal. O uso de memória não depende de $n$. Ex: Alocar uma única variável auxiliar (<code>soma = 0</code>).</li>
+                    <li><strong>Espaço <span class="highlight">O(n)</span> (Linear):</strong> O uso de memória cresce com $n$. Ex: Alocar um <em>novo vetor</em> do mesmo tamanho que a entrada.</li>
+                    <li><strong>Trade-off (Exemplo):</strong> O <strong>Mergesort</strong> é rápido (<span class="highlight">O(n log n)</span> tempo) mas gasta <span class="highlight">O(n)</span> de espaço. O <strong>Quicksort</strong> (médio) tem o mesmo tempo, mas gasta apenas <span class="highlight">O(log n)</span> de espaço (pilha de recursão).<sup>[2]</sup></li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3>2. O Léxico da Análise Assintótica (O, $\Omega$, $\Theta$)</h3>
+        <p>Isto é crucial para bancas como a AOCP, que cobram a diferença entre os casos.</p>
+        
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Notação</th>
+                        <th>Apelido</th>
+                        <th>Conceito</th>
+                        <th>Foco de Concurso</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong><span class="highlight">$O$ (Big O)</span></strong></td>
+                        <td>"Teto"</td>
+                        <td>Limite <strong>Superior</strong>. O algoritmo <em>nunca será mais lento</em> que isso.<sup>[3, 4]</sup></td>
+                        <td><strong><span class="highlight">PIOR CASO</span></strong> (A garantia do pior cenário).<sup>[5, 6]</sup></td>
+                    </tr>
+                    <tr>
+                        <td><strong><span class="highlight">$\Omega$ (Big Omega)</span></strong></td>
+                        <td>"Piso"</td>
+                        <td>Limite <strong>Inferior</strong>. O algoritmo <em>nunca será mais rápido</em> que isso.<sup>[3, 4]</sup></td>
+                        <td><strong><span class="highlight">MELHOR CASO</span></strong> (O esforço mínimo obrigatório).</td>
+                    </tr>
+                    <tr>
+                        <td><strong><span class="highlight">$\Theta$ (Big Theta)</span></strong></td>
+                        <td>"Justo"</td>
+                        <td>Limite <strong>Exato</strong> ("Sanduíche"). Só existe se $O$ e $\Omega$ forem iguais.<sup>[3, 4]</sup></td>
+                        <td><strong><span class="highlight">CASO MÉDIO</span></strong> ou Algoritmos de Custo Fixo (Ex: Mergesort).<sup>[2]</sup></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p>
+            <strong>Hierarquia:</strong> Se um algoritmo é $\Theta(n)$, ele automaticamente também é $O(n)$ e $\Omega(n)$.
+        </p>
+
+        <h3>3. Regras Práticas para Calcular Complexidade</h3>
+        <p>Ao olhar para um código na prova, aplique estas regras:</p>
+
+        <ul>
+            <li>
+                <strong>Regra 1: <span class="highlight">O(1)</span> - Operações Constantes</strong>
+                <br>Atribuição (<code>x = 10</code>), Aritmética (<code>a + b</code>), Acesso a índice de vetor (<code>vetor[i]</code>).<sup>[7, 8]</sup>
+            </li>
+            <li>
+                <strong>Regra 2: Regra da Soma (Foco no <span class="highlight">Dominante</span>)</strong>
+                <br>Se um algoritmo faz um passo $O(n)$ <em>seguido</em> de um passo $O(n^2)$, a complexidade total é a soma: $O(n) + O(n^2)$.
+                <br>Na análise, <strong><span class="highlight">ignore termos de ordem inferior e constantes</span></strong>:
+                <ul>
+                    <li>$O(n + n^2) \rightarrow <span class="highlight">O(n^2)</span>$</li>
+                    <li>$O(5n^2 + 100n + 5000) \rightarrow <span class="highlight">O(n^2)</span>$ <sup>[9]</sup></li>
+                </ul>
+            </li>
+            <li>
+                <strong>Regra 3: Regra do Produto (<span class="highlight">Loops Aninhados</span>)</strong>
+                <br>Se um passo é executado <em>dentro</em> de outro, as complexidades se multiplicam.<sup>[10, 11, 12]</sup>
+                <br><strong>Exemplo <span class="highlight">O(n^2)</span>:</strong>
+<pre><code>para i de 1 até N:     // Executa N vezes
+    para j de 1 até N: // Executa N vezes (para CADA i)
+        operacao_O(1)
+// Total: N * N = O(N^2)</code></pre>
+                <strong>Pegadinha de Concurso (Loop Triangular):</strong>
+<pre><code>para i de 1 até N:
+    para j de 1 até i: // Depende de i
+        operacao_O(1)</code></pre>
+                <ul>
+                    <li>A soma das operações é $1 + 2 + 3 +... + N = \frac{N(N+1)}{2}$.<sup>[12]</sup></li>
+                    <li>Isso é $\frac{N^2}{2} + \frac{N}{2}$. Aplicando a Regra 2 (Dominante), a complexidade <strong><span class="highlight">ainda é $O(N^2)$</span></strong>.</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Regra 4: <span class="highlight">O(log n)</span> - Loops Logarítmicos</strong>
+                <br>Ocorre quando o loop <span class="highlight">corta o problema por um fator constante</span> a cada iteração (ex: divide por 2, multiplica por 2 até $n$).<sup>[13, 14]</sup>
+<pre><code>i = 1
+enquanto (i < n):
+    i = i * 2  // i -> 1, 2, 4, 8, 16... (crescimento logarítmico)</code></pre>
+            </li>
+        </ul>
+
+        
+        <h2>Página 2: Hierarquia de Algoritmos e Tabela de Memorização</h2>
+
+        <h3>4. A Hierarquia de Complexidades (O Catálogo Essencial)</h3>
+        
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Complexidade</th>
+                        <th>Nome</th>
+                        <th>Eficiência</th>
+                        <th>Exemplo(s) Chave</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong><span class="highlight">O(1)</span></strong></td>
+                        <td>Constante</td>
+                        <td>Excelente</td>
+                        <td>Acesso a índice de vetor <code>vetor[i]</code> <sup>[8, 15]</sup></td>
+                    </tr>
+                    <tr>
+                        <td><strong><span class="highlight">O(log n)</span></strong></td>
+                        <td>Logarítmica</td>
+                        <td>Ótima</td>
+                        <td><strong>Busca Binária</strong> (exige vetor ordenado) <sup>[16, 17]</sup></td>
+                    </tr>
+                    <tr>
+                        <td><strong><span class="highlight">O(n)</span></strong></td>
+                        <td>Linear</td>
+                        <td>Boa</td>
+                        <td><strong>Busca Linear</strong> (percorrer o vetor 1 vez) <sup>[17, 18]</sup></td>
+                    </tr>
+                    <tr>
+                        <td><strong><span class="highlight">O(n log n)</span></strong></td>
+                        <td>Linearítmica</td>
+                        <td>Ponto Ótimo (Ordenação)</td>
+                        <td><strong>Mergesort</strong>, <strong>Quicksort (Médio)</strong>, <strong>Heapsort</strong> <sup>[2, 19, 20]</sup></td>
+                    </tr>
+                    <tr>
+                        <td><strong><span class="highlight">O(n^2)</span></strong></td>
+                        <td>Quadrática</td>
+                        <td>Lenta (Evitável)</td>
+                        <td><strong>Bubble Sort</strong>, <strong>Selection Sort</strong>, <strong>Insertion Sort</strong> <sup>[11, 21]</sup></td>
+                    </tr>
+                    <tr>
+                        <td><strong><span class="highlight">O(2^n)</span> / $O(n!)$</strong></td>
+                        <td>Exponencial</td>
+                        <td>Intratável</td>
+                        <td>Força Bruta (ex: Fibonacci recursivo ingênuo) <sup>[7]</sup></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>5. Estudo de Caso Obrigatório: Quicksort (O "Duas Caras")</h3>
+        <p>O <strong>Quicksort</strong> é o favorito das bancas porque seus casos de performance variam drasticamente.</p>
+        <ul>
+            <li>
+                <strong>Pior Caso: <span class="highlight">$O(n^2)$</span></strong> <sup>[22]</sup>
+                <ul>
+                    <li><strong>Quando Ocorre?</strong> Quando o <span class="highlight">pivô escolhido é consistentemente ruim</span> (o menor ou o maior elemento).</li>
+                    <li><strong>Gatilho (Memorize):</strong> Acontece se o <span class="highlight">vetor de entrada já está <strong>ordenado</strong></span> (ou em ordem inversa) e o pivô é sempre o primeiro/último elemento.<sup>[22]</sup> A partição fica desbalanceada (N-1 e 1).</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Melhor/Médio Caso: <span class="highlight">$\Theta(n \log n)$</span></strong> <sup>[19, 22]</sup>
+                <ul>
+                    <li><strong>Quando Ocorre?</strong> Quando o pivô é "bom" (mediana ou aleatório) e divide o vetor em metades balanceadas ($N/2$ e $N/2$).</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3>6. A Tabela de Memorização (Foco: Prova AOCP)</h3>
+        <p>Esta tabela sintetiza a análise de casos para os algoritmos de ordenação mais cobrados.</p>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Algoritmo</th>
+                        <th>Melhor Caso ($\Omega$)</th>
+                        <th>Caso Médio ($\Theta$)</th>
+                        <th>Pior Caso ($O$)</th>
+                        <th>Espaço (Pior Caso)</th>
+                        <th>Notas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Bubble Sort</strong></td>
+                        <td>$\Omega(n)$<sup>1</sup></td>
+                        <td>$\Theta(n^2)$</td>
+                        <td><span class="highlight">$O(n^2)$</span></td>
+                        <td>$O(1)$</td>
+                        <td><sup>1</sup>Apenas na versão otimizada (com <em>flag</em> de troca).<sup>[21]</sup></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Selection Sort</strong></td>
+                        <td>$\Omega(n^2)$</td>
+                        <td>$\Theta(n^2)$</td>
+                        <td><span class="highlight">$O(n^2)$</span></td>
+                        <td>$O(1)$</td>
+                        <td><strong><span class="highlight">Sempre $O(n^2)$</span></strong>, não importa a entrada.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Insertion Sort</strong></td>
+                        <td><span class="highlight">$\Omega(n)$</span></td>
+                        <td>$\Theta(n^2)$</td>
+                        <td><span class="highlight">$O(n^2)$</span></td>
+                        <td>$O(1)$</td>
+                        <td>Excelente para dados "quase ordenados".</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mergesort</strong></td>
+                        <td>$\Omega(n \log n)$</td>
+                        <td><span class="highlight">$\Theta(n \log n)$</span></td>
+                        <td><span class="highlight">$O(n \log n)$</span></td>
+                        <td><span class="highlight">$O(n)$</span></td>
+                        <td>Estável, mas <span class="highlight">gasta memória auxiliar</span>.<sup>[2]</sup></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Quicksort</strong></td>
+                        <td>$\Omega(n \log n)$</td>
+                        <td>$\Theta(n \log n)$</td>
+                        <td><span class="highlight">$O(n^2)$</span><sup>2</sup></td>
+                        <td>$O(\log n)$</td>
+                        <td><sup>2</sup><span class="highlight">Pior caso ocorre com pivô ruim</span> (ex: vetor ordenado).<sup>[22]</sup></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Busca Linear</strong></td>
+                        <td>$\Omega(1)$</td>
+                        <td>$\Theta(n)$</td>
+                        <td><span class="highlight">$O(n)$</span></td>
+                        <td>$O(1)$</td>
+                        <td>Melhor caso é achar no índice 0.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Busca Binária</strong></td>
+                        <td>$\Omega(1)$</td>
+                        <td>$\Theta(\log n)$</td>
+                        <td><span class="highlight">$O(\log n)$</span></td>
+                        <td>$O(1)$</td>
+                        <td><span class="highlight">Requer vetor ordenado</span>. Melhor caso é achar no meio.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <!-- 3. Botão de Questões (Conforme Solicitado) -->
+        <div class="button-container">
+            <a href="questoes.html" class="btn">Ir para Questões</a>
+        </div>
+
+    </div> <!-- fim .container -->
+
+</body>
+</html>

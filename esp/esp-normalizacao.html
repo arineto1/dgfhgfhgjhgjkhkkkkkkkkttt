@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo IFPB: Normalização e SQL</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuração da fonte Inter (fácil de ler) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Define a fonte padrão como Inter */
+        body {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+            background-color: #ffffff; /* Fundo branco */
+            color: #1f2937; /* Texto escuro (gray-800) */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Estilo para o grifado (highlight) */
+        mark {
+            background-color: #fef9c3; /* Amarelo claro (yellow-100) */
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #374151; /* gray-700 */
+        }
+
+        /* Garante que o container da tabela seja responsivo */
+        .table-wrapper {
+            overflow-x: auto;
+            border: 1px solid #e5e7eb; /* gray-200 */
+            border-radius: 0.5rem; /* rounded-lg */
+        }
+        
+        table {
+            width: 100%;
+            min-width: 600px; /* Garante que tabelas mais largas tenham scroll, sem quebrar a página */
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 0.75rem; /* p-3 */
+            text-align: left;
+            border: 1px solid #e5e7eb; /* gray-200 */
+            vertical-align: top;
+        }
+
+        thead th {
+            background-color: #f9fafb; /* gray-50 */
+            font-weight: 600;
+            color: #374151; /* gray-700 */
+        }
+        
+        tbody tr:nth-child(even) {
+            background-color: #f9fafb; /* gray-50 */
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <!-- Container Principal -->
+    <div class="max-w-4xl mx-auto p-4 sm:p-6 md:p-10">
+
+        <header>
+            <!-- Título Principal -->
+            <h1 class="text-3xl md:text-4xl font-bold text-center mb-6 text-gray-900">
+                Resumo de Estudo: Normalização e SQL
+            </h1>
+
+            <!-- Reprodutor de Áudio -->
+            <div class="bg-gray-100 p-4 sm:p-5 rounded-lg mb-8 text-center border border-gray-200">
+                <h2 class="text-lg font-semibold mb-3 text-gray-800">Áudio Resumo</h2>
+                <audio controls class="w-full">
+                    <!-- 
+                      IMPORTANTE: 
+                      Substitua o valor de 'src' abaixo pelo nome do seu arquivo MP3.
+                      O arquivo deve estar na mesma pasta que este arquivo HTML.
+                    -->
+                    <source src="esp-normalizacao.mp3" type="audio/mpeg">
+                    Seu navegador não suporta o elemento de áudio.
+                </audio>
+                <p class="text-sm text-gray-600 mt-2">
+                    (Substitua "SEU_ARQUIVO_MP3_AQUI.mp3" pelo nome do seu arquivo)
+                </p>
+            </div>
+        </header>
+
+        <!-- Conteúdo Principal -->
+        <main>
+
+            <!-- SEÇÃO 1: NORMALIZAÇÃO -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-bold text-gray-800 border-b-2 border-gray-200 pb-2 mb-5">
+                    NORMALIZAÇÃO (O DESIGN)
+                </h2>
+
+                <!-- Anomalias -->
+                <h3 class="text-xl font-semibold mb-3 text-gray-700">1. Anomalias (O Problema)</h3>
+                <ul class="list-disc pl-5 space-y-2 mb-6">
+                    <li><mark>Causa Raiz:</mark> Redundância de dados.[1]</li>
+                    <li><mark>Anomalia de Inserção:</mark> Impossível cadastrar um dado (ex: Curso novo) porque outro dado (ex: Disciplina) é obrigatório pela estrutura, mas ainda não existe.[1]</li>
+                    <li><mark>Anomalia de Atualização:</mark> Consequência da redundância. Alterar um dado (ex: endereço da agência) exige múltiplas atualizações. Falha parcial gera <mark>inconsistência</mark>.[1]</li>
+                    <li><mark>Anomalia de Exclusão:</mark> Apagar um registro (ex: último funcionário) leva à perda não intencional de outros dados (ex: a agência inteira).[2]</li>
+                </ul>
+
+                <!-- Dependências Funcionais -->
+                <h3 class="text-xl font-semibold mb-3 text-gray-700">2. Dependências Funcionais (DF) (O Conceito-Chave)</h3>
+                <ul class="list-disc pl-5 space-y-2 mb-6">
+                    <li><mark>Definição:</mark> $A \rightarrow B$ (A determina B). Ex: $CPF \rightarrow Nome$.</li>
+                    <li><mark>Dependência Parcial (O Problema da 2FN):</mark>
+                        <ul class="list-square pl-5 mt-2 space-y-1">
+                            <li><mark>Onde:</mark> Apenas em tabelas com <mark>chave primária composta</mark> (ex: `(CPF_Aluno, ID_Curso)`).</li>
+                            <li><mark>Definição:</mark> Um atributo não-chave (ex: `Nome_Curso`) depende de <mark>apenas parte</mark> da chave composta (ex: `ID_Curso`), e não dela inteira.[3]</li>
+                        </ul>
+                    </li>
+                    <li><mark>Dependência Transitiva (O Problema da 3FN):</mark>
+                        <ul class="list-square pl-5 mt-2 space-y-1">
+                            <li><mark>Onde:</mark> Em qualquer tabela.</li>
+                            <li><mark>Definição:</mark> Um atributo não-chave depende de <mark>outro atributo não-chave</mark>.[4]</li>
+                            <li><mark>Exemplo:</mark> $A \rightarrow B \rightarrow C$ (Onde A é a Chave, B é não-chave e C é não-chave). Ex: $ID\_Funcionario \rightarrow Cod\_Departamento \rightarrow Nome\_Departamento$.[4]</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <!-- Formas Normais (Tabela) -->
+                <h3 class="text-xl font-semibold mb-3 text-gray-700">3. As Formas Normais (A Solução) [5]</h3>
+                <div class="table-wrapper mb-6">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Forma</th>
+                                <th>Regra / Proibição (Para estar nesta forma)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-semibold">1FN</td>
+                                <td>Atributos devem ser <mark>Atômicos</mark>.[1, 5] (Proíbe colunas com múltiplos valores, ex: "Telefones: 111, 222").</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">2FN</td>
+                                <td>Deve estar na 1FN <mark>E</mark> não deve conter <mark>Dependências Parciais</mark>.[5] (Obs: Se a chave é simples, já está na 2FN).[3]</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">3FN</td>
+                                <td>Deve estar na 2FN <mark>E</mark> não deve conter <mark>Dependências Transitivas</mark>.[5, 6]</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">FNBC</td>
+                                <td>É uma 3FN *mais rigorosa*. Regra: Para *toda* DF ( $X \rightarrow Y$ ), <mark>X deve ser uma Superchave</mark>.[7]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 2: SQL -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-bold text-gray-800 border-b-2 border-gray-200 pb-2 mb-5">
+                    SQL (A IMPLEMENTAÇÃO)
+                </h2>
+
+                <!-- Subconjuntos (Tabela) -->
+                <h3 class="text-xl font-semibold mb-3 text-gray-700">4. Subconjuntos do SQL (Classificação) [8, 9]</h3>
+                <div class="table-wrapper mb-6">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Sigla</th>
+                                <th>Nome (O que faz)</th>
+                                <th>Comandos Principais (Memorizar!)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-semibold">DDL</td>
+                                <td>Data <mark>Definition</mark> Language (Define a *estrutura*)</td>
+                                <td><code>CREATE</code>, <code>ALTER</code>, <code>DROP</code>, <code>TRUNCATE</code></td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">DML</td>
+                                <td>Data <mark>Manipulation</mark> Language (Manipula *dados*)</td>
+                                <td><code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code></td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">DQL</td>
+                                <td>Data <mark>Query</mark> Language (Consulta *dados*)</td>
+                                <td><code>SELECT</code></td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">DCL</td>
+                                <td>Data <mark>Control</mark> Language (Controla *permissões*)</td>
+                                <td><code>GRANT</code>, <code>REVOKE</code></td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">TCL</td>
+                                <td><mark>Transaction</mark> Control Language (Controla *transações*)</td>
+                                <td><code>COMMIT</code>, <code>ROLLBACK</code>, <code>SAVEPOINT</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- DELETE vs TRUNCATE (Tabela) -->
+                <h3 class="text-xl font-semibold mb-3 text-gray-700">5. Ponto Crítico de Prova: <code>DELETE</code> vs. <code>TRUNCATE</code> [10, 11, 12]</h3>
+                <div class="table-wrapper mb-6">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Característica</th>
+                                <th><code>DELETE</code> (DML)</th>
+                                <th><code>TRUNCATE</code> (DDL)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-semibold">O que faz?</td>
+                                <td>Remove linhas (aceita <code>WHERE</code>) [13]</td>
+                                <td>Remove <mark>TODAS</mark> as linhas (ignora <code>WHERE</code>) [14]</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Rollback (TCL)?</td>
+                                <td><mark>Sim</mark> (Pode ser desfeito) [11]</td>
+                                <td><mark>Não</mark> (Comando DDL é auto-commit) [11]</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Triggers?</td>
+                                <td><mark>Sim</mark> (Dispara Triggers <code>ON DELETE</code>) [11]</td>
+                                <td><mark>Não</mark> (Não dispara triggers) [11]</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Velocidade?</td>
+                                <td>Lento (loga linha por linha) [10]</td>
+                                <td>Rápido (desaloca as páginas de dados) [10]</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Resetar ID?</td>
+                                <td>Não</td>
+                                <td><mark>Sim</mark> (zera o auto-incremento) [11]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Ordem Lógica -->
+                <h3 class="text-xl font-semibold mb-3 text-gray-700">6. DQL: Ordem Lógica de Execução do <code>SELECT</code> [15]</h3>
+                <p class="mb-3">A ordem que o SGBD *executa* (memorizar isto resolve <code>WHERE</code> vs. <code>HAVING</code>):</p>
+                <ol class="list-decimal pl-5 space-y-2 mb-6 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                    <li><strong><code>FROM</code></strong> (e <code>JOIN</code>s)</li>
+                    <li><strong><code>WHERE</code></strong> (<mark>Filtra LINHAS</mark> - antes de agrupar) [16, 17]</li>
+                    <li><strong><code>GROUP BY</code></strong> (Agrupa as linhas)</li>
+                    <li><strong><code>HAVING</code></strong> (<mark>Filtra GRUPOS</mark> - depois de agrupar. Usado com $SUM()$, $COUNT()$, etc.) [16, 17]</li>
+                    <li><strong><code>SELECT</code></strong> (Seleciona as colunas)</li>
+                    <li><strong><code>ORDER BY</code></strong> (Ordena a saída final)</li>
+                </ol>
+
+                <!-- JOINs (Tabela) -->
+                <h3 class="text-xl font-semibold mb-3 text-gray-700">7. DQL: Junções (JOINs) [18]</h3>
+                <p class="mb-3">Usando Tabela A (Esquerda) e Tabela B (Direita):</p>
+                <div class="table-wrapper mb-6">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tipo de JOIN</th>
+                                <th>O que retorna? (Foco de memorização)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-semibold"><code>INNER JOIN</code></td>
+                                <td><mark>Apenas</mark> a interseção (o que tem *match* em A <mark>E</mark> B).[18]</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold"><code>LEFT JOIN</code></td>
+                                <td><mark>TUDO</mark> da Esquerda (A) + o que deu *match* da Direita (B). Se B não tem *match*, vem <code>NULL</code>.[18]</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold"><code>RIGHT JOIN</code></td>
+                                <td><mark>TUDO</mark> da Direita (B) + o que deu *match* da Esquerda (A). Se A não tem *match*, vem <code>NULL</code>.[18]</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold"><code>FULL OUTER JOIN</code></td>
+                                <td><mark>TUDO</mark> de A <mark>E</mark> TUDO de B. É a união de LEFT e RIGHT.[18]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Subconsultas -->
+                <h3 class="text-xl font-semibold mb-3 text-gray-700">8. DQL: Subconsultas (Subqueries)</h3>
+                <ul class="list-disc pl-5 space-y-2 mb-6">
+                    <li><mark>No <code>WHERE IN</code>:</mark> Filtra usando uma lista. Ex: <code>... WHERE ID_Cliente IN (SELECT ID_Cliente FROM Clientes_VIP)</code>.[19]</li>
+                    <li><mark>No <code>WHERE EXISTS</code>:</mark> Apenas verifica se a subconsulta retorna *qualquer* linha. (Geralmente rápido).[20]</li>
+                    <li><mark>No <code>SELECT</code> (Escalar):</mark> Retorna exatamente 1 valor (1 linha, 1 coluna). Ex: <code>SELECT Nome, (SELECT COUNT(*) FROM Pedidos P WHERE P.ID_Cliente = C.ID) AS Total_Pedidos FROM Clientes C</code>.[21]</li>
+                </ul>
+            </section>
+
+            <!-- SEÇÃO 3: VERIFICAÇÃO -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-bold text-gray-800 border-b-2 border-gray-200 pb-2 mb-5">
+                    VERIFICAÇÃO (ITENS ESTILO INSTITUTO AOCP)
+                </h2>
+                <p class="mb-4">Para simular o ambiente de prova [22, 23], julgue os itens a seguir como Certo (C) ou Errado (E).</p>
+                <h4 class="text-lg font-semibold mb-3">Julgue os itens:</h4>
+                <ol class="list-decimal pl-5 space-y-4 mb-6">
+                    <li><strong>(C / E)</strong> O objetivo principal da Terceira Forma Normal (3FN) é garantir a atomicidade dos dados, eliminando atributos multivalorados.</li>
+                    <li><strong>(C / E)</strong> Uma tabela que possui uma chave primária simples (não composta) e que já atende aos requisitos da 1FN está, automaticamente, também na Segunda Forma Normal (2FN).</li>
+                    <li><strong>(C / E)</strong> A Forma Normal de Boyce-Codd (FNBC) é considerada menos rigorosa que a 3FN, pois permite certas dependências transitivas em troca de melhor performance.</li>
+                    <li><strong>(C / E)</strong> O comando <code>TRUNCATE</code> é um comando DDL que remove todas as linhas de uma tabela, não dispara triggers de exclusão (ON DELETE) e, diferentemente do <code>DELETE</code>, não pode ser desfeito (rollback) em uma transação.</li>
+                    <li><strong>(C / E)</strong> Os comandos <code>GRANT</code> e <code>REVOKE</code> são exemplos de DML (Data Manipulation Language), pois manipulam os dados de permissão dos usuários.</li>
+                    <li><strong>(C / E)</strong> Em uma consulta SQL, a cláusula <code>HAVING</code> é utilizada para filtrar linhas individuais antes do agrupamento, enquanto a cláusula <code>WHERE</code> é utilizada para filtrar os grupos após a agregação de dados.</li>
+                    <li><strong>(C / E)</strong> Um <code>RIGHT JOIN</code> entre <code>Tabela_Cliente</code> (Esquerda) e <code>Tabela_Pedido</code> (Direita) retornará todos os pedidos, mesmo aqueles que não possuam um cliente correspondente, exibindo <code>NULL</code> nas colunas da <code>Tabela_Cliente</code> para esses casos.</li>
+                    <li><strong>(C / E)</strong> As anomalias de atualização são causadas pela falta de chaves primárias, enquanto as anomalias de exclusão são causadas pela falta de chaves estrangeiras.</li>
+                </ol>
+            </section>
+
+            <!-- SEÇÃO 4: GABARITO -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-bold text-gray-800 border-b-2 border-gray-200 pb-2 mb-5">
+                    Gabarito Comentado (Foco AOCP)
+                </h2>
+                <ol class="list-decimal pl-5 space-y-4 mb-6">
+                    <li><mark>ERRADO.</mark> O objetivo da 3FN é eliminar <mark>dependências transitivas</mark>.[5] Quem trata da atomicidade é a <mark>1FN</mark>.[5]</li>
+                    <li><mark>CERTO.</mark> A 2FN visa eliminar <mark>dependências parciais</mark>.[5] As dependências parciais só podem ocorrer em chaves primárias *compostas*. Se a chave é simples, não há DF parcial, logo, a tabela já está na 2FN por definição.[3]</li>
+                    <li><mark>ERRADO.</mark> A FNBC é <mark>mais rigorosa</mark> que a 3FN, e não o contrário.[7] Ela foi criada para lidar com anomalias que a 3FN não resolvia.</li>
+                    <li><mark>CERTO.</mark> Descrição precisa das diferenças entre <code>TRUNCATE</code> e <code>DELETE</code> (ver Tabela 2). <code>TRUNCATE</code> é <mark>DDL</mark>, não dispara triggers e (na maioria dos SGBDs) não permite rollback fácil.[10, 11]</li>
+                    <li><mark>ERRADO.</mark> <code>GRANT</code> e <code>REVOKE</code> são comandos <mark>DCL</mark> (Data Control Language).[9]</li>
+                    <li><mark>ERRADO.</mark> A ordem está invertida. <code>WHERE</code> filtra <mark>linhas</mark> (antes de agrupar). <code>HAVING</code> filtra <mark>grupos</mark> (depois de agrupar).[15, 16]</li>
+                    <li><mark>CERTO.</mark> Definição literal do <code>RIGHT JOIN</code> (ver Tabela 3). Ele retorna <mark>tudo da tabela da direita</mark> (<code>Tabela_Pedido</code>) e preenche com <code>NULL</code> o que não tem correspondência na esquerda.[18]</li>
+                    <li><mark>ERRADO.</mark> A causa-raiz de *todas* as anomalias (inserção, atualização e exclusão) é a <mark>redundância de dados</mark>.[1]</li>
+                </ol>
+            </section>
+
+        </main>
+
+        <!-- Rodapé com Botão -->
+        <footer class="text-center mt-12 mb-6">
+            <a href="questoes.html" 
+               class="inline-block bg-blue-600 text-white font-bold py-3 px-8 rounded-lg text-lg shadow-md hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                Praticar com Questões
+            </a>
+        </footer>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo de Modelagem de Dados (IFPB)</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Importa a fonte Inter para melhor legibilidade -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Estilos personalizados */
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7; /* Espaçamento entre linhas para leitura */
+            background-color: #ffffff; /* Fundo branco, como solicitado */
+            color: #1f2937; /* Texto escuro (gray-800) */
+        }
+
+        /* Estilo para "grifar" (destacar) termos-chave para concurso */
+        mark {
+            background-color: #fef9c3; /* Amarelo claro (yellow-100) */
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-weight: 600; /* Deixa o texto grifado um pouco mais forte */
+            color: #3f3f46; /* Cor do texto grifado (zinc-700) */
+        }
+
+        /* Estilização da Tabela para evitar scroll horizontal */
+        table {
+            width: 100%; /* Ocupa 100% da largura do container */
+            border-collapse: collapse; /* Bordas unidas */
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            table-layout: fixed; /* Força o layout da tabela a se ajustar ao container */
+        }
+
+        th, td {
+            border: 1px solid #d1d5db; /* Borda cinza (gray-300) */
+            padding: 0.75rem; /* 12px de padding */
+            text-align: left;
+            vertical-align: top;
+            
+            /* ESSENCIAL: Quebra palavras longas para evitar scroll horizontal */
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        th {
+            background-color: #f3f4f6; /* Fundo do cabeçalho (gray-100) */
+            font-weight: 700; /* Negrito */
+        }
+
+        /* Estilo para o botão de "Questões" */
+        .questoes-button {
+            display: inline-block; /* Comportamento de link, mas com padding */
+            background-color: #1f2937; /* Fundo escuro (gray-800) */
+            color: #ffffff; /* Texto branco */
+            padding: 0.75rem 1.5rem; /* 12px vertical, 24px horizontal */
+            border-radius: 0.5rem; /* 8px de borda arredondada */
+            text-decoration: none; /* Sem sublinhado */
+            font-weight: 600; /* Semi-negrito */
+            transition: background-color 0.3s ease; /* Efeito suave ao passar o mouse */
+        }
+
+        .questoes-button:hover {
+            background-color: #374151; /* Cor mais clara (gray-700) ao passar o mouse */
+        }
+
+        /* Ajustes de espaçamento para os títulos */
+        h2 {
+            font-size: 1.875rem; /* 30px */
+            font-weight: 700;
+            margin-top: 2.5rem; /* 40px */
+            margin-bottom: 1rem; /* 16px */
+            padding-bottom: 0.5rem; /* 8px */
+            border-bottom: 2px solid #e5e7eb; /* Linha sutil (gray-200) */
+        }
+
+        h3 {
+            font-size: 1.5rem; /* 24px */
+            font-weight: 600;
+            margin-top: 2rem; /* 32px */
+            margin-bottom: 0.75rem; /* 12px */
+        }
+
+        h4 {
+            font-size: 1.25rem; /* 20px */
+            font-weight: 600;
+            margin-top: 1.5rem; /* 24px */
+            margin-bottom: 0.5rem; /* 8px */
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 1.5rem; /* 24px */
+            margin-bottom: 1rem; /* 16px */
+        }
+        
+        li {
+            margin-bottom: 0.5rem; /* 8px */
+        }
+
+    </style>
+</head>
+<body class="bg-white">
+
+    <!-- Container principal com largura máxima e centralizado -->
+    <div class="container mx-auto max-w-4xl p-4 sm:p-8">
+
+        <h1 class="text-4xl font-bold mb-8 text-center text-gray-800">Resumo: Modelagem de Dados (IFPB)</h1>
+
+        <!-- Reprodutor de Áudio -->
+        <div class="my-6 p-4 border border-gray-200 rounded-lg shadow-sm bg-gray-50">
+            <label for="audio-player" class="block text-sm font-medium text-gray-700 mb-2">Resumo em Áudio:</label>
+            <audio id="audio-player" controls class="w-full">
+                <!-- 
+                  IMPORTANTE: Substitua "SEU_ARQUIVO.mp3" 
+                  pelo nome do seu arquivo de áudio (ex: "aula1.mp3")
+                  O arquivo deve estar na mesma pasta deste index.html
+                -->
+                <source src="esp-modelos-dados.html.mp3" type="audio/mpeg">
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
+        </div>
+
+        <!-- 
+          INÍCIO DO CONTEÚDO DO RESUMO 
+        -->
+
+        <h2>RESUMO (PÁGINA 1): CONCEITOS E LÓGICO</h2>
+
+        <h3>Seção I. O Modelo Conceitual: A Abstração (MER)</h3>
+        <p>
+            O <mark>Modelo Entidade-Relacionamento (MER)</mark> é um modelo conceitual de <strong>alto nível</strong> [1, 2], abstrato e <strong>independente de SGBD</strong>.[2]
+        </p>
+
+        <h4>1.1. Fundamentos: Entidades e Atributos</h4>
+
+        <p><strong>Entidades:</strong> Objetos do mundo real sobre os quais guardamos dados.[3]</p>
+        <ul class="list-disc list-inside space-y-2">
+            <li><strong>Tangíveis (Físicas):</strong> `Cliente`, `Produto` [3, 4, 5]</li>
+            <li><strong>Intangíveis (Conceituais):</strong> `Empréstimo`, `Venda` [4, 6]</li>
+            <li><mark>Entidade Forte:</mark> Possui um atributo identificador (chave primária) próprio.[7] Ex: `CLIENTE (CPF)`.</li>
+            <li>
+                <mark>Entidade Fraca:</mark> Não possui identificador único; sua existência <strong>depende</strong> de uma entidade forte (dona).[3, 7, 8]
+                <ul class="list-circle list-inside ml-6 mt-2">
+                    <li><strong>Identificação:</strong> $PK$ da Fraca = (<mark>$PK$ da Forte [FK] + Chave Parcial da Fraca</mark>).[8, 9]</li>
+                    <li><strong>Exemplo:</strong> `FUNCIONARIO(CPF)` (Forte) e `DEPENDENTE(Nome)` (Fraca). A $PK$ de `DEPENDENTE` no modelo lógico será (`CPF_Funcionario`, `Nome`).[9, 10]</li>
+                </ul>
+            </li>
+        </ul>
+
+        <p class="mt-4"><strong>Atributos:</strong> Características das entidades.[3, 7, 11]</p>
+        <ul class="list-disc list-inside space-y-2">
+            <li>
+                <strong>Estrutura:</strong>
+                <ul class="list-circle list-inside ml-6 mt-2">
+                    <li>`Simples:` Atômico (Ex: `Salario`).[11]</li>
+                    <li>`Composto:` Divisível (Ex: `Endereco` $\rightarrow$ `Rua`, `Numero`, `CEP`).[11, 12]</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Valoração:</strong>
+                <ul class="list-circle list-inside ml-6 mt-2">
+                    <li>`Monovalorado:` Um valor (Ex: `CPF`).</li>
+                    <li><mark>Multivalorado:</mark> Vários valores (Ex: `Telefone` de um cliente).[12, 13]</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Derivação:</strong>
+                <ul class="list-circle list-inside ml-6 mt-2">
+                    <li>`Armazenado:` Valor guardado (Ex: `Data_Nascimento`).</li>
+                    <li>`Derivado:` Valor calculado (Ex: `Idade` $\leftarrow$ `Data_Nascimento`).[12, 14]</li>
+                </ul>
+            </li>
+            <li><strong>Função:</strong> `Identificador (Chave):` Identifica unicamente a entidade.[7, 11]</li>
+        </ul>
+
+        <h4>1.2. Relacionamentos: Cardinalidade e Participação</h4>
+        
+        <p><strong><mark>Cardinalidade (Máxima):</mark></strong> O número <strong>máximo</strong> de instâncias que podem se relacionar.[15, 16]</p>
+        <ul class="list-disc list-inside">
+            <li><strong>Um-para-Um ($1:1$):</strong> `FUNCIONARIO` (1) `gerencia` (1) `DEPARTAMENTO`.[17]</li>
+            <li><strong>Um-para-Muitos ($1:N$):</strong> `DEPARTAMENTO` (1) `emprega` ($N$) `FUNCIONARIOS`.[17, 18]</li>
+            <li><strong>Muitos-para-Muitos ($N:M$):</strong> `FUNCIONARIO` ($M$) `desenvolve` ($N$) `PROJETO`.[17]</li>
+        </ul>
+
+        <p class="mt-4"><strong><mark>Participação (Mínima):</mark></strong> O número <strong>mínimo</strong> (obrigatoriedade).[11]</p>
+        <ul class="list-disc list-inside">
+            <li><strong>Parcial (Opcional):</strong> Mínimo $0$. (Linha simples). Instância <em>pode existir</em> sem o relacionamento.[19] Mapeia para <mark>`NULL`</mark>.</li>
+            <li><strong>Total (Obrigatória):</strong> Mínimo $1$. (Linha dupla).[17, 20] Instância <em>deve</em> se relacionar. Mapeia para <mark>`NOT NULL`</mark>.[21]</li>
+        </ul>
+
+        <h4>1.3. Tópicos Avançados de MER (Nível Professor)</h4>
+        <ul class="list-disc list-inside space-y-2">
+            <li>
+                <strong><mark>Auto-Relacionamento (Recursivo):</mark></strong> Entidade se relaciona consigo mesma.[22]
+                <ul class="list-circle list-inside ml-6 mt-2">
+                    <li>Ex: $1:1$ (`PESSOA` `casada_com` `PESSOA` [23, 24]), $1:N$ (`FUNCIONARIO` `supervisiona` `FUNCIONARIO` [24]), $N:M$ (`DISCIPLINA` `pre_requisito_de` `DISCIPLINA` [25]).</li>
+                </ul>
+            </li>
+            <li>
+                <strong><mark>Entidade Associativa:</mark></strong> Necessária quando um relacionamento $N:M$ <strong>possui atributos</strong>. O relacionamento vira uma nova entidade.[12]
+                <ul class="list-circle list-inside ml-6 mt-2">
+                    <li>Ex: `ALUNO` ($N$) e `DISCIPLINA` ($M$). Onde guardar a `Nota`? Na entidade associativa `MATRICULA`.[12] (Ex2: `PRESCRICAO` [26]).</li>
+                </ul>
+            </li>
+            <li><strong>Agregação:</strong> Trata um <em>relacionamento existente</em> como um bloco abstrato para que ele participe de <em>outro</em> relacionamento.[27, 28]</li>
+            <li>
+                <strong><mark>Generalização/Especialização (Herança):</mark></strong> Relacionamento "é-um".[5, 27]
+                <ul class="list-circle list-inside ml-6 mt-2">
+                    <li><strong>Super-classe:</strong> Entidade genérica (Ex: `PESSOA`).[5, 27]</li>
+                    <li><strong>Sub-classes:</strong> Entidades especializadas (Ex: `ALUNO`, `PROFESSOR`).[5]</li>
+                    <li><strong>Restrições:</strong> `Total` (toda super-classe deve ser uma sub-classe) vs. `Parcial` (pode ser só a super-classe) [5, 29]; `Exclusiva` (só pode ser uma sub-classe) vs. `Sobreposta` (pode ser várias sub-classes).</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3>Seção II. O Modelo Lógico: A Estrutura (Relacional)</h3>
+        <p>Tradução do MER para um modelo implementável (Ex: Relacional).[1, 30]</p>
+        
+        <h4>2.1. Terminologia Formal (Foco da Banca AOCP) [31]</h4>
+        <p class="font-semibold text-center mt-6">Tabela 1: De-Para Terminológico (Conceitual $\rightarrow$ Lógico $\rightarrow$ Físico) [31]</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nível Conceitual (MER)</th>
+                    <th>Nível Lógico (Modelo Relacional Formal)</th>
+                    <th>Nível Físico (SQL / Implementação)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Entidade / Conjunto-Entidade</td>
+                    <td><strong><mark>Relação</mark></strong> (ou Relação-Base) [32, 33]</td>
+                    <td><strong>Tabela</strong> (`TABLE`)</td>
+                </tr>
+                <tr>
+                    <td>Instância da Entidade</td>
+                    <td><strong><mark>Tupla</mark></strong> [34]</td>
+                    <td><strong>Linha</strong> (`ROW`)</td>
+                </tr>
+                <tr>
+                    <td>Atributo</td>
+                    <td><strong>Atributo</strong> [34]</td>
+                    <td><strong>Coluna</strong> (`COLUMN`)</td>
+                </tr>
+                <tr>
+                    <td>Atributo Identificador</td>
+                    <td><strong>Chave Candidata</strong> / <strong>Primária</strong></td>
+                    <td><strong>Chave Primária</strong> (`PRIMARY KEY`)</td>
+                </tr>
+                <tr>
+                    <td>(Não possui termo direto)</td>
+                    <td><strong><mark>Domínio</mark></strong> [35]</td>
+                    <td>`Tipo de Dado` + `CONSTRAINT` (ex: `CHECK` [21])</td>
+                </tr>
+                <tr>
+                    <td>Relacionamento</td>
+                    <td><strong>Chave Estrangeira</strong> (Mecanismo)</td>
+                    <td><strong>Chave Estrangeira</strong> (`FOREIGN KEY`)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>2.2. O Panteão das Chaves: O Mecanismo de Relacionamento</h4>
+        <ul class="list-disc list-inside space-y-2">
+            <li><strong>Superchave:</strong> Um ou mais atributos que identificam unicamente uma tupla (pode ter atributos redundantes).[34]</li>
+            <li><strong><mark>Chave Candidata:</mark></strong> Uma superchave <strong>mínima</strong> (sem atributos redundantes).[34] Ex: Tabela `SUSPEITO` pode ter `{ID_SUSPEITO}`, `{CPF}` e `{RG}` como chaves candidatas.[36]</li>
+            <li><strong><mark>Chave Primária ($PK$):</mark></strong> A <strong>uma</strong> chave candidata <strong>escolhida</strong> pelo projetista. Não pode ser `NULL`.[36, 37]</li>
+            <li><strong>Chave Alternativa ($UK$):</strong> As chaves candidatas que <em>não</em> foram escolhidas como $PK$.[36] Implementadas com `CONSTRAINT UNIQUE`.[36]</li>
+            <li><strong><mark>Chave Estrangeira ($FK$):</mark></strong> Atributos em uma tabela que "apontam" para a $PK$ de outra (ou da mesma) tabela.[34, 37] É o "ponteiro lógico" [38] que implementa o relacionamento.[39, 40]</li>
+            <li><strong>Integridade Referencial:</strong> Garantia de que o valor da $FK$ deve existir na $PK$ referenciada, ou ser `NULL` (se a participação for opcional).[34, 41]</li>
+        </ul>
+
+        <!-- PÁGINA 2 -->
+        
+        <h2>RESUMO (PÁGINA 2): MAPEAMENTO (A PONTE)</h2>
+        
+        <h3>Seção III. A Ponte: Mapeamento do MER para o Relacional [30]</h3>
+
+        <p class="font-semibold text-center mt-6">Tabela 2: Guia Rápido de Mapeamento MER $\rightarrow$ Relacional (Foco de Concurso)</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Construto do MER</th>
+                    <th>Ação de Mapeamento no Modelo Relacional</th>
+                    <th>Exemplo ($PK$ da Nova Tabela)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Entidade Forte</strong></td>
+                    <td>Criar nova Tabela</td>
+                    <td>`(PK)`</td>
+                </tr>
+                <tr>
+                    <td><strong><mark>Entidade Fraca</mark></strong></td>
+                    <td>Criar nova Tabela</td>
+                    <td><mark>`(PK_Forte [FK], Chave_Parcial)`</mark></td>
+                </tr>
+                <tr>
+                    <td><strong><mark>Atributo Multivalorado</mark></strong></td>
+                    <td><strong>Criar nova Tabela</strong></td>
+                    <td><mark>`(PK_Entidade [FK], Atributo)`</mark></td>
+                </tr>
+                <tr>
+                    <td><strong>Relacionamento $1:1$</strong></td>
+                    <td>Migração de $FK$ (com `UNIQUE`)</td>
+                    <td>(PK da tabela que recebe a $FK$)</td>
+                </tr>
+                <tr>
+                    <td><strong>Relacionamento $1:N$</strong></td>
+                    <td>Migração de $FK$ (do lado '1' para o '$N$')</td>
+                    <td>(PK da tabela '$N$')</td>
+                </tr>
+                <tr>
+                    <td><strong><mark>Relacionamento $N:M$</mark></strong></td>
+                    <td><strong>Criar nova Tabela</strong> (Associativa)</td>
+                    <td><mark>`(PK_Entidade1 [FK], PK_Entidade2 [FK])`</mark></td>
+                </tr>
+                <tr>
+                    <td><strong>Auto-Rel. $1:N$</strong></td>
+                    <td>Adicionar $FK$ na <em>própria</em> tabela</td>
+                    <td>($PK$ da tabela)</td>
+                </tr>
+                <tr>
+                    <td><strong>Auto-Rel. $N:M$</strong></td>
+                    <td>Criar nova Tabela (com 2 $FK$s p/ a mesma tabela)</td>
+                    <td>`(PK_Entidade [FK1], PK_Entidade [FK2])`</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>3.1. Regras de Mapeamento Detalhadas</h4>
+        <ul class="space-y-4">
+            <li>
+                <strong>Regra 1: Mapeamento de Entidades Fortes [42, 43]</strong>
+                <ul class="list-disc list-inside ml-6 mt-1">
+                    <li><strong>Ação:</strong> Vira Tabela.</li>
+                    <li><strong>Atributos:</strong> `Simples` $\rightarrow$ colunas. `Compostos` $\rightarrow$ colunas separadas para cada sub-atributo.[43] `Identificador` $\rightarrow$ $PK$.[43]</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Regra 2: Mapeamento de Entidades Fracas [8, 10, 43]</strong>
+                <ul class="list-disc list-inside ml-6 mt-1">
+                    <li><strong>Ação:</strong> Vira Tabela.</li>
+                    <li><strong>$PK$ (Chave Primária):</strong> <mark>Composta</mark> pela $FK$ da entidade dona (forte) + Chave Parcial da fraca.[8, 10, 43]</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Regra 3: Mapeamento de Atributos Multivalorados [43, 44, 45]</strong>
+                <ul class="list-disc list-inside ml-6 mt-1">
+                    <li><strong>Ação:</strong> <strong><mark>Sempre</mark></strong> criar uma <strong>nova tabela</strong> (Não fazer isso viola a 1FN [45]).</li>
+                    <li><strong>$PK$ (Chave Primária):</strong> <mark>Composta</mark> pela $FK$ da entidade original + o próprio atributo.[43]</li>
+                    <li><strong>Exemplo:</strong> `FUNCIONARIO(CPF [PK])` com `Telefone` multivalorado $\rightarrow$ Gera Tabela `FUNC_TELEFONES(CPF_Func [FK], Telefone)`. $PK$ é (`CPF_Func`, `Telefone`).[43, 45]</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Regra 4: Mapeamento de Relacionamentos $1:N$ [17, 43]</strong>
+                <ul class="list-disc list-inside ml-6 mt-1">
+                    <li><strong>Ação:</strong> $PK$ do lado '1' <strong>migra</strong> como <mark>$FK$ para a tabela do lado '$N$'</mark>.[46]</li>
+                    <li><strong>Restrição:</strong> Se a participação do lado '$N$' for <strong>Total</strong> (obrigatória), a $FK$ deve ser <mark>`NOT NULL`</mark>.[20]</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Regra 5: Mapeamento de Relacionamentos $1:1$ [17, 43]</strong>
+                <ul class="list-disc list-inside ml-6 mt-1">
+                    <li><strong>Ação:</strong> Migração de $FK$ (similar ao 1:N). A $FK$ na tabela que a recebe <em>deve</em> ter a restrição <mark>`UNIQUE`</mark> para garantir o 1:1.</li>
+                    <li><strong>Otimização:</strong> Alocar a $FK$ na tabela que tem <strong>participação total</strong> (se houver) para evitar `NULL`s.</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Regra 6: Mapeamento de Relacionamentos $N:M$ [11, 30, 43]</strong>
+                <ul class="list-disc list-inside ml-6 mt-1">
+                    <li><strong>Ação:</strong> <strong><mark>Sempre</mark></strong> criar uma <strong>nova tabela</strong> (associativa).</li>
+                    <li><strong>$PK$ (Chave Primária):</strong> <mark>Composta</mark> pelas $FK$s das duas entidades participantes.[30]</li>
+                    <li><strong>Atributos:</strong> Atributos do relacionamento (se houver, como em Entidades Associativas) viram colunas nesta nova tabela.[12, 26, 30]</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Regra 7: Mapeamento de Auto-Relacionamentos [23, 24, 25]</strong>
+                <ul class="list-disc list-inside ml-6 mt-1">
+                    <li>Aplica-se as regras 4, 5 ou 6, mas a $FK$ referencia a <em>própria tabela</em>.</li>
+                    <li><strong>Ex ($1:N$ - Supervisor):</strong> `FUNCIONARIO(CPF [PK],..., CPF_Supervisor [FK])`. A $FK$ `CPF_Supervisor` referencia `FUNCIONARIO(CPF)`.[24, 43]</li>
+                    <li><strong>Ex ($N:M$ - Pré-requisito):</strong> `DISCIPLINA(Cod [PK])` $\rightarrow$ Gera Tabela `PRE_REQUISITO(Cod_Disc [FK], Cod_Req [FK])`.[25]</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Regra 8: Mapeamento de Generalização/Especialização [5, 27]</strong>
+                <ul class="list-disc list-inside ml-6 mt-1">
+                    <li><strong>Ação:</strong> Abordagem mais comum (Super + Sub-classes).</li>
+                    <li>1. Tabela para a <strong>Super-classe</strong> com $PK$ e atributos comuns (Ex: `PESSOA(CPF [PK], Nome)`).</li>
+                    <li>2. Tabela para <strong>cada Sub-classe</strong> com atributos específicos.</li>
+                    <li>3. A $PK$ de cada Sub-classe é também uma <mark>$FK$ que referencia a $PK$ da Super-classe</mark> (Ex: `ALUNO(CPF_Pessoa [PK, FK], Matricula)`).</li>
+                </ul>
+            </li>
+        </ul>
+
+        <!-- Botão de Questões -->
+        <div class="mt-12 pt-8 border-t border-gray-200 text-center">
+            <a href="questoes.html" class="questoes-button">
+                Ir para Questões
+            </a>
+        </div>
+
+    </div> <!-- Fim do container principal -->
+
+</body>
+</html>

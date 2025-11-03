@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo: Fundamentos de Banco de Dados</title>
+    <!-- Carrega o Tailwind CSS para estilização -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Define a fonte Inter como padrão para melhor legibilidade */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        /* Garante que o conteúdo dentro das tabelas possa quebrar a linha se necessário */
+        table td,
+        table th {
+            word-break: break-word;
+            hyphens: auto;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900">
+
+    <!-- Container Principal -->
+    <div class="max-w-4xl mx-auto p-5 sm:p-8 lg:p-10">
+
+        <header class="mb-8 border-b pb-4">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 text-center">
+                Resumo de Memorização: Fundamentos de Banco de Dados
+            </h1>
+        </header>
+
+        <!-- Reprodutor de Áudio -->
+        <section class="mb-8 p-4 border border-gray-200 rounded-lg bg-gray-50">
+            <h2 class="text-lg font-semibold text-gray-700 mb-3">Resumo em Áudio</h2>
+            <p class="text-sm text-gray-600 mb-3">
+                Substitua "SEU_ARQUIVO_AQUI.mp3" pelo nome do seu arquivo de áudio. Ele deve estar na mesma pasta que este arquivo HTML.
+            </p>
+            <audio controls class="w-full">
+                <!-- Edite o atributo 'src' abaixo -->
+                <source src="esp-fundamentos-bd.mp3" type="audio/mpeg">
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
+        </section>
+
+        <!-- Conteúdo do Resumo -->
+        <main>
+
+            <!-- Tópico 1: Mapeamento MER -> Relacional -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-semibold mb-5 text-gray-700 border-b pb-2">
+                    Tópico 1: Mapeamento MER $\to$ Modelo Relacional
+                </h2>
+                <p class="mb-4 text-base leading-relaxed">
+                    O objetivo é traduzir o Modelo Entidade-Relacionamento (MER) para o Modelo Relacional (MR).
+                </p>
+
+                <h3 class="text-lg font-semibold mt-6 mb-3">Regras Essenciais de Mapeamento:</h3>
+                <ul class="list-disc list-inside space-y-2 text-base leading-relaxed">
+                    <li><strong>Entidade Forte:</strong> Vira Tabela. A PK da entidade vira PK da tabela.</li>
+                    <li><strong>Entidade Fraca:</strong> Vira Tabela. <span class="bg-yellow-100 px-1 rounded-sm">A PK é composta por: (FK da entidade proprietária + Chave Parcial da entidade fraca)</span>.</li>
+                    <li><strong>Relacionamento 1:1:</strong> Chave Estrangeira (FK). A PK de uma entidade migra para a tabela da outra (preferencialmente para o lado com participação total).</li>
+                    <li><strong>Relacionamento 1:N:</strong> Chave Estrangeira (FK). <span class="bg-yellow-100 px-1 rounded-sm">A PK do lado '1' <strong>sempre</strong> migra como FK para a tabela do lado 'N'</span>.</li>
+                    <li><strong>Relacionamento M:N:</strong> <strong><span class="bg-yellow-100 px-1 rounded-sm">Nova Tabela Associativa</span></strong>. A PK desta nova tabela é composta pelas FKs de ambas as entidades participantes.</li>
+                    <li><strong>Atributo Multivalorado:</strong> <strong><span class="bg-yellow-100 px-1 rounded-sm">Nova Tabela</span></strong>. A PK é composta por: (FK da entidade original + o próprio atributo).</li>
+                    <li><strong>Relacionamento N-ário ($n > 2$):</strong> <strong>Nova Tabela Associativa</strong>. Similar ao M:N, incluindo as PKs de todas as $n$ entidades como FKs.</li>
+                </ul>
+
+                <h3 class="text-lg font-semibold mt-6 mb-3">Tabela Essencial 1: Resumo do Mapeamento MER $\to$ Relacional</h3>
+                <!-- Container da Tabela para permitir rolagem em telas pequenas sem quebrar o layout da página -->
+                <div class="w-full overflow-x-auto shadow-sm rounded-lg border border-gray-200 mb-6">
+                    <table class="w-full min-w-[600px] text-left text-sm">
+                        <thead class="bg-gray-100 text-gray-700 uppercase tracking-wider">
+                            <tr>
+                                <th class="p-3 font-semibold">Elemento MER</th>
+                                <th class="p-3 font-semibold">Mapeamento no Modelo Relacional (MR)</th>
+                                <th class="p-3 font-semibold">Exemplo Prático</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="p-3">Entidade Forte</td>
+                                <td class="p-3">Nova Tabela</td>
+                                <td class="p-3"><code>PROJETO</code></td>
+                            </tr>
+                            <tr>
+                                <td class="p-3">Entidade Fraca</td>
+                                <td class="p-3">Nova Tabela (PK = PK da Forte [FK] + Chave Parcial)</td>
+                                <td class="p-3"><code>DEPENDENTE</code></td>
+                            </tr>
+                            <tr>
+                                <td class="p-3">Relacionamento 1:1</td>
+                                <td class="p-3">Chave Estrangeira (FK) (no lado de participação total)</td>
+                                <td class="p-3"><code>DEPARTAMENTO</code> (recebe FK do gerente)</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3">Relacionamento 1:N</td>
+                                <td class="p-3">Chave Estrangeira (FK) (Sempre migra para o lado 'N')</td>
+                                <td class="p-3"><code>EMPREGADO</code> (lado 'N', recebe FK de <code>DEPARTAMENTO</code>)</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3">Relacionamento M:N</td>
+                                <td class="p-3"><strong>Nova Tabela Associativa</strong> (PK = FKs de ambas)</td>
+                                <td class="p-3"><code>TRABALHA_EM</code></td>
+                            </tr>
+                            <tr>
+                                <td class="p-3">Atributo Multivalorado</td>
+                                <td class="p-3"><strong>Nova Tabela</strong> (PK = FK da entidade + atributo)</td>
+                                <td class="p-3"><code>DEPT_LOCATIONS</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Tópico 2: Normalização -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-semibold mb-5 text-gray-700 border-b pb-2">
+                    Tópico 2: Normalização
+                </h2>
+                <p class="mb-4 text-base leading-relaxed">
+                    Objetivo: Reduzir redundância e eliminar anomalias.
+                </p>
+
+                <h3 class="text-lg font-semibold mt-6 mb-3">Anomalias (Problemas da Não Normalização):</h3>
+                <ol class="list-decimal list-inside space-y-2 text-base leading-relaxed">
+                    <li><strong>Inserção:</strong> <span class="bg-yellow-100 px-1 rounded-sm">Não é possível cadastrar uma nova agência (lado '1') até que ela tenha um funcionário (lado 'N')</span>.</li>
+                    <li><strong>Atualização:</strong> <span class="bg-yellow-100 px-1 rounded-sm">Mudar o endereço de uma agência exige atualizar o registro de <strong>todos</strong> os seus funcionários</span>. Se um falhar, gera inconsistência.</li>
+                    <li><strong>Exclusão:</strong> <span class="bg-yellow-100 px-1 rounded-sm">Ao demitir o <strong>último</strong> funcionário de uma agência, os dados da própria agência (que estavam na mesma linha) são perdidos</span>.</li>
+                </ol>
+
+                <h3 class="text-lg font-semibold mt-6 mb-3">Dependência Funcional (DF):</h3>
+                <ul class="list-disc list-inside space-y-2 text-base leading-relaxed">
+                    <li><strong>Definição:</strong> $A \to B$ (A determina B). Para cada valor de A, existe apenas um valor de B.</li>
+                    <li><strong>Parcial:</strong> <span class="bg-yellow-100 px-1 rounded-sm">Atributo não-chave depende de <strong>apenas parte</strong> de uma PK composta</span>. (Resolvido na 2FN).</li>
+                    <li><strong>Transitiva:</strong> <span class="bg-yellow-100 px-1 rounded-sm">Atributo não-chave depende de <strong>outro</strong> atributo não-chave</span>. ($A \to B \to C$). (Resolvido na 3FN).</li>
+                </ul>
+
+                <h3 class="text-lg font-semibold mt-6 mb-3">Formas Normais (FN):</h3>
+                <ul class="list-disc list-inside space-y-2 text-base leading-relaxed">
+                    <li><strong>1FN:</strong> Atributos devem ser <strong><span class="bg-yellow-100 px-1 rounded-sm">atômicos</span></strong> (indivisíveis). Não pode ter atributos multivalorados.</li>
+                    <li><strong>2FN:</strong> Estar na 1FN + <strong><span class="bg-yellow-100 px-1 rounded-sm">Não ter dependências parciais</span></strong>. (Relevante apenas para tabelas com PK composta).</li>
+                    <li><strong>3FN:</strong> Estar na 2FN + <strong><span class="bg-yellow-100 px-1 rounded-sm">Não ter dependências transitivas</span></strong>.</li>
+                    <li><strong>BCNF (Forma Normal de Boyce-Codd):</strong> Mais rigorosa que a 3FN. Para <strong>toda</strong> DF $X \to Y$, <span class="bg-yellow-100 px-1 rounded-sm">$X$ deve ser uma <strong>superchave</strong></span>.</li>
+                </ul>
+                
+                <h3 class="text-lg font-semibold mt-6 mb-3">Tabela Essencial 2: Exemplo Prático de Normalização</h3>
+                <div class="w-full overflow-x-auto shadow-sm rounded-lg border border-gray-200 mb-6">
+                    <table class="w-full min-w-[600px] text-left text-sm">
+                        <thead class="bg-gray-100 text-gray-700 uppercase tracking-wider">
+                            <tr>
+                                <th class="p-3 font-semibold">Forma Normal</th>
+                                <th class="p-3 font-semibold">Tabela(s) Resultante(s)</th>
+                                <th class="p-3 font-semibold">Justificativa (O que foi resolvido)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="p-3">Não Normalizada</td>
+                                <td class="p-3"><code>Pedidos</code> (ID_Pedido, Data, ID_Cliente, Nome_Cliente, Produtos_Lista [Item1, Qtd1], Total)</td>
+                                <td class="p-3"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-3">1FN</td>
+                                <td class="p-3"><code>Pedidos</code> (ID_Pedido, Data, ID_Cliente, Nome_Cliente, Total) <br> <code>Detalhes</code> (ID_Pedido, Produto, Qtd, Preco)</td>
+                                <td class="p-3">Eliminou atributo multivalorado (<code>Produtos_Lista</code>).</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3">2FN</td>
+                                <td class="p-3"><code>Pedidos</code> (ID_Pedido, Data, ID_Cliente, Nome_Cliente, Total) <br> <code>Detalhes</code> (ID_Pedido, ID_Produto, Qtd) <br> <code>Produtos</code> (ID_Produto, Produto, Preco)</td>
+                                <td class="p-3">Eliminou dependência parcial (Produto/Preco dependiam de ID_Produto, não de ID_Pedido).</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3">3FN</td>
+                                <td class="p-3"><code>Pedidos</code> (ID_Pedido, Data, ID_Cliente, Total) <br> <code>Clientes</code> (ID_Cliente, Nome_Cliente) <br> <code>Detalhes</code> (ID_Pedido, ID_Produto, Qtd) <br> <code>Produtos</code> (ID_Produto, Produto, Preco)</td>
+                                <td class="p-3">Eliminou dependência transitiva (Nome_Cliente dependia de ID_Cliente).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Tópico 3: Linguagens de Consulta (SQL) -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-semibold mb-5 text-gray-700 border-b pb-2">
+                    Tópico 3: Linguagens de Consulta (SQL)
+                </h2>
+
+                <h3 class="text-lg font-semibold mt-6 mb-3">DDL (Data Definition Language) – Estrutura</h3>
+                <ul class="list-disc list-inside space-y-2 text-base leading-relaxed">
+                    <li><code>CREATE TABLE</code>: Define tabelas e <strong>Constraints</strong> (Restrições).</li>
+                    <li><strong>Ações de Integridade Referencial (FK):</strong>
+                        <ul class="list-['–'] list-inside space-y-2 ml-6 mt-2">
+                            <li><code>ON DELETE RESTRICT</code> / <code>NO ACTION</code> (Padrão): <span class="bg-yellow-100 px-1 rounded-sm"><strong>Bloqueia</strong> a exclusão do "pai" se ele tiver "filhos"</span>.</li>
+                            <li><code>ON DELETE CASCADE</code>: <span class="bg-yellow-100 px-1 rounded-sm"><strong>Propaga</strong> a exclusão. Excluir o "pai" exclui <strong>automaticamente</strong> os "filhos"</span>.</li>
+                            <li><code>ON DELETE SET NULL</code>: <span class="bg-yellow-100 px-1 rounded-sm">Excluir o "pai" atualiza a FK dos "filhos" para <code>NULL</code></span>.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h3 class="text-lg font-semibold mt-6 mb-3">DML (Data Manipulation Language) – Dados</h3>
+                <ul class="list-disc list-inside space-y-2 text-base leading-relaxed">
+                    <li><code>INSERT</code>: Adiciona novas linhas.</li>
+                    <li><code>UPDATE</code>: Modifica linhas existentes.</li>
+                    <li><code>DELETE</code>: Remove linhas. (Cuidado: <code>DELETE FROM tabela</code> sem <code>WHERE</code> apaga <strong>tudo</strong>).</li>
+                </ul>
+
+                <h3 class="text-lg font-semibold mt-6 mb-3">DQL (Data Query Language) – Consulta (<code>SELECT</code>)</h3>
+                <ul class="list-disc list-inside space-y-2 text-base leading-relaxed">
+                    <li><strong>Junções (JOINs):</strong>
+                        <ul class="list-['–'] list-inside space-y-2 ml-6 mt-2">
+                            <li><code>INNER JOIN</code>: Apenas linhas com correspondência em <strong><span class="bg-yellow-100 px-1 rounded-sm">ambas</span></strong> as tabelas.</li>
+                            <li><code>LEFT JOIN</code>: <strong><span class="bg-yellow-100 px-1 rounded-sm">Todas</span></strong> as linhas da tabela da <strong>Esquerda</strong> + correspondências da Direita (<code>NULL</code> onde não houver).</li>
+                            <li><code>RIGHT JOIN</code>: <strong><span class="bg-yellow-100 px-1 rounded-sm">Todas</span></strong> as linhas da tabela da <strong>Direita</strong> + correspondências da Esquerda.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Agregação:</strong>
+                        <ul class="list-['–'] list-inside space-y-2 ml-6 mt-2">
+                            <li><code>GROUP BY</code>: Agrupa linhas para usar funções (<code>COUNT</code>, <code>SUM</code>, <code>AVG</code>, <code>MAX</code>, <code>MIN</code>).</li>
+                            <li><code>HAVING</code>: Filtra <strong>grupos</strong> (<span class="bg-yellow-100 px-1 rounded-sm">é o <code>WHERE</code> do <code>GROUP BY</code></span>).</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h3 class="text-lg font-semibold mt-6 mb-3">Armadilha de Concurso: <code>LEFT JOIN</code> + <code>WHERE</code></h3>
+                <p class="mb-3 text-base leading-relaxed">Cenário: Listar <strong>todos</strong> funcionários (A) e contar apenas suas chamadas "outgoing" (B).</p>
+                <p class="font-semibold">Consulta ERRADA:</p>
+                <pre class="bg-gray-50 p-4 rounded-md border border-gray-200 overflow-x-auto text-sm font-mono my-2"><code>
+SELECT A.name, COUNT(B.call_id)
+FROM EmployeeTable A
+LEFT JOIN CallTable B ON A.name = B.call_from_name
+<strong class="text-red-600">WHERE B.call_type = 'outgoing'  -- &lt;--- ARMADILHA</strong>
+GROUP BY A.name;
+                </code></pre>
+                <p class="mb-3 text-base leading-relaxed">
+                    <strong>Por quê?</strong> O <code>WHERE</code> é aplicado <strong><span class="bg-yellow-100 px-1 rounded-sm">depois</span></strong> do <code>LEFT JOIN</code>. Ele filtra as linhas onde $B.call\_type$ é <code>NULL</code> (funcionários sem chamadas), <span class="bg-yellow-100 px-1 rounded-sm">transformando o <code>LEFT JOIN</code> em um <code>INNER JOIN</code></span> e eliminando funcionários do resultado.
+                </p>
+                <p class="font-semibold">Consulta CORRETA (Mover o filtro para o <code>ON</code>):</p>
+                <pre class="bg-gray-50 p-4 rounded-md border border-gray-200 overflow-x-auto text-sm font-mono my-2"><code>
+SELECT A.name, COUNT(B.call_id)
+FROM EmployeeTable A
+LEFT JOIN CallTable B ON A.name = B.call_from_name
+                   <strong class="text-green-700">AND B.call_type = 'outgoing' -- &lt;--- <span class="bg-yellow-100 px-1 rounded-sm">CORRETO (Filtra na junção)</span></strong>
+GROUP BY A.name;
+                </code></pre>
+            </section>
+
+            <!-- Tópico 4: SGBDR e Propriedades ACID -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-semibold mb-5 text-gray-700 border-b pb-2">
+                    Tópico 4: SGBDR e Propriedades ACID
+                </h2>
+                <ul class="list-disc list-inside space-y-3 text-base leading-relaxed">
+                    <li><strong>SGBDR (Sistema de Gerenciamento de BD Relacional):</strong> O software (Ex: MySQL, PostgreSQL, Oracle) que implementa o modelo relacional.</li>
+                    <li><strong>Propriedades ACID:</strong> Garantem a confiabilidade das transações.
+                        <ol class="list-decimal list-inside space-y-2 ml-6 mt-3">
+                            <li><strong>A - Atomicidade (Atomicity):</strong> "<span class="bg-yellow-100 px-1 rounded-sm">Tudo ou nada</span>". A transação ou é completada (COMMIT) ou desfeita (ROLLBACK).</li>
+                            <li><strong>C - Consistência (Consistency):</strong> A transação leva o banco de um <span class="bg-yellow-100 px-1 rounded-sm">estado válido para outro estado válido</span>, respeitando todas as regras.</li>
+                            <li><strong>I - Isolamento (Isolation):</strong> <span class="bg-yellow-100 px-1 rounded-sm">Transações concorrentes não interferem umas nas outras</span>. O resultado é como se fossem executadas em sequência.</li>
+                            <li><strong>D - Durabilidade (Durability):</strong> Uma vez que a transação é confirmada (COMMIT), ela é <span class="bg-yellow-100 px-1 rounded-sm">permanente</span>, mesmo em caso de falha.</li>
+                        </ol>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Tópico 5: Segurança em Banco de Dados -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-semibold mb-5 text-gray-700 border-b pb-2">
+                    Tópico 5: Segurança em Banco de Dados
+                </h2>
+
+                <h3 class="text-lg font-semibold mt-6 mb-3">Controle de Acesso (DCL - Data Control Language):</h3>
+                <ul class="list-disc list-inside space-y-2 text-base leading-relaxed">
+                    <li><code>GRANT</code>: <strong><span class="bg-yellow-100 px-1 rounded-sm">Concede</span></strong> privilégios (Ex: <code>GRANT SELECT ON clientes TO josemar;</code>).</li>
+                    <li><code>REVOKE</code>: <strong><span class="bg-yellow-100 px-1 rounded-sm">Remove</span></strong> privilégios (Ex: <code>REVOKE SELECT ON clientes FROM josemar;</code>).</li>
+                    <li><code>WITH GRANT OPTION</code>: Permite que o usuário que recebeu a permissão <span class="bg-yellow-100 px-1 rounded-sm">também a conceda a outros</span>.</li>
+                    <li><code>REVOKE... CASCADE</code>: Revoga a permissão do usuário <span class="bg-yellow-100 px-1 rounded-sm">E de todos os outros para quem ele a concedeu</span>.</li>
+                </ul>
+
+                <h3 class="text-lg font-semibold mt-6 mb-3">Criptografia:</h3>
+                <ul class="list-disc list-inside space-y-2 text-base leading-relaxed">
+                    <li><strong>Em Repouso (At-Rest):</strong> Protege os arquivos de dados físicos no disco (Ex: TDE).</li>
+                    <li><strong>Em Trânsito (In-Transit):</strong> Protege a comunicação na rede (Ex: SSL/TLS).</li>
+                </ul>
+                
+                <h3 class="text-lg font-semibold mt-6 mb-3">Auditoria:</h3>
+                <ul class="list-disc list-inside space-y-2 text-base leading-relaxed">
+                    <li><strong>Conceito:</strong> Monitorar e registrar ações (quem fez o quê, quando) para prevenir ou detectar violações.</li>
+                    <li><strong>Auditoria C2:</strong> Modo de auditoria (obsoleto, mas cobrado) que registra "tudo ou nada", como logins (sucesso/falha), criação/exclusão de objetos e chamadas de procedures.</li>
+                </ul>
+            </section>
+
+            <!-- Tópico 6: Bancos de Dados NoSQL -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-semibold mb-5 text-gray-700 border-b pb-2">
+                    Tópico 6: Bancos de Dados NoSQL ("Not Only SQL")
+                </h2>
+                <p class="mb-4 text-base leading-relaxed">
+                    Alternativa aos SGBDRs para lidar com Big Data (Volume, Variedade, Velocidade).
+                </p>
+
+                <h3 class="text-lg font-semibold mt-6 mb-3">Trade-off Central: ACID vs. BASE</h3>
+                <ul class="list-disc list-inside space-y-2 text-base leading-relaxed">
+                    <li>Relacional (SGBDR) = <strong>ACID</strong> (Foco na <strong><span class="bg-yellow-100 px-1 rounded-sm">Consistência</span></strong>).</li>
+                    <li>NoSQL = <strong>BASE</strong> (Foco na <strong><span class="bg-yellow-100 px-1 rounded-sm">Disponibilidade</span></strong>).
+                        <ul class="list-['–'] list-inside space-y-2 ml-6 mt-2">
+                            <li><strong>B</strong>asically <strong>A</strong>vailable (Basicamente Disponível).</li>
+                            <li><strong>S</strong>oft State (Estado "Suave" - pode mudar sem intervenção).</li>
+                            <li><strong>E</strong>ventual <strong>C</strong>onsistency (<strong><span class="bg-yellow-100 px-1 rounded-sm">Consistência Eventual</span></strong>). O sistema <strong>eventualmente</strong> fica consistente; <span class="bg-yellow-100 px-1 rounded-sm">leituras imediatas após escritas podem retornar dados antigos</span>.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h3 class="text-lg font-semibold mt-6 mb-3">4 Tipos Principais de NoSQL:</h3>
+                <ol class="list-decimal list-inside space-y-2 text-base leading-relaxed">
+                    <li><strong>Orientados a Documentos:</strong> Armazena em JSON/BSON. (Ex: <strong>MongoDB</strong>).</li>
+                    <li><strong>Chave-Valor:</strong> Dicionário de alta performance. (Ex: <strong>Redis</strong>).</li>
+                    <li><strong>Orientados a Colunas (Column-Family):</strong> Otimizado para Big Data e IoT. (Ex: <strong>Cassandra</strong>).</li>
+                    <li><strong>Orientados a Grafos:</strong> Foco nos relacionamentos (Nós e Arestas). (Ex: <strong>Neo4j</strong>).</li>
+                </ol>
+
+                <h3 class="text-lg font-semibold mt-6 mb-3">Tabela Essencial 3: Relacional vs. NoSQL (Resumo de Concurso)</h3>
+                <div class="w-full overflow-x-auto shadow-sm rounded-lg border border-gray-200 mb-6">
+                    <table class="w-full min-w-[600px] text-left text-sm">
+                        <thead class="bg-gray-100 text-gray-700 uppercase tracking-wider">
+                            <tr>
+                                <th class="p-3 font-semibold">Característica</th>
+                                <th class="p-3 font-semibold">Banco de Dados Relacional (SGBDR)</th>
+                                <th class="p-3 font-semibold">Banco de Dados NoSQL</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="p-3"><strong>Modelo de Dados</strong></td>
+                                <td class="p-3">Tabelas (Linhas e Colunas)</td>
+                                <td class="p-3">Documento, Chave-Valor, Coluna, Grafo</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3"><strong>Esquema (Schema)</strong></td>
+                                <td class="p-3"><strong>Fixo</strong> (Schema-on-Write)</td>
+                                <td class="p-3"><strong><span class="bg-yellow-100 px-1 rounded-sm">Flexível</span></strong> (Schema-on-Read)</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3"><strong>Escalabilidade</strong></td>
+                                <td class="p-3"><strong>Vertical</strong> (Scale-Up - Servidor mais forte)</td>
+                                <td class="p-3"><strong><span class="bg-yellow-100 px-1 rounded-sm">Horizontal</span></strong> (Scale-Out - Mais servidores)</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3"><strong>Modelo de Consistência</strong></td>
+                                <td class="p-3"><strong>ACID</strong> (Foco em Consistência)</td>
+                                <td class="p-3"><strong>BASE</strong> (Foco em Disponibilidade)</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3"><strong>Consistência</strong></td>
+                                <td class="p-3">Forte e Imediata</td>
+                                <td class="p-3"><strong><span class="bg-yellow-100 px-1 rounded-sm">Consistência Eventual</span></strong></td>
+                            </tr>
+                            <tr>
+                                <td class="p-3"><strong>Exemplos</strong></td>
+                                <td class="p-3">MySQL, PostgreSQL, SQL Server</td>
+                                <td class="p-3">MongoDB, Redis, Cassandra, Neo4j</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3"><strong>Uso Ideal</strong></td>
+                                <td class="p-3">Sistemas Financeiros, Transacionais</td>
+                                <td class="p-3">Big Data, Web/Mobile em larga escala</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Botão de Questões -->
+        <footer class="text-center mt-12 pt-8 border-t border-gray-200">
+            <a href="questoes.html" 
+               class="inline-block bg-gray-800 text-white font-bold py-3 px-10 rounded-lg text-lg hover:bg-gray-900 transition-colors duration-200 shadow-md">
+                Praticar Questões
+            </a>
+        </footer>
+
+    </div>
+
+</body>
+</html>
+
