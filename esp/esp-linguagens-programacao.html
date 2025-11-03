@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo para Concurso | IFPB | Informática</title>
+    <!-- Carrega o Tailwind CSS para estilização -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilos personalizados */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1f2937; /* text-gray-900 */
+        }
+        
+        /* Define a fonte padrão (Inter) */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        
+        /* Estilização das tabelas */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #d1d5db; /* gray-300 */
+            padding: 0.75rem; /* p-3 */
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #f9fafb; /* gray-50 */
+            font-weight: 700; /* bold */
+        }
+        
+        /* Wrapper para tabelas responsivas (scrollam internamente) */
+        .table-wrapper {
+            overflow-x: auto;
+            width: 100%;
+            margin-bottom: 1.5rem; /* mb-6 */
+            border-radius: 8px; /* rounded-lg */
+            border: 1px solid #d1d5db; /* gray-300 */
+        }
+        
+        /* Estilização para tags <code> */
+        code {
+            background-color: #f3f4f6; /* gray-100 */
+            color: #b91c1c; /* red-700 */
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        
+        /* Estilização para <mark> (marca-texto) */
+        mark {
+            background-color: #fef9c3; /* Tailwind 'yellow-100' */
+            color: #1f2937; /* Garante que o texto fique escuro */
+            padding: 0 3px;
+            border-radius: 3px;
+        }
+
+        /* Estilização para <pre> (blocos de código) */
+        pre {
+            background-color: #f3f4f6; /* gray-100 */
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb; /* gray-200 */
+            overflow-x: auto;
+            font-size: 0.9em;
+        }
+        
+        h1, h2, h3 {
+            font-weight: 700; /* bold */
+        }
+
+        /* Bloco de destaque */
+        .destaque {
+            background-color: #fefce8; /* yellow-50 */
+            border-left: 4px solid #facc15; /* yellow-400 */
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900 leading-relaxed">
+
+    <!-- Container Principal -->
+    <main class="max-w-5xl mx-auto p-6 md:p-10">
+
+        <!-- Título Principal -->
+        <h1 class="text-3xl md:text-4xl font-bold text-center mb-8">
+            Resumo Focado em Memorização para Concurso
+        </h1>
+        <p class="text-center text-lg text-gray-700 mb-10 -mt-6">Python, JavaScript, C/C++ e Java</p>
+
+        <!-- Reprodutor de Áudio MP3 -->
+        <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 md:p-6 mb-10 shadow-sm">
+            <h3 class="text-lg font-semibold text-gray-800 mb-3 text-center">Resumo em Áudio da Aula</h3>
+            <audio controls class="w-full">
+                <!-- 
+                  IMPORTANTE: Substitua 'seu-audio-aqui.mp3' pelo nome do seu arquivo de áudio.
+                  O arquivo deve estar na mesma pasta que este arquivo HTML.
+                -->
+                <source src="esp-linguagens-programacao.mp3" type="audio/mpeg">
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
+            <p class="text-sm text-gray-600 mt-3 text-center">
+                Arquivo de áudio: <code>seu-audio-aqui.mp3</code> (substitua pelo nome do seu arquivo)
+            </p>
+        </div>
+
+        <!-- Início do Conteúdo da Página 1 -->
+        <h2 class="text-2xl font-bold mt-8 mb-5 border-b border-gray-300 pb-3">
+            Página 1: Conceitos Fundamentais, Python e JavaScript
+        </h2>
+
+        <h3 class="text-xl font-semibold mt-6 mb-4">Tabela de Conceitos Essenciais (Visão Geral)</h3>
+        
+        <!-- Wrapper da Tabela 1 -->
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Característica</th>
+                        <th>Python 3</th>
+                        <th>JavaScript (ES6+)</th>
+                        <th>C/C++</th>
+                        <th>Java</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Paradigma Principal</strong></td>
+                        <td>Multiparadigma (OO, Funcional)</td>
+                        <td>Multiparadigma (Funcional, OO Prototípica)</td>
+                        <td>Procedural (C), OO (C++)</td>
+                        <td>Orientado a Objetos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sistema de Tipagem</strong></td>
+                        <td><mark>Dinâmica</mark>, <mark>Forte</mark></td>
+                        <td><mark>Dinâmica</mark>, <mark>Fraca</mark></td>
+                        <td><mark>Estática</mark>, Fraca/Média</td>
+                        <td><mark>Estática</mark>, <mark>Forte</mark></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gerenciamento de Memória</strong></td>
+                        <td><mark>Automático (GC)</mark></td>
+                        <td><mark>Automático (GC)</mark></td>
+                        <td><mark>Manual</mark></td>
+                        <td><mark>Automático (GC)</mark></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Modelo de Execução</strong></td>
+                        <td>Interpretado (<mark>Bytecode</mark>)</td>
+                        <td>Híbrido (<mark>JIT</mark>)</td>
+                        <td>Compilado (<mark>Nativo</mark>)</td>
+                        <td>Híbrido (<mark>Bytecode</mark> + <mark>JIT</mark>)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Uso Típico</strong></td>
+                        <td>Ciência de Dados, Web Backend</td>
+                        <td>Web Frontend/Backend (Node.js)</td>
+                        <td>Sistemas Operacionais, Jogos</td>
+                        <td>Sistemas Corporativos, Android</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Bloco de Destaque -->
+        <div class="destaque">
+            <p class="font-semibold">Ponto Crucial para o Concurso:</p>
+            <p>A AOCP pode perguntar sobre a diferença entre <mark>Tipagem Dinâmica</mark> (o tipo da variável é verificado em tempo de execução, como Python e JS) e <mark>Tipagem Estática</mark> (o tipo deve ser declarado e é verificado em tempo de compilação, como C/C++ e Java).</p>
+        </div>
+
+
+        <h3 class="text-xl font-semibold mt-8 mb-4">Python 3: Pontos-Chave para Memorização</h3>
+        
+        <h4 class="text-lg font-semibold mt-4 mb-2">Filosofia e Sintaxe</h4>
+        <ul class="list-disc list-inside space-y-2 mb-4 pl-4">
+            <li><mark>Indentação é Obrigatória:</mark> Usa 4 espaços para definir blocos de código (<code>if</code>, <code>for</code>, <code>def</code>, etc.). Indentação errada causa <code>IndentationError</code>. <mark>Não usa chaves {}</mark>.</li>
+            <li><strong>Zen of Python:</strong> Preza por código simples, legível e explícito.</li>
+        </ul>
+
+        <h4 class="text-lg font-semibold mt-4 mb-2">Tipagem: Dinâmica e Forte</h4>
+        <ul class="list-disc list-inside space-y-2 mb-4 pl-4">
+            <li>A tipagem dinâmica não impede a tipagem forte:</li>
+            <li class="ml-4"><code>x = 10 <span class="text-gray-500"># x é inteiro</span></code></li>
+            <li class="ml-4"><code>y = "2" <span class="text-gray-500"># y é string</span></code></li>
+            <li class="ml-4"><code>print(x + y) <span class="text-gray-500"># GERA ERRO! Python é <mark>Forte</mark>, não permite somar Int com String implicitamente.</span></code></li>
+        </ul>
+
+        <h4 class="text-lg font-semibold mt-4 mb-2">Estruturas de Dados Nativas (Tópico Clássico de Prova)</h4>
+        <ul class="list-disc list-inside space-y-2 mb-4 pl-4">
+            <li><code>list</code>: Coleção ordenada e <mark>MUTÁVEL</mark>. Ex: <code>[1, "a", 3.0]</code>. Métodos: <code>.append()</code>, <code>.pop()</code>, <code>.remove()</code>.</li>
+            <li><code>tuple</code>: Coleção ordenada e <mark>IMUTÁVEL</mark>. Uma vez criada, não pode ser alterada. Ex: <code>(1, "a", 3.0)</code>. Tentar alterar um item causa <code>TypeError</code>.</li>
+            <li><code>dict</code>: Coleção de pares <code>chave:valor</code>. Chaves devem ser imutáveis (números, strings, tuplas). Ex: <code>{'nome': 'João', 'idade': 30}</code>.</li>
+            <li><code>set</code>: Coleção de elementos <mark>ÚNICOS</mark> e não ordenada. Útil para remover duplicatas. Ex: <code>{1, 2, 3}</code>.</li>
+        </ul>
+
+        <h4 class="text-lg font-semibold mt-4 mb-2">Tópicos Avançados Frequentes</h4>
+        <ul class="list-disc list-inside space-y-2 mb-4 pl-4">
+            <li><strong><em>List Comprehensions</em>:</strong> Forma "pythônica" e concisa de criar listas. Ex: <code>quadrados = [x**2 for x in range(10)]</code>.</li>
+            <li><strong>Tratamento de Exceções:</strong> Estrutura <code>try...except...else...finally</code>.
+                <ul class="list-decimal list-inside space-y-1 mt-2 pl-6">
+                    <li><strong>Ponto de atenção:</strong> O bloco <code>finally</code> <mark>SEMPRE</mark> é executado, ocorrendo ou não uma exceção.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3 class="text-xl font-semibold mt-8 mb-4">JavaScript (ECMAScript): Pontos-Chave para Memorização</h3>
+        
+        <h4 class="text-lg font-semibold mt-4 mb-2">Declaração de Variáveis e Escopo (A "Pegadinha" Mais Comum)</h4>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Declaração</th>
+                        <th>Escopo</th>
+                        <th>Hoisting</th>
+                        <th>Reatribuição/Redeclaração</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>var</code></td>
+                        <td><mark>Escopo de FUNÇÃO</mark></td>
+                        <td>Sim (inicializa como <code>undefined</code>)</td>
+                        <td>Pode ser reatribuída E redeclarada.</td>
+                    </tr>
+                    <tr>
+                        <td><code>let</code></td>
+                        <td><mark>Escopo de BLOCO</mark> <code>{}</code></td>
+                        <td>Sim (mas não inicializa)</td>
+                        <td>Pode ser reatribuída, mas não redeclarada.</td>
+                    </tr>
+                    <tr>
+                        <td><code>const</code></td>
+                        <td><mark>Escopo de BLOCO</mark> <code>{}</code></td>
+                        <td>Sim (mas não inicializa)</td>
+                        <td><mark>NÃO PODE SER REATRIBUÍDA</mark>.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h4 class="text-lg font-semibold mt-4 mb-2">Exemplo de Bloco (Tópico de Prova)</h4>
+        <pre><code>var x = 1;
+let y = 1;
+if (true) {
+  var x = 2; // Redeclara a variável x fora do bloco (Escopo de Função)
+  let y = 2; // Cria uma nova variável y, local ao bloco (Escopo de Bloco)
+  console.log(x); // Saída: 2
+  console.log(y); // Saída: 2
+}
+console.log(x); // Saída: 2 (<mark>valor global foi alterado</mark>)
+console.log(y); // Saída: 1 (<mark>o y do bloco foi destruído, valor global mantido</mark>)</code></pre>
+
+
+        <h4 class="text-lg font-semibold mt-4 mb-2">O Comportamento do <code>this</code> (Complexo e Essencial)</h4>
+        <ul class="list-disc list-inside space-y-2 mb-4 pl-4">
+            <li><strong>Método de Objeto:</strong> <code>obj.metodo()</code> -> <code>this</code> é o <code>obj</code>.</li>
+            <li><strong>Função Simples:</strong> <code>minhaFuncao()</code> -> <code>this</code> é o objeto global (ou <code>undefined</code> em <code>"use strict";</code>).</li>
+            <li><strong>Construtor:</strong> <code>new Funcao()</code> -> <code>this</code> é o novo objeto criado.</li>
+            <li><strong>Arrow Function (<code>=&gt;</code>):</strong> <mark>NÃO POSSUI <code>this</code> PRÓPRIO</mark>. Herda o <code>this</code> do escopo onde foi definida.</li>
+        </ul>
+
+        <h4 class="text-lg font-semibold mt-4 mb-2">Assincronismo e o <em>Event Loop</em></h4>
+        <ul class="list-disc list-inside space-y-2 mb-4 pl-4">
+            <li><strong>Modelo:</strong> JavaScript é <mark><em>single-threaded</em></mark>. O <em>Event Loop</em> gerencia operações assíncronas sem bloquear a thread principal.</li>
+            <li><strong>Evolução (Entender a ordem):</strong>
+                <ol class="list-decimal list-inside space-y-1 mt-2 pl-6">
+                    <li><strong>Callbacks:</strong> Funções passadas como argumento (pode levar ao "Callback Hell").</li>
+                    <li><strong>Promises (ES6):</strong> Objeto que representa um valor futuro. Estados: <em>pending</em>, <em>fulfilled</em>, <em>rejected</em>.</li>
+                    <li><strong><code>async/await</code> (ES8):</strong> "Açúcar sintático" sobre Promises. Permite escrever código assíncrono com aparência síncrona.</li>
+                </ol>
+            </li>
+        </ul>
+
+        <!-- Início do Conteúdo da Página 2 -->
+        <h2 class="text-2xl font-bold mt-12 mb-5 border-b border-gray-300 pb-3">
+            Página 2: C/C++ e Java
+        </h2>
+
+        <h3 class="text-xl font-semibold mt-6 mb-4">C/C++: Pontos-Chave para Memorização</h3>
+
+        <h4 class="text-lg font-semibold mt-4 mb-2">Gerenciamento de Memória (O Tópico Mais Crítico)</h4>
+        <ul class="list-disc list-inside space-y-2 mb-4 pl-4">
+            <li><strong><mark>Manual</mark>:</strong> O programador é 100% responsável por alocar e liberar memória. Erros comuns: <mark><em>memory leak</em></mark> (vazamento) e <mark><em>dangling pointers</em></mark> (ponteiros pendentes).</li>
+            <li><strong>Ponteiros:</strong> Variáveis que armazenam <strong>endereços de memória</strong>.
+                <ul class="list-decimal list-inside space-y-1 mt-2 pl-6">
+                    <li><code>&variavel</code>: Operador "endereço de". Retorna o endereço da variável.</li>
+                    <li><code>*ponteiro</code>: Operador de "desreferenciação". Acessa o <strong>valor</strong> no endereço.</li>
+                </ul>
+            </li>
+            <li><strong>Alocação Dinâmica (Diferença Fundamental - Questão de Prova):</strong>
+                <ul class="list-decimal list-inside space-y-1 mt-2 pl-6">
+                    <li><code>malloc()</code> / <code>free()</code> (Estilo C): Alocam memória bruta. <mark>NÃO CHAMAM CONSTRUTOR OU DESTRUTOR</mark>.</li>
+                    <li><code>new</code> / <code>delete</code> (Estilo C++): Alocam memória <mark>E CHAMAM O CONSTRUTOR</mark>. <code>delete</code> <mark>CHAMA O DESTRUTOR</mark>.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h4 class="text-lg font-semibold mt-4 mb-2">Standard Template Library (STL)</h4>
+        <ul class="list-disc list-inside space-y-2 mb-4 pl-4">
+            <li><code>std::vector</code>: Array dinâmico.</li>
+            <li><code>std::list</code>: Lista duplamente encadeada.</li>
+            <li><code>std::map</code>: Dicionário (chave-valor) ordenado.</li>
+        </ul>
+
+        <h3 class="text-xl font-semibold mt-8 mb-4">Java: Pontos-Chave para Memorização</h3>
+        
+        <h4 class="text-lg font-semibold mt-4 mb-2">A Arquitetura da JVM (Java Virtual Machine)</h4>
+        <ul class="list-disc list-inside space-y-2 mb-4 pl-4">
+            <li><strong>Portabilidade:</strong> O lema "<mark>Write Once, Run Anywhere</mark>" (Escreva uma vez, rode em qualquer lugar) é possível porque o código Java é compilado para <strong><em><mark>bytecode</mark></em></strong>, que é executado pela <strong>JVM</strong>.</li>
+            <li><strong>Estrutura de Memória (Questão Clássica de Concurso):</strong>
+                <ul class="list-decimal list-inside space-y-1 mt-2 pl-6">
+                    <li><strong><mark>Heap</mark>:</strong> Área de memória onde <mark>TODOS OS OBJETOS</mark> e arrays são alocados. Gerenciada pelo <strong><em>Garbage Collector</em> (GC)</strong>.</li>
+                    <li><strong><mark>Stack (Pilha)</mark>:</strong> Cada thread tem sua própria pilha. Armazena <mark>variáveis locais</mark> (tipos primitivos) e <mark>REFERÊNCIAS</mark> para os objetos que estão no Heap.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h4 class="text-lg font-semibold mt-4 mb-2">O Ponto de Entrada: <code>public static void main(String args)</code></h4>
+        <ul class="list-disc list-inside space-y-2 mb-4 pl-4">
+            <li>Cada palavra-chave tem um motivo para a JVM iniciar o programa:
+                <ul class="list-decimal list-inside space-y-1 mt-2 pl-6">
+                    <li><code>public</code>: Para que a JVM (externa) possa acessá-lo.</li>
+                    <li><code>static</code>: Para que a JVM possa chamar o método <mark>sem precisar criar um objeto</mark> da classe.</li>
+                    <li><code>void</code>: O método não retorna nenhum valor para a JVM.</li>
+                    <li><code>main</code>: Nome padrão que a JVM procura.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h4 class="text-lg font-semibold mt-4 mb-2">Java Collections Framework (JCF)</h4>
+        <ul class="list-disc list-inside space-y-2 mb-4 pl-4">
+            <li><strong><code>List</code>:</strong> Coleção ordenada. (<code>ArrayList</code>, <code>LinkedList</code>).</li>
+            <li><strong><code>Set</code>:</strong> Coleção que <mark>não permite elementos duplicados</mark>. (<code>HashSet</code>).</li>
+            <li><strong><code>Map</code>:</strong> Coleção de pares <code>chave-valor</code>. (<code>HashMap</code>).</li>
+        </ul>
+
+        <!-- Seção de Revisão Rápida (Adicionada) -->
+        <h2 class="text-2xl font-bold mt-12 mb-5 border-b border-gray-300 pb-3">
+            Revisão Rápida (Cheat Sheet Final)
+        </h2>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Foco</th>
+                        <th>Python 3</th>
+                        <th>JavaScript</th>
+                        <th>C/C++</th>
+                        <th>Java</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Definidor de Bloco</strong></td>
+                        <td>Indentação (4 espaços)</td>
+                        <td><code>{}</code></td>
+                        <td><code>{}</code></td>
+                        <td><code>{}</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ponto Final da Instrução</strong></td>
+                        <td>Quebra de linha</td>
+                        <td><code>;</code> (Recomendado)</td>
+                        <td><code>;</code></td>
+                        <td><code>;</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Memória</strong></td>
+                        <td>GC Automático</td>
+                        <td>GC Automático</td>
+                        <td><mark>Manual</mark></td>
+                        <td>GC Automático (JVM)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>O que é executado?</strong></td>
+                        <td>Bytecode (pelo interpretador)</td>
+                        <td>Código-fonte (pelo motor JIT)</td>
+                        <td><mark>Código de Máquina Nativo</mark></td>
+                        <td><mark>Bytecode</mark> (pela JVM)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <h3 class="text-xl font-semibold mt-8 mb-4">Tabela Comparativa de Sintaxe Essencial</h3>
+        <!-- Wrapper da Tabela 2 -->
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Construção</th>
+                        <th>Python 3</th>
+                        <th>JavaScript (ES6+)</th>
+                        <th>C++</th>
+                        <th>Java</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Declaração de Inteiro</strong></td>
+                        <td><code>idade = 25</code></td>
+                        <td><code>let idade = 25;</code></td>
+                        <td><code>int idade = 25;</code></td>
+                        <td><code>int idade = 25;</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Condicional <code>if-else</code></strong></td>
+                        <td><pre>if x > 10:
+ ...
+elif x == 10:
+ ...
+else:
+ ...</pre></td>
+                        <td><pre>if (x > 10) {
+ ...
+} else if (x === 10) {
+ ...
+} else {
+ ...
+}</pre></td>
+                        <td><pre>if (x > 10) {
+ ...
+} else if (x == 10) {
+ ...
+} else {
+ ...
+}</pre></td>
+                        <td><pre>if (x > 10) {
+ ...
+} else if (x == 10) {
+ ...
+} else {
+ ...
+}</pre></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Laço <code>for-each</code></strong></td>
+                        <td><pre>for item in lista:
+ ...</pre></td>
+                        <td><pre>for (const item of array) {
+ ...
+}</pre></td>
+                        <td><pre>for (const auto& item : vetor) {
+ ...
+}</pre></td>
+                        <td><pre>for (String item : lista) {
+ ...
+}</pre></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Definição de Função</strong></td>
+                        <td><pre>def minha_funcao(p):
+  return p * 2</pre></td>
+                        <td><pre>function f(p) {
+  return p * 2;
+}</pre></td>
+                        <td><pre>int minha_funcao(int p) {
+  return p * 2;
+}</pre></td>
+                        <td><pre>public int meuMetodo(int p) {
+  return p * 2;
+}</pre></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Botão de Questões -->
+        <div class="text-center mt-12 mb-8">
+            <a href="esp-linguagens-programacaoquestoes.html" 
+               class="inline-block bg-blue-600 text-white font-bold py-3 px-10 rounded-lg text-lg hover:bg-blue-700 transition-colors shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                Ir para Questões
+            </a>
+        </div>
+
+    </main>
+</body>
+</html>
+

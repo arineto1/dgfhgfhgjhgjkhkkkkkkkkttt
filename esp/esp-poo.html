@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo POO para Concurso - IFPB</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilo para fonte Inter (padrão do Tailwind) */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1f2937; /* text-gray-800 */
+        }
+        
+        /* CSS para tornar as tabelas responsivas (empilhadas) em telas pequenas.
+          Isso atende ao requisito de "sem scroll horizontal".
+        */
+        @media (max-width: 768px) {
+            .responsive-table thead {
+                /* Oculta o cabeçalho principal em telas pequenas */
+                display: none;
+            }
+            .responsive-table tr {
+                display: block;
+                margin-bottom: 1.5rem;
+                border: 1px solid #d1d5db; /* border-gray-300 */
+                border-radius: 0.5rem; /* rounded-lg */
+                box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+                overflow: hidden; /* Para manter o border-radius */
+            }
+            .responsive-table td {
+                display: block;
+                text-align: right; /* Alinha o conteúdo à direita */
+                padding: 0.75rem 1rem;
+                border-bottom: 1px solid #e5e7eb; /* border-gray-200 */
+                position: relative;
+            }
+            .responsive-table td:last-child {
+                border-bottom: none;
+            }
+            /* Usa o atributo data-label como um "cabeçalho" falso à esquerda */
+            .responsive-table td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 1rem;
+                font-weight: 600; /* semibold */
+                color: #374151; /* text-gray-700 */
+                text-align: left;
+                padding-right: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-white">
+
+    <div class="max-w-4xl mx-auto p-6 md:p-10">
+
+        <!-- 1. Reprodutor de Áudio -->
+        <div class="mb-8 p-4 border rounded-lg shadow-sm bg-gray-50">
+            <h2 class="text-xl font-semibold mb-3 text-gray-700">Resumo em Áudio da Aula</h2>
+            <audio controls class="w-full">
+                <!-- 
+                  IMPORTANTE: 
+                  Substitua 'SEU_ARQUIVO.mp3' abaixo pelo nome do seu arquivo de áudio.
+                  O arquivo MP3 deve estar na mesma pasta que este arquivo HTML.
+                -->
+                <source src="esp-poo.mp3" type="audio/mpeg">
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
+            <p class="text-sm text-gray-500 mt-2">
+                Para funcionar, coloque seu arquivo (ex: `aula_poo.mp3`) na mesma pasta e atualize o valor `src` no código HTML.
+            </p>
+        </div>
+
+        <!-- Conteúdo do Resumo (Página 1) -->
+        <div class="resumo-container">
+            <h2 class="text-3xl font-bold mb-6 border-b pb-3">Resumo Focado em Memorização: POO (Página 1 de 2)</h2>
+
+            <h3 class="text-2xl font-semibold mt-6 mb-4">1. Os Quatro Pilares da POO: Definições Essenciais</h3>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full border-collapse responsive-table">
+                    <thead class="bg-gray-100 hidden md:table-header-group">
+                        <tr>
+                            <th class="border border-gray-300 p-3 text-left font-semibold">Pilar</th>
+                            <th class="border border-gray-300 p-3 text-left font-semibold">Palavra-Chave</th>
+                            <th class="border border-gray-300 p-3 text-left font-semibold">Definição Rápida e Foco de Concurso</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Pilar" class="border border-gray-300 p-3 md:p-3"><strong>Abstração</strong></td>
+                            <td data-label="Palavra-Chave" class="border border-gray-300 p-3 md:p-3"><strong>Essencial</strong></td>
+                            <td data-label="Definição" class="border border-gray-300 p-3 md:p-3">Focar nas características e comportamentos relevantes de um objeto, ignorando detalhes. É o ato de <strong class="font-semibold bg-yellow-200 px-1 rounded">filtrar a complexidade</strong> para criar um modelo útil.[1, 2, 3]</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Pilar" class="border border-gray-300 p-3 md:p-3"><strong>Encapsulamento</strong></td>
+                            <td data-label="Palavra-Chave" class="border border-gray-300 p-3 md:p-3"><strong>Proteger</strong></td>
+                            <td data-label="Definição" class="border border-gray-300 p-3 md:p-3">Agrupar dados (atributos) e métodos em uma classe, ocultando a implementação interna. Garante a <strong class="font-semibold bg-yellow-200 px-1 rounded">integridade dos dados</strong> através de acesso controlado (getters/setters).[4, 5]</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Pilar" class="border border-gray-300 p-3 md:p-3"><strong>Herança</strong></td>
+                            <td data-label="Palavra-Chave" class="border border-gray-300 p-3 md:p-3"><strong>É-UM (IS-A)</strong></td>
+                            <td data-label="Definição" class="border border-gray-300 p-3 md:p-3">Uma classe (filha) herda atributos e métodos de outra (pai). Permite a <strong class="font-semibold bg-yellow-200 px-1 rounded">reutilização de código</strong>, mas cria <strong class="font-semibold bg-yellow-200 px-1 rounded">alto acoplamento</strong>.[4, 6, 7]</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Pilar" class="border border-gray-300 p-3 md:p-3"><strong>Polimorfismo</strong></td>
+                            <td data-label="Palavra-Chave" class="border border-gray-300 p-3 md:p-3"><strong class="font-semibold bg-yellow-200 px-1 rounded">Muitas Formas</strong></td>
+                            <td data-label="Definição" class="border border-gray-300 p-3 md:p-3">Um objeto pode ser tratado de múltiplas maneiras. Uma chamada de método (`animal.emitirSom()`) executa <strong class="font-semibold bg-yellow-200 px-1 rounded">ações diferentes</strong> dependendo do tipo real do objeto (Cachorro, Gato).[8, 9]</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="text-2xl font-semibold mt-8 mb-4">2. Decisões Críticas de Design: Comparações para a Prova</h3>
+
+            <h4 class="text-xl font-semibold mt-6 mb-3">Herança vs. Composição (Questão frequente de design)</h4>
+            <div class="overflow-x-auto">
+                <table class="w-full border-collapse responsive-table">
+                    <thead class="bg-gray-100 hidden md:table-header-group">
+                        <tr>
+                            <th class="border border-gray-300 p-3 text-left font-semibold">Critério</th>
+                            <th class="border border-gray-300 p-3 text-left font-semibold">Herança</th>
+                            <th class="border border-gray-300 p-3 text-left font-semibold">Composição</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Critério" class="border border-gray-300 p-3 md:p-3"><strong>Relação</strong></td>
+                            <td data-label="Herança" class="border border-gray-300 p-3 md:p-3"><strong class="font-semibold bg-yellow-200 px-1 rounded">"É-UM" (IS-A)</strong>. `Carro` <strong>é um</strong> `Veiculo`.</td>
+                            <td data-label="Composição" class="border border-gray-300 p-3 md:p-3"><strong class="font-semibold bg-yellow-200 px-1 rounded">"TEM-UM" (HAS-A)</strong>. `Carro` <strong>tem um</strong> `Motor`.</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Critério" class="border border-gray-300 p-3 md:p-3"><strong>Acoplamento</strong></td>
+                            <td data-label="Herança" class="border border-gray-300 p-3 md:p-3"><strong class="font-semibold bg-yellow-200 px-1 rounded">Alto</strong>. Alterações na superclasse afetam as subclasses.</td>
+                            <td data-label="Composição" class="border border-gray-300 p-3 md:p-3"><strong class="font-semibold bg-yellow-200 px-1 rounded">Baixo</strong>. Interação via interface pública, mais flexível.</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Critério" class="border border-gray-300 p-3 md:p-3"><strong>Flexibilidade</strong></td>
+                            <td data-label="Herança" class="border border-gray-300 p-3 md:p-3"><strong class="font-semibold bg-yellow-200 px-1 rounded">Baixa</strong>. Definida em tempo de compilação (estática).</td>
+                            <td data-label="Composição" class="border border-gray-300 p-3 md:p-3"><strong class="font-semibold bg-yellow-200 px-1 rounded">Alta</strong>. Pode ser alterada em tempo de execução (dinâmica).</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Critério" class="border border-gray-300 p-3 md:p-3"><strong>Princípio Chave</strong></td>
+                            <td data-label="Herança" class="border border-gray-300 p-3 md:p-3">Usar com cautela.</td>
+                            <td data-label="Composição" class="border border-gray-300 p-3 md:p-3"><strong class="font-semibold bg-yellow-200 px-1 rounded">"Prefira Composição sobre Herança"</strong>.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h4 class="text-xl font-semibold mt-6 mb-3">Classe Abstrata vs. Interface (Diferença conceitual e prática)</h4>
+            <div class="overflow-x-auto">
+                <table class="w-full border-collapse responsive-table">
+                    <thead class="bg-gray-100 hidden md:table-header-group">
+                        <tr>
+                            <th class="border border-gray-300 p-3 text-left font-semibold">Critério</th>
+                            <th class="border border-gray-300 p-3 text-left font-semibold">Classe Abstrata</th>
+                            <th class="border border-gray-300 p-3 text-left font-semibold">Interface</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Critério" class="border border-gray-300 p-3 md:p-3"><strong>Propósito</strong></td>
+                            <td data-label="Classe Abstrata" class="border border-gray-300 p-3 md:p-3">Compartilhar código e estado em uma hierarquia.</td>
+                            <td data-label="Interface" class="border border-gray-300 p-3 md:p-3"><strong class="font-semibold bg-yellow-200 px-1 rounded">Definir um contrato</strong> de comportamento (o que a classe faz).</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Critério" class="border border-gray-300 p-3 md:p-3"><strong>Relação</strong></td>
+                            <td data-label="Classe Abstrata" class="border border-gray-300 p-3 md:p-3"><strong class="font-semibold bg-yellow-200 px-1 rounded">"É-UM" (IS-A)</strong>. `ProfessorEfetivo` <strong>é um</strong> `Professor`.</td>
+                            <td data-label="Interface" class="border border-gray-300 p-3 md:p-3"><strong class="font-semibold bg-yellow-200 px-1 rounded">"PODE-FAZER" (CAN-DO)</strong>. `Avaliacao` <strong>pode</strong> ser `Publicavel`.</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Critério" class="border border-gray-300 p-3 md:p-3"><strong>Relação</strong></td>
+                            <td data-label="Classe Abstrata" class="border border-gray-300 p-3 md:p-3"><strong>"É-UM" (IS-A)</strong>. `ProfessorEfetivo` <strong>é um</strong> `Professor`.</td>
+                            <td data-label="Interface" class="border border-gray-300 p-3 md:p-3"><strong>"PODE-FAZER" (CAN-DO)</strong>. `Avaliacao` <strong>pode</strong> ser `Publicavel`.</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Critério" class="border border-gray-300 p-3 md:p-3"><strong>Implementação</strong></td>
+                            <td data-label="Classe Abstrata" class="border border-gray-300 p-3 md:p-3">Pode ter métodos concretos (com código) e abstratos.</td>
+                            <td data-label="Interface" class="border border-gray-300 p-3 md:p-3">Tradicionalmente, apenas assinaturas. A partir do Java 8, pode ter métodos `default`.</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Critério" class="border border-gray-300 p-3 md:p-3"><strong>Atributos</strong></td>
+                            <td data-label="Classe Abstrata" class="border border-gray-300 p-3 md:p-3">Pode ter atributos de instância.</td>
+                            <td data-label="Interface" class="border border-gray-300 p-3 md:p-3">Apenas constantes (`public static final`).</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Critério" class="border border-gray-300 p-3 md:p-3"><strong>Herança Múltipla</strong></td>
+                            <td data-label="Classe Abstrata" class="border border-gray-300 p-3 md:p-3"><strong class="font-semibold bg-yellow-200 px-1 rounded">Não</strong>. Uma classe só pode herdar de UMA classe abstrata.</td>
+                            <td data-label="Interface" class="border border-gray-300 p-3 md:p-3"><strong class="font-semibold bg-yellow-200 px-1 rounded">Sim</strong>. Uma classe pode implementar VÁRIAS interfaces.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h4 class="text-xl font-semibold mt-6 mb-3">Polimorfismo: Sobrescrita vs. Sobrecarga (Não confunda!)</h4>
+            <div class="overflow-x-auto">
+                <table class="w-full border-collapse responsive-table">
+                    <thead class="bg-gray-100 hidden md:table-header-group">
+                        <tr>
+                            <th class="border border-gray-300 p-3 text-left font-semibold">Critério</th>
+                            <th class="border border-gray-300 p-3 text-left font-semibold">Sobrescrita (Overriding)</th>
+                            <th class="border border-gray-300 p-3 text-left font-semibold">Sobrecarga (Overloading)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Critério" class="border border-gray-300 p-3 md:p-3"><strong>O que é?</strong></td>
+                            <td data-label="Sobrescrita" class="border border-gray-300 p-3 md:p-3">Redefinir um método herdado da superclasse.</td>
+                            <td data-label="Sobrecarga" class="border border-gray-300 p-3 md:p-3">Ter vários métodos com o mesmo nome, mas com parâmetros diferentes.</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Critério" class="border border-gray-300 p-3 md:p-3"><strong>Localização</strong></td>
+                            <td data-label="Sobrescrita" class="border border-gray-300 p-3 md:p-3">Entre <strong class="font-semibold bg-yellow-200 px-1 rounded">duas classes</strong> (pai e filha).</td>
+                            <td data-label="Sobrecarga" class="border border-gray-300 p-3 md:p-3">Dentro da <strong class="font-semibold bg-yellow-200 px-1 rounded">mesma classe</strong>.</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Critério" class="border border-gray-300 p-3 md:p-3"><strong>Assinatura</strong></td>
+                            <td data-label="Sobrescrita" class="border border-gray-300 p-3 md:p-3"><strong class="font-semibold bg-yellow-200 px-1 rounded">Mesma</strong> assinatura (nome e parâmetros).</td>
+                            <td data-label="Sobrecarga" class="border border-gray-300 p-3 md:p-3"><strong class="font-semibold bg-yellow-200 px-1 rounded">Diferentes</strong> assinaturas (número ou tipo de parâmetros).</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Critério" class="border border-gray-300 p-3 md:p-3"><strong>Quando decide?</strong></td>
+                            <td data-label="Sobrescrita" class="border border-gray-300 p-3 md:p-3">Tempo de <strong class="font-semibold bg-yellow-200 px-1 rounded">Execução</strong> (Runtime).</td>
+                            <td data-label="Sobrecarga" class="border border-gray-300 p-3 md:p-3">Tempo de <strong class="font-semibold bg-yellow-200 px-1 rounded">Compilação</strong> (Compile-time).</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Critério" class="border border-gray-300 p-3 md:p-3"><strong>Anotação Java</strong></td>
+                            <td data-label="Sobrescrita" class="border border-gray-300 p-3 md:p-3">`@Override` (altamente recomendado).</td>
+                            <td data-label="Sobrecarga" class="border border-gray-300 p-3 md:p-3">Não se aplica.</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Critério" class="border border-gray-300 p-3 md:p-3"><strong>Exemplo</strong></td>
+                            <td data-label="Sobrescrita" class="border border-gray-300 p-3 md:p-3">`class Carro extends Veiculo { void mover() {... } }`</td>
+                            <td data-label="Sobrecarga" class="border border-gray-300 p-3 md:p-3">`class Calculadora { int somar(int a, int b); double somar(double a, double b); }`</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Divisor de Página -->
+            <hr class="my-10 border-t-2 border-gray-200">
+
+            <!-- Conteúdo do Resumo (Página 2) -->
+            <h2 class="text-3xl font-bold mb-6 border-b pb-3">Resumo Focado em Memorização: POO (Página 2 de 2)</h2>
+
+            <h3 class="text-2xl font-semibold mt-6 mb-4">3. Padrões de Projeto (Design Patterns) GoF Essenciais</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full border-collapse responsive-table">
+                    <thead class="bg-gray-100 hidden md:table-header-group">
+                        <tr>
+                            <th class="border border-gray-300 p-3 text-left font-semibold">Categoria</th>
+                            <th class="border border-gray-300 p-3 text-left font-semibold">Padrão</th>
+                            <th class="border border-gray-300 p-3 text-left font-semibold">Intenção (Resumo para Memorização)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Categoria" class="border border-gray-300 p-3 md:p-3"><strong>Criacionais</strong></td>
+                            <td data-label="Padrão" class="border border-gray-300 p-3 md:p-3"><strong>Singleton</strong></td>
+                            <td data-label="Intenção" class="border border-gray-300 p-3 md:p-3">Garante <strong class="font-semibold bg-yellow-200 px-1 rounded">uma única instância</strong> global para uma classe. (Ex: Conexão com BD).</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Categoria" class="border border-gray-300 p-3 md:p-3"></td>
+                            <td data-label="Padrão" class="border border-gray-300 p-3 md:p-3"><strong>Factory Method</strong></td>
+                            <td data-label="Intenção" class="border border-gray-300 p-3 md:p-3">Deixa as subclasses decidirem <strong class="font-semibold bg-yellow-200 px-1 rounded">qual objeto criar</strong>. (Ex: Fábrica de `Veiculo` cria `Carro` ou `Moto`).</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Categoria" class="border border-gray-300 p-3 md:p-3"><strong>Estruturais</strong></td>
+                            <td data-label="Padrão" class="border border-gray-300 p-3 md:p-3"><strong>Adapter</strong></td>
+                            <td data-label="Intenção" class="border border-gray-300 p-3 md:p-3"><strong class="font-semibold bg-yellow-200 px-1 rounded">Adapta</strong> uma interface incompatível para outra que o cliente espera. (Ex: "Tomada universal").</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Categoria" class="border border-gray-300 p-3 md:p-3"></td>
+                            <td data-label="Padrão" class="border border-gray-300 p-3 md:p-3"><strong>Decorator</strong></td>
+                            <td data-label="Intenção" class="border border-gray-300 p-3 md:p-3">Adiciona funcionalidades a um objeto <strong class="font-semibold bg-yellow-200 px-1 rounded">dinamicamente</strong>, sem usar herança. (Ex: Adicionar criptografia a um fluxo de dados).</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Categoria" class="border border-gray-300 p-3 md:p-3"><strong>Comportamentais</strong></td>
+                            <td data-label="Padrão" class="border border-gray-300 p-3 md:p-3"><strong>Strategy</strong></td>
+                            <td data-label="Intenção" class="border border-gray-300 p-3 md:p-3">Permite que um algoritmo (estratégia) seja <strong class="font-semibold bg-yellow-200 px-1 rounded">selecionado em tempo de execução</strong>. (Ex: Diferentes formas de calcular frete).</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Categoria" class="border border-gray-300 p-3 md:p-3"></td>
+                            <td data-label="Padrão" class="border border-gray-300 p-3 md:p-3"><strong>Observer</strong></td>
+                            <td data-label="Intenção" class="border border-gray-300 p-3 md:p-3"><strong class="font-semibold bg-yellow-200 px-1 rounded">Notifica múltiplos objetos</strong> (observadores) sobre mudanças em um objeto (sujeito). (Ex: Notificar usuários quando um produto volta ao estoque).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="text-2xl font-semibold mt-8 mb-4">4. Foco na Banca: Instituto AOCP - Estratégia de Prova</h3>
+
+            <h4 class="text-xl font-semibold mt-6 mb-3">Perfil da Banca:</h4>
+            <ul class="list-disc list-outside pl-6 space-y-2">
+                <li><strong class="font-semibold bg-yellow-200 px-1 rounded">Objetiva e Direta:</strong> Enunciados curtos, sem "pegadinhas" complexas.[10]</li>
+                <li><strong class="font-semibold bg-yellow-200 px-1 rounded">Dificuldade Média:</strong> Foco em conceitos e aplicação direta, não em problemas teóricos profundos.[11, 10]</li>
+                <li><strong class="font-semibold bg-yellow-200 px-1 rounded">Conceitual:</strong> Valoriza a definição correta dos pilares da POO e a identificação em trechos de código.[3, 12, 13]</li>
+            </ul>
+
+            <h4 class="text-xl font-semibold mt-6 mb-3">Formato da Questão:</h4>
+            <ul class="list-disc list-outside pl-6 space-y-2">
+                <li>Múltipla escolha (geralmente 4 ou 5 alternativas).[14]</li>
+                <li>Questões de "assinale a alternativa que define corretamente..." são comuns.</li>
+                <li>Questões com pequenos trechos de código para analisar a saída ou identificar o conceito aplicado.</li>
+            </ul>
+
+            <h4 class="text-xl font-semibold mt-6 mb-3">Estratégia de Resolução:</h4>
+            <ol class="list-decimal list-outside pl-6 space-y-2">
+                <li><strong>Identifique a Palavra-Chave:</strong> No enunciado, procure por termos como "reutilização de código" (Herança), "ocultar detalhes" (Encapsulamento), "muitas formas" (Polimorfismo), "relação É-UM vs. TEM-UM" (Herança vs. Composição).</li>
+                <li><strong>Elimine Alternativas:</strong> Rapidamente descarte as alternativas que definem outros conceitos.</li>
+                <li><strong>Atenção às Linguagens:</strong> Lembre-se de particularidades. <strong>Exemplo:</strong> PHP não suporta sobrecarga de métodos tradicionalmente como Java, o que pode gerar um erro fatal.[15]</li>
+            </ol>
+
+            <h3 class="text-2xl font-semibold mt-8 mb-4">5. Pontos de Atenção e "Pegadinhas" Comuns</h3>
+            <ul class="list-disc list-outside pl-6 space-y-3">
+                <li><code>Pai p = new Filho();</code>: Isso é <strong class="font-semibold bg-yellow-200 px-1 rounded">Polimorfismo</strong> (upcasting). A variável `p` é do tipo `Pai`, mas o objeto é do tipo `Filho`. Métodos chamados por `p` executarão a versão da classe `Filho` (se sobrescritos). Contudo, `p` só pode chamar métodos que existem na classe `Pai`.</li>
+                <li><code>@Override</code><strong> em Java</strong>: É uma anotação para o compilador. Se você acha que está sobrescrevendo, mas errou a assinatura do método, o compilador avisará. Sem ela, você pode acidentalmente criar uma sobrecarga.</li>
+                <li><strong>Herança vs. Composição na Prática</strong>: Se o problema pede flexibilidade para "trocar o comportamento em tempo de execução", a resposta quase sempre será <strong class="font-semibold bg-yellow-200 px-1 rounded">Composição</strong> (usando o padrão Strategy, por exemplo).</li>
+                <li><strong>Abstração não é "capturar tudo"</strong>: É o oposto. É <strong class="font-semibold bg-yellow-200 px-1 rounded">selecionar o essencial</strong> e ignorar o resto.[3]</li>
+            </ul>
+
+        </div>
+
+        <!-- 2. Botão de Questões -->
+        <div class="mt-12 pt-8 border-t text-center">
+            <a href="esp-pooquestoes.html" 
+               class="inline-block bg-blue-600 text-white font-bold py-3 px-10 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300 text-lg">
+                Praticar com Questões
+            </a>
+            <p class="text-sm text-gray-500 mt-3">
+                (Este botão leva para `questoes.html`, que você criará separadamente)
+            </p>
+        </div>
+
+    </div> <!-- Fim do container principal -->
+
+</body>
+</html>
+

@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-g">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz de Linguagens de Programação</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carrega a fonte Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Define a fonte Inter como padrão */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Estiliza o highlight do código */
+        pre code {
+            display: block;
+            background-color: #f3f4f6; /* bg-gray-100 */
+            padding: 1rem; /* p-4 */
+            border-radius: 0.5rem; /* rounded-lg */
+            color: #111827; /* text-gray-900 */
+            font-family: monospace;
+            overflow-x: auto;
+        }
+        /* Melhora a legibilidade dos parágrafos nas resoluções */
+        .resolution-content p {
+            margin-bottom: 0.75rem; /* mb-3 */
+            line-height: 1.6;
+        }
+        .resolution-content strong {
+            color: #1f2937; /* text-gray-800 */
+        }
+        .resolution-content h3 {
+            font-size: 1.125rem; /* text-lg */
+            font-weight: 600; /* font-semibold */
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .resolution-content ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .resolution-content li {
+            margin-bottom: 0.25rem;
+        }
+        .resolution-content code {
+            background-color: #f3f4f6;
+            padding: 0.125rem 0.375rem;
+            border-radius: 0.25rem;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        .resolution-content hr {
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-color: #e5e7eb; /* border-gray-200 */
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 leading-relaxed">
+
+    <!-- Container Principal -->
+    <div class="max-w-4xl mx-auto p-6 md:p-10">
+
+        <!-- Cabeçalho -->
+        <header class="mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">Quiz: Introdução às Linguagens de Programação</h1>
+            <p class="text-lg text-gray-600">Teste seus conhecimentos sobre Python, Javascript, C/C++ e Java.</p>
+        </header>
+
+        <!-- Container do Quiz -->
+        <main class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
+            
+            <form id="quiz-form">
+                <!-- As questões serão injetadas aqui pelo JavaScript -->
+                <div id="quiz-container"></div>
+                
+                <!-- Botão de Finalizar -->
+                <button type="submit" id="submit-btn" class="w-full mt-10 bg-blue-600 text-white font-bold text-lg py-4 px-6 rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                    Finalizar Quiz e Ver Resoluções
+                </button>
+            </form>
+
+            <!-- Container dos Resultados (oculto por padrão) -->
+            <section id="results-container" class="hidden mt-12 border-t border-gray-200 pt-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Seu Resultado</h2>
+                
+                <!-- Placar -->
+                <div id="score-container" class="text-2xl font-semibold mb-8 p-6 bg-blue-50 border border-blue-200 text-blue-800 rounded-lg">
+                    <!-- O placar será injetado aqui -->
+                </div>
+
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Resoluções Comentadas</h2>
+                
+                <!-- As resoluções serão injetadas aqui -->
+                <div id="resolutions-list"></div>
+            </section>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="text-center mt-8 text-gray-500 text-sm">
+            Quiz gerado com base em questões adaptadas do estilo Instituto AOCP.
+        </footer>
+    </div>
+
+    <script>
+        // --- BANCO DE DADOS DO QUIZ ---
+        // Contém todas as questões, opções, a resposta correta e a resolução detalhada.
+        const quizData = [
+            {
+                question: "(Instituto AOCP - Adaptada) As linguagens de programação são classificadas por seu sistema de tipagem. Em linguagens de tipagem estática, os tipos são verificados em tempo de compilação, enquanto na tipagem dinâmica, a verificação ocorre em tempo de execução. Assinale a alternativa que classifica CORRETAMENTE as linguagens Java, C++, Python e Javascript quanto a esse critério.",
+                options: [
+                    "Estática: Java, C++; Dinâmica: Python, Javascript.",
+                    "Estática: Java, Python; Dinâmica: C++, Javascript.",
+                    "Estática: Javascript, C++; Dinâmica: Python, Java.",
+                    "Estática: Python, Javascript; Dinâmica: Java, C++.",
+                    "Estática: Javascript, Python; Dinâmica: C++, Java."
+                ],
+                correctAnswer: 0,
+                resolution: `
+                    <h3>Resolução da Questão 1</h3>
+                    <p><strong>Gabarito: A) Estática: Java, C++; Dinâmica: Python, Javascript.</strong></p>
+                    <p>Esta questão aborda um dos conceitos fundamentais na classificação de linguagens de programação: o sistema de tipagem. A distinção principal reside em <em>quando</em> o tipo de uma variável é verificado.</p>
+                    
+                    <ol class="list-decimal list-inside space-y-2 mb-3">
+                        <li><strong>Tipagem Estática (Static Typing):</strong>
+                            <ul>
+                                <li><strong>Definição:</strong> Os tipos das variáveis são verificados em <strong>tempo de compilação</strong> (antes da execução). O programador deve, geralmente, declarar explicitamente o tipo de cada variável (ex: <code>int numero = 10;</code>).</li>
+                                <li><strong>Linguagens:</strong> Java e C++ são exemplos clássicos. Em ambas, tentar atribuir um valor de tipo incompatível a uma variável (ex: <code>int x = "Ola";</code>) resultará em um erro de compilação.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Tipagem Dinâmica (Dynamic Typing):</strong>
+                            <ul>
+                                <li><strong>Definição:</strong> Os tipos são associados aos <em>valores</em>, não às <em>variáveis</em>, e a verificação de tipo ocorre em <strong>tempo de execução</strong>. A mesma variável pode armazenar um número em um momento e uma string em outro.</li>
+                                <li><strong>Linguagens:</strong> Python e Javascript são os principais exemplos. O código <code>x = 10</code> (Python) ou <code>let x = 10;</code> (JS) é válido. Mais tarde, <code>x = "Ola"</code> também é válido.</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    
+                    <p><strong>Análise das Alternativas:</strong><br>
+                    A) <strong>Correta.</strong> Alinha-se perfeitamente com a definição padrão. Java e C++ são estáticas; Python e Javascript são dinâmicas.</p>
+                `
+            },
+            {
+                question: "(Instituto AOCP - Adaptada) Diferentes linguagens de programação utilizam distintos modelos de compilação e execução. C++ é conhecida por sua compilação \"Ahead-of-Time\" (AOT), Java popularizou o modelo \"Just-in-Time\" (JIT) e Python utiliza uma Máquina Virtual (PVM). Considerando C++, Java e Python, assinale a alternativa que descreve CORRETAMENTE seus respectivos modelos de execução.",
+                options: [
+                    "C++ é interpretada, Java é compilada para código nativo (AOT) e Python é compilada para código nativo (AOT).",
+                    "C++ é compilada para *bytecode* (JVM), Java é interpretada (JIT) e Python é compilada para código nativo (AOT).",
+                    "C++ é compilada para código de máquina nativo (AOT), Java é compilada para *bytecode* executado pela JVM (que utiliza JIT), e Python é compilada para *bytecode* que é então interpretado pela PVM.",
+                    "C++ é interpretada, Java é compilada para *bytecode* (JIT) e Python é interpretada diretamente do código-fonte.",
+                    "C++ é compilada para código nativo (AOT) usando JIT, Java é compilada para código nativo (AOT) e Python é compilada para *bytecode* (JIT)."
+                ],
+                correctAnswer: 2,
+                resolution: `
+                    <h3>Resolução da Questão 2</h3>
+                    <p><strong>Gabarito: C) C++ é compilada para código de máquina nativo (AOT), Java é compilada para *bytecode* executado pela JVM (que utiliza JIT), e Python é compilada para *bytecode* que é então interpretado pela PVM.</strong></p>
+                    <p>Esta questão detalha os diferentes modelos de execução:</p>
+                    <ol class="list-decimal list-inside space-y-2 mb-3">
+                        <li><strong>C++ (Compilação Ahead-of-Time - AOT):</strong> O código-fonte C++ é traduzido *diretamente* para código de máquina nativo (instruções específicas da CPU) pelo compilador. O resultado é um arquivo executável otimizado, mas não portátil.</li>
+                        <li><strong>Java (Modelo Híbrido: Bytecode + JIT):</strong> O compilador <code>javac</code> transforma o código-fonte <code>.java</code> em <strong>Java Bytecode</strong> (<code>.class</code>). Esse <em>bytecode</em> é executado pela <strong>JVM (Java Virtual Machine)</strong>. Para otimização, a JVM usa um compilador <strong>Just-in-Time (JIT)</strong>, que traduz as partes mais usadas do <em>bytecode</em> para código nativo *em tempo de execução*.</li>
+                        <li><strong>Python (Interpretada com Bytecode):</strong> O CPython (implementação padrão) *primeiro* compila o script <code>.py</code> para um <strong>Python Bytecode</strong> (arquivos <code>.pyc</code>). Esse <em>bytecode</em> é então executado (interpretado) pela <strong>Python Virtual Machine (PVM)</strong>.</li>
+                    </ol>
+                    <p><strong>Análise das Alternativas:</strong><br>
+                    C) <strong>Correta.</strong> Descreve com precisão os três modelos: C++ (AOT nativo), Java (Bytecode + JIT/JVM) e Python (Bytecode + PVM).</p>
+                `
+            },
+            {
+                question: "(Instituto AOCP - Adaptada) O gerenciamento de memória é um aspecto crítico no desenvolvimento de software. Enquanto linguagens como Java, Python e Javascript utilizam um \"Coletor de Lixo\" (*Garbage Collector*) para liberar memória automaticamente, uma das linguagens listadas exige que o programador aloque e libere explicitamente a memória no *heap*. Qual linguagem é esta e quais são os operadores/funções primários para essa tarefa?",
+                options: [
+                    "Javascript, utilizando `new` e `Array.prototype.pop()`.",
+                    "Python, utilizando `__init__` e `del`.",
+                    "C++, utilizando os operadores `new` e `delete` (ou as funções `malloc` e `free` herdadas do C).",
+                    "Java, utilizando `new` e `System.gc()`.",
+                    "Python, utilizando `alloc` e `free`."
+                ],
+                correctAnswer: 2,
+                resolution: `
+                    <h3>Resolução da Questão 3</h3>
+                    <p><strong>Gabarito: C) C++, utilizando os operadores <code>new</code> e <code>delete</code> (ou as funções <code>malloc</code> e <code>free</code> herdadas do C).</strong></p>
+                    <p>Esta questão contrasta os dois principais paradigmas de gerenciamento de memória: automático e manual.</p>
+                    <ol class="list-decimal list-inside space-y-2 mb-3">
+                        <li><strong>Gerenciamento Automático (Garbage Collection - GC):</strong> Usado por Java, Python e Javascript. Um processo em *background* (o GC) monitora a memória, identifica objetos que não são mais referenciados e libera *automaticamente* o espaço.</li>
+                        <li><strong>Gerenciamento Manual:</strong> Usado por C e C++. O programador tem controle total e *responsabilidade total* pela memória dinâmica (alocada no *heap*).
+                            <ul>
+                                <li><strong>Alocação:</strong> Em C++, usa-se o operador <code>new</code> (ou <code>malloc()</code> do C).</li>
+                                <li><strong>Desalocação:</strong> O programador *deve* explicitamente liberar a memória com o operador <code>delete</code> (ou <code>free()</code> do C). Se esquecer, ocorre um *memory leak*.</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <p><strong>Análise das Alternativas:</strong><br>
+                    C) <strong>Correta.</strong> Identifica C++ como a linguagem de gerenciamento manual e cita corretamente seus operadores (<code>new</code>/<code>delete</code>) e as funções herdadas do C (<code>malloc</code>/<code>free</code>).</p>
+                `
+            },
+            {
+                question: "(Instituto AOCP - Adaptada) Analise o trecho de código em Python 3 a seguir:",
+                code: `nota = 8
+if nota >= 7:
+print("Aprovado")
+else:
+print("Reprovado")
+print("Fim da verificacao")`,
+                options: [
+                    "O código imprimirá \"Aprovado\" e \"Fim da verificacao\".",
+                    "O código falhará na execução devido a um `IndentationError`, pois a instrução `print(\"Aprovado\")` não está corretamente indentada dentro do bloco `if`.",
+                    "O código imprimirá \"Reprovado\" e \"Fim da verificacao\", pois a indentação incorreta faz o `if` ser ignorado.",
+                    "O código falhará na compilação, pois Python exige que blocos `if`/`else` sejam delimitados por chaves `{}`.",
+                    "O código será executado, mas imprimirá apenas \"Fim da verificacao\", pois a indentação é opcional e tratada como aviso."
+                ],
+                correctAnswer: 1,
+                resolution: `
+                    <h3>Resolução da Questão 4</h3>
+                    <p><strong>Gabarito: B) O código falhará na execução devido a um <code>IndentationError</code>, pois a instrução <code>print("Aprovado")</code> não está corretamente indentada dentro do bloco <code>if</code>.</strong></p>
+                    <p>Esta questão testa o pilar fundamental da sintaxe do Python: a <strong>indentação significativa</strong>.</p>
+                    
+                    <ol class="list-decimal list-inside space-y-2 mb-3">
+                        <li><strong>Filosofia da Indentação em Python:</strong> Enquanto linguagens como C, C++, Java e Javascript usam chaves <code>{ }</code> para delimitar blocos de código (o corpo de um <code>if</code>, <code>else</code>, <code>for</code>, etc.), Python usa o <strong>espaçamento em branco (indentação)</strong> para definir a estrutura e o escopo dos blocos.</li>
+                        <li><strong>Análise do Código:</strong> A linha <code>if nota >= 7:</code> inicia um novo bloco de código. O interpretador Python espera que a(s) linha(s) seguinte(s) que pertencem a esse bloco <code>if</code> estejam *indentadas* (deslocadas para a direita). A linha <code>print("Aprovado")</code> está no mesmo nível de indentação que o <code>if</code>, violando a gramática da linguagem.</li>
+                    </ol>
+                    
+                    <p>O erro específico lançado pelo Python para essa situação é <code>IndentationError: expected an indented block after 'if' statement</code>.</p>
+                    <p><strong>Análise das Alternativas:</strong><br>
+                    B) <strong>Correta.</strong> O código falhará com um <code>IndentationError</code> porque o bloco <code>if</code> não possui um corpo indentado válido.</p>
+                `
+            },
+            {
+                question: "(Instituto AOCP - Adaptada) Considere o seguinte código Javascript (ECMA Script) executado em um *browser* moderno:",
+                code: `function testarEscopo() {
+  for (var i = 0; i < 5; i++) {
+    //... laço executado...
+  }
+  console.log(i);
+}
+testarEscopo();`,
+                options: [
+                    "4",
+                    "5",
+                    "`undefined`",
+                    "Um `ReferenceError` será lançado, pois `i` não está definido fora do laço `for`.",
+                    "0"
+                ],
+                correctAnswer: 1,
+                resolution: `
+                    <h3>Resolução da Questão 5</h3>
+                    <p><strong>Gabarito: B) 5</strong></p>
+                    <p>Esta questão testa o conhecimento sobre escopo de variáveis em Javascript, especificamente o comportamento da palavra-chave <code>var</code>.</p>
+                    
+                    <ol class="list-decimal list-inside space-y-2 mb-3">
+                        <li><strong>Escopo do <code>var</code>:</strong> Variáveis declaradas com <code>var</code> (pré-ES6) têm <strong>escopo de função</strong>, não escopo de bloco. Isso significa que uma variável declarada com <code>var</code> dentro de um <code>for</code> *não* está restrita a esse <code>for</code>; ela "vaza" para a função inteira que a contém.</li>
+                        <li><strong>Análise do Código:</strong>
+                            <ul>
+                                <li>O laço <code>for</code> é inicializado com <code>var i = 0</code>.</li>
+                                <li>O loop executa para <code>i = 0, 1, 2, 3, 4</code>.</li>
+                                <li>Na última iteração, <code>i</code> é incrementado para <code>5</code>.</li>
+                                <li>O loop verifica a condição: <code>i < 5</code> (ou seja, <code>5 < 5</code>) é <code>false</code>.</li>
+                                <li>O loop termina.</li>
+                                <li>Como <code>i</code> foi declarado com <code>var</code>, ele *ainda existe* no escopo da função <code>testarEscopo</code>.</li>
+                                <li>A linha <code>console.log(i)</code> é executada. Neste ponto, o valor de <code>i</code> é <code>5</code>.</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    
+                    <p><strong>Observação:</strong> Se a declaração fosse <code>for (let i = 0; ...)</code>, <code>let</code> criaria um escopo de <strong>bloco</strong>. Nesse caso, <code>i</code> existiria *apenas* dentro do laço <code>for</code>, e <code>console.log(i)</code> fora do laço resultaria em um <code>ReferenceError</code> (Alternativa D).</p>
+                `
+            },
+            {
+                question: "(Instituto AOCP - Adaptada) A linguagem Java é conhecida por seu slogan \"Write Once, Run Anywhere\" (Escreva uma vez, Rode em qualquer lugar), que destaca sua alta portabilidade. Qual componente de *software* é o principal responsável por garantir essa portabilidade, permitindo que o *bytecode* Java (arquivos `.class`) seja executado em diferentes sistemas operacionais sem a necessidade de recompilação do código-fonte?",
+                options: [
+                    "O compilador `javac`, que gera código de máquina específico para cada plataforma.",
+                    "O JRE (Java Runtime Environment), que é idêntico em todos os sistemas operacionais.",
+                    "A JVM (Java Virtual Machine), que atua como uma camada de abstração entre o *bytecode* e o sistema operacional.",
+                    "O compilador JIT (Just-in-Time), que substitui a necessidade de uma máquina virtual.",
+                    "O *Garbage Collector* (GC), que gerencia a portabilidade da memória."
+                ],
+                correctAnswer: 2,
+                resolution: `
+                    <h3>Resolução da Questão 6</h3>
+                    <p><strong>Gabarito: C) A JVM (Java Virtual Machine), que atua como uma camada de abstração entre o *bytecode* e o sistema operacional.</strong></p>
+                    <p>Esta questão foca no componente central da plataforma Java que garante sua portabilidade.</p>
+                    
+                    <ol class="list-decimal list-inside space-y-2 mb-3">
+                        <li><strong>O Problema da Portabilidade:</strong> Linguagens como C++ são compiladas para código de máquina nativo. Um <code>.exe</code> compilado para Windows x64 não pode ser executado em um Linux ARM.</li>
+                        <li><strong>A Solução Java (JVM e Bytecode):</strong> Java resolve isso adicionando uma camada de abstração: a <strong>Java Virtual Machine (JVM)</strong>.
+                            <ul>
+                                <li><strong>Compilador (<code>javac</code>):</strong> Transforma o código-fonte <code>.java</code> em <strong>Java Bytecode</strong> (<code>.class</code>), que é um código intermediário neutro.</li>
+                                <li><strong>Execução (JVM):</strong> O arquivo <code>.class</code> (o *bytecode*) é distribuído. Para rodá-lo, o usuário precisa da JVM. A JVM *é* um programa específico para cada sistema operacional (existe uma JVM para Windows, uma para Linux, etc.).</li>
+                                <li><strong>A "Mágica":</strong> A JVM carrega o *bytecode* (que é o mesmo em qualquer plataforma) e o traduz *em tempo de execução* para as instruções de máquina nativas corretas para o sistema em que está rodando.</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <p>Isso cria o slogan "Write Once, Run Anywhere" (WORA): o mesmo arquivo <code>.class</code> (compilado uma vez) roda em qualquer lugar que possua uma JVM.</p>
+                `
+            },
+            {
+                question: "(Instituto AOCP - Adaptada) As linguagens C e C++ são conhecidas por permitir um gerenciamento de memória de baixo nível. Elas possuem um tipo especial de variável que não armazena um valor diretamente, mas sim o **endereço de memória** de outra variável ou de um bloco de memória alocado dinamicamente (no *heap*). Esse recurso é a base para o gerenciamento manual de memória (usando `malloc`/`free` ou `new`/`delete`). Qual é o nome desse recurso?",
+                options: [
+                    "referências",
+                    "*garbage collectors*",
+                    "*virtual machines*",
+                    "ponteiros",
+                    "*stacks*"
+                ],
+                correctAnswer: 3,
+                resolution: `
+                    <h3>Resolução da Questão 7</h3>
+                    <p><strong>Gabarito: D) ponteiros</strong></p>
+                    <p>Esta questão identifica a característica mais distintiva de C e C++: o acesso direto à memória.</p>
+                    
+                    <ol class="list-decimal list-inside space-y-2 mb-3">
+                        <li><strong>Variáveis Padrão vs. Ponteiros:</strong>
+                            <ul>
+                                <li>Uma variável padrão (ex: <code>int var = 10;</code>) armazena um <em>valor</em>.</li>
+                                <li>Um <strong>ponteiro</strong> (ex: <code>int* ptr;</code>) é um tipo especial de variável que armazena um <em>endereço de memória</em>.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Utilidade e Risco:</strong>
+                            <ul>
+                                <li>São a base do gerenciamento manual de memória. Funções como <code>malloc</code> (C) ou o operador <code>new</code> (C++) alocam memória no <em>heap</em> e retornam um <strong>ponteiro</strong> para o início desse bloco.</li>
+                                <li>O programador <em>deve</em> subsequentemente passar esse mesmo ponteiro para <code>free</code> (C) ou <code>delete</code> (C++) para liberar a memória.</li>
+                                <li>Linguagens como Java, Python e Javascript não expõem ponteiros ao programador; elas usam <em>referências</em>, que são uma forma gerenciada e segura de apontar para objetos.</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <p><strong>Análise das Alternativas:</strong><br>
+                    D) <strong>Correta.</strong> A descrição de "variáveis especiais que armazenam endereços de memória" é a definição exata de ponteiros.</p>
+                `
+            },
+            {
+                question: "(Instituto AOCP - Adaptada) A linguagem C++ foi desenvolvida por Bjarne Stroustrup como uma extensão da linguagem C. Embora C++ mantenha a eficiência e a sintaxe de baixo nível do C (que é primariamente procedural), a principal adição e mudança de filosofia introduzida pelo C++ foi o suporte robusto a qual paradigma de programação, através de conceitos como `class`, herança e polimorfismo?",
+                options: [
+                    "Procedural.",
+                    "Orientado a Objetos (OOP).",
+                    "Funcional.",
+                    "Orientado a Aspectos (AOP).",
+                    "Lógico."
+                ],
+                correctAnswer: 1,
+                resolution: `
+                    <h3>Resolução da Questão 8</h3>
+                    <p><strong>Gabarito: B) Orientado a Objetos (OOP).</strong></p>
+                    <p>Esta questão aborda a evolução de paradigmas de programação do C para o C++.</p>
+                    
+                    <ol class="list-decimal list-inside space-y-2 mb-3">
+                        <li><strong>Linguagem C (Paradigma Procedural):</strong> O foco está em <em>funções</em> (procedimentos ou sub-rotinas). Um programa é estruturado como uma série de chamadas de função que manipulam dados.</li>
+                        <li><strong>Linguagem C++ (Evolução para Multi-paradigma):</strong> Foi criado com o objetivo inicial de "C com Classes". Manteve todo o paradigma procedural do C, mas a <em>principal adição</em> e mudança de filosofia foi a introdução de suporte de primeira classe ao <strong>paradigma Orientado a Objetos (OOP)</strong>.</li>
+                    </ol>
+                    
+                    <p>Isso foi alcançado através da adição de <em>features</em> de linguagem como:</p>
+                    <ul>
+                        <li><code>class</code> (Classes): Para definir "plantas" de objetos, encapsulando dados (atributos) e comportamento (métodos).</li>
+                        <li><strong>Encapsulamento:</strong> (usando <code>public</code>, <code>private</code>, <code>protected</code>).</li>
+                        <li><strong>Herança:</strong> (Permitindo que uma classe herde de outra).</li>
+                        <li><strong>Polimorfismo:</strong> (Principalmente através de funções virtuais <code>virtual</code>).</li>
+                    </ul>
+                `
+            },
+            {
+                question: "(Instituto AOCP - Adaptada) Considere as duas operações a seguir, uma em Python 3 e outra em Javascript (ECMA Script):\n* Python: `resultado_py = 10 + \"10\"`\n* Javascript: `var resultado_js = 10 + \"10\";`\n\nAssinale a alternativa que descreve CORRETAMENTE o comportamento dessas duas linguagens diante da operação de adição (`+`) entre um número (`10`) e uma string (`\"10\"`).",
+                options: [
+                    "Ambas as linguagens são de tipagem estática e produzirão um erro em tempo de compilação.",
+                    "Ambas as linguagens realizarão a soma matemática, convertendo a string \"10\" para número, resultando em `20`.",
+                    "Javascript é uma linguagem de tipagem fraca e realiza a coerção implícita do número `10` para uma string, concatenando os valores (resultando em `\"1010\"`). Python, por ser de tipagem forte, não realiza essa coerção ambígua e lança um `TypeError`.",
+                    "Python é compilado e Javascript é interpretado, por isso Python falha e Javascript concatena.",
+                    "Python realizará a concatenação (resultando em `\"1010\"`). Javascript realizará a soma matemática (resultando em `20`)."
+                ],
+                correctAnswer: 2,
+                resolution: `
+                    <h3>Resolução da Questão 9</h3>
+                    <p><strong>Gabarito: C) Javascript é uma linguagem de tipagem fraca e realiza a coerção implícita do número <code>10</code> para uma string, concatenando os valores (resultando em <code>"1010"</code>). Python, por ser de tipagem forte, não realiza essa coerção ambígua e lança um <code>TypeError</code>.</strong></p>
+                    <p>Esta questão testa a diferença entre tipagem <strong>Forte vs. Fraca</strong> (que é distinta de Estática vs. Dinâmica).</p>
+                    
+                    <ol class="list-decimal list-inside space-y-2 mb-3">
+                        <li><strong>Javascript (Tipagem Dinâmica e Fraca):</strong> Sendo de tipagem fraca, JS realiza agressivamente a <strong>coerção implícita de tipo</strong>. Quando vê o operador <code>+</code> com um número e uma string, ele prioriza a concatenação. Ele <em>coage</em> (converte) o número <code>10</code> para a string <code>"10"</code> e realiza a operação <code>"10" + "10"</code>, resultando na string <code>"1010"</code>.</li>
+                        <li><strong>Python (Tipagem Dinâmica e Forte):</strong> Sendo de tipagem forte, Python <em>não</em> realiza coerções implícitas ambíguas. Ele prefere "falhar ruidosamente". Ao ver <code>10 + "10"</code>, ele não sabe se deve somar ou concatenar. Por ser fortemente tipado, ele se recusa a adivinhar e lança um <code>TypeError: unsupported operand type(s) for +: 'int' and 'str'</code>.</li>
+                    </ol>
+                `
+            },
+            {
+                question: "(Instituto AOCP - Adaptada) As linguagens de programação Python 3, Javascript, C++ e Java possuem características distintas quanto ao sistema de tipagem, modelo de execução e gerenciamento de memória. Assinale a alternativa que apresenta uma associação **INCORRETA** entre a linguagem e suas características.",
+                options: [
+                    "C++: Tipagem Estática; Compilação nativa (AOT); Gerenciamento de memória manual.",
+                    "Java: Tipagem Estática; Execução híbrida (Bytecode + JIT/JVM); Gerenciamento de memória automático (GC).",
+                    "Python: Tipagem Dinâmica; Execução interpretada (Bytecode PVM); Gerenciamento de memória automático (GC).",
+                    "Javascript: Tipagem Dinâmica; Execução interpretada (JIT nos browsers); Gerenciamento de memória automático (GC).",
+                    "Java: Tipagem Dinâmica; Compilação nativa (AOT); Gerenciamento de memória manual."
+                ],
+                correctAnswer: 4,
+                resolution: `
+                    <h3>Resolução da Questão 10</h3>
+                    <p><strong>Gabarito: E) Java: Tipagem Dinâmica; Compilação nativa (AOT); Gerenciamento de memória manual.</strong></p>
+                    <p>Esta questão é uma consolidação de todos os conceitos anteriores, pedindo a identificação da única associação <strong>incorreta</strong>. Vamos analisar a alternativa (E) e validar por que as outras estão corretas.</p>
+                    
+                    <p><strong>Análise da Alternativa (E) - Incorreta:</strong><br>
+                    A descrição das características do Java está triplamente errada:</p>
+                    <ol class="list-decimal list-inside space-y-2 mb-3">
+                        <li><strong>"Tipagem Dinâmica":</strong> Falso. Java é <strong>Tipagem Estática</strong>.</li>
+                        <li><strong>"Compilação nativa (AOT)":</strong> Falso. Java usa <strong>Bytecode + JIT/JVM</strong>.</li>
+                        <li><strong>"Gerenciamento de memória manual":</strong> Falso. Java usa <strong>Gerenciamento Automático (GC)</strong>.</li>
+                    </ol>
+                    <p>Como a alternativa (E) contém múltiplas afirmações factualmente incorretas sobre o Java, ela é a resposta que a questão solicita.</p>
+                    
+                    <p><strong>Validação das Alternativas Corretas:</strong></p>
+                    <ul>
+                        <li><strong>A) C++:</strong> Correto (Estática, AOT, Manual).</li>
+                        <li><strong>B) Java:</strong> Correto (Estática, Híbrida JIT/JVM, Automática GC).</li>
+                        <li><strong>C) Python:</strong> Correto (Dinâmica, Bytecode PVM, Automática GC).</li>
+                        <li><strong>D) Javascript:</strong> Correto (Dinâmica, JIT em browsers, Automática GC).</li>
+                    </ul>
+                `
+            }
+        ];
+
+        // --- LÓGICA DO QUIZ ---
+
+        // Elementos do DOM
+        const quizContainer = document.getElementById('quiz-container');
+        const quizForm = document.getElementById('quiz-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const resultsContainer = document.getElementById('results-container');
+        const scoreContainer = document.getElementById('score-container');
+        const resolutionsList = document.getElementById('resolutions-list');
+
+        /**
+         * Renderiza as questões do quiz na página.
+         */
+        function renderQuiz() {
+            let quizHTML = '';
+
+            quizData.forEach((questionData, index) => {
+                // Monta as opções de resposta
+                const optionsHTML = questionData.options.map((option, optionIndex) => `
+                    <label class="block p-4 rounded-lg border border-gray-200 hover:bg-gray-50 cursor-pointer has-[:checked]:bg-blue-50 has-[:checked]:border-blue-300">
+                        <input type="radio" name="question-${index}" value="${optionIndex}" class="mr-3 align-middle" required>
+                        <span class="text-gray-800 align-middle">${option}</span>
+                    </label>
+                `).join('');
+
+                // Monta o bloco de código, se existir
+                const codeHTML = questionData.code 
+                    ? `<pre class="my-4"><code>${questionData.code.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</code></pre>`
+                    : '';
+
+                // Monta o card da questão
+                quizHTML += `
+                    <article class="mb-10 pb-6 border-b border-gray-200 last:border-b-0 last:mb-0">
+                        <p class="text-lg font-semibold text-gray-800 mb-4 leading-relaxed whitespace-pre-line">
+                            <strong>Questão ${index + 1}:</strong> ${questionData.question}
+                        </p>
+                        ${codeHTML}
+                        <div class="space-y-3">
+                            ${optionsHTML}
+                        </div>
+                    </article>
+                `;
+            });
+
+            quizContainer.innerHTML = quizHTML;
+        }
+
+        /**
+         * Calcula o placar, exibe os resultados e as resoluções.
+         */
+        function showResults(event) {
+            event.preventDefault(); // Impede o envio do formulário
+            
+            let score = 0;
+            let resolutionsHTML = '';
+
+            quizData.forEach((questionData, index) => {
+                const selectedOption = quizForm.querySelector(`input[name="question-${index}"]:checked`);
+                
+                let userAnswerIndex = -1;
+                let userAnswerText = "Não respondida";
+                let isCorrect = false;
+
+                if (selectedOption) {
+                    userAnswerIndex = parseInt(selectedOption.value, 10);
+                    userAnswerText = questionData.options[userAnswerIndex];
+                    if (userAnswerIndex === questionData.correctAnswer) {
+                        score++;
+                        isCorrect = true;
+                    }
+                }
+
+                const correctAnswerText = questionData.options[questionData.correctAnswer];
+
+                // Monta o card de resolução para esta questão
+                resolutionsHTML += `
+                    <article class="mb-8 p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Questão ${index + 1}</h3>
+                        
+                        <div class="mb-4 space-y-2">
+                            <p><strong>Sua resposta:</strong> 
+                                <span class="${isCorrect ? 'text-green-700' : 'text-red-700'} font-semibold">${userAnswerText}</span>
+                            </p>
+                            <p><strong>Resposta correta:</strong> 
+                                <span class="text-green-700 font-semibold">${correctAnswerText}</span>
+                            </p>
+                        </div>
+                        
+                        ${isCorrect 
+                            ? '<p class="mb-4 font-semibold text-green-700">Você acertou! ✅</p>' 
+                            : '<p class="mb-4 font-semibold text-red-700">Você errou. ❌</p>'
+                        }
+                        
+                        <hr class="my-4">
+                        
+                        <div class="resolution-content text-gray-700">
+                            ${questionData.resolution}
+                        </div>
+                    </article>
+                `;
+            });
+
+            // Atualiza o placar
+            scoreContainer.innerHTML = `Você acertou ${score} de ${quizData.length} questões.`;
+
+            // Exibe as resoluções
+            resolutionsList.innerHTML = resolutionsHTML;
+
+            // Oculta o botão de submit e exibe os resultados
+            submitBtn.classList.add('hidden');
+            resultsContainer.classList.remove('hidden');
+
+            // Rola a página para os resultados
+            resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // --- INICIALIZAÇÃO ---
+
+        // Renderiza o quiz quando o DOM estiver pronto
+        document.addEventListener('DOMContentLoaded', renderQuiz);
+        
+        // Adiciona o listener ao botão de submit
+        quizForm.addEventListener('submit', showResults);
+
+    </script>
+</body>
+</html>

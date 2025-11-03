@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo: Fundamentos de Programação</title>
+    <!-- Carrega o Tailwind CSS para estilização -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Importa a fonte 'Inter' para melhor legibilidade -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Define a fonte Inter como padrão, com fallbacks */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Estilo para código inline: fundo neutro, texto destacado */
+        code:not(pre code) {
+            background-color: #f3f4f6; /* bg-gray-100 */
+            color: #be123c; /* text-rose-700 */
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        /* Estilo para blocos de código: fundo neutro, borda sutil */
+        pre {
+            background-color: #f3f4f6; /* bg-gray-100 */
+            border: 1px solid #e5e7eb; /* border-gray-200 */
+            color: #1f2937; /* text-gray-800 */
+            padding: 1rem;
+            border-radius: 0.375rem; /* rounded-md */
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+        }
+
+        /* Garante que o negrito (usado em títulos) seja bem visível */
+        strong {
+            font-weight: 600; /* semibold */
+            color: #1f2937; /* text-gray-800 */
+        }
+
+        /* NOVO: Estilo marca-texto amarelo suave */
+        .highlight {
+            background-color: #fef9c3; /* bg-yellow-100 */
+            color: #713f12; /* text-yellow-900 - para melhor contraste */
+            padding: 0 4px;
+            border-radius: 3px;
+            font-weight: 500; /* medium */
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800 leading-relaxed">
+
+    <!-- Container principal com largura máxima para leitura confortável -->
+    <main class="max-w-4xl mx-auto p-6 md:p-10">
+
+        <h1 class="text-3xl md:text-4xl font-bold mb-6 text-center text-gray-900">
+            Fundamentos de Programação
+            <span class="block text-xl font-medium text-gray-600 mt-1">Resumo Focado em Memorização</span>
+        </h1>
+
+        <!-- Seção do Reprodutor de Áudio -->
+        <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-8">
+            <h3 class="text-lg font-semibold mb-2 text-gray-700">Resumo em Áudio MP3</h3>
+            <audio controls class="w-full">
+                <!-- 
+                    INSTRUÇÃO:
+                    Substitua 'SEU_ARQUIVO.mp3' pelo nome do seu arquivo de áudio.
+                    O arquivo deve estar na mesma pasta que este HTML.
+                -->
+                <source src="esp-fundamentos-programacao.mp3" type="audio/mpeg">
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
+            <p class="text-sm text-gray-500 mt-2">
+                Para ouvir, adicione seu arquivo MP3 na mesma pasta e atualize o nome 
+                <code>SEU_ARQUIVO.mp3</code> no código HTML.
+            </p>
+        </div>
+
+        <!-- Linha divisória -->
+        <hr class="my-8 border-gray-200">
+
+        <!-- Início do Conteúdo do Resumo -->
+
+        <!-- Página 1 -->
+        <section>
+            <h2 class="text-2xl font-bold mt-8 mb-4 border-b border-gray-200 pb-2 text-gray-900">
+                Página 1: Fundamentos Essenciais e Estrutura de Código
+            </h2>
+
+            <h3 class="text-xl font-semibold mt-6 mb-3 text-gray-900">Módulo 1: A Base da Linguagem C</h3>
+
+            <h4 class="text-lg font-semibold mt-4 mb-2">1.1 Tipos de Dados Primitivos e Limites</h4>
+            <ul class="list-disc list-inside ml-4 space-y-1">
+                <li><code>int</code>: Inteiro (comum: 4 bytes).</li>
+                <li><code>char</code>: Caractere (1 byte).</li>
+                <li><code>float</code>: Ponto flutuante, precisão simples.</li>
+                <li><code>double</code>: Ponto flutuante, precisão dupla.</li>
+                <li><code>void</code>: Ausência de tipo/valor.</li>
+                <li><span class="highlight">Modificadores:</span>
+                    <ul class="list-disc list-inside ml-6 mt-1">
+                        <li><code>signed</code> (padrão) / <code>unsigned</code>: <span class="highlight"><code>unsigned</code> dobra o limite positivo</span>, não permite negativos.</li>
+                        <li><code>short</code> / <code>long</code>: Alteram o tamanho/faixa de <code>int</code> e <code>double</code>.</li>
+                    </ul>
+                </li>
+            </ul>
+            <p class="mt-3"><strong class="text-red-600">Ponto de Atenção (Memorizar): <span class="highlight"><em>Overflow</em></span></strong></p>
+            <ul class="list-disc list-inside ml-4 space-y-1 mt-1">
+                <li><code>unsigned char uc = 255; uc++;</code> &rarr; <code>uc</code> vira <span class="highlight"><code>0</code></span>.</li>
+                <li><code>signed char sc = 127; sc++;</code> &rarr; <code>sc</code> vira <span class="highlight"><code>-128</code></span>.</li>
+            </ul>
+
+            <h4 class="text-lg font-semibold mt-4 mb-2">1.2 Operadores e Precedência (Decisivo em Provas)</h4>
+            <p>A ordem de avaliação é a chave. Memorize a hierarquia:</p>
+            <ol class="list-decimal list-inside ml-4 space-y-1 mt-2">
+                <li><span class="highlight">Pós-fixado/Acesso:</span> <code>()</code>, <code>[]</code>, <code>-></code>, <code>.</code> , <code>var++</code>, <code>var--</code></li>
+                <li><span class="highlight">Unário/Pré-fixado:</span> <code>++var</code>, <code>--var</code>, <code>!</code> (NÃO), <code>*</code> (desref.), <code>&</code> (endereço), <code>sizeof</code></li>
+                <li><span class="highlight">Multiplicativo:</span> <code>*</code>, <code>/</code>, <code>%</code></li>
+                <li><span class="highlight">Aditivo:</span> <code>+</code>, <code>-</code></li>
+                <li><span class="highlight">Relacional:</span> <code>></code>, <code><</code>, <code>>=</code>, <code><=</code></li>
+                <li><span class="highlight">Igualdade:</span> <code>==</code>, <code>!=</code></li>
+                <li><span class="highlight">Lógicos:</span> <code>&&</code> (E), <code>||</code> (OU)</li>
+                <li><span class="highlight">Ternário:</span> <code>?:</code></li>
+                <li><span class="highlight">Atribuição:</span> <code>=</code>, <code>+=</code>, <code>-=</code> etc.</li>
+            </ol>
+            <p class="mt-3"><strong>Exemplo Clássico de Prova:</strong> <code>int a=5, b=3, c=2; int res = ++a * b-- - c;</code></p>
+            <ol class="list-decimal list-inside ml-4 space-y-1 mt-1">
+                <li><code>++a</code>: <code>a</code> vira 6. <span class="highlight">Usa-se 6</span>.</li>
+                <li><code>b--</code>: <span class="highlight">Usa-se 3</span>. <em>Depois</em>, <code>b</code> vira 2.</li>
+                <li>Expressão: <code>6 * 3 - 2</code></li>
+                <li>Multiplicação primeiro: <code>18 - 2</code></li>
+                <li>Resultado: <code>res = 16</code>.</li>
+            </ol>
+
+            <h4 class="text-lg font-semibold mt-4 mb-2">1.3 Estruturas de Controle</h4>
+            <ul class="list-disc list-inside ml-4 space-y-2">
+                <li><span class="highlight">Decisão:</span>
+                    <ul class="list-disc list-inside ml-6 mt-1">
+                        <li><code>if-else</code>: Condicional simples ou aninhada.</li>
+                        <li><code>switch-case</code>: Múltipla escolha para inteiros/char. <strong>Atenção:</strong> Sem <code>break</code>, ocorre <span class="highlight"><em>fall-through</em></span> (continua para o próximo <code>case</code>).</li>
+                    </ul>
+                </li>
+                <li><span class="highlight">Repetição:</span>
+                    <ul class="list-disc list-inside ml-6 mt-1">
+                        <li><code>while</code>: Testa a condição <span class="highlight"><strong>antes</strong></span>. Pode não executar.</li>
+                        <li><code>do-while</code>: Testa a condição <span class="highlight"><strong>depois</strong></span>. Executa <span class="highlight"><strong>pelo menos uma vez</strong></span>.</li>
+                        <li><code>for</code>: Ideal para número definido de iterações (inicialização, condição, incremento).</li>
+                    </ul>
+                </li>
+                <li><span class="highlight">Controle de Laço:</span>
+                    <ul class="list-disc list-inside ml-6 mt-1">
+                        <li><code>break</code>: <span class="highlight"><strong>Sai</strong> do laço/<code>switch</code></span> imediatamente.</li>
+                        <li><code>continue</code>: <span class="highlight"><strong>Pula</strong> para a próxima iteração</span> do laço.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h4 class="text-lg font-semibold mt-4 mb-2">1.4 Entrada e Saída (<code>&lt;stdio.h&gt;</code>)</h4>
+            <ul class="list-disc list-inside ml-4 space-y-1">
+                <li><code>printf("%d %f %c %s",...)</code>: Escreve formatado.</li>
+                <li><code>scanf("%d", &variavel)</code>: Lê formatado. <span class="highlight"><strong>Requer o <code>&</code> (endereço)</strong></span>.</li>
+            </ul>
+
+            <h3 class="text-xl font-semibold mt-8 mb-3 text-gray-900">Módulo 2: Estruturando Dados e Código</h3>
+
+            <h4 class="text-lg font-semibold mt-4 mb-2">2.1 Funções</h4>
+            <ul class="list-disc list-inside ml-4 space-y-1">
+                <li><span class="highlight">Passagem por Valor (Padrão):</span> A função recebe uma <strong>cópia</strong>. A variável original <span class="highlight"><strong>não é alterada</strong></span>.</li>
+                <li><span class="highlight">Passagem por Referência (com Ponteiros):</span> A função recebe o <strong>endereço (<code>&</code>)</strong>. A variável original <span class="highlight"><strong>pode ser alterada</strong></span> usando <code>*ponteiro</code>.</li>
+            </ul>
+            <pre class="my-2"><code>void por_valor(int x) { x++; } // Não altera o original
+void por_ref(int *x_ptr) { (*x_ptr)++; } // Altera o original</code></pre>
+            <ul class="list-disc list-inside ml-4 space-y-1">
+                <li><span class="highlight">Recursividade:</span> Função que chama a si mesma. Requer um <span class="highlight"><strong>caso base</strong></span> para parar. Ex: Fatorial.</li>
+            </ul>
+
+            <h4 class="text-lg font-semibold mt-4 mb-2">2.2 Vetores (Arrays)</h4>
+            <ul class="list-disc list-inside ml-4 space-y-1">
+                <li>Coleção de itens <span class="highlight"><strong>do mesmo tipo</strong></span> em memória contígua. Índice começa em 0.</li>
+                <li><span class="highlight">Relação com Ponteiros (Memorizar):</span> O nome de um vetor é um ponteiro para seu primeiro elemento.</li>
+                <ul class="list-disc list-inside ml-6 mt-1">
+                    <li><code>vetor</code> é o mesmo que <code>&vetor[0]</code>.</li>
+                    <li><code>vetor[i]</code> é o mesmo que <code>*(vetor + i)</code>.</li>
+                </ul>
+            </ul>
+
+            <h4 class="text-lg font-semibold mt-4 mb-2">2.3 Strings (Vetores de <code>char</code>)</h4>
+            <ul class="list-disc list-inside ml-4 space-y-1">
+                <li>Não há tipo <code>string</code>. É um <code>char array</code> terminado com o caractere nulo <span class="highlight"><code>\0</code></span>.</li>
+                <li><span class="highlight">Biblioteca <code>&lt;string.h&gt;</code>:</span>
+                    <ul class="list-disc list-inside ml-6 mt-1">
+                        <li><code>strlen(s)</code>: Comprimento (não conta <code>\0</code>).</li>
+                        <li><code>strcpy(dest, orig)</code>: Copia string. <span class="highlight">Inseguro</span>.</li>
+                        <li><code>strcat(dest, orig)</code>: Concatena strings. <span class="highlight">Inseguro</span>.</li>
+                        <li><code>strcmp(s1, s2)</code>: Compara. Retorna <span class="highlight">0 se iguais</span>.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h4 class="text-lg font-semibold mt-4 mb-2">2.4 Structs</h4>
+            <ul class="list-disc list-inside ml-4 space-y-1">
+                <li>Agrupa variáveis de <span class="highlight"><strong>tipos diferentes</strong></span> sob um único nome. Acesso com o operador <span class="highlight">ponto (<code>.</code>)</span>.</li>
+            </ul>
+            <pre class="my-2"><code>struct Aluno { int mat; char nome; };
+struct Aluno a1;
+a1.mat = 123;</code></pre>
+        </section>
+
+        <!-- Página 2 -->
+        <section>
+            <h2 class="text-2xl font-bold mt-10 mb-4 border-b border-gray-200 pb-2 text-gray-900">
+                Página 2: Tópicos Avançados e Algoritmos
+            </h2>
+
+            <h3 class="text-xl font-semibold mt-6 mb-3 text-gray-900">Módulo 3: Ponteiros e Memória Dinâmica</h3>
+
+            <h4 class="text-lg font-semibold mt-4 mb-2">3.1 Conceitos Fundamentais de Ponteiros</h4>
+            <ul class="list-disc list-inside ml-4 space-y-1">
+                <li><span class="highlight">Ponteiro:</span> Variável que armazena um <strong>endereço de memória</strong>.</li>
+                <li><span class="highlight">Operador <code>&</code> (Endereço de):</span> Obtém o endereço de uma variável. <code>int *p = &var;</code></li>
+                <li><span class="highlight">Operador <code>*</code> (Desreferência):</span> Acessa o <strong>valor</strong> no endereço apontado. <code>*p = 10;</code> (altera <code>var</code>).</li>
+            </ul>
+            <p class="mt-3"><strong>Ponto de Atenção (Questão Clássica - [1]):</strong></p>
+            <pre class="my-2"><code>void func(int *a, int *b) { *a = *a + *b; }
+int main() {
+    int x=5, y=3;
+    func(&x, &y); // x é alterado para 8
+    printf("%d", x); // Imprime 8
+}</code></pre>
+
+            <h4 class="text-lg font-semibold mt-4 mb-2">3.2 Alocação Dinâmica de Memória (<code>&lt;stdlib.h&gt;</code>)</h4>
+            <ul class="list-disc list-inside ml-4 space-y-1">
+                <li><code>malloc(tamanho_em_bytes)</code>: Aloca memória no <em>heap</em>. Retorna <code>void*</code>. Memória contém <span class="highlight">"lixo"</span>.</li>
+                <li><code>calloc(qtd_itens, tamanho_item)</code>: Aloca e <span class="highlight"><strong>inicializa com zero</strong></span>.</li>
+                <li><code>free(ponteiro)</code>: <span class="highlight"><strong>Obrigatório!</strong></span> Libera a memória alocada para evitar <em>memory leak</em>.</li>
+            </ul>
+
+            <h3 class="text-xl font-semibold mt-8 mb-3 text-gray-900">Módulo 4: Manipulação de Arquivos (<code>&lt;stdio.h&gt;</code>)</h3>
+            <ul class="list-disc list-inside ml-4 space-y-1">
+                <li><span class="highlight">Abertura:</span> <code>FILE *arq = fopen("nome.txt", "modo");</code></li>
+                <li><span class="highlight">Fechamento:</span> <code>fclose(arq);</code> (Sempre fechar!)</li>
+                <li><span class="highlight">Modos Essenciais (Memorizar):</span>
+                    <ul class="list-disc list-inside ml-6 mt-1">
+                        <li><code>"r"</code>: Leitura (Read). Arquivo deve existir.</li>
+                        <li><code>"w"</code>: Escrita (Write). <span class="highlight"><strong>Apaga o conteúdo</strong></span> se existir, ou cria.</li>
+                        <li><code>"a"</code>: Anexar (Append). <span class="highlight">Escreve no fim</span>, ou cria.</li>
+                        <li>Adicionar <code>+</code> (ex: <code>"r+"</code>) permite leitura e escrita.</li>
+                        <li>Adicionar <code>b</code> (ex: <code>"rb"</code>) para modo <span class="highlight"><strong>binário</strong></span>.</li>
+                    </ul>
+                </li>
+                <li><strong>Funções:</strong>
+                    <ul class="list-disc list-inside ml-6 mt-1">
+                        <li>Texto: <code>fprintf()</code>, <code>fscanf()</code>, <code>fgets()</code>.</li>
+                        <li>Binário: <code>fwrite()</code>, <code>fread()</code>.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3 class="text-xl font-semibold mt-8 mb-3 text-gray-900">Módulo 5: Algoritmos de Pesquisa e Ordenação</h3>
+            <p><strong>Análise de Complexidade (Big O):</strong></p>
+            <ul class="list-disc list-inside ml-4 space-y-1 mt-1">
+                <li><code>O(1)</code>: Constante</li>
+                <li><code>O(log n)</code>: Logarítmica (muito eficiente)</li>
+                <li><code>O(n)</code>: Linear</li>
+                <li><code>O(n log n)</code>: Linearítmica (ordenação eficiente)</li>
+                <li><code>O(n²)</code>: Quadrática (ordenação simples)</li>
+            </ul>
+
+            <p class="mt-3"><strong>Pesquisa:</strong></p>
+            <ul class="list-disc list-inside ml-4 space-y-1 mt-1">
+                <li><span class="highlight">Sequencial:</span> Percorre tudo. <code>O(n)</code>. Não precisa de ordenação.</li>
+                <li><span class="highlight">Binária:</span> Divide pela metade a cada passo. <code>O(log n)</code>. <span class="highlight"><strong>Requer dados ordenados</strong></span>.</li>
+            </ul>
+
+            <h4 class="text-lg font-semibold mt-4 mb-2">Tabela Comparativa de Ordenação (Memorizar):</h4>
+            <!-- Contêiner da tabela para permitir rolagem horizontal em telas pequenas sem quebrar o layout da página -->
+            <div class="overflow-x-auto my-4 border border-gray-200 rounded-lg">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Algoritmo</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Complexidade Média</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pior Caso</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Espaço Auxiliar</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estável?</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-6 py-4 text-sm">Bubble Sort</td>
+                            <td class="px-6 py-4 text-sm"><code>O(n²)</code></td>
+                            <td class="px-6 py-4 text-sm"><code>O(n²)</code></td>
+                            <td class="px-6 py-4 text-sm"><code>O(1)</code></td>
+                            <td class="px-6 py-4 text-sm">Sim</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 text-sm">Selection Sort</td>
+                            <td class="px-6 py-4 text-sm"><code>O(n²)</code></td>
+                            <td class="px-6 py-4 text-sm"><code>O(n²)</code></td>
+                            <td class="px-6 py-4 text-sm"><code>O(1)</code></td>
+                            <td class="px-6 py-4 text-sm">Não</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 text-sm">Insertion Sort</td>
+                            <td class="px-6 py-4 text-sm"><code>O(n²)</code></td>
+                            <td class="px-6 py-4 text-sm"><code>O(n²)</code></td>
+                            <td class="px-6 py-4 text-sm"><code>O(1)</code></td>
+                            <td class="px-6 py-4 text-sm">Sim</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 text-sm"><strong>Merge Sort</strong></td>
+                            <td class="px-6 py-4 text-sm"><strong><code>O(n log n)</code></strong></td>
+                            <td class="px-6 py-4 text-sm"><strong><code>O(n log n)</code></strong></td>
+                            <td class="px-6 py-4 text-sm"><code>O(n)</code></td>
+                            <td class="px-6 py-4 text-sm">Sim</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 text-sm"><strong>Quick Sort</strong></td>
+                            <td class="px-6 py-4 text-sm"><strong><code>O(n log n)</code></strong></td>
+                            <td class="px-6 py-4 text-sm"><span class="highlight"><code>O(n²)</code></span></td>
+                            <td class="px-6 py-4 text-sm"><code>O(log n)</code></td>
+                            <td class="px-6 py-4 text-sm">Não</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="text-xl font-semibold mt-8 mb-3 text-gray-900">Módulo 6: Estruturas de Dados Fundamentais</h3>
+            <ul class="list-disc list-inside ml-4 space-y-2">
+                <li><span class="highlight">Lista Encadeada:</span> Nós com <code>dado</code> e <code>*proximo</code>. Inserção/remoção rápida, busca lenta (<code>O(n)</code>).</li>
+                <li><span class="highlight">Pilha (Stack):</span> <strong><span class="highlight">LIFO</span></strong> (Last-In, First-Out). O último a entrar é o primeiro a sair.
+                    <ul class="list-disc list-inside ml-6 mt-1">
+                        <li>Operações: <code>push</code> (insere), <code>pop</code> (remove).</li>
+                    </ul>
+                </li>
+                <li><span class="highlight">Fila (Queue):</span> <strong><span class="highlight">FIFO</span></strong> (First-In, First-Out). O primeiro a entrar é o primeiro a sair.
+                    <ul class="list-disc list-inside ml-6 mt-1">
+                        <li>Operações: <code>enqueue</code> (insere), <code>dequeue</code> (remove).</li>
+                    </ul>
+                </li>
+                <li><span class="highlight">Árvore Binária de Busca (ABB):</span>
+                    <ul class="list-disc list-inside ml-6 mt-1">
+                        <li>Propriedade: <span class="highlight"><code>Esquerda < Raiz < Direita</code></span>.</li>
+                        <li>Busca eficiente: <code>O(log n)</code> em média.</li>
+                    </ul>
+                </li>
+                <li><strong>Percursos em Árvore (Questão Comum - [1]):</strong>
+                    <ul class="list-disc list-inside ml-6 mt-1">
+                        <li><span class="highlight">Pré-ordem:</span> <strong>Raiz</strong>, Esquerda, Direita.</li>
+                        <li><span class="highlight">Em-ordem:</span> Esquerda, <strong>Raiz</strong>, Direita (visita em ordem crescente na ABB).</li>
+                        <li><span class="highlight">Pós-ordem:</span> Esquerda, Direita, <strong>Raiz</strong>.</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Seção do Botão de Questões -->
+        <div class="text-center mt-12 border-t border-gray-200 pt-8">
+            <a href="esp-fundamentos-programacaoquestoes.html" 
+               class="inline-block bg-blue-600 text-white font-bold py-3 px-8 rounded-lg text-lg
+                      hover:bg-blue-700 transition-colors duration-200
+                      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                Praticar com Questões
+            </a>
+        </div>
+
+    </main>
+
+</body>
+</html>
+

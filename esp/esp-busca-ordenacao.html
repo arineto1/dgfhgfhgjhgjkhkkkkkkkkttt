@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo para Concurso: Busca e Ordenação</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Importa a fonte Inter para uma leitura agradável -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Define a fonte padrão e cores neutras */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1f2937; /* Cor de texto escura (gray-800) */
+        }
+
+        /* * NOVO ESTILO: "Marca-texto" amarelo suave para partes importantes.
+         * Aplicado a todas as tags <strong>.
+         */
+        strong {
+            background-color: #fef9c3; /* Tailwind yellow-100 */
+            color: #111827; /* Tailwind gray-900 para contraste máximo */
+            padding: 0 4px; /* Espaçamento horizontal leve */
+            margin: 0 -2px; /* Compensa o padding para não quebrar o fluxo */
+            border-radius: 3px;
+            font-weight: 600; /* Semibold, fica ótimo com o fundo */
+        }
+
+        /* Estilo para notação de complexidade (O(n)) */
+        code {
+            background-color: #f3f4f6; /* Fundo cinza claro (gray-100) */
+            color: #b91c1c; /* Cor vermelha escura (red-700) */
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+
+        /* Ajustes finos nas tabelas para responsividade */
+        .responsive-table th,
+        .responsive-table td {
+            /* Texto menor em telas pequenas para evitar scroll */
+            font-size: 0.75rem; /* 12px */
+            padding-left: 0.5rem; /* 8px */
+            padding-right: 0.5rem; /* 8px */
+        }
+
+        /* Em telas médias ou maiores, o texto volta ao normal */
+        @media (min-width: 768px) {
+            .responsive-table th,
+            .responsive-table td {
+                font-size: 0.875rem; /* 14px */
+                padding-left: 1rem; /* 16px */
+                padding-right: 1rem; /* 16px */
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Container principal com largura máxima para leitura -->
+    <div class="max-w-4xl mx-auto p-4 md:p-8">
+
+        <!-- Reprodutor de Áudio -->
+        <header class="mb-8 p-4 border border-gray-200 rounded-lg shadow-sm">
+            <h1 class="text-xl font-semibold text-gray-900 mb-3">Resumo em Áudio</h1>
+            <p class="text-sm text-gray-600 mb-3">
+                Para ouvir, edite este arquivo HTML e troque 
+                <strong>"SEU-ARQUIVO-AQUI.mp3"</strong> 
+                pelo nome do seu arquivo de áudio.
+            </p>
+            <audio controls class="w-full">
+                <!-- ATENÇÃO: Altere o 'src' abaixo -->
+                <source src="esp-busca-ordenacao.mp3" type="audio/mpeg">
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
+        </header>
+
+        <main>
+            <!-- Início do Conteúdo do Resumo -->
+            
+            <h1 class="text-2xl md:text-3xl font-bold text-gray-900 border-b border-gray-200 pb-2 mb-6">
+                Página 1: O Essencial de Busca e o Grande Quadro da Ordenação
+            </h1>
+
+            <h2 class="text-xl md:text-2xl font-semibold text-gray-900 mt-6 mb-4">
+                1. Algoritmos de Busca: Foco em Complexidade e Pré-requisitos
+            </h2>
+
+            <p class="mb-6 text-gray-700 leading-relaxed">
+                A chave para acertar questões de busca é identificar se a coleção de dados está <strong>ordenada</strong>.
+            </p>
+
+            <!-- Tabela de Busca -->
+            <div class="w-full overflow-hidden rounded-lg shadow-md mb-6 border border-gray-200">
+                <table class="w-full table-auto text-left">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="px-4 py-3 text-sm font-semibold text-gray-700 uppercase tracking-wider">Característica</th>
+                            <th class="px-4 py-3 text-sm font-semibold text-gray-700 uppercase tracking-wider">Busca Linear (Sequencial)</th>
+                            <th class="px-4 py-3 text-sm font-semibold text-gray-700 uppercase tracking-wider">Busca Binária</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-4 py-3 text-sm text-gray-700"><strong>Pré-requisito</strong></td>
+                            <td class="px-4 py-3 text-sm text-gray-700"><strong>Nenhum</strong> (Funciona em dados desordenados)</td>
+                            <td class="px-4 py-3 text-sm text-gray-700"><strong>Dados devem estar ordenados</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 text-sm text-gray-700"><strong>Estratégia</strong></td>
+                            <td class="px-4 py-3 text-sm text-gray-700">Força Bruta (um a um)</td>
+                            <td class="px-4 py-3 text-sm text-gray-700">Divisão e Conquista (corta pela metade)</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 text-sm text-gray-700"><strong>Pior Caso (Tempo)</strong></td>
+                            <td class="px-4 py-3 text-sm text-gray-700"><code>O(n)</code> (Lento para grandes listas)</td>
+                            <td class="px-4 py-3 text-sm text-gray-700"><code>O(log n)</code> (Extremamente rápido)</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 text-sm text-gray-700"><strong>Espaço Auxiliar</strong></td>
+                            <td class="px-4 py-3 text-sm text-gray-700"><code>O(1)</code> (in-place)</td>
+                            <td class="px-4 py-3 text-sm text-gray-700"><code>O(1)</code> (iterativa) / <code>O(log n)</code> (recursiva)</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 text-sm text-gray-700"><strong>Quando Usar?</strong></td>
+                            <td class="px-4 py-3 text-sm text-gray-700">Listas pequenas ou desordenadas.</td>
+                            <td class="px-4 py-3 text-sm text-gray-700">Listas grandes e ordenadas, com buscas frequentes.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="text-lg font-semibold text-gray-900 mb-3">Mantra de Memorização:</h3>
+            <ul class="list-disc list-outside mb-6 pl-6 text-gray-700 space-y-2">
+                <li><strong>Busca Linear:</strong> <i>Dados desordenados? Força bruta. Complexidade <code>O(n)</code>.</i></li>
+                <li><strong>Busca Binária:</strong> <i>Dados ordenados? Dividir para conquistar. Complexidade <code>O(log n)</code>.</i></li>
+            </ul>
+
+            <hr class="my-8">
+
+            <h2 class="text-xl md:text-2xl font-semibold text-gray-900 mt-6 mb-4">
+                2. O Grande Quadro: Tabela Comparativa Definitiva dos Algoritmos de Ordenação
+            </h2>
+            
+            <p class="mb-6 text-gray-700 leading-relaxed">
+                Esta tabela é a ferramenta mais importante para memorização. As colunas mais cobradas são <strong>Pior Caso (Tempo)</strong>, <strong>Espaço Auxiliar</strong> e <strong>Estabilidade</strong>.
+            </p>
+
+            <!-- Tabela Grande de Ordenação -->
+            <div class="w-full overflow-hidden rounded-lg shadow-md mb-6 border border-gray-200">
+                <!-- A classe 'responsive-table' aplica o estilo do <style> para ajustar o font-size -->
+                <table class="w-full table-auto text-left responsive-table">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="py-3 text-gray-700 uppercase tracking-wider font-semibold">Algoritmo</th>
+                            <th class="py-3 text-gray-700 uppercase tracking-wider font-semibold">Melhor Caso</th>
+                            <th class="py-3 text-gray-700 uppercase tracking-wider font-semibold">Médio Caso</th>
+                            <th class="py-3 text-gray-700 uppercase tracking-wider font-semibold">Pior Caso</th>
+                            <th class="py-3 text-gray-700 uppercase tracking-wider font-semibold">Espaço</th>
+                            <th class="py-3 text-gray-700 uppercase tracking-wider font-semibold">Estabilidade</th>
+                            <th class="py-3 text-gray-700 uppercase tracking-wider font-semibold">In-Place?</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200 text-gray-700">
+                        <tr>
+                            <td class="py-3"><strong>Bubble Sort</strong></td>
+                            <td class="py-3"><code>O(n)</code> (otimizado)</td>
+                            <td class="py-3"><code>O(n<sup>2</sup>)</code></td>
+                            <td class="py-3"><code>O(n<sup>2</sup>)</code></td>
+                            <td class="py-3"><code>O(1)</code></td>
+                            <td class="py-3"><strong>Sim</strong></td>
+                            <td class="py-3">Sim</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3"><strong>Selection Sort</strong></td>
+                            <td class="py-3"><code>O(n<sup>2</sup>)</code></td>
+                            <td class="py-3"><code>O(n<sup>2</sup>)</code></td>
+                            <td class="py-3"><code>O(n<sup>2</sup>)</code></td>
+                            <td class="py-3"><code>O(1)</code></td>
+                            <td class="py-3">Não</td>
+                            <td class="py-3">Sim</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3"><strong>Insertion Sort</strong></td>
+                            <td class="py-3"><code>O(n)</code></td>
+                            <td class="py-3"><code>O(n<sup>2</sup>)</code></td>
+                            <td class="py-3"><code>O(n<sup>2</sup>)</code></td>
+                            <td class="py-3"><code>O(1)</code></td>
+                            <td class="py-3"><strong>Sim</strong></td>
+                            <td class="py-3">Sim</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3"><strong>Merge Sort</strong></td>
+                            <td class="py-3"><code>O(n log n)</code></td>
+                            <td class="py-3"><code>O(n log n)</code></td>
+                            <td class="py-3"><code>O(n log n)</code></td>
+                            <td class="py-3"><code>O(n)</code></td>
+                            <td class="py-3"><strong>Sim</strong></td>
+                            <td class="py-3">Não</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3"><strong>Quick Sort</strong></td>
+                            <td class="py-3"><code>O(n log n)</code></td>
+                            <td class="py-3"><code>O(n log n)</code></td>
+                            <td class="py-3"><code>O(n<sup>2</sup>)</code></td>
+                            <td class="py-3"><code>O(log n)</code></td>
+                            <td class="py-3">Não</td>
+                            <td class="py-3">Sim</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3"><strong>Heap Sort</strong></td>
+                            <td class="py-3"><code>O(n log n)</code></td>
+                            <td class="py-3"><code>O(n log n)</code></td>
+                            <td class="py-3"><code>O(n log n)</code></td>
+                            <td class="py-3"><code>O(1)</code></td>
+                            <td class="py-3">Não</td>
+                            <td class="py-3">Sim</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="text-lg font-semibold text-gray-900 mb-3">Dicas de Memorização:</h3>
+            <ul class="list-disc list-outside mb-6 pl-6 text-gray-700 space-y-2">
+                <li><strong>Quadráticos (<code>O(n<sup>2</sup>)</code>):</strong> Bubble, Selection, Insertion. São simples, mas lentos para grandes volumes.</li>
+                <li><strong>Log-Lineares (<code>O(n log n)</code>):</strong> Merge, Quick, Heap. São os mais eficientes.</li>
+                <li><strong>Estáveis:</strong> Lembre-se de <strong>BIM</strong>: <strong>B</strong>ubble, <strong>I</strong>nsertion, <strong>M</strong>erge. A estabilidade preserva a ordem original de elementos iguais.</li>
+                <li><strong>Espaço:</strong> A grande desvantagem do <strong>Merge Sort</strong> é o espaço auxiliar <code>O(n)</code>. <strong>Heap Sort</strong> e os quadráticos usam espaço <code>O(1)</code>. <strong>Quick Sort</strong> usa <code>O(log n)</code> na pilha de recursão.</li>
+            </ul>
+
+            <!-- Página 2 -->
+
+            <h1 class="text-2xl md:text-3xl font-bold text-gray-900 border-b border-gray-200 pb-2 mb-6 mt-12">
+                Página 2: Fichas de Algoritmos e Cenários de Prova
+            </h1>
+
+            <h2 class="text-xl md:text-2xl font-semibold text-gray-900 mt-6 mb-4">
+                3. Fichas de Memorização Rápida por Algoritmo
+            </h2>
+
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900">Bubble Sort</h3>
+                    <ul class="list-disc list-outside mt-2 pl-6 text-gray-700 space-y-1">
+                        <li><strong>Ideia Central:</strong> "Flutuação" do maior elemento para o final a cada passagem.</li>
+                        <li><strong>Ponto-Chave:</strong> Melhor caso é <code>O(n)</code> se otimizado com uma <i>flag</i> para detectar ausência de trocas.</li>
+                        <li><strong>Estabilidade:</strong> Sim.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900">Selection Sort</h3>
+                    <ul class="list-disc list-outside mt-2 pl-6 text-gray-700 space-y-1">
+                        <li><strong>Ideia Central:</strong> Encontrar o menor elemento e trocá-lo para a posição correta.</li>
+                        <li><strong>Ponto-Chave:</strong> Realiza o <strong>mínimo de trocas</strong> (n-1), mas a complexidade é sempre <code>O(n<sup>2</sup>)</code>.</li>
+                        <li><strong>Estabilidade:</strong> Não.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900">Insertion Sort</h3>
+                    <ul class="list-disc list-outside mt-2 pl-6 text-gray-700 space-y-1">
+                        <li><strong>Ideia Central:</strong> Como organizar cartas de baralho, inserindo cada elemento na parte já ordenada.</li>
+                        <li><strong>Ponto-Chave:</strong> Melhor caso é <code>O(n)</code>. Extremamente eficiente para dados <strong>quase ordenados</strong>.</li>
+                        <li><strong>Estabilidade:</strong> Sim.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900">Merge Sort</h3>
+                    <ul class="list-disc list-outside mt-2 pl-6 text-gray-700 space-y-1">
+                        <li><strong>Ideia Central:</strong> Dividir para conquistar. Divide o vetor ao meio recursivamente e depois intercala (merge) as partes ordenadas.</li>
+                        <li><strong>Ponto-Chave:</strong> Desempenho <strong>garantido de <code>O(n log n)</code></strong> em todos os casos, mas precisa de <strong>espaço auxiliar <code>O(n)</code></strong>.</li>
+                        <li><strong>Estabilidade:</strong> Sim.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900">Quick Sort</h3>
+                    <ul class="list-disc list-outside mt-2 pl-6 text-gray-700 space-y-1">
+                        <li><strong>Ideia Central:</strong> Dividir para conquistar usando um <strong>pivô</strong>. Particiona o vetor em menores e maiores que o pivô.</li>
+                        <li><strong>Ponto-Chave:</strong> Geralmente o mais rápido na prática, mas tem um <strong>pior caso de <code>O(n<sup>2</sup>)</code></strong> se o pivô for mal escolhido (ex: vetor já ordenado).</li>
+                        <li><strong>Estabilidade:</strong> Não.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900">Heap Sort</h3>
+                    <ul class="list-disc list-outside mt-2 pl-6 text-gray-700 space-y-1">
+                        <li><strong>Ideia Central:</strong> Usa a estrutura de dados <strong>Max-Heap</strong> para colocar o maior elemento sempre na raiz e trocá-lo para o final.</li>
+                        <li><strong>Ponto-Chave:</strong> Desempenho <strong>garantido de <code>O(n log n)</code></strong> e é <strong>in-place</strong> (espaço <code>O(1)</code>).</li>
+                        <li><strong>Estabilidade:</strong> Não.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="my-8">
+
+            <h2 class="text-xl md:text-2xl font-semibold text-gray-900 mt-6 mb-4">
+                4. Cenários de Prova: Como Escolher o Algoritmo Certo
+            </h2>
+            
+            <p class="mb-6 text-gray-700 leading-relaxed">
+                Use este guia de decisão rápida para questões de múltipla escolha.
+            </p>
+
+            <ul class="list-disc list-outside mb-6 pl-6 text-gray-700 space-y-4">
+                <li>
+                    <strong>SE</strong> a memória é crítica (pouco espaço) <strong>E</strong> o desempenho no pior caso deve ser <code>O(n log n)</code>...
+                    <br>
+                    <span class="ml-4"><strong>ENTÃO</strong> a resposta é <code>Heap Sort</code>. (É in-place e garantido).</span>
+                </li>
+                <li>
+                    <strong>SE</strong> os dados estão <strong>quase sempre ordenados</strong> e precisam de reordenações frequentes...
+                    <br>
+                    <span class="ml-4"><strong>ENTÃO</strong> a resposta é <code>Insertion Sort</code>. (Aproveita o melhor caso <code>O(n)</code>).</span>
+                </li>
+                <li>
+                    <strong>SE</strong> a <strong>estabilidade é um requisito obrigatório</strong> (preservar a ordem original de itens iguais)...
+                    <br>
+                    <span class="ml-4"><strong>ENTÃO</strong> a resposta é <code>Merge Sort</code>. (É o único estável com desempenho <code>O(n log n)</code> garantido).</span>
+                </li>
+                <li>
+                    <strong>SE</strong> a <strong>velocidade média é a maior prioridade</strong> para dados genéricos e grandes...
+                    <br>
+                    <span class="ml-4"><strong>ENTÃO</strong> a resposta é <code>Quick Sort</code>. (Na prática, costuma ser o mais rápido, apesar do risco do pior caso).</span>
+                </li>
+            </ul>
+
+            <!-- Botão para Questões -->
+            <footer class="text-center mt-12 pt-8 border-t border-gray-200">
+                <a href="esp-busca-ordenacaoquestoes.html" 
+                   class="inline-block bg-gray-800 text-white font-bold py-3 px-10 rounded-lg shadow-md hover:bg-gray-900 transition-colors duration-300 text-lg">
+                    Ir para Questões
+                </a>
+            </footer>
+
+        </main>
+    </div>
+
+</body>
+</html>
+

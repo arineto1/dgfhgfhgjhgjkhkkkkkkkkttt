@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Estrutura de Dados (AOCP)</title>
+    
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuração do Tailwind para usar a fonte 'Inter' -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    
+    <!-- Estilos personalizados para o layout de leitura e os resultados -->
+    <style>
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Estilos para as opções de resposta */
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb; /* gray-200 */
+            border-radius: 0.5rem; /* rounded-lg */
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .option-label:hover {
+            background-color: #f9fafb; /* gray-50 */
+        }
+        .option-label input:checked + span {
+            font-weight: 600;
+            color: #2563eb; /* blue-600 */
+        }
+
+        /* Estilos dinâmicos para os resultados */
+        .correct-answer {
+            background-color: #f0fdf4; /* green-50 */
+            border-color: #86efac; /* green-300 */
+        }
+        .correct-answer span {
+            font-weight: 700;
+            color: #166534; /* green-800 */
+        }
+        .incorrect-answer {
+            background-color: #fef2f2; /* red-50 */
+            border-color: #fca5a5; /* red-300 */
+        }
+        .incorrect-answer span {
+            font-weight: 700;
+            color: #b91c1c; /* red-800 */
+            text-decoration: line-through;
+        }
+
+        /* Estilo para a caixa de resolução */
+        .resolution-box {
+            margin-top: 1.5rem; /* mt-6 */
+            padding: 1rem; /* p-4 */
+            background-color: #f8fafc; /* slate-50 */
+            border-left: 4px solid #64748b; /* slate-500 */
+            border-radius: 0 0.5rem 0.5rem 0; /* rounded-r-lg */
+        }
+        .resolution-box h4 {
+            font-size: 1.125rem; /* text-lg */
+            font-weight: 700; /* font-bold */
+            margin-bottom: 0.75rem; /* mb-3 */
+            color: #1e293b; /* slate-800 */
+        }
+        .resolution-box p, .resolution-box ul {
+            font-size: 0.95rem; /* text-sm/base */
+            line-height: 1.6; /* leading-relaxed */
+            margin-bottom: 0.75rem; /* mb-3 */
+        }
+        .resolution-box ul {
+            list-style-type: disc;
+            list-style-position: inside;
+            padding-left: 0.5rem; /* pl-2 */
+            space-y: 0.5rem; /* space-y-2 */
+        }
+        .resolution-box strong {
+            font-weight: 600;
+            color: #1e293b; /* slate-800 */
+        }
+        .resolution-box .distractor-analysis {
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            padding: 0.75rem;
+            background-color: #ffffff; /* white */
+            border: 1px solid #e2e8f0; /* slate-200 */
+            border-radius: 0.25rem; /* rounded */
+        }
+        .resolution-box code {
+            font-family: monospace;
+            background-color: #e2e8f0; /* slate-200 */
+            padding: 0.125rem 0.375rem; /* px-1.5 py-0.5 */
+            border-radius: 0.25rem; /* rounded */
+            font-size: 0.9em;
+        }
+        .resolution-box pre {
+            background-color: #f1f5f9; /* slate-100 */
+            color: #334155; /* slate-700 */
+            padding: 1rem; /* p-4 */
+            border-radius: 0.5rem; /* rounded-lg */
+            overflow-x: auto;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans leading-relaxed">
+
+    <!-- Container Principal com largura máxima para leitura -->
+    <div class="max-w-4xl mx-auto p-4 md:p-10">
+
+        <!-- Cabeçalho do Quiz -->
+        <header class="text-center mb-10">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2">Simulado: Estrutura de Dados</h1>
+            <p class="text-lg text-gray-700">Estilo: Instituto AOCP</p>
+        </header>
+
+        <!-- Seção de Resultados (inicialmente oculta) -->
+        <div id="resultsSection" class="hidden mb-10 p-6 bg-white rounded-lg shadow-lg border-t-4 border-blue-600">
+            <h2 id="score" class="text-2xl md:text-3xl font-bold text-center text-gray-900"></h2>
+            <p class="text-center text-gray-700 mt-2">Veja abaixo a correção detalhada de cada questão.</p>
+        </div>
+
+        <!-- Formulário do Quiz -->
+        <form id="quizForm">
+            
+            <!-- Questão 1 -->
+            <div class="mb-8 p-6 md:p-8 bg-white rounded-lg shadow-md">
+                <h3 class="font-semibold text-xl mb-4 text-gray-900">Questão 1 <span class="text-base font-normal text-gray-600">(Instituto AOCP - Estilo 2025)</span></h3>
+                <p class="mb-4 text-lg">As estruturas de dados são formas de organizar e armazenar dados para facilitar o acesso e a manipulação. Sabendo disso, preencha as lacunas e assinale a alternativa correta.</p>
+                <p class="mb-5 p-4 bg-gray-50 border border-gray-200 rounded-md italic">Uma ________ é uma estrutura de dados linear que segue o princípio LIFO (Last In, First Out), onde o último elemento inserido é o primeiro a ser removido. Um(a) ________ é uma estrutura de dados linear que segue o princípio FIFO (First In, First Out), onde o primeiro elemento inserido é o primeiro a ser removido.</p>
+                
+                <div class="space-y-3">
+                    <label class="option-label">
+                        <input type="radio" name="q1" value="A" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(A) Fila / Pilha</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q1" value="B" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(B) Pilha / Fila</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q1" value="C" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(C) Lista / Grafo</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q1" value="D" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(D) Árvore / Fila</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q1" value="E" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(E) Pilha / Lista Encadeada</span>
+                    </label>
+                </div>
+                <div id="resolution-q1" class="hidden"></div>
+            </div>
+
+            <!-- Questão 2 -->
+            <div class="mb-8 p-6 md:p-8 bg-white rounded-lg shadow-md">
+                <h3 class="font-semibold text-xl mb-4 text-gray-900">Questão 2 <span class="text-base font-normal text-gray-600">(Instituto AOCP - Estilo Situação-Problema)</span></h3>
+                <p class="mb-5 text-lg">Em editores de texto modernos, a funcionalidade "Desfazer" (Undo) permite que o usuário reverta uma sequência de ações (como digitação, formatação ou exclusão). Cada nova ação é registrada. Quando o usuário aciona o "Desfazer", a ação mais recente é revertida. Se acionar novamente, a ação imediatamente anterior é revertida, e assim por diante.</p>
+                <p class="mb-5 text-lg font-medium">Assinale a alternativa que apresenta a estrutura de dados mais adequada para implementar essa funcionalidade.</p>
+                
+                <div class="space-y-3">
+                    <label class="option-label">
+                        <input type="radio" name="q2" value="A" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(A) Fila (Queue)</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q2" value="B" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(B) Pilha (Stack)</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q2" value="C" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(C) Tabela Hash (Hash Table)</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q2" value="D" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(D) Lista Duplamente Encadeada</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q2" value="E" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(E) Árvore Binária de Busca</span>
+                    </label>
+                </div>
+                <div id="resolution-q2" class="hidden"></div>
+            </div>
+
+            <!-- Questão 3 -->
+            <div class="mb-8 p-6 md:p-8 bg-white rounded-lg shadow-md">
+                <h3 class="font-semibold text-xl mb-4 text-gray-900">Questão 3 <span class="text-base font-normal text-gray-600">(Instituto AOCP - Estilo 2019)</span></h3>
+                <p class="mb-5 text-lg font-medium">Sobre os diferentes tipos de Listas Encadeadas (Linked Lists) utilizadas em programação, assinale a alternativa INCORRETA.</p>
+                
+                <div class="space-y-3">
+                    <label class="option-label">
+                        <input type="radio" name="q3" value="A" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(A) Em uma lista simplesmente encadeada, cada nó armazena o dado e um ponteiro (referência) apenas para o próximo nó da sequência.</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q3" value="B" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(B) Uma lista duplamente encadeada permite a travessia nos dois sentidos (para frente e para trás), pois cada nó mantém ponteiros para o próximo nó e para o nó anterior.</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q3" value="C" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(C) A principal vantagem das listas encadeadas sobre os arrays (vetores) é o acesso direto a qualquer elemento em tempo constante <code>O(1)</code> usando um índice.</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q3" value="D" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(D) Em uma lista encadeada circular (simples ou dupla), o ponteiro "próximo" do último elemento aponta de volta para o primeiro elemento da lista (cabeça).</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q3" value="E" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(E) A inserção ou remoção de elementos no meio de uma lista encadeada (assumindo que o nó já foi localizado) é geralmente mais eficiente do que em um array contíguo.</span>
+                    </label>
+                </div>
+                <div id="resolution-q3" class="hidden"></div>
+            </div>
+
+            <!-- Questão 4 -->
+            <div class="mb-8 p-6 md:p-8 bg-white rounded-lg shadow-md">
+                <h3 class="font-semibold text-xl mb-4 text-gray-900">Questão 4 <span class="text-base font-normal text-gray-600">(Instituto AOCP - Estilo Situação-Problema)</span></h3>
+                <p class="mb-4 text-lg">Considere uma Tabela Hash (Hashing Table) de tamanho 10 (índices de 0 a 9) que utiliza a técnica de Encadeamento (Chaining) para tratamento de colisões. A função de hash (dispersão) utilizada é <code>h(k) = k mod 10</code> (onde <code>mod 10</code> é a operação módulo, que retorna o resto da divisão por 10).</p>
+                <p class="mb-5 text-lg">Um analista insere, nesta ordem, as chaves: {5, 28, 15, 38, 45, 9}.</p>
+                <p class="mb-5 text-lg font-medium">Assinale a alternativa que descreve corretamente o estado da lista encadeada no índice 8 da tabela após todas as inserções.</p>
+                
+                <div class="space-y-3">
+                    <label class="option-label">
+                        <input type="radio" name="q4" value="A" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(A) &lt;28 -> 38&gt;</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q4" value="B" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(B) &lt;5 -> 15 -> 45&gt;</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q4" value="C" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(C) &lt;28 -> 9&gt;</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q4" value="D" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(D) &lt;15 -> 38&gt;</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q4" value="E" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(E) &lt;9&gt;</span>
+                    </label>
+                </div>
+                <div id="resolution-q4" class="hidden"></div>
+            </div>
+
+            <!-- Questão 5 -->
+            <div class="mb-8 p-6 md:p-8 bg-white rounded-lg shadow-md">
+                <h3 class="font-semibold text-xl mb-4 text-gray-900">Questão 5 <span class="text-base font-normal text-gray-600">(Instituto AOCP - Estilo Conceitual)</span></h3>
+                <p class="mb-4 text-lg">No contexto de Tabelas Hash, existem diferentes estratégias para o tratamento de colisões. Uma dessas estratégias é conhecida como Endereçamento Aberto (Open Addressing), que inclui técnicas como a Tentativa Linear (Linear Probing).</p>
+                <p class="mb-5 text-lg font-medium">Sobre o Endereçamento Aberto, assinale a alternativa correta.</p>
+                
+                <div class="space-y-3">
+                    <label class="option-label">
+                        <input type="radio" name="q5" value="A" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(A) Ele utiliza listas encadeadas externas à tabela principal para armazenar chaves que colidiram.</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q5" value="B" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(B) Nesta técnica, todos os elementos são armazenados dentro da própria tabela (array), e em caso de colisão, busca-se a próxima posição livre conforme uma regra.</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q5" value="C" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(C) A principal vantagem do Endereçamento Aberto é que ele nunca sofre de "agrupamento" (clustering), um problema exclusivo do Encadeamento.</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q5" value="D" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(D) O fator de carga (load factor) em uma tabela com Endereçamento Aberto pode ser maior que 1 (um).</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q5" value="E" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(E) A remoção (delete) de elementos é mais simples no Endereçamento Aberto do que no Encadeamento, pois basta apagar o valor da posição.</span>
+                    </label>
+                </div>
+                <div id="resolution-q5" class="hidden"></div>
+            </div>
+
+            <!-- Questão 6 -->
+            <div class="mb-8 p-6 md:p-8 bg-white rounded-lg shadow-md">
+                <h3 class="font-semibold text-xl mb-4 text-gray-900">Questão 6 <span class="text-base font-normal text-gray-600">(Instituto AOCP - Estilo Aplicação)</span></h3>
+                <p class="mb-4 text-lg">Considere a Árvore Binária de Busca (BST) representada pela figura a seguir.</p>
+                <pre class="w-full text-center p-4 rounded-md bg-gray-100 text-gray-700 text-lg mb-5">
+     20
+    /  \
+   10    30
+  / \   /
+ 5  15 25
+                </pre>
+                <p class="mb-5 text-lg font-medium">Ao se aplicar o algoritmo de travessia em Pré-Ordem (Pre-Order), a partir da raiz, qual será a sequência de visitação dos nós?</p>
+                
+                <div class="space-y-3">
+                    <label class="option-label">
+                        <input type="radio" name="q6" value="A" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(A) 5, 10, 15, 20, 25, 30</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q6" value="B" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(B) 20, 10, 5, 15, 30, 25</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q6" value="C" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(C) 5, 15, 10, 25, 30, 20</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q6" value="D" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(D) 20, 10, 30, 5, 15, 25</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q6" value="E" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(E) 5, 10, 15, 20, 30, 25</span>
+                    </label>
+                </div>
+                <div id="resolution-q6" class="hidden"></div>
+            </div>
+
+            <!-- Questão 7 -->
+            <div class="mb-8 p-6 md:p-8 bg-white rounded-lg shadow-md">
+                <h3 class="font-semibold text-xl mb-4 text-gray-900">Questão 7 <span class="text-base font-normal text-gray-600">(Instituto AOCP - Estilo 2020)</span></h3>
+                <p class="mb-5 text-lg font-medium">Considerando uma Árvore Binária de Busca (BST), assinale a alternativa correta.</p>
+                
+                <div class="space-y-3">
+                    <label class="option-label">
+                        <input type="radio" name="q7" value="A" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(A) A complexidade de busca (search) em uma BST é garantidamente <code>O(log n)</code> em todos os casos.</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q7" value="B" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(B) Uma BST pode conter entradas (chaves) duplicadas, desde que sejam inseridas na subárvore direita.</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q7" value="C" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(C) O percurso em Pós-Ordem (Post-Order) em uma BST sempre resultará em uma lista ordenada dos seus elementos.</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q7" value="D" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(D) A subárvore esquerda de um nó contém apenas chaves que são menores que a chave do nó, e a subárvore direita contém apenas chaves que são maiores.</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q7" value="E" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(E) Cada nó em uma BST deve possuir exatamente dois filhos, exceto os nós folha.</span>
+                    </label>
+                </div>
+                <div id="resolution-q7" class="hidden"></div>
+            </div>
+
+            <!-- Questão 8 -->
+            <div class="mb-8 p-6 md:p-8 bg-white rounded-lg shadow-md">
+                <h3 class="font-semibold text-xl mb-4 text-gray-900">Questão 8 <span class="text-base font-normal text-gray-600">(Instituto AOCP - Estilo 2023)</span></h3>
+                <p class="mb-4 text-lg">No estudo de estruturas de dados avançadas, árvores auto-balanceáveis são essenciais para garantir desempenho.</p>
+                <p class="mb-5 text-lg font-medium">Sobre essas estruturas, assinale a alternativa correta.</p>
+                
+                <div class="space-y-3">
+                    <label class="option-label">
+                        <input type="radio" name="q8" value="A" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(A) Uma Árvore B é uma árvore binária de busca otimizada para uso em memória principal, onde cada nó pode ter no máximo dois filhos.</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q8" value="B" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(B) O "fator de balanceamento" em uma Árvore AVL refere-se à diferença máxima permitida de 5 níveis entre as subárvores esquerda e direita.</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q8" value="C" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(C) As Árvores B e B+ são otimizadas para sistemas de armazenamento secundário (disco), como bancos de dados e sistemas de arquivos, pois minimizam as operações de I/O (leitura/escrita).</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q8" value="D" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(D) Em uma Árvore AVL, o balanceamento é realizado por meio da aplicação de uma função de hash em cada nó após a inserção.</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q8" value="E" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(E) Rotações (Simples e Duplas) são operações utilizadas para balancear Árvores B, mas não são aplicáveis a Árvores AVL.</span>
+                    </label>
+                </div>
+                <div id="resolution-q8" class="hidden"></div>
+            </div>
+
+            <!-- Questão 9 -->
+            <div class="mb-8 p-6 md:p-8 bg-white rounded-lg shadow-md">
+                <h3 class="font-semibold text-xl mb-4 text-gray-900">Questão 9 <span class="text-base font-normal text-gray-600">(Instituto AOCP - Estilo 2019)</span></h3>
+                <p class="mb-4 text-lg">Entre os diversos tipos de algoritmos utilizados para atravessar (percorrer) grafos, existe um que explora o grafo "camada por camada". Ele inicia em um nó raiz e visita todos os vizinhos diretos (nível 1). Em seguida, para cada um desses vizinhos, visita seus vizinhos ainda não visitados (nível 2), e assim sucessivamente. Para gerenciar os nós a serem visitados, esse algoritmo utiliza tipicamente uma estrutura de dados FIFO (First-In, First-Out).</p>
+                <p class="mb-5 text-lg font-medium">Esse código implementa o algoritmo:</p>
+                
+                <div class="space-y-3">
+                    <label class="option-label">
+                        <input type="radio" name="q9" value="A" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(A) Busca em Profundidade (Depth-First Search - DFS)</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q9" value="B" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(B) Busca em Largura (Breadth-First Search - BFS)</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q9" value="C" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(C) Algoritmo de Dijkstra</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q9" value="D" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(D) Algoritmo de Kruskal</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q9" value="E" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(E) Busca Binária</span>
+                    </label>
+                </div>
+                <div id="resolution-q9" class="hidden"></div>
+            </div>
+
+            <!-- Questão 10 -->
+            <div class="mb-8 p-6 md:p-8 bg-white rounded-lg shadow-md">
+                <h3 class="font-semibold text-xl mb-4 text-gray-900">Questão 10 <span class="text-base font-normal text-gray-600">(Instituto AOCP - Estilo Conceitual)</span></h3>
+                <p class="mb-4 text-lg">O Algoritmo de Dijkstra é fundamental na teoria dos grafos para resolver problemas de caminho mínimo.</p>
+                <p class="mb-5 text-lg font-medium">Sobre este algoritmo, assinale a alternativa correta.</p>
+                
+                <div class="space-y-3">
+                    <label class="option-label">
+                        <input type="radio" name="q10" value="A" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(A) Ele é projetado para encontrar o caminho mais curto entre todos os pares de vértices em um grafo (All-Pairs Shortest Path).</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q10" value="B" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(B) Sua principal limitação é não funcionar corretamente em grafos que contenham ciclos.</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q10" value="C" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(C) O algoritmo funciona corretamente mesmo quando o grafo possui arestas com pesos negativos, desde que não haja ciclos negativos.</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q10" value="D" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(D) Ele encontra o caminho mais curto (em termos de peso total) de um único vértice de origem para todos os outros vértices em um grafo ponderado.</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q10" value="E" class="form-radio text-blue-600 focus:ring-blue-500 mr-3">
+                        <span>(E) A estrutura de dados base do Algoritmo de Dijkstra é uma Pilha (Stack), usada para priorizar qual nó visitar.</span>
+                    </label>
+                </div>
+                <div id="resolution-q10" class="hidden"></div>
+            </div>
+
+            <!-- Botão de Envio -->
+            <button id="submitButton" type="submit" class="w-full bg-blue-600 text-white font-bold py-4 px-6 rounded-lg shadow-lg hover:bg-blue-700 transition-colors duration-300 text-xl focus:outline-none focus:ring-4 focus:ring-blue-300">
+                Finalizar e Corrigir Quiz
+            </button>
+
+        </form>
+    </div>
+
+    <!-- Lógica do Quiz -->
+    <script>
+        // Objeto com todas as respostas corretas e resoluções
+        const solutions = {
+            q1: {
+                correct: "B",
+                resolution: `
+                    <div class="resolution-box">
+                        <h4>Resolução da Questão 1</h4>
+                        <p><strong style="color: #166534;">Alternativa Correta: (B) Pilha / Fila.</strong></p>
+                        <p><strong>Justificativa Técnica:</strong> A questão exige a definição literal das duas estruturas de dados lineares mais básicas:</p>
+                        <ul>
+                            <li><strong>Pilha (Stack):</strong> Esta estrutura segue o princípio <strong>LIFO (Last In, First Out)</strong>. O último prato colocado é, necessariamente, o primeiro a ser retirado. Isso corresponde à primeira lacuna.</li>
+                            <li><strong>Fila (Queue):</strong> Esta estrutura segue o princípio <strong>FIFO (First In, First Out)</strong>. A primeira pessoa a chegar é a primeira a ser atendida. Isso corresponde à segunda lacuna.</li>
+                        </ul>
+                        <div class="distractor-analysis">
+                            <strong>Análise das Alternativas Incorretas (Distratores):</strong>
+                            <p>(A) Inverte os conceitos. (C) e (D) "Grafo" e "Árvore" são estruturas não lineares. (E) "Lista Encadeada" é uma forma de implementação, não a abstração que define a política FIFO.</p>
+                        </div>
+                    </div>
+                `
+            },
+            q2: {
+                correct: "B",
+                resolution: `
+                    <div class="resolution-box">
+                        <h4>Resolução da Questão 2</h4>
+                        <p><strong style="color: #166534;">Alternativa Correta: (B) Pilha (Stack).</strong></p>
+                        <p><strong>Justificativa Técnica:</strong> A funcionalidade "Desfazer" (Undo) é a implementação canônica de uma Pilha. O processo LIFO (Last In, First Out) descreve perfeitamente o comportamento desejado:</p>
+                        <ul>
+                            <li>Quando o usuário executa uma ação, o sistema armazena um comando para <strong>revertê-la</strong> no topo da Pilha (operação <code>push</code>).</li>
+                            <li>Quando o usuário clica em "Desfazer", o sistema executa a operação <code>pop</code>, recupera o comando do topo (a ação mais recente) e o executa.</li>
+                        </ul>
+                        <div class="distractor-analysis">
+                            <strong>Análise das Alternativas Incorretas (Distratores):</strong>
+                            <p>(A) Fila (Queue) reverteria a <strong>primeira</strong> ação (a mais antiga), o que é incorreto. (C), (D) e (E) são estruturas usadas para outros propósitos (busca, armazenamento ordenado, etc.).</p>
+                        </div>
+                    </div>
+                `
+            },
+            q3: {
+                correct: "C",
+                resolution: `
+                    <div class="resolution-box">
+                        <h4>Resolução da Questão 3</h4>
+                        <p><strong style="color: #166534;">Alternativa Correta (INCORRETA): (C) A principal vantagem... é o acesso direto... em tempo constante O(1).</strong></p>
+                        <p><strong>Justificativa Técnica:</strong> Esta afirmação é factualmente <strong>incorreta</strong> e descreve a principal vantagem dos <strong>arrays (vetores)</strong>, sendo, ao mesmo tempo, a principal desvantagem das listas encadeadas.</p>
+                        <ul>
+                            <li><strong>Arrays:</strong> Têm acesso <code>O(1)</code> (constante) porque os elementos estão em memória contígua.</li>
+                            <li><strong>Listas Encadeadas:</strong> Têm acesso <code>O(n)</code> (linear) porque, para acessar o elemento <code>i</code>, é preciso percorrer todos os <code>i-1</code> elementos anteriores partindo da cabeça.</li>
+                        </ul>
+                        <div class="distractor-analysis">
+                            <strong>Análise das Alternativas Corretas (Distratores):</strong>
+                            <p>(A), (B) e (D) são definições corretas de listas simplesmente encadeada, duplamente encadeada e circular. (E) descreve a <strong>real</strong> vantagem das listas: inserção e remoção em <code>O(1)</code> <em>após</em> o nó ser localizado.</p>
+                        </div>
+                    </div>
+                `
+            },
+            q4: {
+                correct: "A",
+                resolution: `
+                    <div class="resolution-box">
+                        <h4>Resolução da Questão 4</h4>
+                        <p><strong style="color: #166534;">Alternativa Correta: (A) &lt;28 -> 38&gt;</strong></p>
+                        <p><strong>Justificativa Técnica:</strong> A questão exige a aplicação da função hash <code>h(k) = k mod 10</code> (resto da divisão por 10) e a inserção com Encadeamento. Vamos rastrear as inserções:</p>
+                        <ul>
+                            <li>Inserir 5: <code>h(5) = 5 mod 10 = 5</code>. Tabela[5] = &lt;5&gt;</li>
+                            <li>Inserir 28: <code>h(28) = 28 mod 10 = 8</code>. Tabela[8] = &lt;28&gt;</li>
+                            <li>Inserir 15: <code>h(15) = 15 mod 10 = 5</code>. (Colisão!) Tabela[5] = &lt;5 -> 15&gt;</li>
+                            <li>Inserir 38: <code>h(38) = 38 mod 10 = 8</code>. (Colisão!) Tabela[8] = &lt;28 -> 38&gt;</li>
+                            <li>Inserir 45: <code>h(45) = 45 mod 10 = 5</code>. (Colisão!) Tabela[5] = &lt;5 -> 15 -> 45&gt;</li>
+                            <li>Inserir 9: <code>h(9) = 9 mod 10 = 9</code>. Tabela[9] = &lt;9&gt;</li>
+                        </ul>
+                        <p>Após todas as inserções, o estado da lista encadeada no índice 8 é <strong>&lt;28 -> 38&gt;</strong>.</p>
+                        <div class="distractor-analysis">
+                            <strong>Análise das Alternativas Incorretas (Distratores):</strong>
+                            <p>(B) é o estado do índice 5. (E) é o estado do índice 9. (C) e (D) misturam chaves de índices diferentes.</p>
+                        </div>
+                    </div>
+                `
+            },
+            q5: {
+                correct: "B",
+                resolution: `
+                    <div class="resolution-box">
+                        <h4>Resolução da Questão 5</h4>
+                        <p><strong style="color: #166534;">Alternativa Correta: (B) Nesta técnica, todos os elementos são armazenados dentro da própria tabela...</strong></p>
+                        <p><strong>Justificativa Técnica:</strong> Esta é a definição precisa de <strong>Endereçamento Aberto (Open Addressing)</strong>. Ao contrário do Encadeamento (que usa listas externas), o Endereçamento Aberto armazena todos os elementos <strong>dentro</strong> do array principal. Se <code>h(k)</code> resulta em um índice já ocupado (colisão), o algoritmo "sonda" (probes) outras posições até encontrar um slot vazio.</p>
+                        <div class="distractor-analysis">
+                            <strong>Análise das Alternativas Incorretas (Distratores):</strong>
+                            <p>(A) Esta é a definição de Encadeamento (Chaining). (C) Falso, o Endereçamento Aberto sofre intensamente com "agrupamento" (clustering). (D) Falso, o fator de carga <strong>não pode</strong> ser > 1. (E) Falso, a remoção é complexa, exigindo um marcador "DELETED" para não quebrar a cadeia de sondagem.</p>
+                        </div>
+                    </div>
+                `
+            },
+            q6: {
+                correct: "B",
+                resolution: `
+                    <div class="resolution-box">
+                        <h4>Resolução da Questão 6</h4>
+                        <p><strong style="color: #166534;">Alternativa Correta: (B) 20, 10, 5, 15, 30, 25</strong></p>
+                        <p><strong>Justificativa Técnica:</strong> O percurso em <strong>Pré-Ordem (Pre-Order)</strong> segue a regra recursiva <strong>R-E-D</strong>:</p>
+                        <ol class_="list-decimal list-inside ml-4 space-y-1">
+                            <li><strong>(R)</strong> Visita a <strong>Raiz</strong>.</li>
+                            <li><strong>(E)</strong> Percorre a subárvore <strong>Esquerda</strong>.</li>
+                            <li><strong>(D)</strong> Percorre a subárvore <strong>Direita</strong>.</li>
+                        </ol>
+                        <p>Aplicando na árvore:</p>
+                        <pre>
+     20
+    /  \
+   10    30
+  / \   /
+ 5  15 25
+                        </pre>
+                        <ul>
+                            <li>Visita <strong>20</strong> (Raiz).</li>
+                            <li>Vai para Esquerda (10). Visita <strong>10</strong>.</li>
+                            <li>Vai para Esquerda (5). Visita <strong>5</strong>. (Retorna).</li>
+                            <li>Vai para Direita (15). Visita <strong>15</strong>. (Retorna).</li>
+                            <li>(Retorna para 20). Vai para Direita (30). Visita <strong>30</strong>.</li>
+                            <li>Vai para Esquerda (25). Visita <strong>25</strong>. (Retorna).</li>
+                            <li>(Retorna para 30). Vai para Direita (null). Fim.</li>
+                        </ul>
+                        <p>Sequência: <strong>20, 10, 5, 15, 30, 25</strong>.</p>
+                        <div class="distractor-analysis">
+                            <strong>Análise das Alternativas Incorretas (Distratores):</strong>
+                            <p>(A) 5, 10, 15, 20, 25, 30 é o percurso <strong>Em-Ordem (In-Order)</strong>. (C) 5, 15, 10, 25, 30, 20 é o percurso <strong>Pós-Ordem (Post-Order)</strong>.</p>
+                        </div>
+                    </div>
+                `
+            },
+            q7: {
+                correct: "D",
+                resolution: `
+                    <div class="resolution-box">
+                        <h4>Resolução da Questão 7</h4>
+                        <p><strong style="color: #166534;">Alternativa Correta: (D) A subárvore esquerda... contém apenas chaves... menores... e a subárvore direita... maiores.</strong></p>
+                        <p><strong>Justificativa Técnica:</strong> Esta é a <strong>propriedade invariante</strong> fundamental que define uma Árvore Binária de Busca (BST). É essa regra que permite a busca eficiente.</p>
+                        <div class="distractor-analysis">
+                            <strong>Análise das Alternativas Incorretas (Distratores):</strong>
+                            <p>(A) Falso. A complexidade <code>O(log n)</code> é o caso médio (árvore balanceada). O pior caso (árvore degenerada, como uma lista) é <code>O(n)</code>. (B) Falso. BSTs tradicionais não permitem chaves duplicadas. (C) Falso. O percurso <strong>Em-Ordem (In-Order)</strong> é que resulta na lista ordenada. (E) Falso. Nós em BSTs podem ter 0, 1 ou 2 filhos.</p>
+                        </div>
+                    </div>
+                `
+            },
+            q8: {
+                correct: "C",
+                resolution: `
+                    <div class="resolution-box">
+                        <h4>Resolução da Questão 8</h4>
+                        <p><strong style="color: #166534;">Alternativa Correta: (C) As Árvores B e B+ são otimizadas para sistemas de armazenamento secundário (disco)...</strong></p>
+                        <p><strong>Justificativa Técnica:</strong> Esta questão testa a <strong>diferença de propósito</strong> entre árvores auto-balanceáveis:</p>
+                        <ul>
+                            <li><strong>Árvores AVL:</strong> São BSTs binárias para <strong>memória principal (RAM)</strong>. Usam rotações para manter a altura balanceada (fator -1, 0, ou 1).</li>
+                            <li><strong>Árvores B/B+:</strong> São árvores M-way (não binárias) para <strong>armazenamento secundário (Disco)</strong>. Elas são "baixas e largas", minimizando o número de operações de I/O (leitura de disco), que são lentas.</li>
+                        </ul>
+                        <div class="distractor-analysis">
+                            <strong>Análise das Alternativas Incorretas (Distratores):</strong>
+                            <p>(A) Falso, Árvore B não é binária e é para disco. (B) Falso, o fator de balanceamento da AVL é 1. (D) Falso, AVL usa Rotações, não hash. (E) Falso, Rotações são de AVL; Árvores B usam "split" e "merge".</p>
+                        </div>
+                    </div>
+                `
+            },
+            q9: {
+                correct: "B",
+                resolution: `
+                    <div class="resolution-box">
+                        <h4>Resolução da Questão 9</h4>
+                        <p><strong style="color: #166534;">Alternativa Correta: (B) Busca em Largura (Breadth-First Search - BFS).</strong></p>
+                        <p><strong>Justificativa Técnica:</strong> A descrição do algoritmo é a definição clássica do BFS. As palavras-chave são:</p>
+                        <ul>
+                            <li><strong>"Camada por camada"</strong> ou "nível por nível".</li>
+                            <li>Usa uma estrutura <strong>FIFO (First-In, First-Out)</strong>, que é uma <strong>Fila (Queue)</strong>.</li>
+                        </ul>
+                        <div class="distractor-analysis">
+                            <strong>Análise das Alternativas Incorretas (Distratores):</strong>
+                            <p>(A) Busca em Profundidade (DFS) explora o mais fundo possível e usa uma Pilha (Stack/LIFO) ou recursão. (C) Dijkstra encontra o caminho mais curto *ponderado*. (D) Kruskal encontra a Árvore Geradora Mínima. (E) Busca Binária é para arrays ordenados.</p>
+                        </div>
+                    </div>
+                `
+            },
+            q10: {
+                correct: "D",
+                resolution: `
+                    <div class="resolution-box">
+                        <h4>Resolução da Questão 10</h4>
+                        <p><strong style="color: #166534;">Alternativa Correta: (D) Ele encontra o caminho mais curto... de um único vértice de origem para todos os outros...</strong></p>
+                        <p><strong>Justificativa Técnica:</strong> Esta é a definição precisa do Algoritmo de Dijkstra. Ele é um algoritmo do tipo <strong>single-source shortest path</strong> (caminho mais curto de origem única) para grafos ponderados.</p>
+                        <div class="distractor-analysis">
+                            <strong>Análise das Alternativas Incorretas (Distratores):</strong>
+                            <p>(A) Falso, isso descreve o algoritmo Floyd-Warshall (All-Pairs). (B) Falso, Dijkstra funciona com ciclos. (C) Falso, esta é a principal "pegadinha": Dijkstra <strong>NÃO</strong> funciona com arestas de peso negativo. Para isso, usa-se Bellman-Ford. (E) Falso, Dijkstra usa uma <strong>Fila de Prioridade (Priority Queue)</strong>, não uma Pilha.</p>
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        // Lógica de Submissão do Quiz
+        const quizForm = document.getElementById('quizForm');
+        const resultsSection = document.getElementById('resultsSection');
+        const scoreElement = document.getElementById('score');
+        const submitButton = document.getElementById('submitButton');
+
+        quizForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede o recarregamento da página
+
+            let score = 0;
+            const formData = new FormData(quizForm);
+            const totalQuestions = Object.keys(solutions).length;
+
+            // Itera por todas as questões (q1, q2, ...)
+            for (let i = 1; i <= totalQuestions; i++) {
+                const questionId = 'q' + i;
+                const userAnswer = formData.get(questionId);
+                const solution = solutions[questionId];
+                
+                // Encontra o container da resolução e o preenche
+                const resolutionElement = document.getElementById('resolution-' + questionId);
+                if (resolutionElement) {
+                    resolutionElement.innerHTML = solution.resolution;
+                    resolutionElement.classList.remove('hidden');
+                }
+
+                // Seleciona todos os inputs de rádio para a questão atual
+                const radioInputs = document.querySelectorAll(`input[name="${questionId}"]`);
+                
+                radioInputs.forEach(radio => {
+                    const label = radio.closest('.option-label');
+                    radio.disabled = true; // Desabilita o input
+
+                    // Se a opção é a correta
+                    if (radio.value === solution.correct) {
+                        label.classList.add('correct-answer');
+                    } 
+                    // Se o usuário marcou esta, mas ela está errada
+                    else if (radio.value === userAnswer && userAnswer !== solution.correct) {
+                        label.classList.add('incorrect-answer');
+                    }
+                });
+
+                // Adiciona ponto se a resposta estiver correta
+                if (userAnswer === solution.correct) {
+                    score++;
+                }
+            }
+
+            // Exibe o resultado final
+            scoreElement.textContent = `Seu resultado: ${score} de ${totalQuestions} acertos.`;
+            resultsSection.classList.remove('hidden');
+
+            // Esconde o botão de submissão
+            submitButton.classList.add('hidden');
+
+            // Rola a tela para o topo para mostrar os resultados
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+
+</body>
+</html>

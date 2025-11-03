@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Fundamentos de Programação (Estilo AOCP)</title>
+    <!-- Carrega o Tailwind CSS para estilização -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Define a fonte Inter como padrão para uma melhor legibilidade */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7; /* Altura de linha para leitura longa */
+        }
+        /* Estilo para o <pre> (blocos de código) */
+        pre {
+            background-color: #f4f4f5; /* bg-gray-100 */
+            color: #1f2937; /* text-gray-800 */
+            padding: 1rem;
+            border-radius: 0.5rem; /* rounded-lg */
+            overflow-x: auto; /* Permite rolagem horizontal se o código for muito largo */
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem; /* Tamanho de fonte ligeiramente menor para código */
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+        }
+        /* Melhora a aparência dos botões de rádio */
+        input[type="radio"] {
+            width: 1.15em;
+            height: 1.15em;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+        }
+        label {
+            vertical-align: middle;
+            display: inline-block; /* Garante que o label e o radio fiquem alinhados */
+            padding: 0.25rem 0;
+            cursor: pointer;
+        }
+        .option-container {
+            display: flex;
+            align-items: flex-start; /* Alinha no topo para labels longos */
+            margin-bottom: 0.5rem;
+            padding: 0.25rem;
+        }
+        .option-container label {
+            flex: 1; /* Faz o label ocupar o espaço restante */
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <!-- Container Principal com largura máxima para leitura -->
+    <main class="max-w-3xl mx-auto p-4 sm:p-8 bg-white shadow-xl rounded-lg my-8 sm:my-12">
+
+        <header class="text-center mb-10">
+            <h1 class="text-3xl sm:text-4xl font-bold text-blue-800">Quiz: Fundamentos de Programação</h1>
+            <p class="text-lg text-gray-600 mt-2">Estilo Instituto AOCP</p>
+        </header>
+
+        <!-- Formulário do Quiz -->
+        <form id="quiz-form">
+            
+            <!-- Questão 1 -->
+            <fieldset class="mb-8 p-6 border border-gray-200 rounded-lg shadow-sm">
+                <legend class="text-lg sm:text-xl font-bold text-gray-900 mb-4">
+                    1. Considere as seguintes variáveis inteiras: $A = 5$, $B = 10$ e $C = 3$. Avalie a expressão lógica a seguir e assinale o resultado: <code>NÃO ((A + C) > B OU (B / A) = (C - 1))</code>
+                </legend>
+                <div class="space-y-3">
+                    <div class="option-container">
+                        <input type="radio" id="q1a" name="q1" value="A" required>
+                        <label for="q1a">(A) Verdadeiro</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q1b" name="q1" value="B">
+                        <label for="q1b">(B) Falso</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q1c" name="q1" value="C">
+                        <label for="q1c">(C) Erro de tipo</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q1d" name="q1" value="D">
+                        <label for="q1d">(D) 1</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q1e" name="q1" value="E">
+                        <label for="q1e">(E) 0</label>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Questão 2 -->
+            <fieldset class="mb-8 p-6 border border-gray-200 rounded-lg shadow-sm">
+                <legend class="text-lg sm:text-xl font-bold text-gray-900 mb-4">
+                    2. Analise o pseudocódigo abaixo e determine qual valor será impresso ao final da execução.
+                </legend>
+                <pre>
+algoritmo "TesteCondicional"
+var
+  X, Y: inteiro
+inicio
+  X <- 10
+  Y <- 20
+  se (X > 5) entao
+    se (Y < 15) entao
+      X <- X + 10
+    senao
+      X <- X + 5
+    fimse
+  senao
+    X <- Y
+  fimse
+  escreva(X)
+fimalgoritmo</pre>
+                <div class="space-y-3">
+                    <div class="option-container">
+                        <input type="radio" id="q2a" name="q2" value="A" required>
+                        <label for="q2a">(A) 10</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q2b" name="q2" value="B">
+                        <label for="q2b">(B) 20</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q2c" name="q2" value="C">
+                        <label for="q2c">(C) 15</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q2d" name="q2" value="D">
+                        <label for="q2d">(D) 25</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q2e" name="q2" value="E">
+                        <label for="q2e">(E) 5</label>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Questão 3 -->
+            <fieldset class="mb-8 p-6 border border-gray-200 rounded-lg shadow-sm">
+                <legend class="text-lg sm:text-xl font-bold text-gray-900 mb-4">
+                    3. Qual será o valor final da variável `SOMA` após a execução do algoritmo a seguir?
+                </legend>
+                <pre>
+algoritmo "SomaMultiplos"
+var
+  I, SOMA: inteiro
+inicio
+  I <- 1
+  SOMA <- 0
+  enquanto (I <= 10) faca
+    se (I % 3 = 0) entao
+      SOMA <- SOMA + I
+    fimse
+    I <- I + 1
+  fimenquanto
+  escreva(SOMA)
+fimalgoritmo</pre>
+                <div class="space-y-3">
+                    <div class="option-container">
+                        <input type="radio" id="q3a" name="q3" value="A" required>
+                        <label for="q3a">(A) 10</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q3b" name="q3" value="B">
+                        <label for="q3b">(B) 18</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q3c" name="q3" value="C">
+                        <label for="q3c">(C) 12</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q3d" name="q3" value="D">
+                        <label for="q3d">(D) 21</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q3e" name="q3" value="E">
+                        <label for="q3e">(E) 55</label>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Questão 4 -->
+            <fieldset class="mb-8 p-6 border border-gray-200 rounded-lg shadow-sm">
+                <legend class="text-lg sm:text-xl font-bold text-gray-900 mb-4">
+                    4. Dado o vetor $V = \{5, 8, 2, 9, 1\}$ (indexado de 0 a 4), qual será o valor da variável `R` ao final do seguinte algoritmo?
+                </legend>
+                <pre>
+algoritmo "SomaVetor"
+var
+  V: vetor[0..4] de inteiro
+  I, R: inteiro
+inicio
+  V[0] <- 5
+  V[1] <- 8
+  V[2] <- 2
+  V[3] <- 9
+  V[4] <- 1
+  R <- 0
+  para I de 0 ate 4 faca
+    se (V[I] > V[0]) entao
+      R <- R + V[I]
+    fimse
+  fimpara
+  escreva(R)
+fimalgoritmo</pre>
+                <!-- Nota: Corrigi o pseudocódigo que parecia ter erros de sintaxe (V <- 5) para V[0] <- 5 e (V[I] > V) para (V[I] > V[0]) para ser lógico com a resolução fornecida. -->
+                <div class="space-y-3">
+                    <div class="option-container">
+                        <input type="radio" id="q4a" name="q4" value="A" required>
+                        <label for="q4a">(A) 17</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q4b" name="q4" value="B">
+                        <label for="q4b">(B) 19</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q4c" name="q4" value="C">
+                        <label for="q4c">(C) 25</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q4d" name="q4" value="D">
+                        <label for="q4d">(D) 8</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q4e" name="q4" value="E">
+                        <label for="q4e">(E) 9</label>
+                    </div>
+                </div>
+            </fieldset>
+            
+            <!-- Questão 5 -->
+            <fieldset class="mb-8 p-6 border border-gray-200 rounded-lg shadow-sm">
+                <legend class="text-lg sm:text-xl font-bold text-gray-900 mb-4">
+                    5. Em lógica de programação, é comum o uso de matrizes (arrays bidimensionais) com indexação baseada em zero (onde o primeiro elemento é o índice 0). Considere uma matriz declarada como `M[3][4]`. Assinale a alternativa correta sobre esta matriz.
+                </legend>
+                <!-- Nota: Corrigi a questão para M[3][4] para ser lógico com a resolução fornecida. -->
+                <div class="space-y-3">
+                    <div class="option-container">
+                        <input type="radio" id="q5a" name="q5" value="A" required>
+                        <label for="q5a">(A) O elemento $M[4][3]$ é válido e acessa o último elemento da matriz.</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q5b" name="q5" value="B">
+                        <label for="q5b">(B) A matriz possui um total de 7 elementos (3 linhas + 4 colunas).</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q5c" name="q5" value="C">
+                        <label for="q5c">(C) O elemento $M[2][3]$ refere-se ao elemento na terceira linha e quarta coluna.</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q5d" name="q5" value="D">
+                        <label for="q5d">(D) Para percorrer todos os elementos, é necessário apenas um laço de repetição (ex: `para`).</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q5e" name="q5" value="E">
+                        <label for="q5e">(E) O elemento $M[0][4]$ é o primeiro elemento da quarta coluna.</label>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Questão 6 -->
+            <fieldset class="mb-8 p-6 border border-gray-200 rounded-lg shadow-sm">
+                <legend class="text-lg sm:text-xl font-bold text-gray-900 mb-4">
+                    6. No contexto de Estrutura de Dados, qual das seguintes afirmativas descreve corretamente o funcionamento de uma "Pilha" (Stack)?
+                </legend>
+                <div class="space-y-3">
+                    <div class="option-container">
+                        <input type="radio" id="q6a" name="q6" value="A" required>
+                        <label for="q6a">(A) É uma estrutura FIFO (First-In, First-Out), onde o primeiro elemento a ser inserido é o primeiro a ser removido, similar a uma fila de banco.</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q6b" name="q6" value="B">
+                        <label for="q6b">(B) É uma estrutura LIFO (Last-In, First-Out), onde o último elemento a ser inserido é o primeiro a ser removido.</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q6c" name="q6" value="C">
+                        <label for="q6c">(C) Permite acesso direto a qualquer elemento através de um índice numérico, sendo a forma mais eficiente de busca.</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q6d" name="q6" value="D">
+                        <label for="q6d">(D) Os elementos são inseridos no "fim" e removidos do "início".</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q6e" name="q6" value="E">
+                        <label for="q6e">(E) É uma estrutura de dados não linear utilizada para representar hierarquias, como uma árvore genealógica.</label>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Questão 7 -->
+            <fieldset class="mb-8 p-6 border border-gray-200 rounded-lg shadow-sm">
+                <legend class="text-lg sm:text-xl font-bold text-gray-900 mb-4">
+                    7. Sobre a estrutura de dados "Fila" (Queue), assinale a alternativa correta.
+                </legend>
+                <div class="space-y-3">
+                    <div class="option-container">
+                        <input type="radio" id="q7a" name="q7" value="A" required>
+                        <label for="q7a">(A) É uma estrutura LIFO (Last-In, First-Out); o último elemento a ser inserido é o primeiro a ser removido (operação `pop`).</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q7b" name="q7" value="B">
+                        <label for="q7b">(B) É uma estrutura FIFO (First-In, First-Out); o primeiro elemento adicionado (operação `enqueue`) é o primeiro a ser removido (operação `dequeue`).</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q7c" name="q7" value="C">
+                        <label for="q7c">(C) Os elementos são sempre inseridos e removidos pela mesma extremidade, conhecida como "topo".</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q7d" name="q7" value="D">
+                        <label for="q7d">(D) Não permite elementos duplicados e os armazena de forma ordenada.</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q7e" name="q7" value="E">
+                        <label for="q7e">(E) O acesso ao elemento central é a operação mais eficiente desta estrutura.</label>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Questão 8 -->
+            <fieldset class="mb-8 p-6 border border-gray-200 rounded-lg shadow-sm">
+                <legend class="text-lg sm:text-xl font-bold text-gray-900 mb-4">
+                    8. Analise as afirmativas a seguir sobre algoritmos de ordenação (sort) e busca (search).
+                </legend>
+                <div class="pl-4 border-l-4 border-gray-200 mb-4 space-y-2">
+                    <p>I. O método "Bubble Sort" é considerado um dos mais eficientes para grandes conjuntos de dados, superando o "Merge Sort" em complexidade de tempo.</p>
+                    <p>II. O "Quick Sort" utiliza a estratégia de "dividir para conquistar", selecionando um pivô e particionando o vetor recursivamente.</p>
+                    <p>III. A "Busca Binária" (Binary Search) é um algoritmo de ordenação muito rápido, com complexidade $O(\log n)$.</p>
+                </div>
+                <p class="mb-4">Assinale a alternativa correta:</p>
+                <div class="space-y-3">
+                    <div class="option-container">
+                        <input type="radio" id="q8a" name="q8" value="A" required>
+                        <label for="q8a">(A) Apenas a afirmativa I está correta.</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q8b" name="q8" value="B">
+                        <label for="q8b">(B) Apenas a afirmativa II está correta.</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q8c" name="q8" value="C">
+                        <label for="q8c">(C) Apenas a afirmativa III está correta.</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q8d" name="q8" value="D">
+                        <label for="q8d">(D) As afirmativas I e II estão corretas.</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q8e" name="q8" value="E">
+                        <label for="q8e">(E) As afirmativas II e III estão corretas.</label>
+                    </div>
+                </div>
+            </fieldset>
+            
+            <!-- Questão 9 -->
+            <fieldset class="mb-8 p-6 border border-gray-200 rounded-lg shadow-sm">
+                <legend class="text-lg sm:text-xl font-bold text-gray-900 mb-4">
+                    9. Na Programação Orientada a Objetos (POO), o pilar conhecido como "Encapsulamento" (Encapsulation) é definido como:
+                </legend>
+                <div class="space-y-3">
+                    <div class="option-container">
+                        <input type="radio" id="q9a" name="q9" value="A" required>
+                        <label for="q9a">(A) É a capacidade de uma classe herdar atributos e métodos de outra classe (superclasse).</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q9b" name="q9" value="B">
+                        <label for="q9b">(B) É o mecanismo que permite a um objeto ter múltiplas formas, tratando objetos de classes derivadas como se fossem da classe base.</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q9c" name="q9" value="C">
+                        <label for="q9c">(C) Refere-se à combinação de dados (atributos) e os métodos que operam sobre esses dados em uma única unidade (classe), ocultando os detalhes internos de implementação.</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q9d" name="q9" value="D">
+                        <label for="q9d">(D) É o processo de criar um objeto (instância) a partir de um molde (classe).</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q9e" name="q9" value="E">
+                        <label for="q9e">(E) É a definição de métodos com o mesmo nome, mas com assinaturas (parâmetros) diferentes, dentro da mesma classe.</label>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Questão 10 -->
+            <fieldset class="mb-8 p-6 border border-gray-200 rounded-lg shadow-sm">
+                <legend class="text-lg sm:text-xl font-bold text-gray-900 mb-4">
+                    10. Sobre os conceitos fundamentais das linguagens de programação C# e Java, assinale a alternativa correta.
+                </legend>
+                <div class="space-y-3">
+                    <div class="option-container">
+                        <input type="radio" id="q10a" name="q10" value="A" required>
+                        <label for="q10a">(A) Ambas são linguagens "fracamente tipadas", permitindo que o tipo de uma variável mude dinamicamente durante a execução (ex: de inteiro para string).</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q10b" name="q10" value="B">
+                        <label for="q10b">(B) O "Garbage Collection" (Coleta de Lixo) é o processo manual que o programador deve executar para liberar a memória alocada por objetos que não estão mais em uso.</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q10c" name="q10" value="C">
+                        <label for="q10c">(C) C# e Java são linguagens puramente interpretadas, onde cada linha de código é lida e executada em tempo real, sem um processo de compilação intermediário.</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q10d" name="q10" value="D">
+                        <label for="q10d">(D) Ambas as linguagens suportam "herança múltipla" pura, permitindo que uma classe herde diretamente de duas ou mais superclasses.</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q10e" name="q10" value="E">
+                        <label for="q10e">(E) Ambas são linguagens "fortemente tipadas" e orientadas a objetos, que compilam para um código intermediário (bytecode ou CIL) antes de serem executadas por uma máquina virtual (JVM ou CLR).</label>
+                    </div>
+                </div>
+            </fieldset>
+            
+            <!-- Botão de Envio -->
+            <button type="submit" class="w-full bg-blue-700 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-800 transition duration-300 text-xl shadow-lg">
+                Finalizar Quiz e Ver Resultados
+            </button>
+
+        </form>
+
+        <!-- Seção de Resultados (Oculta por padrão) -->
+        <section id="results-section" class="hidden mt-12 border-t-2 border-blue-200 pt-8">
+            <h2 class="text-3xl font-bold text-center text-blue-800 mb-6">Resultados e Resoluções</h2>
+            
+            <div class="text-center bg-blue-50 p-6 rounded-lg mb-10 shadow-md">
+                <p class="text-xl text-gray-800">Você acertou</p>
+                <p class="text-5xl font-bold text-blue-700 my-2"><span id="score">0</span> de 10</p>
+                <p class="text-xl text-gray-800">questões.</p>
+            </div>
+
+            <!-- As resoluções serão inseridas aqui pelo JavaScript -->
+            <div id="resolutions-area" class="space-y-8"></div>
+        </section>
+
+    </main>
+
+    <!-- JavaScript para a lógica do Quiz -->
+    <script>
+        // --- BANCO DE DADOS DAS QUESTÕES E RESOLUÇÕES ---
+        // (Baseado no documento fornecido)
+        
+        const quizData = [
+            {
+                // Questão 1
+                correctAnswer: 'B',
+                questionTitle: '1. Avaliação de Expressão Lógica',
+                resolutionHTML: `
+                    <p><strong>Gabarito: B (Falso)</strong></p>
+                    <p class="mt-2"><strong>Justificativa Correta:</strong> A questão exige a avaliação de uma expressão lógica complexa com precedência de operadores. Vamos quebrar a expressão: <code>NÃO ((A + C) > B OU (B / A) = (C - 1))</code></p>
+                    <ol class="list-decimal list-inside mt-2 space-y-1">
+                        <li>Substituir os valores: A=5, B=10, C=3.</li>
+                        <li><code>NÃO ((5 + 3) > 10 OU (10 / 5) = (3 - 1))</code></li>
+                        <li>Resolver as operações aritméticas dentro dos parênteses primeiro:
+                            <ul class="list-disc list-inside ml-4">
+                                <li>(5 + 3) = 8</li>
+                                <li>(10 / 5) = 2</li>
+                                <li>(3 - 1) = 2</li>
+                            </ul>
+                        </li>
+                        <li>Substituir os resultados na expressão: <code>NÃO (8 > 10 OU 2 = 2)</code></li>
+                        <li>Resolver as operações relacionais (comparações):
+                            <ul class="list-disc list-inside ml-4">
+                                <li>8 > 10 é <strong>Falso</strong>.</li>
+                                <li>2 = 2 é <strong>Verdadeiro</strong>.</li>
+                            </ul>
+                        </li>
+                        <li>Substituir os resultados lógicos: <code>NÃO (Falso OU Verdadeiro)</code></li>
+                        <li>Resolver o operador lógico OU (OR). O OU é verdadeiro se pelo menos uma das entradas for verdadeira.
+                            <ul class="list-disc list-inside ml-4">
+                                <li>(Falso OU Verdadeiro) é <strong>Verdadeiro</strong>.</li>
+                            </ul>
+                        </li>
+                        <li>Substituir o resultado: <code>NÃO (Verdadeiro)</code></li>
+                        <li>Resolver o operador lógico NÃO (NOT), que inverte o valor lógico.
+                            <ul class="list-disc list-inside ml-4">
+                                <li><code>NÃO (Verdadeiro)</code> é <strong>Falso</strong>.</li>
+                            </ul>
+                        </li>
+                    </ol>
+                `
+            },
+            {
+                // Questão 2
+                correctAnswer: 'C',
+                questionTitle: '2. Análise de Pseudocódigo (Condicional Aninhada)',
+                resolutionHTML: `
+                    <p><strong>Gabarito: C (15)</strong></p>
+                    <p class="mt-2"><strong>Justificativa Correta:</strong> Esta questão testa a habilidade de seguir o fluxo de uma estrutura condicional aninhada (um <code>se</code> dentro de outro).</p>
+                    <ol class="list-decimal list-inside mt-2 space-y-1">
+                        <li><strong>Início:</strong> X = 10, Y = 20.</li>
+                        <li><strong>Primeiro <code>se</code> (Externo):</strong> <code>se (X > 5)</code>.
+                            <ul class="list-disc list-inside ml-4">
+                                <li>A condição é (10 > 5).</li>
+                                <li>Isso é <strong>Verdadeiro</strong>.</li>
+                                <li>Portanto, o bloco <code>entao</code> externo é executado. O bloco <code>senao</code> externo (onde X <- Y) é ignorado.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Bloco <code>entao</code> (Externo):</strong> Inicia-se o segundo <code>se</code> (Interno).</li>
+                        <li><strong>Segundo <code>se</code> (Interno):</strong> <code>se (Y < 15)</code>.
+                            <ul class="list-disc list-inside ml-4">
+                                <li>A condição é (20 < 15).</li>
+                                <li>Isso é <strong>Falso</strong>.</li>
+                                <li>Portanto, o bloco <code>entao</code> interno (onde X <- X + 10) é ignorado.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Bloco <code>senao</code> (Interno):</strong> O bloco <code>senao</code> interno é executado.
+                            <ul class="list-disc list-inside ml-4">
+                                <li>X <- X + 5</li>
+                                <li>X <- 10 + 5</li>
+                                <li>X agora vale <strong>15</strong>.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Fim:</strong> O algoritmo termina as estruturas condicionais e chega ao <code>escreva(X)</code>.</li>
+                        <li><strong>Saída:</strong> O valor impresso é 15.</li>
+                    </ol>
+                `
+            },
+            {
+                // Questão 3
+                correctAnswer: 'B',
+                questionTitle: '3. Análise de Pseudocódigo (Laço de Repetição)',
+                resolutionHTML: `
+                    <p><strong>Gabarito: B (18)</strong></p>
+                    <p class="mt-2"><strong>Justificativa Correta:</strong> A questão pede o rastreamento de um laço <code>enquanto</code> (while loop) que soma números múltiplos de 3.</p>
+                    <ol class="list-decimal list-inside mt-2 space-y-1">
+                        <li><strong>Início:</strong> I = 1, SOMA = 0.</li>
+                        <li>O laço continua <code>enquanto (I <= 10)</code>.</li>
+                        <li><strong>Iteração 1:</strong> I = 1. (1 <= 10) é V. (1 % 3 = 0) é F. I torna-se 2. SOMA = 0.</li>
+                        <li><strong>Iteração 2:</strong> I = 2. (2 <= 10) é V. (2 % 3 = 0) é F. I torna-se 3. SOMA = 0.</li>
+                        <li><strong>Iteração 3:</strong> I = 3. (3 <= 10) é V. (3 % 3 = 0) é V. SOMA = 0 + 3 = 3. I torna-se 4.</li>
+                        <li><strong>Iteração 4:</strong> I = 4. (4 <= 10) é V. (4 % 3 = 0) é F. I torna-se 5. SOMA = 3.</li>
+                        <li><strong>Iteração 5:</strong> I = 5. (5 <= 10) é V. (5 % 3 = 0) é F. I torna-se 6. SOMA = 3.</li>
+                        <li><strong>Iteração 6:</strong> I = 6. (6 <= 10) é V. (6 % 3 = 0) é V. SOMA = 3 + 6 = 9. I torna-se 7.</li>
+                        <li><strong>Iteração 7:</strong> I = 7. (7 <= 10) é V. (7 % 3 = 0) é F. I torna-se 8. SOMA = 9.</li>
+                        <li><strong>Iteração 8:</strong> I = 8. (8 <= 10) é V. (8 % 3 = 0) é F. I torna-se 9. SOMA = 9.</li>
+                        <li><strong>Iteração 9:</strong> I = 9. (9 <= 10) é V. (9 % 3 = 0) é V. SOMA = 9 + 9 = 18. I torna-se 10.</li>
+                        <li><strong>Iteração 10:</strong> I = 10. (10 <= 10) é V. (10 % 3 = 0) é F. I torna-se 11. SOMA = 18.</li>
+                        <li><strong>Iteração 11:</strong> I = 11. (11 <= 10) é <strong>Falso</strong>. O laço termina.</li>
+                        <li><strong>Saída:</strong> <code>escreva(SOMA)</code> imprime 18.</li>
+                    </ol>
+                `
+            },
+            {
+                // Questão 4
+                correctAnswer: 'A',
+                questionTitle: '4. Análise de Pseudocódigo (Vetor)',
+                resolutionHTML: `
+                    <p><strong>Gabarito: A (17)</strong></p>
+                    <p class="mt-2"><strong>Justificativa Correta:</strong> O algoritmo inicializa um vetor V e uma variável R. Ele itera pelo vetor e soma em R todos os elementos que são *maiores* que o primeiro elemento (V[0], que é 5).</p>
+                    <ol class="list-decimal list-inside mt-2 space-y-1">
+                        <li><strong>Início:</strong> V = {5, 8, 2, 9, 1}, R = 0. O elemento de comparação é V[0] = 5.</li>
+                        <li><strong>I = 0:</strong> <code>se (V[0] > V[0])</code> -> <code>se (5 > 5)</code>. Falso. R continua 0.</li>
+                        <li><strong>I = 1:</strong> <code>se (V[1] > V[0])</code> -> <code>se (8 > 5)</code>. Verdadeiro. R = R + V[1] -> R = 0 + 8 -> R = 8.</li>
+                        <li><strong>I = 2:</strong> <code>se (V[2] > V[0])</code> -> <code>se (2 > 5)</code>. Falso. R continua 8.</li>
+                        <li><strong>I = 3:</strong> <code>se (V[3] > V[0])</code> -> <code>se (9 > 5)</code>. Verdadeiro. R = R + V[3] -> R = 8 + 9 -> R = 17.</li>
+                        <li><strong>I = 4:</strong> <code>se (V[4] > V[0])</code> -> <code>se (1 > 5)</code>. Falso. R continua 17.</li>
+                        <li><strong>Fim do laço:</strong> O valor final de R é 17.</li>
+                    </ol>
+                `
+            },
+            {
+                // Questão 5
+                correctAnswer: 'C',
+                questionTitle: '5. Conceitos de Matrizes (Array Bidimensional)',
+                resolutionHTML: `
+                    <p><strong>Gabarito: C (O elemento $M[2][3]$ refere-se ao elemento na terceira linha e quarta coluna.)</strong></p>
+                    <p class="mt-2"><strong>Justificativa Correta:</strong> Esta questão testa o conhecimento básico de acesso a matrizes (arrays bidimensionais), que são fundamentais em lógica de programação.</p>
+                    <ul class="list-disc list-inside mt-2 space-y-1">
+                        <li>A indexação baseada em 0 é o padrão. Em uma matriz <code>M[Linhas][Colunas]</code>, <code>M[i][j]</code>, 'i' é o índice da linha e 'j' é o índice da coluna.</li>
+                        <li>Uma matriz <code>M[3][4]</code> tem 3 linhas (índices 0, 1, 2) e 4 colunas (índices 0, 1, 2, 3).</li>
+                        <li>A alternativa (C) afirma que <code>M[2][3]</code> acessa a terceira linha (índice 2) e a quarta coluna (índice 3). Isso está perfeitamente correto.</li>
+                    </ul>
+                    <p class="mt-2"><strong>Análise das Incorretas:</strong></p>
+                    <ul class="list-disc list-inside mt-2 space-y-1">
+                        <li>(A) O elemento $M[4][3]$...: Incorreto. O índice de linha 4 está fora dos limites (índices válidos 0, 1, 2).</li>
+                        <li>(B) ...total de 7 elementos: Incorreto. O total de elementos é Linhas * Colunas, ou seja, 3 * 4 = 12 elementos.</li>
+                        <li>(D) ...apenas um laço de repetição: Incorreto. Para percorrer uma estrutura bidimensional, são necessários dois laços aninhados.</li>
+                        <li>(E) O elemento $M[0][4]$...: Incorreto. O índice de coluna 4 está fora dos limites (índices válidos 0, 1, 2, 3).</li>
+                    </ul>
+                `
+            },
+            {
+                // Questão 6
+                correctAnswer: 'B',
+                questionTitle: '6. Estrutura de Dados: Pilha (Stack)',
+                resolutionHTML: `
+                    <p><strong>Gabarito: B (É uma estrutura LIFO (Last-In, First-Out), onde o último elemento a ser inserido é o primeiro a ser removido.)</strong></p>
+                    <p class="mt-2"><strong>Justificativa Correta:</strong> Esta é uma questão teórica sobre estruturas de dados.</p>
+                    <ul class="list-disc list-inside mt-2 space-y-1">
+                        <li>Uma Pilha (Stack) funciona como uma pilha de pratos. Você coloca (empilha, <code>push</code>) um prato no topo, e quando vai remover (desempilha, <code>pop</code>), você remove o prato que está no topo.</li>
+                        <li>O último prato que você colocou é o primeiro que você tira. Isso é a definição de <strong>LIFO (Last-In, First-Out)</strong>.</li>
+                    </ul>
+                    <p class="mt-2"><strong>Análise das Incorretas:</strong></p>
+                    <ul class="list-disc list-inside mt-2 space-y-1">
+                        <li>(A) FIFO...: Incorreto. Esta é a definição de uma Fila (Queue).</li>
+                        <li>(C) Permite acesso direto...: Incorreto. Esta é a definição de um Vetor (Array).</li>
+                        <li>(D) Inseridos no "fim" e removidos do "início"...: Incorreto. Esta é outra forma de descrever uma Fila (FIFO).</li>
+                        <li>(E) Estrutura de dados não linear...: Incorreto. A Pilha é uma estrutura de dados linear.</li>
+                    </ul>
+                `
+            },
+            {
+                // Questão 7
+                correctAnswer: 'B',
+                questionTitle: '7. Estrutura de Dados: Fila (Queue)',
+                resolutionHTML: `
+                    <p><strong>Gabarito: B (É uma estrutura FIFO (First-In, First-Out); o primeiro elemento adicionado (operação <code>enqueue</code>) é o primeiro a ser removido (operação <code>dequeue</code>).)</strong></p>
+                    <p class="mt-2"><strong>Justificativa Correta:</strong> Complementando a questão anterior, esta aborda a Fila (Queue).</p>
+                    <ul class="list-disc list-inside mt-2 space-y-1">
+                        <li>Uma Fila (Queue) funciona como uma fila de banco. A primeira pessoa a chegar na fila é a primeira a ser atendida.</li>
+                        <li>Isso é a definição de <strong>FIFO (First-In, First-Out)</strong>.</li>
+                        <li>A terminologia padrão é <code>enqueue</code> (enfileirar) e <code>dequeue</code> (desenfileirar).</li>
+                    </ul>
+                    <p class="mt-2"><strong>Análise das Incorretas:</strong></p>
+                    <ul class="list-disc list-inside mt-2 space-y-1">
+                        <li>(A) LIFO...: Incorreto. Esta é a definição de uma Pilha (Stack).</li>
+                        <li>(C) Inseridos e removidos pela mesma extremidade...: Incorreto. Esta é a definição de uma Pilha (onde tudo acontece no "topo").</li>
+                        <li>(D) Não permite elementos duplicados...: Incorreto. Filas padrão permitem duplicados.</li>
+                        <li>(E) O acesso ao elemento central...: Incorreto. O acesso ao elemento central em uma fila é altamente ineficiente.</li>
+                    </ul>
+                `
+            },
+            {
+                // Questão 8
+                correctAnswer: 'B',
+                questionTitle: '8. Algoritmos de Ordenação e Busca',
+                resolutionHTML: `
+                    <p><strong>Gabarito: B (Apenas a afirmativa II está correta.)</strong></p>
+                    <p class="mt-2"><strong>Justificativa Correta:</strong> A questão avalia o conhecimento teórico sobre algoritmos.</p>
+                    <ul class="list-disc list-inside mt-2 space-y-1">
+                        <li><strong>I (Incorreta):</strong> O Bubble Sort é notoriamente *ineficiente*, com complexidade $O(n^2)$. Ele é muito *mais lento* que o Merge Sort ($O(n \log n)$) em grandes conjuntos de dados.</li>
+                        <li><strong>II (Correta):</strong> O Quick Sort é um algoritmo clássico de "dividir para conquistar". Ele seleciona um pivô, particiona o array e ordena recursivamente as duas subpartes.</li>
+                        <li><strong>III (Incorreta):</strong> A Busca Binária (Binary Search) <strong>não é um algoritmo de ordenação</strong>. É um algoritmo de *busca* que opera em um vetor *já ordenado*, com complexidade $O(\log n)$.</li>
+                    </ul>
+                `
+            },
+            {
+                // Questão 9
+                correctAnswer: 'C',
+                questionTitle: '9. Pilares da Programação Orientada a Objetos (POO)',
+                resolutionHTML: `
+                    <p><strong>Gabarito: C (Refere-se à combinação de dados (atributos) e os métodos que operam sobre esses dados em uma única unidade (classe), ocultando os detalhes internos de implementação.)</strong></p>
+                    <p class="mt-2"><strong>Justificativa Correta:</strong> Esta é uma questão teórica sobre POO.</p>
+                    <ul class="list-disc list-inside mt-2 space-y-1">
+                        <li>A alternativa (C) define perfeitamente o Encapsulamento:
+                            <ol class="list-decimal list-inside ml-4">
+                                <li>Combinar dados (atributos) e métodos em uma classe.</li>
+                                <li>Ocultar a implementação interna (information hiding), geralmente usando modificadores de acesso (como <code>private</code>).</li>
+                            </ol>
+                        </li>
+                    </ul>
+                    <p class="mt-2"><strong>Análise das Incorretas:</strong></p>
+                    <ul class="list-disc list-inside mt-2 space-y-1">
+                        <li>(A) ...herdar atributos e métodos...: Incorreto. Esta é a definição de <strong>Herança</strong>.</li>
+                        <li>(B) ...objeto ter múltiplas formas...: Incorreto. Esta é a definição de <strong>Polimorfismo</strong>.</li>
+                        <li>(D) ...criar um objeto (instância)...: Incorreto. Este é o processo de <strong>Instanciação</strong>.</li>
+                        <li>(E) ...métodos com o mesmo nome, mas com assinaturas...: Incorreto. Esta é a definição de <strong>Sobrecarga de Método</strong> (Method Overloading).</li>
+                    </ul>
+                `
+            },
+            {
+                // Questão 10
+                correctAnswer: 'E',
+                questionTitle: '10. Conceitos de C# e Java',
+                resolutionHTML: `
+                    <p><strong>Gabarito: E (Ambas são linguagens "fortemente tipadas" e orientadas a objetos, que compilam para um código intermediário (bytecode ou CIL) antes de serem executadas por uma máquina virtual (JVM ou CLR).)</strong></p>
+                    <p class="mt-2"><strong>Justificativa Correta:</strong> Esta questão avalia o conhecimento teórico sobre linguagens.</p>
+                    <ul class="list-disc list-inside mt-2 space-y-1">
+                        <li>(E) é a única afirmação correta.
+                            <ul class="list-disc list-inside ml-4">
+                                <li><strong>Fortemente Tipadas:</strong> Exigem que o tipo de uma variável seja declarado.</li>
+                                <li><strong>Orientadas a Objetos:</strong> É o paradigma central de ambas.</li>
+                                <li><strong>Código Intermediário:</strong> Java compila para <code>bytecode</code> (executado pela JVM). C# compila para <code>CIL</code> (executado pela CLR).</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p class="mt-2"><strong>Análise das Incorretas:</strong></p>
+                    <ul class="list-disc list-inside mt-2 space-y-1">
+                        <li>(A) ...fracamente tipadas...: Incorreto. Elas são fortemente tipadas.</li>
+                        <li>(B) ...processo manual...: Incorreto. O Garbage Collection (GC) é *automático* em ambas.</li>
+                        <li>(C) ...puramente interpretadas...: Incorreto. Elas são compiladas para um código intermediário.</li>
+                        <li>(D) ...suportam "herança múltipla" pura...: Incorreto. Elas não suportam herança múltipla de classes (apenas de interfaces).</li>
+                    </ul>
+                `
+            }
+        ];
+
+        // --- LÓGICA DO QUIZ ---
+
+        const quizForm = document.getElementById('quiz-form');
+        const resultsSection = document.getElementById('results-section');
+        const scoreSpan = document.getElementById('score');
+        const resolutionsArea = document.getElementById('resolutions-area');
+
+        quizForm.addEventListener('submit', function(event) {
+            // 1. Impede o envio real do formulário, que recarregaria a página
+            event.preventDefault();
+
+            let score = 0;
+            resolutionsArea.innerHTML = ''; // Limpa resoluções anteriores
+
+            // 2. Coleta todas as respostas do formulário
+            const formData = new FormData(quizForm);
+            
+            // 3. Itera por cada questão no nosso banco de dados
+            quizData.forEach((question, index) => {
+                const questionNumber = index + 1;
+                const questionName = 'q' + questionNumber;
+                
+                const userAnswer = formData.get(questionName);
+                const correctAnswer = question.correctAnswer;
+
+                let isCorrect = false;
+                if (userAnswer === correctAnswer) {
+                    score++;
+                    isCorrect = true;
+                }
+
+                // 4. Cria o HTML para a resolução de cada questão
+                const resultHTML = `
+                    <div class="p-6 border rounded-lg ${isCorrect ? 'border-green-200 bg-green-50' : 'border-red-200 bg-red-50'} shadow-sm">
+                        <h3 class="text-xl font-bold text-gray-900">${question.questionTitle}</h3>
+                        
+                        <div class="mt-4 flex flex-wrap gap-4">
+                            <span class="text-base font-medium">Sua resposta: 
+                                <strong class="text-lg ${isCorrect ? 'text-green-700' : 'text-red-700'}">${userAnswer || "Não respondida"}</strong>
+                            </span>
+                            <span class="text-base font-medium">Gabarito: 
+                                <strong class="text-lg text-blue-700">${correctAnswer}</strong>
+                            </span>
+                        </div>
+
+                        <p class="text-lg font-bold mt-3 ${isCorrect ? 'text-green-700' : 'text-red-700'}">
+                            ${isCorrect ? 'Você acertou!' : 'Você errou.'}
+                        </p>
+
+                        <div class="mt-4 pt-4 border-t border-gray-300">
+                            <h4 class="text-lg font-semibold text-gray-800 mb-2">Resolução Comentada:</h4>
+                            <div class="text-gray-700 space-y-2">
+                                ${question.resolutionHTML}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                resolutionsArea.innerHTML += resultHTML;
+            });
+
+            // 5. Atualiza a pontuação total
+            scoreSpan.textContent = score;
+
+            // 6. Mostra a seção de resultados
+            resultsSection.classList.remove('hidden');
+
+            // 7. Rola a página suavemente para os resultados
+            resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+    </script>
+</body>
+</html>

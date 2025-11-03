@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz POO - Estilo AOCP</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Define a fonte Inter como padrão, ótima para leitura */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Estiliza o bloco de código */
+        pre code {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+        }
+        /* Estilos para feedback de seleção de rádio */
+        input[type="radio"]:checked + span {
+            font-weight: 600; /* Deixa o texto da opção selecionada mais forte */
+        }
+        /* Melhora o foco para acessibilidade */
+        input[type="radio"]:focus-visible + span {
+             outline: 2px solid #3b82f6; /* Adiciona um contorno azul no foco */
+             outline-offset: 2px;
+             border-radius: 0.25rem;
+        }
+        /* Preserva quebras de linha nas resoluções */
+        .resolution-text {
+            white-space: pre-line;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+    <!-- Container principal com largura limitada para leitura longa -->
+    <div class="max-w-3xl mx-auto p-4 sm:p-8">
+
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold text-center text-blue-800">Quiz de Programação Orientada a Objetos</h1>
+            <p class="text-center text-gray-600 mt-2">10 Questões no Estilo Instituto AOCP</p>
+        </header>
+
+        <!-- Formulário do Quiz -->
+        <form id="quizForm" class="bg-white p-6 sm:p-8 rounded-lg shadow-md border border-gray-200">
+            <div id="quizContainer" class="space-y-8">
+                <!-- As questões serão injetadas aqui pelo JavaScript -->
+            </div>
+            
+            <button type="submit" id="submitButton" class="w-full mt-10 bg-blue-700 text-white p-4 rounded-lg font-bold text-lg hover:bg-blue-800 transition-colors shadow-md focus:outline-none focus:ring-4 focus:ring-blue-300">
+                Finalizar Quiz e Ver Respostas
+            </button>
+        </form>
+
+        <!-- Seção de Resultados (Oculta por padrão) -->
+        <section id="resultsSection" class="hidden mt-12 bg-white p-6 sm:p-8 rounded-lg shadow-lg border border-gray-200">
+            <h2 class="text-3xl font-bold text-center mb-6">Resultados e Resoluções</h2>
+            
+            <!-- Pontuação -->
+            <div class="text-center mb-8">
+                <p class="text-2xl font-semibold" id="scoreMessage">Você acertou</p>
+                <p class="text-5xl font-bold text-blue-800" id="scoreDisplay">0 / 10</p>
+            </div>
+
+            <!-- Container para as Resoluções -->
+            <div id="resolutionsContainer" class="space-y-6 border-t pt-6">
+                <!-- As resoluções detalhadas serão injetadas aqui -->
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // Dados do Quiz (extraídos do seu documento)
+        const quizData = [
+            {
+                question: "1. (Estilo: AOCP - Assertivas Conceituais / Pilares) Em relação aos pilares fundamentais da Programação Orientada a Objetos (POO), analise as assertivas e assinale a alternativa que aponta a(s) correta(s).<br><br>I. O Encapsulamento permite que os atributos de uma classe não tenham acesso direto, o que ocorre somente através de métodos de acesso (getters e setters), protegendo o estado interno do objeto.<br>II. A Herança permite que uma classe (subclasse) reutilize código de outra classe (superclasse), mas limita-se a permitir que a subclasse herde apenas os métodos, não os atributos.<br>III. O Polimorfismo, que significa \"muitas formas\", refere-se à habilidade de uma variável de objeto de assumir formas diferentes, permitindo que o mesmo método tenha comportamentos distintos dependendo da classe do objeto que o invoca.",
+                options: [
+                    "(A) Apenas I.",
+                    "(B) Apenas I e III.",
+                    "(C) Apenas II e III.",
+                    "(D) Apenas I e II.",
+                    "(E) I, II e III."
+                ],
+                correctIndex: 1, // (B)
+                resolution: "<b>Gabarito: (B) Apenas I e III.</b>\n\n<b>Análise da Assertiva I (Correta):</b> Esta é a definição precisa do pilar do encapsulamento. O princípio preconiza que os dados (atributos) de um objeto devem ser escondidos (geralmente com modificador `private`) do acesso externo direto. A interação com esses dados deve ser mediada por métodos públicos (como *getters* e *setters*), permitindo que a classe mantenha controle sobre seu estado e lógica interna.\n\n<b>Análise da Assertiva II (Incorreta):</b> A herança é, de fato, um mecanismo de reutilização de código. No entanto, a afirmação de que a subclasse herda \"apenas os métodos, não os atributos\" está incorreta. A subclasse herda todos os membros (atributos e métodos) da superclasse que são acessíveis (ou seja, `public` ou `protected`, ou `default` se no mesmo pacote), com exceção dos membros `private`.\n\n<b>Análise da Assertiva III (Correta):</b> Esta é a definição de polimorfismo. Uma variável de referência do tipo da superclasse pode apontar para objetos de qualquer uma de suas subclasses. Quando um método é chamado através dessa variável, a implementação específica da subclasse (o comportamento distinto) é executada em tempo de execução (polimorfismo de sobrescrita ou dinâmico)."
+            },
+            {
+                question: "2. (Estilo: AOCP - Associação de Colunas / Modificadores) Na Programação Orientada a Objetos, especialmente em Java, modificadores controlam a visibilidade e o comportamento de membros da classe. Associe os modificadores da Coluna A às suas respectivas descrições na Coluna B.<br><br><b>Coluna A</b><br>I. `private`<br>II. `static`<br>III. `public`<br>IV. `protected`<br><br><b>Coluna B</b><br>( ) Ao ser definido em um elemento, significa que pode ser acessado por qualquer classe, seja dentro ou fora do pacote da classe.<br>( ) Ao ser definido em um elemento, significa que pertence à classe, em vez de pertencer a instâncias individuais dessa classe.<br>( ) Ao ser definido em um elemento, significa que pode ser acessado apenas dentro da mesma classe.<br>( ) Ao ser definido em um elemento, significa que pode ser acessado pela própria classe, classes do mesmo pacote e por subclasses, mas não por outras classes em pacotes diferentes.<br><br>A associação correta, de cima para baixo, é:",
+                options: [
+                    "(A) II - IV - III - I",
+                    "(B) III - II - I - IV",
+                    "(C) III - I - II - IV",
+                    "(D) IV - II - I - III",
+                    "(E) II - I - IV - III"
+                ],
+                correctIndex: 1, // (B)
+                resolution: "<b>Gabarito: (B) III - II - I - IV.</b>\n\nEsta questão avalia o conhecimento sobre modificadores de acesso e de comportamento em Java.\n\n<b>( III ) `public`:</b> Corresponde à descrição \"pode ser acessado por qualquer classe, seja dentro ou fora do pacote\". É o nível máximo de visibilidade.\n\n<b>( II ) `static`:</b> Corresponde à descrição \"pertence à classe, em vez de pertencer a instâncias individuais\". Um membro `static` é compartilhado por todas as instâncias e pode ser acessado sem a necessidade de criar um objeto.\n\n<b>( I ) `private`:</b> Corresponde à descrição \"pode ser acessado apenas dentro da mesma classe\". É o nível mais restrito de visibilidade, fundamental para o encapsulamento.\n\n<b>( IV ) `protected`:</b> Corresponde à descrição \"pode ser acessado pela própria classe, classes do mesmo pacote e por subclasses\". O modificador `protected` é crucial para a herança, pois permite que subclasses (mesmo em pacotes diferentes) acessem membros da superclasse.\n\nA sequência correta de cima para baixo é III, II, I, IV."
+            },
+            {
+                question: "3. (Estilo: AOCP - Análise de Código / `implements` e `extends`) Analise o trecho de código de uma classe Java apresentado a seguir e assinale a alternativa correta.",
+                code: `public class AnalistaJunior extends Funcionario implements Beneficios {\n    \n    private double bonus;\n\n    public boolean calculaBonus(String matricula) {\n        //... lógica...\n        return true;\n    }\n}`,
+                options: [
+                    "(A) O código expressa a realização da interface `Funcionario` pela classe `AnalistaJunior`.",
+                    "(B) `AnalistaJunior` é uma classe filha de `Beneficios` e implementa a classe `Funcionario`.",
+                    "(C) O código não compilará, pois uma classe não pode usar `extends` e `implements` simultaneamente.",
+                    "(D) O código representa a herança de `Funcionario` e a obrigação de implementar os métodos definidos em `Beneficios`.",
+                    "(E) `Funcionario` é uma interface, e `Beneficios` é uma superclasse."
+                ],
+                correctIndex: 3, // (D)
+                resolution: "<b>Gabarito: (D) O código representa a herança de `Funcionario` e a obrigação de implementar os métodos definidos em `Beneficios`.</b>\n\nEsta questão analisa a sintaxe de declaração de classe em Java, um formato de questão comum do Instituto AOCP.\n\n- A palavra-chave `extends` define a relação de herança (superclasse). Portanto, `AnalistaJunior` é uma subclasse de `Funcionario`.\n- A palavra-chave `implements` define a realização de uma ou mais interfaces. Portanto, `AnalistaJunior` deve implementar todos os métodos abstratos definidos na interface `Beneficios`.\n- (A) está incorreta. `Funcionario` é a superclasse (herança), não a interface.\n- (B) está incorreta. A relação está invertida. `AnalistaJunior` *estende* `Funcionario` e *implementa* `Beneficios`.\n- (C) está incorreta. A sintaxe Java permite o uso de `extends` e `implements` simultaneamente, desde que `extends` venha primeiro e haja apenas uma superclasse.\n- (D) está correta. Descreve perfeitamente a relação: `AnalistaJunior` herda de `Funcionario` e \"assina o contrato\" de `Beneficios`.\n- (E) está incorreta. A sintaxe indica que `Funcionario` é a superclasse e `Beneficios` é a interface."
+            },
+            {
+                question: "4. (Estilo: AOCP - Conceitual / Polimorfismo Estático vs. Dinâmico) O polimorfismo é um princípio fundamental da POO. A respeito dos seus tipos, avalie as asserções a seguir e a relação proposta entre elas:<br><br>I. O polimorfismo por sobrecarga (estático) permite que, em uma mesma classe, existam vários métodos com o mesmo nome, desde que suas assinaturas (número, tipo ou ordem dos parâmetros) sejam diferentes.<br><b>PORQUE</b><br>II. A decisão sobre qual método sobrecarregado será executado é tomada em tempo de compilação, baseando-se nos argumentos fornecidos na chamada do método.<br><br>Após feita a análise, é correto afirmar que:",
+                options: [
+                    "(A) As duas asserções são proposições verdadeiras, e a segunda é uma justificativa correta da primeira.",
+                    "(B) As duas asserções são proposições verdadeiras, mas a segunda não é uma justificativa correta da primeira.",
+                    "(C) A primeira asserção é uma proposição verdadeira; a segunda é uma proposição falsa.",
+                    "(D) A primeira asserção é uma proposição falsa, já a segunda é uma proposição verdadeira.",
+                    "(E) As duas asserções são proposições falsas."
+                ],
+                correctIndex: 0, // (A)
+                resolution: "<b>Gabarito: (A) As duas asserções são proposições verdadeiras, e a segunda é uma justificativa correta da primeira.</b>\n\nEsta questão utiliza o formato \"Assertiva-PORQUE-Assertiva\" para avaliar os tipos de polimorfismo.\n\n<b>Análise da Assertiva I (Verdadeira):</b> Esta é a definição correta do polimorfismo por sobrecarga (overloading), também conhecido como polimorfismo estático. Permite múltiplos métodos com o mesmo nome, contanto que a assinatura (a lista de parâmetros) seja diferente.\n\n<b>Análise da Assertiva II (Verdadeira):</b> O polimorfismo por sobrecarga é resolvido em tempo de compilação (estaticamente). O compilador Java analisa os argumentos da chamada do método e \"liga\" (bind) a chamada à definição correta do método antes da execução do programa.\n\n<b>Análise da Relação (Correta):</b> A segunda asserção explica o mecanismo que torna a primeira possível. É *porque* o compilador consegue decidir em tempo de compilação qual método chamar (baseado nos argumentos) que a linguagem permite a existência desses múltiplos métodos com o mesmo nome. Portanto, II justifica I."
+            },
+            {
+                question: "5. (Estilo: AOCP - Análise de Código / Upcasting e Downcasting) Considerando os conceitos de Polimorfismo e *Casting* na linguagem Java, e assumindo que `Veiculo` é uma superclasse e `Carro` é uma subclasse (ou seja, `public class Carro extends Veiculo`), analise as seguintes linhas de código:",
+                code: `// Linha 1\nVeiculo v = new Carro(); \n\n// Linha 2\nCarro c = (Carro) v;`,
+                options: [
+                    "(A) A Linha 1 executa um *cast explícito* (downcasting), e a Linha 2 executa um *cast implícito* (upcasting).",
+                    "(B) A Linha 1 executa um *cast implícito* (upcasting), e a Linha 2 executa um *cast explícito* (downcasting).",
+                    "(C) Ambas as linhas executam um *cast implícito* (upcasting).",
+                    "(D) Ambas as linhas executam um *cast explícito* (downcasting).",
+                    "(E) A Linha 1 causará um erro de compilação por tipos incompatíveis, e a Linha 2 é um exemplo de *cast implícito*."
+                ],
+                correctIndex: 1, // (B)
+                resolution: "<b>Gabarito: (B) A Linha 1 executa um *cast implícito* (upcasting), e a Linha 2 executa um *cast explícito* (downcasting).</b>\n\nEsta questão testa os conceitos de conversão de tipos (casting) no contexto do polimorfismo.\n\n<b>Linha 1: `Veiculo v = new Carro();`</b> Um objeto da subclasse (`Carro`) está sendo atribuído a uma variável de referência da superclasse (`Veiculo`). Isso é chamado de <b>Upcasting</b> (subindo na hierarquia). Como todo `Carro` é um `Veiculo`, essa operação é inerentemente segura e, portanto, é feita <b>implicitamente</b> pelo compilador.\n\n<b>Linha 2: `Carro c = (Carro) v;`</b> A variável da superclasse (`v`) está sendo convertida de volta para uma variável da subclasse (`Carro`). Isso é chamado de <b>Downcasting</b> (descendo na hierarquia). Essa operação é potencialmente insegura (o `Veiculo` `v` poderia ser uma `Moto`), exigindo que o programador a faça <b>explicitamente</b> com `(Carro)`. Se `v` não contiver um objeto `Carro` (ou subclasse de `Carro`) em tempo de execução, uma exceção `ClassCastException` será lançada."
+            },
+            {
+                question: "6. (Estilo: AOCP - Conceitual / Classes Abstratas vs. Interfaces) Em relação às diferenças e semelhanças entre Classes Abstratas e Interfaces em Java (versões 8+), analise as seguintes afirmações:<br><br>I. Uma classe abstrata não pode ser instanciada e pode conter tanto métodos abstratos (sem implementação) quanto métodos concretos (com implementação).<br>II. Uma interface, assim como uma classe abstrata, não pode ser instanciada, mas só pode conter métodos abstratos e atributos `public static final`.<br>III. Uma classe pode implementar múltiplas interfaces, mas só pode herdar (estender) de uma única classe abstrata (ou concreta).<br><br>Está(ão) correta(s) a(s) afirmativa(s):",
+                options: [
+                    "(A) Apenas I.",
+                    "(B) Apenas II.",
+                    "(C) Apenas I e III.",
+                    "(D) Apenas II e III.",
+                    "(E) I, II e III."
+                ],
+                correctIndex: 2, // (C)
+                resolution: "<b>Gabarito: (C) Apenas I e III.</b>\n\nEsta questão compara os dois principais mecanismos de abstração em Java.\n\n<b>Afirmativa I (Correta):</b> Esta é a definição de uma classe abstrata. Ela não pode ser instanciada diretamente e é projetada para ser uma superclasse, podendo fornecer implementações concretas (métodos com corpo) e assinaturas de métodos abstratos (que as subclasses devem implementar).\n\n<b>Afirmativa II (Incorreta):</b> Esta afirmação estaria correta antes do Java 8. No entanto, desde o Java 8, interfaces podem conter métodos concretos (marcados com `default` ou `static`). Portanto, a afirmação de que *só pode* conter métodos abstratos é falsa no contexto moderno do Java.\n\n<b>Afirmativa III (Correta):</b> Esta é uma regra central da herança em Java. Uma classe só pode ter uma superclasse direta (herança simples de implementação, `extends`), mas pode implementar múltiplas interfaces (herança múltipla de tipo, `implements`)."
+            },
+            {
+                question: "7. (Estilo: AOCP - Conceitual / Herança Múltipla) Sobre o mecanismo de Herança em Programação Orientada a Objetos, especificamente na linguagem Java, é correto afirmar que:",
+                options: [
+                    "(A) Java suporta plenamente a herança múltipla, permitindo que uma classe herde atributos e métodos de múltiplas superclasses concretas.",
+                    "(B) A herança múltipla é simulada em Java através da implementação de múltiplas classes abstratas.",
+                    "(C) Java não suporta herança múltipla de classes (uma classe só pode ter um `extends`), mas permite um efeito similar através da implementação de múltiplas interfaces (múltiplos `implements`).",
+                    "(D) O principal benefício da herança múltipla é o polimorfismo de sobrescrita, enquanto a herança simples permite apenas a sobrecarga.",
+                    "(E) A herança múltipla é estritamente proibida em Java para evitar o \"problema do diamante\", mas a herança simples de interfaces é permitida (uma interface só pode estender uma outra interface)."
+                ],
+                correctIndex: 2, // (C)
+                resolution: "<b>Gabarito: (C) Java não suporta herança múltipla de classes (uma classe só pode ter um `extends`), mas permite um efeito similar através da implementação de múltiplas interfaces (múltiplos `implements`).</b>\n\n(A) Incorreta. Java proíbe explicitamente a herança múltipla de *classes* (herdar implementação e estado de mais de uma classe) para evitar o \"Problema do Diamante\".\n\n(B) Incorreta. Uma classe só pode estender (herdar) de uma única classe, seja ela concreta ou abstrata.\n\n(C) Correta. Esta alternativa descreve a solução de design do Java: herança de implementação é simples (um `extends`), mas a herança de tipo/contrato é múltipla (múltiplos `implements`).\n\n(D) Incorreta. O polimorfismo de sobrescrita (dinâmico) é um pilar da herança, seja ela simples ou múltipla.\n\n(E) Incorreta. A primeira parte está correta, mas a segunda está errada. Uma *interface* em Java *pode* estender múltiplas outras interfaces, permitindo a herança múltipla na hierarquia de tipos."
+            },
+            {
+                question: "8. (Estilo: AOCP - Conceitual Avançado / Construtores) Considerando o uso de construtores em Classes Abstratas na linguagem Java, assinale a alternativa correta.",
+                options: [
+                    "(A) Classes abstratas não podem ter construtores, pois não podem ser instanciadas diretamente usando o operador `new`.",
+                    "(B) Classes abstratas podem ter construtores, mas eles só podem ser `private` para garantir que a classe não seja instanciada.",
+                    "(C) A definição de um construtor em uma classe abstrata causa um erro de compilação, pois viola o princípio da abstração.",
+                    "(D) É obrigatório que toda classe abstrata declare explicitamente um construtor sem argumentos (construtor padrão).",
+                    "(E) Classes abstratas podem ter construtores (tipicamente `public` ou `protected`), que são utilizados e invocados (via `super()`) pelas subclasses concretas durante sua própria instanciação."
+                ],
+                correctIndex: 4, // (E)
+                resolution: "<b>Gabarito: (E) Classes abstratas podem ter construtores (tipicamente `public` ou `protected`), que são utilizados e invocados (via `super()`) pelas subclasses concretas durante sua própria instanciação.</b>\n\nEsta é uma questão conceitual avançada sobre a mecânica de inicialização de objetos.\n\n(A) Incorreta. Embora classes abstratas não possam ser instanciadas *diretamente* com `new`, elas *devem* ter construtores.\n\n(E) Correta. A razão pela qual classes abstratas precisam de construtores é para inicializar os atributos e o estado que elas próprias definem. Quando uma subclasse concreta é instanciada (`new Subclasse()`), o construtor da subclasse deve, obrigatoriamente (explícita ou implicitamente), chamar um construtor da superclasse abstrata usando `super()`. Se o construtor for `private` (B), as subclasses (em outros pacotes) não poderiam chamá-lo, tornando a herança impossível. Se não houvesse construtor (D), e o compilador inserisse um padrão, a inicialização poderia falhar se a classe abstrata dependesse de parâmetros."
+            },
+            {
+                question: "9. (Estilo: AOCP - Análise de Código / `this()` e `super()`) Analise o código Java abaixo, que representa uma hierarquia de classes `Forma` e `Circulo`:",
+                code: `class Forma {\n    protected String nome;\n    \n    public Forma(String nome) { // Construtor da Superclasse\n        this.nome = nome;\n    }\n}\n\nclass Circulo extends Forma {\n    private int raio;\n    \n    public Circulo(int raio) { // Construtor 1\n        this("CirculoDefault", raio); // Chamada da Linha A\n    }\n\n    public Circulo(String nome, int raio) { // Construtor 2\n        super(nome); // Chamada da Linha B\n        this.raio = raio;\n    }\n}`,
+                options: [
+                    "(A) A Linha A usa `this()` para invocar o construtor da superclasse `Forma`, e a Linha B usa `super()` para invocar o construtor da classe `Circulo`.",
+                    "(B) A Linha A usa `this()` para invocar outro construtor da própria classe `Circulo`, e a Linha B usa `super()` para invocar o construtor da superclasse `Forma`.",
+                    "(C) Ambas as chamadas são inválidas, pois `this()` e `super()` não podem ser usados dentro de construtores.",
+                    "(D) A Linha A invoca o construtor da classe `Object`, e a Linha B invoca o construtor `Circulo(int raio)`.",
+                    "(E) A Linha A é um exemplo de polimorfismo estático, e a Linha B é um exemplo de polimorfismo dinâmico."
+                ],
+                correctIndex: 1, // (B)
+                resolution: "<b>Gabarito: (B) A Linha A usa `this()` para invocar outro construtor da própria classe `Circulo`, e a Linha B usa `super()` para invocar o construtor da superclasse `Forma`.</b>\n\nEsta questão testa o uso das palavras-chave `this()` e `super()` dentro de construtores.\n\n<b>Linha A: `this(\"CirculoDefault\", raio);`</b> Quando `this()` é usado como método dentro de um construtor, ele chama outro construtor *na mesma classe* (sobrecarga de construtor). Aqui, `Circulo(int raio)` está delegando a inicialização para `Circulo(String nome, int raio)`.\n\n<b>Linha B: `super(nome);`</b> Quando `super()` é usado como método dentro de um construtor, ele chama o construtor da *superclasse*. Aqui, `Circulo(String nome, int raio)` está passando o parâmetro `nome` para o construtor `Forma(String nome)`.\n\n(B) é a única alternativa que descreve corretamente ambas as operações."
+            },
+            {
+                question: "10. (Estilo: AOCP - Assertivas Conceituais / Encapsulamento) Sobre o princípio do Encapsulamento na Programação Orientada a Objetos, analise as assertivas.<br><br>I. O objetivo principal do encapsulamento é esconder a complexidade interna de um objeto, expondo apenas uma interface pública de operações (métodos).<br>II. A implementação do encapsulamento em Java é comumente realizada declarando os atributos como `public` e os métodos (getters/setters) como `private`.<br>III. O encapsulamento impede totalmente a reutilização de código, sendo uma alternativa direta à Herança.<br><br>Assinale a alternativa que indica a(s) assertiva(s) correta(s).",
+                options: [
+                    "(A) Apenas I.",
+                    "(B) Apenas I e II.",
+                    "(C) Apenas II e III.",
+                    "(D) I, II e III.",
+                    "(E) Nenhuma das assertivas está correta."
+                ],
+                correctIndex: 0, // (A)
+                resolution: "<b>Gabarito: (A) Apenas I.</b>\n\n<b>Assertiva I (Correta):</b> Esta é a definição conceitual de alto nível do encapsulamento. Ele gerencia a complexidade escondendo os detalhes de implementação e expondo apenas as operações necessárias para interagir com o objeto.\n\n<b>Assertiva II (Incorreta):</b> A implementação está invertida. Para um encapsulamento eficaz, os atributos (estado) são declarados como `private` (escondidos) e os métodos de acesso (getters/setters) são `public` (expostos).\n\n<b>Assertiva III (Incorreta):</b> O encapsulamento e a herança são pilares distintos e complementares da POO. O encapsulamento não impede a reutilização de código; na verdade, um bom encapsulamento (usando `protected`, por exemplo) pode facilitar a herança segura."
+            }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const quizContainer = document.getElementById('quizContainer');
+            const quizForm = document.getElementById('quizForm');
+            const resultsSection = document.getElementById('resultsSection');
+            const resolutionsContainer = document.getElementById('resolutionsContainer');
+            const scoreDisplay = document.getElementById('scoreDisplay');
+
+            // 1. Construir o Quiz
+            function buildQuiz() {
+                quizData.forEach((item, qIndex) => {
+                    const questionElement = document.createElement('div');
+                    questionElement.className = 'question-block';
+
+                    // Adiciona o texto da questão
+                    const questionText = document.createElement('p');
+                    questionText.className = 'text-lg font-semibold mb-4';
+                    questionText.innerHTML = item.question;
+                    questionElement.appendChild(questionText);
+
+                    // Adiciona o bloco de código, se existir
+                    if (item.code) {
+                        const codeBlock = document.createElement('pre');
+                        codeBlock.className = 'bg-gray-100 p-4 rounded-md overflow-x-auto text-sm mb-4';
+                        const codeElement = document.createElement('code');
+                        codeElement.textContent = item.code;
+                        codeBlock.appendChild(codeElement);
+                        questionElement.appendChild(codeBlock);
+                    }
+
+                    // Adiciona as opções
+                    const optionsContainer = document.createElement('div');
+                    optionsContainer.className = 'space-y-2';
+
+                    item.options.forEach((option, oIndex) => {
+                        const label = document.createElement('label');
+                        label.className = 'block p-4 rounded-lg border border-gray-300 cursor-pointer hover:bg-blue-50 hover:border-blue-400 has-[:checked]:bg-blue-100 has-[:checked]:border-blue-500 has-[:checked]:ring-2 has-[:checked]:ring-blue-300 transition-all';
+                        
+                        const input = document.createElement('input');
+                        input.type = 'radio';
+                        input.name = `q${qIndex}`;
+                        input.value = oIndex.toString();
+                        input.className = 'mr-3 align-middle w-4 h-4';
+                        input.setAttribute('aria-label', option);
+
+                        const span = document.createElement('span');
+                        span.textContent = option;
+                        span.className = 'text-gray-800';
+
+                        label.appendChild(input);
+                        label.appendChild(span);
+                        optionsContainer.appendChild(label);
+                    });
+
+                    questionElement.appendChild(optionsContainer);
+                    quizContainer.appendChild(questionElement);
+                });
+            }
+
+            // 2. Lidar com o envio do formulário
+            quizForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                let score = 0;
+                const formData = new FormData(quizForm);
+                resolutionsContainer.innerHTML = ''; // Limpa resoluções anteriores
+
+                quizData.forEach((item, qIndex) => {
+                    const userAnswer = formData.get(`q${qIndex}`);
+                    const userAnswerIndex = (userAnswer === null) ? -1 : parseInt(userAnswer, 10);
+                    const correctIndex = item.correctIndex;
+                    const isCorrect = userAnswerIndex === correctIndex;
+
+                    if (isCorrect) {
+                        score++;
+                    }
+
+                    // Cria o card de resolução para esta questão
+                    buildResolutionCard(item, qIndex, userAnswerIndex, isCorrect);
+                });
+
+                // Atualiza a pontuação
+                scoreDisplay.textContent = `${score} / ${quizData.length}`;
+                scoreDisplay.className = `text-5xl font-bold ${score >= (quizData.length / 2) ? 'text-green-700' : 'text-red-700'}`;
+
+                // Mostra a seção de resultados
+                resultsSection.classList.remove('hidden');
+
+                // Desativa os inputs do quiz
+                quizForm.querySelectorAll('input[type="radio"]').forEach(input => {
+                    input.disabled = true;
+                });
+                
+                // Esconde o botão de submit
+                document.getElementById('submitButton').classList.add('hidden');
+
+                // Rola para os resultados
+                resultsSection.scrollIntoView({ behavior: 'smooth' });
+            });
+
+            // 3. Construir o card de resolução individual
+            function buildResolutionCard(item, qIndex, userAnswerIndex, isCorrect) {
+                const resolutionCard = document.createElement('div');
+                resolutionCard.className = 'p-4 border border-gray-200 rounded-lg bg-gray-50/50';
+
+                // Texto da questão
+                const questionText = document.createElement('h3');
+                questionText.className = 'text-lg font-semibold mb-3';
+                questionText.innerHTML = item.question.split('<br><br>')[0]; // Pega só o título da questão
+                resolutionCard.appendChild(questionText);
+
+                // Feedback (Certo/Errado)
+                const feedback = document.createElement('div');
+                feedback.className = 'mb-4 p-3 rounded-md';
+                
+                let userAnswerText = (userAnswerIndex === -1) ? "Não respondida" : item.options[userAnswerIndex];
+                
+                if (isCorrect) {
+                    feedback.className += ' bg-green-100 border border-green-300';
+                    feedback.innerHTML = `<p class="font-semibold text-green-800">✓ Correto!</p><p class="text-green-700">Sua resposta: ${userAnswerText}</p>`;
+                } else {
+                    feedback.className += ' bg-red-100 border border-red-300';
+                    feedback.innerHTML = `<p class="font-semibold text-red-800">✗ Incorreto.</p>
+                                          <p class="text-red-700">Sua resposta: ${userAnswerText}</p>
+                                          <p class="text-gray-700 mt-1">Resposta correta: ${item.options[item.correctIndex]}</p>`;
+                }
+                resolutionCard.appendChild(feedback);
+
+                // Resolução detalhada
+                const resolutionTitle = document.createElement('h4');
+                resolutionTitle.textContent = 'Resolução Comentada:';
+                resolutionTitle.className = 'font-semibold mb-2';
+                resolutionCard.appendChild(resolutionTitle);
+
+                const resolutionText = document.createElement('div');
+                resolutionText.className = 'resolution-text text-gray-800 text-sm leading-relaxed';
+                // Substitui <b> e <i> por tags HTML, e \n por <br> (mas o CSS white-space: pre-line já cuida do \n)
+                let formattedResolution = item.resolution
+                    .replace(/<b>/g, '<strong class="font-bold text-gray-900">')
+                    .replace(/<\/b>/g, '</strong>')
+                    .replace(/<i>/g, '<em class="italic">')
+                    .replace(/<\/i>/g, '</em>');
+                resolutionText.innerHTML = formattedResolution;
+                resolutionCard.appendChild(resolutionText);
+
+                resolutionsContainer.appendChild(resolutionCard);
+            }
+
+            // Inicia o quiz ao carregar a página
+            buildQuiz();
+        });
+    </script>
+</body>
+</html>

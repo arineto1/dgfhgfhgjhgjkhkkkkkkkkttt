@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo para Concurso: Estruturas de Dados</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Define a fonte Inter como padrão -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff; /* Fundo branco */
+            color: #1f2937; /* Texto escuro (gray-800) */
+        }
+        /* Estilos adicionais para garantir boa legibilidade da tabela */
+        table th, table td {
+            padding: 0.75rem 1rem; /* Ajuste no padding */
+            vertical-align: top; /* Alinha o texto no topo */
+            border-bottom: 1px solid #e5e7eb; /* Borda sutil (gray-200) */
+        }
+        table th {
+            font-weight: 600; /* Títulos da tabela um pouco mais fortes */
+            background-color: #f9fafb; /* Fundo leve (gray-50) */
+        }
+        /* Estilo do marca-texto padrão */
+        .highlight {
+            background-color: #fef9c3; /* bg-yellow-100 */
+            padding: 0.1rem 0.25rem;
+            border-radius: 0.25rem;
+        }
+        /* Marca-texto semântico (Bom) */
+        .highlight-green {
+            background-color: #dcfce7; /* bg-green-100 */
+            color: #166534; /* text-green-800 */
+            padding: 0.1rem 0.25rem;
+            border-radius: 0.25rem;
+            font-weight: 500;
+        }
+        /* Marca-texto semântico (Ruim) */
+        .highlight-red {
+            background-color: #fee2e2; /* bg-red-100 */
+            color: #991b1b; /* text-red-800 */
+            padding: 0.1rem 0.25rem;
+            border-radius: 0.25rem;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Container Principal -->
+    <div class="max-w-5xl mx-auto p-4 sm:p-6 md:p-10">
+
+        <!-- Reprodutor de Áudio -->
+        <div class="mb-8 p-4 border border-gray-200 rounded-lg bg-gray-50 shadow-sm">
+            <h2 class="font-semibold text-xl text-gray-700 mb-3">Resumo em Áudio da Aula</h2>
+            
+            <!-- Player de Áudio HTML5 -->
+            <audio controls class="w-full">
+                <!-- 
+                  INSTRUÇÃO: 
+                  Coloque o nome do seu arquivo MP3 aqui. 
+                  Exemplo: src="minha-aula-estruturas.mp3"
+                -->
+                <source src="esp-estrutura-dados.mp3" type="audio/mpeg">
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
+            
+            <p class="text-sm text-gray-500 mt-2">
+                <strong>Instrução:</strong> Para funcionar, adicione seu arquivo MP3 na mesma pasta deste HTML e preencha o atributo `src` na tag `<source>` acima.
+            </p>
+        </div>
+        <!-- Fim do Reprodutor de Áudio -->
+
+        <!-- Início do Conteúdo da Página 1 -->
+        <h1 class="text-3xl font-bold text-center text-blue-800 mb-8">
+            Resumo Focado em Memorização - Estruturas de Dados (Página 1 de 2)
+        </h1>
+
+        <!-- Seção 1: Análise de Complexidade -->
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mt-8 mb-4 border-b-2 border-blue-100 pb-2 text-blue-700">
+                1. Análise de Complexidade (Big O) - A Métrica Essencial
+            </h2>
+            <p class="mb-6 leading-relaxed text-base">
+                A Notação Big O mede como o tempo de execução ou memória de um algoritmo cresce com o aumento da entrada (<code>n</code>). É a principal ferramenta para comparar a eficiência de estruturas de dados.
+            </p>
+
+            <!-- Tabela 1: Big O -->
+            <div class="overflow-x-auto shadow-md rounded-lg border border-gray-200">
+                <table class="min-w-full">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Notação</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Nome</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Descrição (Como o tempo cresce)</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Exemplo Clássico</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white">
+                        <tr>
+                            <td class="px-4 py-4 text-sm"><mark class="highlight">O(1)</mark></td>
+                            <td class="px-4 py-4 text-sm">Constante</td>
+                            <td class="px-4 py-4 text-sm">Não cresce. Tempo fixo.</td>
+                            <td class="px-4 py-4 text-sm">Acessar um elemento de um vetor pelo índice.</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-4 text-sm"><mark class="highlight">O(log n)</mark></td>
+                            <td class="px-4 py-4 text-sm">Logarítmica</td>
+                            <td class="px-4 py-4 text-sm">Cresce muito slowly. "Divide e conquista".</td>
+                            <td class="px-4 py-4 text-sm">Busca binária em um vetor ordenado.</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-4 text-sm"><mark class="highlight">O(n)</mark></td>
+                            <td class="px-4 py-4 text-sm">Linear</td>
+                            <td class="px-4 py-4 text-sm">Cresce na mesma proporção que a entrada.</td>
+                            <td class="px-4 py-4 text-sm">Percorrer uma lista para encontrar um valor.</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-4 text-sm"><mark class="highlight">O(n log n)</mark></td>
+                            <td class="px-4 py-4 text-sm">Log-Linear</td>
+                            <td class="px-4 py-4 text-sm">Padrão de algoritmos de ordenação eficientes.</td>
+                            <td class="px-4 py-4 text-sm">Merge Sort, Quick Sort (caso médio).</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-4 text-sm"><mark class="highlight">O(n²)</mark></td>
+                            <td class="px-4 py-4 text-sm">Quadrática</td>
+                            <td class="px-4 py-4 text-sm">Cresce com o quadrado da entrada.</td>
+                            <td class="px-4 py-4 text-sm">Laços aninhados (Bubble Sort).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Seção 2: Vetor vs. Lista Ligada -->
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mt-8 mb-4 border-b-2 border-blue-100 pb-2 text-blue-700">
+                2. Estruturas Lineares Sequenciais: Vetor vs. Lista Ligada
+            </h2>
+            <p class="mb-6 leading-relaxed text-base">
+                A escolha fundamental entre alocação contígua (Vetor) e dinâmica (Lista Ligada).
+            </p>
+
+            <!-- Tabela 2: Vetor vs. Lista Ligada -->
+            <div class="overflow-x-auto shadow-md rounded-lg border border-gray-200">
+                <table class="min-w-full">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Característica</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Vetor (Array)</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Lista Ligada (Linked List)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white">
+                        <tr>
+                            <td class="px-4 py-4 text-sm"><strong>Memória</strong></td>
+                            <td class="px-4 py-4 text-sm"><mark class="highlight">Contígua</mark> (bloco único)</td>
+                            <td class="px-4 py-4 text-sm"><mark class="highlight">Não Contígua</mark> (nós com ponteiros)</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-4 text-sm"><strong>Acesso (por índice)</strong></td>
+                            <td class="px-4 py-4 text-sm"><mark class="highlight-green">O(1) (Excelente)</mark></td>
+                            <td class="px-4 py-4 text-sm"><mark class="highlight-red">O(n) (Ruim)</mark></td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-4 text-sm"><strong>Busca (por valor)</strong></td>
+                            <td class="px-4 py-4 text-sm">O(n)</td>
+                            <td class="px-4 py-4 text-sm">O(n)</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-4 text-sm"><strong>Inserção/Remoção</strong></td>
+                            <td class="px-4 py-4 text-sm"><mark class="highlight-red">O(n) (Lento, exige deslocamento)</mark></td>
+                            <td class="px-4 py-4 text-sm"><mark class="highlight-green">O(1) (Rápido, ajusta ponteiros)</mark></td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-4 text-sm"><strong>Uso de Memória</strong></td>
+                            <td class="px-4 py-4 text-sm">Apenas dados</td>
+                            <td class="px-4 py-4 text-sm">Dados + <mark class="highlight">overhead de ponteiros</mark></td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-4 text-sm"><strong>Performance de Cache</strong></td>
+                            <td class="px-4 py-4 text-sm"><mark class="highlight-green">Alta (Cache-friendly)</mark></td>
+                            <td class="px-4 py-4 text-sm"><mark class="highlight-red">Baixa (Cache-unfriendly)</mark></td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-4 text-sm"><strong>Cenário Ideal</strong></td>
+                            <td class="px-4 py-4 text-sm">Acesso frequente por índice; tamanho estável.</td>
+                            <td class="px-4 py-4 text-sm">Inserções/remoções frequentes; tamanho dinâmico.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Seção 3: Pilha e Fila -->
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mt-8 mb-4 border-b-2 border-blue-100 pb-2 text-blue-700">
+                3. Estruturas Lineares com Política de Acesso
+            </h2>
+            
+            <!-- Subseção 3.1: Pilha -->
+            <h3 class="text-xl font-semibold mt-6 mb-3 text-gray-700">3.1. Pilha (Stack)</h3>
+            <ul class="list-disc list-outside ml-5 space-y-2 text-base">
+                <li><strong>Princípio:</strong> <mark class="highlight">LIFO (Last-In, First-Out)</mark> - O último a entrar é o primeiro a sair.</li>
+                <li><strong>Analogia:</strong> Pilha de pratos.</li>
+                <li><strong>Operações:</strong> <code>push</code> (empilhar) e <code>pop</code> (desempilhar).</li>
+                <li><strong>Complexidade:</strong> <mark class="highlight">O(1)</mark> para <code>push</code> e <code>pop</code>.</li>
+                <li><strong>Aplicações Chave:</strong>
+                    <ul class="list-['-_'] list-outside ml-6 mt-2 space-y-1 text-sm">
+                        <li><mark class="highlight">Pilha de Execução de Funções</mark> (incluindo recursão).</li>
+                        <li>Função "Desfazer" (Ctrl+Z) em editores.</li>
+                        <li>Botão "Voltar" em navegadores web.</li>
+                        <li>Análise de expressões (ex: balanceamento de parênteses).</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- Subseção 3.2: Fila -->
+            <h3 class="text-xl font-semibold mt-8 mb-3 text-gray-700">3.2. Fila (Queue)</h3>
+            <ul class="list-disc list-outside ml-5 space-y-2 text-base">
+                <li><strong>Princípio:</strong> <mark class="highlight">FIFO (First-In, First-Out)</mark> - O primeiro a entrar é o primeiro a sair.</li>
+                <li><strong>Analogia:</strong> Fila de banco.</li>
+                <li><strong>Operações:</strong> <code>enqueue</code> (enfileirar) e <code>dequeue</code> (desenfileirar).</li>
+                <li><strong>Complexidade:</strong> <mark class="highlight">O(1)</mark> para <code>enqueue</code> e <code>dequeue</code>.</li>
+                <li><strong>Aplicações Chave:</strong>
+                    <ul class="list-['-_'] list-outside ml-6 mt-2 space-y-1 text-sm">
+                        <li><mark class="highlight">Escalonamento de processos</mark> em Sistemas Operacionais.</li>
+                        <li>Filas de impressão.</li>
+                        <li>Buffers de dados em rede.</li>
+                        <li>Algoritmo de <mark class="highlight">Busca em Largura (BFS)</mark> em grafos.</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Divisor para a "Página 2" -->
+        <div class="border-t-4 border-dashed border-gray-200 my-12"></div>
+
+        <!-- Início do Conteúdo da Página 2 -->
+        <h1 class="text-3xl font-bold text-center text-blue-800 mb-8">
+            Resumo Focado em Memorização - Estruturas de Dados (Página 2 de 2)
+        </h1>
+
+        <!-- Seção 4: Árvores -->
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mt-8 mb-4 border-b-2 border-blue-100 pb-2 text-blue-700">
+                4. Estruturas Hierárquicas: Árvores
+            </h2>
+
+            <!-- Subseção 4.1: BST -->
+            <h3 class="text-xl font-semibold mt-6 mb-3 text-gray-700">4.1. Árvore Binária de Busca (BST)</h3>
+            <ul class="list-disc list-outside ml-5 space-y-2 text-base">
+                <li><strong>Propriedade Fundamental:</strong> Para qualquer nó <code>N</code>, <mark class="highlight"><code>subárvore_esquerda &lt; N &lt; subárvore_direita</code></mark>.</li>
+                <li><strong>Complexidade Média:</strong> <mark class="highlight-green">O(log n)</mark> para busca, inserção e remoção.</li>
+                <li><strong class="text-red-700">Pior Caso (Ponto Crítico para Concursos):</strong> Se os dados são inseridos em ordem (crescente/decrescente), a árvore <mark class="highlight-red">degenera em uma lista ligada</mark>. A altura se torna <code>n</code>, e a complexidade de todas as operações degrada para <mark class="highlight-red">O(n)</mark>.</li>
+            </ul>
+
+            <!-- Subseção 4.2: Árvores Balanceadas -->
+            <h3 class="text-xl font-semibold mt-8 mb-3 text-gray-700">4.2. Árvores Balanceadas: AVL vs. Rubro-Negra</h3>
+            <p class="mb-6 leading-relaxed text-base">
+                Resolvem o pior caso da BST, garantindo altura <mark class="highlight-green">O(log n)</mark> através de rotações.
+            </p>
+            
+            <!-- Tabela 3: AVL vs. Rubro-Negra -->
+            <div class="overflow-x-auto shadow-md rounded-lg border border-gray-200">
+                <table class="min-w-full">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Característica</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Árvore AVL</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Árvore Rubro-Negra (Red-Black)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white">
+                        <tr>
+                            <td class="px-4 py-4 text-sm"><strong>Balanceamento</strong></td>
+                            <td class="px-4 py-4 text-sm"><mark class="highlight">Rígido</mark> (diferença de altura ≤ 1)</td>
+                            <td class="px-4 py-4 text-sm"><mark class="highlight">Flexível</mark> (baseado em cores e altura negra)</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-4 text-sm"><strong>Altura</strong></td>
+                            <td class="px-4 py-4 text-sm">Menor (mais balanceada)</td>
+                            <td class="px-4 py-4 text-sm">Ligeiramente maior que AVL</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-4 text-sm"><strong>Busca</strong></td>
+                            <td class="px-4 py-4 text-sm"><mark class="highlight-green">Mais rápida</mark> (ideal para <i>read-heavy</i>)</td>
+                            <td class="px-4 py-4 text-sm">Rápida (O(log n))</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-4 text-sm"><strong>Inserção/Remoção</strong></td>
+                            <td class="px-4 py-4 text-sm">Mais lenta (mais rotações)</td>
+                            <td class="px-4 py-4 text-sm"><mark class="highlight-green">Mais rápida</mark> (ideal para <i>write-heavy</i>)</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-4 text-sm"><strong>Uso Comum</strong></td>
+                            <td class="px-4 py-4 text-sm">Dicionários de dados estáticos</td>
+                            <td class="px-4 py-4 text-sm"><mark class="highlight"><code>std::map</code> (C++), <code>TreeMap</code> (Java)</mark></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Seção 5: Acesso Otimizado -->
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mt-8 mb-4 border-b-2 border-blue-100 pb-2 text-blue-700">
+                5. Estruturas de Acesso Otimizado
+            </h2>
+
+            <!-- Subseção 5.1: Tabela Hash -->
+            <h3 class="text-xl font-semibold mt-6 mb-3 text-gray-700">5.1. Tabela Hash (Hash Table)</h3>
+            <ul class="list-disc list-outside ml-5 space-y-2 text-base">
+                <li><strong>Objetivo:</strong> Mapear chaves a valores com acesso, inserção e remoção em tempo médio <mark class="highlight-green">O(1)</mark>.</li>
+                <li><strong>Mecanismo:</strong> <mark class="highlight">Função de Hash</mark> converte uma chave em um índice de um vetor.</li>
+                <li><strong>Colisão:</strong> Ocorre quando duas chaves diferentes geram o mesmo índice.</li>
+            </ul>
+
+            <!-- Tabela 4: Tratamento de Colisão -->
+            <div class="overflow-x-auto shadow-md rounded-lg border border-gray-200 mt-6">
+                <table class="min-w-full">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Tratamento de Colisão</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Descrição</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Vantagem Principal</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Desvantagem Principal</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white">
+                        <tr>
+                            <td class="px-4 py-4 text-sm"><strong>Encadeamento Separado</strong></td>
+                            <td class="px-4 py-4 text-sm">Cada índice aponta para uma <mark class="highlight">lista ligada</mark> com os elementos que colidiram.</td>
+                            <td class="px-4 py-4 text-sm">Simples de implementar; fator de carga pode ser > 1.</td>
+                            <td class="px-4 py-4 text-sm">Overhead de memória dos ponteiros; pior caso O(n).</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-4 text-sm"><strong>Endereçamento Aberto</strong></td>
+                            <td class="px-4 py-4 text-sm">Procura por uma posição livre na <mark class="highlight">própria tabela</mark> (sondagem).</td>
+                            <td class="px-4 py-4 text-sm">Melhor performance de cache; sem overhead.</td>
+                            <td class="px-4 py-4 text-sm">Remoção complexa (requer <i>tombstones</i>).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Subseção 5.2: Heap -->
+            <h3 class="text-xl font-semibold mt-8 mb-3 text-gray-700">5.2. Heap (Fila de Prioridade)</h3>
+            <ul class="list-disc list-outside ml-5 space-y-2 text-base">
+                <li><strong>Objetivo:</strong> Implementar uma <mark class="highlight">Fila de Prioridade</mark> de forma eficiente.</li>
+                <li><strong>Propriedade do Heap:</strong>
+                    <ul class="list-['-_'] list-outside ml-6 mt-2 space-y-1 text-sm">
+                        <li><strong>Max-Heap:</strong> O pai é sempre maior ou igual aos filhos (raiz é o máximo).</li>
+                        <li><strong>Min-Heap:</strong> O pai é sempre menor ou igual aos filhos (raiz é o mínimo).</li>
+                    </ul>
+                </li>
+                <li><strong>Estrutura:</strong> Árvore binária quase completa, garantindo altura O(log n).</li>
+                <li><strong>Complexidade:</strong>
+                    <ul class="list-['-_'] list-outside ml-6 mt-2 space-y-1 text-sm">
+                        <li>Acessar o máximo/mínimo: <mark class="highlight-green">O(1)</mark>.</li>
+                        <li>Inserir ou Remover o máximo/mínimo: <mark class="highlight-green">O(log n)</mark>.</li>
+                    </ul>
+                </li>
+                <li><strong>Aplicações:</strong> Algoritmo de <mark class="highlight">Dijkstra</mark>, Heapsort, escalonadores de SO.</li>
+            </ul>
+        </section>
+
+        <!-- Seção 6: Grafos -->
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mt-8 mb-4 border-b-2 border-blue-100 pb-2 text-blue-700">
+                6. Estruturas de Relacionamentos: Grafos
+            </h2>
+
+            <!-- Subseção 6.1: Representações -->
+            <h3 class="text-xl font-semibold mt-6 mb-3 text-gray-700">6.1. Representações de Grafos (V = Vértices, E = Arestas)</h3>
+            
+            <!-- Tabela 5: Representações de Grafos -->
+            <div class="overflow-x-auto shadow-md rounded-lg border border-gray-200">
+                <table class="min-w-full">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Representação</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Complexidade de Espaço</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Verificar Aresta (u, v)</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Ideal Para</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white">
+                        <tr>
+                            <td class="px-4 py-4 text-sm"><strong>Matriz de Adjacência</strong></td>
+                            <td class="px-4 py-4 text-sm"><mark class="highlight">O(|V|²)</mark></td>
+                            <td class="px-4 py-4 text-sm"><mark class="highlight-green">O(1)</mark></td>
+                            <td class="px-4 py-4 text-sm">Grafos <mark class="highlight">Densos</mark></td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-4 text-sm"><strong>Lista de Adjacência</strong></td>
+                            <td class="px-4 py-4 text-sm"><mark class="highlight">O(|V| + |E|)</mark></td>
+                            <td class="px-4 py-4 text-sm">O(grau(u))</td>
+                            <td class="px-4 py-4 text-sm">Grafos <mark class="highlight">Esparsos</mark></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Subseção 6.2: Algoritmos de Percurso -->
+            <h3 class="text-xl font-semibold mt-8 mb-3 text-gray-700">6.2. Algoritmos de Percurso em Grafos</h3>
+            
+            <!-- Tabela 6: Percurso em Grafos -->
+            <div class="overflow-x-auto shadow-md rounded-lg border border-gray-200">
+                <table class="min-w-full">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Algoritmo</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Estratégia</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Estrutura de Dados</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Aplicação Principal</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white">
+                        <tr>
+                            <td class="px-4 py-4 text-sm"><strong>Busca em Largura (BFS)</strong></td>
+                            <td class="px-4 py-4 text-sm">Explora por níveis (camadas)</td>
+                            <td class="px-4 py-4 text-sm"><mark class="highlight">Fila (FIFO)</mark></td>
+                            <td class="px-4 py-4 text-sm">Encontrar o <mark class="highlight">caminho mais curto</mark> (grafos não ponderados).</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-4 text-sm"><strong>Busca em Profundidade (DFS)</strong></td>
+                            <td class="px-4 py-4 text-sm">Explora um ramo até o fim antes de retroceder</td>
+                            <td class="px-4 py-4 text-sm"><mark class="highlight">Pilha (LIFO)</mark></td>
+                            <td class="px-4 py-4 text-sm">Detecção de ciclos, ordenação topológica.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Subseção 6.3: Algoritmos Famosos (ADICIONADO) -->
+            <h3 class="text-xl font-semibold mt-8 mb-3 text-gray-700">6.3. Algoritmos Avançados de Grafos</h3>
+            
+            <!-- Tabela 7: Algoritmos Avançados -->
+            <div class="overflow-x-auto shadow-md rounded-lg border border-gray-200">
+                <table class="min-w-full">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Algoritmo</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Objetivo</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Estrutura de Dados Chave</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Complexidade (Lista Adj.)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white">
+                        <tr>
+                            <td class="px-4 py-4 text-sm"><strong>Dijkstra</strong></td>
+                            <td class="px-4 py-4 text-sm">Caminho mais curto <mark class="highlight">(ponderado, sem pesos negativos)</mark></td>
+                            <td class="px-4 py-4 text-sm"><mark class="highlight">Fila de Prioridade (Min-Heap)</mark></td>
+                            <td class="px-4 py-4 text-sm">O(E log V)</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-4 text-sm"><strong>Prim</strong></td>
+                            <td class="px-4 py-4 text-sm">Árvore Geradora Mínima (MST)</td>
+                            <td class="px-4 py-4 text-sm"><mark class="highlight">Fila de Prioridade (Min-Heap)</mark></td>
+                            <td class="px-4 py-4 text-sm">O(E log V)</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-4 text-sm"><strong>Kruskal</strong></td>
+                            <td class="px-4 py-4 text-sm">Árvore Geradora Mínima (MST)</td>
+                            <td class="px-4 py-4 text-sm"><mark class="highlight">Union-Find</mark> (Disjoint Set Union)</td>
+                            <td class="px-4 py-4 text-sm">O(E log E)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+
+        <!-- Botão de Questões -->
+        <footer class="text-center mt-12 pt-8 border-t border-gray-200">
+            <a href="esp-estrutura-dadosquestoes.html" 
+               class="inline-block bg-blue-600 text-white font-bold py-3 px-10 rounded-lg shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-200 ease-in-out transform hover:-translate-y-0.5">
+                Praticar com Questões
+            </a>
+        </footer>
+
+    </div> <!-- Fim do Container Principal -->
+
+</body>
+</html>
+

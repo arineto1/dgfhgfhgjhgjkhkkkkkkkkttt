@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Algoritmos de Busca e Ordenação</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carrega a fonte Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Define a fonte Inter como padrão */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Estiliza o radio button selecionado */
+        input[type="radio"]:checked + label {
+            background-color: #e0e7ff; /* indigo-100 */
+            border-color: #6366f1; /* indigo-500 */
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Container principal com largura máxima para leitura -->
+    <div class="container max-w-3xl mx-auto p-4 sm:p-8">
+        
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 text-center">Quiz: Algoritmos de Busca e Ordenação</h1>
+            <p class="text-center text-gray-600 mt-2">Estilo: Instituto AOCP</p>
+        </header>
+
+        <!-- Formulário do Quiz -->
+        <form id="quizForm" class="space-y-8">
+            <!-- As questões serão injetadas aqui pelo JavaScript -->
+            
+            <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition-all text-lg shadow-md">
+                Finalizar Quiz
+            </button>
+        </form>
+
+        <!-- Seção de Resultados (oculta por padrão) -->
+        <div id="resultsContainer" class="hidden mt-12 bg-white p-6 sm:p-8 rounded-lg shadow-lg border border-gray-200">
+            <h2 class="text-3xl font-bold text-gray-900 text-center mb-6">Resultados</h2>
+            
+            <!-- Pontuação -->
+            <p id="score" class="text-2xl font-bold text-center text-blue-700 mb-8"></p>
+
+            <h3 class="text-2xl font-semibold text-gray-900 mb-6 border-t border-gray-200 pt-6">Resoluções Comentadas</h3>
+            
+            <!-- As resoluções serão injetadas aqui -->
+            <div id="resolutions" class="space-y-8">
+                <!-- Conteúdo das resoluções -->
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // --- BANCO DE DADOS DO QUIZ ---
+        // Contém todas as questões, opções, resposta correta (índice) e resolução
+        const quizData = [
+            {
+                question: "(Instituto AOCP - Adaptada) Suponha uma estrutura de dados do tipo vetor, a qual possui alguns milhões de elementos já ordenados. Buscas por valores específicos nessa estrutura são constantes e, portanto, é necessário utilizar um método de busca eficiente que capitalize a ordenação existente. Das seguintes opções, qual seria o método de busca mais adequado em termos de complexidade de tempo no pior caso?",
+                code: null,
+                options: [
+                    "Busca Sequencial",
+                    "Busca Binária",
+                    "Tabela Hash",
+                    "Insertion Sort",
+                    "Busca Linear"
+                ],
+                correctAnswer: 1, // B
+                resolution: `
+                    <p class="font-semibold text-gray-800">Gabarito: (B) Busca Binária.</p>
+                    <p class="mt-2 text-gray-700"><b>Resolução:</b> A questão apresenta duas condições centrais: o vetor possui "milhões de elementos" e, crucialmente, ele está "já ordenado". A necessidade é de um método de busca "eficiente".</p>
+                    <p class="mt-2 text-gray-700">A <b>Busca Binária</b> é projetada especificamente para vetores ordenados. Ela funciona eliminando metade do espaço de busca a cada comparação (paradigma de "dividir e conquistar"). Sua complexidade de tempo no pior caso é $O(\\log N)$. Para $N$ = 1.000.000, $\\log_2 N$ é aproximadamente 20, o que é extremamente eficiente.</p>
+                    <p class="mt-2 text-gray-700"><b>Análise dos Distratores:</b></p>
+                    <ul class="list-disc list-inside ml-4 text-gray-700 space-y-1">
+                        <li>(A) Busca Sequencial e (E) Busca Linear são o mesmo algoritmo. Ambos percorrem o vetor elemento por elemento, resultando em um pior caso de $O(N)$. Para milhões de elementos, isso é impraticável.</li>
+                        <li>(C) Tabela Hash (Hashing) oferece complexidade média $O(1)$, but não utiliza a propriedade de "ordenação" do vetor. Além disso, ela requer a construção prévia da tabela.</li>
+                        <li>(D) Insertion Sort é um algoritmo de <i>ordenação</i>, não de busca.</li>
+                    </ul>
+                `
+            },
+            {
+                question: "(Instituto AOCP - Adaptada) Analise o seguinte algoritmo que opera sobre um vetor $V$ de tamanho $n$, buscando por um elemento $chave$:",
+                code: `1.  Defina $min = 0$ e $max = n-1$.
+2.  Enquanto $min \\le max$:
+3.  Calcule $meio = (min + max) // 2$.
+4.  Se $V[meio] == chave$, retorne $meio$ (Fim).
+5.  Se $V[meio] < chave$, defina $min = meio + 1$.
+6.  Senão ($V[meio] > chave$), defina $max = meio - 1$.
+7.  Retorne -1 (não encontrado).`,
+                options: [
+                    "Busca por Interpolação",
+                    "Busca Sequencial",
+                    "Merge Sort",
+                    "Busca Binária",
+                    "Quicksort"
+                ],
+                correctAnswer: 3, // D
+                resolution: `
+                    <p class="font-semibold text-gray-800">Gabarito: (D) Busca Binária.</p>
+                    <p class="mt-2 text-gray-700"><b>Resolução:</b> O pseudocódigo descreve exatamente o algoritmo de Busca Binária iterativa.</p>
+                    <ul class="list-disc list-inside ml-4 text-gray-700 space-y-1 mt-2">
+                        <li>O algoritmo estabelece uma "janela" de busca entre $min$ e $max$ (Passo 1).</li>
+                        <li>Ele calcula o índice central $meio$ (Passo 3).</li>
+                        <li>Se $V[meio]$ for o valor procurado, ele o retorna (Passo 4).</li>
+                        <li>Caso contrário, ele "corta" metade do vetor da busca: se a $chave$ for maior que $V[meio]$, ele move o limite $min$ (Passo 5); se for menor, ele move o limite $max$ (Passo 6).</li>
+                    </ul>
+                    <p class="mt-2 text-gray-700"><b>Análise dos Distratores:</b></p>
+                    <ul class="list-disc list-inside ml-4 text-gray-700 space-y-1">
+                        <li>(A) Busca por Interpolação é semelhante, mas calcula o $meio$ de forma ponderada.</li>
+                        <li>(B) Busca Sequencial simplesmente faria <code>para i de 0 até n-1: se V[i] == chave...</code>.</li>
+                        <li>(C) Merge Sort e (E) Quicksort são algoritmos de ordenação.</li>
+                    </ul>
+                `
+            },
+            {
+                question: "(Instituto AOCP - 2019 - EMPREL - Analista de Sistemas - Adaptada) Assinale a alternativa correta acerca do algoritmo Quicksort.",
+                code: null,
+                options: [
+                    "É um algoritmo de ordenação estável em todas as suas implementações.",
+                    "Possui complexidade de pior caso $O(N \\log N)$, superando o Merge Sort.",
+                    "Baseia-se no paradigma de \"dividir e conquistar\", utilizando um pivô para particionar o vetor.",
+                    "Requer $O(N)$ de espaço de memória auxiliar para funcionar, sendo ineficiente em memória.",
+                    "É mais eficiente quando o vetor de entrada já está completamente ordenado."
+                ],
+                correctAnswer: 2, // C
+                resolution: `
+                    <p class="font-semibold text-gray-800">Gabarito: (C) Baseia-se no paradigma de "dividir e conquistar", utilizando um pivô para particionar o vetor.</p>
+                    <p class="mt-2 text-gray-700"><b>Resolução:</b> Esta é a definição fundamental do Quicksort. O algoritmo seleciona um elemento (pivô), rearranja o vetor (particionamento) e, em seguida, aplica-se recursivamente aos dois sub-vetores.</p>
+                    <p class="mt-2 text-gray-700"><b>Análise dos Distratores:</b></p>
+                    <ul class="list-disc list-inside ml-4 text-gray-700 space-y-1">
+                        <li>(A) É incorreto. O Quicksort é um algoritmo inerentemente <i>instável</i>.</li>
+                        <li>(B) É incorreto. A complexidade de <i>pior caso</i> do Quicksort é $O(N^2)$.</li>
+                        <li>(D) É incorreto. O Quicksort é um algoritmo <i>in-place</i>. Ele utiliza $O(\\log N)$ de espaço na pilha de recursão.</li>
+                        <li>(E) É incorreto. Este é o <i>pior caso</i> para o Quicksort (quando o pivô escolhido é o primeiro ou último elemento), levando à complexidade $O(N^2)$.</li>
+                    </ul>
+                `
+            },
+            {
+                question: "(Instituto AOCP - Adaptada) O algoritmo Quicksort é conhecido por sua eficiência média de $O(N \\log N)$. No entanto, sua complexidade de tempo pode degradar para $O(N^2)$. Essa degradação de pior caso ocorre tipicamente quando:",
+                code: null,
+                options: [
+                    "O algoritmo é implementado recursivamente.",
+                    "O vetor contém muitos elementos duplicados.",
+                    "A escolha do pivô resulta consistentemente em partições desbalanceadas (ex: 0 e $N-1$ elementos).",
+                    "O algoritmo é aplicado em um sistema com pouca memória RAM.",
+                    "O método Merge Sort é usado como sub-rotina."
+                ],
+                correctAnswer: 2, // C
+                resolution: `
+                    <p class="font-semibold text-gray-800">Gabarito: (C) A escolha do pivô resulta consistentemente em partições desbalanceadas (ex: 0 e $N-1$ elementos).</p>
+                    <p class="mt-2 text-gray-700"><b>Resolução:</b> A eficiência $O(N \\log N)$ do Quicksort deriva de partições balanceadas (próximas de $N/2$ e $N/2$). O pior caso, $O(N^2)$, ocorre quando o pivô é consistentemente o menor ou o maior elemento do sub-vetor. Isso cria partições desbalanceadas (0 elementos de um lado, $N-1$ do outro).</p>
+                `
+            },
+            {
+                question: "(Instituto AOCP - Adaptada) Considere o pseudocódigo para ordenação de um vetor $A$ de tamanho $n$:",
+                code: `para i de 0 até n-2:
+  para j de 0 até n-2-i:
+    se (A[j] > A[j+1]):
+      trocar(A[j], A[j+1])`,
+                options: [
+                    "Insertion Sort",
+                    "Selection Sort",
+                    "Merge Sort",
+                    "Quicksort",
+                    "Bubble Sort"
+                ],
+                correctAnswer: 4, // E
+                resolution: `
+                    <p class="font-semibold text-gray-800">Gabarito: (E) Bubble Sort.</p>
+                    <p class="mt-2 text-gray-700"><b>Resolução:</b> O pseudocódigo mostra dois loops aninhados. O loop interno $j$ compara elementos adjacentes ($A[j]$ e $A[j+1]$) e os troca se estiverem fora de ordem. Isso tem o efeito de "flutuar" (borbulhar) o maior elemento para o final do vetor. O loop externo $i$ garante que esse processo seja repetido $N$ vezes.</p>
+                    <p class="mt-2 text-gray-700"><b>Análise dos Distratores:</b></p>
+                    <ul class="list-disc list-inside ml-4 text-gray-700 space-y-1">
+                        <li>(A) Insertion Sort insere o elemento $i$ na posição correta dentro do sub-vetor $A[0...i-1]$.</li>
+                        <li>(B) Selection Sort encontraria o índice do menor elemento em $A[j...n-1]$ e o trocaria com $A[i]$.</li>
+                    </ul>
+                `
+            },
+            {
+                question: "(Instituto AOCP - Adaptada) Dentre os algoritmos de ordenação quadráticos (complexidade $O(N^2)$), qual deles apresenta a melhor complexidade de tempo no *melhor caso* (vetor já ordenado)?",
+                code: null,
+                options: [
+                    "Selection Sort",
+                    "Insertion Sort",
+                    "Bubble Sort (versão não otimizada)",
+                    "Quicksort",
+                    "Merge Sort"
+                ],
+                correctAnswer: 1, // B
+                resolution: `
+                    <p class="font-semibold text-gray-800">Gabarito: (B) Insertion Sort.</p>
+                    <p class="mt-2 text-gray-700"><b>Resolução:</b> O "melhor caso" para algoritmos de ordenação geralmente se refere a um vetor já ordenado.</p>
+                    <p class="mt-2 text-gray-700">O <b>Insertion Sort</b> (ordenação por inserção) tem um melhor caso de $O(N)$. Se o vetor está ordenado, em cada iteração $i$, ele apenas compara $A[i]$ com $A[i-1]$ e, como $A[i]$ já é maior, o loop interno não é executado. O algoritmo apenas percorre o vetor uma vez.</p>
+                    <p class="mt-2 text-gray-700"><b>Análise dos Distratores:</b></p>
+                    <ul class="list-disc list-inside ml-4 text-gray-700 space-y-1">
+                        <li>(A) <b>Selection Sort</b> é $O(N^2)$ em <i>todos</i> os casos. Mesmo que o vetor esteja ordenado, o algoritmo precisa escanear todo o restante $A[i...N-1]$ para <i>confirmar</i> que $A[i]$ é de fato o menor.</li>
+                        <li>(C) <b>Bubble Sort (não otimizado)</b> é $O(N^2)$ em todos os casos.</li>
+                    </ul>
+                `
+            },
+            {
+                question: "(Instituto AOCP - Adaptada) Analise a afirmação: \"Este algoritmo de ordenação opera encontrando repetidamente o menor elemento da porção não ordenada do vetor e o posicionando no início da porção ordenada. Sua complexidade de tempo é $O(N^2)$ em todos os casos (melhor, médio e pior).\" A descrição refere-se ao:",
+                code: null,
+                options: [
+                    "Bubble Sort",
+                    "Merge Sort",
+                    "Selection Sort",
+                    "Insertion Sort",
+                    "Quicksort"
+                ],
+                correctAnswer: 2, // C
+                resolution: `
+                    <p class="font-semibold text-gray-800">Gabarito: (C) Selection Sort.</p>
+                    <p class="mt-2 text-gray-700"><b>Resolução:</b> A descrição é a definição exata do <b>Selection Sort</b> (ordenação por seleção). Em cada iteração $i$ (de $0$ a $N-1$), o algoritmo <i>seleciona</i> o menor elemento no sub-vetor não ordenado ($A[i...N-1]$) e o troca com o elemento na posição $i$. A afirmação de que a complexidade é $O(N^2)$ em todos os casos está correta.</p>
+                `
+            },
+            {
+                question: "(Instituto AOCP - Adaptada) Um analista de sistemas precisa ordenar um conjunto de dados onde a *estabilidade* é um requisito crucial (ou seja, elementos com chaves iguais devem manter sua ordem relativa original). Qual dos seguintes algoritmos garante essa propriedade?",
+                code: null,
+                options: [
+                    "Quicksort",
+                    "Selection Sort",
+                    "Merge Sort",
+                    "Heapsort",
+                    "Shellsort"
+                ],
+                correctAnswer: 2, // C
+                resolution: `
+                    <p class="font-semibold text-gray-800">Gabarito: (C) Merge Sort.</p>
+                    <p class="mt-2 text-gray-700"><b>Resolução:</b> <i>Estabilidade</i> é a propriedade de um algoritmo de ordenação que garante que elementos com chaves (valores) iguais mantenham sua ordem relativa original após a ordenação.</p>
+                    <p class="mt-2 text-gray-700">O <b>Merge Sort</b> (ordenação por intercalação) é um algoritmo estável. Durante a etapa de intercalação (merge), se o algoritmo encontrar elementos iguais, ele pode ser implementado para sempre escolher o elemento da sub-lista esquerda.</p>
+                    <p class="mt-2 text-gray-700"><b>Análise dos Distratores:</b></p>
+                    <ul class="list-disc list-inside ml-4 text-gray-700 space-y-1">
+                        <li>(A) Quicksort, (D) Heapsort e (E) Shellsort são <i>instáveis</i>.</li>
+                        <li>(B) Selection Sort é <i>instável</i> (ex: <code>[5a, 5b, 3]</code> se torna <code>[3, 5b, 5a]</code>).</li>
+                    </ul>
+                `
+            },
+            {
+                question: "(Instituto AOCP - Adaptada) Um desenvolvedor está trabalhando em um sistema embarcado com restrições severas de memória (pouca RAM). Ele precisa ordenar um vetor grande e, portanto, deve evitar algoritmos que utilizem grande espaço de memória auxiliar (complexidade de espaço). Qual dos seguintes algoritmos é o *menos* indicado nesse cenário?",
+                code: null,
+                options: [
+                    "Insertion Sort",
+                    "Bubble Sort",
+                    "Selection Sort",
+                    "Merge Sort",
+                    "Quicksort (implementação in-place)"
+                ],
+                correctAnswer: 3, // D
+                resolution: `
+                    <p class="font-semibold text-gray-800">Gabarito: (D) Merge Sort.</p>
+                    <p class="mt-2 text-gray-700"><b>Resolução:</b> O cenário exige baixo uso de memória auxiliar, priorizando algoritmos <i>in-place</i> (que operam no próprio vetor, com complexidade de espaço $O(1)$ ou $O(\\log N)$).</p>
+                    <p class="mt-2 text-gray-700">O <b>Merge Sort</b> é o <i>menos</i> indicado. Sua operação fundamental de "merge" (intercalação) requer a criação de um vetor auxiliar, tipicamente de tamanho $O(N)$, para combinar as duas sub-listas ordenadas.</p>
+                    <p class="mt-2 text-gray-700"><b>Análise dos Distratores:</b></p>
+                    <ul class="list-disc list-inside ml-4 text-gray-700 space-y-1">
+                        <li>(A), (B) e (C) são os algoritmos <i>in-place</i> por excelência, requerendo $O(1)$ de espaço.</li>
+                        <li>(E) Quicksort (<i>in-place</i>) é eficiente em espaço, necessitando $O(\\log N)$ na pilha de recursão.</li>
+                    </ul>
+                `
+            },
+            {
+                question: "(Instituto AOCP - Adaptada) Comparando os algoritmos Merge Sort e Quicksort, é correto afirmar que:",
+                code: null,
+                options: [
+                    "Ambos possuem complexidade de pior caso $O(N \\log N)$.",
+                    "O Merge Sort é um algoritmo \"in-place\", enquanto o Quicksort não é.",
+                    "O Quicksort é um algoritmo estável, enquanto o Merge Sort não é.",
+                    "O Merge Sort tem complexidade $O(N \\log N)$ garantida em todos os casos, enquanto o Quicksort tem $O(N^2)$ no pior caso.",
+                    "Ambos são baseados na técnica de \"busca por seleção\"."
+                ],
+                correctAnswer: 3, // D
+                resolution: `
+                    <p class="font-semibold text-gray-800">Gabarito: (D) O Merge Sort tem complexidade $O(N \\log N)$ garantida em todos os casos, enquanto o Quicksort tem $O(N^2)$ no pior caso.</p>
+                    <p class="mt-2 text-gray-700"><b>Resolução:</b> Esta alternativa compara corretamente as garantias de desempenho dos dois algoritmos.</p>
+                    <ul class="list-disc list-inside ml-4 text-gray-700 space-y-1 mt-2">
+                        <li><b>Merge Sort</b> divide o vetor ao meio em todas as etapas, independentemente do conteúdo, garantindo uma complexidade de <i>sempre</i> $O(N \\log N)$ (melhor, médio e pior caso).</li>
+                        <li><b>Quicksort</b> tem caso médio de $O(N \\log N)$, mas seu desempenho depende do pivô. Em um pior caso (pivô ruim), ele degrada para $O(N^2)$.</li>
+                    </ul>
+                    <p class="mt-2 text-gray-700"><b>Análise dos Distratores:</b></p>
+                    <ul class="list-disc list-inside ml-4 text-gray-700 space-y-1">
+                        <li>(A) Incorreto. O pior caso do Quicksort é $O(N^2)$.</li>
+                        <li>(B) Incorreto. É o oposto. O Quicksort é <i>in-place</i>, o Merge Sort não é.</li>
+                        <li>(C) Incorreto. É o oposto. O Merge Sort é estável, o Quicksort não é.</li>
+                    </ul>
+                `
+            }
+        ];
+
+
+        // --- LÓGICA DO QUIZ ---
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const quizForm = document.getElementById('quizForm');
+            const resultsContainer = document.getElementById('resultsContainer');
+            const scoreElement = document.getElementById('score');
+            const resolutionsElement = document.getElementById('resolutions');
+
+            // 1. Popular o formulário do quiz
+            function loadQuiz() {
+                const quizContent = quizData.map((item, index) => {
+                    // Mapeia as opções para o formato HTML
+                    const options = item.options.map((option, i) => `
+                        <div class="relative">
+                            <input type="radio" name="q${index}" id="q${index}_o${i}" value="${i}" class="absolute opacity-0 w-0 h-0">
+                            <label for="q${index}_o${i}" class="block w-full p-3 rounded-md border border-gray-300 hover:bg-gray-100 cursor-pointer transition-colors text-gray-700">
+                                <span class="font-bold mr-2">${String.fromCharCode(65 + i)}.</span> ${option}
+                            </label>
+                        </div>
+                    `).join('');
+
+                    // Formata o bloco de código se existir
+                    const codeBlock = item.code 
+                        ? `<pre class="bg-gray-100 p-4 rounded-md text-sm font-mono overflow-x-auto my-4 border border-gray-200">${item.code}</pre>` 
+                        : '';
+
+                    // Retorna o HTML completo da questão
+                    return `
+                        <div class="question-container bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                            <p class="text-lg font-medium mb-4 text-gray-900">
+                                <b>Questão ${index + 1}:</b> ${item.question}
+                            </p>
+                            ${codeBlock}
+                            <div class="options-container space-y-3">
+                                ${options}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                // Insere as questões antes do botão de submit
+                quizForm.insertAdjacentHTML('afterbegin', quizContent);
+            }
+
+            // 2. Lidar com o envio do formulário
+            quizForm.addEventListener('submit', (event) => {
+                event.preventDefault(); // Impede o envio real do formulário
+
+                let score = 0;
+                const formData = new FormData(quizForm);
+                resolutionsElement.innerHTML = ''; // Limpa resoluções anteriores
+
+                quizData.forEach((item, index) => {
+                    const selectedAnswerIndex = formData.get(`q${index}`); // Pode ser null
+                    const correctAnswerIndex = item.correctAnswer;
+                    const isCorrect = selectedAnswerIndex !== null && parseInt(selectedAnswerIndex) === correctAnswerIndex;
+
+                    if (isCorrect) {
+                        score++;
+                    }
+
+                    // Monta o card de resolução
+                    let resolutionHTML = `
+                        <div class="resolution-item p-4 rounded-lg border ${isCorrect ? 'border-green-300 bg-green-50' : 'border-red-300 bg-red-50'}">
+                            <p class="text-lg font-semibold text-gray-900">Questão ${index + 1}</p>
+                            <p class="mt-2 text-sm text-gray-600">${item.question}</p>
+                            
+                            <p class="mt-4 text-sm font-medium">Sua resposta:</p>
+                    `;
+
+                    if (selectedAnswerIndex === null) {
+                        resolutionHTML += `<p class="p-2 rounded-md bg-yellow-100 border border-yellow-300 text-yellow-800">Não respondida</p>`;
+                    } else {
+                        const selectedOptionText = item.options[parseInt(selectedAnswerIndex)];
+                        resolutionHTML += `<p class="p-2 rounded-md ${isCorrect ? 'bg-green-100 border border-green-300 text-green-800' : 'bg-red-100 border border-red-300 text-red-800'}">${String.fromCharCode(65 + parseInt(selectedAnswerIndex))}. ${selectedOptionText}</p>`;
+                    }
+
+                    if (!isCorrect) {
+                        const correctOptionText = item.options[correctAnswerIndex];
+                        resolutionHTML += `
+                            <p class="mt-2 text-sm font-medium">Resposta correta:</p>
+                            <p class="p-2 rounded-md bg-green-100 border border-green-300 text-green-800">${String.fromCharCode(65 + correctAnswerIndex)}. ${correctOptionText}</p>
+                        `;
+                    }
+                    
+                    resolutionHTML += `
+                            <div class="mt-4 pt-4 border-t border-gray-300 text-sm">
+                                ${item.resolution}
+                            </div>
+                        </div>
+                    `;
+
+                    resolutionsElement.innerHTML += resolutionHTML;
+                });
+
+                // 3. Exibir resultados
+                scoreElement.innerText = `Você acertou ${score} de ${quizData.length} questões.`;
+                resultsContainer.classList.remove('hidden');
+
+                // Rola a página para os resultados
+                resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+
+            // Carrega o quiz quando a página estiver pronta
+            loadQuiz();
+        });
+    </script>
+</body>
+</html>
