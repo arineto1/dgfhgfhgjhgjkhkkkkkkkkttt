@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Direito Constitucional (AOCP)</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Configuração de fonte para melhor legibilidade */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Melhora o foco nos botões de rádio */
+        input[type="radio"]:checked + span {
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Container principal com largura máxima para leitura confortável -->
+    <div class="container mx-auto max-w-4xl p-6 sm:p-10">
+        <div class="bg-white p-8 sm:p-12 rounded-2xl shadow-lg">
+            
+            <!-- Cabeçalho do Quiz -->
+            <header class="border-b pb-6 mb-8">
+                <h1 class="text-4xl font-bold text-gray-900 text-center">Quiz: Direito Constitucional</h1>
+                <p class="text-lg text-gray-600 text-center mt-2">Teste seus conhecimentos no estilo da banca Instituto AOCP.</p>
+            </header>
+
+            <!-- Formulário do Quiz -->
+            <form id="quizForm">
+                <!-- As questões serão injetadas aqui pelo JavaScript -->
+            </form>
+
+            <!-- Seção de Resultados (inicialmente oculta) -->
+            <section id="resultsSection" class="hidden mt-12 border-t-2 border-gray-200 pt-10">
+                <h2 class="text-3xl font-bold text-gray-900 text-center mb-4">Seus Resultados</h2>
+                <p id="score" class="text-2xl font-semibold text-center text-blue-700 mb-10">
+                    <!-- O placar será inserido aqui -->
+                </p>
+
+                <h3 class="text-2xl font-bold text-gray-900 mb-6">Resoluções Comentadas</h3>
+                <!-- O conteúdo das resoluções será injetado aqui -->
+                <div id="resolutionsContainer" class="space-y-8"></div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        // --- BANCO DE DADOS DAS QUESTÕES ---
+        // Armazena todas as informações do quiz (questões, opções, gabarito e resoluções)
+        const quizData = [
+            {
+                id: 'q1',
+                question: '1. (Instituto AOCP - Adaptada) Conforme o Título I (Dos Princípios Fundamentais) da Constituição Federal de 1988, assinale a alternativa que apresenta um **Fundamento** da República Federativa do Brasil.',
+                options: [
+                    { value: 'A', text: 'Construir uma sociedade livre, justa e solidária.' },
+                    { value: 'B', text: 'Independência nacional.' },
+                    { value: 'C', text: 'Pluralismo político.' },
+                    { value: 'D', text: 'Garantir o desenvolvimento nacional.' },
+                    { value: 'E', text: 'Repúdio ao terrorismo e ao racismo.' }
+                ],
+                correctAnswer: 'C',
+                resolution: `
+                    <h4 class="font-bold text-lg mb-2">Comentários da Questão 1</h4>
+                    <p><strong>Gabarito: C</strong></p>
+                    <p><strong>Fundamentação (Letra da Lei):</strong> A questão exige a distinção entre Fundamentos (Art. 1º), Objetivos Fundamentais (Art. 3º) e Princípios das Relações Internacionais (Art. 4º). Esta é uma cobrança clássica que testa a memorização da "letra da lei".</p>
+                    <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-700">
+                        <li>(A) Incorreta. "Construir uma sociedade livre, justa e solidária" é um <strong>Objetivo Fundamental</strong> da República Federativa do Brasil, conforme o Art. 3º, inciso I.</li>
+                        <li>(B) Incorreta. A "independência nacional" é um <strong>Princípio que rege as Relações Internacionais</strong> do Brasil, conforme o Art. 4º, inciso I.</li>
+                        <li>(C) <strong>Correta.</strong> O "pluralismo político" é um dos <strong>Fundamentos</strong> da República Federativa do Brasil, expressamente listado no Art. 1º, inciso V. Os fundamentos são: Soberania, Cidadania, Dignidade da pessoa humana, Valores sociais do trabalho e da livre iniciativa, e Pluralismo político.</li>
+                        <li>(D) Incorreta. "Garantir o desenvolvimento nacional" é um <strong>Objetivo Fundamental</strong> da República Federativa do Brasil, conforme o Art. 3º, inciso II.</li>
+                        <li>(E) Incorreta. O "repúdio ao terrorismo e ao racismo" é um <strong>Princípio que rege as Relações Internacionais</strong> do Brasil, conforme o Art. 4º, inciso VIII.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 'q2',
+                question: '2. (Instituto AOCP - Adaptada) A República Federativa do Brasil rege-se nas suas relações internacionais por um conjunto de princípios elencados no Art. 4º da Constituição. Assinale a alternativa que **NÃO** corresponde a um desses princípios.',
+                options: [
+                    { value: 'A', text: 'Prevalência dos direitos humanos.' },
+                    { value: 'B', text: 'Autodeterminação dos povos.' },
+                    { value: 'C', text: 'Defesa da paz.' },
+                    { value: 'D', text: 'Solução pacífica dos conflitos.' },
+                    { value: 'E', text: 'Garantia da segurança nacional e da propriedade privada.' }
+                ],
+                correctAnswer: 'E',
+                resolution: `
+                    <h4 class="font-bold text-lg mb-2">Comentários da Questão 2</h4>
+                    <p><strong>Gabarito: E</strong></p>
+                    <p><strong>Fundamentação (Letra da Lei):</strong> A questão exige a memorização da lista de princípios do Art. 4º, no formato "INCORRETA" ou "NÃO". O candidato deve identificar a alternativa que <em>não</em> está no rol.</p>
+                    <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-700">
+                        <li>(A) Incorreta (corresponde a um princípio). A "prevalência dos direitos humanos" está no Art. 4º, inciso II.</li>
+                        <li>(B) Incorreta (corresponde a um princípio). A "autodeterminação dos povos" está no Art. 4º, inciso III.</li>
+                        <li>(C) Incorreta (corresponde a um princípio). A "defesa da paz" está no Art. 4º, inciso VI.</li>
+                        <li>(D) Incorreta (corresponde a um princípio). A "solução pacífica dos conflitos" está no Art. 4º, inciso VII.</li>
+                        <li>(E) <strong>Correta (não corresponde a um princípio).</strong> A alternativa "garantia da segurança nacional e da propriedade privada" não consta no Art. 4º. A "segurança" é um Direito Social (Art. 6º) e a "propriedade" é um Direito Fundamental (Art. 5º, <em>caput</em> e XXII), mas não são princípios das Relações Internacionais.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 'q3',
+                question: '3. (Instituto AOCP - Adaptada) De acordo com o Art. 5º da CF/88, "conceder-se-á [...] para assegurar o conhecimento de informações relativas à pessoa do impetrante, constantes de registros ou bancos de dados de entidades governamentais ou de caráter público". O texto descreve o Remédio Constitucional denominado:',
+                options: [
+                    { value: 'A', text: 'Mandado de Segurança.' },
+                    { value: 'B', text: 'Habeas Corpus.' },
+                    { value: 'C', text: 'Ação Popular.' },
+                    { value: 'D', text: 'Mandado de Injunção.' },
+                    { value: 'E', text: 'Habeas Data.' }
+                ],
+                correctAnswer: 'E',
+                resolution: `
+                    <h4 class="font-bold text-lg mb-2">Comentários da Questão 3</h4>
+                    <p><strong>Gabarito: E</strong></p>
+                    <p><strong>Fundamentação (Letra da Lei):</strong> A questão é uma transcrição literal da definição de um Remédio Constitucional, exigindo que o candidato identifique o instrumento.</p>
+                    <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-700">
+                        <li>(A) Incorreta. Mandado de Segurança (Art. 5º, LXIX) protege direito líquido e certo não amparado por <em>habeas corpus</em> ou <em>habeas data</em>.</li>
+                        <li>(B) Incorreta. Habeas Corpus (Art. 5º, LXVIII) protege a liberdade de locomoção (ir e vir).</li>
+                        <li>(C) Incorreta. Ação Popular (Art. 5º, LXXIII) visa anular ato lesivo ao patrimônio público, à moralidade administrativa, ao meio ambiente e ao patrimônio histórico e cultural.</li>
+                        <li>(D) Incorreta. Mandado de Injunção (Art. 5º, LXXI) é usado "sempre que a falta de norma regulamentadora torne inviável o exercício dos direitos e liberdades constitucionais...".</li>
+                        <li>(E) <strong>Correta.</strong> O <em>Habeas Data</em> é o instrumento exato para "assegurar o conhecimento de informações relativas à pessoa do impetrante, constantes de registros ou bancos de dados..." (Art. 5º, LXXII, 'a') e para "retificação de dados..." (Art. 5º, LXXII, 'b').</li>
+                    </ul>
+                `
+            },
+            {
+                id: 'q4',
+                question: '4. (Instituto AOCP - Adaptada) Sobre os Direitos e Garantias Fundamentais (Art. 5º da CF/88), assinale a alternativa **INCORRETA**.',
+                options: [
+                    { value: 'A', text: 'É livre a manifestação do pensamento, sendo vedado o anonimato.' },
+                    { value: 'B', text: 'É livre o exercício de qualquer trabalho, ofício ou profissão, atendidas as qualificações profissionais que a lei estabelecer.' },
+                    { value: 'C', text: 'Ninguém será obrigado a fazer ou deixar de fazer alguma coisa senão em virtude de lei.' },
+                    { value: 'D', text: 'A casa é asilo inviolável do indivíduo, ninguém nela podendo penetrar sem consentimento do morador, salvo em caso de flagrante delito ou desastre, ou para prestar socorro, ou, durante o dia ou a noite, por determinação judicial.' },
+                    { value: 'E', text: 'É plena a liberdade de associação para fins lícitos, vedada a de caráter paramilitar.' }
+                ],
+                correctAnswer: 'D',
+                resolution: `
+                    <h4 class="font-bold text-lg mb-2">Comentários da Questão 4</h4>
+                    <p><strong>Gabarito: D</strong></p>
+                    <p><strong>Fundamentação (Letra da Lei):</strong> A questão usa o formato "INCORRETA". O estilo AOCP foca em modificar um pequeno detalhe textual da "letra da lei" para criar a alternativa errada.</p>
+                    <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-700">
+                        <li>(A) Incorreta (Assertiva Correta). Transcrição literal do Art. 5º, inciso IV.</li>
+                        <li>(B) Incorreta (Assertiva Correta). Transcrição literal do Art. 5º, inciso XIII.</li>
+                        <li>(C) Incorreta (Assertiva Correta). Transcrição literal do Art. 5º, inciso II.</li>
+                        <li>(D) <strong>Correta (Assertiva Incorreta).</strong> A assertiva contém um erro textual. O Art. 5º, inciso XI, diz: "a casa é asilo inviolável... salvo em caso de flagrante delito ou desastre, ou para prestar socorro, ou, <strong>durante o dia</strong>, por determinação judicial". A assertiva erra ao afirmar "durante o dia <strong>ou a noite</strong>" para a determinação judicial.</li>
+                        <li>(E) Incorreta (Assertiva Correta). Transcrição literal do Art. 5º, inciso XVII.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 'q5',
+                question: '5. (Instituto AOCP - Adaptada) O Art. 7º da Constituição Federal elenca os direitos dos trabalhadores urbanos e rurais. Assinale a alternativa que apresenta uma garantia que **NÃO** consta expressamente nesse rol.',
+                options: [
+                    { value: 'A', text: 'Seguro-desemprego, em caso de desemprego involuntário.' },
+                    { value: 'B', text: 'Fundo de garantia do tempo de serviço.' },
+                    { value: 'C', text: 'Participação nos lucros, ou resultados, desvinculada da remuneração.' },
+                    { value: 'D', text: 'Proteção em face da automação, na forma da lei.' },
+                    { value: 'E', text: 'Participação nos cursos de formação e aperfeiçoamento como requisito para promoção na carreira.' }
+                ],
+                correctAnswer: 'E',
+                resolution: `
+                    <h4 class="font-bold text-lg mb-2">Comentários da Questão 5</h4>
+                    <p><strong>Gabarito: E</strong></p>
+                    <p><strong>Fundamentação (Letra da Lei):</strong> A questão exige a memorização da lista de direitos dos trabalhadores no Art. 7º. O formato "EXCETO" testa os limites do artigo, muitas vezes misturando com direitos de servidores públicos.</p>
+                    <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-700">
+                        <li>(A) Incorreta (É um direito). Previsto no Art. 7º, inciso II.</li>
+                        <li>(B) Incorreta (É um direito). Previsto no Art. 7º, inciso III.</li>
+                        <li>(C) Incorreta (É um direito). Previsto no Art. 7º, inciso XI.</li>
+                        <li>(D) Incorreta (É um direito). Previsto no Art. 7º, inciso XXVII.</li>
+                        <li>(E) <strong>Correta (NÃO é um direito).</strong> Esta alternativa não consta no rol do Art. 7º. A "participação nos cursos" é um requisito para a promoção na carreira de <em>servidores públicos</em> (Art. 39, § 2º), não um direito do trabalhador celetista do Art. 7º.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 'q6',
+                question: '6. (Instituto AOCP - Adaptada) No que tange ao Direito Social à Educação (Art. 205 a 214 da CF/88), assinale a alternativa correta.',
+                options: [
+                    { value: 'A', text: 'O dever do Estado com a educação será efetivado mediante a garantia de educação básica obrigatória e gratuita dos 6 (seis) aos 18 (dezoito) anos de idade.' },
+                    { value: 'B', text: 'O não oferecimento do ensino obrigatório pelo Poder Público, ou sua oferta irregular, importa responsabilidade da autoridade competente.' },
+                    { value: 'C', text: 'A União aplicará, anualmente, nunca menos de 25% (vinte e cinco por cento), e os Estados, o Distrito Federal e os Municípios, 18% (dezoito por cento), no mínimo, da receita resultante de impostos, na manutenção e desenvolvimento do ensino.' },
+                    { value: 'D', text: 'As universidades gozam de autonomia, sendo-lhes vedado admitir professores, técnicos e cientistas estrangeiros.' },
+                    { value: 'E', text: 'O ensino é livre à iniciativa privada, sendo vedada a autorização e avaliação de qualidade pelo Poder Público.' }
+                ],
+                correctAnswer: 'B',
+                resolution: `
+                    <h4 class="font-bold text-lg mb-2">Comentários da Questão 6</h4>
+                    <p><strong>Gabarito: B</strong></p>
+                    <p><strong>Fundamentação (Letra da Lei):</strong> Esta questão testa detalhes numéricos e palavras-chave, um método comum do Instituto AOCP.</p>
+                    <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-700">
+                        <li>(A) Incorreta. A educação básica obrigatória é dos <strong>4 (quatro) aos 17 (dezessete) anos</strong> de idade (Art. 208, inciso I). A alternativa erra as idades.</li>
+                        <li>(B) <strong>Correta.</strong> Esta é a transcrição literal do Art. 208, § 2º.</li>
+                        <li>(C) Incorreta. A alternativa <em>inverte</em> os percentuais. O correto, pelo Art. 212, é: <strong>União, nunca menos de 18% (dezoito por cento)</strong>; e <strong>Estados, DF e Municípios, 25% (vinte e cinco por cento)</strong>.</li>
+                        <li>(D) Incorreta. As universidades de fato gozam de autonomia (Art. 207), mas o final está errado. O Art. 207, § 1º, diz que "É <strong>facultado</strong> às universidades admitir professores, técnicos e cientistas estrangeiros...". A assertiva troca "facultado" por "vedado".</li>
+                        <li>(E) Incorreta. O ensino é livre à iniciativa privada (Art. 209), <em>mas</em> atendidas as condições de "I - cumprimento das normas gerais da educação nacional; e II - autorização e avaliação de qualidade pelo Poder Público." A alternativa erra ao afirmar que é "vedada" a autorização e avaliação.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 'q7',
+                question: '7. (Instituto AOCP - Adaptada) O *caput* do Art. 37 da Constituição Federal estabelece que a administração pública direta e indireta de qualquer dos Poderes da União, dos Estados, do Distrito Federal e dos Municípios obedecerá a quais princípios expressos?',
+                options: [
+                    { value: 'A', text: 'Legalidade, Impessoalidade, Moralidade, Publicidade e Eficiência.' },
+                    { value: 'B', text: 'Legalidade, Motivação, Interesse Público, Publicidade e Eficiência.' },
+                    { value: 'C', text: 'Legalidade, Impessoalidade, Razoabilidade, Moralidade e Publicidade.' },
+                    { value: 'D', text: 'Legalidade, Finalidade, Economicidade, Publicidade e Eficiência.' },
+                    { value: 'E', text: 'Legalidade, Probidade Administrativa, Impessoalidade, Moralidade e Publicidade.' }
+                ],
+                correctAnswer: 'A',
+                resolution: `
+                    <h4 class="font-bold text-lg mb-2">Comentários da Questão 7</h4>
+                    <p><strong>Gabarito: A</strong></p>
+                    <p><strong>Fundamentação (Letra da Lei):</strong> A questão exige a memorização da lista de princípios <em>expressos</em> no <em>caput</em> do Art. 37, conhecido como mnemônico "LIMPE". A AOCP foca no texto expresso.</p>
+                    <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-700">
+                        <li>(A) <strong>Correta.</strong> Transcrição exata dos princípios do Art. 37, <em>caput</em>: <strong>L</strong>egalidade, <strong>I</strong>mpessoalidade, <strong>M</strong>oralidade, <strong>P</strong>ublicidade e <strong>E</strong>ficiência.</li>
+                        <li>(B) Incorreta. "Motivação" e "Interesse Público" são princípios implícitos/doutrinários, mas não estão <em>expressos</em> no <em>caput</em> do Art. 37.</li>
+                        <li>(C) Incorreta. "Razoabilidade" é um princípio implícito, não expresso no <em>caput</em>.</li>
+                        <li>(D) Incorreta. "Finalidade" e "Economicidade" não estão no <em>caput</em> do Art. 37.</li>
+                        <li>(E) Incorreta. "Probidade Administrativa" (Art. 37, § 4º) é uma consequência da Moralidade, mas não está na lista do <em>caput</em>.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 'q8',
+                question: '8. (Instituto AOCP - Adaptada) O Art. 37, XVI, da Constituição Federal veda a acumulação remunerada de cargos públicos. Contudo, o mesmo dispositivo apresenta exceções, desde que haja compatibilidade de horários. Assinale a alternativa que apresenta uma acumulação **PERMITIDA**.',
+                options: [
+                    { value: 'A', text: 'A de dois cargos de professor.' },
+                    { value: 'B', text: 'A de dois cargos técnico-administrativos.' },
+                    { value: 'C', text: 'A de um cargo de professor com um de assistente administrativo.' },
+                    { value: 'D', text: 'A de um cargo privativo de profissional de saúde com um de técnico-judiciário.' },
+                    { value: 'E', text: 'A de dois cargos de profissional de saúde, mesmo que as profissões não sejam regulamentadas.' }
+                ],
+                correctAnswer: 'A',
+                resolution: `
+                    <h4 class="font-bold text-lg mb-2">Comentários da Questão 8</h4>
+                    <p><strong>Gabarito: A</strong></p>
+                    <p><strong>Fundamentação (Letra da Lei):</strong> A questão testa a memorização das <em>exceções</em> à regra de vedação da acumulação.</p>
+                    <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-700">
+                        <li>(A) <strong>Correta.</strong> É a exceção literal do Art. 37, inciso XVI, alínea 'a': "a de <strong>dois cargos de professor</strong>".</li>
+                        <li>(B) Incorreta. Não há previsão para acumular dois cargos "técnico-administrativos". A alínea 'b' permite "um cargo de professor com outro técnico ou científico".</li>
+                        <li>(C) Incorreta. A acumulação é de um cargo de professor com outro <em>técnico ou científico</em> (Art. 37, XVI, 'b'). Um cargo de "assistente administrativo" não é considerado técnico ou científico para fins dessa acumulação.</li>
+                        <li>(D) Incorreta. A alínea 'c' permite "a de dois cargos ou empregos privativos de profissionais de saúde, com profissões regulamentadas"; não sua mistura com "técnico-judiciário".</li>
+                        <li>(E) Incorreta. A alínea 'c' do Art. 37, XVI, exige que sejam "com profissões regulamentadas". A alternativa erra ao dizer "mesmo que... não sejam regulamentadas".</li>
+                    </ul>
+                `
+            },
+            {
+                id: 'q9',
+                question: '9. (Instituto AOCP - Adaptada) O Art. 39, § 3º, da CF/88, estende aos servidores ocupantes de cargo público alguns direitos sociais previstos no Art. 7º. Assinale a alternativa que corresponde a um direito dos trabalhadores (Art. 7º) que **NÃO** é estendido aos servidores públicos pelo Art. 39, § 3º.',
+                options: [
+                    { value: 'A', text: 'Salário-família pago em razão do dependente.' },
+                    { value: 'B', text: 'Duração do trabalho normal não superior a oito horas diárias e quarenta e quatro semanais.' },
+                    { value: 'C', text: 'Remuneração do serviço extraordinário superior, no mínimo, em cinquenta por cento à do normal.' },
+                    { value: 'D', text: 'Seguro-desemprego, em caso de desemprego involuntário.' },
+                    { value: 'E', text: 'Gozo de férias anuais remuneradas com, pelo menos, um terço a mais do que o salário normal.' }
+                ],
+                correctAnswer: 'D',
+                resolution: `
+                    <h4 class="font-bold text-lg mb-2">Comentários da Questão 9</h4>
+                    <p><strong>Gabarito: D</strong></p>
+                    <p><strong>Fundamentação (Letra da Lei):</strong> A questão testa quais direitos do Art. 7º (trabalhadores) se aplicam aos servidores públicos (Art. 39, § 3º), exigindo a identificação da exceção.</p>
+                    <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-700">
+                        <li>(A) Incorreta (Direito estendido). O Art. 39, § 3º, remete ao Art. 7º, XII (salário-família).</li>
+                        <li>(B) Incorreta (Direito estendido). O Art. 39, § 3º, remete ao Art. 7º, XIII (jornada de 8h/44s).</li>
+                        <li>(C) Incorreta (Direito estendido). O Art. 39, § 3º, remete ao Art. 7º, XVI (hora extra de 50%).</li>
+                        <li>(D) <strong>Correta (Direito NÃO estendido).</strong> O Art. 39, § 3º, <em>não</em> lista o inciso II do Art. 7º (seguro-desemprego). Este direito é exclusivo dos trabalhadores celetistas, pois os servidores efetivos possuem <em>estabilidade</em> (Art. 41).</li>
+                        <li>(E) Incorreta (Direito estendido). O Art. 39, § 3º, remete ao Art. 7º, XVII (férias com 1/3).</li>
+                    </ul>
+                `
+            },
+            {
+                id: 'q10',
+                question: '10. (Instituto AOCP - Adaptada) Sobre a estabilidade dos servidores públicos, conforme disciplinada no Art. 41 da Constituição Federal, assinale a alternativa correta.',
+                options: [
+                    { value: 'A', text: 'São estáveis após 2 (dois) anos de efetivo exercício os servidores nomeados para cargo de provimento efetivo.' },
+                    { value: 'B', text: 'Extinto o cargo ou declarada a sua desnecessidade, o servidor estável será aposentado, com remuneração integral.' },
+                    { value: 'C', text: 'O servidor público estável só perderá o cargo em virtude de sentença judicial transitada em julgado ou mediante processo administrativo em que lhe seja assegurada ampla defesa.' },
+                    { value: 'D', text: 'Como condição para a aquisição da estabilidade, é obrigatória a avaliação especial de desempenho por comissão instituída para essa finalidade.' },
+                    { value: 'E', text: 'Invalidada por sentença judicial a demissão do servidor estável, será ele reconduzido, e o eventual ocupante da vaga, se estável, reintegrado ao cargo de origem.' }
+                ],
+                correctAnswer: 'D',
+                resolution: `
+                    <h4 class="font-bold text-lg mb-2">Comentários da Questão 10</h4>
+                    <p><strong>Gabarito: D</strong></p>
+                    <p><strong>Fundamentação (Letra da Lei):</strong> A questão exige a "letra da lei" exata do Art. 41 (Estabilidade), focando em prazos, valores e termos técnicos.</p>
+                    <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-700">
+                        <li>(A) Incorreta. O prazo para estabilidade é de <strong>3 (três) anos</strong> de efetivo exercício (Art. 41, <em>caput</em>).</li>
+                        <li>(B) Incorreta. O servidor estável "ficará em disponibilidade, com remuneração <strong>proporcional ao tempo de serviço</strong>" (Art. 41, § 3º). O erro está em "aposentado" e "remuneração integral".</li>
+                        <li>(C) Incorreta. A assertiva está incompleta. O servidor estável perderá o cargo (I) em virtude de sentença judicial transitada em julgado; (II) mediante processo administrativo com ampla defesa; OU (III) mediante procedimento de <strong>avaliação periódica de desempenho</strong> (Art. 41, § 1º).</li>
+                        <li>(D) <strong>Correta.</strong> É a transcrição literal do Art. 41, § 4º: "Como condição para a aquisição da estabilidade, é obrigatória a avaliação especial de desempenho por comissão instituída para essa finalidade."</li>
+                        <li>(E) Incorreta. O servidor estável demitido será <strong>reintegrado</strong>. O eventual ocupante da vaga, se estável, será <strong>reconduzido</strong> ao cargo de origem (Art. 41, § 2º). A assertiva confunde os institutos.</li>
+                    </ul>
+                `
+            }
+        ];
+
+        // --- LÓGICA DO QUIZ ---
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const quizForm = document.getElementById('quizForm');
+            const resultsSection = document.getElementById('resultsSection');
+            const scoreElement = document.getElementById('score');
+            const resolutionsContainer = document.getElementById('resolutionsContainer');
+            
+            let submitButton; // Variável para guardar o botão de submit
+
+            // 1. Renderiza as questões no formulário
+            function renderQuiz() {
+                let quizHTML = '';
+
+                quizData.forEach((item, index) => {
+                    // Monta as opções de rádio
+                    const optionsHTML = item.options.map(option => `
+                        <label for="${item.id}_${option.value}" class="block p-4 mb-3 rounded-lg border border-gray-200 hover:bg-blue-50 hover:border-blue-400 cursor-pointer transition-colors duration-150 has-[:checked]:bg-blue-50 has-[:checked]:border-blue-500">
+                            <input type="radio" name="${item.id}" id="${item.id}_${option.value}" value="${option.value}" class="mr-3 text-blue-600 focus:ring-blue-500" required>
+                            <span class_="text-gray-800">${option.text}</span>
+                        </label>
+                    `).join('');
+
+                    // Monta o bloco da questão
+                    quizHTML += `
+                        <fieldset class="mb-10">
+                            <legend class="text-lg font-semibold mb-5 text-gray-900 leading-relaxed" style="white-space: pre-line;">${item.question}</legend>
+                            <div class="space-y-2">
+                                ${optionsHTML}
+                            </div>
+                        </fieldset>
+                    `;
+                });
+
+                // Adiciona o botão de submit no final
+                quizHTML += `
+                    <button type="submit" id="submitBtn" class="w-full bg-blue-600 text-white font-bold py-4 px-6 rounded-lg hover:bg-blue-700 transition-all duration-200 text-xl shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                        Finalizar Quiz e Ver Resoluções
+                    </button>
+                `;
+                
+                quizForm.innerHTML = quizHTML;
+                
+                // Guarda a referência do botão
+                submitButton = document.getElementById('submitBtn');
+            }
+
+            // 2. Manipula o envio do formulário
+            quizForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                let score = 0;
+                resolutionsContainer.innerHTML = ''; // Limpa resoluções anteriores
+
+                const formData = new FormData(quizForm);
+
+                quizData.forEach((item) => {
+                    const userAnswer = formData.get(item.id);
+                    const isCorrect = (userAnswer === item.correctAnswer);
+                    
+                    if (isCorrect) {
+                        score++;
+                    }
+
+                    // Define o estilo do card de resolução (correto ou incorreto)
+                    const resultClasses = isCorrect
+                        ? 'border-l-4 border-green-600 bg-green-50'
+                        : 'border-l-4 border-red-600 bg-red-50';
+                    
+                    const userAnswerText = userAnswer ? `Sua resposta: <strong>${userAnswer}</strong>` : 'Você não respondeu esta questão.';
+
+                    // Cria o HTML para a resolução da questão
+                    const resolutionHTML = `
+                        <div class="p-6 rounded-lg ${resultClasses}">
+                            <p class="text-lg font-semibold mb-4 text-gray-900" style="white-space: pre-line;">${item.question}</p>
+                            <div class="space-y-2 mb-4 text-gray-800">
+                                <p>${userAnswerText}</p>
+                                <p>Gabarito: <strong>${item.correctAnswer}</strong></p>
+                            </div>
+                            <hr class="my-4">
+                            <div class="text-gray-700 space-y-2 resolution-content">
+                                ${item.resolution}
+                            </div>
+                        </div>
+                    `;
+                    resolutionsContainer.innerHTML += resolutionHTML;
+                });
+
+                // 3. Exibe os resultados
+                scoreElement.textContent = `Você acertou ${score} de ${quizData.length} questões.`;
+                resultsSection.classList.remove('hidden');
+
+                // Oculta o botão de submit após o término
+                if (submitButton) {
+                    submitButton.classList.add('hidden');
+                }
+
+                // Rola a página para a seção de resultados
+                resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+
+            // Inicializa o quiz
+            renderQuiz();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz LDB - Estilo AOCP</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Configura o Tailwind para usar a fonte "Inter"
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        /* Estilos personalizados para legibilidade */
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        /* Estiliza o radio button selecionado */
+        input[type="radio"]:checked + label {
+            background-color: #f0f5ff; /* Azul bem claro */
+            border-color: #60a5fa; /* Azul */
+        }
+        /* Remove o spinner de inputs de número (não usado aqui, mas boa prática) */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+          -webkit-appearance: none; 
+          margin: 0; 
+        }
+        input[type=number] {
+          -moz-appearance: textfield;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-slate-800 leading-relaxed">
+
+    <!-- Container Principal -->
+    <div class="container mx-auto max-w-3xl p-4 sm:p-8">
+        
+        <!-- Cabeçalho -->
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl font-bold text-slate-900">Quiz: Lei 9.394/1996 (LDB)</h1>
+            <p class="text-lg text-slate-600">Estilo da banca Instituto AOCP</p>
+        </header>
+
+        <!-- Formulário do Quiz -->
+        <form id="quizForm" class="space-y-8">
+            <!-- As questões serão injetadas aqui pelo JavaScript -->
+        </form>
+
+        <!-- Botão de Finalizar -->
+        <div class="mt-10">
+            <button type="submit" form="quizForm" class="w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition-all duration-300 text-lg shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                Finalizar Quiz
+            </button>
+        </div>
+
+        <!-- Seção de Resultados (Oculta por padrão) -->
+        <section id="resultsSection" class="hidden mt-12 pt-8 border-t border-gray-200">
+            <h2 class="text-3xl font-bold text-center text-slate-900 mb-4">Resultados</h2>
+            
+            <!-- Sumário da Pontuação -->
+            <div id="score" class="text-2xl font-bold text-center mb-8 p-4 rounded-lg bg-blue-100 text-blue-800">
+                <!-- A pontuação será inserida aqui -->
+            </div>
+
+            <h3 class="text-2xl font-semibold text-slate-800 mb-6">Revisão das Questões</h3>
+            
+            <!-- Container para os Resultados Detalhados -->
+            <div id="detailedResults" class="space-y-6">
+                <!-- Os resultados detalhados serão injetados aqui -->
+            </div>
+        </section>
+
+    </div>
+
+    <!-- JavaScript do Quiz -->
+    <script>
+        // --- BANCO DE DADOS DO QUIZ ---
+        // Contém todas as questões, opções, respostas corretas e resoluções
+        const quizData = [
+            {
+                question: "<strong>Questão 1</strong> (Instituto AOCP - Adaptada)<br><br>De acordo com a Lei nº 9.394/96 (LDB), o ensino será ministrado com base em determinados princípios. Analise as assertivas a seguir sobre esses princípios e assinale a alternativa correta.<br><br>I. Pluralismo de ideias e de concepções pedagógicas.<br>II. Atendimento educacional especializado gratuito aos educandos com deficiência, transtornos globais do desenvolvimento e altas habilidades ou superdotação, preferencialmente na rede regular de ensino.<br>III. Valorização do profissional da educação escolar.<br>IV. Coexistência de instituições públicas e privadas de ensino.<br>V. Educação básica obrigatória e gratuita dos 4 (quatro) aos 17 (dezessete) anos de idade.",
+                options: [
+                    "A) Apenas I, II e III.",
+                    "B) Apenas I, III e IV.",
+                    "C) Apenas II, III e V.",
+                    "D) Apenas II e V.",
+                    "E) I, II, III, IV e V."
+                ],
+                answer: "B",
+                resolution: "<strong>Gabarito: B</strong><br><br><strong>Comentário:</strong> Esta questão testa a habilidade do candidato em diferenciar os <i>Princípios</i> do Ensino (Art. 3º) dos <i>Deveres do Estado</i> (Art. 4º).[1, 2, 3] O Instituto AOCP frequentemente utiliza essa \"confusão de listas\" em suas provas.<br><ul><li class='mt-1'><strong>Item I (Correto):</strong> É um princípio, conforme Art. 3º, inciso III.</li><li class='mt-1'><strong>Item II (Incorreto):</strong> É um dever do Estado, conforme Art. 4º, inciso III.[3]</li><li class='mt-1'><strong>Item III (Correto):</strong> É um princípio, conforme Art. 3º, inciso VII.</li><li class='mt-1'><strong>Item IV (Correto):</strong> É um princípio, conforme Art. 3º, inciso V.</li><li class='mt-1'><strong>Item V (Incorreto):</strong> É um dever do Estado (o principal deles), conforme Art. 4º, inciso I.[3]</li></ul><br>Portanto, as assertivas corretas são I, III e IV."
+            },
+            {
+                question: "<strong>Questão 2</strong> (Instituto AOCP - Adaptada)<br><br>Conforme o Art. 58 da LDB (Lei nº 9.394/96), entende-se por educação especial, para os efeitos desta Lei, a modalidade de educação escolar oferecida:",
+                options: [
+                    "A) obrigatoriamente na rede regular de ensino, para educandos com deficiência e transtornos globais do desenvolvimento.",
+                    "B) preferencialmente na rede regular de ensino, para educandos com deficiência, transtornos globais do desenvolvimento e altas habilidades ou superdotação.",
+                    "C) obrigatoriamente em classes especiais, para educandos com altas habilidades ou superdotação.",
+                    "D) preferencialmente em escolas especializadas, para educandos com deficiência e transtornos globais do desenvolvimento.",
+                    "E) exclusivamente na rede privada de ensino, mediante apoio técnico e financeiro do Poder Público."
+                ],
+                answer: "B",
+                resolution: "<strong>Gabarito: B</strong><br><br><strong>Comentário:</strong> A questão foca na \"literalidade seletiva\" da banca, testando uma palavra-chave crucial do Art. 58.[4]<br><ul><li class='mt-1'>A <strong>Alternativa B</strong> é a cópia exata do <i>caput</i> do Art. 58, que define a educação especial como a modalidade oferecida <i>preferencialmente</i> na rede regular de ensino, destinada a educandos com deficiência, transtornos globais do desenvolvimento e altas habilidades ou superdotação.[3]</li><li class='mt-1'>As alternativas A e C estão incorretas por usar o termo \"obrigatoriamente\".</li><li class='mt-1'>A alternativa D está incorreta por inverter a lógica (a preferência é pela rede regular, não por escolas especializadas; estas são usadas apenas quando não for possível a integração, conforme § 2º do Art. 58).</li><li class='mt-1'>A alternativa E está incorreta.</li></ul>"
+            },
+            {
+                question: "<strong>Questão 3</strong> (Baseada em: Instituto AOCP - 2023 - IFMA - Pedagogo)<br><br>A Lei de Diretrizes e Bases da Educação Nacional (LDB) – Lei nº 9.394/1996, em seu Art. 21, define a composição da educação escolar nacional. De acordo com o referido artigo, a educação escolar compõe-se de:",
+                options: [
+                    "A) educação infantil, ensino fundamental e ensino médio.",
+                    "B) educação básica e educação superior.",
+                    "C) ensino fundamental, ensino médio e educação profissional.",
+                    "D) educação básica, educação especial e educação de jovens e adultos.",
+                    "E) pré-escola, ensino fundamental obrigatório e ensino médio."
+                ],
+                answer: "B",
+                resolution: "<strong>Gabarito: B</strong><br><br><strong>Comentário:</strong> Esta questão, baseada em provas reais da AOCP [5, 6], testa a definição estrutural básica da LDB. A banca exige que o candidato saiba a diferença entre <i>Níveis</i> da educação escolar, <i>Etapas</i> da educação básica e <i>Modalidades</i> de ensino.<br><ul><li class='mt-1'>O Art. 21 da LDB é claro: \"A educação escolar compõe-se de: I - educação básica; II - educação superior.\"[5, 6]</li><li class='mt-1'>A alternativa A (educação infantil, ensino fundamental e ensino médio) descreve as <i>etapas</i> que compõem o <i>nível</i> da educação básica.</li><li class='mt-1'>As alternativas C e D misturam níveis, etapas e <i>modalidades</i> (como educação profissional, especial e EJA), servindo como distratores.</li></ul>"
+            },
+            {
+                question: "<strong>Questão 4</strong> (Instituto AOCP - Adaptada)<br><br>Nos termos da LDB (Lei nº 9.394/96), os estabelecimentos de ensino, respeitadas as normas comuns e as do seu sistema de ensino, terão determinadas incumbências. Analise as assertivas e assinale a alternativa que aponta as incumbências CORRETAS dos estabelecimentos de ensino.<br><br>I. Elaborar e executar sua proposta pedagógica.<br>II. Zelar pela aprendizagem dos alunos.<br>III. Prover meios para a recuperação dos alunos de menor rendimento.<br>IV. Estabelecer estratégias de recuperação para os alunos de menor rendimento.<br>V. Promover medidas de conscientização, de prevenção e de combate a todos os tipos de violência, especialmente a intimidação sistemática (bullying).",
+                options: [
+                    "A) Apenas I, II e III.",
+                    "B) Apenas II e IV.",
+                    "C) Apenas I, III e V.",
+                    "D) Apenas I, IV e V.",
+                    "E) I, II, III, IV e V."
+                ],
+                answer: "C",
+                resolution: "<strong>Gabarito: C</strong><br><br><strong>Comentário:</strong> Outro exemplo de \"confusão de listas\", desta vez entre as incumbências do <i>Estabelecimento de Ensino</i> (Art. 12) e as incumbências do <i>Docente</i> (Art. 13).[7] O enunciado pede as incumbências da <i>Escola</i> (Art. 12).<br><ul><li class='mt-1'><strong>Item I (Correto):</strong> Incumbência da escola, conforme Art. 12, inciso I.[8]</li><li class='mt-1'><strong>Item II (Incorreto):</strong> Incumbência do <i>docente</i>, conforme Art. 13, inciso III.[9]</li><li class='mt-1'><strong>Item III (Correto):</strong> Incumbência da escola, conforme Art. 12, inciso V.</li><li class='mt-1'><strong>Item IV (Incorreto):</strong> Incumbência do <i>docente</i>, conforme Art. 13, inciso IV.[9] Note a sutil diferença: a escola \"provê os meios\" (Art. 12, V), o docente \"estabelece as estratégias\" (Art. 13, IV).</li><li class='mt-1'><strong>Item V (Correto):</strong> Incumbência da escola, conforme Art. 12, inciso IX (uma atualização recente, frequentemente cobrada).[7, 8]</li></ul><br>Portanto, as assertivas corretas são I, III e V."
+            },
+            {
+                question: "<strong>Questão 5</strong> (Instituto AOCP - Adaptada)<br><br>O Art. 26 da LDB estabelece que a educação física é componente curricular obrigatório da educação básica. Contudo, seu § 3º prevê casos em que sua prática é facultativa. Assinale a alternativa que apresenta um desses casos previstos em lei.",
+                options: [
+                    "A) O aluno que estiver prestando serviço militar inicial ou que, em situação similar, estiver obrigado à prática da educação física.",
+                    "B) O aluno maior de vinte e um anos de idade.",
+                    "C) O aluno que cumpra jornada de trabalho igual ou superior a quatro horas.",
+                    "D) O aluno que apresentar atestado médico simples, independentemente da condição.",
+                    "E) O aluno que estiver matriculado em curso de ensino noturno, independentemente de outra condição."
+                ],
+                answer: "A",
+                resolution: "<strong>Gabarito: A</strong><br><br><strong>Comentário:</strong> O Instituto AOCP costuma cobrar o conhecimento de regras específicas e suas exceções.[10] O Art. 26, § 3º, lista os casos em que a prática da educação física é facultativa.<br><ul><li class='mt-1'><strong>Alternativa A (Correta):</strong> Citação literal do inciso III do Art. 26, § 3º.[11]</li><li class='mt-1'><strong>Alternativa B (Incorreta):</strong> A idade correta é \"maior de <i>trinta</i> anos de idade\" (Inciso II), não 21.</li><li class='mt-1'><strong>Alternativa C (Incorreta):</strong> A jornada de trabalho correta é \"igual ou superior a <i>seis</i> horas\" (Inciso I), não 4.</li><li class='mt-1'><strong>Alternativa D (Incorreta):</strong> A lei refere-se ao amparo pelo Decreto-Lei nº 1.044/1969 (Inciso IV), que trata de afecções e condições de saúde específicas, não um atestado médico simples.</li><li class='mt-1'><strong>Alternativa E (Incorreta):</strong> A matrícula em ensino noturno não é, por si só, uma exceção listada, embora muitos alunos noturnos se enquadrem no Inciso I (jornada de trabalho).</li></ul>"
+            },
+            {
+                question: "<strong>Questão 6</strong> (Instituto AOCP - Adaptada)<br><br>Sobre as regras comuns de organização da educação básica, nos níveis fundamental e médio, a Lei nº 9.394/96 (Art. 24) estabelece que:",
+                options: [
+                    "A) a carga horária mínima anual será de oitocentas horas, distribuídas por, no mínimo, duzentos dias de efetivo trabalho escolar, para todos os níveis da educação básica.",
+                    "B) o controle de frequência fica a cargo da escola, exigida a frequência mínima de sessenta por cento (60%) do total de horas letivas para aprovação.",
+                    "C) a carga horária mínima anual será de 800 (oitocentas) horas para o ensino fundamental e de 1.000 (mil) horas para o ensino médio, distribuídas por, no mínimo, 200 (duzentos) dias de efetivo trabalho escolar.",
+                    "D) o controle de frequência fica a cargo do sistema de ensino, exigida a frequência mínima de setenta e cinco por cento (75%) do total de dias letivos para aprovação.",
+                    "E) a verificação do rendimento escolar observará a prevalência dos aspectos quantitativos sobre os qualitativos e dos resultados de eventuais provas finais sobre os do longo do período."
+                ],
+                answer: "C",
+                resolution: "<strong>Gabarito: C</strong><br><br><strong>Comentário:</strong> Esta questão testa a memorização exata (literalidade) de regras fundamentais da educação básica, contidas no Art. 24.[12]<br><ul><li class='mt-1'><strong>Alternativa C (Correta):</strong> Apresenta perfeitamente o disposto no Art. 24, inciso I, que define as 800 horas para o Ensino Fundamental e 1.000 horas para o Ensino Médio (conforme atualização da Lei 13.415/2017), ambas distribuídas em, no mínimo, 200 dias.</li><li class='mt-1'><strong>Alternativa A (Incorreta):</strong> Erra ao generalizar 800h para todos os níveis, ignorando a carga de 1.000h do Ensino Médio.</li><li class='mt-1'><strong>Alternativa B (Incorreta):</strong> A frequência mínima é de 75%, não 60% (Art. 24, VI).</li><li class='mt-1'><strong>Alternativa D (Incorreta):</strong> A frequência mínima (75%) é calculada sobre o <i>total de horas letivas</i>, não sobre o total de dias letivos (Art. 24, VI).</li><li class='mt-1'><strong>Alternativa E (Incorreta):</strong> A lei determina a prevalência dos aspectos <i>qualitativos</i> sobre os quantitativos (Art. 24, V, 'a').</li></ul>"
+            },
+            {
+                question: "<strong>Questão 7</strong> (Baseada em: Instituto Machado de Assis - 2013 - Adaptada ao estilo AOCP)<br><br>Segundo o Art. 13 da LDB (Lei nº 9.394/96), constitui incumbência dos docentes:<br><br>I. Participar da elaboração da proposta pedagógica do estabelecimento de ensino.<br>II. Elaborar e cumprir plano de trabalho, segundo a proposta pedagógica do estabelecimento de ensino.<br>III. Ministrar os dias letivos e horas-aula estabelecidos, além de participar integralmente dos períodos dedicados ao planejamento, à avaliação e ao desenvolvimento profissional.<br>IV. Assegurar o cumprimento dos dias letivos e horas-aula estabelecidas.",
+                options: [
+                    "A) Apenas I e II.",
+                    "B) Apenas III e IV.",
+                    "C) Apenas I, II e IV.",
+                    "D) Apenas I, II e III.",
+                    "E) I, II, III e IV."
+                ],
+                answer: "D",
+                resolution: "<strong>Gabarito: D</strong><br><br><strong>Comentário:</strong> Questão modelada em [17], focada nas incumbências dos <i>Docentes</i> (Art. 13) [9], mas inserindo uma incumbência da <i>Escola</i> (Art. 12) como distrator.<br><ul><li class='mt-1'><strong>Item I (Correto):</strong> Incumbência do docente, conforme Art. 13, inciso I.</li><li class='mt-1'><strong>Item II (Correto):</strong> Incumbência do docente, conforme Art. 13, inciso II.</li><li class='mt-1'><strong>Item III (Correto):</strong> Incumbência do docente, conforme Art. 13, inciso V.</li><li class='mt-1'><strong>Item IV (Incorreto):</strong> \"Assegurar o cumprimento dos dias letivos e horas-aula\" é uma incumbência do <i>estabelecimento de ensino</i> (escola), conforme Art. 12, inciso III.[8] O docente deve \"ministrar\" os dias (Art. 13, V).</li></ul><br>Portanto, as assertivas corretas são I, II e III."
+            },
+            {
+                question: "<strong>Questão 8</strong> (Instituto AOCP - Adaptada)<br><br>A LDB sofreu atualizações recentes para incluir novas diretrizes curriculares. Conforme o § 11 do Art. 26, incluído pela Lei nº 14.533, de 2023, um novo componente curricular será incluído no ensino fundamental e no ensino médio. Assinale a alternativa que apresenta esse componente.",
+                options: [
+                    "A) A educação digital, com foco no letramento digital e no ensino de computação, programação, robótica e outras competências digitais.",
+                    "B) A educação financeira e o empreendedorismo, como temas transversais obrigatórios.",
+                    "C) O ensino da língua espanhola, de oferta obrigatória no ensino médio.",
+                    "D) A educação alimentar e nutricional, como componente curricular obrigatório.",
+                    "E) O estudo da História e Cultura Afro-Brasileira e Indígena, como componente curricular da Base Nacional Comum."
+                ],
+                answer: "A",
+                resolution: "<strong>Gabarito: A</strong><br><br><strong>Comentário:</strong> A banca AOCP valoriza atualizações legislativas.[13] Esta questão cobra a literalidade de uma das mais recentes inclusões no Art. 26.<br><ul><li class='mt-1'><strong>Alternativa A (Correta):</strong> Citação exata do Art. 26, § 11, incluído pela Lei nº 14.533, de 2023, que institui a educação digital como componente curricular.[11]</li><li class='mt-1'><strong>Alternativa B (Incorreta):</strong> Educação financeira pode ser abordada, mas não foi incluída como componente obrigatório por esta lei.</li><li class='mt-1'><strong>Alternativa C (Incorreta):</strong> A língua espanhola é de oferta <i>facultativa</i> no Ensino Médio.</li><li class='mt-1'><strong>Alternativa D (Incorreta):</strong> A educação alimentar e nutricional é tratada como <i>tema transversal</i> (Art. 26, § 9º-A), não como componente curricular.</li></ul>"
+            },
+            {
+                question: "<strong>Questão 9</strong> (Instituto AOCP - Adaptada)<br><br>O Art. 4º da LDB estabelece o dever do Estado com a educação escolar pública, que será efetivado mediante uma série de garantias. Todas as alternativas abaixo apresentam garantias previstas nesse artigo, EXCETO:",
+                options: [
+                    "A) educação básica obrigatória e gratuita dos 4 (quatro) aos 17 (dezessete) anos de idade.",
+                    "B) atendimento ao educando, em todas as etapas da educação básica, por meio de programas suplementares de material didático-escolar, transporte, alimentação e assistência à saúde.",
+                    "C) educação infantil gratuita às crianças de até 5 (cinco) anos de idade.",
+                    "D) padrões mínimos de qualidade do ensino, definidos como a variedade e a quantidade mínimas, por aluno, de insumos indispensáveis.",
+                    "E) gestão democrática do ensino público, na forma desta Lei e da legislação dos respectivos sistemas de ensino."
+                ],
+                answer: "E",
+                resolution: "<strong>Gabarito: E</strong><br><br><strong>Comentário:</strong> Esta questão utiliza o formato \"EXCETO\", comum no Instituto AOCP.[10] Ela exige que o candidato identifique qual item <i>não</i> pertence à lista de Deveres do Estado (Art. 4º).<br><ul><li class='mt-1'>As alternativas A, B, C e D são, respectivamente, citações corretas dos incisos I, VIII, II e IX do Art. 4º (Deveres do Estado).[3]</li><li class='mt-1'><strong>Alternativa E (Correta/A Exceção):</strong> \"Gestão democrática do ensino público\" não é um <i>Dever do Estado</i> listado no Art. 4º. É um <i>Princípio</i> do Ensino, listado no Art. 3º, inciso VIII.[3]</li></ul>"
+            },
+            {
+                question: "<strong>Questão 10</strong> (Baseada em: Instituto AOCP - 2019 - Umuarama - Professor)<br><br>A Lei nº 9.394/96, em seu Art. 7º-A, assegura ao aluno regularmente matriculado o direito de, mediante prévio e motivado requerimento, ausentar-se de prova ou de aula marcada para dia em que, segundo os preceitos de sua religião, seja vedado o exercício de tais atividades. Nesses casos, a instituição de ensino deverá atribuir, sem custos para o aluno, prestações alternativas. Assinale a alternativa que descreve CORRETAMENTE as prestações previstas na lei.",
+                options: [
+                    "A) Apenas a realização de prova em data alternativa, no turno de estudo do aluno, sendo vedada a substituição por trabalho escrito.",
+                    "B) Apenas a realização de trabalho escrito ou outra modalidade de atividade de pesquisa, com tema e data definidos pela instituição.",
+                    "C) Prova ou aula de reposição, conforme o caso, a ser realizada em data alternativa, no turno de estudo do aluno ou em outro horário agendado com sua anuência expressa; ou trabalho escrito ou outra modalidade de atividade de pesquisa, com tema, objetivo e data de entrega definidos pela instituição de ensino.",
+                    "D) Prova ou aula de reposição, desde que o aluno arque com os custos operacionais da reposição, conforme regulamento da instituição.",
+                    "E) Apenas o abono da falta, desde que o aluno apresente declaração da autoridade religiosa, não sendo necessária prestação alternativa."
+                ],
+                answer: "C",
+                resolution: "<strong>Gabarito: C</strong><br><br><strong>Comentário:</strong> Esta questão é baseada no modelo de prova do Instituto AOCP (Q1131952) [14], que apresenta um enunciado longo e verboso, copiando o <i>caput</i> de um artigo (neste caso, o Art. 7º-A, sobre ausência por motivo religioso) e exigindo a alternativa que completa a lei.[15]<br><ul><li class='mt-1'><strong>Alternativa C (Correta):</strong> É a única que descreve <i>corretamente e completamente</i> as duas prestações alternativas previstas nos incisos I (\"prova ou aula de reposição\") e II (\"trabalho escrito ou outra modalidade\") do Art. 7º-A.[15]</li><li class='mt-1'><strong>Alternativas A e B (Incorretas):</strong> Estão erradas por usar \"Apenas\", limitando as opções que a lei oferece.</li><li class='mt-1'><strong>Alternativa D (Incorreta):</strong> Contradiz diretamente o <i>caput</i> do Art. 7º-A, que assegura a prestação \"sem custos para o aluno\".[15]</li><li class='mt-1'><strong>Alternativa E (Incorreta):</strong> Contradiz o § 2º do Art. 7º-A, que afirma que o cumprimento da prestação alternativa \"substituirá a obrigação original\", indicando que ela é necessária.[16]</li></ul>"
+            }
+        ];
+
+        // --- LÓGICA DO QUIZ ---
+
+        // Referências aos elementos do DOM
+        const quizForm = document.getElementById('quizForm');
+        const resultsSection = document.getElementById('resultsSection');
+        const scoreElement = document.getElementById('score');
+        const detailedResults = document.getElementById('detailedResults');
+        const optionLetters = ['A', 'B', 'C', 'D', 'E'];
+
+        /**
+         * Inicializa o quiz, criando e injetando as questões no formulário.
+         */
+        function initializeQuiz() {
+            let quizHtml = '';
+
+            quizData.forEach((questionData, index) => {
+                // Monta as opções de resposta
+                const optionsHtml = questionData.options.map((option, i) => {
+                    const letter = optionLetters[i];
+                    const optionId = `q${index}_${letter}`;
+                    
+                    return `
+                        <div class="relative">
+                            <input 
+                                type="radio" 
+                                name="q${index}" 
+                                id="${optionId}" 
+                                value="${letter}" 
+                                class="absolute opacity-0 w-0 h-0 peer"
+                            >
+                            <label 
+                                for="${optionId}" 
+                                class="block w-full p-3 rounded-md border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors duration-200 peer-focus:ring-2 peer-focus:ring-blue-400"
+                            >
+                                ${option}
+                            </label>
+                        </div>
+                    `;
+                }).join('');
+
+                // Monta o bloco da questão
+                quizHtml += `
+                    <div class="p-6 bg-white rounded-lg shadow-sm border border-gray-100">
+                        <div class="question-text text-lg text-slate-800 mb-5">${questionData.question}</div>
+                        <div class="options-container space-y-3">
+                            ${optionsHtml}
+                        </div>
+                    </div>
+                `;
+            });
+
+            quizForm.innerHTML = quizHtml;
+        }
+
+        /**
+         * Lida com o envio do formulário, calcula a pontuação e exibe os resultados.
+         */
+        function handleSubmit(event) {
+            event.preventDefault(); // Impede o envio real do formulário
+
+            let score = 0;
+            let resultsHtml = '';
+            const formData = new FormData(quizForm);
+
+            quizData.forEach((questionData, index) => {
+                const userAnswer = formData.get(`q${index}`);
+                const correctAnswer = questionData.answer;
+                const isCorrect = userAnswer === correctAnswer;
+
+                if (isCorrect) {
+                    score++;
+                }
+
+                // Define estilos com base na resposta (correta ou incorreta)
+                const resultBgClass = isCorrect ? 'bg-green-50' : 'bg-red-50';
+                const resultBorderClass = isCorrect ? 'border-green-200' : 'border-red-200';
+                const answerText = userAnswer ? `Sua resposta: <strong>${userAnswer}</strong>` : 'Você não respondeu.';
+                const answerClass = isCorrect ? 'text-green-700' : 'text-red-700';
+
+                // Monta o HTML para o bloco de resultado detalhado
+                resultsHtml += `
+                    <div class="p-4 sm:p-5 rounded-lg border ${resultBgClass} ${resultBorderClass} shadow-sm">
+                        <!-- Texto da Questão -->
+                        <div class="question-text text-base text-slate-700 mb-4">${questionData.question}</div>
+                        
+                        <!-- Respostas -->
+                        <div class="space-y-2 text-base mb-4">
+                            <p class="font-medium ${answerClass}">${answerText}</p>
+                            ${!isCorrect ? `<p class="font-medium text-green-700">Resposta correta: <strong>${correctAnswer}</strong></p>` : ''}
+                        </div>
+
+                        <!-- Resolução Comentada -->
+                        <div class="resolution pt-4 border-t ${isCorrect ? 'border-green-100' : 'border-red-100'}">
+                            <h4 class="font-bold text-lg text-slate-800 mb-2">Resolução Comentada</h4>
+                            <div class="text-slate-600 space-y-2 leading-relaxed">${questionData.resolution}</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Exibe a pontuação
+            scoreElement.textContent = `Você acertou ${score} de ${quizData.length} questões.`;
+
+            // Exibe os resultados detalhados
+            detailedResults.innerHTML = resultsHtml;
+
+            // Mostra a seção de resultados e rola até ela
+            resultsSection.classList.remove('hidden');
+            resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // --- INICIALIZAÇÃO ---
+
+        // Adiciona o listener de envio ao formulário
+        quizForm.addEventListener('submit', handleSubmit);
+
+        // Carrega as questões na página quando o DOM estiver pronto
+        document.addEventListener('DOMContentLoaded', initializeQuiz);
+
+    </script>
+</body>
+</html>

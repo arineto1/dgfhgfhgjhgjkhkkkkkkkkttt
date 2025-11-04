@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Lei 8.112/1990 - Estilo AOCP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Esconde a seção de resultados inicialmente */
+        #results-section {
+            display: none;
+        }
+        /* Estilos para os botões de rádio personalizados */
+        .option-label:hover {
+            background-color: #f9fafb; /* bg-gray-50 */
+        }
+        .option-label input:checked + span {
+            font-weight: 600; /* semibold */
+            color: #2563eb; /* text-blue-600 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 leading-relaxed">
+
+    <div class="max-w-4xl mx-auto p-4 sm:p-6 md:p-8">
+        <div class="bg-white p-6 sm:p-10 rounded-xl shadow-lg">
+            
+            <header class="text-center mb-10">
+                <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">Quiz: Lei nº 8.112/1990</h1>
+                <p class="text-lg text-gray-600">Regime Jurídico dos Servidores - Estilo Instituto AOCP</p>
+            </header>
+
+            <!-- Formulário do Quiz -->
+            <form id="quiz-form">
+                
+                <!-- Questão 1 -->
+                <div class="question-block mb-8 p-6 bg-white rounded-lg border border-gray-200">
+                    <p class="text-lg font-medium text-gray-900 mb-5"><strong>Questão 1</strong><br>Conforme a Lei nº 8.112/1990, tanto o Título II, Capítulo I (Do Provimento), quanto o Título II, Capítulo II (Da Vacância), listam formas de movimentação do servidor. Assinale a alternativa que apresenta um instituto que é, simultaneamente, forma de provimento (Art. 8º) e forma de vacância (Art. 33).</p>
+                    <div class="space-y-3">
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q1" value="A" class="mr-3 shrink-0">
+                            <span>(A) Exoneração</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q1" value="B" class="mr-3 shrink-0">
+                            <span>(B) Promoção</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q1" value="C" class="mr-3 shrink-0">
+                            <span>(C) Reintegração</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q1" value="D" class="mr-3 shrink-0">
+                            <span>(D) Nomeação</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q1" value="E" class="mr-3 shrink-0">
+                            <span>(E) Recondução</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Questão 2 -->
+                <div class="question-block mb-8 p-6 bg-white rounded-lg border border-gray-200">
+                    <p class="text-lg font-medium text-gray-900 mb-5"><strong>Questão 2</strong><br>Joana, de nacionalidade brasileira e em pleno gozo dos direitos políticos, foi aprovada em primeiro lugar em um concurso público federal. Contudo, na data da posse, Joana contava com 17 anos de idade, embora já tivesse concluído o ensino médio exigido pelo edital. Considerando o disposto na Lei nº 8.112/1990, a posse de Joana deverá ser:</p>
+                    <div class="space-y-3">
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q2" value="A" class="mr-3 shrink-0">
+                            <span>(A) deferida, pois a aprovação em concurso público emancipa o candidato.</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q2" value="B" class="mr-3 shrink-0">
+                            <span>(B) deferida, desde que ela apresente autorização dos pais ou responsáveis legais.</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q2" value="C" class="mr-3 shrink-0">
+                            <span>(C) indeferida, pois a idade mínima para investidura é de dezoito anos.</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q2" value="D" class="mr-3 shrink-0">
+                            <span>(D) deferida, pois o requisito de idade mínima se aplica apenas à data da inscrição no concurso, e não à data da posse.</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q2" value="E" class="mr-3 shrink-0">
+                            <span>(E) indeferida, pois ela deveria ter a idade mínima já na data de publicação do edital.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Questão 3 -->
+                <div class="question-block mb-8 p-6 bg-white rounded-lg border border-gray-200">
+                    <p class="text-lg font-medium text-gray-900 mb-5"><strong>Questão 3</strong><br>Mário, servidor público federal, encontra-se há 12 meses em estágio probatório (Art. 20), apresentando excelente avaliação de desempenho. Necessitando ausentar-se para resolver questões pessoais, Mário solicita a concessão de Licença para Tratar de Interesses Particulares (Art. 91). Diante dessa situação hipotética, a Administração Pública deverá:</p>
+                    <div class="space-y-3">
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q3" value="A" class="mr-3 shrink-0">
+                            <span>(A) conceder a licença, pois é um direito do servidor, desde que não ultrapasse 3 anos e ele pague a contribuição previdenciária.</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q3" value="B" class="mr-3 shrink-0">
+                            <span>(B) conceder a licença, mas sem remuneração, suspendendo-se a contagem do estágio probatório.</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q3" value="C" class="mr-3 shrink-0">
+                            <span>(C) negar a licença, pois a referida licença somente pode ser concedida a servidor estável.</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q3" value="D" class="mr-3 shrink-0">
+                            <span>(D) negar a licença, pois o estágio probatório (Art. 20) tem duração de 24 meses, e Mário ainda não cumpriu esse prazo.</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q3" value="E" class="mr-3 shrink-0">
+                            <span>(E) conceder a licença, pois os fatores avaliados no estágio (assiduidade, disciplina, etc.) não conflitam com a licença.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Questão 4 -->
+                <div class="question-block mb-8 p-6 bg-white rounded-lg border border-gray-200">
+                    <p class="text-lg font-medium text-gray-900 mb-5"><strong>Questão 4</strong><br>Carlos, servidor público federal estável, foi aprovado em novo concurso público para cargo inacumulável. Após tomar posse e entrar em exercício no novo cargo, Carlos foi inabilitado no estágio probatório deste novo cargo. Nos termos da Lei nº 8.112/1990, Carlos será:</p>
+                    <div class="space-y-3">
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q4" value="A" class="mr-3 shrink-0">
+                            <span>(A) exonerado do novo cargo e demitido do cargo anterior por abandono.</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q4" value="B" class="mr-3 shrink-0">
+                            <span>(B) reconduzido ao cargo anteriormente ocupado.</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q4" value="C" class="mr-3 shrink-0">
+                            <span>(C) reintegrado ao cargo anterior, com direito a indenização.</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q4" value="D" class="mr-3 shrink-0">
+                            <span>(D) posto em disponibilidade no cargo de origem, com remuneração proporcional.</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q4" value="E" class="mr-3 shrink-0">
+                            <span>(E) exonerado de ambos os cargos, devendo prestar novo concurso.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Questão 5 -->
+                <div class="question-block mb-8 p-6 bg-white rounded-lg border border-gray-200">
+                    <p class="text-lg font-medium text-gray-900 mb-5"><strong>Questão 5</strong><br>De acordo com o Art. 18 da Lei nº 8.112/1990, o servidor que deva ter exercício em outro município em razão de ter sido removido, terá qual prazo para a retomada do efetivo desempenho das atribuições do cargo, incluído nesse prazo o tempo necessário ao deslocamento para a nova sede?</p>
+                    <div class="space-y-3">
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q5" value="A" class="mr-3 shrink-0">
+                            <span>(A) 15 (quinze) dias, contados da publicação do ato.</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q5" value="B" class="mr-3 shrink-0">
+                            <span>(B) 30 (trinta) dias, improrrogáveis.</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q5" value="C" class="mr-3 shrink-0">
+                            <span>(C) No mínimo, 15 (quinze) dias e, no máximo, 30 (trinta) dias.</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q5" value="D" class="mr-3 shrink-0">
+                            <span>(D) No mínimo, 10 (dez) dias e, no máximo, 30 (trinta) dias.</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q5" value="E" class="mr-3 shrink-0">
+                            <span>(E) 10 (dez) dias, podendo ser prorrogado a critério da chefia imediata.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Questão 6 -->
+                <div class="question-block mb-8 p-6 bg-white rounded-lg border border-gray-200">
+                    <p class="text-lg font-medium text-gray-900 mb-5"><strong>Questão 6</strong><br>Considere a seguinte situação hipotética: Laura, servidora pública federal, recusou-se, injustificadamente, a atualizar seus dados cadastrais conforme determinação da autoridade competente. Nos termos da Lei nº 8.112/1990, a conduta de Laura:</p>
+                    <div class="space-y-3">
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q6" value="A" class="mr-3 shrink-0">
+                            <span>(A) não configura infração, pois trata-se de ato de sua vida privada.</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q6" value="B" class="mr-3 shrink-0">
+                            <span>(B) configura infração disciplinar passível da penalidade de suspensão de até 15 dias.</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q6" value="C" class="mr-3 shrink-0">
+                            <span>(C) configura inassiduidade habitual, passível de demissão.</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q6" value="D" class="mr-3 shrink-0">
+                            <span>(D) configura infração disciplinar passível da penalidade de advertência.</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q6" value="E" class="mr-3 shrink-0">
+                            <span>(E) configura insubordinação grave em serviço, passível de demissão.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Questão 7 -->
+                <div class="question-block mb-8 p-6 bg-white rounded-lg border border-gray-200">
+                    <p class="text-lg font-medium text-gray-900 mb-5"><strong>Questão 7</strong><br>Durante uma inspeção de rotina, a autoridade competente determinou que o servidor público Ricardo fosse submetido a uma inspeção médica oficial. Ricardo, de modo consciente e injustificado, afirmou que não se submeteria à inspeção. Conforme a sistemática estabelecida na Lei nº 8.112/1990, a conduta de Ricardo:</p>
+                    <div class="space-y-3">
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q7" value="A" class="mr-3 shrink-0">
+                            <span>(A) é atípica, não havendo previsão de penalidade para essa recusa específica.</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q7" value="B" class="mr-3 shrink-0">
+                            <span>(B) sujeita o servidor à penalidade de advertência, por escrito.</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q7" value="C" class="mr-3 shrink-0">
+                            <span>(C) sujeita o servidor à penalidade de suspensão de até 15 (quinze) dias.</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q7" value="D" class="mr-3 shrink-0">
+                            <span>(D) sujeita o servidor à penalidade de demissão, por insubordinação grave.</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q7" value="E" class="mr-3 shrink-0">
+                            <span>(E) sujeita o servidor à penalidade de suspensão por, no mínimo, 30 (trinta) dias.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Questão 8 -->
+                <div class="question-block mb-8 p-6 bg-white rounded-lg border border-gray-200">
+                    <p class="text-lg font-medium text-gray-900 mb-5"><strong>Questão 8</strong><br>Nos termos do Art. 8º da Lei nº 8.112/1990, são formas de provimento de cargo público, EXCETO:</p>
+                    <div class="space-y-3">
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q8" value="A" class="mr-3 shrink-0">
+                            <span>(A) Readaptação</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q8" value="B" class="mr-3 shrink-0">
+                            <span>(B) Recondução</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q8" value="C" class="mr-3 shrink-0">
+                            <span>(C) Promoção</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q8" value="D" class="mr-3 shrink-0">
+                            <span>(D) Reversão</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q8" value="E" class="mr-3 shrink-0">
+                            <span>(E) Remoção</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Questão 9 -->
+                <div class="question-block mb-8 p-6 bg-white rounded-lg border border-gray-200">
+                    <p class="text-lg font-medium text-gray-900 mb-5"><strong>Questão 9</strong><br>Um servidor público federal faltou ao serviço, sem causa justificada, por 40 (quarenta) dias consecutivos. A autoridade administrativa instaurou o devido processo administrativo disciplinar, assegurando a ampla defesa. Nos termos da Lei nº 8.112/1990, essa conduta configura:</p>
+                    <div class="space-y-3">
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q9" value="A" class="mr-3 shrink-0">
+                            <span>(A) Inassiduidade habitual, passível de demissão.</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q9" value="B" class="mr-3 shrink-0">
+                            <span>(B) Abandono de cargo, passível de demissão.</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q9" value="C" class="mr-3 shrink-0">
+                            <span>(C) Incontinência pública, passível de demissão.</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q9" value="D" class="mr-3 shrink-0">
+                            <span>(D) Infração grave, passível de suspensão de 90 dias.</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q9" value="E" class="mr-3 shrink-0">
+                            <span>(E) Abandono de cargo, passível de advertência se o servidor retornar voluntariamente.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Questão 10 -->
+                <div class="question-block mb-8 p-6 bg-white rounded-lg border border-gray-200">
+                    <p class="text-lg font-medium text-gray-900 mb-5"><strong>Questão 10</strong><br>Conforme expressamente disposto no Art. 151 da Lei nº 8.112/1990, o processo disciplinar se desenvolve em uma sequência específica de fases. Assinale a alternativa que apresenta CORRETAMENTE essas fases, na ordem determinada pela lei.</p>
+                    <div class="space-y-3">
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q10" value="A" class="mr-3 shrink-0">
+                            <span>(A) Instauração, Defesa, Relatório e Julgamento.</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q10" value="B" class="mr-3 shrink-0">
+                            <span>(B) Sindicância, Inquérito Administrativo e Julgamento.</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q10" value="C" class="mr-3 shrink-0">
+                            <span>(C) Instauração, Inquérito Administrativo e Julgamento.</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q10" value="D" class="mr-3 shrink-0">
+                            <span>(D) Instrução, Defesa e Julgamento.</span>
+                        </label>
+                        <label class="option-label flex items-center p-3 rounded-lg border border-gray-300 transition-colors duration-150 cursor-pointer">
+                            <input type="radio" name="q10" value="E" class="mr-3 shrink-0">
+                            <span>(E) Instauração, Instrução, Relatório e Decisão da Autoridade.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Botão de Envio -->
+                <button type="submit" id="submit-btn" class="w-full text-white bg-blue-600 hover:bg-blue-700 font-bold py-3 px-8 rounded-lg text-lg transition-colors duration-200">
+                    Finalizar Quiz
+                </button>
+            </form>
+
+            <!-- Seção de Resultados -->
+            <section id="results-section" class="mt-12">
+                <div class="text-center p-6 bg-gray-50 rounded-lg border border-gray-200">
+                    <h2 class="text-3xl font-bold mb-4 text-gray-900">Resultados</h2>
+                    <p id="score-summary" class="text-2xl text-gray-800"></p>
+                </div>
+                
+                <h3 class="text-3xl font-bold mb-8 mt-12 text-gray-900 border-b pb-4">Resoluções Comentadas</h3>
+                <div id="resolutions-container" class="space-y-6">
+                    <!-- As resoluções serão injetadas aqui pelo JavaScript -->
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        // --- DADOS DO QUIZ ---
+        // Armazena o gabarito e as resoluções
+        const quizData = [
+            {
+                id: 'q1',
+                correct: 'B',
+                resolution: `
+                    <h4 class="text-xl font-bold text-gray-900 mb-2">Resolução da Questão 1</h4>
+                    <p class="mb-3"><strong class="bg-blue-100 px-2 py-1 rounded">Gabarito: B</strong></p>
+                    <div class="space-y-3 text-gray-700">
+                        <p><strong>Justificativa (Correta):</strong> A alternativa <strong>B</strong> está correta. A <strong>Promoção</strong> é listada como forma de provimento no Art. 8º, Inciso II e, simultaneamente, como forma de vacância no Art. 33, Inciso III. Isso ocorre porque, ao ser promovido (provimento) para um cargo na classe superior da carreira, o servidor deixa vago (vacância) o cargo que ocupava na classe anterior. A <strong>Readaptação</strong> (Art. 8º, V e Art. 33, VI) também possui essa característica, mas não foi listada nas opções.</p>
+                        <p><strong>Análise (Incorretas):</strong><br>
+                            (A) Exoneração: É apenas forma de vacância (Art. 33, I).<br>
+                            (C) Reintegração: É apenas forma de provimento (Art. 8º, VIII). A vacância que ela reverte foi a demissão.<br>
+                            (D) Nomeação: É a forma originária de provimento (Art. 8º, I), não sendo uma forma de vacância.<br>
+                            (E) Recondução: É apenas forma de provimento (Art. 8º, IX).</p>
+                    </div>
+                `
+            },
+            {
+                id: 'q2',
+                correct: 'C',
+                resolution: `
+                    <h4 class="text-xl font-bold text-gray-900 mb-2">Resolução da Questão 2</h4>
+                    <p class="mb-3"><strong class="bg-blue-100 px-2 py-1 rounded">Gabarito: C</strong></p>
+                    <div class="space-y-3 text-gray-700">
+                        <p><strong>Justificativa (Correta):</strong> A alternativa <strong>C</strong> está correta. O Art. 5º da Lei nº 8.112/1990 estabelece os requisitos básicos para a investidura em cargo público. O Inciso V é claro ao exigir "a idade mínima de dezoito anos". A jurisprudência pacificada (e a prática administrativa) define que este requisito, assim como os demais (nacionalidade, direitos políticos, etc.), deve ser comprovado na data da posse. A investidura ocorre com a posse (Art. 7º). Como Joana tem 17 anos na data da posse, ela não cumpre o requisito legal, devendo ter sua posse indeferida.</p>
+                        <p><strong>Análise (Incorretas):</strong><br>
+                            (A) e (B) são incorretas. A aprovação em concurso não se confunde com os institutos de emancipação do direito civil, nem a autorização dos pais pode suprir um requisito legal objetivo fixado em lei.<br>
+                            (D) e (E) são incorretas. Representam a "pegadinha" comum sobre *quando* o requisito é aferido. Os requisitos do Art. 5º são exigidos para a *investidura*, e a investidura ocorre com a *posse* (Art. 7º), salvo disposição diversa no edital (que não pode contrariar a lei).</p>
+                    </div>
+                `
+            },
+            {
+                id: 'q3',
+                correct: 'C',
+                resolution: `
+                    <h4 class="text-xl font-bold text-gray-900 mb-2">Resolução da Questão 3</h4>
+                    <p class="mb-3"><strong class="bg-blue-100 px-2 py-1 rounded">Gabarito: C</strong></p>
+                    <div class="space-y-3 text-gray-700">
+                        <p><strong>Justificativa (Correta):</strong> A alternativa <strong>C</strong> está correta. Esta é uma cobrança comum do Instituto AOCP. A Licença para Tratar de Interesses Particulares, prevista no Art. 91, possui duas características centrais: 1) É discricionária ("A critério da Administração...") e 2) Exige que o servidor seja <strong>estável</strong>. O servidor em estágio probatório, nos termos do Art. 20, ainda não adquiriu a estabilidade. Portanto, por não cumprir o requisito legal objetivo (ser estável), a licença deve ser negada.</p>
+                        <p><strong>Análise (Incorretas):</strong><br>
+                            (A) e (B) estão incorretas pois ignoram o requisito da estabilidade.<br>
+                            (D) está incorreta e contém duas armadilhas. Primeiro, o prazo do estágio probatório foi atualizado para 36 meses (Art. 20), e não 24 meses. Segundo, o motivo da negativa não é o prazo em si, mas a ausência de *estabilidade*.<br>
+                            (E) está incorreta, pois a negativa não se baseia em uma análise subjetiva dos fatores do estágio, mas sim na vedação legal.</p>
+                    </div>
+                `
+            },
+            {
+                id: 'q4',
+                correct: 'B',
+                resolution: `
+                    <h4 class="text-xl font-bold text-gray-900 mb-2">Resolução da Questão 4</h4>
+                    <p class="mb-3"><strong class="bg-blue-100 px-2 py-1 rounded">Gabarito: B</strong></p>
+                    <div class="space-y-3 text-gray-700">
+                        <p><strong>Justificativa (Correta):</strong> A alternativa <strong>B</strong> está correta. A <strong>Recondução</strong> é definida no Art. 29 como "o retorno do servidor *estável* ao cargo anteriormente ocupado". A lei prevê duas hipóteses para isso. O caso de Carlos se enquadra perfeitamente no Inciso I: "inabilitação em estágio probatório relativo a outro cargo". Sendo Carlos estável no cargo de origem, ele tomou posse no novo cargo (gerando a vacância no cargo anterior por "posse em outro cargo inacumulável" - Art. 33, VIII), mas, ao ser inabilitado no estágio probatório (Art. 20) do novo cargo, ele tem o direito de ser reconduzido ao cargo de origem.</p>
+                        <p><strong>Análise (Incorretas):</strong><br>
+                            (A) e (E) estão incorretas. O servidor estável possui essa garantia de retorno.<br>
+                            (C) Reintegração (Art. 28) é o retorno do servidor que foi *demitido* ilegalmente, o que não é o caso.<br>
+                            (D) Disponibilidade (Art. 30) ocorre quando o cargo é extinto ou declarado desnecessário.</p>
+                    </div>
+                `
+            },
+            {
+                id: 'q5',
+                correct: 'D',
+                resolution: `
+                    <h4 class="text-xl font-bold text-gray-900 mb-2">Resolução da Questão 5</h4>
+                    <p class="mb-3"><strong class="bg-blue-100 px-2 py-1 rounded">Gabarito: D</strong></p>
+                    <div class="space-y-3 text-gray-700">
+                        <p><strong>Justificativa (Correta):</strong> A alternativa <strong>D</strong> está correta. Esta é uma questão de pura literalidade da lei, um estilo de cobrança factual do Instituto AOCP. O Art. 18 da Lei nº 8.112/1990, com sua redação atualizada, define os prazos para o servidor removido (ou redistribuído, requisitado, etc.) que deva ter exercício em outro município. O texto legal estabelece: "terá, no mínimo, dez e, no máximo, trinta dias de prazo (...)".</p>
+                        <p><strong>Análise (Incorretas):</strong><br>
+                            As demais alternativas (A, B, C, E) apresentam prazos incorretos ou prazos que se aplicam a outras situações, servindo como "pegadinhas" para testar a memorização exata do candidato. A armadilha mais comum é a alternativa (A), que confunde com o prazo de 15 dias para entrar em exercício *após a posse* (Art. 15, § 1º).</p>
+                    </div>
+                `
+            },
+            {
+                id: 'q6',
+                correct: 'D',
+                resolution: `
+                    <h4 class="text-xl font-bold text-gray-900 mb-2">Resolução da Questão 6</h4>
+                    <p class="mb-3"><strong class="bg-blue-100 px-2 py-1 rounded">Gabarito: D</strong></p>
+                    <div class="space-y-3 text-gray-700">
+                        <p><strong>Justificativa (Correta):</strong> A alternativa <strong>D</strong> está correta. Esta questão testa um ponto específico do regime disciplinar. O Art. 117 (Das Proibições) estabelece no Inciso XIX ser proibido ao servidor "recusar-se a atualizar seus dados cadastrais quando solicitado". O Art. 129 define que a penalidade de <strong>advertência</strong> será aplicada por escrito nos casos de violação das proibições dos incisos I a VIII e, especificamente, do *XIX* do Art. 117.</p>
+                        <p><strong>Análise (Incorretas):</strong><br>
+                            (A) está incorreta; é uma infração funcional expressa (Art. 117, XIX).<br>
+                            (B) e (E) (suspensão/demissão) são penalidades excessivas para essa conduta, cuja pena específica é a advertência, conforme a correlação legal.<br>
+                            (C) Inassiduidade habitual (Art. 139) refere-se a faltas ao serviço.</p>
+                    </div>
+                `
+            },
+            {
+                id: 'q7',
+                correct: 'C',
+                resolution: `
+                    <h4 class="text-xl font-bold text-gray-900 mb-2">Resolução da Questão 7</h4>
+                    <p class="mb-3"><strong class="bg-blue-100 px-2 py-1 rounded">Gabarito: C</strong></p>
+                    <div class="space-y-3 text-gray-700">
+                        <p><strong>Justificativa (Correta):</strong> A alternativa <strong>C</strong> está correta. Esta é uma "pegadinha" clássica de concurso, já utilizada pela banca. O candidato que procurar essa infração na lista principal de proibições (Art. 117) não a encontrará. A penalidade está prevista diretamente no capítulo das penalidades. O Art. 130 trata da Suspensão, e seu § 1º estabelece: "Será punido com suspensão de até 15 (quinze) dias o servidor que, injustificadamente, recusar-se a ser submetido a inspeção médica determinada pela autoridade competente (...)".</p>
+                        <p><strong>Análise (Incorretas):</strong><br>
+                            (A) é incorreta, pois há previsão legal expressa.<br>
+                            (B) é incorreta, a lei define uma pena mais grave (suspensão).<br>
+                            (D) e (E) estão incorretas, pois a lei define um teto específico de 15 dias para *esta* infração (Art. 130, § 1º), não se confundindo com insubordinação grave (Art. 132, VI) nem com o prazo geral de suspensão (que pode chegar a 90 dias, Art. 130, caput).</p>
+                    </div>
+                `
+            },
+            {
+                id: 'q8',
+                correct: 'E',
+                resolution: `
+                    <h4 class="text-xl font-bold text-gray-900 mb-2">Resolução da Questão 8</h4>
+                    <p class="mb-3"><strong class="bg-blue-100 px-2 py-1 rounded">Gabarito: E</strong></p>
+                    <div class="space-y-3 text-gray-700">
+                        <p><strong>Justificativa (Correta):</strong> A alternativa <strong>E</strong> é a exceção correta. A <strong>Remoção</strong> não é forma de provimento. O Art. 36 define remoção como "o deslocamento do servidor, a pedido ou de ofício, no âmbito do mesmo quadro". O servidor *já está provido* no cargo; ele apenas muda de local de trabalho (sede) ou lotação.</p>
+                        <p><strong>Análise (Incorretas):</strong><br>
+                            As alternativas (A) Readaptação, (B) Recondução, (C) Promoção e (D) Reversão estão todas corretamente listadas como formas de provimento (chamadas de "provimento derivado") no Art. 8º da Lei.</p>
+                    </div>
+                `
+            },
+            {
+                id: 'q9',
+                correct: 'B',
+                resolution: `
+                    <h4 class="text-xl font-bold text-gray-900 mb-2">Resolução da Questão 9</h4>
+                    <p class="mb-3"><strong class="bg-blue-100 px-2 py-1 rounded">Gabarito: B</strong></p>
+                    <div class="space-y-3 text-gray-700">
+                        <p><strong>Justificativa (Correta):</strong> A alternativa <strong>B</strong> está correta. A Lei 8.112/1990 (Art. 132, II) prevê a demissão para "abandono de cargo". O Art. 138 define o que é abandono de cargo: "Considera-se abandono de cargo a ausência intencional do servidor ao serviço por mais de trinta dias *consecutivos*". O caso hipotético (40 dias consecutivos) ultrapassa o limite legal de 30 dias consecutivos, configurando a infração.</p>
+                        <p><strong>Análise (Incorretas):</strong><br>
+                            (A) Inassiduidade habitual é a "pegadinha" principal. O Art. 139 a define como falta por 60 dias, *interpoladamente* (não consecutivos), num período de 12 meses.<br>
+                            (C) Incontinência pública (Art. 132, V) refere-se a comportamento inadequado.<br>
+                            (D) e (E) são incorretas, pois a penalidade expressamente prevista para o abandono de cargo é a demissão (Art. 132).</p>
+                    </div>
+                `
+            },
+            {
+                id: 'q10',
+                correct: 'C',
+                resolution: `
+                    <h4 class="text-xl font-bold text-gray-900 mb-2">Resolução da Questão 10</h4>
+                    <p class="mb-3"><strong class="bg-blue-100 px-2 py-1 rounded">Gabarito: C</strong></p>
+                    <div class="space-y-3 text-gray-700">
+                        <p><strong>Justificativa (Correta):</strong> A alternativa <strong>C</strong> está correta. Trata-se de estrita literalidade do Art. 151 da Lei nº 8.112/1990. O artigo é expresso: "O processo disciplinar se desenvolve nas seguintes fases: I - instauração (...); II - inquérito administrativo, que compreende instrução, defesa e relatório; III - julgamento.".</p>
+                        <p><strong>Análise (Incorretas):</strong><br>
+                            (A), (D) e (E) misturam as *sub-fases* do inquérito (instrução, defesa, relatório) com as *fases* principais (Instauração, Inquérito, Julgamento), tornando a sequência incorreta.<br>
+                            (B) Sindicância não é uma *fase* obrigatória do PAD. A sindicância (Art. 143) é um procedimento investigativo que pode *anteceder* o PAD ou, se punitiva (Art. 145), ser um rito mais simples para infrações leves (advertência ou suspensão até 30 dias). Ela não se confunde com as três fases obrigatórias do Art. 151.</p>
+                    </div>
+                `
+            }
+        ];
+
+        // --- LÓGICA DO QUIZ ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('quiz-form');
+            const resultsSection = document.getElementById('results-section');
+            const scoreSummary = document.getElementById('score-summary');
+            const resolutionsContainer = document.getElementById('resolutions-container');
+            const submitBtn = document.getElementById('submit-btn');
+            const questionBlocks = form.querySelectorAll('.question-block');
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Impede o envio real do formulário
+
+                let score = 0;
+                let resolutionsHtml = '';
+                const formData = new FormData(form);
+
+                quizData.forEach((question, index) => {
+                    const userAnswer = formData.get(question.id);
+                    const isCorrect = (userAnswer === question.correct);
+                    const block = questionBlocks[index];
+                    
+                    // Limpa estilos anteriores (caso o usuário reenvie)
+                    block.classList.remove('border-green-500', 'border-red-500', 'border-2');
+                    block.querySelectorAll('label').forEach(l => l.classList.remove('bg-green-100', 'bg-red-100', 'border-green-500', 'border-red-500'));
+
+                    const correctLabel = block.querySelector(`input[value="${question.correct}"]`).closest('label');
+                    
+                    if (isCorrect) {
+                        score++;
+                        // Marca o bloco da questão como correto
+                        block.classList.add('border-green-500', 'border-2');
+                        // Marca a opção correta
+                        if (correctLabel) {
+                            correctLabel.classList.add('bg-green-100', 'border-green-500');
+                        }
+                    } else {
+                        // Marca o bloco da questão como incorreto
+                        block.classList.add('border-red-500', 'border-2');
+                        // Marca a opção errada que o usuário escolheu
+                        if (userAnswer) {
+                            const userLabel = block.querySelector(`input[value="${userAnswer}"]`).closest('label');
+                            if (userLabel) {
+                                userLabel.classList.add('bg-red-100', 'border-red-500');
+                            }
+                        }
+                        // Destaca a opção que era a correta
+                        if (correctLabel) {
+                            correctLabel.classList.add('bg-green-100', 'border-green-500');
+                        }
+                    }
+
+                    // Desabilita os botões de rádio após a correção
+                    block.querySelectorAll('input[type="radio"]').forEach(input => {
+                        input.disabled = true;
+                    });
+
+                    // Adiciona a resolução formatada ao HTML
+                    resolutionsHtml += `
+                        <div class="mb-6 p-6 bg-white rounded-lg border border-gray-200 shadow-sm">
+                            ${question.resolution}
+                        </div>
+                    `;
+                });
+
+                // --- Exibe os resultados ---
+                scoreSummary.innerHTML = `Você acertou <strong>${score}</strong> de <strong>${quizData.length}</strong> questões.`;
+                resolutionsContainer.innerHTML = resolutionsHtml;
+                resultsSection.style.display = 'block';
+                
+                // Esconde o botão de finalizar
+                submitBtn.style.display = 'none';
+
+                // Rola a tela suavemente para a seção de resultados
+                resultsSection.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>

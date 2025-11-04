@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo CF/88 para Concurso IFPB (AOCP)</title>
+    <!-- Carrega o Tailwind CSS para estilização -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Define a fonte Inter como padrão, que é limpa e boa para leitura */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1f2937; /* Cor de texto escura (gray-800) */
+        }
+
+        /* Estilo para grifar/destacar partes importantes */
+        .highlight {
+            background-color: #fef9c3; /* Amarelo bem claro (yellow-100) */
+            padding: 0.1em 0.3em;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        /* Configuração crucial para as tabelas:
+          - table-layout: fixed -> Força a tabela a respeitar a largura do container.
+          - word-wrap: break-word -> Quebra o texto dentro da célula para evitar overflow.
+          Isso atende ao requisito de "sem scroll horizontal".
+        */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+            word-wrap: break-word;
+        }
+
+        th, td {
+            border: 1px solid #d1d5db; /* gray-300 */
+            padding: 0.75rem; /* p-3 */
+            text-align: left;
+            vertical-align: top; /* Alinha o conteúdo no topo */
+        }
+
+        th {
+            background-color: #f9fafb; /* gray-50 */
+            font-weight: 600;
+        }
+
+        /* Estilização básica para o player de áudio */
+        audio {
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        /* Remove margens e paddings padrões para consistência */
+        h1, h2, h3, p, ol, ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Garante que o container principal não seja muito largo em telas grandes */
+        .content-container {
+            max-width: 56rem; /* max-w-3xl */
+            margin-left: auto;
+            margin-right: auto;
+            padding: 1.5rem; /* p-6 */
+        }
+    </style>
+</head>
+<body class="antialiased leading-relaxed">
+
+    <div class="content-container">
+
+        <!-- Título Principal -->
+        <h1 class="text-3xl font-bold text-center text-slate-900 mb-6">
+            RESUMO P/ MEMORIZAÇÃO: CF/88
+        </h1>
+        <p class="text-center text-lg text-slate-700 mb-8">Foco: IFPB - Banca AOCP</p>
+
+        <!-- 1. Reprodutor de Áudio -->
+        <div class="mb-10 p-4 border rounded-lg bg-gray-50">
+            <h2 class="text-xl font-semibold text-slate-800 mb-2">Áudio Resumo</h2>
+            <!-- O player de áudio HTML5 -->
+            <audio controls>
+                <!-- O usuário substituirá este SRC -->
+                <source src="leg-constituicao-federal.mp3" type="audio/mpeg">
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
+            <p class="text-sm text-gray-600 mt-2">
+                <strong>Instrução:</strong> Salve seu arquivo MP3 na mesma pasta deste HTML e substitua 
+                <code class="bg-gray-200 p-1 rounded text-xs">SEU_ARQUIVO_MP3_AQUI.mp3</code> 
+                pelo nome do seu arquivo no código-fonte.
+            </p>
+        </div>
+
+
+        <!-- Conteúdo do Resumo -->
+
+        <!-- PÁGINA 1 -->
+        <h2 class="text-2xl font-bold mt-8 mb-4 border-b-2 border-gray-200 pb-2 text-slate-800">
+            PÁGINA 1 de 2
+        </h2>
+
+        <!-- 1. PRINCÍPIOS FUNDAMENTAIS -->
+        <section class="mb-8">
+            <h3 class="text-xl font-semibold mt-6 mb-4 text-slate-700">
+                1. PRINCÍPIOS FUNDAMENTAIS (Art. 1º ao 4º)
+            </h3>
+            <p class="text-sm text-gray-600 italic mb-4">(Foco AOCP: Diferenciar as 3 listas, banca mistura os itens)</p>
+
+            <p class="mt-4"><strong>Art. 1º: FUNDAMENTOS (O que o Brasil <em class="font-semibold">É</em>)</strong></p>
+            <ul class="list-none space-y-2 mt-2 pl-4">
+                <li>Mnemônico: <span class="highlight">SO-CI-DI-VA-PLU</span></li>
+                <li class="ml-4">1. <strong>SO</strong>berania</li>
+                <li class="ml-4">2. <strong>CI</strong>dadania</li>
+                <li class="ml-4">3. <strong>DI</strong>gnidade da Pessoa Humana (Ex: Base p/ vedar tortura)</li>
+                <li class="ml-4">4. <strong>VA</strong>lores sociais do trabalho e livre iniciativa</li>
+                <li class="ml-4">5. <strong>PLU</strong>ralismo Político</li>
+            </ul>
+
+            <p class="mt-4"><strong>Art. 3º: OBJETIVOS (O que <em class="font-semibold">Busca Ser</em>)</strong></p>
+            <ul class="list-none space-y-2 mt-2 pl-4">
+                <li class="text-sm italic">(Dica: Todos começam com <strong>Verbos no Infinitivo</strong>)</li>
+                <li>Mnemônico: <span class="highlight">CON-GA-ER-PRO</span></li>
+                <li class="ml-4">1. <strong>CON</strong>struir (sociedade livre, justa, solidária)</li>
+                <li class="ml-4">2. <strong>GA</strong>rantir (desenvolvimento nacional)</li>
+                <li class="ml-4">3. <strong>ER</strong>radicar (pobreza, marginalização) e <strong>R</strong>eduzir (desigualdades) (Ex: Cotas, Bolsa Família)</li>
+                <li class="ml-4">4. <strong>PRO</strong>mover (o bem de todos)</li>
+            </ul>
+
+            <p class="mt-4"><strong>Art. 4º: RELAÇÕES INTERNACIONAIS (Como <em class="font-semibold">Age</em> no Mundo)</strong></p>
+            <ul class="list-none space-y-2 mt-2 pl-4">
+                <li><strong>Lista de 10 Princípios:</strong> Independência nacional, Prevalência dos direitos humanos, Autodeterminação dos povos, Não-intervenção, Defesa da paz, Repúdio ao terrorismo e ao racismo, etc.</li>
+                <li class="mt-2"><strong class="text-red-600">Pegadinha AOCP:</strong> Trocar "Soberania" (Art. 1º) por "Independência nacional" (Art. 4º) ou misturar itens das três listas.</li>
+            </ul>
+        </section>
+
+        <hr class="my-8 border-gray-200">
+
+        <!-- 2. DIREITOS E GARANTIAS FUNDAMENTAIS -->
+        <section class="mb-8">
+            <h3 class="text-xl font-semibold mt-6 mb-4 text-slate-700">
+                2. DIREITOS E GARANTIAS FUNDAMENTAIS (<span class="highlight">Art. 5º</span>)
+            </h3>
+            <p class="text-sm text-gray-600 italic mb-4">(Artigo mais importante para a AOCP, focar na literalidade)</p>
+
+            <p><strong>Direitos vs. Garantias:</strong></p>
+            <ul class="list-disc list-outside space-y-1 mt-2 pl-6">
+                <li><strong>Direitos:</strong> Os bens declarados (Ex: Propriedade).</li>
+                <li><strong>Garantias:</strong> As ferramentas para proteger os direitos (Ex: Mandado de Segurança).</li>
+            </ul>
+
+            <p class="mt-4"><strong>PRINCÍPIO DA IGUALDADE (ISONOMIA):</strong></p>
+            <ul class="list-disc list-outside space-y-1 mt-2 pl-6">
+                <li><strong>Formal (Na lei):</strong> Tratar todos rigorosamente igual. (Ex: Edital com mesmas regras para ampla concorrência).</li>
+                <li><strong>Material (Pela lei):</strong> Tratar desiguais desigualmente para igualar. (Ex: <strong class="highlight">Cotas Raciais</strong> - Lei 12.990/14).</li>
+                <li><em>Posição STF:</em> Cotas em concurso são <strong>CONSTITUCIONAIS</strong> (<span class="highlight">ADC 41</span>).</li>
+            </ul>
+
+            <p class="mt-4"><strong>INCISOS ESSENCIAIS (FOCO NA "LETRA DA LEI" - O que a AOCP troca):</strong></p>
+            <ul class="list-none space-y-3 mt-2 pl-4">
+                <li><strong>Liberdade de Associação (XVII-XXI):</strong>
+                    <ul class="list-disc list-outside space-y-1 mt-2 pl-6">
+                        <li>Fins lícitos, <strong>VEDADA</strong> a de caráter <strong>paramilitar</strong>.</li>
+                        <li>Criação de associações e cooperativas <strong>INDEPENDEM de autorização</strong>.</li>
+                        <li><strong>Suspender</strong> atividades: Basta Decisão Judicial.</li>
+                        <li><strong>Dissolver</strong> (compulsoriamente): Exige <strong class="highlight">TRÂNSITO EM JULGADO</strong> [XIX].</li>
+                    </ul>
+                </li>
+                <li><strong>Direito de Propriedade (XXII-XXVI):</strong>
+                    <ul class="list-disc list-outside space-y-1 mt-2 pl-6">
+                        <li><strong>Desapropriação (XXIV):</strong> Por necessidade/utilidade pública ou interesse social. Indenização: <strong class="highlight">PRÉVIA, JUSTA e em DINHEIRO</strong>.</li>
+                        <li><strong>Requisição (XXV):</strong> Por iminente perigo público. Indenização: <strong class="highlight">ULTERIOR</strong> (e somente se houver dano).</li>
+                    </ul>
+                </li>
+                <li><strong>Lei Penal (XL, XLVII):</strong>
+                    <ul class="list-disc list-outside space-y-1 mt-2 pl-6">
+                        <li>A lei penal <strong>NÃO retroagirá</strong>, <strong>SALVO</strong> para <strong class="highlight">BENEFICIAR</strong> o réu.</li>
+                        <li>Penas <strong>PROIBIDAS</strong> no Brasil:
+                            <ol class="list-decimal list-inside ml-4 mt-1">
+                                <li>Morte (Exceção: Guerra declarada)</li>
+                                <li>Caráter Perpétuo</li>
+                                <li>Trabalhos Forçados</li>
+                                <li>Banimento</li>
+                                <li>Cruéis</li>
+                            </ol>
+                        </li>
+                    </ul>
+                </li>
+                 <li><strong>Crimes Inafiançáveis (Mnemônicos Obrigatórios):</strong>
+                    <ul class="list-disc list-outside space-y-1 mt-2 pl-6">
+                        <li><span class="highlight">"3T + H"</span> (Tortura, Tráfico, Terrorismo, Hediondos) -> São Inafiançáveis e <strong>Insuscetíveis de Graça ou Anistia</strong>.</li>
+                        <li><span class="highlight">RA-GA</span> (Racismo, Ação de Grupos Armados) -> São Inafiançáveis e <strong>Imprescritíveis</strong>.</li>
+                    </ul>
+                </li>
+                <li><strong>Extradição (LI, LII):</strong>
+                    <ul class="list-disc list-outside space-y-1 mt-2 pl-6">
+                        <li>Brasileiro <strong>NATO</strong>: <strong class="highlight">NUNCA</strong> será extraditado.</li>
+                        <li>Brasileiro <strong>NATURALIZADO</strong>: <strong>PODE</strong> em 2 casos:
+                            <ol class="list-decimal list-inside ml-4 mt-1">
+                                <li>Crime comum praticado <strong>ANTES</strong> da naturalização.</li>
+                                <li>Tráfico de drogas (antes ou depois).</li>
+                            </ol>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <!-- PÁGINA 2 -->
+        <h2 class="text-2xl font-bold mt-12 mb-4 border-b-2 border-gray-200 pb-2 text-slate-800">
+            PÁGINA 2 de 2
+        </h2>
+
+        <!-- 3. REMÉDIOS CONSTITUCIONAIS -->
+        <section class="mb-8">
+            <h3 class="text-xl font-semibold mt-6 mb-4 text-slate-700">
+                3. REMÉDIOS CONSTITUCIONAIS (As "Ferramentas" do Art. 5º)
+            </h3>
+            
+            <!-- Wrapper de segurança para a tabela, embora o CSS deva resolver -->
+            <div class="overflow-x-auto">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Remédio</th>
+                            <th>Protege o Quê? (Palavra-Chave)</th>
+                            <th>Custo?</th>
+                            <th>Exemplo Chave (Concurso)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Habeas Corpus (HC)</strong></td>
+                            <td>Liberdade de <strong>Locomoção</strong> (Ir e Vir)</td>
+                            <td><span class="highlight">Gratuito</span></td>
+                            <td>Prisão ilegal ou ameaça de prisão.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Habeas Data (HD)</strong></td>
+                            <td><strong>Informação Pessoal</strong> (Acessar/Retificar)</td>
+                            <td><span class="highlight">Gratuito</span></td>
+                            <td>Acessar sua ficha funcional restrita no IFPB.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mandado de Segurança (MS)</strong></td>
+                            <td><strong>Direito Líquido e Certo</strong> (O que sobra)</td>
+                            <td>Pago</td>
+                            <td><strong>Candidato aprovado</strong> (dentro das vagas) e não nomeado.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mandado de Injunção (MI)</strong></td>
+                            <td>Direito que não pode ser exercido por <strong>Falta de Lei</strong></td>
+                            <td>Pago</td>
+                            <td>Ex: Direito de greve do servidor (antes da lei).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ação Popular (AP)</strong></td>
+                            <td>Patrimônio Público, Moralidade Adm., Meio Ambiente</td>
+                            <td>Gratuita (salvo má-fé)</td>
+                            <td><strong>CIDADÃO</strong> (com título de eleitor) anula contrato superfaturado.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <hr class="my-8 border-gray-200">
+
+        <!-- 4. DIREITOS SOCIAIS E EDUCAÇÃO -->
+        <section class="mb-8">
+            <h3 class="text-xl font-semibold mt-6 mb-4 text-slate-700">
+                4. DIREITOS SOCIAIS E EDUCAÇÃO (Art. 6º; 205-214)
+            </h3>
+            <p class="text-sm text-gray-600 italic mb-4">(Foco total para o Concurso IFPB)</p>
+
+            <ul class="list-disc list-outside space-y-2 mt-2 pl-6">
+                <li><strong>Art. 6º:</strong> Direitos Sociais (Lista: Educação, Saúde, Trabalho...) exigem <strong>AÇÃO POSITIVA</strong> do Estado.</li>
+                <li><strong>Art. 205:</strong> Educação é dever do <strong class="highlight">Estado</strong> e da <strong class="highlight">Família</strong> (com colaboração da Sociedade).</li>
+                <li><strong>Art. 206 (Princípios do Ensino - <em>Seu Manual no IFPB</em>):</strong>
+                    <ul class="list-decimal list-outside space-y-1 mt-2 pl-6">
+                        <li>Inc IV: <strong>Gratuidade</strong> do ensino público (IFPB não pode cobrar mensalidade).</li>
+                        <li>Inc V: <strong>Valorização</strong> (Ingresso <strong class="highlight">exclusivamente por concurso</strong>; Piso Salarial).</li>
+                        <li>Inc VI: <strong>Gestão Democrática</strong> (Ex: Eleição de Reitor e Diretores-Gerais no IFPB).</li>
+                    </ul>
+                </li>
+                <li><strong>Art. 207:</strong> <strong>Autonomia</strong> Universitária (Didática, Adm., Financeira). (Aplica-se aos IFs por lei).</li>
+                <li><strong>Art. 208 (Deveres - <em class="text-red-600">AOCP troca as idades</em>):</strong>
+                     <ul class="list-decimal list-outside space-y-1 mt-2 pl-6">
+                        <li>Inc I: Educação Básica <strong>obrigatória/gratuita</strong>: <span class="highlight">4 (quatro) aos 17 (dezessete) anos</span>.</li>
+                        <li>Inc IV: Educação Infantil (Creche/Pré-escola): Até <span class="highlight">5 (cinco) anos</span>.</li>
+                        <li>Inc VII: Programas Suplementares (Material, Transporte, Alimentação, Saúde).</li>
+                    </ul>
+                </li>
+                <li><strong>Art. 212 (Financiamento):</strong> Mínimo: <strong>União <span class="highlight">18%</span></strong> | <strong>Estados/DF/Municípios <span class="highlight">25%</span></strong>.</li>
+            </ul>
+        </section>
+        
+        <hr class="my-8 border-gray-200">
+
+        <!-- 5. ORGANIZAÇÃO DO ESTADO -->
+        <section class="mb-8">
+            <h3 class="text-xl font-semibold mt-6 mb-4 text-slate-700">
+                5. ORGANIZAÇÃO DO ESTADO (Art. 18-24)
+            </h3>
+
+            <ul class="list-disc list-outside space-y-2 mt-2 pl-6">
+                <li><strong>Art. 18:</strong> Federação (U, E, DF, M) -> Todos <strong>AUTÔNOMOS</strong>. <strong class="text-red-600">NÃO HÁ HIERARQUIA</strong>.</li>
+                <li><strong>Competências (Quem Faz O Quê?):</strong></li>
+            </ul>
+
+            <div class="overflow-x-auto mt-4">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Art.</th>
+                            <th>Quem?</th>
+                            <th>O que faz? (Verbo)</th>
+                            <th>Foco: Informática / Educação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Exclusiva</td>
+                            <td>21</td>
+                            <td>União</td>
+                            <td>Executar (Adm.)</td>
+                            <td>Emitir moeda, Declarar guerra.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Privativa</strong></td>
+                            <td>22</td>
+                            <td>União</td>
+                            <td><strong>Legislar</strong> (Nacional)</td>
+                            <td>Legislar sobre Direito Civil, Penal e <span class="highlight">Informática</span> (Inc IV).</td>
+                        </tr>
+                        <tr>
+                            <td>Comum</td>
+                            <td>23</td>
+                            <td>Todos</td>
+                            <td>Executar (Cuidar)</td>
+                            <td>Cuidar da saúde, meio ambiente.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Concorrente</strong></td>
+                            <td>24</td>
+                            <td>U + E/DF</td>
+                            <td><strong>Legislar</strong> (Regional)</td>
+                            <td>Legislar sobre <span class="highlight">Educação</span> (Inc IX), Previdência.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <hr class="my-8 border-gray-200">
+
+        <!-- 6. ADMINISTRAÇÃO PÚBLICA E SERVIDORES -->
+        <section class="mb-8">
+            <h3 class="text-xl font-semibold mt-6 mb-4 text-slate-700">
+                6. ADMINISTRAÇÃO PÚBLICA E SERVIDORES (Art. 37-41)
+            </h3>
+            <p class="text-sm text-gray-600 italic mb-4">(Segundo tópico mais importante - Regras do seu cargo)</p>
+            
+            <ul class="list-disc list-outside space-y-2 mt-2 pl-6">
+                <li><strong>Art. 37 (Princípios):</strong> Mnemônico <span class="highlight">L-I-M-P-E</span>
+                    <ul class="list-none space-y-1 mt-2 pl-6">
+                        <li><strong>L</strong>egalidade: Adm. só faz o que a lei <strong>permite</strong>.</li>
+                        <li><strong>I</strong>mpessoalidade: Sem favoritismo (Ex: Concurso, Vedação Nepotismo - <span class="highlight">SV 13</span>).</li>
+                        <li><strong>M</strong>oralidade: Honestidade, ética.</li>
+                        <li><strong>P</strong>ublicidade: Transparência (Ex: Publicação do Edital no DOU).</li>
+                        <li><strong>E</strong>ficiência: Fazer mais com menos (Ex: Avaliação de desempenho).</li>
+                    </ul>
+                </li>
+                <li><strong>Concurso Público (Art. 37):</strong>
+                    <ul class="list-none space-y-1 mt-2 pl-6">
+                        <li>Regra (Inc II): Concurso. Exceção: Cargos em Comissão (Chefia/Direção/Assess.) -> Livre nomeação.</li>
+                        <li>Validade (Inc III): Prazo de <strong class="highlight">ATÉ 2 anos</strong>, prorrogável <strong class="highlight">1 (uma) vez</strong>, por <strong class="highlight">IGUAL período</strong>.</li>
+                    </ul>
+                </li>
+                <li><strong>Acumulação de Cargos (Art. 37, XVI):</strong>
+                     <ul class="list-none space-y-1 mt-2 pl-6">
+                        <li>Regra: <strong>VEDADO</strong>. Requisito (se houver exceção): <strong class="highlight">Compatibilidade de horários</strong>.</li>
+                        <li><strong>Exceções Permitidas:</strong>
+                             <ol class="list-decimal list-inside ml-4 mt-1">
+                                <li>(a) <strong>Dois</strong> cargos de <strong>professor</strong>.</li>
+                                <li>(b) <strong>Um</strong> cargo de <strong>professor</strong> + <strong>um</strong> <strong>técnico ou científico</strong>.</li>
+                                <li>(c) <strong>Dois</strong> cargos de <strong>profissional de saúde</strong>.</li>
+                            </ol>
+                        </li>
+                        <li><em>Cargo Técnico/Científico (Seu caso):</em> Exige formação específica, não burocrática. (Ex: Analista/Desenvolvedor de TI <strong>PODE</strong> acumular com Professor).</li>
+                    </ul>
+                </li>
+                <li><strong>Estabilidade (Art. 41):</strong>
+                    <ul class="list-none space-y-1 mt-2 pl-6">
+                        <li>Requisitos p/ Aquisição: <span class="highlight">3 ANOS</span> de efetivo exercício + <strong>APROVAÇÃO</strong> em <strong>Avaliação Especial de Desempenho</strong>.</li>
+                    </ul>
+                </li>
+                <li><strong>Servidor em Mandato Eletivo (Art. 38):</strong>
+                    <ul class="list-none space-y-1 mt-2 pl-6">
+                        <li><strong>Prefeito:</strong> <strong>Afasta</strong> do cargo. <strong>Facultado</strong> (escolhe) optar pela remuneração.</li>
+                        <li><strong>Vereador (COM compatibilidade):</strong> <strong>ACUMULA</strong> (cargos e salários).</li>
+                        <li><strong>Vereador (SEM compatibilidade):</strong> <strong>Afasta</strong> do cargo. <strong>Facultado</strong> (escolhe) optar pela remuneração.</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Botão de Questões -->
+        <div class="text-center mt-12 mb-6">
+            <a href="leg-constituicao-federalquestoes.html" 
+               class="inline-block bg-blue-600 text-white font-bold py-3 px-10 rounded-lg shadow-lg hover:bg-blue-700 transition-all duration-300 ease-in-out transform hover:-translate-y-0.5">
+                Praticar com Questões
+            </a>
+        </div>
+
+    </div> <!-- Fim do .content-container -->
+
+</body>
+</html>
