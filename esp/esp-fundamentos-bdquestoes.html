@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Fundamentos de Banco de Dados</title>
+    <!-- Carrega o Tailwind CSS para estilização rápida -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilo para beneficiar a leitura longa */
+        body {
+            font-family: 'Inter', sans-serif; /* Usando uma fonte limpa */
+            line-height: 1.7; /* Espaçamento entre linhas confortável */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Estilo para os inputs de rádio */
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        
+        label {
+            display: block;
+            padding: 1rem;
+            border: 1px solid #e2e8f0; /* Borda sutil */
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+
+        label:hover {
+            background-color: #f7fafc; /* Leve destaque ao passar o mouse */
+        }
+        
+        /* Estilo quando o rádio está selecionado */
+        input[type="radio"]:checked + span {
+            font-weight: 600;
+        }
+        
+        label:has(input[type="radio"]:checked) {
+             border-color: #4299e1; /* Borda azul para item selecionado */
+             background-color: #ebf8ff;
+        }
+
+        /* Mantém a formatação de código e texto pré-formatado */
+        pre, code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #f1f5f9;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto; /* Garante rolagem se o código for muito longo */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+    <!-- Container principal com largura máxima para leitura confortável -->
+    <main class="max-w-3xl mx-auto p-6 md:p-10 bg-white shadow-lg rounded-lg my-10">
+
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">Quiz: Fundamentos de Banco de Dados</h1>
+            <p class="text-lg text-gray-600">Teste seus conhecimentos no estilo da banca Instituto AOCP.</p>
+        </header>
+
+        <!-- Formulário do Quiz -->
+        <form id="quizForm">
+            
+            <!-- Questão 1 -->
+            <fieldset class="mb-8 p-6 border border-gray-200 rounded-lg">
+                <legend class="text-xl font-semibold mb-4">Questão 1: Classificação de Sublinguagens SQL (DDL/DML)</legend>
+                <p class="mb-4">Em relação à linguagem SQL (Structured Query Language), os comandos são classificados em subconjuntos com base em sua funcionalidade. Os comandos `INSERT`, `UPDATE` e `DELETE` são utilizados para modificar os dados armazenados nas tabelas. Assinale a alternativa que apresenta corretamente o subconjunto ao qual esses comandos pertencem.</p>
+                <div class="space-y-3">
+                    <label><input type="radio" name="q1" value="A"> <span>(A) DDL (Data Definition Language)</span></label>
+                    <label><input type="radio" name="q1" value="B"> <span>(B) DML (Data Manipulation Language)</span></label>
+                    <label><input type="radio" name="q1" value="C"> <span>(C) DCL (Data Control Language)</span></label>
+                    <label><input type="radio" name="q1" value="D"> <span>(D) TCL (Transaction Control Language)</span></label>
+                    <label><input type="radio" name="q1" value="E"> <span>(E) QML (Query Manipulation Language)</span></label>
+                </div>
+            </fieldset>
+
+            <!-- Questão 2 -->
+            <fieldset class="mb-8 p-6 border border-gray-200 rounded-lg">
+                <legend class="text-xl font-semibold mb-4">Questão 2: Propriedades ACID (Controle de Transação)</legend>
+                <p class="mb-4">As transações em um SGBD devem obedecer a um conjunto de propriedades conhecidas pelo acrônimo ACID. A propriedade que garante que, uma vez que uma transação seja confirmada (efetivada via `COMMIT`), suas alterações persistirão no banco de dados, mesmo em caso de falhas subsequentes de sistema ou energia, é denominada:</p>
+                <div class="space-y-3">
+                    <label><input type="radio" name="q2" value="A"> <span>(A) Atomicidade</span></label>
+                    <label><input type="radio" name="q2" value="B"> <span>(B) Consistência</span></label>
+                    <label><input type="radio" name="q2" value="C"> <span>(C) Isolamento</span></label>
+                    <label><input type="radio" name="q2" value="D"> <span>(D) Durabilidade</span></label>
+                    <label><input type="radio" name="q2" value="E"> <span>(E) Integridade</span></label>
+                </div>
+            </fieldset>
+
+            <!-- Questão 3 -->
+            <fieldset class="mb-8 p-6 border border-gray-200 rounded-lg">
+                <legend class="text-xl font-semibold mb-4">Questão 3: Níveis de Abstração de Dados</legend>
+                <p class="mb-4">No projeto de banco de dados, utilizam-se diferentes níveis de abstração para modelar os dados. Relacione a Coluna 1, que apresenta os níveis de abstração, com a Coluna 2, que apresenta suas respectivas características.</p>
+                
+                <div class="my-4 p-4 bg-gray-50 rounded">
+                    <strong>Coluna 1</strong><br>
+                    1. Nível Físico<br>
+                    2. Nível Conceitual<br>
+                    3. Nível Lógico<br>
+                    <br>
+                    <strong>Coluna 2</strong><br>
+                    ( ) Descreve a estrutura do banco de dados para uma comunidade de usuários, focando em entidades, atributos e relacionamentos, de forma independente do SGBD.<br>
+                    ( ) Descreve como os dados são efetivamente armazenados em estruturas de baixo nível, como arquivos, índices e métodos de acesso.<br>
+                    ( ) Descreve a estrutura do banco de dados no formato do SGBD que será utilizado (ex: tabelas, colunas, tipos de dados), mas sem se preocupar com o armazenamento físico.<br>
+                </div>
+
+                <p class="mb-4">Assinale a alternativa que apresenta a sequência CORRETA da Coluna 2, de cima para baixo.</p>
+                
+                <div class="space-y-3">
+                    <label><input type="radio" name="q3" value="A"> <span>(A) 1, 2, 3</span></label>
+                    <label><input type="radio" name="q3" value="B"> <span>(B) 2, 1, 3</span></label>
+                    <label><input type="radio" name="q3" value="C"> <span>(C) 3, 1, 2</span></label>
+                    <label><input type="radio" name="q3" value="D"> <span>(D) 2, 3, 1</span></label>
+                    <label><input type="radio" name="q3" value="E"> <span>(E) 3, 2, 1</span></label>
+                </div>
+            </fieldset>
+
+            <!-- Questão 4 -->
+            <fieldset class="mb-8 p-6 border border-gray-200 rounded-lg">
+                <legend class="text-xl font-semibold mb-4">Questão 4: Formas Normais (Definições 1FN, 2FN, 3FN)</legend>
+                <p class="mb-4">Sobre o processo de normalização de um banco de dados relacional, analise as assertivas e assinale a alternativa que aponta a(s) correta(s).</p>
+                
+                <div class="my-4 p-4 bg-gray-50 rounded space-y-2">
+                    I. Uma tabela está na Primeira Forma Normal (1FN) se todos os seus atributos contiverem valores atômicos (indivisíveis).<br>
+                    II. Para estar na Segunda Forma Normal (2FN), a tabela deve estar na 1FN e todos os atributos não-chave devem depender funcionalmente de *toda* a chave primária (eliminando dependências parciais).<br>
+                    III. Para estar na Terceira Forma Normal (3FN), a tabela deve estar na 2FN e não devem existir dependências transitivas entre atributos não-chave.
+                </div>
+                
+                <div class="space-y-3">
+                    <label><input type="radio" name="q4" value="A"> <span>(A) Apenas I.</span></label>
+                    <label><input type="radio" name="q4" value="B"> <span>(B) Apenas II.</span></label>
+                    <label><input type="radio" name="q4" value="C"> <span>(C) Apenas I e III.</span></label>
+                    <label><input type="radio" name="q4" value="D"> <span>(D) Apenas II e III.</span></label>
+                    <label><input type="radio" name="q4" value="E"> <span>(E) I, II e III.</span></label>
+                </div>
+            </fieldset>
+
+            <!-- Questão 5 -->
+            <fieldset class="mb-8 p-6 border border-gray-200 rounded-lg">
+                <legend class="text-xl font-semibold mb-4">Questão 5: Forma Normal de Boyce-Codd (BCNF)</legend>
+                <p class="mb-4">Além das formas normais mais comuns (1FN, 2FN, 3FN), a literatura de banco de dados apresenta formas mais rigorosas. Assinale a alternativa que descreve corretamente a condição para uma tabela estar na Forma Normal de Boyce-Codd (BCNF).</p>
+                <div class="space-y-3">
+                    <label><input type="radio" name="q5" value="A"> <span>(A) A tabela deve estar na 3FN e não pode possuir dependências multivaloradas.</span></label>
+                    <label><input type="radio" name="q5" value="B"> <span>(B) A tabela deve estar na 3FN e todo determinante (atributo ou conjunto de atributos do qual outro atributo depende) deve ser uma chave candidata.</span></label>
+                    <label><input type="radio" name="q5" value="C"> <span>(C) A tabela deve estar na 2FN e não deve possuir dependências transitivas.</span></label>
+                    <label><input type="radio" name="q5" value="D"> <span>(D) A tabela deve estar na 1FN e todos os seus atributos devem ser atômicos e monovalorados.</span></label>
+                    <label><input type="radio" name="q5" value="E"> <span>(E) A tabela deve estar na 3FN e não pode possuir dependências de junção.</span></label>
+                </div>
+            </fieldset>
+
+            <!-- Questão 6 -->
+            <fieldset class="mb-8 p-6 border border-gray-200 rounded-lg">
+                <legend class="text-xl font-semibold mb-4">Questão 6: Chaves e Integridade Referencial</legend>
+                <p class="mb-4">No contexto da modelagem de dados relacional, o uso de chaves é fundamental para garantir a integridade dos dados. Em relação aos tipos de chaves e à integridade referencial, assinale a alternativa correta.</p>
+                <div class="space-y-3">
+                    <label><input type="radio" name="q6" value="A"> <span>(A) Uma chave primária é o único campo que pode identificar unicamente um registro, e sua escolha é obrigatória em todas as tabelas.</span></label>
+                    <label><input type="radio" name="q6" value="B"> <span>(B) Uma chave estrangeira é uma coluna (ou conjunto de colunas) em uma tabela que referencia a chave primária de qualquer outra tabela no mesmo banco de dados.</span></label>
+                    <label><input type="radio" name="q6" value="C"> <span>(C) A integridade referencial garante que uma chave primária nunca poderá ser nula, o que é conhecido como integridade de entidade.</span></label>
+                    <label><input type="radio" name="q6" value="D"> <span>(D) Uma chave candidata é qualquer atributo que pode ser nulo, desde que não seja escolhido como chave primária.</span></label>
+                    <label><input type="radio" name="q6" value="E"> <span>(E) A integridade referencial é a restrição que assegura que o valor de uma chave estrangeira deve corresponder a um valor de chave primária (ou candidata) existente na tabela referenciada, ou ser nulo.</span></label>
+                </div>
+            </fieldset>
+
+            <!-- Questão 7 -->
+            <fieldset class="mb-8 p-6 border border-gray-200 rounded-lg">
+                <legend class="text-xl font-semibold mb-4">Questão 7: Terminologia do Modelo Relacional</legend>
+                <p class="mb-4">Os Sistemas de Gerenciamento de Banco de Dados (SGBDs) que implementam o modelo relacional em SQL comumente utilizam os termos TABELA, LINHA e COLUNA. Esses termos práticos correspondem, respectivamente, a quais termos do modelo relacional formal?</p>
+                <div class="space-y-3">
+                    <label><input type="radio" name="q7" value="A"> <span>(A) Relação, Tupla e Atributo.</span></label>
+                    <label><input type="radio" name="q7" value="B"> <span>(B) Entidade, Instância e Domínio.</span></label>
+                    <label><input type="radio" name="q7" value="C"> <span>(C) Relação, Atributo e Tupla.</span></label>
+                    <label><input type="radio" name="q7" value="D"> <span>(D) Entidade, Relacionamento e Atributo.</span></label>
+                    <label><input type="radio" name="q7" value="E"> <span>(E) Tupla, Relação e Atributo.</span></label>
+                </div>
+            </fieldset>
+
+            <!-- Questão 8 -->
+            <fieldset class="mb-8 p-6 border border-gray-200 rounded-lg">
+                <legend class="text-xl font-semibold mb-4">Questão 8: Funções de Agregação e Filtragem (GROUP BY / HAVING)</legend>
+                <p class="mb-4">Considere as tabelas `DEPARTAMENTO` (id_depto, nome_depto) e `FUNCIONARIO` (id_func, nome_func, id_depto, salario). Um analista precisa listar o ID de cada departamento que possui um salário médio (média dos salários de seus funcionários) superior a 5.000,00. Assinale a alternativa que apresenta a consulta SQL correta para esta solicitação.</p>
+                <div class="space-y-3">
+                    <label><input type="radio" name="q8" value="A"> <pre><code>(A) SELECT id_depto FROM FUNCIONARIO WHERE salario > 5000 GROUP BY id_depto;</code></pre></label>
+                    <label><input type="radio" name="q8" value="B"> <pre><code>(B) SELECT id_depto FROM FUNCIONARIO GROUP BY id_depto WHERE AVG(salario) > 5000;</code></pre></label>
+                    <label><input type="radio" name="q8" value="C"> <pre><code>(C) SELECT id_depto FROM FUNCIONARIO GROUP BY id_depto HAVING AVG(salario) > 5000;</code></pre></label>
+                    <label><input type="radio" name="q8" value="D"> <pre><code>(D) SELECT id_depto, AVG(salario) FROM FUNCIONARIO HAVING AVG(salario) > 5000;</code></pre></label>
+                    <label><input type="radio" name="q8" value="E"> <pre><code>(E) SELECT id_depto FROM FUNCIONARIO WHERE AVG(salario) > 5000;</code></pre></label>
+                </div>
+            </fieldset>
+
+            <!-- Questão 9 -->
+            <fieldset class="mb-8 p-6 border border-gray-200 rounded-lg">
+                <legend class="text-xl font-semibold mb-4">Questão 9: Comandos de Controle (DCL / TCL)</legend>
+                <p class="mb-4">Em SQL, os comandos são agrupados por suas funções. A Linguagem de Controle de Dados (DCL) é usada para administrar permissões de usuários, enquanto a Linguagem de Controle de Transação (TCL) gerencia as transações. Assinale a alternativa que apresenta, respectivamente, comandos de DCL e comandos de TCL.</p>
+                <div class="space-y-3">
+                    <label><input type="radio" name="q9" value="A"> <span>(A) `CREATE` e `ALTER`</span></label>
+                    <label><input type="radio" name="q9" value="B"> <span>(B) `SELECT` e `INSERT`</span></label>
+                    <label><input type="radio" name="q9" value="C"> <span>(C) `GRANT` e `COMMIT`</span></label>
+                    <label><input type="radio" name="q9" value="D"> <span>(D) `COMMIT` e `GRANT`</span></label>
+                    <label><input type="radio" name="q9" value="E"> <span>(E) `UPDATE` e `ROLLBACK`</span></label>
+                </div>
+            </fieldset>
+
+            <!-- Questão 10 -->
+            <fieldset class="mb-8 p-6 border border-gray-200 rounded-lg">
+                <legend class="text-xl font-semibold mb-4">Questão 10: Conceitos de Data Warehouse (OLTP vs. OLAP)</legend>
+                <p class="mb-4">Um banco de dados é uma coleção de dados relacionados. No entanto, o termo Data Warehouse (DW) descreve um tipo específico de banco de dados. É correto afirmar que um Data Warehouse:</p>
+                <div class="space-y-3">
+                    <label><input type="radio" name="q10" value="A"> <span>(A) é um banco de dados otimizado para o nível operacional, focado em processamento de transações rotineiras (OLTP) com alta frequência de inserção e alteração.</span></label>
+                    <label><input type="radio" name="q10" value="B"> <span>(B) é sinônimo de um banco de dados relacional (OLTP), não havendo diferença em sua estrutura ou propósito.</span></label>
+                    <label><input type="radio" name="q10" value="C"> <span>(C) é direcionado principalmente para aplicações de apoio à decisão (OLAP), sendo otimizado para recuperação e análise de dados (consultas complexas), e não para o processamento transacional rotineiro.</span></label>
+                    <label><input type="radio" name="q10" value="D"> <span>(D) armazena apenas dados atuais (não históricos) e é projetado para garantir a atomicidade de transações financeiras.</span></label>
+                    <label><input type="radio" name="q10" value="E"> <span>(E) substitui a necessidade de bancos de dados operacionais, centralizando tanto as operações do dia-a-dia quanto as análises gerenciais em uma única estrutura.</span></label>
+                </div>
+            </fieldset>
+
+            <!-- Botão de Envio -->
+            <button type="submit" class="w-full bg-blue-600 text-white p-4 rounded-lg font-bold text-lg hover:bg-blue-700 transition-colors">
+                Finalizar Quiz
+            </button>
+        </form>
+
+        <!-- Seção de Resultados (Oculta por padrão) -->
+        <section id="results" class="hidden mt-12">
+            <h2 class="text-3xl font-bold mb-6 text-center">Resultados</h2>
+            
+            <!-- Placar -->
+            <div id="score" class="text-2xl font-bold mb-8 p-6 bg-gray-100 rounded-lg text-center"></div>
+
+            <h3 class="text-2xl font-bold mb-6">Resoluções Detalhadas</h3>
+            
+            <!-- Container para as resoluções -->
+            <div id="resolutionsContainer" class="space-y-6">
+                
+                <!-- Resolução Q1 (será preenchida pelo JS) -->
+                <div id="resolution-wrapper-q1" class="p-6 border-2 rounded-lg">
+                    <h4 class="text-xl font-semibold mb-2">Questão 1</h4>
+                    <p id="user-answer-q1" class="mb-1"></p>
+                    <p id="correct-answer-q1" class="mb-3 font-semibold"></p>
+                    <div class="resolution-text p-4 bg-gray-50 rounded">
+                        <strong>Resolução:</strong>
+                        <p>A questão exige a correta classification dos comandos SQL `INSERT`, `UPDATE` e `DELETE`. Esses comandos são usados para interagir com os dados *dentro* das estruturas do banco de dados, e não com as próprias estruturas.</p>
+                        <ul class="list-disc list-inside mt-2 space-y-1">
+                            <li>**(A) DDL (Data Definition Language):** Incorreta. A DDL... é usada para criar, alterar e excluir as *estruturas*... `CREATE`, `ALTER` e `DROP`.</li>
+                            <li>**(B) DML (Data Manipulation Language):** Correta. A DML... é o subconjunto da SQL usado para manipular os registros (dados)... Os comandos centrais são `INSERT`, `UPDATE` e `DELETE`. O comando `SELECT`... também é classificado como DML.</li>
+                            <li>**(C) DCL (Data Control Language):** Incorreta. A DCL... é usada para gerenciar a segurança e as permissões... `GRANT` e `REVOKE`.</li>
+                            <li>**(D) TCL (Transaction Control Language):** Incorreta. A TCL... é usada para gerenciar as transações... `COMMIT`, `ROLLBACK` e `SAVEPOINT`.</li>
+                            <li>**(E) QML (Query Manipulation Language):** Incorreta. Este termo não é uma classificação padrão...</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Resolução Q2 -->
+                <div id="resolution-wrapper-q2" class="p-6 border-2 rounded-lg">
+                    <h4 class="text-xl font-semibold mb-2">Questão 2</h4>
+                    <p id="user-answer-q2" class="mb-1"></p>
+                    <p id="correct-answer-q2" class="mb-3 font-semibold"></p>
+                    <div class="resolution-text p-4 bg-gray-50 rounded">
+                        <strong>Resolução:</strong>
+                        <p>A questão testa o conhecimento sobre as quatro propriedades ACID... O enunciado descreve a garantia de que, após um `COMMIT`, os dados não serão perdidos...</p>
+                        <ul class="list-disc list-inside mt-2 space-y-1">
+                            <li>**(A) Atomicidade:** Incorreto. ...garante que a transação é "tudo ou nada".</li>
+                            <li>**(B) Consistência:** Incorreto. ...assegura que a transação move o banco de um estado válido para outro...</li>
+                            <li>**(C) Isolamento:** Incorreto. ...garante que as transações concorrentes não interfiram umas nas outras.</li>
+                            <li>**(D) Durabilidade:** Correto. Esta é a propriedade descrita no enunciado. ...as alterações são permanentes... e sobreviverão a falhas...</li>
+                            <li>**(E) Integridade:** Incorreto. Integridade... é um *conceito* geral... mas não é uma das quatro propriedades do acrônimo...</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Resolução Q3 -->
+                <div id="resolution-wrapper-q3" class="p-6 border-2 rounded-lg">
+                    <h4 class="text-xl font-semibold mb-2">Questão 3</h4>
+                    <p id="user-answer-q3" class="mb-1"></p>
+                    <p id="correct-answer-q3" class="mb-3 font-semibold"></p>
+                    <div class="resolution-text p-4 bg-gray-50 rounded">
+                        <strong>Resolução:</strong>
+                        <p>A questão exige a correta associação entre os níveis de abstração de dados... A análise deve ser feita associando cada descrição da Coluna 2 ao seu nível correspondente na Coluna 1.</p>
+                        <ol class="list-decimal list-inside mt-2 space-y-1">
+                            <li>**( ) Descreve a estrutura... independente do SGBD.** Esta é a definição do **Nível Conceitual (2)**...</li>
+                            <li>**( ) Descreve como os dados são efetivamente armazenados... índices...** Esta é a definição do **Nível Físico (1)**...</li>
+                            <li>**( ) Descreve a estrutura... no formato do SGBD... tabelas, colunas...** Esta é a definição do **Nível Lógico (3)**...</li>
+                        </ol>
+                        <p class="mt-2">Portanto, a sequência correta de preenchimento da Coluna 2, de cima para baixo, é 2, 1, 3.</p>
+                    </div>
+                </div>
+
+                <!-- Resolução Q4 -->
+                <div id="resolution-wrapper-q4" class="p-6 border-2 rounded-lg">
+                    <h4 class="text-xl font-semibold mb-2">Questão 4</h4>
+                    <p id="user-answer-q4" class="mb-1"></p>
+                    <p id="correct-answer-q4" class="mb-3 font-semibold"></p>
+                    <div class="resolution-text p-4 bg-gray-50 rounded">
+                        <strong>Resolução:</strong>
+                        <p>A questão avalia o conhecimento das definições formais das três primeiras Formas Normais (FN)...</p>
+                        <ul class="list-disc list-inside mt-2 space-y-1">
+                            <li>**I....Primeira Forma Normal (1FN) se todos os seus atributos contiverem valores atômicos...** **Correta.** A 1FN é a base da normalização...</li>
+                            <li>**II....Segunda Forma Normal (2FN)... todos os atributos não-chave devem depender funcionalmente de *toda* a chave primária...** **Correta.** A 2FN... resolve o problema da *dependência parcial*.</li>
+                            <li>**III....Terceira Forma Normal (3FN)... não devem existir dependências transitivas entre atributos não-chave.** **Correta.** A 3FN... resolve o problema da *dependência transitiva*.</li>
+                        </ul>
+                        <p class="mt-2">Como as três assertivas estão corretas, o gabarito é (E).</p>
+                    </div>
+                </div>
+
+                <!-- Resolução Q5 -->
+                <div id="resolution-wrapper-q5" class="p-6 border-2 rounded-lg">
+                    <h4 class="text-xl font-semibold mb-2">Questão 5</h4>
+                    <p id="user-answer-q5" class="mb-1"></p>
+                    <p id="correct-answer-q5" class="mb-3 font-semibold"></p>
+                    <div class="resolution-text p-4 bg-gray-50 rounded">
+                        <strong>Resolução:</strong>
+                        <p>A questão testa o conhecimento sobre as formas normais avançadas, especificamente a Forma Normal de Boyce-Codd (BCNF), que é uma versão mais estrita da 3FN.</p>
+                         <ul class="list-disc list-inside mt-2 space-y-1">
+                            <li>**(A)...dependências multivaloradas.** Incorreto. Esta é a definição da **Quarta Forma Normal (4FN)**.</li>
+                            <li>**(B)...todo determinante... deve ser uma chave candidata.** Correto. Esta é a definição formal da BCNF...</li>
+                            <li>**(C)...estar na 2FN e... dependências transitivas.** Incorreto. Esta é a definição da **Terceira Forma Normal (3FN)**.</li>
+                            <li>**(D)...estar na 1FN e... atributos atômicos.** Incorreto. Esta é a definição da **Primeira Forma Normal (1FN)**.</li>
+                            <li>**(E)...dependências de junção.** Incorreto. Esta é a definição da **Quinta Forma Normal (5FN)**.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Resolução Q6 -->
+                <div id="resolution-wrapper-q6" class="p-6 border-2 rounded-lg">
+                    <h4 class="text-xl font-semibold mb-2">Questão 6</h4>
+                    <p id="user-answer-q6" class="mb-1"></p>
+                    <p id="correct-answer-q6" class="mb-3 font-semibold"></p>
+                    <div class="resolution-text p-4 bg-gray-50 rounded">
+                        <strong>Resolução:</strong>
+                        <p>Esta questão avalia conceitos fundamentais de modelagem relacional, incluindo tipos de chaves e regras de integridade.</p>
+                        <ul class="list-disc list-inside mt-2 space-y-1">
+                            <li>**(A)...chave primária é o único campo...** Incorreto. Uma tabela pode ter várias *chaves candidatas*...</li>
+                            <li>**(B)...chave estrangeira... referencia... qualquer outra tabela...** Incorreto. Ela referencia uma chave primária... de uma tabela *específica*...</li>
+                            <li>**(C)...integridade referencial garante que uma chave primária nunca poderá ser nula...** Incorreto. A regra que garante isso chama-se **Integridade de Entidade**.</li>
+                            <li>**(D)...chave candidata... pode ser nulo...** Incorreto. O oposto é verdadeiro. Uma chave candidata... *não pode* conter valores nulos.</li>
+                            <li>**(E)...integridade referencial... valor de uma chave estrangeira deve corresponder... ou ser nulo.** Correto. Esta é a definição precisa da Integridade Referencial.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Resolução Q7 -->
+                <div id="resolution-wrapper-q7" class="p-6 border-2 rounded-lg">
+                    <h4 class="text-xl font-semibold mb-2">Questão 7</h4>
+                    <p id="user-answer-q7" class="mb-1"></p>
+                    <p id="correct-answer-q7" class="mb-3 font-semibold"></p>
+                    <div class="resolution-text p-4 bg-gray-50 rounded">
+                        <strong>Resolução:</strong>
+                        <p>A questão testa a correspondência entre a terminologia prática da SQL e a terminologia formal do modelo relacional...</p>
+                        <p>A correspondência correta é:</p>
+                        <ul class="list-disc list-inside mt-2 space-y-1">
+                            <li>O termo formal **Relação**... corresponde ao termo prático **Tabela**.</li>
+                            <li>O termo formal **Tupla**... corresponde ao termo prático **Linha** (ou Registro).</li>
+                            <li>O termo formal **Atributo**... corresponde ao termo prático **Coluna** (ou Campo).</li>
+                        </ul>
+                        <p class="mt-2">Portanto, TABELA, LINHA e COLUNA correspondem, respectivamente, a Relação, Tupla e Atributo.</p>
+                    </div>
+                </div>
+
+                <!-- Resolução Q8 -->
+                <div id="resolution-wrapper-q8" class="p-6 border-2 rounded-lg">
+                    <h4 class="text-xl font-semibold mb-2">Questão 8</h4>
+                    <p id="user-answer-q8" class="mb-1"></p>
+                    <p id="correct-answer-q8" class="mb-3 font-semibold"></p>
+                    <div class="resolution-text p-4 bg-gray-50 rounded">
+                        <strong>Resolução:</strong>
+                        <p>A questão exige a filtragem de resultados com base em uma função de agregação (`AVG(salario)`)... Em SQL, existem duas cláusulas de filtragem: `WHERE` e `HAVING`.</p>
+                        <ul class="list-disc list-inside mt-2 space-y-1">
+                            <li>A cláusula `WHERE` é usada para filtrar linhas *antes* que elas sejam agrupadas. Não pode ser usada com funções de agregação.</li>
+                            <li>A cláusula `HAVING` é usada para filtrar grupos *depois* que eles foram criados pela cláusula `GROUP BY`.</li>
+                        </ul>
+                        <ul class="list-disc list-inside mt-2 space-y-1">
+                            <li>**(A)** Usa `WHERE salario > 5000`. Incorreto.</li>
+                            <li>**(B)** Usa `WHERE AVG(salario) > 5000`. Incorreto (sintaticamente inválido).</li>
+                            <li>**(C)** Correto. `GROUP BY id_depto` agrupa... `HAVING AVG(salario) > 5000`... filtra os grupos cuja média salarial é maior que 5000.</li>
+                            <li>**(D)** Incorreto. Faltou a cláusula `GROUP BY id_depto`.</li>
+                            <li>**(E)** Incorreto. Combina dois erros (`WHERE` com `AVG` e ausência de `GROUP BY`).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Resolução Q9 -->
+                <div id="resolution-wrapper-q9" class="p-6 border-2 rounded-lg">
+                    <h4 class="text-xl font-semibold mb-2">Questão 9</h4>
+                    <p id="user-answer-q9" class="mb-1"></p>
+                    <p id="correct-answer-q9" class="mb-3 font-semibold"></p>
+                    <div class="resolution-text p-4 bg-gray-50 rounded">
+                        <strong>Resolução:</strong>
+                        <p>A questão pede para identificar, respectivamente, um comando de DCL... e um de TCL...</p>
+                        <ul class="list-disc list-inside mt-2 space-y-1">
+                            <li>**DCL (Data Control Language):** Gerencia permissões... `GRANT` e `REVOKE`.</li>
+                            <li>**TCL (Transaction Control Language):** Gerencia transações... `COMMIT`, `ROLLBACK` e `SAVEPOINT`.</li>
+                        </ul>
+                        <p classa="mt-2">Analisando as alternativas:</p>
+                        <ul class="list-disc list-inside mt-2 space-y-1">
+                            <li>**(A) `CREATE` e `ALTER`:** Ambos são DDL.</li>
+                            <li>**(B) `SELECT` e `INSERT`:** Ambos são DML.</li>
+                            <li>**(C) `GRANT` e `COMMIT`:** `GRANT` é DCL. `COMMIT` é TCL. Esta é a correta.</li>
+                            <li>**(D) `COMMIT` e `GRANT`:** Ordem invertida.</li>
+                            <li>**(E) `UPDATE` e `ROLLBACK`:** `UPDATE` é DML. `ROLLBACK` é TCL.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Resolução Q10 -->
+                <div id="resolution-wrapper-q10" class="p-6 border-2 rounded-lg">
+                    <h4 class="text-xl font-semibold mb-2">Questão 10</h4>
+                    <p id="user-answer-q10" class="mb-1"></p>
+                    <p id="correct-answer-q10" class="mb-3 font-semibold"></p>
+                    <div class="resolution-text p-4 bg-gray-50 rounded">
+                        <strong>Resolução:</strong>
+                        <p>A questão testa a diferenciação fundamental entre bancos de dados transacionais (OLTP) e Data Warehouses (DW), que são bancos analíticos (OLAP).</p>
+                        <ul class="list-disc list-inside mt-2 space-y-1">
+                            <li>**(A)...otimizado para o nível operacional... (OLTP)...** Incorreto. Esta é a definição de um banco OLTP, o oposto de um DW.</li>
+                            <li>**(B)...sinônimo de um banco de dados relacional (OLTP)...** Incorreto. Eles são fundamentalmente diferentes.</li>
+                            <li>**(C)...direcionado... para apoio à decisão (OLAP)... otimizado para recuperação e análise...** Correto. Esta é a definição exata de um Data Warehouse... focado em OLAP...</li>
+                            <li>**(D)...armazena apenas dados atuais (não históricos)...** Incorreto. Uma das principais características de um DW é ser *histórico*.</li>
+                            <li>**(E)...substitui a necessidade de bancos de dados operacionais...** Incorreto. O DW *não* substitui os sistemas OLTP. Ele é *alimentado* por eles.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- JavaScript para processar o Quiz -->
+    <script>
+        // Objeto com as respostas corretas
+        const correctAnswers = {
+            q1: 'B',
+            q2: 'D',
+            q3: 'B',
+            q4: 'E',
+            q5: 'B',
+            q6: 'E',
+            q7: 'A',
+            q8: 'C',
+            q9: 'C',
+            q10: 'C'
+        };
+
+        // Objeto com o texto completo das respostas corretas para exibição
+        const answerDetails = {
+            q1: '(B) DML (Data Manipulation Language)',
+            q2: '(D) Durabilidade',
+            q3: '(B) 2, 1, 3',
+            q4: '(E) I, II e III.',
+            q5: '(B) A tabela deve estar na 3FN e todo determinante (atributo ou conjunto de atributos do qual outro atributo depende) deve ser uma chave candidata.',
+            q6: '(E) A integridade referencial é a restrição que assegura que o valor de uma chave estrangeira deve corresponder a um valor de chave primária (ou candidata) existente na tabela referenciada, ou ser nulo.',
+            q7: '(A) Relação, Tupla e Atributo.',
+            q8: '(C) SELECT id_depto FROM FUNCIONARIO GROUP BY id_depto HAVING AVG(salario) > 5000;',
+            q9: '(C) `GRANT` e `COMMIT`',
+            q10: '(C) é direcionado principalmente para aplicações de apoio à decisão (OLAP), sendo otimizado para recuperação e análise de dados (consultas complexas), e não para o processamento transacional rotineiro.'
+        };
+
+        // Adiciona o listener ao formulário
+        document.getElementById('quizForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede o recarregamento da página
+
+            const formData = new FormData(event.target);
+            let score = 0;
+            const userAnswers = {};
+
+            // Desabilita todos os inputs após o envio
+            const inputs = document.querySelectorAll('#quizForm input[type="radio"]');
+            inputs.forEach(input => {
+                input.disabled = true;
+            });
+            // Esconde o botão de submit
+            event.target.querySelector('button[type="submit"]').classList.add('hidden');
+
+
+            // Itera sobre as respostas corretas para calcular o placar
+            for (const [questionKey, correctAnswer] of Object.entries(correctAnswers)) {
+                const userAnswer = formData.get(questionKey); // 'A', 'B', 'C'...
+                userAnswers[questionKey] = userAnswer;
+
+                if (userAnswer === correctAnswer) {
+                    score++;
+                }
+
+                // Preencher a seção de resolução
+                const userAnswerEl = document.getElementById(`user-answer-${questionKey}`);
+                const correctAnswerEl = document.getElementById(`correct-answer-${questionKey}`);
+                const resolutionWrapperEl = document.getElementById(`resolution-wrapper-${questionKey}`);
+
+                // Encontra o texto da resposta do usuário
+                let userAnswerText = "(Não respondida)";
+                if (userAnswer) {
+                    const userLabel = document.querySelector(`input[name="${questionKey}"][value="${userAnswer}"]`).closest('label');
+                    // Pega o texto, limpa espaços extras e remove o (A), (B) etc. inicial se for o caso
+                    userAnswerText = userLabel.textContent.trim().replace(/^\([A-E]\)\s*/, '');
+                    // Para a questão 8 (código), precisamos pegar o texto do <code>
+                    if (questionKey === 'q8') {
+                         userAnswerText = userLabel.querySelector('code').textContent;
+                    } else {
+                         userAnswerText = userLabel.querySelector('span') ? userLabel.querySelector('span').textContent : userLabel.textContent;
+                    }
+                }
+                
+                userAnswerEl.textContent = `Sua resposta: ${userAnswerText}`;
+                
+                // Formata o texto da resposta correta
+                if (questionKey === 'q8') {
+                    correctAnswerEl.innerHTML = `Resposta correta: <pre class="mt-2"><code>${answerDetails[questionKey]}</code></pre>`;
+                } else {
+                    correctAnswerEl.textContent = `Resposta correta: ${answerDetails[questionKey]}`;
+                }
+
+
+                // Adiciona feedback visual (cor da borda)
+                resolutionWrapperEl.classList.remove('border-gray-200');
+                if (userAnswer === correctAnswer) {
+                    resolutionWrapperEl.classList.add('border-green-400', 'bg-green-50');
+                } else {
+                    resolutionWrapperEl.classList.add('border-red-400', 'bg-red-50');
+                }
+            }
+
+            // Exibe o placar
+            const scoreEl = document.getElementById('score');
+            scoreEl.textContent = `Você acertou ${score} de 10 questões.`;
+            if (score > 7) {
+                scoreEl.classList.add('text-green-700', 'bg-green-100');
+            } else if (score > 4) {
+                scoreEl.classList.add('text-yellow-700', 'bg-yellow-100');
+            } else {
+                scoreEl.classList.add('text-red-700', 'bg-red-100');
+            }
+
+
+            // Exibe a seção de resultados
+            document.getElementById('results').classList.remove('hidden');
+
+            // Rola a página para os resultados
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+
+</body>
+</html>

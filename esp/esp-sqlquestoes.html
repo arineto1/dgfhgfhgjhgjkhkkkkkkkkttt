@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz SGBDR - Estilo Instituto AOCP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa; /* Fundo claro (cinza muito sutil) */
+            color: #212529; /* Letra escura */
+        }
+
+        /* Estilo para blocos de código/tabelas formatadas */
+        pre {
+            background-color: #f1f3f5;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            padding: 16px;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap; /* Garante a quebra de linha */
+            word-break: break-all;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-top: 12px;
+            margin-bottom: 12px;
+        }
+
+        /* Melhora a legibilidade das opções de rádio */
+        input[type="radio"]:checked + span {
+            font-weight: 500;
+            color: #0056b3; /* Cor de destaque ao selecionar */
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 leading-relaxed">
+
+    <main class="max-w-3xl mx-auto p-4 sm:p-8">
+        
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 text-center">Quiz: Sistemas de Gerenciamento de Banco de Dados</h1>
+            <p class="text-center text-gray-600 mt-2">Estilo de prova: Instituto AOCP</p>
+        </header>
+
+        <!-- Formulário do Quiz -->
+        <form id="quizForm">
+            <div id="questionsContainer" class="space-y-8">
+                <!-- As questões serão injetadas aqui pelo JavaScript -->
+            </div>
+
+            <button type="submit" id="submitButton" class="w-full mt-10 bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:bg-blue-700 transition-colors duration-300 text-lg">
+                Verificar Respostas
+            </button>
+        </form>
+
+        <!-- Seção de Resultados (inicialmente oculta) -->
+        <section id="resultsSection" class="hidden mt-12">
+            <div class="bg-white p-6 sm:p-8 rounded-lg shadow-xl">
+                <h2 class="text-2xl sm:text-3xl font-bold text-center mb-6">Seu Resultado</h2>
+                <p id="scoreSummary" class="text-2xl font-bold text-center text-blue-700 mb-8"></p>
+                
+                <h3 class="text-2xl font-bold mb-6 border-b pb-3">Resoluções Comentadas</h3>
+                <div id="resolutionsContainer" class="space-y-8">
+                    <!-- As resoluções serão injetadas aqui -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Dados do Quiz (extraídos do documento)
+        const quizData = [
+            {
+                question: `
+                    <p><strong>1. (Instituto AOCP - Adaptada)</strong> Considere a Relação $Funcionario\_Departamento$ com os seguintes atributos: $Matricula$ (Chave Primária), $NomeFunc$, $CodDept$, $NomeDept$, $RamalDept$. Sabe-se que $CodDept$ é uma chave estrangeira que identifica o departamento e que os atributos $NomeDept$ e $RamalDept$ dependem funcionalmente de $CodDept$.</p>
+<pre>
+Matricula → CodDept
+CodDept → NomeDept, RamalDept
+</pre>
+                    <p>Dessa forma, um atributo não-chave ($NomeDept$) depende de outro atributo não-chave ($CodDept$), que por sua vez depende da chave primária. Esta característica viola qual Forma Normal?</p>
+                `,
+                options: [
+                    "Primeira Forma Normal (1FN)",
+                    "Segunda Forma Normal (2FN)",
+                    "Terceira Forma Normal (3FN)",
+                    "Forma Normal de Boyce-Codd (BCNF)",
+                    "Quarta Forma Normal (4FN)"
+                ],
+                correct: "C",
+                resolution: `
+                    <p><strong>Gabarito: C) Terceira Forma Normal (3FN)</strong></p>
+                    <br>
+                    <p><strong>Análise da Resposta Correta:</strong></p>
+                    <p>A Terceira Forma Normal (3FN) estabelece que uma tabela deve primeiro estar na Segunda Forma Normal (2FN) e, adicionalmente, nenhum atributo não-chave deve depender transitivamente de outro atributo não-chave. Uma <strong>dependência transitiva</strong> ocorre quando um atributo $A$ determina $B$, e $B$ determina $C$, mas $B$ não determina $A$.</p>
+                    <p>No cenário apresentado:</p>
+                    <ol class="list-decimal list-inside ml-4 mt-2">
+                        <li>A chave primária é $Matricula$.</li>
+                        <li>$Matricula$ determina $CodDept$.</li>
+                        <li>$CodDept$ (um atributo não-chave) determina $NomeDept$ e $RamalDept$ (outros atributos não-chave).</li>
+                    </ol>
+                    <p class="mt-2">Isso cria a dependência transitiva: $Matricula$ → $CodDept$ → $NomeDept$. A 3FN é violada porque $NomeDept$ e $RamalDept$ não dependem diretamente da chave primária ($Matricula$), mas sim de outro atributo não-chave ($CodDept$). Para corrigir, a tabela deveria ser decomposta em $Funcionario$ ($Matricula$, $NomeFunc$, $CodDept$) e $Departamento$ ($CodDept$, $NomeDept$, $RamalDept$).</p>
+                `
+            },
+            {
+                question: `
+                    <p><strong>2. (Instituto AOCP - Adaptada)</strong> No contexto da modelagem de dados relacionais, existem diversos tipos de chaves utilizadas para garantir a integridade e a unicidade dos dados. Como é corretamente definida uma "Chave Candidata"?</p>
+                `,
+                options: [
+                    "Um conjunto de um ou mais atributos em uma tabela que referencia a chave primária de outra tabela.",
+                    "Um conjunto de um ou mais atributos que, tomados coletivamente, identificam unicamente um registro, mas que pode conter atributos redundantes.",
+                    "A chave específica que foi escolhida pelo projetista do banco de dados, dentre as chaves candidatas, para ser o identificador principal da tabela.",
+                    "Um conjunto *mínimo* de atributos que identifica unicamente cada registro em uma relação, não possuindo um subconjunto próprio que também seja uma chave.",
+                    "Um atributo que pode aceitar valores nulos ($NULL$) e é utilizado para relacionamentos opcionais."
+                ],
+                correct: "D",
+                resolution: `
+                    <p><strong>Gabarito: D) Um conjunto *mínimo* de atributos que identifica unicamente cada registro em uma relação, não possuindo um subconjunto próprio que também seja uma chave.</strong></p>
+                    <br>
+                    <p><strong>Análise da Resposta Correta:</strong></p>
+                    <p>No modelo relacional, existe uma hierarquia de chaves:</p>
+                    <ol class="list-decimal list-inside ml-4 mt-2">
+                        <li><strong>Superchave:</strong> Qualquer conjunto de atributos que identifique unicamente um registro. Uma superchave pode conter atributos desnecessários.</li>
+                        <li><strong>Chave Candidata:</strong> É uma superchave *mínima*. Isso significa que, se removermos qualquer atributo dela, ela deixa de ser uma superchave (deixa de identificar unicamente o registro). Uma tabela pode ter várias chaves candidatas.</li>
+                        <li><strong>Chave Primária (PK):</strong> É a chave candidata que o administrador do banco de dados (DBA) ou projetista *escolhe* para ser o identificador principal da tabela.</li>
+                    </ol>
+                    <p class="mt-2">A alternativa (D) define perfeitamente a "minimalidade" exigida por uma chave candidata.</p>
+                `
+            },
+            {
+                question: `
+                    <p><strong>3. (Instituto AOCP - Adaptada)</strong> Transações em Sistemas de Gerenciamento de Banco de Dados (SGBDs) são controladas por um conjunto de propriedades conhecidas pelo acrônimo ACID. Qual destas propriedades garante que a transação é uma unidade indivisível de trabalho, operando no princípio de "tudo ou nada"?</p>
+                `,
+                options: [
+                    "Atomicidade",
+                    "Consistência",
+                    "Isolamento",
+                    "Durabilidade",
+                    "Serialização"
+                ],
+                correct: "A",
+                resolution: `
+                    <p><strong>Gabarito: A) Atomicidade</strong></p>
+                    <br>
+                    <p><strong>Análise da Resposta Correta:</strong></p>
+                    <p>O acrônimo ACID representa as quatro propriedades essenciais de uma transação de banco de dados confiável. A <strong>Atomicidade</strong> (Atomicity) é a propriedade que garante que uma transação é tratada como uma unidade única e indivisível. Isso significa que ou *todas* as operações dentro da transação são concluídas com sucesso (um $COMMIT$), ou *nenhuma* delas é aplicada ao banco de dados (um $ROLLBACK$ é executado em caso de falha). O princípio "tudo ou nada" é a definição literal de atomicidade.</p>
+                `
+            },
+            {
+                question: `
+                    <p><strong>4. (Instituto AOCP - Adaptada)</strong> A linguagem SQL (Structured Query Language) é dividida em subconjuntos de comandos, cada um com uma finalidade específica. Qual dos comandos a seguir é classificado como DDL (Data Definition Language)?</p>
+                `,
+                options: [
+                    "$SELECT$",
+                    "$INSERT$",
+                    "$UPDATE$",
+                    "$GRANT$",
+                    "$ALTER$"
+                ],
+                correct: "E",
+                resolution: `
+                    <p><strong>Gabarito: E) $ALTER$</strong></p>
+                    <br>
+                    <p><strong>Análise da Resposta Correta:</strong></p>
+                    <p>A DDL (Data Definition Language) é o subconjunto de comandos SQL usado para definir, modificar e remover a *estrutura* (esquema) dos objetos do banco de dados, como tabelas, índices e visões.</p>
+                    <p>O comando $ALTER$ (por exemplo, $ALTER$ $TABLE$) é usado para modificar a estrutura de um objeto existente (adicionar colunas, alterar tipos de dados), enquadrando-se perfeitamente na definição de DDL.</p>
+                `
+            },
+            {
+                question: `
+                    <p><strong>5. (Instituto AOCP - Adaptada)</strong> Em SQL, os comandos são agrupados em categorias como DML, DDL, DCL e TCL. Assinale a alternativa que apresenta, respectivamente, um comando de TCL (Transaction Control Language) utilizado para confirmar permanentemente as alterações de uma transação e um comando de DCL (Data Control Language) utilizado para remover privilégios de acesso de um usuário.</p>
+                `,
+                options: [
+                    "$COMMIT$ e $REVOKE$",
+                    "$ROLLBACK$ e $GRANT$",
+                    "$SAVEPOINT$ e $DENY$",
+                    "$COMMIT$ e $GRANT$",
+                    "$UPDATE$ e $REVOKE$"
+                ],
+                correct: "A",
+                resolution: `
+                    <p><strong>Gabarito: A) $COMMIT$ e $REVOKE$</strong></p>
+                    <br>
+                    <p><strong>Análise da Resposta Correta:</strong></p>
+                    <p>A questão pede dois comandos de categorias distintas:</p>
+                    <ol class="list-decimal list-inside ml-4 mt-2">
+                        <li><strong>TCL (Transaction Control Language):</strong> Gerencia o ciclo de vida das transações. O comando $COMMIT$ é usado para finalizar uma transação com sucesso, tornando todas as alterações permanentes no banco de dados.</li>
+                        <li><strong>DCL (Data Control Language):</strong> Gerencia os direitos de acesso e permissões. O comando $GRANT$ *concede* privilégios, e o comando $REVOKE$ *remove* privilégios previamente concedidos.</li>
+                    </ol>
+                    <p class="mt-2">Portanto, $COMMIT$ (TCL para confirmar) e $REVOKE$ (DCL para remover privilégios) formam o par correto.</p>
+                `
+            },
+            {
+                question: `
+                    <p><strong>6. (Instituto AOCP - Adaptada)</strong> Dadas as tabelas $Clientes$ e $Pedidos$ abaixo:</p>
+<pre>
+**Tabela Clientes:**
+| ID | Nome  |
+|----|-------|
+| 1  | João  |
+| 2  | Ana   |
+| 3  | Maria |
+
+**Tabela Pedidos:**
+| ID_Pedido | ID_Cliente |
+|-----------|------------|
+| 101       | 1          |
+| 102       | 2          |
+| 103       | 1          |
+</pre>
+                    <p>Qual será o resultado da seguinte consulta SQL?</p>
+<pre>
+$SELECT$ $C.Nome$, $P.ID\_Pedido$
+$FROM$ $Clientes$ $C$
+$LEFT$ $JOIN$ $Pedidos$ $P$ $ON$ $C.ID$ = $P.ID\_Cliente$;
+</pre>
+                `,
+                options: [
+                    "João, 101<br>João, 103<br>Ana, 102",
+                    "João, 101<br>João, 103<br>Ana, 102<br>Maria, $NULL$",
+                    "Maria, $NULL$",
+                    "A consulta retornará um erro, pois o cliente 'Maria' não possui pedidos correspondentes.",
+                    "João, 101<br>Ana, 102"
+                ],
+                correct: "B",
+                resolution: `
+                    <p><strong>Gabarito: B) João, 101; João, 103; Ana, 102; Maria, $NULL$</strong></p>
+                    <br>
+                    <p><strong>Análise da Resposta Correta:</strong></p>
+                    <p>A cláusula $LEFT$ $JOIN$ (ou $LEFT$ $OUTER$ $JOIN$) retorna *todos* os registros da tabela à esquerda da junção (neste caso, $Clientes$) e os registros correspondentes da tabela à direita ($Pedidos$).</p>
+                    <ol class="list-decimal list-inside ml-4 mt-2">
+                        <li>'João' (ID 1) está na esquerda. Ele corresponde a dois pedidos (101 e 103) na direita. Ambos são retornados.</li>
+                        <li>'Ana' (ID 2) está na esquerda. Ela corresponde a um pedido (102) na direita. Ele é retornado.</li>
+                        <li>'Maria' (ID 3) está na esquerda. Ela *não* possui registros correspondentes na tabela $Pedidos$. O $LEFT$ $JOIN$ garante que 'Maria' ainda assim apareça no resultado, e as colunas da tabela $Pedidos$ (como $ID\_Pedido$) são preenchidas com $NULL$ para indicar a ausência de correspondência.</li>
+                    </ol>
+                `
+            },
+            {
+                question: `
+                    <p><strong>7. (Instituto AOCP - Adaptada)</strong> Um analista de dados precisa escrever uma consulta SQL que agrupe os vendedores por região (usando $GROUP$ $BY$) e, em seguida, exiba apenas as regiões cuja soma total de vendas ($SUM(Vendas)$) seja superior a 10.000. Qual cláusula SQL deve ser utilizada para filtrar os resultados *após* a agregação ter sido realizada?</p>
+                `,
+                options: [
+                    "$WHERE$",
+                    "$HAVING$",
+                    "$FILTER$",
+                    "$SUBSELECT$",
+                    "$ORDER$ $BY$"
+                ],
+                correct: "B",
+                resolution: `
+                    <p><strong>Gabarito: B) $HAVING$</strong></p>
+                    <br>
+                    <p><strong>Análise da Resposta Correta:</strong></p>
+                    <p>Em uma consulta SQL, existe uma ordem lógica de processamento. A cláusula $WHERE$ é usada para filtrar linhas *antes* que elas sejam agrupadas pelo $GROUP$ $BY$ ou processadas por funções de agregação (como $SUM$, $COUNT$, $AVG$).</p>
+                    <p>A cláusula $HAVING$ foi criada especificamente para filtrar os *grupos* *após* a agregação ter sido calculada. Como a questão exige filtrar com base em $SUM(Vendas)$ (uma agregação), $HAVING$ é a única cláusula correta. A sintaxe seria: $...$ $GROUP$ $BY$ $Regiao$ $HAVING$ $SUM(Vendas)$ &gt; $10000$.</p>
+                `
+            },
+            {
+                question: `
+                    <p><strong>8. (Instituto AOCP - Adaptada)</strong> No Modelo Entidade-Relacionamento (MER), um conceito fundamental é o de "Entidade Fraca". Qual das alternativas a seguir descreve corretamente a característica principal de uma Entidade Fraca?</p>
+                `,
+                options: [
+                    "É uma entidade que possui um número muito reduzido de atributos.",
+                    "É uma entidade que não possui relacionamentos com nenhuma outra entidade no diagrama.",
+                    "É uma entidade que depende da existência de outra entidade (entidade forte) e cuja chave primária é formada, parcial ou totalmente, pela chave primária da entidade forte.",
+                    "É uma entidade que só pode participar de relacionamentos com cardinalidade máxima de 1:1.",
+                    "É uma entidade utilizada apenas para armazenar dados temporários que podem ser descartados."
+                ],
+                correct: "C",
+                resolution: `
+                    <p><strong>Gabarito: C) É uma entidade que depende da existência de outra entidade (entidade forte) e cuja chave primária é formada, parcial ou totalmente, pela chave primária da entidade forte.</strong></p>
+                    <br>
+                    <p><strong>Análise da Resposta Correta:</strong></p>
+                    <p>Uma Entidade Fraca é definida por duas condições:</p>
+                    <ol class="list-decimal list-inside ml-4 mt-2">
+                        <li><strong>Dependência de Existência:</strong> Ela não pode existir no banco de dados sem a entidade "proprietária" (ou "forte") à qual está relacionada (ex: um $Dependente$ não pode existir sem um $Funcionario$).</li>
+                        <li><strong>Dependência de Identificação:</strong> Ela não possui atributos suficientes para formar uma chave primária por conta própria. Sua chave primária é composta pela chave primária da entidade forte (via chave estrangeira) mais um atributo "discriminador" (ou chave parcial) da própria entidade fraca (ex: Chave de $Dependente$ = {$CPF\_Funcionario, Nome\_Dependente$}).</li>
+                    </ol>
+                    <p class="mt-2">A alternativa (C) captura ambas as dependências (existência e identificação).</p>
+                `
+            },
+            {
+                question: `
+                    <p><strong>9. (Instituto AOCP - Adaptada)</strong> A normalização de banco de dados é um processo para organizar tabelas e reduzir a redundância. A Segunda Forma Normal (2FN) é projetada especificamente para eliminar um tipo de anomalia de dados. Assinale a alternativa que descreve corretamente a regra da 2FN.</p>
+                `,
+                options: [
+                    "Todos os atributos da tabela devem ser atômicos (indivisíveis).",
+                    "A tabela não deve conter dependências transitivas entre atributos não-chave.",
+                    "Todos os atributos não-chave devem depender funcionalmente de *toda* a chave primária, eliminando dependências parciais.",
+                    "A tabela não deve conter dependências multivaloradas.",
+                    "A tabela deve obrigatoriamente possuir uma chave estrangeira para se relacionar com outra tabela."
+                ],
+                correct: "C",
+                resolution: `
+                    <p><strong>Gabarito: C) Todos os atributos não-chave devem depender funcionalmente de *toda* a chave primária, eliminando dependências parciais.</strong></p>
+                    <br>
+                    <p><strong>Análise da Resposta Correta:</strong></p>
+                    <p>A Segunda Forma Normal (2FN) tem como pré-requisito que a tabela esteja na 1FN. O objetivo principal da 2FN é eliminar <strong>dependências parciais</strong>. Uma dependência parcial ocorre quando um atributo não-chave depende de *apenas uma parte* de uma chave primária *composta* (uma chave formada por mais de um atributo).</p>
+                    <p>A regra da 2FN (alternativa C) força que todo atributo não-chave deve depender funcionalmente da chave primária inteira, e não de um subconjunto dela.</p>
+                `
+            },
+            {
+                question: `
+                    <p><strong>10. (Instituto AOCP - Adaptada)</strong> Em SQL, existem diferentes comandos para remover dados. Qual comando SQL é classificado como DDL (Data Definition Language), remove *todos* os registros de uma tabela de forma eficiente (geralmente sem registrar cada exclusão individualmente) e mantém a estrutura da tabela?</p>
+                `,
+                options: [
+                    "$DELETE$ $FROM$ $NOME\_TABELA$",
+                    "$DROP$ $TABLE$ $NOME\_TABELA$",
+                    "$TRUNCATE$ $TABLE$ $NOME\_TABELA$",
+                    "$ALTER$ $TABLE$ $NOME\_TABELA$ $DROP$ $DATA$",
+                    "$COMMIT$"
+                ],
+                correct: "C",
+                resolution: `
+                    <p><strong>Gabarito: C) $TRUNCATE$ $TABLE$ $NOME\_TABELA$</strong></p>
+                    <br>
+                    <p><strong>Análise da Resposta Correta:</strong></p>
+                    <p>A questão pede um comando <strong>DDL</strong> (Data Definition Language) que remove todos os registros.</p>
+                    <p>O comando $TRUNCATE$ $TABLE$ é classificado como DDL porque ele mexe na estrutura de alocação de dados da tabela (desalocando páginas de dados), em vez de apenas manipular os dados. Ele remove todos os registros de uma tabela de forma muito rápida e eficiente, pois geralmente não registra a exclusão de cada linha individualmente (é minimamente logado), e mantém a estrutura da tabela (colunas, índices) intacta.</p>
+                `
+            }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const questionsContainer = document.getElementById('questionsContainer');
+            const quizForm = document.getElementById('quizForm');
+            const resultsSection = document.getElementById('resultsSection');
+            const scoreSummary = document.getElementById('scoreSummary');
+            const resolutionsContainer = document.getElementById('resolutionsContainer');
+
+            // 1. Renderizar as Questões
+            function renderQuestions() {
+                let questionHTML = '';
+                quizData.forEach((q, index) => {
+                    const optionsHTML = q.options.map((option, i) => {
+                        const optionLetter = String.fromCharCode(65 + i); // A, B, C, D, E
+                        return `
+                            <label class="flex items-start space-x-3 p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors">
+                                <input type="radio" name="q${index}" value="${optionLetter}" class="mt-1 flex-shrink-0" required>
+                                <span class="text-gray-800"><strong class="mr-1">${optionLetter})</strong> <span class="option-text">${option}</span></span>
+                            </label>
+                        `;
+                    }).join('');
+
+                    questionHTML += `
+                        <article class="bg-white p-6 sm:p-8 rounded-lg shadow-lg" data-question-index="${index}">
+                            <div class="question-text">${q.question}</div>
+                            <div class="options-group space-y-3 mt-5">${optionsHTML}</div>
+                        </article>
+                    `;
+                });
+                questionsContainer.innerHTML = questionHTML;
+                // Substituir $...$ por tags <code> para melhor estilo
+                renderMathFormatting(questionsContainer);
+            }
+
+            // 2. Lidar com a Submissão
+            quizForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                let score = 0;
+                const formData = new FormData(quizForm);
+                resolutionsContainer.innerHTML = ''; // Limpar resoluções anteriores
+
+                quizData.forEach((q, index) => {
+                    const selectedAnswer = formData.get(`q${index}`);
+                    const correctAnswer = q.correct;
+
+                    if (selectedAnswer === correctAnswer) {
+                        score++;
+                    }
+                    // Renderiza a resolução para esta questão
+                    renderResolution(index, selectedAnswer, correctAnswer);
+                });
+
+                // 3. Exibir Resultados
+                scoreSummary.textContent = `Você acertou ${score} de ${quizData.length} questões.`;
+                resultsSection.classList.remove('hidden');
+
+                // Rola para a seção de resultados
+                resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                
+                // Formata a matemática na seção de resoluções
+                renderMathFormatting(resolutionsContainer);
+            });
+
+            // 4. Renderizar a Resolução Individual
+            function renderResolution(index, selectedAnswer, correctAnswer) {
+                const questionData = quizData[index];
+                
+                // Cria o HTML das opções com o highlighting
+                const optionsHTML = questionData.options.map((option, i) => {
+                    const optionLetter = String.fromCharCode(65 + i);
+                    let classes = 'p-3 rounded-md border';
+
+                    if (optionLetter === correctAnswer) {
+                        // Resposta correta
+                        classes += ' bg-green-100 border-green-300 text-green-900 font-medium';
+                    } else if (optionLetter === selectedAnswer) {
+                        // Resposta errada que o usuário marcou
+                        classes += ' bg-red-100 border-red-300 text-red-900 line-through';
+                    } else {
+                        // Opção normal
+                        classes += ' border-gray-200 text-gray-700';
+                    }
+
+                    return `
+                        <div class="${classes}">
+                            <strong>${optionLetter})</strong> <span class="option-text">${option}</span>
+                        </div>
+                    `;
+                }).join('');
+                
+                const resolutionCard = `
+                    <article class="border-t border-gray-200 pt-6">
+                        <div class="question-text">${questionData.question}</div>
+                        <div class="options-review space-y-3 mt-5 mb-5">${optionsHTML}</div>
+                        
+                        <div class="resolution-text bg-gray-50 p-4 rounded-md border border-gray-200">
+                            ${questionData.resolution}
+                        </div>
+                    </article>
+                `;
+                resolutionsContainer.innerHTML += resolutionCard;
+            }
+
+            // Função auxiliar para formatar $...$ como <code>
+            function renderMathFormatting(container) {
+                container.querySelectorAll('.question-text, .option-text, .resolution-text').forEach(el => {
+                    el.innerHTML = el.innerHTML.replace(/\$(.*?)\$/g, '<code class="font-mono bg-gray-200 text-gray-800 px-1 py-0.5 rounded-md">$1</code>');
+                });
+            }
+
+            // Iniciar
+            renderQuestions();
+        });
+
+    </script>
+</body>
+</html>

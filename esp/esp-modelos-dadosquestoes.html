@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Modelos de Dados (Estilo AOCP)</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carrega a fonte Inter para melhor legibilidade -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Aplica a fonte Inter como padrão */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Estiliza o input de rádio checado */
+        input[type="radio"]:checked + label {
+            border-color: #2563EB; /* Borda azul-600 */
+            background-color: #DBEAFE; /* Fundo azul-100 */
+        }
+        /* Para os atributos de modelo de dados */
+        .attr {
+            font-family: 'Courier New', Courier, monospace;
+            font-style: italic;
+            font-weight: 600;
+            color: #1E40AF; /* azul-800 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Container principal focado em leitura -->
+    <div class="max-w-3xl mx-auto p-4 sm:p-8 bg-white shadow-lg rounded-lg my-12">
+
+        <header class="mb-8 border-b pb-4">
+            <h1 class="text-3xl font-bold text-gray-900 text-center">Quiz: Modelos de Dados</h1>
+            <p class="text-center text-gray-600 mt-2">Baseado no estilo da banca Instituto AOCP</p>
+        </header>
+
+        <!-- Formulário do Quiz -->
+        <form id="quizForm">
+            
+            <h2 class="text-xl font-semibold mb-6 text-gray-700">Questões</h2>
+
+            <!-- Questão 1 -->
+            <div class="mb-8 p-4 border border-gray-200 rounded-lg">
+                <p class="text-lg leading-relaxed mb-4"><strong>1.</strong> Considere uma entidade <span class="attr">Cliente</span> em um modelo conceitual que possui os seguintes atributos: <span class="attr">Data_Nascimento</span>, <span class="attr">Idade</span>, <span class="attr">Telefones</span> (para celular e comercial) e <span class="attr">Endereço</span> (composto por <span class="attr">Rua</span>, <span class="attr">Número</span> e <span class="attr">CEP</span>). Sabendo que <span class="attr">Idade</span> é calculada a partir de <span class="attr">Data_Nascimento</span>, classifique os atributos (I) <span class="attr">Idade</span>, (II) <span class="attr">Telefones</span> e (III) <span class="attr">Endereço</span>, respectivamente:</p>
+                <div class="space-y-3">
+                    <div>
+                        <input type="radio" name="q1" value="A" id="q1a" class="hidden">
+                        <label for="q1a" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">A)</span> Derivado, Multivalorado, Composto
+                        </label>
+                    </div>
+                    <div>
+                        <input type="radio" name="q1" value="B" id="q1b" class="hidden">
+                        <label for="q1b" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">B)</span> Composto, Derivado, Multivalorado
+                        </label>
+                    </div>
+                    <div>
+                        <input type="radio" name="q1" value="C" id="q1c" class="hidden">
+                        <label for="q1c" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">C)</span> Multivalorado, Simples, Derivado
+                        </label>
+                    </div>
+                    <div>
+                        <input type="radio" name="q1" value="D" id="q1d" class="hidden">
+                        <label for="q1d" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">D)</span> Derivado, Composto, Multivalorado
+                        </label>
+                    </div>
+                    <div>
+                        <input type="radio" name="q1" value="E" id="q1e" class="hidden">
+                        <label for="q1e" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">E)</span> Composto, Multivalorado, Derivado
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Questão 2 -->
+            <div class="mb-8 p-4 border border-gray-200 rounded-lg">
+                <p class="text-lg leading-relaxed mb-4"><strong>2.</strong> No contexto da modelagem de dados relacional, qual é a definição correta de <strong>Chave Candidata</strong> (Candidate Key)?</p>
+                <div class="space-y-3">
+                    <div>
+                        <input type="radio" name="q2" value="A" id="q2a" class="hidden">
+                        <label for="q2a" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">A)</span> Qualquer conjunto de atributos que identifica unicamente uma tupla, podendo conter atributos redundantes.
+                        </label>
+                    </div>
+                    <div>
+                        <input type="radio" name="q2" value="B" id="q2b" class="hidden">
+                        <label for="q2b" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">B)</span> A chave candidata que foi escolhida pelo projetista do banco de dados para ser o identificador principal da relação.
+                        </label>
+                    </div>
+                    <div>
+                        <input type="radio" name="q2" value="C" id="q2c" class="hidden">
+                        <label for="q2c" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">C)</span> Um conjunto de atributos em uma tabela que referencia a chave primária de outra tabela (ou da mesma tabela).
+                        </label>
+                    </div>
+                    <div>
+                        <input type="radio" name="q2" value="D" id="q2d" class="hidden">
+                        <label for="q2d" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">D)</span> Um conjunto mínimo de atributos que identifica unicamente cada tupla em uma relação.
+                        </label>
+                    </div>
+                    <div>
+                        <input type="radio" name="q2" value="E" id="q2e" class="hidden">
+                        <label for="q2e" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">E)</span> Uma chave candidata que não foi escolhida como chave primária.
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Questão 3 -->
+            <div class="mb-8 p-4 border border-gray-200 rounded-lg">
+                <p class="text-lg leading-relaxed mb-4"><strong>3.</strong> No modelo de dados relacional, os termos "Grau" (Degree) e "Cardinalidade" (Cardinality) de uma relação (tabela) referem-se, respectivamente:</p>
+                <div class="space-y-3">
+                    <div>
+                        <input type="radio" name="q3" value="A" id="q3a" class="hidden">
+                        <label for="q3a" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">A)</span> Ao número de tuplas (linhas) e ao número de atributos (colunas).
+                        </label>
+                    </div>
+                    <div>
+                        <input type="radio" name="q3" value="B" id="q3b" class="hidden">
+                        <label for="q3b" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">B)</span> Ao número de atributos (colunas) e ao número de tuplas (linhas).
+                        </label>
+                    </div>
+                    <div>
+                        <input type="radio" name="q3" value="C" id="q3c" class="hidden">
+                        <label for="q3c" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">C)</span> Ao número de chaves estrangeiras e ao número de chaves primárias.
+                        </label>
+                    </div>
+                    <div>
+                        <input type="radio" name="q3" value="D" id="q3d" class="hidden">
+                        <label for="q3d" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">D)</span> À proporção do relacionamento (1:N, N:M) e ao número de tabelas.
+                        </label>
+                    </div>
+                    <div>
+                        <input type="radio" name="q3" value="E" id="q3e" class="hidden">
+                        <label for="q3e" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">E)</span> Ao número de índices e ao número de tuplas (linhas).
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Questão 4 -->
+            <div class="mb-8 p-4 border border-gray-200 rounded-lg">
+                <p class="text-lg leading-relaxed mb-4"><strong>4.</strong> Em um modelo conceitual, uma superclasse <span class="attr">Pessoa</span> é generalizada em duas subclasses: <span class="attr">Pessoa_Fisica</span> (PF) e <span class="attr">Pessoa_Juridica</span> (PJ). A regra de negócio estabelece que toda <span class="attr">Pessoa</span> deve ser <i>obrigatoriamente</i> classificada como PF ou PJ, e <i>nunca</i> ambas simultaneamente. Como são classificadas as restrições de especialização/generalização, respectivamente, quanto à participação e à disjunção?</p>
+                <div class="space-y-3">
+                    <div>
+                        <input type="radio" name="q4" value="A" id="q4a" class="hidden">
+                        <label for="q4a" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">A)</span> Parcial e Sobreposta.
+                        </label>
+                    </div>
+                    <div>
+                        <input type="radio" name="q4" value="B" id="q4b" class="hidden">
+                        <label for="q4b" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">B)</span> Parcial e Exclusiva.
+                        </label>
+                    </div>
+                    <div>
+                        <input type="radio" name="q4" value="C" id="q4c" class="hidden">
+                        <label for="q4c" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">C)</span> Total e Exclusiva.
+                        </label>
+                    </div>
+                    <div>
+                        <input type="radio" name="q4" value="D" id="q4d" class="hidden">
+                        <label for="q4d" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">D)</span> Total e Sobreposta.
+                        </label>
+                    </div>
+                    <div>
+                        <input type="radio" name="q4" value="E" id="q4e" class="hidden">
+                        <label for="q4e" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">E)</span> Obrigatória e Disjunta.
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Questão 5 -->
+            <div class="mb-8 p-4 border border-gray-200 rounded-lg">
+                <p class="text-lg leading-relaxed mb-4"><strong>5.</strong> Qual é a regra padrão correta para mapear um relacionamento de cardinalidade 1:N (um-para-muitos) entre uma entidade <span class="attr">A</span> (lado 1) e uma entidade <span class="attr">B</span> (lado N) do modelo conceitual para o modelo lógico relacional?</p>
+                <div class="space-y-3">
+                    <div>
+                        <input type="radio" name="q5" value="A" id="q5a" class="hidden">
+                        <label for="q5a" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">A)</span> Criar uma terceira tabela (associativa) contendo as chaves primárias de A e B.
+                        </label>
+                    </div>
+                    <div>
+                        <input type="radio" name="q5" value="B" id="q5b" class="hidden">
+                        <label for="q5b" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">B)</span> Alocar a chave primária da entidade B (lado N) como chave estrangeira na tabela A (lado 1).
+                        </label>
+                    </div>
+                    <div>
+                        <input type="radio" name="q5" value="C" id="q5c" class="hidden">
+                        <label for="q5c" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">C)</span> Alocar a chave primária da entidade A (lado 1) como chave estrangeira na tabela B (lado N).
+                        </label>
+                    </div>
+                    <div>
+                        <input type="radio" name="q5" value="D" id="q5d" class="hidden">
+                        <label for="q5d" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">D)</span> Fundir as duas tabelas em uma única tabela contendo todos os atributos de A e B.
+                        </label>
+                    </div>
+                    <div>
+                        <input type="radio" name="q5" value="E" id="q5e" class="hidden">
+                        <label for="q5e" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">E)</span> Criar um atributo multivalorado na tabela A (lado 1) para armazenar os identificadores de B.
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Questão 6 -->
+            <div class="mb-8 p-4 border border-gray-200 rounded-lg">
+                <p class="text-lg leading-relaxed mb-4"><strong>6.</strong> Considere um relacionamento N:M (muitos-para-muitos) entre as entidades <span class="attr">Aluno</span> e <span class="attr">Curso</span> em um modelo conceitual. Qual é a estratégia de mapeamento correta para representar este relacionamento no modelo lógico relacional?</p>
+                <div class="space-y-3">
+                    <div>
+                        <input type="radio" name="q6" value="A" id="q6a" class="hidden">
+                        <label for="q6a" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">A)</span> Duas tabelas (Aluno, Curso), com a chave primária de Aluno migrando como chave estrangeira para Curso.
+                        </label>
+                    </div>
+                    <div>
+                        <input type="radio" name="q6" value="B" id="q6b" class="hidden">
+                        <label for="q6b" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">B)</span> Duas tabelas (Aluno, Curso), com a chave primária de Curso migrando como chave estrangeira para Aluno.
+                        </label>
+                    </div>
+                    <div>
+                        <input type="radio" name="q6" value="C" id="q6c" class="hidden">
+                        <label for="q6c" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">C)</span> Duas tabelas (Aluno, Curso), sendo necessário criar um atributo multivalorado em Aluno para armazenar os cursos.
+                        </label>
+                    </div>
+                    <div>
+                        <input type="radio" name="q6" value="D" id="q6d" class="hidden">
+                        <label for="q6d" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">D)</span> Três tabelas: uma para Aluno, uma para Curso, e uma terceira tabela (associativa) contendo as chaves primárias de Aluno e Curso como chaves estrangeiras.
+                        </label>
+                    </div>
+                    <div>
+                        <input type="radio" name="q6" value="E" id="q6e" class="hidden">
+                        <label for="q6e" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">E)</span> Uma única tabela (Aluno_Curso) contendo todos os atributos de ambas as entidades.
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Questão 7 -->
+            <div class="mb-8 p-4 border border-gray-200 rounded-lg">
+                <p class="text-lg leading-relaxed mb-4"><strong>7. (Técnica de Mapeamento)</strong> Ao mapear uma hierarquia de generalização/especialização (ex: <span class="attr">Pessoa</span> -> <span class="attr">Pessoa_Fisica</span>, <span class="attr">Pessoa_Juridica</span>) para o modelo relacional, um DBA optou por criar <i>uma única tabela</i> (<span class="attr">Pessoa</span>) contendo todos os atributos genéricos (<span class="attr">Nome</span>) e também todos os atributos específicos (<span class="attr">CPF</span> e <span class="attr">CNPJ</span>), além de um "atributo discriminador" (ex: <span class="attr">Tipo_Pessoa</span>). Nessa abordagem, se um registro for PF, os atributos de PJ (como <span class="attr">CNPJ</span>) ficarão nulos. Como é conhecida essa estratégia de mapeamento?</p>
+                <div class="space-y-3">
+                    <div>
+                        <input type="radio" name="q7" value="A" id="q7a" class="hidden">
+                        <label for="q7a" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">A)</span> Abordagem de tabelas por subclasses.
+                        </label>
+                    </div>
+                    <div>
+                        <input type="radio" name="q7" value="B" id="q7b" class="hidden">
+                        <label for="q7b" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">B)</span> Abordagem de tabelas conectadas (1:1).
+                        </label>
+                    </div>
+                    <div>
+                        <input type="radio" name="q7" value="C" id="q7c" class="hidden">
+                        <label for="q7c" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">C)</span> Abordagem de tabela única (mapeamento da superclasse).
+                        </label>
+                    </div>
+                    <div>
+                        <input type="radio" name="q7" value="D" id="q7d" class="hidden">
+                        <label for="q7d" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">D)</span> Abordagem de tabela associativa.
+                        </label>
+                    </div>
+                    <div>
+                        <input type="radio" name="q7" value="E" id="q7e" class="hidden">
+                        <label for="q7e" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">E)</span> Abordagem de normalização por decomposição.
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Questão 8 -->
+            <div class="mb-8 p-4 border border-gray-200 rounded-lg">
+                <p class="text-lg leading-relaxed mb-4"><strong>8. (Julgue Certo ou Errado)</strong> No Modelo Entidade-Relacionamento, uma entidade fraca é identificada por uma chave parcial (discriminador) que, por si só, garante a unicidade da instância dessa entidade em todo o banco de dados.</p>
+                <div class="space-y-3">
+                    <div>
+                        <input type="radio" name="q8" value="C" id="q8c" class="hidden">
+                        <label for="q8c" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">C)</span> Certo
+                        </label>
+                    </div>
+                    <div>
+                        <input type="radio" name="q8" value="E" id="q8e" class="hidden">
+                        <label for="q8e" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">E)</span> Errado
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Questão 9 -->
+            <div class="mb-8 p-4 border border-gray-200 rounded-lg">
+                <p class="text-lg leading-relaxed mb-4"><strong>9. (Julgue Certo ou Errado)</strong> A regra de Integridade Referencial (Referential Integrity) estabelece que nenhum atributo que compõe a chave primária de uma relação pode ter valor NULO.</p>
+                <div class="space-y-3">
+                    <div>
+                        <input type="radio" name="q9" value="C" id="q9c" class="hidden">
+                        <label for="q9c" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">C)</span> Certo
+                        </label>
+                    </div>
+                    <div>
+                        <input type="radio" name="q9" value="E" id="q9e" class="hidden">
+                        <label for="q9e" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">E)</span> Errado
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Questão 10 -->
+            <div class="mb-8 p-4 border border-gray-200 rounded-lg">
+                <p class="text-lg leading-relaxed mb-4"><strong>10. (Julgue Certo ou Errado)</strong> A regra de Integridade de Entidade (Entity Integrity) é a restrição que garante que os valores de uma chave estrangeira (FK) devem, obrigatoriamente, corresponder a um valor de chave primária (PK) existente na tabela referenciada, ou, alternativamente, podem assumir o valor NULO (caso a FK permita).</p>
+                <div class="space-y-3">
+                    <div>
+                        <input type="radio" name="q10" value="C" id="q10c" class="hidden">
+                        <label for="q10c" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">C)</span> Certo
+                        </label>
+                    </div>
+                    <div>
+                        <input type="radio" name="q10" value="E" id="q10e" class="hidden">
+                        <label for="q10e" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors">
+                            <span class="font-bold mr-3">E)</span> Errado
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botão de Envio -->
+            <button type="button" id="submitButton" class="w-full bg-blue-600 text-white font-bold text-lg py-3 px-6 rounded-lg hover:bg-blue-700 transition duration-300">
+                Finalizar e Corrigir
+            </button>
+
+        </form>
+
+        <!-- Seção de Resultados (oculta por padrão) -->
+        <div id="resultsContainer" class="hidden mt-12 border-t-2 border-gray-200 pt-8">
+            <h2 class="text-3xl font-bold text-gray-900 text-center mb-4">Resultados</h2>
+            <p id="score" class="text-2xl font-bold text-center mb-8"></p>
+
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Gabarito e Resoluções Comentadas</h2>
+            <div id="resolutions" class="space-y-6">
+                <!-- As resoluções serão inseridas aqui via JavaScript -->
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // --- DADOS DO QUIZ ---
+
+        // Define as respostas corretas para cada questão
+        const correctAnswers = {
+            q1: "A",
+            q2: "D",
+            q3: "B",
+            q4: "C",
+            q5: "C",
+            q6: "D",
+            q7: "C",
+            q8: "E",
+            q9: "E",
+            q10: "E"
+        };
+
+        // Define as resoluções detalhadas (o HTML é usado para manter a formatação)
+        const resolutions = [
+            // Q1
+            `<strong>1. Gabarito: A (Derivado, Multivalorado, Composto)</strong>
+             <p class="mt-2 text-base leading-relaxed">
+                <strong>(I) Derivado:</strong> O atributo <span class="attr">Idade</span> é classificado como derivado porque seu valor não é armazenado diretamente, mas sim calculado ou "derivado" a partir de outro atributo armazenado (<span class="attr">Data_Nascimento</span>).<br>
+                <strong>(II) Multivalorado:</strong> O atributo <span class="attr">Telefones</span> é multivalorado (ou multivalorado) porque uma única instância da entidade <span class="attr">Cliente</span> pode estar associada a múltiplos valores para este atributo (ex: um cliente com telefone celular e comercial).<br>
+                <strong>(III) Composto:</strong> O atributo <span class="attr">Endereço</span> é composto porque ele é formado por um agrupamento de outros atributos mais simples (<span class="attr">Rua</span>, <span class="attr">Número</span>, <span class="attr">CEP</span>).
+             </p>`,
+            // Q2
+            `<strong>2. Gabarito: D (Um conjunto mínimo de atributos que identifica unicamente cada tupla em uma relação.)</strong>
+             <p class="mt-2 text-base leading-relaxed">
+                Esta questão testa a hierarquia de chaves no modelo relacional:<br>
+                <strong>Superchave:</strong> Qualquer conjunto de atributos que identifica unicamente uma tupla. A alternativa (A) define uma Superchave, mas não uma Chave Candidata, pois a superchave pode ter atributos redundantes.<br>
+                <strong>Chave Candidata:</strong> É uma Superchave <i>mínima</i>, ou seja, da qual nenhum atributo pode ser removido sem que ela perca a propriedade de identificação única. A alternativa (D) é a definição correta.<br>
+                <strong>Chave Primária:</strong> É a Chave Candidata <i>escolhida</i> pelo projetista para ser o identificador principal da tabela. A alternativa (B) descreve a <i>escolha</i> da chave primária, não a definição de candidata.<br>
+                <strong>Chave Estrangeira:</strong> É um atributo (ou conjunto) que referencia a chave primária de outra tabela. A alternativa (C) define uma Chave Estrangeira.<br>
+                <strong>Chave Alternativa:</strong> É uma Chave Candidata que <i>não</i> foi escolhida como primária. A alternativa (E) define uma Chave Alternativa.
+             </p>`,
+            // Q3
+            `<strong>3. Gabarito: B (Ao número de atributos (colunas) e ao número de tuplas (linhas).)</strong>
+             <p class="mt-2 text-base leading-relaxed">
+                Este é um ponto fundamental da terminologia do modelo relacional:<br>
+                <strong>Grau (Degree):</strong> Refere-se ao número de atributos (colunas) que a relação (tabela) possui. O grau é uma propriedade do esquema da relação e tende a ser fixo.<br>
+                <strong>Cardinalidade (Cardinality):</strong> Refere-se ao número de tuplas (linhas) presentes na relação em um determinado momento. A cardinalidade é uma propriedade da instância da relação e é variável.<br>
+                A confusão comum (explorada na alternativa D) é misturar o termo "cardinalidade" do modelo relacional (número de linhas) com a "cardinalidade" do modelo conceitual (proporção do relacionamento, ex: 1:1, 1:N, N:N).
+             </p>`,
+            // Q4
+            `<strong>4. Gabarito: C (Total e Exclusiva.)</strong>
+             <p class="mt-2 text-base leading-relaxed">
+                Esta questão avalia as restrições de generalização/especialização (herança):<br>
+                <strong>Total vs. Parcial:</strong> Define se <i>toda</i> instância da superclasse deve participar da especialização.<br>
+                - <strong>Total:</strong> A regra "toda <span class="attr">Pessoa</span> deve ser <i>obrigatoriamente</i>..." indica uma restrição Total. Uma <span class="attr">Pessoa</span> não pode existir sem ser PF ou PJ.<br>
+                - <strong>Parcial:</strong> Se a regra permitisse que uma <span class="attr">Pessoa</span> existisse sem ser PF ou PJ, seria Parcial.<br>
+                <strong>Exclusiva vs. Sobreposta:</strong> Define se uma instância da superclasse pode ser de <i>múltiplas</i> subclasses simultaneamente.<br>
+                - <strong>Exclusiva (Disjunta):</strong> A regra "...e <i>nunca</i> ambas simultaneamente" indica uma restrição Exclusiva. A <span class="attr">Pessoa</span> é PF <i>OU</i> PJ.<br>
+                - <strong>Sobreposta:</strong> Se uma <span class="attr">Pessoa</span> pudesse ser PF e PJ ao mesmo tempo, a restrição seria Sobreposta.
+             </p>`,
+            // Q5
+            `<strong>5. Gabarito: C (Alocando a chave primária da entidade A (lado 1) como chave estrangeira na tabela B (lado N).)</strong>
+             <p class="mt-2 text-base leading-relaxed">
+                Esta é a regra fundamental de mapeamento para relacionamentos 1:N (um-para-muitos). Para que as muitas instâncias de B (lado N) possam se referir à sua respectiva (e única) instância de A (lado 1), a tabela B deve conter um campo para armazenar o identificador de A.<br>
+                A chave primária (PK) da tabela A (lado 1) "migra" para a tabela B (lado N), onde se torna uma chave estrangeira (FK).<br>
+                A alternativa (B) é o inverso incorreto. A alternativa (A) (tabela associativa) é a regra para relacionamentos N:M.
+             </p>`,
+            // Q6
+            `<strong>6. Gabarito: D (Três tabelas: uma para Aluno, uma para Curso, e uma terceira tabela (associativa) contendo as chaves primárias de Aluno e Curso como chaves estrangeiras.)</strong>
+             <p class="mt-2 text-base leading-relaxed">
+                Um relacionamento N:M (muitos-para-muitos) não pode ser representado diretamente no modelo relacional usando apenas chaves estrangeiras nas tabelas originais, pois isso violaria a primeira forma normal (criando atributos multivalorados/repetidos).<br>
+                A solução padrão é <i>decompor</i> o relacionamento N:M em dois relacionamentos 1:N.<br>
+                Isso é feito criando uma terceira tabela, conhecida como tabela associativa, de junção ou intermediária.<br>
+                Esta nova tabela (ex: <span class="attr">Matricula</span>) conterá, no mínimo, as chaves primárias das duas entidades originais (<span class="attr">Aluno</span> e <span class="attr">Curso</span>) como chaves estrangeiras. A chave primária da tabela <span class="attr">Matricula</span> é frequentemente a chave composta formada por ambas as chaves estrangeiras.
+             </p>`,
+            // Q7
+            `<strong>7. Gabarito: C (Abordagem de tabela única (mapeamento da superclasse).)</strong>
+             <p class="mt-2 text-base leading-relaxed">
+                Existem três estratégias principais para mapear herança:<br>
+                1. <strong>Tabelas por Subclasses:</strong> Criam-se tabelas apenas para as subclasses (ex: <span class="attr">Pessoa_Fisica</span>, <span class="attr">Pessoa_Juridica</span>). Cada tabela repete os atributos da superclasse. <i>Desvantagem:</i> Redundância.<br>
+                2. <strong>Tabelas Conectadas (Uma tabela por entidade):</strong> Cria-se uma tabela para a superclasse (<span class="attr">Pessoa</span>) e uma para <i>cada</i> subclasse. A PK da superclasse é usada como PK e FK nas subclasses (relacionamento 1:1). <i>Desvantagem:</i> Requer JOINs.<br>
+                3. <strong>Tabela Única (Abordagem da Superclasse):</strong> Cria-se <i>uma única tabela</i> (<span class="attr">Pessoa</span>) que contém <i>todos</i> os atributos genéricos E <i>todos</i> os atributos específicos de <i>todas</i> as subclasses, mais um "atributo discriminador". <i>Desvantagem:</i> Muitos valores NULOS. Esta é a abordagem descrita na questão.
+             </p>`,
+            // Q8
+            `<strong>8. Gabarito: Errado</strong>
+             <p class="mt-2 text-base leading-relaxed">
+                O item está <strong>Errado</strong>. A armadilha está na definição do escopo da unicidade.<br>
+                Uma entidade fraca é aquela que não pode ser identificada unicamente por seus próprios atributos. Ela possui uma <strong>chave parcial</strong> (ou discriminador) que a distingue <i>apenas</i> em relação às outras entidades fracas <i>ligadas à mesma entidade forte proprietária</i>.<br>
+                A chave parcial (ex: <span class="attr">Numero_Item</span>) <i>não</i> garante unicidade em todo o banco de dados. A identificação única da entidade fraca é formada pela <strong>chave composta</strong> (a chave primária da entidade forte + a chave parcial da entidade fraca).
+             </p>`,
+            // Q9
+            `<strong>9. Gabarito: Errado</strong>
+             <p class="mt-2 text-base leading-relaxed">
+                O item está <strong>Errado</strong>, pois descreve a regra de Integridade de Entidade, mas a chama de Integridade Referencial. Esta é uma tática de inversão comum da banca.<br>
+                <strong>Integridade de Entidade:</strong> É a regra que afirma que nenhum atributo que compõe a chave primária (PK) de uma tabela pode conter o valor NULO. É isso que garante que cada linha seja unicamente identificável.<br>
+                <strong>Integridade Referencial:</strong> É a regra que governa as chaves estrangeiras (FK), garantindo que seus valores (se não nulos) correspondam a um valor de chave primária existente na tabela "pai" (referenciada).
+             </p>`,
+            // Q10
+            `<strong>10. Gabarito: Errado</strong>
+             <p class="mt-2 text-base leading-relaxed">
+                O item está <strong>Errado</strong>. Este item comete a inversão oposta ao item anterior. A definição apresentada (sobre valores de chave estrangeira que devem corresponder à chave primária ou serem nulos) é a definição exata da <strong>Integridade Referencial</strong>.<br>
+                O item atribui incorretamente essa definição à <strong>Integridade de Entidade</strong>, que, como visto no item anterior, é a regra que proíbe valores NULOS na chave primária.
+             </p>`
+        ];
+
+        // --- LÓGICA DO QUIZ ---
+
+        // Aguarda o DOM ser totalmente carregado
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // Pega as referências dos elementos do DOM
+            const quizForm = document.getElementById('quizForm');
+            const submitButton = document.getElementById('submitButton');
+            const resultsContainer = document.getElementById('resultsContainer');
+            const scoreElement = document.getElementById('score');
+            const resolutionsContainer = document.getElementById('resolutions');
+
+            // Adiciona o evento de clique ao botão de finalizar
+            submitButton.addEventListener('click', () => {
+                let score = 0;
+                const userAnswers = {};
+                const formData = new FormData(quizForm);
+
+                // Limpa resoluções anteriores
+                resolutionsContainer.innerHTML = ''; 
+
+                // Itera sobre as respostas corretas
+                for (let i = 1; i <= 10; i++) {
+                    const qName = 'q' + i;
+                    const userAnswer = formData.get(qName); // Pega a resposta do usuário (A, B, C, E...)
+                    const correctAnswer = correctAnswers[qName];
+                    const isCorrect = userAnswer === correctAnswer;
+
+                    if (isCorrect) {
+                        score++;
+                    }
+
+                    // --- Prepara a exibição da resolução ---
+                    const resolutionDiv = document.createElement('div');
+                    resolutionDiv.className = 'mb-6 p-4 border border-gray-200 rounded-lg bg-gray-50';
+                    
+                    let userAnswerText = 'Não respondida';
+                    let answerColor = 'text-gray-500';
+
+                    if (userAnswer) {
+                        // Converte C/E para Certo/Errado para exibição
+                        if (userAnswer === 'C') userAnswerText = 'Certo';
+                        else if (userAnswer === 'E') userAnswerText = 'Errado';
+                        else userAnswerText = userAnswer;
+
+                        answerColor = isCorrect ? 'text-green-600' : 'text-red-600';
+                    }
+
+                    // Monta o HTML da resolução individual
+                    resolutionDiv.innerHTML = `
+                        ${resolutions[i - 1]}
+                        <p class="mt-4 pt-4 border-t border-gray-200 text-base">
+                            Sua resposta: <strong class="${answerColor}">${userAnswerText}</strong>
+                        </p>
+                    `;
+                    
+                    resolutionsContainer.appendChild(resolutionDiv);
+                }
+
+                // Exibe a pontuação
+                let scoreColor = score < 5 ? 'text-red-600' : (score < 8 ? 'text-yellow-600' : 'text-green-600');
+                scoreElement.innerHTML = `Você acertou <span class="${scoreColor}">${score}</span> de 10 questões.`;
+
+                // Mostra o container de resultados
+                resultsContainer.classList.remove('hidden');
+
+                // Rola a página para os resultados
+                resultsContainer.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+
+</body>
+</html>

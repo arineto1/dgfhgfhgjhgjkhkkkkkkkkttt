@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Complexidade de Algoritmos</title>
+    <!-- Carregando o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilos personalizados para legibilidade */
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        pre {
+            background-color: #f3f4f6; /* bg-gray-100 */
+            color: #1f2937; /* text-gray-800 */
+            padding: 1rem;
+            border-radius: 0.5rem; /* rounded-lg */
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        /* Melhorando o foco nos botões de rádio */
+        input[type="radio"]:focus + span {
+            outline: 2px solid #2563eb; /* focus:ring-blue-500 */
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-900 font-sans leading-relaxed">
+
+    <!-- Container Principal -->
+    <div class="container max-w-4xl mx-auto p-6 md:p-10 bg-white shadow-xl rounded-lg my-10">
+
+        <!-- Cabeçalho do Quiz -->
+        <header class="border-b border-gray-200 pb-6 mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2">Quiz: Complexidade de Algoritmos</h1>
+            <p class="text-lg text-gray-600">Estilo Instituto AOCP</p>
+        </header>
+
+        <!-- Container do Quiz (será preenchido pelo JS) -->
+        <form id="quiz-form">
+            <div id="quiz-container" class="space-y-12">
+                <!-- As questões serão injetadas aqui -->
+            </div>
+    
+            <!-- Botão de Finalizar -->
+            <button type="submit" id="submit-btn" class="w-full mt-12 bg-blue-600 text-white font-bold py-4 px-6 rounded-lg text-lg hover:bg-blue-700 transition duration-300 shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300">
+                Finalizar e Corrigir
+            </button>
+        </form>
+
+        <!-- Container de Resultados (oculto por padrão) -->
+        <div id="results-container" class="hidden mt-12 border-t-2 border-blue-500 pt-8">
+            <!-- O sumário da pontuação será injetado aqui -->
+            <div id="score-summary" class="mb-10"></div>
+            
+            <!-- As resoluções detalhadas serão injetadas aqui -->
+            <div id="resolutions-wrapper" class="space-y-8"></div>
+        </div>
+
+    </div>
+
+    <script>
+        // --- BANCO DE DADOS DAS QUESTÕES ---
+        // Extraído diretamente do documento fornecido.
+        const questions = [
+            {
+                id: 'q1',
+                type: 'mc',
+                text: "Considere o pseudocódigo a seguir, que opera sobre um vetor de tamanho $n$:",
+                code: `funcao_exemplo(vetor V, inteiro n)
+1.   inteiro soma = 0
+2.   para i de 1 até n faça
+3.     para j de 1 até n faça
+4.       soma = soma + V[i] * V[j]
+5.     fim-para
+6.   fim-para
+7.   retorna soma`,
+                options: [
+                    { value: "A", text: "$O(\\log n)$" },
+                    { value: "B", text: "$O(n)$" },
+                    { value: "C", text: "$O(n \\log n)$" },
+                    { value: "D", text: "$O(n^2)$" },
+                    { value: "E", text: "$O(n^3)$" }
+                ],
+                correct: "D",
+                resolution: `
+                    <p><strong>Gabarito: D ($O(n^2)$)</strong></p>
+                    <p class="mt-4"><strong>Análise:</strong> A complexidade de um algoritmo é determinada pelo número de operações elementares que ele executa em função do tamanho da entrada $n$.</p>
+                    <ol class="list-decimal list-inside mt-2 space-y-1">
+                        <li>A linha 1 (atribuição) tem custo constante, $O(1)$.</li>
+                        <li>O <code>loop</code> externo (linha 2) executa $n$ vezes (de $i=1$ até $n$).</li>
+                        <li>O <code>loop</code> interno (linha 3) também executa $n$ vezes (de $j=1$ até $n$).</li>
+                        <li>Crucialmente, o <code>loop</code> interno está <em>aninhado</em> dentro do <code>loop</code> externo. Isso significa que para <em>cada</em> uma das $n$ iterações do <code>loop</code> externo, o <code>loop</code> interno executará suas $n$ iterações.</li>
+                        <li>A operação interna (linha 4), que tem custo $O(1)$, será executada $n \\times n = n^2$ vezes.</li>
+                        <li>O tempo total de execução $T(n)$ é a soma do custo da inicialização (constante) e o custo dos loops (quadrático): $T(n) = c_1 + (n \\times n \\times c_2) = c_1 + c_2 n^2$.</li>
+                        <li>Na análise assintótica (Notação Big-O), desconsideramos as constantes ($c_1$ e $c_2$) e mantemos apenas o termo de maior ordem (dominante), que é $n^2$.</li>
+                    </ol>
+                    <p class="mt-2">Portanto, a complexidade de tempo é $O(n^2)$. As alternativas (A) $O(\\log n)$, (B) $O(n)$ e (C) $O(n \\log n)$ subestimam severamente o crescimento, enquanto (E) $O(n^3)$ superestima (seria o caso de um terceiro loop aninhado).</p>
+                `
+            },
+            {
+                id: 'q2',
+                type: 'mc',
+                text: "Analise o fragmento de código abaixo, onde $n$ é o tamanho da entrada:",
+                code: `inteiro i = 1
+enquanto (i < n) faça
+  // alguma operação de custo O(1)
+  i = i * 2
+fim-enquanto`,
+                options: [
+                    { value: "A", text: "$O(\\log n)$" },
+                    { value: "B", text: "$O(n)$" },
+                    { value: "C", text: "$O(n \\log n)$" },
+                    { value: "D", text: "$O(n^2)$" },
+                    { value: "E", text: "$O(2^n)$" }
+                ],
+                correct: "A",
+                resolution: `
+                    <p><strong>Gabarito: A ($O(\\log n)$)</strong></p>
+                    <p class="mt-4"><strong>Análise:</strong> Esta questão testa a identificação de um loop logarítmico. A complexidade não é linear ($O(n)$) porque a variável de controle $i$ não é incrementada aritmeticamente (ex: <code>i = i + 1</code>).</p>
+                    <ol class="list-decimal list-inside mt-2 space-y-1">
+                        <li>A variável $i$ é incrementada geometricamente (exponencialmente): <code>i = i * 2</code>.</li>
+                        <li>Os valores de $i$ ao longo das iterações serão: $1, 2, 4, 8, 16, \\dots, 2^k$.</li>
+                        <li>O loop continua enquanto $i < n$. Ele para quando $i \\ge n$.</li>
+                        <li>Queremos saber o número de iterações, $k$, necessário para que o valor de $i$ (que é $2^{k-1}$ na $k$-ésima iteração) atinja ou ultrapasse $n$.</li>
+                        <li>Matematicamente, buscamos $k$ tal que: $2^{k-1} \\ge n$.</li>
+                        <li>Aplicando logaritmo na base 2 em ambos os lados: $k-1 \\ge \\log_2 n$.</li>
+                        <li>Isso resulta em: $k \\ge \\log_2 n + 1$.</li>
+                        <li>O número de iterações $k$ é proporcional a $\\log_2 n$. Na análise Big-O, a base do logaritmo é irrelevante (pela regra da mudança de base), e constantes aditivas (como +1) são desconsideradas.</li>
+                    </ol>
+                    <p class="mt-2">Portanto, a complexidade de tempo é $O(\\log n)$. Este tipo de complexidade é característico de algoritmos que dividem o problema pela metade a cada passo, como a busca binária.</p>
+                `
+            },
+            {
+                id: 'q3',
+                type: 'mc',
+                text: "Na análise assintótica de algoritmos, onde o interesse é a taxa de crescimento para valores de $n$ suficientemente grandes, desconsiderando constantes multiplicativas e termos de ordem inferior, qual é a classe de complexidade (Notação Big-O) para uma função de custo $T(n) = 5n^2 + 100n + 30 \\log n + 200$? [1]",
+                code: null,
+                options: [
+                    { value: "A", text: "$O(\\log n)$" },
+                    { value: "B", text: "$O(n)$" },
+                    { value: "C", text: "$O(n^2)$" },
+                    { value: "D", text: "$O(n^2 + n + \\log n)$" },
+                    { value: "E", text: "$O(200)$" }
+                ],
+                correct: "C",
+                resolution: `
+                    <p><strong>Gabarito: C ($O(n^2)$)</strong></p>
+                    <p class="mt-4"><strong>Análise:</strong> Esta questão é baseada no princípio fundamental da análise assintótica, que é identificar a taxa de crescimento dominante de uma função.[1] A Notação Big-O descreve um limite superior para $n$ tendendo ao infinito ($n \\to \\infty$).</p>
+                    <p class="mt-2">A função de custo é $T(n) = 5n^2 + 100n + 30 \\log n + 200$.</p>
+                    <ol class="list-decimal list-inside mt-2 space-y-1">
+                        <li><strong>Regra do Termo Dominante:</strong> Na soma de várias funções de complexidade, a complexidade total é determinada pela função que cresce mais rapidamente assintoticamente.</li>
+                        <li><strong>Comparação das Taxas de Crescimento:</strong> Devemos comparar as taxas de crescimento de $n^2$, $n$, $\\log n$ e a constante (200, que é $O(1)$).</li>
+                        <li>A hierarquia de crescimento padrão é: $O(1) \\ll O(\\log n) \\ll O(n) \\ll O(n \\log n) \\ll O(n^2) \\ll O(n^3) \\ll O(2^n)$.</li>
+                        <li><strong>Regra das Constantes:</strong> Na análise assintótica, constantes multiplicativas são ignoradas, pois estamos interessados na <em>forma</em> da curva de crescimento, não em sua inclinação exata. Assim, $5n^2$ é $O(n^2)$, $100n$ é $O(n)$, e $30 \\log n$ é $O(\\log n)$.</li>
+                        <li><strong>Aplicação:</strong> Em $T(n) = O(n^2) + O(n) + O(\\log n) + O(1)$, o termo $O(n^2)$ cresce mais rápido que todos os outros. Para $n$ suficientemente grande, o valor de $5n^2$ será tão maior que os outros termos que eles se tornarão insignificantes em comparação.</li>
+                    </ol>
+                    <p class="mt-2">Portanto, a complexidade assintótica de $T(n)$ é $O(n^2)$. A alternativa (D) $O(n^2 + n + \\log n)$ está incorreta por não aplicar a simplificação final do termo dominante.</p>
+                `
+            },
+            {
+                id: 'q4',
+                type: 'ce',
+                text: 'Julgue o item a seguir como Certo (C) ou Errado (E) quanto aos conceitos de complexidade de algoritmos:\n\n"Um algoritmo com complexidade de tempo $O(n^3)$ é assintoticamente mais eficiente (mais rápido para entradas muito grandes) do que um algoritmo com complexidade de tempo $O(2^n)$." [2]',
+                code: null,
+                options: [
+                    { value: "C", text: "(C) Certo" },
+                    { value: "E", text: "(E) Errado" }
+                ],
+                correct: "C",
+                resolution: `
+                    <p><strong>Gabarito: C (Certo)</strong></p>
+                    <p class="mt-4"><strong>Análise:</strong> A afirmação compara a eficiência assintótica de um algoritmo polinomial ($O(n^3)$) com um algoritmo exponencial ($O(2^n)$).[2]</p>
+                    <ol class="list-decimal list-inside mt-2 space-y-1">
+                        <li><strong>Definição de Eficiência:</strong> Em complexidade de algoritmos, "mais eficiente" significa ter uma taxa de crescimento <em>menor</em> (ou seja, executar mais rapidamente) para entradas $n$ suficientemente grandes.</li>
+                        <li><strong>Hierarquia de Complexidade:</strong> Funções exponenciais, como $a^n$ (onde $a > 1$), crescem assintoticamente mais rápido do que <em>qualquer</em> função polinomial, $n^k$ (para qualquer $k$ constante).</li>
+                        <li><strong>Análise Formal:</strong> Para provar que $O(n^3)$ é "menor" que $O(2^n)$, podemos analisar o limite do quociente quando $n \\to \\infty$:
+                            <div class="my-2 p-2 bg-gray-100 rounded">$\$\\lim_{n \\to \\infty} \\frac{n^3}{2^n}\$\$</div>
+                            Aplicando a Regra de L'Hôpital repetidamente (derivando numerador e denominador):
+                            <div class="my-2 p-2 bg-gray-100 rounded">$\$\\lim_{n \\to \\infty} \\frac{3n^2}{(\\ln 2) 2^n} = \\lim_{n \\to \\infty} \\frac{6n}{(\\ln 2)^2 2^n} = \\lim_{n \\to \\infty} \\frac{6}{(\\ln 2)^3 2^n} = 0\$\$</div>
+                        </li>
+                        <li>Como o limite é 0, significa que $2^n$ cresce incomparavelmente mais rápido que $n^3$.</li>
+                        <li><strong>Conclusão:</strong> Um algoritmo $O(n^3)$ terá seu tempo de execução crescendo muito mais lentamente que um algoritmo $O(2^n)$. Portanto, o algoritmo $O(n^3)$ é assintoticamente mais eficiente (mais rápido). A afirmação está Certa.</li>
+                    </ol>
+                `
+            },
+            {
+                id: 'q5',
+                type: 'mc',
+                text: "Em Teoria da Computação, diferentes notações são usadas para descrever os limites do tempo de execução de um algoritmo. Qual notação é usada para descrever o limite inferior (melhor caso) de um algoritmo?",
+                code: null,
+                options: [
+                    { value: "A", text: "$O$ (Big-O)" },
+                    { value: "B", text: "$\\Theta$ (Theta)" },
+                    { value: "C", text: "$\\Omega$ (Omega)" },
+                    { value: "D", text: "$o$ (little-o)" },
+                    { value: "E", text: "$\\omega$ (little-omega)" }
+                ],
+                correct: "C",
+                resolution: `
+                    <p><strong>Gabarito: C ($\\Omega$ (Omega))</strong></p>
+                    <p class="mt-4"><strong>Análise:</strong> Esta questão testa o conhecimento da nomenclatura formal das notações assintóticas.</p>
+                    <ol class="list-decimal list-inside mt-2 space-y-1">
+                        <li><strong>$O$ (Big-O):</strong> Descreve o <strong>limite superior</strong> assintótico. É a notação mais comum e representa o <strong>pior caso</strong> de complexidade. Significa que o tempo de execução $f(n)$ de um algoritmo não cresce <em>mais rápido</em> que $g(n)$, ou seja, $f(n) \\le c \\cdot g(n)$ para $n > n_0$.</li>
+                        <li><strong>$\\Omega$ (Big-Omega):</strong> Descreve o <strong>limite inferior</strong> assintótico. É usado para representar o <strong>melhor caso</strong>. Significa que o tempo de execução $f(n)$ não cresce <em>mais lentamente</em> que $g(n)$, ou seja, $f(n) \\ge c \\cdot g(n)$ para $n > n_0$.</li>
+                        <li><strong>$\\Theta$ (Theta):</strong> Descreve o <strong>limite justo</strong> ou <strong>apertado</strong>. É usado quando o melhor e o pior caso são assintoticamente iguais. Significa que $f(n)$ está "prensado" entre $c_1 \\cdot g(n)$ e $c_2 \\cdot g(n)$. Formalmente, $f(n) \\in \\Theta(g(n))$ se $f(n) \\in O(g(n))$ e $f(n) \\in \\Omega(g(n))$.</li>
+                        <li>(<strong>$o$, $\\omega$</strong>): As notações "little-o" e "little-omega" representam limites <em>não</em> apertados, mas são menos comuns em questões de concurso.</li>
+                    </ol>
+                    <p class="mt-2">A questão pede explicitamente o "limite inferior", que é a definição da notação $\\Omega$ (Big-Omega).</p>
+                `
+            },
+            {
+                id: 'q6',
+                type: 'mc',
+                text: "Um algoritmo que, para qualquer entrada de tamanho $n$, garante ter a menor complexidade assintótica possível entre todos os algoritmos conhecidos e teóricos para resolver o mesmo problema, é considerado um algoritmo: [3]",
+                code: null,
+                options: [
+                    { value: "A", text: "Heurístico" },
+                    { value: "B", text: "Ótimo" },
+                    { value: "C", text: "Polinomial" },
+                    { value: "D", text: "Estável" },
+                    { value: "E", text: "Iterativo" }
+                ],
+                correct: "B",
+                resolution: `
+                    <p><strong>Gabarito: B (Ótimo)</strong></p>
+                    <p class="mt-4"><strong>Análise:</strong> Esta questão testa a definição de um algoritmo "ótimo" no contexto da teoria da complexidade.[3]</p>
+                    <ol class="list-decimal list-inside mt-2 space-y-1">
+                        <li>É crucial diferenciar a complexidade de um <em>problema</em> da complexidade de um <em>algoritmo</em>.</li>
+                        <li>Um <em>problema</em> (ex: "ordenar $n$ elementos") tem um limite inferior teórico ($\\Omega$), que é o mínimo de trabalho que <em>qualquer</em> algoritmo deve fazer para resolvê-lo. (Para ordenação baseada em comparação, o limite inferior do problema é $\\Omega(n \\log n)$).</li>
+                        <li>Um <em>algoritmo</em> (ex: Heapsort) tem uma complexidade de pior caso ($O$), que é o seu desempenho. (Para o Heapsort, a complexidade de pior caso é $O(n \\log n)$).</li>
+                        <li>Quando a complexidade de pior caso de um algoritmo ($O$) é igual ao limite inferior teórico do problema ($\\Omega$), dizemos que o algoritmo é <strong>assintoticamente ótimo</strong>. Ele resolve o problema da maneira mais eficiente teoricamente possível, desconsiderando constantes.</li>
+                    </ol>
+                    <p class="mt-2">As outras alternativas são: (A) Heurístico (busca uma solução "boa o suficiente", mas não garante a melhor), (C) Polinomial (uma <em>classe</em> de algoritmos, não uma definição de otimalidade), (D) Estável (propriedade de algoritmos de ordenação), (E) Iterativo (um paradigma de implementação, oposto ao recursivo).</p>
+                `
+            },
+            {
+                id: 'q7',
+                type: 'mc',
+                text: "Algoritmos de ordenação são fundamentais na ciência da computação. Assinale a alternativa que apresenta um algoritmo de ordenação baseado em comparação cuja complexidade de tempo no pior caso é $O(n \\log n)$.",
+                code: null,
+                options: [
+                    { value: "A", text: "Bubble Sort" },
+                    { value: "B", text: "Insertion Sort" },
+                    { value: "C", text: "Quicksort (implementação padrão)" },
+                    { value: "D", text: "Heapsort" },
+                    { value: "E", text: "Selection Sort" }
+                ],
+                correct: "D",
+                resolution: `
+                    <p><strong>Gabarito: D (Heapsort)</strong></p>
+                    <p class="mt-4"><strong>Análise:</strong> A questão exige o conhecimento das complexidades de pior caso para algoritmos de ordenação clássicos.</p>
+                    <ol class="list-decimal list-inside mt-2 space-y-1">
+                        <li><strong>(A) Bubble Sort:</strong> Tem complexidade $O(n^2)$ no pior caso (vetor ordenado inversamente) e no caso médio.</li>
+                        <li><strong>(B) Insertion Sort:</strong> Tem complexidade $O(n^2)$ no pior caso (vetor ordenado inversamente) e no caso médio. (Seu melhor caso, com vetor já ordenado, é $O(n)$).</li>
+                        <li><strong>(C) Quicksort (implementação padrão):</strong> Embora tenha um excelente caso médio de $O(n \\log n)$, seu <em>pior caso</em> ocorre quando o pivô é consistentemente escolhido de forma ruim (ex: o menor ou maior elemento, o que acontece em um vetor já ordenado). Isso degenera a recursão, levando a uma complexidade de $O(n^2)$.</li>
+                        <li><strong>(D) Heapsort:</strong> Baseia-se na estrutura de dados <em>heap</em>. A construção do heap leva $O(n)$ e as $n$ extrações do elemento máximo (ou mínimo) levam $O(\\log n)$ cada. O tempo total é $O(n \\log n)$. Esta complexidade é garantida no melhor, médio e <em>pior caso</em>.</li>
+                        <li><strong>(E) Selection Sort:</strong> Tem complexidade $O(n^2)$ no melhor, médio e pior caso, pois sempre varre o restante do vetor para encontrar o próximo mínimo.</li>
+                    </ol>
+                    <p class="mt-2">O Merge Sort (que não estava nas opções) também garante $O(n \\log n)$ no pior caso. Entre as opções dadas, apenas o Heapsort satisfaz a condição.</p>
+                `
+            },
+            {
+                id: 'q8',
+                type: 'ce',
+                text: 'Julgue o item a seguir como Certo (C) ou Errado (E):\n\n"Um algoritmo de complexidade $O(n)$ (linear) sempre será executado mais rapidamente do que um algoritmo de complexidade $O(n^2)$ (quadrático) para qualquer tamanho de entrada $n$." [2]',
+                code: null,
+                options: [
+                    { value: "C", text: "(C) Certo" },
+                    { value: "E", text: "(E) Errado" }
+                ],
+                correct: "E",
+                resolution: `
+                    <p><strong>Gabarito: E (Errado)</strong></p>
+                    <p class="mt-4"><strong>Análise:</strong> Esta é uma questão conceitual que testa a compreensão do que a Notação Big-O realmente significa, especificamente a sua natureza <em>assintótica</em> e a desconsideração de <em>constantes</em> multiplicativas.</p>
+                    <ol class="list-decimal list-inside mt-2 space-y-1">
+                        <li>A Notação Big-O descreve o comportamento de uma função para valores de $n$ <em>suficientemente grandes</em> ($n \\to \\infty$). Ela não faz afirmações sobre o desempenho para valores pequenos ou "qualquer" valor de $n$.</li>
+                        <li>A análise Big-O ignora fatores constantes. Um algoritmo $O(n)$ pode ter um tempo de execução real de $T_A(n) = 1000n$. Um algoritmo $O(n^2)$ pode ter um tempo real de $T_B(n) = 1n^2$.</li>
+                        <li>A afirmação diz que o $O(n)$ é <em>sempre</em> mais rápido "para <em>qualquer</em> tamanho de entrada $n$".</li>
+                        <li>Vamos testar com $n=10$:
+                            <ul class="list-disc list-inside ml-4">
+                                <li>$T_A(10) = 1000 \\times 10 = 10.000$ unidades de tempo.</li>
+                                <li>$T_B(10) = 1 \\times 10^2 = 100$ unidades de tempo.</li>
+                            </ul>
+                        </li>
+                        <li>Neste exemplo, para $n=10$, o algoritmo quadrático $O(n^2)$ é 100 vezes mais rápido que o algoritmo linear $O(n)$.</li>
+                        <li>O algoritmo $O(n)$ só se tornará mais rápido que este $O(n^2)$ quando $1000n < n^2$, o que ocorre quando $n > 1000$.</li>
+                    </ol>
+                    <p class="mt-2">Como a afirmação "para qualquer tamanho de entrada $n$" é falsa (o $O(n^2)$ pode ser mais rápido para $n$ pequeno), o item está Errado.</p>
+                `
+            },
+            {
+                id: 'q9',
+                type: 'mc',
+                text: "Considere a seguinte função recursiva para calcular o n-ésimo termo da sequência de Fibonacci:",
+                code: `funcao fibonacci(inteiro n)
+1.   se (n <= 1) então
+2.     retorna n
+3.   senão
+4.     retorna fibonacci(n-1) + fibonacci(n-2)
+5.   fim-se`,
+                options: [
+                    { value: "A", text: "$O(\\log n)$" },
+                    { value: "B", text: "$O(n)$" },
+                    { value: "C", text: "$O(n \\log n)$" },
+                    { value: "D", text: "$O(n^2)$" },
+                    { value: "E", text: "$O(2^n)$" }
+                ],
+                correct: "E",
+                resolution: `
+                    <p><strong>Gabarito: E ($O(2^n)$)</strong></p>
+                    <p class="mt-4"><strong>Análise:</strong> Esta implementação recursiva de Fibonacci é um exemplo clássico de recursão ineficiente, que leva a uma complexidade exponencial.</p>
+                    <ol class="list-decimal list-inside mt-2 space-y-1">
+                        <li><strong>Relação de Recorrência:</strong> Vamos analisar o tempo de execução $T(n)$.
+                            <ul class="list-disc list-inside ml-4">
+                                <li>Se $n \\le 1$ (caso base), o tempo é constante: $T(n) = c_1$.</li>
+                                <li>Se $n > 1$ (caso recursivo), a função faz uma soma e <em>duas</em> chamadas recursivas: $T(n) = T(n-1) + T(n-2) + c_2$.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Árvore de Recursão:</strong> A recorrência $T(n) = T(n-1) + T(n-2)$ é a mesma da própria sequência de Fibonacci. Isso significa que $T(n)$ cresce exponencialmente.</li>
+                        <li><strong>Recálculo:</strong> O problema é que a função recalcula os mesmos valores várias vezes. Por exemplo, para calcular <code>fib(5)</code>, a árvore de chamadas é:
+                            <ul class="list-disc list-inside ml-4">
+                                <li><code>fib(5)</code> chama <code>fib(4)</code> e <code>fib(3)</code>.</li>
+                                <li><code>fib(4)</code> chama <code>fib(3)</code> e <code>fib(2)</code>.</li>
+                                <li><code>fib(3)</code> (a primeira chamada) chama <code>fib(2)</code> e <code>fib(1)</code>.</li>
+                                <li>Note que <code>fib(3)</code> é calculado duas vezes, <code>fib(2)</code> é calculado três vezes, etc.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Complexidade:</strong> O número de chamadas na árvore cresce exponencialmente. A solução exata para a recorrência $T(n)$ está na ordem de $\\Theta(\\phi^n)$, onde $\\phi = \\frac{1+\\sqrt{5}}{2} \\approx 1.618$ (a razão áurea).</li>
+                        <li>Como $1.618^n$ é uma função exponencial, ela pertence à classe de complexidade $O(2^n)$ (pois $1.618 < 2$).</li>
+                    </ol>
+                    <p class="mt-2">Esta implementação é drasticamente ineficiente. Uma solução $O(n)$ (usando programação dinâmica/memoização) ou $O(\\log n)$ (usando exponenciação de matrizes) seria muito superior.</p>
+                `
+            },
+            {
+                id: 'q10',
+                type: 'mc',
+                text: "Analise o pseudocódigo a seguir:",
+                code: `funcao mista(inteiro n)
+1.   // Bloco 1
+2.   para i de 1 até n faça
+3.     // operação O(1)
+4.   fim-para
+5.
+6.   // Bloco 2
+7.   para i de 1 até n faça
+8.     para j de 1 até n faça
+9.       // operação O(1)
+10.    fim-para
+11.  fim-para`,
+                options: [
+                    { value: "A", text: "$O(n)$" },
+                    { value: "B", text: "$O(n \\log n)$" },
+                    { value: "C", text: "$O(n^2)$" },
+                    { value: "D", text: "$O(n^3)$" },
+                    { value: "E", text: "$O(n + n^2)$" }
+                ],
+                correct: "C",
+                resolution: `
+                    <p><strong>Gabarito: C ($O(n^2)$)</strong></p>
+                    <p class="mt-4"><strong>Análise:</strong> Esta questão testa a "Regra da Soma" para análise de complexidade de blocos de código sequenciais.</p>
+                    <ol class="list-decimal list-inside mt-2 space-y-1">
+                        <li>A função <code>mista</code> consiste em dois blocos executados um após o outro (sequencialmente).</li>
+                        <li>O tempo de execução total $T(n)$ será a soma dos tempos de cada bloco: $T(n) = T_{Bloco1}(n) + T_{Bloco2}(n)$.</li>
+                        <li><strong>Análise do Bloco 1 (linhas 2-4):</strong> Este bloco contém um único <code>loop</code> <code>for</code> que executa de 1 até $n$. A operação interna é $O(1)$. Portanto, $T_{Bloco1}(n) = n \\times O(1) = O(n)$.</li>
+                        <li><strong>Análise do Bloco 2 (linhas 7-11):</strong> Este bloco contém dois <code>loops</code> <code>for</code> aninhados. O externo executa $n$ vezes, e para cada uma, o interno executa $n$ vezes. A operação interna é $O(1)$. Portanto, $T_{Bloco2}(n) = n \\times n \\times O(1) = O(n^2)$.</li>
+                        <li><strong>Cálculo Total:</strong> $T(n) = O(n) + O(n^2)$.</li>
+                        <li><strong>Regra do Termo Dominante:</strong> Assim como na Questão 3, quando somamos complexidades, o resultado final é determinado pelo termo que cresce mais rápido (o termo dominante). Como $n^2$ cresce assintoticamente mais rápido que $n$, ele "domina" o tempo de execução.</li>
+                        <li><strong>Simplificação:</strong> $O(n) + O(n^2) = O(\\max(n, n^2)) = O(n^2)$.</li>
+                    </ol>
+                    <p class="mt-2">A alternativa (E) $O(n + n^2)$ é matematicamente correta, mas não é a forma canônica (simplificada) usada na Notação Big-O. A forma correta e mais simples é $O(n^2)$.</p>
+                `
+            }
+        ];
+
+        // --- LÓGICA DO QUIZ ---
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const quizContainer = document.getElementById('quiz-container');
+            const quizForm = document.getElementById('quiz-form');
+            const resultsContainer = document.getElementById('results-container');
+            const scoreSummary = document.getElementById('score-summary');
+            const resolutionsWrapper = document.getElementById('resolutions-wrapper');
+            const submitButton = document.getElementById('submit-btn');
+
+            // 1. Renderizar as questões
+            renderQuiz();
+
+            // 2. Adicionar listener para o envio
+            quizForm.addEventListener('submit', (e) => {
+                e.preventDefault(); // Impedir o envio real do formulário
+                showResults();
+            });
+
+            /**
+             * Preenche o container do quiz com as questões do banco de dados.
+             */
+            function renderQuiz() {
+                let quizHTML = '';
+
+                questions.forEach((question, index) => {
+                    quizHTML += `
+                        <div class="question-block border-b border-gray-200 pb-10">
+                            <!-- Enunciado da Questão -->
+                            <p class="text-lg font-semibold mb-4 whitespace-pre-line">
+                                <strong>Questão ${index + 1}:</strong> ${question.text}
+                            </p>
+                            
+                            <!-- Bloco de Código (se existir) -->
+                            ${question.code ? `<pre class="mb-4">${escapeHTML(question.code)}</pre>` : ''}
+                            
+                            <!-- Opções de Resposta -->
+                            <div class="space-y-3">
+                                ${generateOptionsHTML(question)}
+                            </div>
+                        </div>
+                    `;
+                });
+
+                quizContainer.innerHTML = quizHTML;
+            }
+
+            /**
+             * Gera o HTML para as opções de uma questão.
+             */
+            function generateOptionsHTML(question) {
+                let optionsHTML = '';
+                
+                question.options.forEach(option => {
+                    optionsHTML += `
+                        <label class="flex items-center space-x-3 p-4 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100 hover:border-blue-300 cursor-pointer transition-colors duration-150">
+                            <input type="radio" name="${question.id}" value="${option.value}" class="form-radio h-5 w-5 text-blue-600 focus:ring-blue-500">
+                            <span class="text-base text-gray-800">${option.text}</span>
+                        </label>
+                    `;
+                });
+
+                return optionsHTML;
+            }
+
+            /**
+             * Calcula os resultados e exibe a seção de resolução.
+             */
+            function showResults() {
+                let score = 0;
+                let resolutionsHTML = '';
+
+                // Desabilitar todos os inputs após finalizar
+                const allInputs = quizForm.querySelectorAll('input[type="radio"]');
+                allInputs.forEach(input => input.disabled = true);
+
+                questions.forEach((question, index) => {
+                    const selectedOption = quizForm.querySelector(`input[name="${question.id}"]:checked`);
+                    const userAnswer = selectedOption ? selectedOption.value : null;
+                    const isCorrect = (userAnswer === question.correct);
+
+                    if (isCorrect) {
+                        score++;
+                    }
+
+                    // Monta o HTML para a resolução detalhada
+                    resolutionsHTML += `
+                        <div class="resolution-block p-6 bg-gray-50 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-bold mb-4">Questão ${index + 1}</h3>
+                            
+                            <!-- Feedback da Resposta -->
+                            <div class="mb-4 p-4 rounded-md ${isCorrect ? 'bg-green-100 border border-green-300' : 'bg-red-100 border border-red-300'}">
+                                <p><strong>Sua resposta:</strong> ${userAnswer ? getOptionText(question, userAnswer) : 'Nenhuma resposta selecionada.'}</p>
+                                <p><strong>Gabarito:</strong> ${getOptionText(question, question.correct)}</p>
+                                <p class="text-lg font-semibold mt-2 ${isCorrect ? 'text-green-700' : 'text-red-700'}">
+                                    ${isCorrect ? 'Você acertou! &#10004;' : 'Você errou. &#10006;'}
+                                </p>
+                            </div>
+
+                            <!-- Resolução Comentada -->
+                            <div class="resolution-text text-base leading-relaxed">
+                                ${question.resolution}
+                            </div>
+                        </div>
+                    `;
+                });
+
+                // Exibe o sumário da pontuação
+                let scoreColor = score > 7 ? 'text-green-600' : (score > 4 ? 'text-yellow-600' : 'text-red-600');
+                scoreSummary.innerHTML = `
+                    <h2 class="text-3xl font-bold mb-4">Seu Resultado</h2>
+                    <p class="text-2xl font-semibold ${scoreColor}">
+                        Você acertou ${score} de ${questions.length} questões.
+                    </p>
+                `;
+
+                // Preenche e exibe os resultados
+                resolutionsWrapper.innerHTML = resolutionsHTML;
+                resultsContainer.classList.remove('hidden');
+
+                // Esconde o botão de finalizar
+                submitButton.classList.add('hidden');
+
+                // Rola a página para os resultados
+                resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            /**
+             * Pega o texto de uma opção a partir do seu valor.
+             */
+            function getOptionText(question, value) {
+                const option = question.options.find(opt => opt.value === value);
+                return option ? option.text : value; // Retorna o valor se não achar o texto (fallback)
+            }
+
+            /**
+             * Helper para escapar HTML em blocos de código
+             */
+            function escapeHTML(str) {
+                return str.replace(/[&<>"']/g, function(match) {
+                    return {
+                        '&': '&amp;',
+                        '<': '&lt;',
+                        '>': '&gt;',
+                        '"': '&quot;',
+                        "'": '&#39;'
+                    }[match];
+                });
+            }
+        });
+    </script>
+</body>
+</html>

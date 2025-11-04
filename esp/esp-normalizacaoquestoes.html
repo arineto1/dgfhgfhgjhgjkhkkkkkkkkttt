@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Banco de Dados (Normalização e SQL)</title>
+    <!-- Carregando Tailwind CSS para um design limpo -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilos personalizados para legibilidade */
+        body {
+            background-color: #f8f9fa; /* Fundo claro (cinza muito leve) */
+            color: #212529; /* Letras escuras */
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7; /* Espaçamento entre linhas para leitura */
+        }
+        
+        /* Container principal para o conteúdo */
+        .main-container {
+            max-width: 800px; /* Largura máxima para não cansar a vista */
+            margin: 2rem auto; /* Centralizado com margem */
+            background-color: #ffffff; /* Fundo branco para o "papel" */
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            padding: 2rem 3rem;
+        }
+
+        /* Estilos para as tabelas das questões */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 0.75rem;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #f1f3f5;
+        }
+
+        /* Estilos para blocos de código */
+        pre {
+            background-color: #f1f3f5;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto; /* Rolagem horizontal para código */
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #e9ecef;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        /* Bloco de cada questão */
+        .question-block {
+            border-bottom: 1px solid #e9ecef;
+            padding-bottom: 2rem;
+            margin-bottom: 2rem;
+        }
+        .question-block:last-child {
+            border-bottom: none;
+        }
+
+        /* Opções de resposta */
+        .option-label {
+            display: block;
+            padding: 0.85rem 1rem;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+        .option-label:hover {
+            background-color: #f1f3f5;
+        }
+        .option-label input {
+            margin-right: 0.75rem;
+        }
+
+        /* Botão de finalizar */
+        .submit-button {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.2s;
+        }
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Seção de resultados */
+        .results-section {
+            border-top: 2px solid #007bff;
+            margin-top: 3rem;
+            padding-top: 2rem;
+        }
+        
+        .resolution-block {
+            margin-bottom: 2rem;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            overflow: hidden; /* Para conter os cantos arredondados */
+        }
+        .resolution-question {
+            padding: 1rem 1.5rem;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .resolution-details {
+            padding: 1.5rem;
+        }
+        
+        /* Estilos para feedback de resposta */
+        .feedback-correct {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .feedback-incorrect {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .gabarito-highlight {
+            background-color: #d4edda; /* Verde claro */
+            border-left: 4px solid #28a745;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="font-sans">
+
+    <div class="main-container">
+        
+        <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">Quiz de Banco de Dados: Normalização e SQL</h1>
+        <p class="text-center text-lg text-gray-600 mb-10">Teste seus conhecimentos em Normalização e Linguagem SQL.</p>
+
+        <!-- Formulário do Quiz -->
+        <form id="quiz-form">
+            
+            <!-- As questões serão injetadas aqui pelo JavaScript -->
+            <div id="quiz-questions"></div>
+
+            <button type="submit" class="submit-button w-full md:w-auto">
+                Finalizar Quiz e Ver Resultados
+            </button>
+        </form>
+
+        <!-- Seção de Resultados (inicialmente oculta) -->
+        <div id="results-section" class="results-section hidden">
+            <h2 class="text-3xl font-bold mb-4" id="score-display">Seu resultado: 0 de 10</h2>
+            <p class="text-lg text-gray-700 mb-8" id="score-summary">Veja abaixo o gabarito e a resolução detalhada de cada questão.</p>
+            
+            <div id="resolutions-container">
+                <!-- As resoluções serão injetadas aqui -->
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // --- BANCO DE DADOS DAS QUESTÕES ---
+        // Os dados são extraídos diretamente do documento fornecido.
+        const quizData = [
+            {
+                id: 1,
+                question: `
+                    <p class="mb-4"><strong>Questão 1:</strong> Considere a seguinte tabela <code>FUNCIONARIO</code> utilizada em um sistema de Recursos Humanos:</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID_Func (PK)</th>
+                                <th>Nome</th>
+                                <th>Telefones</th>
+                                <th>Endereco_Completo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>101</td>
+                                <td>Ana Silva</td>
+                                <td>9988-7766, 9922-3344</td>
+                                <td>Rua das Flores, 123 - Centro</td>
+                            </tr>
+                            <tr>
+                                <td>102</td>
+                                <td>Bruno Costa</td>
+                                <td>9876-5432</td>
+                                <td>Av. Principal, 456 - Sul</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>Com base na estrutura apresentada, assinale a alternativa correta.</p>`,
+                options: [
+                    { id: "A", text: "A tabela viola a Primeira Forma Normal (1FN), pois possui atributos multivalorados (Telefones) e compostos (Endereco_Completo)." },
+                    { id: "B", text: "A tabela viola a Segunda Forma Normal (2FN), pois possui atributos com dependência parcial da chave primária." },
+                    { id: "C", text: "A tabela viola a Terceira Forma Normal (3FN), pois possui atributos com dependência transitiva." },
+                    { id: "D", text: "A tabela está na Terceira Forma Normal (3FN), mas não está na Forma Normal de Boyce-Codd (BCNF)." },
+                    { id: "E", text: "A tabela está na Primeira Forma Normal (1FN), mas viola a Segunda Forma Normal (2FN)." }
+                ],
+                correct: "A",
+                resolution: `
+                    <p>A Primeira Forma Normal (1FN) é o pilar inicial da normalização e exige que todos os atributos de uma tabela sejam <em>atômicos</em>. Isso significa que cada atributo (coluna) deve conter apenas um valor (ser <em>monovalorado</em>) e não deve ser divisível em subpartes lógicas (ser <em>não composto</em>).</p>
+                    <p class="mt-2">Analisando a tabela <code>FUNCIONARIO</code>:</p>
+                    <ol class="list-decimal list-inside ml-4 mt-2 space-y-1">
+                        <li><strong>Atributo <code>Telefones</code></strong>: Na linha 101, este campo armazena "9988-7766, 9922-3344". Isso é um <em>atributo multivalorado</em> (múltiplos valores em um único campo).</li>
+                        <li><strong>Atributo <code>Endereco_Completo</code></strong>: Na linha 101, este campo armazena "Rua das Flores, 123 - Centro". Isso é um <em>atributo composto</em>, pois pode ser logicamente dividido em <code>Logradouro</code>, <code>Numero</code> e <code>Bairro</code>.</li>
+                    </ol>
+                    <p class="mt-2">Como a tabela possui atributos que não são atômicos (são multivalorados e compostos), ela viola a Primeira Forma Normal (1FN). As demais alternativas estão incorretas porque a análise da 2FN e 3FN só é aplicável <em>após</em> a tabela estar na 1FN.</p>`
+            },
+            {
+                id: 2,
+                question: `
+                    <p class="mb-4"><strong>Questão 2:</strong> Em um sistema de controle de vendas, existe a tabela <code>ITEM_PEDIDO</code> que armazena os produtos vendidos em cada pedido. A chave primária desta tabela é composta pelos atributos <code>(Num_Pedido, Cod_Produto)</code>.</p>
+                    <p>Tabela <code>ITEM_PEDIDO</code>:</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Num_Pedido (PK)</th>
+                                <th>Cod_Produto (PK)</th>
+                                <th>Qtd_Vendida</th>
+                                <th>Nome_Produto</th>
+                                <th>Valor_Unitario_Produto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2001</td>
+                                <td>15</td>
+                                <td>2</td>
+                                <td>Mouse Óptico</td>
+                                <td>70.00</td>
+                            </tr>
+                            <tr>
+                                <td>2001</td>
+                                <td>20</td>
+                                <td>1</td>
+                                <td>Teclado USB</td>
+                                <td>120.00</td>
+                            </tr>
+                            <tr>
+                                <td>2002</td>
+                                <td>15</td>
+                                <td>10</td>
+                                <td>Mouse Óptico</td>
+                                <td>70.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>Considerando a estrutura da tabela <code>ITEM_PEDIDO</code> e os conceitos de normalização, é correto afirmar que a tabela:</p>`,
+                options: [
+                    { id: "A", text: "Encontra-se na 1FN, mas viola a 2FN (Segunda Forma Normal)." },
+                    { id: "B", text: "Encontra-se na 2FN, mas viola a 3FN (Terceira Forma Normal)." },
+                    { id: "C", text: "Encontra-se na 3FN (Terceira Forma Normal)." },
+                    { id: "D", text: "Não está nem mesmo na 1FN (Primeira Forma Normal)." },
+                    { id: "E", text: "Encontra-se na Forma Normal de Boyce-Codd (BCNF)." }
+                ],
+                correct: "A",
+                resolution: `
+                    <p>Vamos analisar as formas normais sequencialmente:</p>
+                    <ol class="list-decimal list-inside ml-4 mt-2 space-y-1">
+                        <li><strong>1FN (Primeira Forma Normal):</strong> A tabela está na 1FN? Sim. Todos os atributos (<code>Num_Pedido</code>, <code>Cod_Produto</code>, <code>Qtd_Vendida</code>, <code>Nome_Produto</code>, <code>Valor_Unitario_Produto</code>) são atômicos (monovalorados e não compostos).</li>
+                        <li><strong>2FN (Segunda Forma Normal):</strong> A tabela está na 2FN? A 2FN exige que a tabela esteja na 1FN e que todos os atributos não chave dependam <em>totalmente</em> da chave primária.
+                            <ul class="list-disc list-inside ml-6 mt-1 space-y-1">
+                                <li><strong>Chave Primária:</strong> A chave primária é <em>composta</em>: <code>(Num_Pedido, Cod_Produto)</code>.</li>
+                                <li><strong>Atributo <code>Qtd_Vendida</code></strong>: Depende da chave inteira (a quantidade vendida depende do pedido <em>e</em> do produto).</li>
+                                <li><strong>Atributo <code>Nome_Produto</code></strong>: Depende <em>apenas</em> de <code>Cod_Produto</code> (uma <em>parte</em> da chave).</li>
+                                <li><strong>Atributo <code>Valor_Unitario_Produto</code></strong>: Depende <em>apenas</em> de <code>Cod_Produto</code> (uma <em>parte</em> da chave).</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <p class="mt-2">Como os atributos <code>Nome_Produto</code> e <code>Valor_Unitario_Produto</code> dependem de apenas uma parte da chave primária composta, eles apresentam uma <em>dependência parcial</em>. A existência de dependência parcial viola a Segunda Forma Normal (2FN).</p>
+                    <p class="mt-2">Portanto, a tabela encontra-se na 1FN, mas viola a 2FN.</p>`
+            },
+            {
+                id: 3,
+                question: `
+                    <p class="mb-4"><strong>Questão 3:</strong> Um analista de banco de dados está modelando uma tabela para armazenar dados de funcionários e suas respectivas seções de trabalho. A tabela <code>FUNCIONARIO_SECAO</code> foi definida da seguinte forma:</p>
+                    <p class="mb-4"><code>FUNCIONARIO_SECAO</code> (<code>Matricula</code> (PK), <code>Nome_Funcionario</code>, <code>Cod_Secao</code>, <code>Nome_Secao</code>)</p>
+                    <p>Assumindo que cada funcionário pertence a apenas uma seção e que <code>Cod_Secao</code> determina funcionalmente <code>Nome_Secao</code> (ex: Cod_Secao 10 = 'Financeiro'), assinale a alternativa correta sobre a normalização desta tabela.</p>`,
+                options: [
+                    { id: "A", text: "A tabela viola a Terceira Forma Normal (3FN), pois <code>Nome_Secao</code> depende transitivamente da chave primária <code>Matricula</code>." },
+                    { id: "B", text: "A tabela viola a Segunda Forma Normal (2FN), pois <code>Nome_Funcionario</code> depende parcialmente da chave primária <code>Matricula</code>." },
+                    { id: "C", text: "A tabela está perfeitamente normalizada, encontrando-se na Forma Normal de Boyce-Codd (BCNF)." },
+                    { id: "D", text: "A tabela viola a Primeira Forma Normal (1FN), pois <code>Matricula</code> não é uma chave primária adequada." },
+                    { id: "E", text: "A tabela está na 2FN, mas não na 3FN, pois <code>Cod_Secao</code> é uma chave candidata." }
+                ],
+                correct: "A",
+                resolution: `
+                    <ol class="list-decimal list-inside ml-4 mt-2 space-y-1">
+                        <li><strong>1FN:</strong> A tabela está na 1FN, pois todos os atributos são atômicos.</li>
+                        <li><strong>2FN:</strong> A tabela está na 2FN? Sim. A 2FN trata de dependências parciais, que só podem ocorrer em tabelas com chaves primárias <em>compostas</em>. Como a chave primária <code>Matricula</code> é <em>simples</em>, não podem existir dependências parciais. Logo, a tabela está automaticamente na 2FN (assumindo que está na 1FN).</li>
+                        <li><strong>3FN:</strong> A tabela está na 3FN? A 3FN exige que a tabela esteja na 2FN e que não existam <em>dependências transitivas</em>. Uma dependência transitiva ocorre quando um atributo não chave depende de outro atributo não chave.</li>
+                    </ol>
+                    <p class="mt-2">Vamos analisar as dependências:</p>
+                    <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
+                        <li>A chave primária (PK) é <code>Matricula</code>.</li>
+                        <li><code>Matricula</code> &rarr; <code>Cod_Secao</code> (A matrícula do funcionário determina sua seção)</li>
+                        <li><code>Cod_Secao</code> &rarr; <code>Nome_Secao</code> (O código da seção determina o nome da seção)</li>
+                    </ul>
+                    <p class="mt-2">Como <code>Matricula</code> determina <code>Cod_Secao</code> (que não é chave), e <code>Cod_Secao</code> determina <code>Nome_Secao</code> (que não é chave), existe uma dependência transitiva: <code>PK &rarr; Atributo_Nao_Chave &rarr; Atributo_Nao_Chave</code>.</p>
+                    <p class="mt-2">A existência de dependência transitiva viola a Terceira Forma Normal (3FN).</p>`
+            },
+            {
+                id: 4,
+                question: `
+                    <p class="mb-4"><strong>Questão 4:</strong> As formas normais são regras utilizadas na modelagem de bancos de dados relacionais para eliminar redundâncias e garantir a consistência dos dados. Elas são aplicadas por meio do processo de normalização. Nesse sentido, sobre algumas formas normais e suas funções, informe se é verdadeiro (V) ou falso (F) o que se afirma a seguir e assinale a alternativa com a sequência correta.</p>
+                    <p class="mb-4 space-y-2">
+                        ( ) A Terceira Forma Normal (3FN) trata da eliminação de dependências parciais, garantindo que todos os atributos não chave dependam totalmente da chave primária.<br>
+                        ( ) A Primeira Forma Normal (1FN) trata da eliminação de dependências transitivas, onde um atributo não chave depende de outro atributo não chave.<br>
+                        ( ) A Segunda Forma Normal (2FN) exige que todos os atributos da tabela sejam atômicos, ou seja, não podem armazenar múltiplos valores em uma única célula.
+                    </p>`,
+                options: [
+                    { id: "A", text: "F - F - F" },
+                    { id: "B", text: "V - V - V" },
+                    { id: "C", text: "F - V - F" },
+                    { id: "D", text: "V - F - V" },
+                    { id: "E", text: "F - F - V" }
+                ],
+                correct: "A",
+                resolution: `
+                    <p>Esta questão testa o conhecimento das definições das formas normais, trocando-as de lugar.</p>
+                    <ul class="list-disc list-inside ml-4 mt-2 space-y-2">
+                        <li><strong>(F) A Terceira Forma Normal (3FN) trata da eliminação de dependências parciais...</strong><br>
+                        <em>Errado</em>. A 3FN trata da eliminação de dependências <em>transitivas</em>. A 2FN (Segunda Forma Normal) é que trata de dependências <em>parciais</em>.</li>
+                        
+                        <li><strong>(F) A Primeira Forma Normal (1FN) trata da eliminação de dependências transitivas...</strong><br>
+                        <em>Errado</em>. A 1FN trata da <em>atomicidade</em> dos atributos (valores monovalorados e não compostos). A 3FN (Terceira Forma Normal) é que trata de dependências <em>transitivas</em>.</li>
+                        
+                        <li><strong>(F) A Segunda Forma Normal (2FN) exige que todos os atributos da tabela sejam atômicos...</strong><br>
+                        <em>Errado</em>. A 2FN trata da eliminação de dependências <em>parciais</em>. A 1FN (Primeira Forma Normal) é que exige que os atributos sejam <em>atômicos</em>.</li>
+                    </ul>
+                    <p class="mt-2">Todas as afirmativas apresentam definições trocadas. A sequência correta é F - F - F.</p>`
+            },
+            {
+                id: 5,
+                question: `
+                    <p class="mb-4"><strong>Questão 5:</strong> Considerando a hierarquia das Formas Normais (1FN, 2FN, 3FN, BCNF) aplicadas a bancos de dados relacionais, assinale a alternativa <em>incorreta</em>.</p>`,
+                options: [
+                    { id: "A", text: "Uma relação que está na BCNF (Forma Normal de Boyce-Codd) está, obrigatoriamente, na 3FN (Terceira Forma Normal)." },
+                    { id: "B", text: "Uma relação que está na 3FN (Terceira Forma Normal) está, obrigatoriamente, na 2FN (Segunda Forma Normal)." },
+                    { id: "C", text: "Toda relação que atende aos requisitos da 3FN (Terceira Forma Normal) também atende, obrigatoriamente, aos requisitos da BCNF (Forma Normal de Boyce-Codd)." },
+                    { id: "D", text: "Uma relação pode estar na 3FN (Terceira Forma Normal) e, ao mesmo tempo, não estar na BCNF (Forma Normal de Boyce-Codd)." },
+                    { id: "E", text: "A 2FN (Segunda Forma Normal) trata de dependências parciais sobre chaves compostas, enquanto a 3FN (Terceira Forma Normal) trata de dependências transitivas." }
+                ],
+                correct: "C",
+                resolution: `
+                    <p>Esta questão analisa a hierarquia da normalização. A hierarquia é:<br>
+                    <code>1FN &larr; 2FN &larr; 3FN &larr; BCNF</code><br>
+                    (Onde <code>&larr;</code> significa "é mais restrito que").</p>
+                    <ul class="list-disc list-inside ml-4 mt-2 space-y-2">
+                        <li>(A) Correto. A BCNF é uma forma mais forte e restrita da 3FN. Se uma relação está na BCNF, ela <em>obrigatoriamente</em> cumpre os requisitos da 3FN.</li>
+                        <li>(B) Correto. A 3FN exige que a relação já esteja na 2FN.</li>
+                        <li><strong>(C) Incorreto.</strong> Esta é a afirmativa incorreta. O oposto é verdadeiro (como dito na alternativa A). Uma relação pode estar na 3FN, mas <em>não</em> estar na BCNF. A BCNF é mais rigorosa que a 3FN. Portanto, nem toda relação 3FN é BCNF.</li>
+                        <li>(D) Correto. Este é o cenário clássico que justifica a existência da BCNF. Uma relação pode estar na 3FN mas violar a BCNF em casos específicos (geralmente envolvendo múltiplas chaves candidatas sobrepostas).</li>
+                        <li>(E) Correto. Estas são as definições clássicas da 2FN (foco em dependência parcial) e 3FN (foco em dependência transitiva).</li>
+                    </ul>`
+            },
+            {
+                id: 6,
+                question: `
+                    <p class="mb-4"><strong>Questão 6:</strong> A SQL (Structured Query Language) é dividida em subconjuntos de linguagem que agrupam comandos por funcionalidade, como DDL (Data Definition Language), DML (Data Manipulation Language), DCL (Data Control Language) e TCL (Transaction Control Language).</p>
+                    <p>Assinale a alternativa que apresenta <em>somente</em> comandos pertencentes à DML (Data Manipulation Language).</p>`,
+                options: [
+                    { id: "A", text: "<code>CREATE</code>, <code>ALTER</code>, <code>DROP</code>" },
+                    { id: "B", text: "<code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>" },
+                    { id: "C", text: "<code>SELECT</code>, <code>INSERT</code>, <code>CREATE</code>" },
+                    { id: "D", text: "<code>GRANT</code>, <code>REVOKE</code>" },
+                    { id: "E", text: "<code>COMMIT</code>, <code>ROLLBACK</code>, <code>SAVEPOINT</code>" }
+                ],
+                correct: "B",
+                resolution: `
+                    <p>Os subconjuntos da SQL são classificados por sua função:</p>
+                    <ul class="list-disc list-inside ml-4 mt-2 space-y-2">
+                        <li><strong>DDL (Data Definition Language):</strong> Linguagem de Definição de Dados. Define ou altera a <em>estrutura</em> do banco de dados (objetos). Comandos: <code>CREATE</code>, <code>ALTER</code>, <code>DROP</code>, <code>TRUNCATE</code>. (Alternativa A)</li>
+                        <li><strong>DML (Data Manipulation Language):</strong> Linguagem de Manipulação de Dados. Insere, altera ou remove os <em>dados</em> dentro das tabelas. Comandos: <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>. (Alternativa B)</li>
+                        <li><strong>DCL (Data Control Language):</strong> Linguagem de Controle de Dados. Gerencia permissões e acesso. Comandos: <code>GRANT</code>, <code>REVOKE</code>. (Alternativa D)</li>
+                        <li><strong>TCL (Transaction Control Language):</strong> Linguagem de Controle de Transação. Gerencia o estado das transações. Comandos: <code>COMMIT</code>, <code>ROLLBACK</code>, <code>SAVEPOINT</code>. (Alternativa E)</li>
+                        <li><strong>DQL (Data Query Language):</strong> Linguagem de Consulta de Dados. Usada para consultar dados. Comando: <code>SELECT</code>. (O <code>SELECT</code> é frequentemente agrupado com a DML, mas tecnicamente é DQL).</li>
+                    </ul>
+                    <p class="mt-2">A alternativa (B) é a única que contém <em>exclusivamente</em> comandos de manipulação (DML). A alternativa (C) mistura DQL/DML (<code>SELECT</code>, <code>INSERT</code>) com DDL (<code>CREATE</code>).</p>`
+            },
+            {
+                id: 7,
+                question: `
+                    <p class="mb-4"><strong>Questão 7:</strong> Um analista de TI precisa consultar uma tabela de produtos em um banco de dados. A estrutura e alguns dados de exemplo da tabela <code>Produto</code> são os seguintes:</p>
+                    <pre><code>CREATE TABLE Produto (
+  ID INTEGER PRIMARY KEY,
+  Nome TEXT NOT NULL,
+  Preco REAL,
+  Estoque INTEGER
+);
+INSERT INTO Produto VALUES (1, 'Mouse', 70.00, 10);
+INSERT INTO Produto VALUES (2, 'Teclado', 120.00, 5);
+INSERT INTO Produto VALUES (3, 'Monitor', 800.00, 3);
+INSERT INTO Produto VALUES (4, 'Gabinete', 110.00, 0);</code></pre>
+                    <p>O analista precisa de um relatório que mostre o <code>Nome</code> e o <code>Preco</code> de todos os produtos que custam <em>mais de 100 reais</em> e que <em>possuem estoque</em> (Estoque > 0). Qual comando SQL atende a essa solicitação?</p>`,
+                options: [
+                    { id: "A", text: "<code>SELECT Nome, Preco FROM Produto WHERE Preco > 100 AND Estoque > 0;</code>" },
+                    { id: "B", text: "<code>SELECT * FROM Produto WHERE Preco > 100 OR Estoque > 0;</code>" },
+                    { id: "C", text: "<code>SELECT Nome, Preco FROM Produto WHERE Preco > 100;</code>" },
+                    { id: "D", text: "<code>SELECT Nome, Preco FROM Produto HAVING Preco > 100 AND Estoque > 0;</code>" },
+                    { id: "E", text: "<code>SELECT Nome FROM Produto WHERE Nome = 'Monitor' AND Preco > 100;</code>" }
+                ],
+                correct: "A",
+                resolution: `
+                    <p>A solicitação exige um filtro com duas condições que devem ser <em>simultaneamente</em> verdadeiras:</p>
+                    <ol class="list-decimal list-inside ml-4 mt-2 space-y-1">
+                        <li>O preço deve ser maior que 100 (<code>Preco > 100</code>).</li>
+                        <li>O estoque deve ser maior que 0 (<code>Estoque > 0</code>).</li>
+                    </ol>
+                    <ul class="list-disc list-inside ml-4 mt-2 space-y-2">
+                        <li><strong>Cláusula <code>SELECT</code></strong>: A solicitação pede o <code>Nome</code> e o <code>Preco</code>. Logo: <code>SELECT Nome, Preco</code>.</li>
+                        <li><strong>Cláusula <code>WHERE</code></strong>: Para filtrar linhas que atendem a múltiplas condições simultâneas, utiliza-se o operador lógico <code>AND</code>.</li>
+                    </ul>
+                    <p class="mt-2">O comando correto é <code>SELECT Nome, Preco FROM Produto WHERE Preco > 100 AND Estoque > 0;</code>.</p>
+                    <ul class="list-disc list-inside ml-4 mt-2 space-y-2">
+                        <li>(B) está incorreto pois usa <code>OR</code> (traria produtos que custam > 100 <em>ou</em> têm estoque > 0, como o 'Mouse' que custa 70).</li>
+                        <li>(D) está incorreto pois usa <code>HAVING</code>. A cláusula <code>HAVING</code> é usada para filtrar <em>grupos</em> (após uma cláusula <code>GROUP BY</code>), enquanto <code>WHERE</code> é usada para filtrar <em>linhas</em> (antes da agregação).</li>
+                    </ul>`
+            },
+            {
+                id: 8,
+                question: `
+                    <p class="mb-4"><strong>Questão 8:</strong> Considere as tabelas <code>CLIENTES</code> e <code>PEDIDOS</code> de um banco de dados de e-commerce:</p>
+                    <p class="mb-2">Tabela <code>CLIENTES</code>:<br>
+                    <code>ID_Cli</code> (PK)<br>
+                    <code>Nome_Cli</code></p>
+                    <p class="mb-4">Tabela <code>PEDIDOS</code>:<br>
+                    <code>ID_Ped</code> (PK)<br>
+                    <code>ID_Cli_FK</code> (FK referenciando <code>CLIENTES(ID_Cli)</code>)<br>
+                    <code>Valor_Total</code></p>
+                    <p>Um analista precisa gerar um relatório contendo o <code>Nome_Cli</code> e o <code>Valor_Total</code> de <em>todos os pedidos realizados</em>, combinando as informações das duas tabelas. Qual consulta SQL deve ser usada?</p>`,
+                options: [
+                    { id: "A", text: "<code>SELECT C.Nome_Cli, P.Valor_Total FROM CLIENTES C INNER JOIN PEDIDOS P ON C.ID_Cli = P.ID_Cli_FK;</code>" },
+                    { id: "B", text: "<code>SELECT Nome_Cli, Valor_Total FROM CLIENTES, PEDIDOS;</code>" },
+                    { id: "C", text: "<code>SELECT C.Nome_Cli, P.Valor_Total FROM CLIENTES C LEFT JOIN PEDIDOS P ON C.ID_Cli = P.ID_Cli_FK;</code>" },
+                    { id: "D", text: "<code>SELECT C.Nome_Cli, P.Valor_Total FROM CLIENTES C WHERE C.ID_Cli = P.ID_Cli_FK;</code>" },
+                    { id: "E", text: "<code>SELECT * FROM CLIENTES WHERE ID_Cli IN (SELECT ID_Cli_FK FROM PEDIDOS);</code>" }
+                ],
+                correct: "A",
+                resolution: `
+                    <p>Para combinar dados de duas tabelas relacionadas (<code>CLIENTES</code> e <code>PEDIDOS</code>), é necessário usar uma operação de <code>JOIN</code>.</p>
+                    <ul class="list-disc list-inside ml-4 mt-2 space-y-2">
+                        <li>A tabela <code>CLIENTES</code> é ligada à <code>PEDIDOS</code> pela chave primária <code>CLIENTES(ID_Cli)</code> e pela chave estrangeira <code>PEDIDOS(ID_Cli_FK)</code>.</li>
+                        <li>A consulta <code>SELECT C.Nome_Cli, P.Valor_Total</code> seleciona as colunas desejadas.</li>
+                        <li>A cláusula <code>FROM CLIENTES C INNER JOIN PEDIDOS P</code> especifica as duas tabelas e seus apelidos (C e P).</li>
+                        <li>A cláusula <code>ON C.ID_Cli = P.ID_Cli_FK</code> informa ao banco de dados <em>como</em> as tabelas devem ser combinadas (a condição de junção).</li>
+                    </ul>
+                    <p class="mt-2"><code>INNER JOIN</code> (ou apenas <code>JOIN</code>) retorna apenas as linhas que possuem correspondência em ambas as tabelas (ou seja, clientes que fizeram pedidos), que é exatamente o que foi solicitado.</p>
+                    <ul class="list-disc list-inside ml-4 mt-2 space-y-2">
+                        <li>(B) está incorreto pois (sem <code>WHERE</code>) gera um Produto Cartesiano.</li>
+                        <li>(C) está incorreto pois <code>LEFT JOIN</code> traria <em>todos</em> os clientes, inclusive aqueles sem pedidos (o que não foi solicitado).</li>
+                        <li>(D) está incompleto (falta a tabela <code>PEDIDOS</code> na cláusula <code>FROM</code>).</li>
+                    </ul>`
+            },
+            {
+                id: 9,
+                question: `
+                    <p class="mb-4"><strong>Questão 9:</strong> Usando as mesmas tabelas <code>CLIENTES</code> e <code>PEDIDOS</code> da questão anterior, um gerente solicita um relatório que liste o <code>Nome_Cli</code> e o <code>Total_Gasto</code> (soma de <code>Valor_Total</code> de todos os pedidos) apenas para clientes cujo <code>Total_Gasto</code> <em>exceda 500.00 reais</em>.</p>
+                    <p>Qual consulta SQL atende a essa solicitação?</p>`,
+                options: [
+                    { id: "A", text: "<code>SELECT C.Nome_Cli, SUM(P.Valor_Total) FROM CLIENTES C JOIN PEDIDOS P ON C.ID_Cli = P.ID_Cli_FK WHERE SUM(P.Valor_Total) > 500.00 GROUP BY C.Nome_Cli;</code>" },
+                    { id: "B", text: "<code>SELECT C.Nome_Cli, SUM(P.Valor_Total) FROM CLIENTES C JOIN PEDIDOS P ON C.ID_Cli = P.ID_Cli_FK GROUP BY C.Nome_Cli HAVING SUM(P.Valor_Total) > 500.00;</code>" },
+                    { id: "C", text: "<code>SELECT C.Nome_Cli, SUM(P.Valor_Total) FROM CLIENTES C JOIN PEDIDOS P ON C.ID_Cli = P.ID_Cli_FK WHERE P.Valor_Total > 500.00 GROUP BY C.Nome_Cli;</code>" },
+                    { id: "D", text: "<code>SELECT C.Nome_Cli, SUM(P.Valor_Total) FROM CLIENTES C, PEDIDOS P GROUP BY C.Nome_Cli WHERE SUM(P.Valor_Total) > 500.00;</code>" },
+                    { id: "E", text: "<code>SELECT C.Nome_Cli, P.Valor_Total FROM CLIENTES C JOIN PEDIDOS P ON C.ID_Cli = P.ID_Cli_FK HAVING SUM(P.Valor_Total) > 500.00;</code>" }
+                ],
+                correct: "B",
+                resolution: `
+                    <p>Esta consulta requer agregação (soma de gastos por cliente) e um filtro sobre o resultado dessa agregação.</p>
+                    <ol class="list-decimal list-inside ml-4 mt-2 space-y-1">
+                        <li><strong>Junção:</strong> Primeiro, as tabelas <code>CLIENTES</code> e <code>PEDIDOS</code> devem ser unidas: <code>... FROM CLIENTES C JOIN PEDIDOS P ON C.ID_Cli = P.ID_Cli_FK</code>.</li>
+                        <li><strong>Agregação:</strong> A solicitação pede o <code>Total_Gasto</code> por cliente. Isso é feito agrupando os resultados pelo nome do cliente (<code>GROUP BY C.Nome_Cli</code>) e usando a função de agregação <code>SUM(P.Valor_Total)</code>.</li>
+                        <li><strong>Filtro:</strong> A solicitação pede para mostrar <em>apenas</em> os grupos (clientes) cuja soma (<code>Total_Gasto</code>) seja <em>maior que 500.00</em>.</li>
+                    </ol>
+                    <p class="mt-2">Aqui reside a diferença crucial entre <code>WHERE</code> e <code>HAVING</code>:</p>
+                    <ul class="list-disc list-inside ml-4 mt-2 space-y-2">
+                        <li><code>WHERE</code> filtra linhas individuais <em>antes</em> da agregação.</li>
+                        <li><code>HAVING</code> filtra grupos <em>após</em> a agregação.</li>
+                    </ul>
+                    <p class="mt-2">Como o filtro (<code>> 500.00</code>) é aplicado ao <em>resultado</em> da <code>SUM</code>, a cláusula <code>HAVING</code> deve ser usada.</p>
+                    <p class="mt-2">O comando correto é: <code>... GROUP BY C.Nome_Cli HAVING SUM(P.Valor_Total) > 500.00;</code>.</p>
+                    <ul class="list-disc list-inside ml-4 mt-2 space-y-2">
+                        <li>(A) e (D) estão incorretos pois tentam usar <code>SUM</code> (uma função de agregação) na cláusula <code>WHERE</code>.</li>
+                        <li>(C) está incorreto pois <code>WHERE P.Valor_Total > 500.00</code> filtraria pedidos individuais, e não a <em>soma total</em> do cliente.</li>
+                    </ul>`
+            },
+            {
+                id: 10,
+                question: `
+                    <p class="mb-4"><strong>Questão 10:</strong> Considere a tabela <code>FUNCIONARIOS</code> abaixo:</p>
+                    <p class="mb-4"><code>FUNCIONARIOS</code> (<code>ID_Func</code> (PK), <code>Nome_Func</code>, <code>Salario</code>, <code>ID_Departamento</code>)</p>
+                    <p>O departamento de Recursos Humanos precisa de um relatório com o <code>Nome_Func</code> de todos os funcionários que ganham <em>mais que a média salarial de toda a empresa</em>.</p>
+                    <p>Qual consulta SQL produz corretamente esse relatório?</p>`,
+                options: [
+                    { id: "A", text: "<code>SELECT Nome_Func FROM FUNCIONARIOS WHERE Salario > AVG(Salario);</code>" },
+                    { id: "B", text: "<code>SELECT Nome_Func FROM FUNCIONARIOS GROUP BY Nome_Func HAVING Salario > AVG(Salario);</code>" },
+                    { id: "C", text: "<code>SELECT Nome_Func FROM FUNCIONARIOS WHERE Salario > (SELECT AVG(Salario) FROM FUNCIONARIOS);</code>" },
+                    { id: "D", text: "<code>SELECT Nome_Func, AVG(Salario) FROM FUNCIONARIOS WHERE Salario > AVG(SalARIO) GROUP BY Nome_Func;</code>" },
+                    { id: "E", text: "<code>SELECT Nome_Func FROM FUNCIONARIOS WHERE Salario > (SELECT Salario FROM FUNCIONARIOS);</code>" }
+                ],
+                correct: "C",
+                resolution: `
+                    <p>Esta consulta requer a comparação do salário de cada funcionário com um valor agregado (a média de todos os salários).</p>
+                    <p class="mt-2">Não é possível usar uma função de agregação (como <code>AVG(Salario)</code>) diretamente na cláusula <code>WHERE</code> para comparar com um valor de linha (como <code>Salario</code>). A alternativa (A) <code>WHERE Salario > AVG(Salario)</code> é, portanto, sintaticamente inválida na maioria dos SGBDs.</p>
+                    <p class="mt-2">A abordagem correta é usar uma <em>subconsulta</em> (subquery).</p>
+                    <ol class="list-decimal list-inside ml-4 mt-2 space-y-1">
+                        <li><strong>Consulta Interna (Subconsulta):</strong> <code>(SELECT AVG(Salario) FROM FUNCIONARIOS)</code><br>
+                        Esta consulta é executada primeiro e retorna um único valor (um <em>escalar</em>), que é a média salarial da empresa (ex: 5000.00).</li>
+                        
+                        <li><strong>Consulta Externa (Principal):</strong> <code>SELECT Nome_Func FROM FUNCIONARIOS WHERE Salario > ...</code><br>
+                        O SGBD substitui o resultado da subconsulta na consulta externa. A consulta efetivamente executada torna-se: <code>SELECT Nome_Func FROM FUNCIONARIOS WHERE Salario > 5000.00;</code>.</li>
+                    </ol>
+                    <p class="mt-2">Esta é a forma correta de comparar um valor de linha com um agregado de toda a tabela.</p>`
+            }
+        ];
+
+
+        // --- LÓGICA DO QUIZ ---
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const questionsContainer = document.getElementById('quiz-questions');
+            const quizForm = document.getElementById('quiz-form');
+            const resultsSection = document.getElementById('results-section');
+            const scoreDisplay = document.getElementById('score-display');
+            const scoreSummary = document.getElementById('score-summary');
+            const resolutionsContainer = document.getElementById('resolutions-container');
+
+            // 1. Carregar as questões
+            function loadQuiz() {
+                let allQuestionsHTML = '';
+
+                quizData.forEach((item, index) => {
+                    // Monta as opções de rádio
+                    const optionsHTML = item.options.map(option => `
+                        <label for="q${item.id}-opt-${option.id}" class="option-label">
+                            <input type="radio" 
+                                   name="question-${item.id}" 
+                                   id="q${item.id}-opt-${option.id}" 
+                                   value="${option.id}">
+                            <strong>(${option.id})</strong> ${option.text}
+                        </label>
+                    `).join('');
+
+                    // Monta o bloco da questão
+                    const questionHTML = `
+                        <div class="question-block">
+                            <div class="question-text text-lg leading-relaxed mb-6">
+                                ${item.question}
+                            </div>
+                            <div class="options">
+                                ${optionsHTML}
+                            </div>
+                        </div>
+                    `;
+                    allQuestionsHTML += questionHTML;
+                });
+
+                questionsContainer.innerHTML = allQuestionsHTML;
+            }
+
+            // 2. Lidar com o envio do formulário
+            function handleSubmit(event) {
+                event.preventDefault(); // Impede o recarregamento da página
+
+                let score = 0;
+                const formData = new FormData(quizForm);
+                let resolutionsHTML = '';
+
+                // Desabilitar o formulário após o envio
+                quizForm.style.display = 'none';
+
+                // 3. Calcular pontuação e gerar resoluções
+                quizData.forEach(item => {
+                    const userAnswer = formData.get(`question-${item.id}`);
+                    const isCorrect = userAnswer === item.correct;
+                    
+                    if (isCorrect) {
+                        score++;
+                    }
+
+                    // Encontrar o texto da resposta do usuário
+                    const userAnswerText = item.options.find(opt => opt.id === userAnswer)?.text || "Nenhuma resposta selecionada";
+                    // Encontrar o texto da resposta correta
+                    const correctAnswerText = item.options.find(opt => opt.id === item.correct).text;
+
+                    resolutionsHTML += `
+                        <div class="resolution-block">
+                            <!-- Cabeçalho da Questão -->
+                            <div class="resolution-question">
+                                <strong class="text-lg">Questão ${item.id}</strong>
+                            </div>
+                            
+                            <!-- Detalhes da Resolução -->
+                            <div class="resolution-details">
+                                <p class="mb-2"><strong>Sua resposta:</strong> 
+                                    <span class="${isCorrect ? 'feedback-correct' : 'feedback-incorrect'}">
+                                        (${userAnswer || 'N/A'}) ${userAnswerText}
+                                    </span>
+                                </p>
+                                
+                                ${!isCorrect ? `
+                                <p class="mb-4"><strong>Resposta Correta:</strong> 
+                                    <span class="feedback-correct">
+                                        (${item.correct}) ${correctAnswerText}
+                                    </span>
+                                </p>` : ''}
+                                
+                                ${isCorrect ? 
+                                    '<p class="gabarito-highlight mb-4"><strong>Você acertou!</strong></p>' : 
+                                    '<p class="gabarito-highlight !bg-red-100 !border-red-500 mb-4"><strong>Você errou.</strong></p>'
+                                }
+
+                                <h4 class="text-xl font-semibold mb-3 border-t pt-4">Resolução Comentada</h4>
+                                <div class="text-gray-700 leading-relaxed">${item.resolution}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                // 4. Exibir resultados
+                scoreDisplay.textContent = `Seu resultado: ${score} de ${quizData.length} acertos`;
+                if(score > 7) {
+                    scoreSummary.textContent = "Excelente! Você domina o assunto. Veja abaixo as resoluções detalhadas.";
+                } else if (score > 4) {
+                    scoreSummary.textContent = "Bom resultado! Continue estudando. Veja abaixo as resoluções para revisar.";
+                } else {
+                    scoreSummary.textContent = "Não desanime! Revise o conteúdo com as resoluções detalhadas abaixo.";
+                }
+
+                resolutionsContainer.innerHTML = resolutionsHTML;
+                resultsSection.classList.remove('hidden');
+
+                // Rolar a página para os resultados
+                resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            // --- INICIALIZAÇÃO ---
+            loadQuiz(); // Carrega as questões quando a página é aberta
+            quizForm.addEventListener('submit', handleSubmit); // Adiciona o listener para o botão de finalizar
+        });
+    </script>
+</body>
+</html>
