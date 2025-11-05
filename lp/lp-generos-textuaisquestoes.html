@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Gêneros Textuais (AOCP)</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carrega a fonte Inter para uma melhor legibilidade -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Define a fonte Inter como padrão */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Estilo para preservar a formatação dos textos-base */
+        .text-block-content {
+            white-space: pre-wrap;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #374151; /* text-gray-700 */
+        }
+        /* Melhora o foco nos botões de rádio */
+        input[type="radio"]:focus {
+            box-shadow: 0 0 0 2px #4f46e5; /* Anel de foco índigo */
+        }
+        /* Estilos para as opções de resposta */
+        .option-label {
+            display: block;
+            padding: 0.85rem 1rem;
+            border: 1px solid #e5e7eb; /* border-gray-200 */
+            border-radius: 0.5rem; /* rounded-lg */
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+        .option-label:hover {
+            background-color: #f9fafb; /* bg-gray-50 */
+        }
+        /* Estilos de feedback (aplicados via JS) */
+        .correct-answer {
+            border-width: 2px;
+            border-color: #10b981; /* border-green-500 */
+            background-color: #f0fdf4; /* bg-green-50 */
+        }
+        .wrong-answer {
+            border-width: 2px;
+            border-color: #ef4444; /* border-red-500 */
+            background-color: #fef2f2; /* bg-red-50 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-900 leading-relaxed">
+
+    <!-- Container principal com largura máxima para leitura confortável -->
+    <div class="max-w-4xl mx-auto bg-white p-6 sm:p-8 md:p-12 my-8 rounded-xl shadow-lg">
+
+        <header class="mb-10">
+            <h1 class="text-3xl md:text-4xl font-bold text-indigo-700 mb-3">Quiz: Gêneros Textuais</h1>
+            <p class="text-lg text-gray-600">Um simulado com 10 questões no estilo do Instituto AOCP.</p>
+        </header>
+
+        <!-- Formulário do Quiz -->
+        <form id="quizForm">
+            
+            <!-- Bloco de Texto 01 -->
+            <div class="text-block bg-gray-50 p-5 rounded-lg mb-6 border border-gray-200">
+                <h3 class="font-semibold text-gray-800 mb-3">Texto 01 para as questões 01 e 02:</h3>
+                <pre class="text-block-content">     Na minha adolescência, meus pais tinham em casa um cinzeiro que, para mim, era uma verdadeira obra de arte. Arredondado e de alumínio, trazia no centro, em vez do espaço fundo para as cinzas, um “P” todo trabalhado em relevo.
+     Eu não entendia. Se era um cinzeiro, por que ali estava aquela letra que, além de atrapalhar a funcionalidade do objeto, ainda seria coberta pela fuligem?
+     Mais tarde, compreendi que aquele objeto não era um cinzeiro comum. Meu pai o ganhara de presente de um amigo que trabalhava na *Petrobras*, e aquele “P” era o símbolo da empresa. O cinzeiro, portanto, não era feito para o uso cotidiano, mas como um *brinde* ou uma peça de *design*.
+     Hoje, décadas depois, não sei onde foi parar o cinzeiro. Meus pais pararam de fumar e, em algum momento, o objeto sumiu.
+     Para mim, no entanto, ele nunca foi um cinzeiro, nem mesmo um brinde. Era, na verdade, um fragmento de memória, um símbolo de um tempo em que as coisas pareciam ter um peso e um significado que hoje se perdem na velocidade do consumo.</pre>
+            </div>
+
+            <!-- Questão 01 -->
+            <div id="q1-block" class="question-block mb-10">
+                <p class="font-semibold text-lg mb-4">1. Com base na estrutura, na linguagem e na finalidade, o Texto 01 classifica-se como qual gênero textual?</p>
+                <div class="space-y-3">
+                    <label class="option-label"><input type="radio" name="q1" value="A" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (A) Notícia, pois relata um fato (o desaparecimento do cinzeiro) de forma imparcial.</label>
+                    <label class="option-label"><input type="radio" name="q1" value="B" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (B) Conto, pois narra uma história ficcional curta com personagens e enredo definidos.</label>
+                    <label class="option-label"><input type="radio" name="q1" value="C" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (C) Artigo de opinião, pois defende a tese de que o tabagismo é prejudicial.</label>
+                    <label class="option-label"><input type="radio" name="q1" value="D" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (D) Crônica, pois parte de um objeto banal do cotidiano (cinzeiro) para desenvolver uma reflexão pessoal e subjetiva sobre o tempo e a memória.</label>
+                    <label class="option-label"><input type="radio" name="q1" value="E" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (E) Verbete de dicionário, pois explica o significado e a origem do objeto "cinzeiro".</label>
+                </div>
+            </div>
+
+            <!-- Questão 02 -->
+            <div id="q2-block" class="question-block mb-10">
+                <p class="font-semibold text-lg mb-4">2. O Texto 01 é um exemplo de hibridismo tipológico. Sobre as tipologias textuais que o compõem, analise:
+<br>I. Há o predomínio da tipologia narrativa, pois o autor "conta uma história" sobre o objeto, com uma sequência temporal (adolescência, mais tarde, hoje).
+<br>II. Utiliza a tipologia descritiva para caracterizar o objeto-tema ("Arredondado e de alumínio", "um 'P' todo trabalhado em relevo.").
+<br>III. Apresenta traços da tipologia dissertativa (ou reflexiva) no último parágrafo, quando o autor opina sobre o significado do objeto ("Era, na verdade, um fragmento de memória...").
+<br><br>Está(ão) CORRETA(S):</p>
+                <div class="space-y-3">
+                    <label class="option-label"><input type="radio" name="q2" value="A" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (A) Apenas I.</label>
+                    <label class="option-label"><input type="radio" name="q2" value="B" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (B) Apenas II.</label>
+                    <label class="option-label"><input type="radio" name="q2" value="C" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (C) Apenas I e II.</label>
+                    <label class="option-label"><input type="radio" name="q2" value="D" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (D) Apenas II e III.</label>
+                    <label class="option-label"><input type="radio" name="q2" value="E" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (E) I, II e III.</label>
+                </div>
+            </div>
+
+            <!-- Bloco de Texto 02 -->
+            <div class="text-block bg-gray-50 p-5 rounded-lg mb-6 border border-gray-200">
+                <h3 class="font-semibold text-gray-800 mb-3">Texto 02 para a questão 03:</h3>
+                <pre class="text-block-content">     Muitos acreditam que a solução para a epidemia de *fake news* reside apenas na tecnologia: algoritmos mais inteligentes e moderação de conteúdo mais rígida. Enganam-se. A tecnologia, por si só, é apenas um paliativo; é "enxugar gelo". A verdadeira e duradoura solução para esse problema complexo não está nos *softwares*, mas nas escolas. É imperativo investir maciçamente na educação crítica, ensinando crianças e adolescentes a ler, interpretar, checar fontes e desconfiar do que recebem. Sem uma população educada para o consumo de mídia, qualquer ferramenta tecnológica falhará.</pre>
+            </div>
+
+            <!-- Questão 03 -->
+            <div id="q3-block" class="question-block mb-10">
+                <p class="font-semibold text-lg mb-4">3. O Texto 02, pela sua intencionalidade e estrutura, é um exemplar do gênero:</p>
+                <div class="space-y-3">
+                    <label class="option-label"><input type="radio" name="q3" value="A" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (A) Notícia, pois informa sobre a criação de novos algoritmos.</label>
+                    <label class="option-label"><input type="radio" name="q3" value="B" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (B) Artigo de opinião, pois apresenta uma tese (educação é a solução) e a defende com argumentos, refutando outra visão (tecnologia).</label>
+                    <label class="option-label"><input type="radio" name="q3" value="C" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (C) Editorial, pois expressa a opinião de um especialista sobre a nova legislação de *fake news*.</label>
+                    <label class="option-label"><input type="radio" name="q3" value="D" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (D) Reportagem, pois apresenta dados e entrevistas sobre o impacto das *fake news*.</label>
+                    <label class="option-label"><input type="radio" name="q3" value="E" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (E) Resumo, pois sintetiza as principais ideias sobre o combate à desinformação.</label>
+                </div>
+            </div>
+
+            <!-- Bloco de Texto 03 -->
+            <div class="text-block bg-gray-50 p-5 rounded-lg mb-6 border border-gray-200">
+                <h3 class="font-semibold text-gray-800 mb-3">Texto 03 para as questões 04 e 05:</h3>
+                <p class="text-gray-700 mb-2">(Uma tira de Calvin & Haroldo. No primeiro quadro, Calvin está na frente da classe, lendo um trabalho.)</p>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                    <li><b>Quadro 01 (Calvin lendo):</b> “Meu trabalho é sobre os morcegos. Morcegos são mamíferos noturnos. Eles voam e comem insetos.”</li>
+                    <li><b>Quadro 02 (Calvin continua):</b> “Muitas pessoas acham que morcegos são feios e assustadores, mas minha tese é que eles são, na verdade, uns *insetos* gigantes e peludos.”</li>
+                    <li><b>Quadro 03 (Close na professora, com os olhos arregalados):</b> “...”</li>
+                    <li><b>Quadro 04 (Calvin sentado em sua carteira, com uma nota F):</b> “Ela disse que minha tese não encontra amparo científico e que as evidências contrárias são esmagadoras.”</li>
+                </ul>
+            </div>
+
+            <!-- Questão 04 -->
+            <div id="q4-block" class="question-block mb-10">
+                <p class="font-semibold text-lg mb-4">4. Nos gêneros humorísticos, como a tira (Texto 03), o efeito de humor é frequentemente gerado pela quebra de expectativa. Na tira de Calvin, o humor é construído principalmente pela:</p>
+                <div class="space-y-3">
+                    <label class="option-label"><input type="radio" name="q4" value="A" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (A) Adequação do vocabulário de Calvin ao ambiente escolar, usando termos como "mamíferos noturnos".</label>
+                    <label class="option-label"><input type="radio" name="q4" value="B" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (B) Linguagem não verbal de Calvin no último quadro, que demonstra sua frustração com a nota.</label>
+                    <label class="option-label"><input type="radio" name="q4" value="C" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (C) Oposição entre a linguagem verbal (o formato de uma "tese" acadêmica) e o conteúdo (uma afirmação absurda e anticientífica).</label>
+                    <label class="option-label"><input type="radio" name="q4" value="D" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (D) Confusão da professora, que não compreende os termos técnicos usados pelo aluno.</label>
+                    <label class="option-label"><input type="radio" name="q4" value="E" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (E) Ausência de linguagem verbal no terceiro quadro, que foca na reação da professora.</label>
+                </div>
+            </div>
+
+            <!-- Questão 05 -->
+            <div id="q5-block" class="question-block mb-10">
+                <p class="font-semibold text-lg mb-4">5. (Instituto AOCP - Adaptada) A teoria dos gêneros textuais pressupõe a adequação da linguagem à situação comunicativa (esfera de circulação). Sobre a linguagem de Calvin no Texto 03, assinale a alternativa correta:</p>
+                <div class="space-y-3">
+                    <label class="option-label"><input type="radio" name="q5" value="A" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (A) A linguagem da tira é inadequada para a esfera escolar por usar termos informais.</label>
+                    <label class="option-label"><input type="radio" name="q5" value="B" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (B) O conteúdo apresentado por Calvin, embora adequado ao gênero "tira" (para gerar humor), é inadequado para a esfera "escolar" (que exige rigor científico).</label>
+                    <label class="option-label"><input type="radio" name="q5" value="C" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (C) O gênero "tira" não pode circular na esfera escolar, pois pertence exclusivamente à esfera jornalística.</label>
+                    <label class="option-label"><input type="radio" name="q5" value="D" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (D) A inadequação da linguagem de Calvin se deve apenas aos erros gramaticais em sua apresentação.</label>
+                    <label class="option-label"><input type="radio" name="q5" value="E" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (E) A linguagem verbal de Calvin é irrelevante para a construção de sentido na tira.</label>
+                </div>
+            </div>
+
+            <!-- Bloco de Texto 04 -->
+            <div class="text-block bg-gray-50 p-5 rounded-lg mb-6 border border-gray-200">
+                <h3 class="font-semibold text-gray-800 mb-3">Texto 04 para a questão 06:</h3>
+                <pre class="text-block-content text-center font-bold text-lg">5 ATITUDES PARA UM CONSUMO CONSCIENTE
+
+1. RECUSE produtos que prejudicam o meio ambiente.
+2. LEVE sua própria sacola ecológica para as compras.
+3. UTILIZE os dois lados do papel.
+4. REPENSE seu consumo de água e energia.
+5. ADOTE um estilo de vida com menos desperdício.</pre>
+            </div>
+
+            <!-- Questão 06 -->
+            <div id="q6-block" class="question-block mb-10">
+                <p class="font-semibold text-lg mb-4">6. O Texto 04 é predominantemente estruturado com base na tipologia:</p>
+                <div class="space-y-3">
+                    <label class="option-label"><input type="radio" name="q6" value="A" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (A) Injuntiva (ou Instrucional), pois utiliza verbos no imperativo para orientar o leitor a realizar ações.</label>
+                    <label class="option-label"><input type="radio" name="q6" value="B" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (B) Descritiva, pois detalha as características de um consumidor consciente.</label>
+                    <label class="option-label"><input type="radio" name="q6" value="C" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (C) Narrativa, pois conta a história de como se tornar um consumidor consciente.</label>
+                    <label class="option-label"><input type="radio" name="q6" value="D" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (D) Argumentativa, pois defende a tese de que o consumo consciente é vital.</label>
+                    <label class="option-label"><input type="radio" name="q6" value="E" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (E) Expositiva, pois apenas informa o que é consumo consciente.</label>
+                </div>
+            </div>
+
+            <!-- Bloco de Texto 05 -->
+            <div class="text-block bg-gray-50 p-5 rounded-lg mb-6 border border-gray-200">
+                <h3 class="font-semibold text-gray-800 mb-3">Questões sobre Gêneros e Redação Oficial (Baseadas no Manual de Redação da Presidência da República):</h3>
+            </div>
+
+            <!-- Questão 07 -->
+            <div id="q7-block" class="question-block mb-10">
+                <p class="font-semibold text-lg mb-4">7. (Instituto AOCP - Adaptada) O Manual de Redação da Presidência da República normatiza o uso dos pronomes de tratamento na comunicação oficial. Assinale a alternativa CORRETA sobre o uso desses pronomes:</p>
+                <div class="space-y-3">
+                    <label class="option-label"><input type="radio" name="q7" value="A" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (A) O tratamento "Digníssimo" (DD) deve ser usado para autoridades de alta patente, como Juízes e Desembargadores.</label>
+                    <label class="option-label"><input type="radio" name="q7" value="B" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (B) O Manual aboliu o uso de "Digníssimo" (DD) e "Ilustríssimo" (Ilmo.), pois a dignidade e a honra são pressupostos do cargo e não precisam ser enfatizadas.</label>
+                    <label class="option-label"><input type="radio" name="q7" value="C" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (C) A concordância com "Vossa Senhoria" deve ser sempre no feminino ("Vossa Senhoria está ocupada"), independentemente do sexo da autoridade.</label>
+                    <label class="option-label"><input type="radio" name="q7" value="D" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (D) O vocativo para Chefes de Poder (Presidente, Vice-Presidente, Presidente do STF) é "Magnífico Senhor".</label>
+                    <label class="option-label"><input type="radio" name="q7" value="E" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (E) Os pronomes possessivos referidos a "Vossa Excelência" devem ser "Vosso" ou "Vossa" ("Vossa Excelência e Vosso cônjuge").</label>
+                </div>
+            </div>
+
+            <!-- Bloco de Texto 06 -->
+            <div class="text-block bg-gray-50 p-5 rounded-lg mb-6 border border-gray-200">
+                <h3 class="font-semibold text-gray-800 mb-3">Texto 05 para a questão 08:</h3>
+                <pre class="text-block-content">     Os gêneros discursivos (ou textuais) são formas relativamente estáveis de enunciados, profundamente ligados às esferas de circulação e às práticas sociais. Um mesmo tema, como "saúde", será tratado de formas completamente diferentes dependendo do gênero: uma *notícia* (esfera jornalística) focará no fato; um *artigo científico* (esfera acadêmica) focará na metodologia e nos resultados; e uma *bula de remédio* (esfera da saúde/comercial) focará nas instruções e precauções.</pre>
+            </div>
+
+            <!-- Questão 08 -->
+            <div id="q8-block" class="question-block mb-10">
+                <p class="font-semibold text-lg mb-4">8. Com base no Texto 05, que reflete a teoria dos gêneros discursivos, é correto afirmar que os gêneros são definidos principalmente:</p>
+                <div class="space-y-3">
+                    <label class="option-label"><input type="radio" name="q8" value="A" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (A) Por um conjunto de regras gramaticais fixas.</label>
+                    <label class="option-label"><input type="radio" name="q8" value="B" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (B) Pelo nível de formalidade da linguagem empregada.</label>
+                    <label class="option-label"><input type="radio" name="q8" value="C" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (C) Pelo seu contexto social de uso (esfera de circulação) e sua finalidade.</label>
+                    <label class="option-label"><input type="radio" name="q8" value="D" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (D) Por serem puramente narrativos ou descritivos.</label>
+                    <label class="option-label"><input type="radio" name="q8" value="E" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (E) Pela intenção individual do autor, independentemente do público.</label>
+                </div>
+            </div>
+
+            <!-- Bloco de Texto 07 -->
+            <div class="text-block bg-gray-50 p-5 rounded-lg mb-6 border border-gray-200">
+                <h3 class="font-semibold text-gray-800 mb-3">Questões sobre Teoria dos Gêneros e Tipologias:</h3>
+            </div>
+            
+            <!-- Questão 09 -->
+            <div id="q9-block" class="question-block mb-10">
+                <p class="font-semibold text-lg mb-4">9. Sobre a diferença entre Tipologia Textual e Gênero Textual, assinale a alternativa <strong>INCORRETA</strong>:</p>
+                <div class="space-y-3">
+                    <label class="option-label"><input type="radio" name="q9" value="A" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (A) As tipologias textuais (narração, descrição, injunção, exposição, argumentação) são um conjunto finito e limitado.</label>
+                    <label class="option-label"><input type="radio" name="q9" value="B" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (B) Os gêneros textuais (e-mail, bilhete, romance, notícia, *tweet*) são um conjunto infinito e mutável, adaptando-se às necessidades sociais.</label>
+                    <label class="option-label"><input type="radio" name="q9" value="C" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (C) Um gênero textual (como o romance) pode conter várias tipologias textuais (narração, descrição, etc.) em sua composição.</label>
+                    <label class="option-label"><input type="radio" name="q9" value="D" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (D) A Tipologia Textual é definida pelo contexto de circulação e pela finalidade social, enquanto o Gênero Textual é definido pela estrutura linguística (tempos verbais, léxico).</label>
+                    <label class="option-label"><input type="radio" name="q9" value="E" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (E) "Descrição" é uma tipologia, enquanto "Cardápio" é um gênero que utiliza essa tipologia.</label>
+                </div>
+            </div>
+
+            <!-- Questão 10 -->
+            <div id="q10-block" class="question-block mb-10">
+                <p class="font-semibold text-lg mb-4">10. (Instituto AOCP - Adaptada) Os gêneros textuais estão diretamente ligados às esferas de circulação. Assinale a associação <strong>INCORRETA</strong> entre o gênero e sua principal esfera de circulação:</p>
+                <div class="space-y-3">
+                    <label class="option-label"><input type="radio" name="q10" value="A" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (A) Notícia - Esfera Jornalística.</label>
+                    <label class="option-label"><input type="radio" name="q10" value="B" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (B) Artigo Científico - Esfera Acadêmica.</label>
+                    <label class="option-label"><input type="radio" name="q10" value="C" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (C) Receita Culinária - Esfera Cotidiana / Instrucional.</label>
+                    <label class="option-label"><input type="radio" name="q10" value="D" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (D) Ofício - Esfera Religiosa.</label>
+                    <label class="option-label"><input type="radio" name="q10" value="E" class="mr-3 text-indigo-600 focus:ring-indigo-500"> (E) Editorial - Esfera Jornalística.</label>
+                </div>
+            </div>
+
+            <!-- Botão de Envio -->
+            <button type="button" id="submitBtn" class="w-full bg-indigo-600 text-white font-bold py-4 px-6 rounded-lg text-lg hover:bg-indigo-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                Finalizar e Ver Resultados
+            </button>
+
+        </form>
+
+        <!-- Seção de Resultados (oculta por padrão) -->
+        <div id="results" class="hidden mt-16">
+            <header class="border-b border-indigo-200 pb-4 mb-8">
+                <h2 class="text-3xl md:text-4xl font-bold text-indigo-700">Seus Resultados</h2>
+            </header>
+            
+            <p id="score" class="text-3xl font-semibold mb-10 text-center p-6 bg-indigo-50 rounded-lg">
+                Você acertou <strong>0</strong> de 10 questões.
+            </p>
+
+            <h3 class="text-2xl md:text-3xl font-bold text-gray-800 mb-8">Gabarito e Resoluções Comentadas</h3>
+            
+            <!-- Container para as resoluções -->
+            <div id="resolutionsContainer" class="space-y-8">
+                <!-- O JavaScript irá preencher esta seção -->
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Script do Quiz -->
+    <script>
+        // Objeto com as respostas corretas
+        const correctAnswers = {
+            q1: "D", q2: "E", q3: "B", q4: "C", q5: "B",
+            q6: "A", q7: "B", q8: "C", q9: "D", q10: "D"
+        };
+
+        // Objeto com as resoluções
+        const resolutions = {
+            q1: `<strong>Gabarito: D</strong><br><strong>Resolução Comentada:</strong> A questão exige o reconhecimento do gênero textual. (A) Incorreta. Uma notícia exige impessoalidade e foco em fatos recentes, o que não ocorre no texto, marcado pela subjetividade ("...compreendi que aquele objeto..."). (B) Incorreta. Embora narrativo, o texto não é um conto, pois não se apresenta como ficcional, mas como uma rememoração pessoal do autor (autobiográfico). (C) Incorreta. O texto não constrói uma tese (opinião) sobre o tabagismo para persuadir o leitor; o foco é a memória afetiva ligada ao objeto. (D) Correta. O texto apresenta todas as características centrais do gênero crônica: parte de um elemento banal do cotidiano (um cinzeiro), utiliza uma linguagem acessível e subjetiva, e desenvolve uma reflexão pessoal sobre o tempo e a memória ("fragmento de memória"). (E) Incorreta. Um verbete é objetivo e denotativo, o oposto da linguagem conotativa e reflexiva do texto.`,
+            q2: `<strong>Gabarito: E</strong><br><strong>Resolução Comentada:</strong> Esta questão avalia o hibridismo tipológico, ou seja, a coexistência de várias tipologias em um mesmo gênero. A crônica é um gênero híbrido por excelência. I (Correta): A tipologia narrativa (contar uma história) está presente na sequência de eventos que explica a origem do objeto ("...meu pai o ganhara de presente..."). II (Correta): A tipologia descritiva (caracterizar) é usada para detalhar o cinzeiro, permitindo que o leitor o visualize ("Arredondado e de alumínio", "um 'P' todo trabalhado em relevo."). III (Correta): A tipologia expositivo-reflexiva (ou dissertativa) é usada no desfecho, quando o narrador disserta sobre o significado do objeto, extrapolando a simples narração ou descrição ("Era, na verdade, um fragmento de memória..."). Portanto, todas as afirmativas estão corretas.`,
+            q3: `<strong>Gabarito: B</strong><br><strong>Resolução Comentada:</strong> A questão testa a identificação do gênero pela sua *intencionalidade*. (A) Incorreta. O texto não é imparcial; o autor toma uma posição clara ("Enganam-se.") e defende seu ponto de vista. (B) Correta. O texto é um *artigo de opinião*, pois o autor apresenta uma *tese* (a solução para as *fake news* é a educação crítica) e usa argumentos para *defendê-la* (a tecnologia sozinha é "enxugar gelo"). (C) Incorreta. Um editorial expressa a opinião do *veículo* (jornal, revista), não de um autor individual. (D) Incorreta. Uma reportagem apresentaria dados, fatos e entrevistas de forma mais aprofundada, buscando a objetividade, enquanto este texto é primariamente opinativo. (E) Incorreta. Um resumo apenas sintetiza outras ideias, sem apresentar uma tese nova.`,
+            q4: `<strong>Gabarito: C</strong><br><strong>Resolução Comentada:</strong> A questão foca na interação verbo-visual. (A) Incorreta. A adequação do vocabulário inicial ("mamíferos noturnos") serve apenas para criar a expectativa de um trabalho sério, que será quebrada. (B) Incorreta. A frustração de Calvin (não verbal) é a *consequência* da quebra de expectativa, e não a causa principal do humor. (C) Correta. O humor nasce do contraste (oposição) entre a *forma* (linguagem verbal séria, usando a estrutura de uma argumentação acadêmica: "minha tese", "evidências contrárias") e o *conteúdo* (uma ideia completamente absurda e anticientífica). (D) Incorreta. Os termos não confundem a professora; ela entende perfeitamente o absurdo. (E) Incorreta. A linguagem verbal é essencial para estabelecer a "tese" absurda de Calvin.`,
+            q5: `<strong>Gabarito: B</strong><br><strong>Resolução Comentada:</strong> Esta questão avalia o conceito de *adequação linguística* em relação ao *gênero* e à *esfera de circulação*. (A) Incorreta. A linguagem da tira (informal, humorística) não é, em si, o problema. A inadequação é de *conteúdo* e *rigor* para a situação. (B) Correta. O enunciado faz a distinção precisa: a linguagem de Calvin (sua "tese") funciona perfeitamente para o *gênero textual "tira"*, cujo objetivo é o humor. Contudo, essa mesma linguagem é completamente *inadequada* para a *esfera/situação comunicativa "escola"*, que exige rigor, fatos e ciência. (C) Incorreta. O gênero "tira" pode, sim, circular na esfera escolar. (D) Incorreta. A tese científica está incorreta e é a causa da nota. (E) Incorreta. A linguagem verbal é fundamental.`,
+            q6: `<strong>Gabarito: A</strong><br><strong>Resolução Comentada:</strong> A questão pede a tipologia textual predominante. (A) Correta. O texto pertence à tipologia *injuntiva* (ou instrucional). Sua finalidade é "fazer agir" o interlocutor, instruindo-o. A marca linguística principal são os verbos no modo imperativo ("RECUSE", "LEVE", "UTILIZE", "ADOTE"). (B) Incorreta. O foco não é a descrição. (C) Incorreta. Não há narração. (D) Incorreta. Embora persuasivo, sua estrutura principal é de comando. (E) Incorreta. Não visa apenas expor, mas instruir.`,
+            q7: `<strong>Gabarito: B</strong><br><strong>Resolução Comentada:</strong> A questão avalia o conhecimento sobre o *Manual de Redação da Presidência da República*. (A) Incorreta. O uso de "Digníssimo" (DD) foi abolido. (B) Correta. O Manual aboliu o uso de "Digníssimo" (DD) e "Ilustríssimo" (Ilmo.). A justificativa é exatamente a apresentada: a dignidade é um atributo inerente ao cargo. (C) Incorreta. A concordância deve se dar com o *sexo* da pessoa (ex: Se a autoridade for mulher, "Vossa Excelência está *convidada*"). (D) Incorreta. "Magnífico Senhor" é para Reitores. Para Chefes de Poder, usa-se "Excelentíssimo Senhor". (E) Incorreta. Os possessivos ficam na 3ª pessoa ("...nomeará *seu* substituto").`,
+            q8: `<strong>Gabarito: C</strong><br><strong>Resolução Comentada:</strong> A questão exige a interpretação do texto-base. (A) Incorreta. O texto não fala em regras fixas. (B) Incorreta. A formalidade é uma consequência da esfera, não a definição. (C) Correta. Esta alternativa sintetiza perfeitamente a ideia do texto: os gêneros (notícia, artigo científico) dependem de onde (esfera) e para quê (contexto social) são usados. (D) Incorreta. O texto não diz que são "puramente narrativos". (E) Incorreta. O texto enfatiza o contexto ("esfera de circulação").`,
+            q9: `<strong>Gabarito: D</strong><br><strong>Resolução Comentada:</strong> A questão pede a alternativa **INCORRETA**. (A) Correta. As tipologias são um conjunto finito (5 ou 6). (B) Correta. Os gêneros são infinitos e mutáveis. (C) Correta. Gêneros são híbridos, usando várias tipologias. (D) Incorreta. A alternativa *inverte* os conceitos. O *Gênero Textual* é definido pela finalidade social e pelo contexto. A *Tipologia Textual* é definida pelas estruturas linguísticas (tempos verbais, etc.). (E) Correta. Apresenta exemplos corretos.`,
+            q10: `<strong>Gabarito: D</strong><br><strong>Resolução Comentada:</strong> A questão pede a associação **INCORRETA**. (A) Correta. Notícia -> Jornalística. (B) Correta. Artigo Científico -> Acadêmica. (C) Correta. Receita -> Cotidiana. (D) Incorreta. O *Ofício* é o gênero textual da esfera *Administrativa* ou *Oficial* (serviço público). A esfera Religiosa possui outros gêneros (sermão, hino, parábola). (E) Correta. Editorial -> Jornalística.`
+        };
+
+        // Seleciona os elementos do DOM
+        const submitBtn = document.getElementById('submitBtn');
+        const quizForm = document.getElementById('quizForm');
+        const resultsSection = document.getElementById('results');
+        const scoreElement = document.getElementById('score');
+        const resolutionsContainer = document.getElementById('resolutionsContainer');
+
+        // Adiciona o evento de clique ao botão
+        submitBtn.addEventListener('click', () => {
+            let score = 0;
+            const resolutionsHTML = [];
+
+            // Loop por todas as 10 questões
+            for (let i = 1; i <= 10; i++) {
+                const qName = 'q' + i;
+                const questionBlock = document.getElementById(qName + '-block');
+                const labels = questionBlock.querySelectorAll('.option-label');
+                const radioButtons = questionBlock.querySelectorAll('input[type="radio"]');
+
+                // Pega a resposta do usuário
+                const selectedOption = quizForm.querySelector(`input[name="${qName}"]:checked`);
+                const userAnswer = selectedOption ? selectedOption.value : null;
+                
+                // Pega a resposta correta
+                const correctAnswer = correctAnswers[qName];
+
+                // Verifica se a resposta está correta
+                const isCorrect = (userAnswer === correctAnswer);
+                if (isCorrect) {
+                    score++;
+                }
+
+                // Desabilita os botões de rádio após o envio
+                radioButtons.forEach(radio => {
+                    radio.disabled = true;
+                });
+
+                // Aplica feedback visual nas opções
+                labels.forEach(label => {
+                    const radioValue = label.querySelector('input').value;
+
+                    if (radioValue === correctAnswer) {
+                        // Destaca a resposta correta
+                        label.classList.add('correct-answer');
+                    }
+                    if (userAnswer && radioValue === userAnswer && !isCorrect) {
+                        // Destaca a resposta errada do usuário
+                        label.classList.add('wrong-answer');
+                    }
+                });
+
+                // Monta o HTML para a resolução da questão
+                resolutionsHTML.push(`
+                    <div class="resolution-item p-5 bg-gray-50 border border-gray-200 rounded-lg shadow-sm">
+                        <h4 class="font-bold text-xl mb-3 text-indigo-700">Questão ${i}</h4>
+                        <div class="mb-4 space-y-1 text-sm">
+                            <p><strong>Sua resposta:</strong> ${userAnswer ? `(${userAnswer})` : 'Nenhuma resposta selecionada'}</p>
+                            <p><strong>Resposta correta:</strong> (${correctAnswer})</p>
+                        </div>
+                        <div class="resolution-text text-gray-700 text-base leading-relaxed">
+                            ${resolutions[qName]}
+                        </div>
+                    </div>
+                `);
+            }
+
+            // Atualiza a pontuação
+            scoreElement.innerHTML = `Você acertou <strong>${score}</strong> de 10 questões.`;
+            
+            // Preenche o container de resoluções
+            resolutionsContainer.innerHTML = resolutionsHTML.join('');
+
+            // Mostra a seção de resultados e esconde o botão de envio
+            resultsSection.classList.remove('hidden');
+            submitBtn.style.display = 'none';
+
+            // Rola a tela para a seção de resultados
+            resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+    </script>
+
+</body>
+</html>
