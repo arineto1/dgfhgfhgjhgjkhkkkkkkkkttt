@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Coesão e Coerência (Estilo AOCP)</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carrega a fonte Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Define a fonte Inter como padrão e melhora a legibilidade */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Fundo claro (Tailwind gray-50) */
+            color: #1e293b; /* Texto escuro (Tailwind slate-800) */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Estilos para os blocos de texto-base das questões */
+        .texto-base {
+            background-color: #f1f5f9; /* slate-100 */
+            border-left: 4px solid #94a3b8; /* slate-400 */
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-style: italic;
+            color: #334155; /* slate-700 */
+        }
+
+        /* Melhora a legibilidade dos parágrafos nas questões e resoluções */
+        .readable-content p {
+            margin-bottom: 1rem;
+            line-height: 1.65;
+        }
+        
+        /* Estilo para o feedback das opções de rádio */
+        input[type="radio"] {
+            accent-color: #3b82f6; /* blue-500 */
+        }
+        
+        label.option {
+            display: block;
+            padding: 12px 16px;
+            border: 1px solid #e2e8f0; /* slate-200 */
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        label.option:hover {
+            background-color: #f1f5f9; /* slate-100 */
+            border-color: #94a3b8; /* slate-400 */
+        }
+        
+        /* Estilos para o bloco de resolução */
+        .resolution-block {
+            background-color: #f8fafc; /* gray-50 */
+            border: 1px solid #e2e8f0; /* slate-200 */
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 16px;
+        }
+
+    </style>
+</head>
+<body class="bg-gray-50 text-slate-800 leading-relaxed">
+
+    <div class="max-w-3xl mx-auto p-4 sm:p-8 md:p-12">
+        
+        <header class="mb-10 text-center">
+            <h1 class="text-4xl font-bold text-slate-900 mb-2">Quiz: Fatores de Textualidade</h1>
+            <p class="text-lg text-slate-600">Coerência e Coesão Textuais (Estilo Instituto AOCP)</p>
+        </header>
+
+        <!-- Formulário do Quiz -->
+        <form id="quizForm">
+            
+            <!-- Questão 1 -->
+            <div class="bg-white shadow-md rounded-lg p-6 md:p-8 mb-8">
+                <div class="texto-base readable-content">
+                    <p>(1) A disseminação deliberada de informações falsas, ou <em>fake news</em>, não constitui apenas um problema ético, mas uma ameaça direta aos processos democráticos. (2) <strong>Isso</strong> (linha 2) ocorre porque a confiança pública nas instituições e na mídia tradicional é erodida, facilitando a manipulação da opinião pública.</p>
+                </div>
+                <p class="font-semibold text-lg mb-4">1. (Instituto AOCP - Adaptada) No trecho "Isso (linha 2) ocorre porque...", o pronome demonstrativo destacado estabelece coesão referencial anafórica retomando:</p>
+                <div class="space-y-3">
+                    <label class="option">
+                        <input type="radio" name="q1" value="A" class="mr-3">
+                        (A) o termo "fenômeno", subentendido no contexto.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="B" class="mr-3">
+                        (B) a oração "a confiança pública [...] é erodida".
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="C" class="mr-3">
+                        (C) o sintagma "processos democráticos".
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="D" class="mr-3">
+                        (D) o sintagma "um problema ético".
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="E" class="mr-3">
+                        (E) a totalidade da ideia expressa no primeiro período.
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 2 -->
+            <div class="bg-white shadow-md rounded-lg p-6 md:p-8 mb-8">
+                <div class="texto-base readable-content">
+                    <p>(1) O combate à desinformação exige uma abordagem multifacetada, <strong>porque</strong> (linha 1) suas causas são complexas. (2) <strong>Ademais</strong> (linha 2), a polarização política intensifica o problema, criando 'bolhas' informacionais que dificultam o diálogo construtivo. (3) É urgente, <strong>portanto</strong> (linha 4), que a sociedade civil e as plataformas digitais desenvolvam mecanismos eficazes de verificação de fatos. (4) <strong>Contudo</strong> (linha 5), tais mecanismos enfrentam resistência de grupos que lucram com o caos informacional.</p>
+                </div>
+                <p class="font-semibold text-lg mb-4">2. (Instituto AOCP - Adaptada) Sobre os operadores argumentativos (mecanismos de coesão sequencial) empregados no texto, assinale a alternativa correta.</p>
+                <div class="space-y-3">
+                    <label class="option">
+                        <input type="radio" name="q2" value="A" class="mr-3">
+                        (A) "porque" (linha 1) introduz uma finalidade, indicando o objetivo do combate à desinformação.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="B" class="mr-3">
+                        (B) "Ademais" (linha 2) introduz uma oposição ao que foi dito na primeira frase.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="C" class="mr-3">
+                        (C) "portanto" (linha 4) expressa uma relação de conclusão ou consequência lógica em relação às ideias anteriores.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="D" class="mr-3">
+                        (D) "contudo" (linha 5) introduz uma explicação para a necessidade de desenvolver mecanismos.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="E" class="mr-3">
+                        (E) "Ademais" (linha 2) e "contudo" (linha 5) possuem valor semântico equivalente, podendo ser trocados sem prejuízo ao sentido.
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 3 -->
+            <div class="bg-white shadow-md rounded-lg p-6 md:p-8 mb-8">
+                <div class="texto-base readable-content">
+                    <p>(1) O planejamento urbano moderno deve priorizar as pessoas, não apenas os veículos. (2) <strong>Essa visão</strong> (linha 2) é fundamental para cidades mais justas. (3) Interesses econômicos especulativos, <strong>que</strong> (linha 2) muitas vezes ditam as regras do desenvolvimento, tendem a ver o solo urbano apenas como mercadoria. (4) O resultado <strong>dessa política</strong> (linha 4) é a expansão de áreas periféricas carentes de infraestrutura, <strong>onde</strong> (linha 4) a população gasta horas em deslocamento. (5) <strong>Tais problemas</strong> (linha 5) afetam diretamente a saúde pública e a coesão social.</p>
+                </div>
+                <p class="font-semibold text-lg mb-4">3. (Instituto AOCP - Adaptada) No que concerne aos mecanismos de coesão textual empregados no fragmento, assinale a alternativa <strong>INCORRETA</strong>.</p>
+                <div class="space-y-3">
+                    <label class="option">
+                        <input type="radio" name="q3" value="A" class="mr-3">
+                        (A) A expressão "Essa visão" (linha 2) retoma anaforicamente a ideia central do primeiro período ("priorizar as pessoas, não apenas os veículos").
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="B" class="mr-3">
+                        (B) O pronome "que" (linha 2) estabelece coesão referencial, retomando seu antecedente "Interesses econômicos especulativos".
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="C" class="mr-3">
+                        (C) A expressão "dessa política" (linha 4) retoma, por coesão lexical e referencial, a ideia de "ver o solo urbano apenas como mercadoria".
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="D" class="mr-3">
+                        (D) O pronome relativo "onde" (linha 4) estabelece coesão referencial retomando o termo antecedente "infraestrutura".
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="E" class="mr-3">
+                        (E) A expressão "Tais problemas" (linha 5) retoma anaforicamente os resultados negativos citados no período anterior (a expansão de áreas carentes e o tempo gasto em deslocamento).
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 4 -->
+            <div class="bg-white shadow-md rounded-lg p-6 md:p-8 mb-8">
+                <p class="font-semibold text-lg mb-4">4. (Instituto AOCP - Adaptada) A coesão referencial pode ocorrer por anáfora (retomada de um termo anterior) ou catáfora (antecipação de um termo posterior). Assinale a alternativa em que o termo destacado cumpre uma função estritamente catafórica.</p>
+                <div class="space-y-3">
+                    <label class="option">
+                        <input type="radio" name="q4" value="A" class="mr-3">
+                        (A) A autora releu suas memórias com atenção, mas <strong>elas</strong> não traziam o conforto esperado.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q4" value="B" class="mr-3">
+                        (B) O diretor apresentou dados alarmantes sobre a economia nacional. <strong>Isso</strong> preocupou imediatamente os acionistas.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q4" value="C" class="mr-3">
+                        (C) Embora <strong>o</strong> tenha alertado diversas vezes sobre os riscos, o motorista seguiu viagem pela estrada inundada.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q4" value="D" class="mr-3">
+                        (D) O ministro declarou apenas <strong>isto</strong>: que a reforma tributária será implementada no próximo semestre.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q4" value="E" class="mr-3">
+                        (E) A cidade, <strong>cujos</strong> parques foram recentemente revitalizados, atraiu um número recorde de turistas.
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 5 -->
+            <div class="bg-white shadow-md rounded-lg p-6 md:p-8 mb-8">
+                <p class="font-semibold text-lg mb-4">5. (Instituto AOCP - Adaptada) A coerência textual depende de fatores lógicos, como o princípio da não-contradição. Assinale a alternativa que apresenta um fragmento textualmente <strong>incoerente</strong> por violar esse princípio.</p>
+                <div class="space-y-3">
+                    <label class="option">
+                        <input type="radio" name="q5" value="A" class="mr-3">
+                        (A) O atleta treinou exaustivamente durante meses; contudo, perdeu a competição logo na primeira fase.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q5" value="B" class="mr-3">
+                        (B) O aquecimento global é uma farsa científica. Todos os dados coletados por climatologistas indicam um aumento inequívoco das temperaturas médias do planeta nas últimas décadas.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q5" value="C" class="mr-3">
+                        (C) A nova lei é complexa, pois mexe em privilégios antigos. Além disso, a oposição tentará derrubá-la, mas o governo garante ter os votos para a aprovação.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q5" value="D" class="mr-3">
+                        (D) O candidato defende a redução de impostos sobre o consumo e, simultaneamente, o aumento do investimento público em programas sociais de transferência de renda.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q5" value="E" class="mr-3">
+                        (E) A tecnologia moderna aproxima quem está longe. Por outro lado, ela pode, paradoxalmente, isolar pessoas que estão fisicamente próximas.
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 6 -->
+            <div class="bg-white shadow-md rounded-lg p-6 md:p-8 mb-8">
+                <div class="texto-base readable-content">
+                    <p>(1) A Constituição Federal de 1988 assegura o acesso universal e igualitário à saúde, definindo o Sistema Único de Saúde (SUS) como pilar central dessa garantia. (2) Para <strong>garantir-lhe</strong> (linha 2) recursos mínimos, foi estabelecida a vinculação de receitas da União, estados e municípios.</p>
+                </div>
+                <p class="font-semibold text-lg mb-4">6. (Instituto AOCP - Adaptada) Considere o trecho: "Para <strong>garantir-lhe</strong> (linha 2) recursos mínimos...". Se o pronome átono "lhe" fosse substituído pela forma "o" (Para garantir-<strong>o</strong> recursos mínimos...), essa alteração:</p>
+                <div class="space-y-3">
+                    <label class="option">
+                        <input type="radio" name="q6" value="A" class="mr-3">
+                        (A) preservaria a coesão referencial e a correção gramatical, mantendo o referente "SUS".
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q6" value="B" class="mr-3">
+                        (B) prejudica a correção gramatical, visto que o verbo "garantir", no sentido de "assegurar a alguém", exige um objeto indireto (lhe), e não um objeto direto (o).
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q6" value="C" class="mr-3">
+                        (C) preservaria a correção gramatical, mas alteraria o referente, que passaria a ser "Constituição Federal" em vez de "SUS".
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q6" value="D" class="mr-3">
+                        (D) preservaria a correção gramatical, mas prejudicaria a clareza da coesão textual.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q6" value="E" class="mr-3">
+                        (E) é gramaticalmente correta, pois o verbo "garantir" é transitivo direto e "recursos mínimos" funciona como objeto indireto.
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 7 -->
+            <div class="bg-white shadow-md rounded-lg p-6 md:p-8 mb-8">
+                <div class="texto-base readable-content">
+                     <p>(1) <strong>Embora</strong> (linha 1) a legislação garanta a verba para a educação básica, o contingenciamento orçamentário é uma prática frequente. (2) Gestores, <strong>por sua vez</strong> (linha 2), alegam falta de previsibilidade na arrecadação. (3) A população, <strong>visto que</strong> (linha 3) a demanda por vagas é crescente, sofre com a precarização dos serviços.</p>
+                </div>
+                <p class="font-semibold text-lg mb-4">7. (Instituto AOCP - Adaptada) No que tange à coesão sequencial, assinale a alternativa que apresenta uma substituição de conector que preserva integralmente o sentido lógico-semântico original do texto.</p>
+                <div class="space-y-3">
+                    <label class="option">
+                        <input type="radio" name="q7" value="A" class="mr-3">
+                        (A) Substituir "Embora" (linha 1) por "Conforme".
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q7" value="B" class="mr-3">
+                        (B) Substituir "por sua vez" (linha 2) por "portanto".
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q7" value="C" class="mr-3">
+                        (C) Substituir "Visto que" (linha 3) por "À medida que".
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q7" value="D" class="mr-3">
+                        (D) Substituir "Embora" (linha 1) por "Ainda que".
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q7" value="E" class="mr-3">
+                        (E) Substituir "Visto que" (linha 3) por "Contanto que".
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Questão 8 -->
+            <div class="bg-white shadow-md rounded-lg p-6 md:p-8 mb-8">
+                <div class="texto-base readable-content">
+                    <p>(1) O rápido avanço da inteligência artificial generativa, com sua impressionante capacidade de criar textos e imagens que imitam com perfeição a produção humana, levanta profundos debates éticos e questões complexas sobre autoria e propriedade intelectual. (2) <strong>Esse fenômeno</strong> (linha 3) desafia as legislaturas a criarem regulações eficazes.</p>
+                </div>
+                <p class="font-semibold text-lg mb-4">8. (Instituto AOCP - Adaptada) No trecho, a expressão "Esse fenômeno" (linha 3) é um mecanismo de coesão lexical e referencial que serve para:</p>
+                <div class="space-y-3">
+                    <label class="option">
+                        <input type="radio" name="q8" value="A" class="mr-3">
+                        (A) antecipar cataforicamente o termo "legislaturas".
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q8" value="B" class="mr-3">
+                        (B) retomar anaforicamente, por meio de um hiperônimo, a totalidade do "rápido avanço da inteligência artificial generativa" e suas implicações.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q8" value="C" class="mr-3">
+                        (C) estabelecer uma relação de oposição (adversativa) com a "capacidade de imitar a produção humana".
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q8" value="D" class="mr-3">
+                        (D) introduzir um exemplo de coesão sequencial, conectando o primeiro período ao segundo com valor de causa.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q8" value="E" class="mr-3">
+                        (E) retomar anaforicamente apenas o sintagma "debates éticos".
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 9 -->
+            <div class="bg-white shadow-md rounded-lg p-6 md:p-8 mb-8">
+                <div class="texto-base readable-content">
+                    <p>(1) A metodologia da pesquisa foi dividida em duas frentes de análise: o primeiro grupo analisou os dados quantitativos; o segundo, os qualitativos.</p>
+                </div>
+                <p class="font-semibold text-lg mb-4">9. (Instituto AOCP - Adaptada) No período "o primeiro grupo analisou os dados quantitativos; o segundo, os qualitativos", o principal mecanismo de coesão empregado para estruturar a segunda oração ("o segundo, os qualitativos") é:</p>
+                <div class="space-y-3">
+                    <label class="option">
+                        <input type="radio" name="q9" value="A" class="mr-3">
+                        (A) o uso do artigo definido "os" antes de "qualitativos".
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q9" value="B" class="mr-3">
+                        (B) a conjunção aditiva implícita entre as orações coordenadas.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q9" value="C" class="mr-3">
+                        (C) a substituição lexical de "grupo" pelo numeral "segundo".
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q9" value="D" class="mr-3">
+                        (D) a coesão referencial por elipse do verbo "analisou".
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q9" value="E" class="mr-3">
+                        (E) a referência catafórica ao termo "dados", que é subentendido.
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 10 -->
+            <div class="bg-white shadow-md rounded-lg p-6 md:p-8 mb-8">
+                <p class="font-semibold text-lg mb-4">10. (Instituto AOCP - Adaptada) A coesão referencial utiliza elementos (pronomes, advérbios, etc.) para retomar ou antecipar termos no texto. A coesão sequencial, por sua vez, utiliza conectores (conjunções, preposições) para estabelecer relações lógico-semânticas entre as orações. Assinale a alternativa em que o termo destacado é um mecanismo de coesão <strong>sequencial</strong>, e não referencial.</p>
+                <div class="space-y-3">
+                    <label class="option">
+                        <input type="radio" name="q10" value="A" class="mr-3">
+                        (A) O debate sobre sustentabilidade, <strong>cuja</strong> importância é inegável, deve ser prioridade na agenda política.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q10" value="B" class="mr-3">
+                        (B) Foi montado um hospital de campanha <strong>onde</strong> os pacientes diagnosticados com a virose são triados.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q10" value="C" class="mr-3">
+                        (C) <strong>Embora</strong> o cenário fosse desafiador, a equipe manteve o otimismo e prosseguiu com o projeto.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q10" value="D" class="mr-3">
+                        (D) O sistema apresentou diversas falhas técnicas, <strong>as quais</strong> foram corrigidas pela equipe de manutenção.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q10" value="E" class="mr-3">
+                        (E) O governo prometeu transparência total nos gastos. <strong>Esta</strong>, contudo, não foi observada na licitação.
+                    </label>
+                </div>
+            </div>
+
+            <!-- Botão de Envio -->
+            <button type="submit" id="submitBtn" class="w-full bg-blue-600 text-white font-bold text-lg py-4 px-6 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300 ease-in-out transform hover:-translate-y-1">
+                Concluir e Ver Resultados
+            </button>
+
+        </form>
+
+        <!-- Seção de Resultados (oculta por padrão) -->
+        <section id="resultsSection" class="hidden mt-12">
+            
+            <header class="text-center mb-10 p-8 bg-white rounded-lg shadow-lg">
+                <h2 class="text-3xl font-bold text-slate-900 mb-2">Seu Desempenho</h2>
+                <p class="text-5xl font-bold text-blue-600" id="score">0 de 10</p>
+                <p class="text-lg text-slate-600 mt-2">Confira abaixo a resolução comentada de cada questão.</p>
+            </header>
+
+            <!-- Resoluções Detalhadas serão injetadas aqui -->
+            <div id="detailedResults" class="space-y-8">
+                <!-- Conteúdo gerado via JavaScript -->
+            </div>
+
+        </section>
+        
+        <footer class="text-center mt-12 text-slate-500 text-sm">
+            <p>Quiz interativo gerado com base em questões adaptadas do Instituto AOCP.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        // --- BANCO DE DADOS DAS QUESTÕES ---
+        const solutions = [
+            {
+                id: 'q1',
+                answer: 'E',
+                resolution: `
+                    <p><strong>Alternativa correta: (E) a totalidade da ideia expressa no primeiro período.</strong></p>
+                    <p>A questão avalia a coesão referencial anafórica. O pronome demonstrativo neutro "Isso" é usado para retomar não apenas um substantivo, mas uma proposição inteira.</p>
+                    <p>O pronome "Isso" funciona como um mecanismo de "encapsulamento anafórico". Ele compacta e retoma a ideia integral expressa no primeiro período: o fato de que "A disseminação deliberada de informações falsas [...] não constitui apenas um problema ético, mas uma ameaça direta aos processos democráticos". É <em>esse fato</em> (a ameaça) que "ocorre porque a confiança é erodida".</p>
+                `
+            },
+            {
+                id: 'q2',
+                answer: 'C',
+                resolution: `
+                    <p><strong>Alternativa correta: (C) "portanto" (linha 4) expressa uma relação de conclusão ou consequência lógica.</strong></p>
+                    <p>A questão exige a análise semântica dos conectores (coesão sequencial).</p>
+                    <p><strong>(A) INCORRETA.</strong> "porque" introduz uma relação de <em>causa</em> ou <em>explicação</em>.</p>
+                    <p><strong>(B) INCORRETA.</strong> "Ademais" introduz <em>adição</em> ou <em>acréscimo</em> de um novo argumento.</p>
+                    <p><strong>(C) CORRETA.</strong> O conector "portanto" é um operador conclusivo. Ele sinaliza que a oração subsequente é uma <em>conclusão</em> ou <em>consequência lógica</em> derivada das premissas apresentadas anteriormente.</p>
+                    <p><strong>(D) INCORRETA.</strong> "contudo" é <em>adversativo</em> (oposição).</p>
+                    <p><strong>(E) INCORRETA.</strong> "Ademais" (adição) e "contudo" (oposição) têm valores opostos.</p>
+                `
+            },
+            {
+                id: 'q3',
+                answer: 'D',
+                resolution: `
+                    <p><strong>Alternativa correta: (D) O pronome relativo "onde" (linha 4) estabelece coesão referencial retomando o termo antecedente "infraestrutura".</strong></p>
+                    <p>Esta é a afirmativa <strong>INCORRETA</strong>, que é o que a questão pede.</p>
+                    <p>O pronome relativo (ou advérbio relativo) "onde" é um mecanismo de coesão referencial que <em>sempre</em> retoma um termo anterior com valor semântico de <em>lugar</em> físico ou espacial. No texto, o referente de "onde" não é "infraestrutura", mas sim "áreas periféricas". A frase indica que é <em>nas áreas periféricas</em> que a população gasta horas, e não <em>na infraestrutura</em>.</p>
+                `
+            },
+            {
+                id: 'q4',
+                answer: 'D',
+                resolution: `
+                    <p><strong>Alternativa correta: (D) "O ministro declarou apenas isto: que a reforma tributária será implementada no próximo semestre."</strong></p>
+                    <p>A questão avalia a distinção entre anáfora (retomada) e catáfora (antecipação).</p>
+                    <p>O pronome demonstrativo neutro "isto" é o principal marcador de catáfora na língua portuguesa. Ele "aponta para frente", antecipando uma informação que será detalhada <em>depois</em> dele. O referente de "isto" é a oração subordinada substantiva apositiva "que a reforma tributária será implementada no próximo semestre".</p>
+                    <p>As demais opções ("elas", "Isso", "o", "cujos") são todas anafóricas, pois retomam termos ou ideias mencionadas <em>antes</em>.</p>
+                `
+            },
+            {
+                id: 'q5',
+                answer: 'B',
+                resolution: `
+                    <p><strong>Alternativa correta: (B) "O aquecimento global é uma farsa científica. Todos os dados coletados por climatologistas indicam um aumento inequívoco das temperaturas médias do planeta nas últimas décadas."</strong></p>
+                    <p>Esta questão avalia a <em>coerência textual</em>, especificamente o Princípio da Não-Contradição.</p>
+                    <p>Este fragmento viola flagrantemente esse princípio. A primeira oração faz uma asserção (A: "aquecimento global é farsa"). A segunda oração apresenta uma asserção que é a negação direta da primeira (NÃO-A: "dados indicam aumento inequívoco"). O texto se autocancela, tornando-se logicamente incoerente.</p>
+                `
+            },
+            {
+                id: 'q6',
+                answer: 'B',
+                resolution: `
+                    <p><strong>Alternativa correta: (B) prejudica a correção gramatical, visto que o verbo "garantir", no sentido de "assegurar a alguém", exige um objeto indireto (lhe), e não um objeto direto (o).</strong></p>
+                    <p>A questão mistura coesão referencial com regência verbal. A análise da regência do verbo "garantir" é a chave. No contexto, ele é um verbo transitivo direto e indireto (bitransitivo):</p>
+                    <ul>
+                        <li>- Garante o quê? "recursos mínimos" (Objeto Direto - OD)</li>
+                        <li>- Garante a quem? "ao SUS" (Objeto Indireto - OI)</li>
+                    </ul>
+                    <p>O pronome "lhe" é o pronome átono que substitui o Objeto Indireto ("a ele" = ao SUS). O pronome "o" substitui <em>apenas</em> o Objeto Direto. Como o Objeto Direto ("recursos mínimos") já está presente na oração, a substituição de "lhe" (OI) por "o" (OD) cria uma agramaticalidade.</p>
+                `
+            },
+            {
+                id: 'q7',
+                answer: 'D',
+                resolution: `
+                    <p><strong>Alternativa correta: (D) Substituir "Embora" (linha 1) por "Ainda que".</strong></p>
+                    <p>A questão avalia a coesão sequencial pela manutenção do sentido semântico na substituição de conectores.</p>
+                    <p>"Embora" e "Ainda que" são conjunções subordinativas concessivas. Elas são semanticamente equivalentes e perfeitamente intercambiáveis nesse contexto, preservando a lógica de que, apesar da garantia constitucional (concessão), a verba é contingenciada.</p>
+                    <p>As demais opções alteram o sentido: (A) "Conforme" é conformativa. (B) "portanto" é conclusiva. (C) "À medida que" é proporcional. (E) "Contanto que" é condicional.</p>
+                `
+            },
+            {
+                id: 'q8',
+                answer: 'B',
+                resolution: `
+                    <p><strong>Alternativa correta: (B) retomar anaforicamente, por meio de um hiperônimo, a totalidade do "rápido avanço da inteligência artificial generativa" e suas implicações.</strong></p>
+                    <p>A questão avalia o mecanismo de coesão lexical por hiperonímia. "Esse fenômeno" é um exemplo clássico desse mecanismo. A palavra "fenômeno" é um <em>hiperônimo</em> (um termo de sentido mais genérico) que é usado para retomar anaforicamente (para trás) toda a situação complexa descrita anteriormente (o "rápido avanço da IA", sua "capacidade de criar textos" e as "questões sobre autoria").</p>
+                `
+            },
+            {
+                id: 'q9',
+                answer: 'D',
+                resolution: `
+                    <p><strong>Alternativa correta: (D) a coesão referencial por elipse do verbo "analisou".</strong></p>
+                    <p>A questão avalia a coesão por elipse (omissão de termos). O principal mecanismo que garante a fluidez e a coesão deste período é a <em>elipse</em> (omissão) do verbo "analisou" na segunda oração. O leitor facilmente recupera o sentido: "o segundo [grupo] <em>analisou</em> os [dados] qualitativos". A omissão de termos facilmente recuperáveis pelo contexto é um mecanismo de coesão.</p>
+                `
+            },
+            {
+                id: 'q10',
+                answer: 'C',
+                resolution: `
+                    <p><strong>Alternativa correta: (C) "Embora o cenário fosse desafiador, a equipe manteve o otimismo e prosseguiu com o projeto."</strong></p>
+                    <p>Esta questão testa a distinção fundamental entre coesão referencial (que retoma termos) e coesão sequencial (que conecta ideias/orações).</p>
+                    <p>"Embora" é uma conjunção subordinativa concessiva. Conjunções e preposições (conectores em geral) <strong>não</strong> são mecanismos de coesão referencial; elas não retomam termos. A função do "Embora" é estabelecer a <em>coesão sequencial</em>, conectando duas orações com uma relação lógico-semântica específica (concessão).</p>
+                    <p>As opções (A) "cuja", (B) "onde", (D) "as quais" e (E) "Esta" são todas pronomes (relativos ou demonstrativos) e, portanto, mecanismos de coesão <em>referencial</em>.</p>
+                `
+            }
+        ];
+
+        // --- LÓGICA DO QUIZ ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const quizForm = document.getElementById('quizForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const resultsSection = document.getElementById('resultsSection');
+            const scoreElement = document.getElementById('score');
+            const detailedResults = document.getElementById('detailedResults');
+
+            quizForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Impede o envio real do formulário
+                
+                let score = 0;
+                const formData = new FormData(quizForm);
+
+                // Limpa resultados anteriores (caso o usuário tente reenviar)
+                detailedResults.innerHTML = '';
+                
+                // Itera sobre cada solução
+                solutions.forEach((solution, index) => {
+                    const questionNumber = index + 1;
+                    const userAnswer = formData.get(solution.id); // Pega a resposta do usuário (A, B, C, D, E)
+                    const correctAnswer = solution.answer;
+                    
+                    const isCorrect = (userAnswer === correctAnswer);
+                    if (isCorrect) {
+                        score++;
+                    }
+
+                    // Cria o bloco de resultado para esta questão
+                    const resultBlock = document.createElement('div');
+                    const borderColor = isCorrect ? 'border-green-500' : 'border-red-500';
+                    const titleColor = isCorrect ? 'text-green-700' : 'text-red-700';
+                    const resultText = isCorrect ? 'Correta' : 'Incorreta';
+
+                    resultBlock.className = `bg-white shadow-md rounded-lg p-6 md:p-8 border-l-4 ${borderColor}`;
+                    
+                    resultBlock.innerHTML = `
+                        <h3 class="text-2xl font-bold mb-3 ${titleColor}">
+                            Questão ${questionNumber} (${resultText})
+                        </h3>
+                        <p class="text-md text-slate-700">
+                            <strong>Sua resposta:</strong> ${userAnswer || 'Não respondida'}
+                        </p>
+                        <p class="text-md font-semibold ${titleColor} mb-4">
+                            <strong>Resposta correta:</strong> ${correctAnswer}
+                        </p>
+                        <hr class="my-4">
+                        <h4 class="text-xl font-semibold text-slate-800 mb-3">Resolução Comentada</h4>
+                        <div class="readable-content text-slate-700 space-y-4">
+                            ${solution.resolution}
+                        </div>
+                    `;
+                    
+                    detailedResults.appendChild(resultBlock);
+                });
+
+                // Atualiza o placar
+                scoreElement.innerText = `${score} de 10`;
+
+                // Mostra a seção de resultados
+                resultsSection.classList.remove('hidden');
+
+                // Desabilita o botão e os inputs
+                submitBtn.disabled = true;
+                submitBtn.innerText = 'Quiz Concluído';
+                submitBtn.classList.remove('hover:bg-blue-700', 'hover:-translate-y-1');
+                submitBtn.classList.add('bg-gray-400', 'cursor-not-allowed');
+
+                quizForm.querySelectorAll('input[type="radio"]').forEach(radio => {
+                    radio.disabled = true;
+                });
+
+                // Rola a tela suavemente para os resultados
+                resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+    </script>
+</body>
+</html>

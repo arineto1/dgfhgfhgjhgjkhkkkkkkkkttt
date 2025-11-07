@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula: Coesão e Coerência Textual (IFPB)</title>
+    
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Carrega a fonte Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Define a fonte Inter como padrão e melhora a legibilidade */
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: #ffffff; /* Fundo branco em tudo */
+        }
+        
+        /* Estilos para o conteúdo principal */
+        .content-article h1 {
+            font-size: 2.25rem; /* 36px */
+            line-height: 2.5rem; /* 40px */
+            font-weight: 700;
+            margin-bottom: 1.5rem; /* 24px */
+            color: #111827; /* gray-900 */
+        }
+        
+        .content-article h2 {
+            font-size: 1.875rem; /* 30px */
+            line-height: 2.25rem; /* 36px */
+            font-weight: 600;
+            margin-top: 2.5rem; /* 40px */
+            margin-bottom: 1rem; /* 16px */
+            padding-bottom: 0.5rem; /* 8px */
+            border-bottom: 1px solid #d1d5db; /* gray-300 */
+            color: #1f2937; /* gray-800 */
+        }
+        
+        .content-article h3 {
+            font-size: 1.5rem; /* 24px */
+            line-height: 2rem; /* 32px */
+            font-weight: 600;
+            margin-top: 2rem; /* 32px */
+            margin-bottom: 1rem; /* 16px */
+            color: #1f2937; /* gray-800 */
+        }
+        
+        .content-article h4 {
+            font-size: 1.25rem; /* 20px */
+            line-height: 1.75rem; /* 28px */
+            font-weight: 600;
+            margin-top: 1.5rem; /* 24px */
+            margin-bottom: 0.75rem; /* 12px */
+            color: #1f2937; /* gray-800 */
+        }
+        
+        /* Estilo para o texto principal, garantindo boa leitura */
+        .content-article p,
+        .content-article ul {
+            font-size: 1.125rem; /* 18px */
+            line-height: 1.75; /* 28px */
+            color: #374151; /* gray-700 */
+            margin-bottom: 1.25rem; /* 20px */
+        }
+        
+        .content-article ul {
+            list-style-type: disc;
+            padding-left: 1.75rem; /* 28px */
+            /* Evita conflito de espaçamento se o padding de cima for muito grande */
+            list-style-position: outside; 
+        }
+        
+        /* Estilo de Marca Texto (Amarelo Suave) */
+        .highlight {
+            background-color: #fef08a; /* yellow-200, um amarelo suave */
+            padding: 2px 4px; 
+            border-radius: 4px;
+            font-weight: 700;
+            color: #111827; /* gray-900 */
+        }
+        
+        /* Garante que o texto grifado (negrito) tenha destaque */
+        .content-article strong {
+            font-weight: 700;
+            color: #111827; /* gray-900 */
+        }
+        
+        /* Estilo da Tabela - Garante que não haja scroll horizontal */
+        .table-wrapper {
+            overflow-x: auto; 
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #d1d5db; /* gray-300 */
+            border-radius: 0.5rem; /* 8px */
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+        }
+        
+        .content-article table {
+            width: 100%;
+            table-layout: auto; 
+            border-collapse: collapse;
+        }
+        
+        .content-article th,
+        .content-article td {
+            padding: 0.75rem 1rem; 
+            text-align: left;
+            vertical-align: top;
+            border-bottom: 1px solid #e5e7eb; /* gray-200 */
+            white-space: normal;
+            word-break: break-word;
+        }
+        
+        .content-article th {
+            background-color: #f9fafb; /* gray-50 */
+            font-weight: 600;
+            color: #4b5563; /* gray-600 */
+            font-size: 0.875rem; /* 14px */
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .content-article tr:last-child td {
+            border-bottom: 0;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900">
+
+    <!-- Container Principal -->
+    <div class="max-w-4xl mx-auto p-6 sm:p-10">
+        
+        <!-- 1. Reprodutor de Áudio -->
+        <div class="mb-10">
+            <h2 class="text-xl font-semibold mb-3 text-gray-800">Áudio da Aula</h2>
+            <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-sm">
+                <!-- 
+                  INSTRUÇÃO: 
+                  Coloque o nome do seu arquivo MP3 no atributo 'src' abaixo.
+                  Exemplo: src="minha-aula.mp3"
+                -->
+                <audio controls class="w-full">
+                    <source src="lp-textualidade.mp3" type="audio/mpeg">
+                    Seu navegador não suporta o elemento de áudio.
+                </audio>
+                <p class="text-sm text-gray-500 mt-2 text-center">
+                    Altere o "src" no HTML para o caminho do seu arquivo MP3.
+                </p>
+            </div>
+        </div>
+
+        <!-- 2. Conteúdo da Aula -->
+        <article class="content-article">
+            <h1>Resumo Estratégico para Concurso (Foco: Instituto AOCP)</h1>
+
+            <!-- PÁGINA 1 -->
+            <section>
+                <h2>PÁGINA 1: FUNDAMENTOS E REFERENCIAÇÃO</h2>
+
+                <h3>1. Conceitos-Clave: Coesão vs. Coerência</h3>
+                
+                <p><strong>Coesão (O Hardware)</strong></p>
+                <ul>
+                    <li><span class="highlight"><strong>O que é:</strong> A estrutura <strong>visível</strong> e gramatical do texto.</span>[1]</li>
+                    <li><strong>Função:</strong> São os "fios" e "conectores" (pronomes, conjunções, preposições) que ligam as palavras, orações e parágrafos.</li>
+                    <li><strong>Análise:</strong> É a "costura" superficial, a ligação formal.[1]</li>
+                </ul>
+
+                <p><strong>Coerência (O Software)</strong></p>
+                <ul>
+                    <li><span class="highlight"><strong>O que é:</strong> O <strong>sentido</strong>, a lógica e a articulação das ideias.</span>[2, 3]</li>
+                    <li><strong>Função:</strong> É o "sistema operacional" que faz o texto ser compreensível e não contraditório.[2]</li>
+                    <li><strong>Análise:</strong> Não é visível; é o resultado do sentido construído pelo leitor.</li>
+                </ul>
+
+                <p><strong>A Relação (Foco da Banca AOCP)</strong></p>
+                <p>A banca testa a relação entre os dois, especialmente as exceções. A coesão (meio) deve estabelecer a coerência (fim).<span class="highlight"><strong>A Coerência é o objetivo final.</strong></span></p>
+                
+                <ul>
+                    <li><strong>Cenário 1: Coerência SEM Coesão (Comum)</strong>
+                        <ul>
+                            <li><strong>O que é:</strong> Texto com sentido claro, mas sem conectivos formais.</li>
+                            <li><strong>Exemplo:</strong> "Fique mais um pouco. Aproveite o que tem de melhor. Explore o que tem para comer." [3]</li>
+                        </ul>
+                    </li>
+                    <li><strong>Cenário 2: Coesão SEM Coerência (A Pegadinha Clássica)</strong>
+                        <ul>
+                            <li><span class="highlight"><strong>O que é:</strong> Texto gramaticalmente "costurado", mas logicamente disparatado.</span>[7]</li>
+                            <li><strong>Exemplo:</strong> "Eu gosto muito de doces, <strong>por isso</strong> vou comprar uma coxinha." (Incoerente por falta de "Conhecimento de Mundo").</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <hr class="my-10 border-gray-200">
+
+                <h3>2. Mecanismos de Coesão (A "Caixa de Ferramentas")</h3>
+                
+                <h4>2.1. Coesão Referencial (Apontar para elementos)</h4>
+
+                <p><strong>Anáfora (Regra):</strong> Retoma algo <span class="highlight"><strong>JÁ DITO (aponta para trás).</strong></span>[8, 9]</p>
+                <ul>
+                    <li>Ex: "O <strong>IFPB</strong> lançou o edital. <strong>Ele</strong> será concorrido." ("Ele" retoma "IFPB").</li>
+                </ul>
+
+                <p><strong>Catáfora (Exceção):</strong> Antecipa algo <span class="highlight"><strong>A SER DITO (aponta para frente).</strong></span>[10, 11]</p>
+                <ul>
+                    <li>Ex: "Eu só desejo <strong>isto</strong>: sua aprovação." ("Isto" antecipa "sua aprovação").</li>
+                </ul>
+
+                <p><span class="highlight"><strong>DECORE (Este vs. Esse):</strong></span></p>
+                <ul>
+                    <li><strong>ESSE / ESSA / ISSO</strong> = <span class="highlight"><strong>Anafórico</strong> (retoma o que foi dito).</span></li>
+                    <li><strong>ESTE / ESTA / ISTO</strong> = <span class="highlight"><strong>Catafórico</strong> (antecipa o que será dito).</span></li>
+                    <li><strong>Retomada Dupla:</strong> "Chegaram <strong>Pedro</strong> e <strong>Marcos</strong>. <span class="highlight"><strong>Este</strong> (Marcos - mais perto)</span> é meu primo, e <span class="highlight"><strong>aquele</strong> (Pedro - mais longe)</span>, meu amigo."</li>
+                </ul>
+
+                <p><strong>Elipse e Zeugma (Omissão):</strong></p>
+                <ul>
+                    <li><strong>Elipse:</strong> Omissão de um termo facilmente subentendido (Ex: "Na sala, apenas quatro alunos." [Omissão de 'Havia']).</li>
+                    <li><strong>Zeugma:</strong> Tipo de elipse que omite um <span class="highlight">termo <strong>JÁ DITO</strong> na frase.</span> (Ex: "Eu prefiro Desenvolvimento; minha colega, [prefere] a de Redes.").</li>
+                </ul>
+
+                <h4>2.2. Coesão Lexical (Escolha de Palavras)</h4>
+                <p>Evita repetição, mantendo o tema.[13, 16]</p>
+                
+                <p><strong>Sinonímia:</strong> Substituição por sinônimos.</p>
+                <p><strong>Hiperonímia / Hiponímia (Relação Todo/Parte)</strong></p>
+                <ul>
+                    <li><strong>Hiperônimo:</strong> Termo genérico (Ex: <span class="highlight"><strong>Veículo</strong>, <strong>Fruta</strong></span>).</li>
+                    <li><strong>Hipônimo:</strong> Termo específico (Ex: <span class="highlight"><strong>Mustang</strong>, <strong>Maçã</strong></span>).</li>
+                </ul>
+            </section>
+
+            <hr class="my-10 border-gray-200">
+
+            <!-- PÁGINA 2 -->
+            <section>
+                <h2>PÁGINA 2: FOCO AOCP (CONECTIVOS) E LÓGICA TEXTUAL</h2>
+
+                <h3>3. Coesão Sequencial (Progressão Textual) – O FOCO DA SUA PROVA</h3>
+                <p><strong>O que é:</strong> A "engrenagem" que faz o texto avançar. Estabelece as <span class="highlight"><strong>relações semânticas (lógicas)</strong> entre as partes do texto.</span></p>
+                <p><strong>Mecanismos:</strong> Os <strong>Conectivos</strong> (ou operadores argumentativos).</p>
+                
+                <p><strong>O que o Instituto AOCP vai cobrar:</strong></p>
+                <ol class="list-decimal pl-6 space-y-2 mb-5">
+                    <li><span class="highlight"><strong>Valor Semântico:</strong> A <strong>ideia</strong> que o conectivo expressa (Causa, Oposição, Fim, etc.).</span></li>
+                    <li><span class="highlight"><strong>Substituição:</strong> A troca de um conectivo por outro <strong>sem prejuízo de sentido</strong>.</span></li>
+                </ol>
+
+                <h4>Tabela Essencial de Conectivos (Valor Semântico)</h4>
+                
+                <!-- Wrapper da Tabela para Responsividade -->
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Valor Semântico (A Ideia Lógica)</th>
+                                <th>Principais Conectivos (A Ferramenta Coesiva)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="highlight"><strong>Adição / Continuação</strong></span> (Soma)</td>
+                                <td>e, nem, mas também, como também, além disso, outrossim, ademais</td>
+                            </tr>
+                            <tr>
+                                <td><span class="highlight"><strong>Oposição / Adversidade</strong></span> (Contraste)</td>
+                                <td>mas, porém, contudo, todavia, entretanto, no entanto</td>
+                            </tr>
+                            <tr>
+                                <td><span class="highlight"><strong>Concessão</strong></span> (Obstáculo que não impede)</td>
+                                <td>embora, apesar de, ainda que, mesmo que, conquanto</td>
+                            </tr>
+                            <tr>
+                                <td><span class="highlight"><strong>Causa / Razão</strong></span> (O motivo)</td>
+                                <td>porque, pois (antes do verbo), visto que, já que, como (no início)</td>
+                            </tr>
+                            <tr>
+                                <td><span class="highlight"><strong>Explicação</strong></span> (Justificativa)</td>
+                                <td>pois (depois do verbo, entre vírgulas), porque, porquanto</td>
+                            </tr>
+                            <tr>
+                                <td><span class="highlight"><strong>Conclusão / Consequência</strong></span> (Resultado)</td>
+                                <td>logo, portanto, por isso, assim, por conseguinte, então</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Finalidade</strong> (Objetivo)</td>
+                                <td>para que, a fim de que, para (com verbo no infinitivo)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Condição</strong> (Hipótese)</td>
+                                <td>se, caso, desde que (com subjuntivo), contanto que</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Conformidade</strong> (Acordo)</td>
+                                <td>conforme, segundo, consoante, como</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Comparação</strong></td>
+                                <td>como, assim como, tal qual</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tempo / Proporção</strong></td>
+                                <td>quando, enquanto, logo que, à medida que, à proporção que</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h4>Nuances e Pegadinhas (Nível Avançado AOCP)</h4>
+                
+                <p><strong>1. Oposição (mas) vs. Concessão (embora):</strong></p>
+                <ul>
+                    <li><strong>Oposição ("mas"):</strong> Duas ideias contrastantes em pé de igualdade. (Ex: "Estudou, <strong>mas</strong> não passou.")</li>
+                    <li><strong>Concessão ("embora"):</strong> Admite um obstáculo, mas o minimiza. (Ex: "<strong>Embora</strong> tenha estudado, não passou.")</li>
+                </ul>
+
+                <p><strong>2. Causa (porque) vs. Explicação (pois):</strong></p>
+                <ul>
+                    <li><strong>Causa:</strong> O motivo real. (Ex: "A rua está molhada <strong>porque</strong> choveu.")</li>
+                    <li><strong>Explicação:</strong> Uma constatação/dedução. (Ex: "Deve ter chovido, <strong>pois</strong> a rua está molhada.")</li>
+                </ul>
+
+                <p><strong>3. A Posição do "POIS":</strong></p>
+                <ul>
+                    <li><code>POIS</code> (antes do verbo) = Causa ou Explicação.</li>
+                    <li><span class="highlight"><code>POIS</code> (depois do verbo, entre vírgulas) = <strong>Conclusão</strong> (Ex: "Será, <strong>pois</strong>, aprovado." = <strong>portanto</strong>).</span></li>
+                </ul>
+
+                <p><strong>4. Polivalência (Conectivos com vários sentidos):</strong></p>
+                <ul>
+                    <li><span class="highlight"><strong>"E"</strong>: Pode ser Aditivo (padrão), Adversativo (<strong>mas</strong>) ou Conclusivo (<strong>logo</strong>).</span></li>
+                    <li><span class="highlight"><strong>"COMO"</strong>: Pode ser Causal (no início), Comparativo ou Conformativo.</span></li>
+                </ul>
+
+                <hr class="my-10 border-gray-200">
+
+                <h3>4. Coerência (A "Lógica" do Texto)</h3>
+                <p><span class="highlight"><strong>O que é:</strong> O princípio que dá unidade lógica e impede o texto de ser um disparate.</span></p>
+
+                <h4>Princípios Fundamentais (Erros que destroem a coerência):</h4>
+                <ul>
+                    <li><span class="highlight"><strong>1. Princípio da Não Contradição:</strong></span> O texto não pode afirmar A e Não-A.</li>
+                    <li><strong>2. Princípio da Continuidade Temática (Relevância):</strong> Não fugir do tema central.</li>
+                    <li><strong>3. Princípio da Não Tautologia:</strong> O texto precisa progredir (não repetir o óbvio).</li>
+                </ul>
+
+                <h4>Fatores Externos da Coerência (O que o Leitor traz):</h4>
+                <ul>
+                    <li><span class="highlight"><strong>Conhecimento de Mundo:</strong></span> O "banco de dados" do leitor. (O que faz o exemplo da "coxinha" ser incoerente).</li>
+                    <li><span class="highlight"><strong>Inferências:</strong></span> A capacidade de "ler nas entrelinhas" e preencher lacunas de sentido.</li>
+                </ul>
+            </section>
+
+            <!-- 3. Botão de Questões -->
+            <footer class="text-center mt-12 pt-8 border-t border-gray-200">
+                <a href="lp-textualidadequestoes.html" class="inline-block bg-blue-600 text-white font-bold py-3 px-10 rounded-lg shadow-lg hover:bg-blue-700 transition-colors duration-300 text-lg">
+                    Praticar com Questões
+                </a>
+            </footer>
+
+        </article>
+        
+    </div>
+
+</body>
+</html>

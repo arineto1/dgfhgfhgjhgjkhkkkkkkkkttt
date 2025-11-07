@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Acentuação Gráfica (Estilo Instituto AOCP)</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Fonte Inter para melhor legibilidade */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Estilo customizado para os botões de rádio */
+        input[type="radio"]:checked {
+            background-color: #2563eb; /* Azul */
+            border-color: #2563eb;
+        }
+        input[type="radio"]:checked + label {
+            font-weight: 500;
+        }
+        /* Classes para feedback de resposta */
+        .correct-answer-label {
+            color: #16a34a; /* Verde */
+            font-weight: 700;
+        }
+        .incorrect-user-choice {
+            text-decoration: line-through;
+            color: #dc2626; /* Vermelho */
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 leading-relaxed">
+
+    <div class="max-w-4xl mx-auto p-4 sm:p-8">
+        
+        <header class="mb-10 border-b border-gray-200 pb-4">
+            <h1 class="text-3xl font-bold text-gray-900">Quiz: Acentuação Gráfica</h1>
+            <p class="text-lg text-gray-600">Estilo Instituto AOCP</p>
+        </header>
+
+        <!-- Formulário do Quiz -->
+        <form id="quiz-form" class="space-y-8">
+
+            <!-- Questão 1 -->
+            <fieldset class="space-y-3" id="q1">
+                <legend class="text-lg font-semibold mb-2">1. Assinale a alternativa em que todas as palavras são acentuadas por serem proparoxítonas.</legend>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q1a" name="q1" value="A">
+                    <label for="q1a" class="cursor-pointer">A) básico, trânsito, também</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q1b" name="q1" value="B">
+                    <label for="q1b" class="cursor-pointer">B) médico, lâmpada, último</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q1c" name="q1" value="C">
+                    <label for="q1c" class="cursor-pointer">C) terrível, gráfico, através</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q1d" name="q1" value="D">
+                    <label for="q1d" class="cursor-pointer">D) área, psicológico, país</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q1e" name="q1" value="E">
+                    <label for="q1e" class="cursor-pointer">E) difícil, características, vôlei</label>
+                </div>
+            </fieldset>
+
+            <!-- Questão 2 -->
+            <fieldset class="space-y-3" id="q2">
+                <legend class="text-lg font-semibold mb-2">2. Assinale a alternativa em que as palavras são acentuadas graficamente pelo mesmo motivo.</legend>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q2a" name="q2" value="A">
+                    <label for="q2a" class="cursor-pointer">A) consequência, estratégia, vício</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q2b" name="q2" value="B">
+                    <label for="q2b" class="cursor-pointer">B) ninguém, último, baobá</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q2c" name="q2" value="C">
+                    <label for="q2c" class="cursor-pointer">C) bônus, lápis, júri</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q2d" name="q2" value="D">
+                    <label for="q2d" class="cursor-pointer">D) até, céu, já</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q2e" name="q2" value="E">
+                    <label for="q2e" class="cursor-pointer">E) saúde, egoísta, após</label>
+                </div>
+            </fieldset>
+
+            <!-- Questão 3 -->
+            <fieldset class="space-y-3" id="q3">
+                <legend class="text-lg font-semibold mb-2">3. São acentuadas graficamente, a partir da mesma regra, todas as palavras da alternativa:</legend>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q3a" name="q3" value="A">
+                    <label for="q3a" class="cursor-pointer">A) você, paletó, avó</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q3b" name="q3" value="B">
+                    <label for="q3b" class="cursor-pointer">B) só, já, nós</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q3c" name="q3" value="C">
+                    <label for="q3c" class="cursor-pointer">C) amigáveis, heróis, dócil</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q3d" name="q3" value="D">
+                    <label for="q3d" class="cursor-pointer">D) porém, alguém, hífen</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q3e" name="q3" value="E">
+                    <label for="q3e" class="cursor-pointer">E) dócil, vício, está</label>
+                </div>
+            </fieldset>
+
+            <!-- Questão 4 -->
+            <fieldset class="space-y-3" id="q4">
+                <legend class="text-lg font-semibold mb-2">4. Em relação à acentuação gráfica das palavras, assinale a alternativa INCORRETA.</legend>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q4a" name="q4" value="A">
+                    <label for="q4a" class="cursor-pointer">A) “Psíquicas” é acentuada por ser uma palavra proparoxítona.</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q4b" name="q4" value="B">
+                    <label for="q4b" class="cursor-pointer">B) “Confortável” é acentuada por ser uma palavra paroxítona terminada em “l”.</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q4c" name="q4" value="C">
+                    <label for="q4c" class="cursor-pointer">C) “Saúde” é acentuada pela regra do hiato, pois o "u" é tônico, forma hiato com a vogal anterior e está sozinho na sílaba.</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q4d" name="q4" value="D">
+                    <label for="q4d" class="cursor-pointer">D) “Incrível” é acentuada por ser uma palavra proparoxítona.</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q4e" name="q4" value="E">
+                    <label for="q4e" class="cursor-pointer">E) “Há” é acentuado por ser um monossílabo tônico terminado em “a”.</label>
+                </div>
+            </fieldset>
+
+            <!-- Questão 5 -->
+            <fieldset class="space-y-3" id="q5">
+                <legend class="text-lg font-semibold mb-2">5. No trecho “Os analistas vêm alertando sobre o risco, mas o gerente não intervém.”, os vocábulos destacados são acentuados para:</legend>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q5a" name="q5" value="A">
+                    <label for="q5a" class="cursor-pointer">A) indicar, em ambos os casos, a terceira pessoa do plural dos verbos "vir" e "intervir".</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q5b" name="q5" value="B">
+                    <label for="q5b" class="cursor-pointer">B) indicar, respectivamente, a terceira pessoa do plural do verbo "vir" e a terceira pessoa do singular do verbo "intervir".</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q5c" name="q5" value="C">
+                    <label for="q5c" class="cursor-pointer">C) indicar, em ambos os casos, a terceira pessoa do singular dos verbos "vir" e "intervir".</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q5d" name="q5" value="D">
+                    <label for="q5d" class="cursor-pointer">D) diferenciar "vêm" (verbo) de "vem" (onomatopeia) e "intervém" (oxítona) de "intervem" (paroxítona).</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q5e" name="q5" value="E">
+                    <label for="q5e" class="cursor-pointer">E) indicar que "vêm" está no plural, mas o acento em "intervém" é opcional.</label>
+                </div>
+            </fieldset>
+
+            <!-- Questão 6 -->
+            <fieldset class="space-y-3" id="q6">
+                <legend class="text-lg font-semibold mb-2">6. Assinale a alternativa em que a palavra é acentuada graficamente pela regra do hiato (acentuação das vogais "i" e "u" tônicas).</legend>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q6a" name="q6" value="A">
+                    <label for="q6a" class="cursor-pointer">A) saída</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q6b" name="q6" value="B">
+                    <label for="q6b" class="cursor-pointer">B) prêmio</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q6c" name="q6" value="C">
+                    <label for="q6c" class="cursor-pointer">C) chapéu</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q6d" name="q6" value="D">
+                    <label for="q6d" class="cursor-pointer">D) água</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q6e" name="q6" value="E">
+                    <label for="q6e" class="cursor-pointer">E) juiz</label>
+                </div>
+            </fieldset>
+
+            <!-- Questão 7 -->
+            <fieldset class="space-y-3" id="q7">
+                <legend class="text-lg font-semibold mb-2">7. Com base nas regras de acentuação vigentes, especialmente após o Novo Acordo Ortográfico, assinale a alternativa que apresenta uma palavra que NÃO deveria estar acentuada.</legend>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q7a" name="q7" value="A">
+                    <label for="q7a" class="cursor-pointer">A) herói</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q7b" name="q7" value="B">
+                    <label for="q7b" class="cursor-pointer">B) pólen</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q7c" name="q7" value="C">
+                    <label for="q7c" class="cursor-pointer">C) assembléia</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q7d" name="q7" value="D">
+                    <label for="q7d" class="cursor-pointer">D) Piauí</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q7e" name="q7" value="E">
+                    <label for="q7e" class="cursor-pointer">E) nível</label>
+                </div>
+            </fieldset>
+
+            <!-- Questão 8 -->
+            <fieldset class="space-y-3" id="q8">
+                <legend class="text-lg font-semibold mb-2">8. Assinale a alternativa em que as duas palavras são acentuadas de acordo com a mesma regra.</legend>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q8a" name="q8" value="A">
+                    <label for="q8a" class="cursor-pointer">A) elétricos, possível</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q8b" name="q8" value="B">
+                    <label for="q8b" class="cursor-pointer">B) residência, cópias</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q8c" name="q8" value="C">
+                    <label for="q8c" class="cursor-pointer">C) estará, técnicos</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q8d" name="q8" value="D">
+                    <label for="q8d" class="cursor-pointer">D) polícia, localizá-los</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q8e" name="q8" value="E">
+                    <label for="q8e" class="cursor-pointer">E) convém, dê</label>
+                </div>
+            </fieldset>
+
+            <!-- Questão 9 -->
+            <fieldset class="space-y-3" id="q9">
+                <legend class="text-lg font-semibold mb-2">9. De acordo com a acentuação gráfica das palavras na Língua Portuguesa, assinale a alternativa correta.</legend>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q9a" name="q9" value="A">
+                    <label for="q9a" class="cursor-pointer">A) “Bônus” é acentuada por ser uma palavra paroxítona terminada em “us”.</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q9b" name="q9" value="B">
+                    <label for="q9b" class="cursor-pointer">B) “Sensível” é acentuada por ser uma palavra oxítona terminada em “l”.</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q9c" name="q9" value="C">
+                    <label for="q9c" class="cursor-pointer">C) “Caráter” é acentuado por ser uma palavra proparoxítona.</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q9d" name="q9" value="D">
+                    <label for="q9d" class="cursor-pointer">D) “Tórax” é acentuado por ser uma paroxítona terminada em "ax".</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q9e" name="q9" value="E">
+                    <label for="q9e" class="cursor-pointer">E) “Armazém” é acentuado por ser uma paroxítona terminada em "em".</label>
+                </div>
+            </fieldset>
+
+            <!-- Questão 10 -->
+            <fieldset class="space-y-3" id="q10">
+                <legend class="text-lg font-semibold mb-2">10. Assinale a alternativa que apresenta a justificativa correta quanto à acentuação gráfica da palavra.</legend>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q10a" name="q10" value="A">
+                    <label for="q10a" class="cursor-pointer">A) “Você”: recebe acento por ser uma palavra paroxítona terminada em “e”.</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q10b" name="q10" value="B">
+                    <label for="q10b" class="cursor-pointer">B) “Já”: recebe acento por ser oxítona terminada em “a”.</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q10c" name="q10" value="C">
+                    <label for="q10c" class="cursor-pointer">C) “Têm” (em "Eles têm..."): recebe acento diferencial para indicar singular.</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q10d" name="q10" value="D">
+                    <label for="q10d" class="cursor-pointer">D) “Pôde” (pretérito): recebe acento diferencial para se distinguir de “pode” (presente).</label>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="radio" id="q10e" name="q10" value="E">
+                    <label for="q10e" class="cursor-pointer">E) “País”: recebe acento por ser uma oxítona terminada em “is”.</label>
+                </div>
+            </fieldset>
+
+            <!-- Botão de Envio -->
+            <button type="submit" id="submit-btn" class="w-full sm:w-auto bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-200">
+                Finalizar Quiz
+            </button>
+
+        </form>
+
+        <!-- Seção de Resultados (oculta) -->
+        <div id="results-container" class="hidden mt-12 p-6 bg-white rounded-lg shadow-lg border border-gray-200">
+            <h2 id="score" class="text-2xl font-bold text-center"></h2>
+        </div>
+
+        <!-- Seção de Resoluções (oculta) -->
+        <div id="resolutions-container" class="hidden mt-8 p-6 bg-white rounded-lg shadow-lg border border-gray-200 space-y-8">
+            <h2 class="text-3xl font-bold text-center border-b pb-4">Gabarito e Resoluções Comentadas</h2>
+
+            <!-- Resolução 1 -->
+            <div class="space-y-2">
+                <h3 class="text-xl font-semibold">1. Resolução da Questão</h3>
+                <p><strong>Gabarito: B) médico, lâmpada, último</strong></p>
+                <p>Esta questão exige a identificação da regra das proparoxítonas, na qual a sílaba tônica é a antepenúltima. Todas as palavras proparoxítonas são acentuadas.</p>
+                <ul class="list-disc list-inside space-y-1 pl-4">
+                    <li>**A) básico, trânsito, também:** INCORRETA. "Básico" (bá-si-co) e "trânsito" (trân-si-to) são proparoxítonas. No entanto, "também" (tam-bém) é uma palavra oxítona (última sílaba tônica) terminada em "em".</li>
+                    <li>**B) médico, lâmpada, último:** CORRETA. Todas as palavras têm a antepenúltima sílaba tônica: "mé-di-co", "lâm-pa-da", "úl-ti-mo". Portanto, todas são acentuadas pela mesma regra (proparoxítonas).</li>
+                    <li>**C) terrível, gráfico, através:** INCORRETA. "Gráfico" (grá-fi-co) é proparoxítona. Contudo, "terrível" (ter-rí-vel) é uma paroxítona (penúltima sílaba tônica) terminada em "l", e "através" (a-tra-vés) é uma oxítona terminada em "es".</li>
+                    <li>**D) área, psicológico, país:** INCORRETA. "Psicológico" (psi-co-ló-gi-co) é proparoxítona. "Área" (á-re-a) é uma paroxítona terminada em ditongo crescente. "País" (pa-ís) é acentuada pela regra do hiato.</li>
+                    <li>**E) difícil, características, vôlei:** INCORRETA. "Características" (ca-rac-te-rís-ti-cas) é proparoxítona. Porém, "difícil" (di-fí-cil) é uma paroxítona terminada em "l", e "vôlei" (vô-lei) é uma paroxítona terminada em "i".</li>
+                </ul>
+            </div>
+
+            <!-- Resolução 2 -->
+            <div class="space-y-2">
+                <h3 class="text-xl font-semibold">2. Resolução da Questão</h3>
+                <p><strong>Gabarito: A) consequência, estratégia, vício</strong></p>
+                <p>Esta questão exige a identificação de um grupo de palavras acentuadas pela mesma regra. A banca frequentemente agrupa paroxítonas terminadas em ditongo como uma regra única.</p>
+                <ul class="list-disc list-inside space-y-1 pl-4">
+                    <li>**A) consequência, estratégia, vício:** CORRETA. As três palavras ("con-se-quên-cia", "es-tra-té-gia", "ví-cio") são paroxítonas terminadas em ditongo. Esta é a regra que as une.</li>
+                    <li>**B) ninguém, último, baobá:** INCORRETA. As regras são distintas. "Ninguém" (oxítona terminada em "em"), "último" (proparoxítona), "baobá" (oxítona terminada em "a").</li>
+                    <li>**C) bônus, lápis, júri:** INCORRETA. Embora todas sejam paroxítonas, a regra de acentuação das paroxítonas depende da *terminação*. Elas não compartilham a mesma terminação: "bônus" (terminada em "us"), "lápis" (terminada em "is"), "júri" (terminada em "i").</li>
+                    <li>**D) até, céu, já:** INCORRETA. As regras são distintas. "Até" (oxítona terminada em "e"), "céu" (monossílabo tônico terminado em ditongo aberto "éu"), "já" (monossílabo tônico terminado em "a").</li>
+                    <li>**E) saúde, egoísta, após:** INCORRETA. As regras são distintas. "Saúde" (sa-ú-de) e "egoísta" (e-go-ís-ta) são acentuadas pela regra do hiato. No entanto, "após" (a-pós) é uma oxítona terminada em "os".</li>
+                </ul>
+            </div>
+
+            <!-- Resolução 3 -->
+            <div class="space-y-2">
+                <h3 class="text-xl font-semibold">3. Resolução da Questão</h3>
+                <p><strong>Gabarito: A) você, paletó, avó</strong></p>
+                <p>Similar à questão anterior, esta busca a alternativa com um conjunto de palavras que seguem a mesma regra.</p>
+                <ul class="list-disc list-inside space-y-1 pl-4">
+                    <li>**A) você, paletó, avó:** CORRETA. As três palavras ("vo-cê", "pa-le-tó", "a-vó") são oxítonas terminadas em vogais tônicas "e", "o" e "o", respectivamente. Elas se enquadram na mesma regra de acentuação das oxítonas.</li>
+                    <li>**B) só, já, nós:** INCORRETA. Embora frequentemente confundidos com oxítonas, estes são monossílabos tônicos terminados em "o", "a" e "o" (seguido de s).</li>
+                    <li>**C) amigáveis, heróis, dócil:** INCORRETA. As regras são distintas. "Amigáveis" (paroxítona terminada em ditongo), "heróis" (oxítona terminada em ditongo aberto "óis"), "dócil" (paroxítona terminada em "l").</li>
+                    <li>**D) porém, alguém, hífen:** INCORRETA. As regras são distintas. "Porém" e "alguém" são oxítonas terminadas em "em". No entanto, "hífen" (hí-fen) é uma paroxítona terminada em "n".</li>
+                    <li>**E) dócil, vício, está:** INCORRETA. As regras são distintas. "Dócil" (paroxítona terminada em "l"), "vício" (paroxítona terminada em ditongo), "está" (oxítona terminada em "a").</li>
+                </ul>
+            </div>
+
+            <!-- Resolução 4 -->
+            <div class="space-y-2">
+                <h3 class="text-xl font-semibold">4. Resolução da Questão</h3>
+                <p><strong>Gabarito: D) “Incrível” é acentuada por ser uma palavra proparoxítona.</strong></p>
+                <p>Esta questão testa a identificação de uma justificativa INCORRETA. A banca muitas vezes apresenta uma palavra acentuada corretamente, mas com a regra (justificativa) errada.</p>
+                <ul class="list-disc list-inside space-y-1 pl-4">
+                    <li>**A) “Psíquicas” é acentuada por ser uma palavra proparoxítona:** CORRETA. A palavra "Psí-qui-cas" tem a antepenúltima sílaba tônica, sendo uma proparoxítona. A justificativa está correta.</li>
+                    <li>**B) “Confortável” é acentuada por ser uma palavra paroxítona terminada em “l”:** CORRETA. A palavra "con-for-tá-vel" tem a penúltima sílaba tônica e termina em "l". A justificativa está correta.</li>
+                    <li>**C) “Saúde” é acentuada pela regra do hiato...:** CORRETA. A palavra "sa-ú-de" apresenta a vogal "u" tônica, formando hiato com a vogal anterior "a", e estando sozinha na sílaba. A justificativa está correta.</li>
+                    <li>**D) “Incrível” é acentuada por ser uma palavra proparoxítona:** INCORRETA. A palavra "in-crí-vel" está acentuada corretamente. No entanto, sua sílaba tônica é a penúltima ("crí"), classificando-a como uma **paroxítona** terminada em "l". A justificativa de que é proparoxítona está errada.</li>
+                    <li>**E) “Há” é acentuado por ser um monossílabo tônico terminado em “a”:** CORRETA. O verbo "há" é um monossílabo tônico terminado em "a". A justificativa está correta.</li>
+                </ul>
+            </div>
+
+            <!-- Resolução 5 -->
+            <div class="space-y-2">
+                <h3 class="text-xl font-semibold">5. Resolução da Questão</h3>
+                <p><strong>Gabarito: B) indicar, respectively, a terceira pessoa do plural do verbo "vir" e a terceira pessoa do singular do verbo "intervir".</strong></p>
+                <p>Esta questão avalia o conhecimento sobre acentos diferenciais, especificamente nos verbos "vir" e seus derivados (como "intervir").</p>
+                <ul class="list-disc list-inside space-y-1 pl-4">
+                    <li>**A)... ambos... plural...:** INCORRETA. "Intervém" está no singular.</li>
+                    <li>**B)... respectivamente, plural... e... singular...:** CORRETA.
+                        <ul class="list-disc list-inside ml-6">
+                            <li>**"vêm":** É usado o acento circunflexo para diferenciar a 3ª pessoa do plural ("Eles vêm") da 3ª pessoa do singular ("Ele vem"). No trecho, "Os analistas" (plural) praticam a ação, logo, "vêm" indica plural.</li>
+                            <li>**"intervém":** Verbos derivados de "ter" e "vir" (como deter, manter, intervir, convir) são acentuados no singular como oxítonas terminadas em "em" (ex: "intervém", "mantém") e no plural como oxítonas terminadas em "êm" (ex: "intervêm", "mantêm"). No trecho, o sujeito é "o gerente" (singular), portanto, "intervém" está no singular.</li>
+                        </ul>
+                    </li>
+                    <li>**C)... ambos... singular...:** INCORRETA. "Vêm" refere-se a "Os analistas", estando no plural.</li>
+                    <li>**D)... diferenciar "vêm" (verbo) de "vem" (onomatopeia)...:** INCORRETA. A diferenciação de "vêm" é com "vem" (verbo no singular), não uma onomatopeia.</li>
+                    <li>**E)... "vêm" no plural... "intervém" é opcional:** INCORRETA. O acento em "intervém" (oxítona terminada em "em") é obrigatório, não opcional.</li>
+                </ul>
+            </div>
+
+            <!-- Resolução 6 -->
+            <div class="space-y-2">
+                <h3 class="text-xl font-semibold">6. Resolução da Questão</h3>
+                <p><strong>Gabarito: A) saída</strong></p>
+                <p>A questão solicita a identificação da palavra acentuada pela regra do hiato. Esta regra se aplica às vogais "i" e "u" quando são tônicas, formam hiato com a vogal anterior, e estão sozinhas na sílaba (ou seguidas de "s").</p>
+                <ul class="list-disc list-inside space-y-1 pl-4">
+                    <li>**A) saída:** CORRETA. Na separação silábica (sa-í-da), a vogal "i" é tônica, forma hiato com a vogal "a" anterior e está sozinha na sílaba.</li>
+                    <li>**B) prêmio:** INCORRETA. "Prê-mio" é uma paroxítona terminada em ditongo.</li>
+                    <li>**C) chapéu:** INCORRETA. "Cha-péu" é uma oxítona terminada no ditongo aberto "éu".</li>
+                    <li>**D) água:** INCORRETA. "Á-gua" é uma paroxítona terminada em ditongo.</li>
+                    <li>**E) juiz:** INCORRETA. Esta palavra é um distrator clássico. "Juiz" (ju-iz) possui um hiato com "i" tônico. Contudo, a regra do hiato não se aplica se o "i" ou "u" for seguido de "z" (ou l, m, n, r) na *mesma* sílaba. Como o "z" fecha a sílaba "iz", a palavra não recebe acento. (Note que "ju-í-zes" recebe acento, pois o "i" fica sozinho na sílaba).</li>
+                </ul>
+            </div>
+
+            <!-- Resolução 7 -->
+            <div class="space-y-2">
+                <h3 class="text-xl font-semibold">7. Resolução da Questão</h3>
+                <p><strong>Gabarito: C) assembléia</strong></p>
+                <p>Esta questão avalia o conhecimento do Novo Acordo Ortográfico (NAO), que removeu alguns acentos.</p>
+                <ul class="list-disc list-inside space-y-1 pl-4">
+                    <li>**A) herói:** Mantém o acento. O NAO removeu o acento dos ditongos abertos "ei" e "oi" apenas em palavras *paroxítonas*. "Herói" (he-rói) é *oxítona*, portanto, mantém seu acento.</li>
+                    <li>**B) pólen:** Mantém o acento. "Pó-len" é uma paroxítona terminada em "n". Esta regra não foi alterada.</li>
+                    <li>**C) assembléia:** NÃO deveria estar acentuada. "As-sem-bléi-a" é uma palavra *paroxítona* com o ditongo aberto "ei". De acordo com o NAO, essas palavras perderam o acento. O correto é "assembleia" (assim como "ideia", "jiboia", "heroico").</li>
+                    <li>**D) Piauí:** Mantém o acento. "Pi-au-í" é acentuada pela regra do hiato, que não foi alterada neste caso.</li>
+                    <li>**E) nível:** Mantém o acento. "Ní-vel" é uma paroxítona terminada em "l".</li>
+                </ul>
+            </div>
+
+            <!-- Resolução 8 -->
+            <div class="space-y-2">
+                <h3 class="text-xl font-semibold">8. Resolução da Questão</h3>
+                <p><strong>Gabarito: B) residência, cópias</strong></p>
+                <p>Mais uma questão no formato "mesma regra", focando novamente na regra preferida da banca: paroxítonas terminadas em ditongo.</p>
+                <ul class="list-disc list-inside space-y-1 pl-4">
+                    <li>**A) elétricos, possível:** INCORRETA. "Elétricos" (e-lé-tri-cos) é proparoxítona. "Possível" (pos-sí-vel) é paroxítona terminada em "l".</li>
+                    <li>**B) residência, cópias:** CORRETA. Ambas ("re-si-dên-cia", "có-pias") são paroxítonas terminadas em ditongo.</li>
+                    <li>**C) estará, técnicos:** INCORRETA. "Estará" (es-ta-rá) é oxítona terminada em "a". "Técnicos" (téc-ni-cos) é proparoxítona.</li>
+                    <li>**D) polícia, localizá-los:** INCORRETA. "Polícia" (po-lí-cia) é paroxítona terminada em ditongo. "Localizá-los" (lo-ca-li-zá-los) é acentuada por ser uma oxítona terminada em "a" (antes da junção com o pronome "los").</li>
+                    <li>**E) convém, dê:** INCORRETA. "Convém" (con-vém) é oxítona terminada em "em". "Dê" é um monossílabo tônico terminado em "e".</li>
+                </ul>
+            </div>
+
+            <!-- Resolução 9 -->
+            <div class="space-y-2">
+                <h3 class="text-xl font-semibold">9. Resolução da Questão</h3>
+                <p><strong>Gabarito: A) “Bônus” é acentuada por ser uma palavra paroxítona terminada em “us”.</strong></p>
+                <p>Esta questão exige a identificação da alternativa com a justificativa CORRETA.</p>
+                <ul class="list-disc list-inside space-y-1 pl-4">
+                    <li>**A) “Bônus” é acentuada por ser uma palavra paroxítona terminada em “us”.** CORRETA. "Bô-nus" é uma paroxítona (sílaba tônica em "Bô") e termina em "us". A regra determina a acentuação de paroxítonas terminadas em "us" (e também i/is, l, n, r, x, ps, ã/ãos, um/uns). A justificativa está precisa.</li>
+                    <li>**B) “Sensível” é acentuada por ser uma palavra oxítona terminada em “l”.** INCORRETA. "Sen-sí-vel" é uma **paroxítona** terminada em "l". A banca frequentemente troca a classificação de tonicidade.</li>
+                    <li>**C) “Caráter” é acentuado por ser uma palavra proparoxítona.** INCORRETA. "Ca-rá-ter" é uma **paroxítona** terminada em "r".</li>
+                    <li>**D) “Tórax” é acentuado por ser uma paroxítona terminada em "ax".** INCORRETA. É uma paroxítona terminada em "x". A terminação "ax" não é uma regra.</li>
+                    <li>**E) “Armazém” é acentuado por ser uma paroxítona terminada em "em".** INCORRETA. "Ar-ma-zém" é uma **oxítona** terminada em "em".</li>
+                </ul>
+            </div>
+
+            <!-- Resolução 10 -->
+            <div class="space-y-2">
+                <h3 class="text-xl font-semibold">10. Resolução da Questão</h3>
+                <p><strong>Gabarito: D) “Pôde” (pretérito): recebe acento diferencial para se distinguir de “pode” (presente).</strong></p>
+                <p>A questão testa o conhecimento das regras de justificativas, incluindo os acentos diferenciais.</p>
+                <ul class="list-disc list-inside space-y-1 pl-4">
+                    <li>**A) “Você”:... paroxítona terminada em “e”.** INCORRETA. "Vo-cê" é uma **oxítona** terminada em "e".</li>
+                    <li>**B) “Já”:... oxítona terminada em “a”.** INCORRETA. "Já" é um **monossílabo tônico** terminado em "a".</li>
+                    <li>**C) “Têm” (em "Eles têm..."):... para indicar singular.** INCORRETA. O acento diferencial em "têm" (e "vêm") indica o **plural**, para diferenciar das formas do singular ("tem" e "vem").</li>
+                    <li>**D) “Pôde” (pretérito):... para se distinguir de “pode” (presente).** CORRETA. Este é um dos acentos diferenciais mantidos pelo Novo Acordo Ortográfico. "Pôde" (com timbre fechado) indica o Pretérito Perfeito do Indicativo, enquanto "pode" (com timbre aberto) indica o Presente do Indicativo.</li>
+                    <li>**E) “País”:... oxítona terminada em “is”.** INCORRETA. "Pa-ís" não é acentuada por ser oxítona. Ela é acentuada pela **regra do hiato**, pois a vogal "i" é tônica, forma hiato com "a" e é seguida de "s" na mesma sílaba. Confundir hiato com oxítona é um erro comum que a banca explora.</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Gabarito oficial
+        const correctAnswers = {
+            q1: 'B', q2: 'A', q3: 'A', q4: 'D', q5: 'B',
+            q6: 'A', q7: 'C', q8: 'B', q9: 'A', q10: 'D'
+        };
+
+        const quizForm = document.getElementById('quiz-form');
+        const submitButton = document.getElementById('submit-btn');
+        const resultsContainer = document.getElementById('results-container');
+        const scoreElement = document.getElementById('score');
+        const resolutionsContainer = document.getElementById('resolutions-container');
+
+        quizForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede o envio tradicional do formulário
+            
+            let score = 0;
+            const totalQuestions = 10;
+
+            // Desabilita todos os campos para impedir mudanças após o envio
+            const inputs = quizForm.querySelectorAll('input[type="radio"]');
+            inputs.forEach(input => {
+                input.disabled = true;
+            });
+
+            // Itera por todas as questões para verificar as respostas
+            for (let i = 1; i <= totalQuestions; i++) {
+                const questionName = 'q' + i;
+                const correctAnswer = correctAnswers[questionName];
+
+                // Encontra a resposta selecionada pelo usuário
+                const userAnswerInput = document.querySelector(`input[name="${questionName}"]:checked`);
+                const userAnswerValue = userAnswerInput ? userAnswerInput.value : null;
+
+                // Encontra o label da resposta CORRETA
+                const correctAnswerLabel = document.querySelector(`label[for="${questionName}${correctAnswer.toLowerCase()}"]`);
+                if (correctAnswerLabel) {
+                    correctAnswerLabel.classList.add('correct-answer-label'); // Marca a correta em verde
+                }
+
+                if (userAnswerValue) {
+                    if (userAnswerValue === correctAnswer) {
+                        score++; // Acertou
+                    } else {
+                        // O usuário selecionou uma resposta, mas estava errada
+                        const userAnswerLabel = document.querySelector(`label[for="${userAnswerInput.id}"]`);
+                        if (userAnswerLabel) {
+                            userAnswerLabel.classList.add('incorrect-user-choice'); // Marca a escolha errada em vermelho e riscado
+                        }
+                    }
+                }
+                // Se o usuário não respondeu (userAnswerValue é null), apenas a correta será marcada em verde.
+            }
+
+            // Exibe a pontuação
+            scoreElement.textContent = `Você acertou ${score} de ${totalQuestions}!`;
+            resultsContainer.classList.remove('hidden');
+
+            // Exibe as resoluções
+            resolutionsContainer.classList.remove('hidden');
+
+            // Desabilita e muda o texto do botão
+            submitButton.disabled = true;
+            submitButton.textContent = 'Quiz Finalizado';
+            submitButton.classList.add('bg-gray-400', 'cursor-not-allowed');
+            submitButton.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+
+
+            // Rola a tela para os resultados
+            resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale-1.0">
+    <title>Resumo de Pontuação (IFPB - AOCP)</title>
+    <!-- Carrega o Tailwind CSS para estilização -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Importa a fonte 'Inter' para melhor legibilidade -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Define a fonte padrão para Inter */
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+        }
+
+        /* Estilo de "marca-texto" para partes grifadas */
+        .highlight {
+            background-color: #fef9c3; /* Cor: tailwind yellow-100 */
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-weight: 700; /* Deixa o texto destacado mais forte */
+        }
+
+        /* Contêiner da tabela para responsividade */
+        .table-container {
+            overflow-x: auto; /* Adiciona scroll horizontal APENAS na tabela se ela for muito larga */
+            -webkit-overflow-scrolling: touch; /* Melhora a rolagem em dispositivos móveis */
+        }
+        
+        /* Estilos básicos da tabela para legibilidade */
+        table {
+            width: 100%; /* Faz a tabela tentar ocupar 100% do contêiner */
+            min-width: 600px; /* Largura mínima para evitar quebra excessiva */
+            border-collapse: collapse; /* Bordas unidas */
+        }
+
+        th, td {
+            border: 1px solid #d1d5db; /* Cor: gray-300 */
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: #f3f4f6; /* Cor: gray-100 */
+            font-weight: 700;
+        }
+
+        /* Sub-listas */
+        ul ul {
+            list-style-type: circle;
+            margin-top: 8px;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+
+<body class="bg-white text-gray-900">
+
+    <!-- Contêiner Principal -->
+    <div class="max-w-4xl mx-auto p-6 sm:p-10">
+
+        <!-- Reprodutor de Áudio -->
+        <div class="mb-10 p-5 border border-gray-200 rounded-lg shadow-sm bg-gray-50">
+            <h2 class="text-xl font-semibold mb-3 text-gray-800">Resumo em Áudio</h2>
+            <p class="text-sm text-gray-600 mb-4">
+                <!-- Instrução para o usuário -->
+                Substitua "SEU_ARQUIVO_AQUI.mp3" pelo nome do seu arquivo de áudio.
+                O arquivo MP3 deve estar na mesma pasta que este arquivo HTML.
+            </p>
+            <audio controls class="w-full">
+                <source src="lp-pontuacao.mp3" type="audio/mpeg">
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
+        </div>
+
+        <!-- Título Principal do Conteúdo -->
+        <h1 class="text-3xl lg:text-4xl font-bold mb-8 border-b border-gray-300 pb-4">
+            Resumo Focado: Pontuação para Memorização (Concurso IFPB - AOCP)
+        </h1>
+
+        <!-- PÁGINA 1 -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold mb-6 text-blue-800 border-l-4 border-blue-800 pl-3">
+                PÁGINA 1: A VÍRGULA (REGRAS CRÍTICAS)
+            </h2>
+            
+            <!-- Seção 1 -->
+            <h3 class="text-xl font-semibold mb-3 mt-6">1. As Proibições (A Regra de Ouro)</h3>
+            <p class="mb-4">A pontuação baseia-se na sintaxe (ordem direta: <strong>SUJEITO - VERBO - COMPLEMENTO</strong>).[1, 2]</p>
+            
+            <p class="mb-3"><strong class="highlight text-red-800">ERRO GRAVE (NÃO SEPARA COM VÍRGULA):</strong></p>
+            <ul class="list-disc list-inside space-y-4 mb-4 pl-4">
+                <li>
+                    <strong>SUJEITO</strong> <s>,</s> <strong>VERBO</strong> [3, 4]
+                    <ul class="space-y-2">
+                        <li><strong class="highlight">Pegadinha AOCP:</strong> Usar sujeitos muito longos para induzir ao erro. [5, 6]</li>
+                        <li><em class="text-gray-700">Ex. Incorreto:</em> <em>Os candidatos ao concurso do IFPB</em>, estudaram muito.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>VERBO</strong> <s>,</s> <strong>COMPLEMENTO</strong> (Objeto Direto ou Indireto) [4, 7]
+                    <ul class="space-y-2">
+                        <li><em class="text-gray-700">Ex. Incorreto:</em> <em>O professor precisa</em>, de mais tempo para a aula. [7]</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>NOME</strong> <s>,</s> <strong>COMPLEMENTO NOMINAL / ADJUNTO ADNOMINAL</strong> [5, 6]
+                    <ul class="space-y-2">
+                        <li><em class="text-gray-700">Ex. Incorreto:</em> <em>Tenho certeza</em>, da sua aprovação no concurso. [7]</li>
+                        <li><em class="text-gray-700">Ex. Incorreto:</em> <em>O ministro</em>, da Educação, discursou. [5]</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- Seção 2 -->
+            <h3 class="text-xl font-semibold mb-3 mt-6">2. A Vírgula para Isolar Termos Intercalados (Acessórios)</h3>
+            <ul class="list-disc list-inside space-y-4 mb-4 pl-4">
+                <li>
+                    <strong>Aposto Explicativo:</strong> Termo que explica o anterior.
+                    <ul class="space-y-2">
+                        <li><em>Uso:</em> Obrigatório, entre vírgulas. [8, 9]</li>
+                        <li><em class="text-gray-700">Exemplo:</em> <em>Maria, (minha amiga), foi aprovada.</em> [8]</li>
+                        <li><strong class="highlight">Foco AOCP:</strong> A banca já considerou <strong>incorreto</strong> suprimir a vírgula do aposto explicativo. [10, 11]</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Vocativo:</strong> Termo que chama/invoca.
+                    <ul class="space-y-2">
+                        <li><em>Uso:</em> Sempre isolado por vírgulas. [9]</li>
+                        <li><em class="text-gray-700">Exemplo:</em> <em>Candidatos, (leiam atentamente o edital).</em> [12]</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Expressões Explicativas/Retificadoras:</strong>
+                    <ul class="space-y-2">
+                        <li><em>Uso:</em> Isolar <em>ou seja, isto é, por exemplo, aliás, ou melhor,</em> etc. [8]</li>
+                        <li><strong class="highlight">Foco AOCP:</strong> A banca já cobrou a expressão "aliás", afirmando que deveria estar entre vírgulas. [10, 11]</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- Seção 3 -->
+            <h3 class="text-xl font-semibold mb-3 mt-6">3. A Vírgula para Marcar Termos Deslocados (Adjunto Adverbial)</h3>
+            <p class="mb-4">O uso da vírgula depende da <strong>extensão</strong> do adjunto adverbial deslocado (fora da posição original, que é o fim da frase). [9]</p>
+            <ul class="list-disc list-inside space-y-4 mb-4 pl-4">
+                <li>
+                    <strong>Adjunto Adverbial LONGO (3 ou mais palavras):</strong>
+                    <ul class="space-y-2">
+                        <li><em>Uso:</em> Vírgula <strong>OBRIGATÓRIA</strong> se deslocado (início ou meio). [13]</li>
+                        <li><em class="text-gray-700">Exemplo (Início):</em> <em>(Na reunião de ontem), a CRE aprovou a indicação.</em> [13]</li>
+                        <li><strong class="highlight">Foco AOCP:</strong> A banca considera obrigatório (Ex: "<em>No português e em muitas línguas</em>,...") [14, 15]</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Adjunto Adverbial CURTO (1 ou 2 palavras):</strong>
+                    <ul class="space-y-2">
+                        <li><em>Uso:</em> Vírgula <strong>FACULTATIVA</strong> se deslocado. [13]</li>
+                        <li><em class="text-gray-700">Exemplo:</em> <em>(Hoje), todos os envolvidos...</em> OU <em>Hoje todos os envolvidos...</em> [13]</li>
+                        <li><strong class="highlight">Foco AOCP:</strong> A banca testa o uso facultativo (Ex: "<em>essencialmente</em>,"). [14]</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Posição Original (Final da Frase):</strong>
+                    <ul class="space-y-2">
+                        <li><em>Uso:</em> Vírgula <strong>dispensada</strong> ou, no máximo, facultativa. [9]</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- Seção 4 -->
+            <h3 class="text-xl font-semibold mb-3 mt-6">4. A Vírgula para Coordenar Termos (Enumeração)</h3>
+            <ul class="list-disc list-inside space-y-4 mb-4 pl-4">
+                <li><em>Uso:</em> Separar termos que possuem a mesma função sintática em uma lista. [9]</li>
+                <li><em class="text-gray-700">Exemplo:</em> <em>Comprei maçãs, bananas, laranjas e uvas.</em> [9]</li>
+                <li><strong class="highlight">Foco AOCP:</strong> Tópico favorito da banca. Questão da PC-GO (2022) pediu para identificar a alternativa que usava vírgulas para "separar termos coordenados em uma enumeração". [16]</li>
+                <li><em class="text-gray-700">Gabarito da Questão:</em> <em>“[...] diabetes, hipertensão arterial, obesidade e doenças cardiovasculares são apenas alguns exemplos.”</em> [16]</li>
+            </ul>
+        </section>
+
+        <!-- Divisor -->
+        <hr class="my-12 border-gray-300">
+
+        <!-- PÁGINA 2 -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold mb-6 text-blue-800 border-l-4 border-blue-800 pl-3">
+                PÁGINA 2: ORAÇÕES, OUTROS SINAIS E FOCO AOCP
+            </h2>
+
+            <!-- Seção 5 -->
+            <h3 class="text-xl font-semibold mb-3 mt-6">5. A Vírgula entre Orações (Período Composto)</h3>
+            <ul class="list-disc list-inside space-y-4 mb-4 pl-4">
+                <li>
+                    <strong>Orações Coordenadas Assindéticas (Sem Conjunção):</strong>
+                    <ul class="space-y-2">
+                        <li><em>Uso:</em> Separadas por vírgula.</li>
+                        <li><em class="text-gray-700">Exemplo:</em> <em>Vim, vi, venci.</em> [17]</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Orações Coordenadas Sindéticas (Com Conjunção):</strong>
+                    <ul class="space-y-2">
+                        <li><em>Uso:</em> Vírgula <em>antes</em> de <em>mas, porém, contudo, logo, portanto, pois, porque</em>.</li>
+                        <li><em class="text-gray-700">Exemplo:</em> <em>Estudei muito, mas não consegui a nota necessária.</em> [9]</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong class="highlight text-red-800">PEGADINHA: Vírgula antes do "E" (Aditivo)</strong>
+                    <ul class="space-y-2">
+                        <li><em>Regra Geral:</em> Não usa vírgula.</li>
+                        <li><strong>Exceção 1 (Foco AOCP): Sujeitos Diferentes.</strong>
+                            <ul class="space-y-2">
+                                <li><em>Uso:</em> A vírgula é <strong>usada</strong> (ou fortemente recomendada). [8]</li>
+                                <li><em class="text-gray-700">Exemplo:</em> <em>Eu economizava, e ele esbanjava sem pensar.</em> [8]</li>
+                                <li><strong class="highlight">Foco AOCP:</strong> O Instituto AOCP considerou <strong>correta</strong> a assertiva que justificava a vírgula antes do "e" por separar "orações aditivas com sujeitos distintos". [10, 11]</li>
+                            </ul>
+                        </li>
+                         <li><strong>Exceção 2: Polissíndeto (Repetição do "e"):</strong>
+                            <ul class="space-y-2">
+                                <li><em class="text-gray-700">Exemplo:</em> <em>Ele tentava, e errava, e tentava de novo...</em> [8]</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Orações Subordinadas Adjetivas (A Mudança de Sentido):</strong>
+                    <ul class="space-y-2">
+                        <li><strong>Explicativa (COM vírgula):</strong> Generaliza; é um aposto. [18]
+                            <ul class="space-y-2">
+                                <li><em class="text-gray-700">Exemplo:</em> <em>A mulher, (que é um ser sensível), tem melhor compreensão.</em> (Interpretação: <em>Todas</em> as mulheres são sensíveis). [18]</li>
+                            </ul>
+                        </li>
+                        <li><strong>Restritiva (SEM vírgula):</strong> Restringe; especifica. [18]
+                            <ul class="space-y-2">
+                                <li><em class="text-gray-700">Exemplo:</em> <em>A mulher (que é amada) tem melhor compreensão.</em> (Interpretação: <em>Apenas</em> as mulheres que são amadas). [18]</li>
+                            </ul>
+                        </li>
+                        <li><strong class="highlight">Foco AOCP:</strong> Remover a vírgula de uma explicativa <strong>altera o sentido</strong> do texto.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Orações Subordinadas Adverbiais Deslocadas:</strong>
+                    <ul class="space-y-2">
+                        <li><em>Uso:</em> Vírgula <strong>OBRIGATÓRIA</strong> quando a oração adverbial (condicional, temporal, etc.) vem <em>antes</em> da principal. [14]</li>
+                        <li><em class="text-gray-700">Exemplo:</em> <em>(Se o nível de dopamina foi para as alturas), o corpo tenta compensar.</em> [14]</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- Seção 6 -->
+            <h3 class="text-xl font-semibold mb-3 mt-6">6. Ponto e Vírgula (;) - A Ferramenta de Clareza</h3>
+            <p class="mb-4">Indica pausa mais forte que a vírgula; organiza o texto.</p>
+            <ul class="list-disc list-inside space-y-4 mb-4 pl-4">
+                <li>
+                    <strong>Uso 1: Separar Orações Coordenadas (Quando a Vírgula Já Está em Uso):</strong>
+                    <ul class="space-y-2">
+                        <li>Usado para separar orações (ex: adversativas) quando uma delas já tem vírgulas internas (ex: conjunção deslocada). [19]</li>
+                        <li><em class="text-gray-700">Exemplo:</em> <em>Sabia que seria difícil terminar o curso; não esperava, (contudo), que fosse impossível.</em> [19]</li>
+                        <li><em class="text-gray-700">Exemplo:</em> <em>Uns lutam, criam oportunidades; outros, (porém), só sabem explorar os inocentes.</em> [20]</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Uso 2: Separar Itens de Enumeração Complexa (Listas):</strong>
+                    <ul class="space-y-2">
+                        <li>Usado para separar itens de uma lista que são longos ou já contêm vírgulas. [20, 21]</li>
+                        <li><em class="text-gray-700">Exemplo (Em leis):</em>
+                            <ul class="list-none pl-4 mt-2 space-y-1">
+                                <li><em>I - ofertar educação profissional;</em></li>
+                                <li><em>II - desenvolver atividades de pesquisa;</em> [20]</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- Seção 7 -->
+            <h3 class="text-xl font-semibold mb-3 mt-6">7. Sinais de Introdução e Destaque</h3>
+            <ul class="list-disc list-inside space-y-4 mb-4 pl-4">
+                <li>
+                    <strong>Dois Pontos (:)</strong>
+                    <ul class="space-y-2">
+                        <li><strong class="highlight">Uso 1 (Foco AOCP): Introduzir Enumeração (Aposto Enumerativo).</strong> [14]
+                            <ul class="space-y-2">
+                                <li><em class="text-gray-700">Exemplo:</em> <em>José foi ao mercado e realizou sua compra: banana, maçã, melão e laranja.</em> [22]</li>
+                            </ul>
+                        </li>
+                        <li><em>Uso 2:</em> Introduzir Explicação, Esclarecimento, Causa. (Equivale a <em>pois</em>, <em>porque</em>). [22]</li>
+                        <li><em>Uso 3:</em> Introduzir Citação ou Discurso Direto. [23, 22]</li>
+                    </ul>
+                </li>
+                 <li>
+                    <strong>Travessão (—)</strong> (Não confundir com hífen -)
+                    <ul class="space-y-2">
+                        <li><em>Uso Principal:</em> Substituir as vírgulas (ou parênteses) para isolar termos, dando-lhes mais <strong>destaque</strong> ou <strong>ênfase</strong>. [24]</li>
+                        <li><em class="text-gray-700">Exemplo (Aposto):</em> <em>Dornelles disse que Gouvêa Vieira — senador de 1963 a 1967 — foi uma grande liderança.</em> [24]</li>
+                        <li><strong class="highlight">Foco AOCP:</strong> A banca focará na <strong>substituição</strong>. É provável perguntar se os travessões podem ser substituídos por vírgulas (em caso de aposto, a resposta é SIM). [24, 25]</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Aspas (" ")</strong>
+                    <ul class="space-y-2">
+                        <li><em>Uso 1:</em> Citações Diretas. [26, 27] (Ex: <em>Paulo Freire disse: “...”</em> [27])</li>
+                        <li><em>Uso 2:</em> Marcar Ironia ou Ênfase. (Ex: <em>Que “maravilha”! Só chegamos atrasados.</em> [27])</li>
+                        <li><em>Uso 3:</em> Marcar Estrangeirismos, Neologismos ou Gírias. (Ex: <em>...aguardado o “feedback” dos diretores.</em> [27, 28])</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Tabela Raio-X -->
+        <section class="mb-10">
+             <h3 class="text-2xl font-semibold mb-5 mt-10">
+                Raio-X Instituto AOCP: Tabela-Resumo Foco de Estudo
+            </h3>
+            
+            <!-- Contêiner da Tabela para rolagem horizontal em telas pequenas -->
+            <div class="table-container rounded-lg border border-gray-300 shadow-md">
+                <table class="text-sm">
+                    <thead>
+                        <tr>
+                            <th>Tópico de Pontuação</th>
+                            <th>Nível de Incidência no AOCP</th>
+                            <th>Conceito-Chave / Pegadinha</th>
+                            <th>Fontes</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200 bg-white">
+                        <tr>
+                            <td class="p-3"><strong>A Vírgula e o SVO</strong></td>
+                            <td class="p-3"><strong>ALTO</strong> (Base)</td>
+                            <td class="p-3">Proibição de separar Sujeito-Verbo e Verbo-Complemento.</td>
+                            <td class="p-3">[3, 4, 6]</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3"><strong>Aposto Explicativo</strong></td>
+                            <td class="p-3"><strong class="text-red-700">MUITO ALTO</strong></td>
+                            <td class="p-3">Obrigatório, isolado por vírgulas. A banca testa a supressão.</td>
+                            <td class="p-3">[9, 10, 11]</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3"><strong>Adjunto Adverbial</strong></td>
+                            <td class="p-3"><strong class="text-red-700">MUITO ALTO</strong></td>
+                            <td class="p-3">Regra do "Curto" (facultativo) vs. "Longo" (obrigatório) quando deslocado.</td>
+                            <td class="p-3">[13, 14, 15]</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3"><strong>Enumeração (Termos Coordenados)</strong></td>
+                            <td class="p-3"><strong>ALTO</strong></td>
+                            <td class="p-3">Separação de termos de mesma função sintática.</td>
+                            <td class="p-3">[10, 16]</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3"><strong>Vírgula antes do "E"</strong></td>
+                            <td class="p-3"><strong>ALTO</strong></td>
+                            <td class="p-3">Obrigatória (ou recomendada) para sujeitos distintos.</td>
+                            <td class="p-3">[8, 10, 11]</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3"><strong>Dois Pontos (:)</strong></td>
+                            <td class="p-3"><strong>ALTO</strong></td>
+                            <td class="p-3">Introdução de Aposto Enumerativo ou Explicação.</td>
+                            <td class="p-3">[14, 22]</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3"><strong>Orações Adjetivas (Explicativa vs. Restritiva)</strong></td>
+                            <td class="p-3"><strong>MÉDIO/ALTO</strong></td>
+                            <td class="p-3">A vírgula (Explicativa) ou sua ausência (Restritiva) <em>muda o sentido</em> do texto.</td>
+                            <td class="p-3">[18]</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3"><strong>Ponto e Vírgula (;) e Conjunções Deslocadas</strong></td>
+                            <td class="p-3"><strong>MÉDIO</strong></td>
+                            <td class="p-3">Uso para organizar orações que já usam vírgula (ex: "..., <em>contudo</em>,...").</td>
+                            <td class="p-3">[19, 20]</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3"><strong>Vocativo</strong></td>
+                            <td class="p-3"><strong>MÉDIO</strong></td>
+                            <td class="p-3">Termo isolado (fácil de identificar).</td>
+                            <td class="p-3">[9, 12]</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3"><strong>Travessão (—)</strong></td>
+                            <td class="p-3"><strong>MÉDIO</strong></td>
+                            <td class="p-3">Substituição da vírgula do aposto para dar ênfase.</td>
+                            <td class="p-3">[24]</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3"><strong>Aspas (" ")</strong></td>
+                            <td class="p-3"><strong>BAIXO/MÉDIO</strong></td>
+                            <td class="p-3">Citação, Ironia, Estrangeirismo.</td>
+                            <td class="p-3">[27]</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+
+        <!-- Seção do Botão de Questões -->
+        <footer class="mt-16 pt-10 border-t border-gray-300 text-center">
+            <a href="lp-pontuacaoquestoes.html" 
+               class="inline-block bg-gray-800 text-white font-bold py-3 px-10 rounded-lg shadow-lg transition-all duration-300 ease-in-out
+                      hover:bg-gray-700 hover:shadow-xl
+                      focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-75">
+                Praticar com Questões
+            </a>
+        </footer>
+
+    </div> <!-- Fim do Contêiner Principal -->
+
+</body>
+</html>

@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Emprego da Crase - Instituto AOCP</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Define a fonte Inter como padrão, que é ótima para leitura */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Estilos para os botões de rádio */
+        .option-label {
+            display: block;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid #d1d5db; /* gray-300 */
+            border-radius: 0.5rem; /* rounded-lg */
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .option-label:hover {
+            background-color: #f3f4f6; /* gray-100 */
+        }
+
+        /* Estilos para feedback após a submissão */
+        .correct-answer {
+            background-color: #f0fdf4; /* green-50 */
+            border-color: #4ade80; /* green-400 */
+            color: #166534; /* green-800 */
+            font-weight: 600;
+        }
+
+        .incorrect-answer {
+            background-color: #fef2f2; /* red-50 */
+            border-color: #f87171; /* red-400 */
+            color: #991b1b; /* red-800 */
+            font-weight: 600;
+        }
+
+        .user-wrong-selection {
+            background-color: #fee2e2; /* red-100 */
+            border-color: #ef4444; /* red-500 */
+            opacity: 0.7;
+            text-decoration: line-through;
+        }
+
+        /* Estilo para o $a$ e $à$ */
+        .mono-code {
+            font-family: monospace;
+            background-color: #e5e7eb; /* gray-200 */
+            padding: 0 0.25rem;
+            border-radius: 0.25rem;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 leading-relaxed">
+
+    <!-- Container principal com largura máxima para leitura confortável -->
+    <main class="max-w-3xl mx-auto p-6 md:p-10 bg-white rounded-lg shadow-sm my-10">
+
+        <h1 class="text-3xl font-bold text-center text-blue-800 mb-8">
+            Quiz: Emprego da Crase (Estilo Instituto AOCP)
+        </h1>
+
+        <!-- Formulário do Quiz -->
+        <form id="quizForm">
+            
+            <!-- Questão 1 -->
+            <div id="q1-block" class="mb-8 p-5 bg-gray-50 rounded-lg border">
+                <p class="font-semibold text-lg mb-3">Questão 1 <span class="font-normal text-sm">(Instituto AOCP - Adaptada)</span></p>
+                <p class="mb-4">No trecho “A resistência à mudança é um fator comum em grandes corporações”, o emprego do acento indicativo de crase em “à mudança” se justifica corretamente por qual motivo?</p>
+                <div class="space-y-2">
+                    <label class="option-label">
+                        <input type="radio" name="q1" value="A" class="mr-2">
+                        Ocorre a fusão da preposição “a”, exigida pela regência do substantivo “resistência”, com o artigo feminino “a” que antecede “mudança”.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q1" value="B" class="mr-2">
+                        Ocorre a fusão da preposição “a”, exigida pela regência do verbo “ser”, com o artigo feminino “a” que antecede “mudança”.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q1" value="C" class="mr-2">
+                        Trata-se de uma locução adverbial de modo, sendo a crase obrigatória por definição.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q1" value="D" class="mr-2">
+                        Ocorre a fusão da preposição “a”, exigida pelo adjetivo “comum”, com o artigo feminino “a” que antecede “mudança”.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q1" value="E" class="mr-2">
+                        O uso é facultativo, pois “mudança” é um substantivo abstrato que poderia ser usado em sentido genérico.
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 2 -->
+            <div id="q2-block" class="mb-8 p-5 bg-gray-50 rounded-lg border">
+                <p class="font-semibold text-lg mb-3">Questão 2 <span class="font-normal text-sm">(Instituto AOCP - Adaptada)</span></p>
+                <p class="mb-4">Assinale a alternativa correta quanto ao emprego do acento indicativo de crase no período: “O gestor encaminhou o relatório à sua equipe de análise.”</p>
+                <div class="space-y-2">
+                    <label class="option-label">
+                        <input type="radio" name="q2" value="A" class="mr-2">
+                        O emprego do acento grave é obrigatório, pois a regência do verbo “encaminhar” (encaminhar algo <i>a</i> alguém) exige a preposição.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q2" value="B" class="mr-2">
+                        O emprego do acento grave é facultativo, pois o termo “a” antecede um pronome possessivo feminino adjetivo (“sua”).
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q2" value="C" class="mr-2">
+                        O emprego do acento grave é proibido, visto que não se utiliza crase antes de pronomes de tratamento.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q2" value="D" class="mr-2">
+                        O emprego do acento grave é proibido, pois o pronome possessivo “sua” já define o substantivo “equipe”, tornando o artigo desnecessário.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q2" value="E" class="mr-2">
+                        O emprego do acento grave é obrigatório, pois “equipe” é um substantivo feminino que exige o artigo “a”.
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 3 -->
+            <div id="q3-block" class="mb-8 p-5 bg-gray-50 rounded-lg border">
+                <p class="font-semibold text-lg mb-3">Questão 3 <span class="font-normal text-sm">(Instituto AOCP - Adaptada)</span></p>
+                <p class="mb-4">No trecho “A nova política deu prioridade às demandas sociais”, assinale a alternativa que, ao substituir o termo destacado, mantém a correção gramatical e a lógica de regência (preposição + artigo), exigindo a devida alteração.</p>
+                <div class="space-y-2">
+                    <label class="option-label">
+                        <input type="radio" name="q3" value="A" class="mr-2">
+                        ...deu prioridade <i>aos</i> pleitos antigos.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q3" value="B" class="mr-2">
+                        ...deu prioridade <i>à</i> novos pleitos.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q3" value="C" class="mr-2">
+                        ...deu prioridade <i>a</i> esta demanda.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q3" value="D" class="mr-2">
+                        ...deu prioridade <i>à</i> falar com todos.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q3" value="E" class="mr-2">
+                        ...deu prioridade <i>a</i> quem solicitou.
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 4 -->
+            <div id="q4-block" class="mb-8 p-5 bg-gray-50 rounded-lg border">
+                <p class="font-semibold text-lg mb-3">Questão 4 <span class="font-normal text-sm">(Instituto AOCP - Adaptada)</span></p>
+                <p class="mb-4">Considerando a norma-padrão do emprego do acento indicativo de crase, assinale a alternativa INCORRETA.</p>
+                <div class="space-y-2">
+                    <label class="option-label">
+                        <input type="radio" name="q4" value="A" class="mr-2">
+                        O atendimento será realizado das 14h às 17h.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q4" value="B" class="mr-2">
+                        O pesquisador fez referência àquelas teorias complexas.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q4" value="C" class="mr-2">
+                        O documento foi encaminhado à pessoas interessadas no processo.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q4" value="D" class="mr-2">
+                        O réu permaneceu frente a frente com a testemunha.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q4" value="E" class="mr-2">
+                        A metodologia aplicada é semelhante à que usamos no ano passado.
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 5 -->
+            <div id="q5-block" class="mb-8 p-5 bg-gray-50 rounded-lg border">
+                <p class="font-semibold text-lg mb-3">Questão 5 <span class="font-normal text-sm">(Instituto AOCP - Adaptada)</span></p>
+                <p class="mb-4">No período “A equipe inteira aspirava àquela promoção há meses”, o uso do acento grave é:</p>
+                <div class="space-y-2">
+                    <label class="option-label">
+                        <input type="radio" name="q5" value="A" class="mr-2">
+                        incorreto, pois o verbo “aspirar”, no sentido de respirar, é transitivo direto e não exige preposição.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q5" value="B" class="mr-2">
+                        facultativo, pois o termo “aquela” é um pronome demonstrativo que torna o artigo opcional.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q5" value="C" class="mr-2">
+                        obrigatório, pois o verbo “aspirar”, no sentido de almejar ou desejar, é transitivo indireto e rege a preposição “a”, que se funde ao “a” do pronome demonstrativo “aquela”.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q5" value="D" class="mr-2">
+                        incorreto, pois “promoção” é o objeto direto do verbo “aspirar”, havendo apenas a preposição “a” e o pronome “aquela”.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q5" value="E" class="mr-2">
+                        obrigatório, pois a locução verbal “aspirava a” exige crase antes de substantivos femininos.
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 6 -->
+            <div id="q6-block" class="mb-8 p-5 bg-gray-50 rounded-lg border">
+                <p class="font-semibold text-lg mb-3">Questão 6 <span class="font-normal text-sm">(Instituto AOCP - Adaptada)</span></p>
+                <p class="mb-4">No trecho “À medida que a tecnologia avança, novas profissões surgem”, o emprego do acento indicativo de crase em “À medida que” é:</p>
+                <div class="space-y-2">
+                    <label class="option-label">
+                        <input type="radio" name="q6" value="A" class="mr-2">
+                        obrigatório, pois se trata de uma locução conjuntiva proporcional com núcleo feminino (“medida”), cujo uso é fixado pela norma-padrão.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q6" value="B" class="mr-2">
+                        facultativo, sendo igualmente correta a forma “A medida que”.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q6" value="C" class="mr-2">
+                        incorreto, pois não se utiliza crase antes do pronome relativo “que”.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q6" value="D" class="mr-2">
+                        obrigatório, pois a crase indica a preposição exigida pelo verbo “avança”.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q6" value="E" class="mr-2">
+                        incorreto, pois “medida” está em sentido genérico, não admitindo artigo.
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 7 -->
+            <div id="q7-block" class="mb-8 p-5 bg-gray-50 rounded-lg border">
+                <p class="font-semibold text-lg mb-3">Questão 7 <span class="font-normal text-sm">(Instituto AOCP - Adaptada)</span></p>
+                <p class="mb-4">Assinale a alternativa que preenche, correta e respectivamente, as lacunas do seguinte período: “O diretor foi obrigado ___ tomar decisões difíceis, referentes ___ produtividade da empresa, e comunicou ___ todos sobre o novo plano.”</p>
+                <div class="space-y-2">
+                    <label class="option-label">
+                        <input type="radio" name="q7" value="A" class="mr-2">
+                        a – à – a
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q7" value="B" class="mr-2">
+                        à – a – à
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q7" value="C" class="mr-2">
+                        a – à – à
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q7" value="D" class="mr-2">
+                        à – à – a
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q7" value="E" class="mr-2">
+                        a – a – a
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 8 -->
+            <div id="q8-block" class="mb-8 p-5 bg-gray-50 rounded-lg border">
+                <p class="font-semibold text-lg mb-3">Questão 8 <span class="font-normal text-sm">(Instituto AOCP - Adaptada)</span></p>
+                <p class="mb-4">Assinale a alternativa em que o emprego do acento indicativo de crase é considerado FACULTATIVO pela norma-padrão.</p>
+                <div class="space-y-2">
+                    <label class="option-label">
+                        <input type="radio" name="q8" value="A" class="mr-2">
+                        O grupo se reunirá às nove horas da noite.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q8" value="B" class="mr-2">
+                        O método é idêntico ao que foi proposto anteriormente.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q8" value="C" class="mr-2">
+                        A população foi às ruas para protestar.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q8" value="D" class="mr-2">
+                        O palestrante agradeceu à nossa diretora pela oportunidade.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q8" value="E" class="mr-2">
+                        O relatório foi entregue à coordenadoria do setor.
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 9 -->
+            <div id="q9-block" class="mb-8 p-5 bg-gray-50 rounded-lg border">
+                <p class="font-semibold text-lg mb-3">Questão 9 <span class="font-normal text-sm">(Instituto AOCP - Adaptada)</span></p>
+                <p class="mb-4">No período “A política de austeridade levou a população à exaustão”, as ocorrências dos termos “A” (em “A política”) e “à” (em “à exaustão”) são classificadas, respectivamente, como:</p>
+                <div class="space-y-2">
+                    <label class="option-label">
+                        <input type="radio" name="q9" value="A" class="mr-2">
+                        preposição e artigo.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q9" value="B" class="mr-2">
+                        artigo definido e fusão de preposição + artigo definido.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q9" value="C" class="mr-2">
+                        preposição e fusão de preposição + artigo definido.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q9" value="D" class="mr-2">
+                        artigo definido e preposição.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q9" value="E" class="mr-2">
+                        pronome demonstrativo e preposição.
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 10 -->
+            <div id="q10-block" class="mb-8 p-5 bg-gray-50 rounded-lg border">
+                <p class="font-semibold text-lg mb-3">Questão 10 <span class="font-normal text-sm">(Instituto AOCP - Adaptada)</span></p>
+                <p class="mb-4">Analise o emprego do acento indicativo de crase no período: “O escritório funciona de segunda a sexta, das 9h às 19h.” Assinale a afirmativa correta.</p>
+                <div class="space-y-2">
+                    <label class="option-label">
+                        <input type="radio" name="q10" value="A" class="mr-2">
+                        O período está incorreto, pois “de segunda a sexta” exige crase, resultando em “de segunda à sexta”.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q10" value="B" class="mr-2">
+                        O período está incorreto, pois “das 9h às 19h” não deveria ter crase, para manter o paralelismo com “de segunda a sexta”.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q10" value="C" class="mr-2">
+                        O período está correto. A ausência de crase em “a sexta” se deve ao paralelismo com a preposição pura “de”, e a presença de crase em “às 19h” é obrigatória pela indicação de hora exata e pelo paralelismo com a contração “das”.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q10" value="D" class="mr-2">
+                        O período está parcialmente correto, mas a crase em “às 19h” é facultativa.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q10" value="E" class="mr-2">
+                        O período está incorreto, pois ambos os trechos exigem crase: “de segunda à sexta” e “das 9h às 19h”.
+                    </label>
+                </div>
+            </div>
+
+            <!-- Botão de Submissão -->
+            <button type="submit" id="submitBtn" class="w-full bg-blue-600 text-white p-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-transform active:scale-[.98]">
+                Concluir Quiz e Ver Resoluções
+            </button>
+
+        </form>
+
+        <!-- Seção de Resultados (Oculta por padrão) -->
+        <section id="resultsSection" class="hidden mt-12 pt-8 border-t-2 border-gray-200">
+            
+            <h2 id="scoreDisplay" class="text-3xl font-bold text-center mb-8"></h2>
+
+            <h3 class="text-2xl font-semibold text-gray-900 mb-6">Resoluções Comentadas</h3>
+            
+            <!-- Container onde as resoluções serão injetadas pelo JS -->
+            <div id="resolutionsContainer" class="space-y-6">
+                <!-- As resoluções aparecerão aqui -->
+            </div>
+
+        </section>
+
+    </main>
+
+    <script>
+        // --- BANCO DE DADOS DO QUIZ ---
+        // Armazena as respostas corretas e as resoluções
+        const quizData = [
+            {
+                correct: "A",
+                resolution: "O Instituto AOCP frequentemente exige a justificativa gramatical exata para o uso da crase, testando a capacidade do candidato de identificar a regência correta.[1, 2]<br>A crase em “à mudança” resulta da fusão de dois elementos:<br>1.  A preposição $a$, exigida pela regência nominal do substantivo abstrato “resistência”. Quem tem resistência, tem resistência <i>a</i> algo.<br>2.  O artigo definido feminino $a$, que antecede o substantivo “mudança”.<br>Portanto, $a$ (preposição) + $a$ (artigo) = $à$.<br>A alternativa (A) descreve corretamente essa fusão e identifica o termo regente (“resistência”). As demais alternativas erram na justificativa: (B) e (D) atribuem a regência a termos incorretos (“ser” e “comum”); (C) classifica erroneamente como locução adverbial; e (E) ignora a obrigatoriedade da crase nesse contexto."
+            },
+            {
+                correct: "B",
+                resolution: "A banca demonstra preferência por casos facultativos de crase.[3] A alternativa (B) está correta porque o uso do acento grave é facultativo diante de pronomes possessivos femininos adjetivos (aqueles que acompanham um substantivo, como “sua”, “minha”, “nossa”).<br>Isso ocorre porque o uso do artigo $a$ antes desses pronomes já é facultativo. A regência do verbo \"encaminhar\" (encaminhar algo <i>a</i> alguém) exige a preposição $a$. Temos, então, duas possibilidades corretas:<br>1.  Encaminhou o relatório <i>a</i> sua equipe (Preposição $a$ + ausência de artigo).<br>2.  Encaminhou o relatório <i>à</i> sua equipe (Preposição $a$ + artigo $a$).<br>As alternativas (A) e (E) erram ao afirmar que é obrigatório, e (D) erra ao afirmar que é proibido."
+            },
+            {
+                correct: "A",
+                resolution: "Esta questão testa a compreensão da estrutura da crase (preposição + artigo) por meio da substituição de termos, um formato comum na banca.[4]<br>O termo original é “às demandas sociais”, que é a fusão da preposição $a$ (exigida por “dar prioridade <i>a</i>”) com o artigo feminino plural $as$.<br>Ao analisar a alternativa (A), substituímos “demandas sociais” (feminino plural) por “pleitos antigos” (masculino plural). O substantivo masculino plural exige o artigo $os$. A fusão da preposição $a$ com o artigo $os$ resulta em $aos$, mantendo a correção gramatical e a lógica da regência.<br>As demais alternativas estão incorretas: (B) usa crase antes de masculino plural; (C) usa $a$ antes de $esta$ (correto, mas a questão pede a lógica de preposição + artigo, e $esta$ não admite artigo); (D) usa crase antes de verbo [5]; (E) usa $a$ antes de $quem$ (correto, mas também não segue a lógica pedida). A alternativa (A) é a única que substitui $às$ por seu equivalente masculino $aos$."
+            },
+            {
+                correct: "C",
+                resolution: "A questão exige a identificação da alternativa gramaticalmente INCORRETA.[5] O erro está na alternativa (C): “O documento foi encaminhado à pessoas interessadas...”.<br>Este é um caso clássico de uso proibido da crase.[6] O termo $a$ está no singular, enquanto o substantivo $pessoas$ está no plural. Isso indica que há apenas a preposição $a$ (exigida por \"encaminhado <i>a</i>\") e que o substantivo está sendo usado em sentido genérico, sem artigo.<br>O correto seria: “...encaminhado <i>a</i> pessoas...” (apenas preposição) ou “...encaminhado <i>às</i> pessoas...” (preposição $a$ + artigo $as$, caso o sentido fosse específico). O uso de $à$ (singular) antes de palavra no plural é incorreto.<br>As demais alternativas estão corretas: (A) crase obrigatória na indicação de horas (paralelismo com $das$); (B) crase obrigatória na fusão da preposição $a$ (de \"referência <i>a</i>\") com o pronome demonstrativo $aquelas$; (D) locução adverbial repetida sem crase; (E) crase correta na fusão da preposição $a$ (de \"semelhante <i>a</i>\") com o pronome demonstrativo $a$ (equivalente a $aquela$)."
+            },
+            {
+                correct: "C",
+                resolution: "O Instituto AOCP valoriza a análise da regência verbal, especialmente de verbos com múltiplos significados, como \"aspirar\".[7]<br>A alternativa (C) fornece a justificativa metalinguística precisa. O verbo “aspirar” possui duas regências principais:<br>1.  Transitivo direto (VTD) no sentido de \"respirar\", \"sugar\" (Ex: Aspirou <i>o</i> pó).<br>2.  Transitivo indireto (VTI) no sentido de \"desejar\", \"almejar\", exigindo a preposição $a$ (Ex: Aspira <i>a</i> um cargo).<br>No contexto da questão, \"aspirava àquela promoção\" tem o sentido de \"desejava\". Portanto, o verbo exige a preposição $a$. Ocorre, então, a fusão da preposição $a$ com o $a$ inicial do pronome demonstrativo $aquela$, tornando a crase obrigatória. A alternativa (A) confunde os sentidos do verbo."
+            },
+            {
+                correct: "A",
+                resolution: "Esta questão aborda o uso da crase em locuções, outro tópico de alta incidência.[8]<br>A alternativa (A) está correta. “À medida que” é uma locução conjuntiva proporcional. A regra estabelece que, em locuções (sejam elas adverbiais, prepositivas ou conjuntivas) que possuem um núcleo feminino (como $medida$, $proporção$, $moda$, $noite$, $tarde$), o uso da crase é obrigatório e fixado pela gramática.<br>As alternativas (C) e (D) erram na justificativa (não se trata de pronome relativo nem de regência do verbo \"avança\"). A alternativa (B) erra ao sugerir que o uso é facultativo."
+            },
+            {
+                correct: "A",
+                resolution: "Questões de preenchimento de lacunas testam simultaneamente diversas regras, especialmente os casos proibidos.[5, 6]<br>1.  `...obrigado a tomar...`: A primeira lacuna é preenchida com $a$ (preposição pura). É proibido o uso de crase antes de verbos no infinitivo, como “tomar”.[5]<br>2.  `...referentes à produtividade...`: A segunda lacuna exige $à$ (com crase). O adjetivo “referentes” rege a preposição $a$ (referente <i>a</i> algo). O substantivo feminino “produtividade” admite o artigo $a$. Ocorre a fusão $a + a = à$.<br>3.  `...comunicou a todos...`: A terceira lacuna é preenchida com $a$ (preposição pura). É proibido o uso de crase antes da maioria dos pronomes, incluindo pronomes indefinidos como “todos” (que, além disso, é masculino).<br>A sequência correta é $a – à – a$."
+            },
+            {
+                correct: "D",
+                resolution: "A banca frequentemente solicita a identificação explícita de casos facultativos.[3, 9] A alternativa (D) apresenta o caso de crase antes de um pronome possessivo feminino adjetivo (“nossa”). Como explicado na Questão 2, o uso do artigo antes de “nossa diretora” é opcional. Sendo a preposição $a$ exigida pela regência do verbo \"agradecer\" (agradecer <i>a</i> alguém), ambas as formas são corretas: “agradeceu <i>a</i> nossa diretora” (só preposição) e “agradeceu <i>à</i> nossa diretora” (preposição + artigo).<br>As demais alternativas são obrigatórias: (A) indicação de hora exata; (C) locução adverbial “às ruas”; (E) regência de \"entregue <i>a</i>\" + substantivo feminino \"coordenadoria\". (B) usa $ao$ (masculino)."
+            },
+            {
+                correct: "B",
+                resolution: "Esta questão exige a distinção sintática precisa das ocorrências de \"a\" e \"à\", um tipo de análise metalinguística preferida pela banca.[1, 2]<br>1.  “<b>A</b> política de austeridade...”: Este $A$ é um artigo definido feminino singular. Ele determina o substantivo “política”, que funciona como núcleo do sujeito da oração (“A política de austeridade levou...”).<br>2.  “...levou a população <b>à</b> exaustão.”: O verbo “levar” neste sentido é transitivo direto e indireto (levar <i>algo</i> <i>a</i> um estado/lugar). “a população” é o objeto direto. “à exaustão” é o objeto indireto, formado pela fusão da preposição $a$ (exigida pelo verbo) com o artigo definido $a$ (que antecede o substantivo feminino “exaustão”).<br>A alternativa (B) é a única que classifica corretamente ambos os termos."
+            },
+            {
+                correct: "C",
+                resolution: "Esta questão avalia duas regras importantes no mesmo período: paralelismo sintático e indicação de horas.[6, 10]<br>A alternativa (C) apresenta a análise correta para ambos os casos.<br>1.  “de segunda a sexta”: A expressão se inicia com a preposição pura $de$ (sem artigo). Para manter o paralelismo, o termo seguinte também deve conter apenas a preposição $a$ (sem artigo). Se fosse $da segunda$ (de + a), exigiria $à sexta$ (a + a). Portanto, “de segunda a sexta” está correto.<br>2.  “das 9h às 19h”: A expressão se inicia com a contração $das$ (de + as). Para manter o paralelismo e indicar o limite final da hora, a preposição $a$ deve fundir-se com o artigo $as$, resultando obrigatoriamente em $às$.<br>As demais alternativas falham por não aplicar ou por aplicar incorretamente o princípio do paralelismo."
+            }
+        ];
+
+        // --- LÓGICA DO QUIZ ---
+
+        const quizForm = document.getElementById('quizForm');
+        const resultsSection = document.getElementById('resultsSection');
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        const resolutionsContainer = document.getElementById('resolutionsContainer');
+        const submitBtn = document.getElementById('submitBtn');
+
+        // Função para formatar o texto da resolução
+        function formatResolutionText(text) {
+            // Substitui $a$, $à$, $as$, $às$, $aos$ por tags <code>
+            return text.replace(/\$(a|à|as|às|aos|A)\$/g, '<code class="mono-code">$1</code>');
+        }
+
+        quizForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede o envio real do formulário
+            
+            let score = 0;
+            const formData = new FormData(quizForm);
+
+            // Limpa resoluções anteriores
+            resolutionsContainer.innerHTML = '';
+
+            // Itera por cada questão
+            for (let i = 0; i < quizData.length; i++) {
+                const questionIndex = i + 1;
+                const questionData = quizData[i];
+                const userAnswer = formData.get('q' + questionIndex);
+                
+                const labels = document.querySelectorAll(`#q${questionIndex}-block .option-label`);
+                const inputs = document.querySelectorAll(`input[name="q${questionIndex}"]`);
+
+                let isCorrect = false;
+                if (userAnswer === questionData.correct) {
+                    score++;
+                    isCorrect = true;
+                }
+
+                // Desabilita os inputs e destaca as respostas
+                inputs.forEach(input => {
+                    input.disabled = true;
+                    const label = input.parentElement;
+
+                    // Remove classes de hover
+                    label.classList.remove('hover:bg-gray-100');
+
+                    if (input.value === questionData.correct) {
+                        // Marca a correta
+                        label.classList.add('correct-answer');
+                    } else if (input.value === userAnswer && userAnswer !== questionData.correct) {
+                        // Marca a errada que o usuário selecionou
+                        label.classList.add('user-wrong-selection');
+                    } else {
+                        // Desbota as outras
+                        label.classList.add('opacity-60');
+                    }
+                });
+
+                // Cria o bloco de resolução
+                const resolutionEl = document.createElement('div');
+                resolutionEl.className = 'resolution-block p-4 border rounded-lg bg-gray-50';
+                
+                let feedbackHTML = '';
+                if (isCorrect) {
+                    feedbackHTML = `<p class="correct-feedback font-bold text-green-600 mb-2">Questão ${questionIndex}: Você acertou!</p>`;
+                } else {
+                    feedbackHTML = `<p class="incorrect-feedback font-bold text-red-600 mb-2">Questão ${questionIndex}: Você errou. A resposta correta era a ${questionData.correct}.</p>`;
+                }
+
+                resolutionEl.innerHTML = `
+                    ${feedbackHTML}
+                    <p class="text-gray-700">${formatResolutionText(questionData.resolution)}</p>
+                `;
+                resolutionsContainer.appendChild(resolutionEl);
+            }
+
+            // Exibe o placar final
+            scoreDisplay.textContent = `Você acertou ${score} de 10 questões.`;
+            resultsSection.classList.remove('hidden');
+
+            // Oculta o botão de submissão
+            submitBtn.classList.add('hidden');
+
+            // Rola a página para os resultados
+            resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+    </script>
+</body>
+</html>

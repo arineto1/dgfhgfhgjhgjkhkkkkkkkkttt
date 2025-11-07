@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo de Acentuação Gráfica (Foco: AOCP)</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fontes Inter para melhor legibilidade -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Define a fonte Inter como padrão e melhora a legibilidade */
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.7; /* Altura da linha para conforto de leitura */
+        }
+        
+        /* Estilo para o texto "grifado" (highlight) - Amarelo suave para não cansar a visão */
+        .highlight {
+            background-color: #FFFDE7; /* Um amarelo bem claro e neutro */
+            padding: 1px 4px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        /* Regras para que as tabelas NUNCA tenham scroll horizontal */
+        table {
+            width: 100%; /* Força a tabela a ter 100% da largura do container */
+            table-layout: fixed; /* Tabela de layout fixo para controle total da largura */
+            border-collapse: collapse;
+            margin-bottom: 1.5rem; /* 24px */
+        }
+
+        th, td {
+            border: 1px solid #d1d5db; /* Borda cinza neutra (gray-300) */
+            padding: 10px 14px; /* Espaçamento interno bom para leitura */
+            text-align: left;
+            vertical-align: top; /* Alinha o texto no topo */
+            
+            /* Esta é a regra mais importante para evitar scroll horizontal em dispositivos pequenos */
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        /* Define larguras relativas para as colunas da tabela principal em telas maiores */
+        @media (min-width: 768px) {
+            .table-mestra th:nth-child(1), .table-mestra td:nth-child(1) { width: 20%; } /* Grupo Tônico */
+            .table-mestra th:nth-child(2), .table-mestra td:nth-child(2) { width: 40%; } /* Regra */
+            .table-mestra th:nth-child(3), .table-mestra td:nth-child(3) { width: 40%; } /* Exemplos */
+
+            .table-especiais th:nth-child(1), .table-especiais td:nth-child(1) { width: 30%; } /* Regra Especial */
+            .table-especiais th:nth-child(2), .table-especiais td:nth-child(2) { width: 35%; } /* O que Acontece */
+            .table-especiais th:nth-child(3), .table-especiais td:nth-child(3) { width: 35%; } /* Exemplos */
+        }
+        
+        /* Cabeçalho da tabela com fundo neutro */
+        th {
+            background-color: #f9fafb; /* gray-50 */
+            font-weight: 600;
+        }
+
+        /* Melhorando a legibilidade dos títulos */
+        h1, h2, h3 {
+            font-weight: 700; /* Bold */
+            color: #1f2937; /* gray-800 */
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800">
+
+    <!-- Container Principal com largura máxima para leitura confortável -->
+    <div class="container mx-auto max-w-4xl p-5 md:p-8">
+
+        <!-- Título Principal -->
+        <h1 class="text-3xl md:text-4xl font-bold mb-8 text-center text-blue-800">
+            Resumo de Acentuação Gráfica (Foco: Concurso IFPB / AOCP)
+        </h1>
+
+        <!-- Reprodutor de Áudio -->
+        <div class="mb-10 p-4 bg-gray-50 border border-gray-200 rounded-lg shadow-md">
+            <h2 class="text-xl font-semibold mb-2 text-gray-700">Áudio da Aula (Memorização)</h2>
+            <p class="text-sm text-gray-600 mb-3">
+                Substitua "SEU_ARQUIVO.mp3" pelo nome do seu arquivo de áudio (deve estar na mesma pasta).
+            </p>
+            <audio controls class="w-full">
+                <!-- Coloque o nome do seu arquivo aqui -->
+                <source src="lp-acentuacao.mp3" type="audio/mpeg">
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
+        </div>
+
+        <!-- SEÇÃO: PÁGINA 1 -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-5 border-b-2 border-gray-300 pb-2 text-gray-700">
+                Página 1: Regras Essenciais e Foco na Banca
+            </h2>
+
+            <h3 class="text-xl font-semibold mb-4 text-gray-700">1. Checklist de Foco - Instituto AOCP</h3>
+            <ol class="list-decimal list-inside space-y-3 mb-6 pl-2 text-gray-700">
+                <li><strong>"Mesma Regra" <sup>[1]</sup>:</strong> Seja preciso. A AOCP <span class="highlight">distingue a regra dos "Monossílabos" da regra das "Oxítonas"</span>, mesmo com terminações iguais (ex: <em>pé</em> vs. <em>café</em>).<sup>[2]</sup></li>
+                <li><strong>Paroxítonas em Ditongo <sup>[3, 4]</sup>:</strong> Este é o ponto crucial. Esqueça a classificação "proparoxítona eventual". Para a AOCP, <span class="highlight"><em>história</em>, <em>necessário</em> e <em>excelência</em> são <strong>PAROXÍTONAS TERMINADAS EM DITONGO</strong>.</span><sup>[5, 6]</sup></li>
+                <li><strong>Diferenciais <sup>[7]</sup>:</strong> A banca já cobrou "vêm" (plural). Todo o grupo (tem/têm, vem/vêm, mantém/mantêm, intervém/intervêm) é matéria de <span class="highlight">alta probabilidade de cobrança</span>.</li>
+                <li><strong>Terminações de Paroxítonas <sup>[7]</sup>:</strong> A banca cobra as terminações clássicas (L, N, R, X, I, US). Em questões anteriores, apareceram <em>confortável</em> (L), <em>sensível</em> (L) e <em>bônus</em> (US).</li>
+            </ol>
+
+            <h3 class="text-xl font-semibold mb-4 text-gray-700">2. Tabela-Mestra de Acentuação (Revisão Rápida)</h3>
+            <div class="w-full overflow-x-auto">
+                <table class="table-mestra">
+                    <thead>
+                        <tr>
+                            <th>Grupo Tônico</th>
+                            <th>Regra de Acentuação</th>
+                            <th>Exemplos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Proparoxítonas</strong></td>
+                            <td><span class="highlight"><strong>Todas</strong> são acentuadas.</span></td>
+                            <td><em>lâmpada</em>, <em>análise</em> <sup>[8]</sup>, <em>parâmetro</em> <sup>[9]</sup>, <em>psíquicas</em> <sup>[7]</sup></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="5"><strong>Paroxítonas</strong></td>
+                            <td>Regra da Exclusão. Acentuam-se as <em>não</em> terminadas em A, E, O, EM, ENS.</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Terminadas em <strong>L, N, R, X, PS</strong></td>
+                            <td><em>fácil</em> <sup>[10]</sup>, <em>hífen</em> <sup>[11]</sup>, <em>caráter</em> <sup>[8]</sup>, <em>tórax</em> <sup>[8]</sup>, <em>bíceps</em> <sup>[8]</sup></td>
+                        </tr>
+                        <tr>
+                            <td>Terminadas em <strong>I(S), U(S)</strong></td>
+                            <td><em>lápis</em> <sup>[8]</sup>, <em>júri</em> <sup>[8]</sup>, <em>vírus</em> <sup>[8]</sup>, <em>bônus</em> <sup>[7]</sup></td>
+                        </tr>
+                        <tr>
+                            <td>Terminadas em <strong>UM / UNS, Ã(S) / ÃO(S)</strong></td>
+                            <td><em>álbum</em> <sup>[8]</sup>, <em>fórum</em> <sup>[8]</sup>, <em>ímã</em> <sup>[8]</sup>, <em>órgão</em> <sup>[8]</sup></td>
+                        </tr>
+                        <tr>
+                            <td><span class="highlight">Terminadas em <strong>Ditongo</strong> (Foco AOCP)</span></td>
+                            <td><em>história</em>, <em>água</em>, <em>necessário</em> <sup>[3]</sup>, <em>variáveis</em> <sup>[12]</sup></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2"><strong>Oxítonas</strong></td>
+                            <td>Acentuam-se as terminadas em:</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><strong>A(S), E(S), O(S), EM, ENS</strong></td>
+                            <td><em>sofá</em> <sup>[13]</sup>, <em>você</em> <sup>[7]</sup>, <em>robô</em>, <em>também</em> <sup>[13]</sup>, <em>parabéns</em> <sup>[13]</sup></td>
+                        </tr>
+                         <tr>
+                            <td rowspan="2"><strong>Monossílabos Tônicos</strong></td>
+                            <td>Acentuam-se os terminados em:</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><strong>A(S), E(S), O(S)</strong></td>
+                            <td><em>pá</em> <sup>[14]</sup>, <em>fé</em> <sup>[14]</sup>, <em>pó</em> <sup>[14]</sup>, <em>mês</em> <sup>[14]</sup></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="text-xl font-semibold mb-4 text-gray-700">3. Tabela de Regras Especiais (Mudanças e Diferenciais)</h3>
+            <div class="w-full overflow-x-auto">
+                 <table class="table-especiais">
+                    <thead>
+                        <tr>
+                            <th>Regra Especial</th>
+                            <th>O que Acontece?</th>
+                            <th>Exemplos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Hiatos I / U</strong> (Regra Base)</td>
+                            <td>Acentua-se 'i'/'u' tônicos, sozinhos (ou +S) em hiato.</td>
+                            <td><em>sa-ú-de</em> <sup>[15]</sup>, <em>sa-í-da</em> <sup>[15]</sup>, <em>Pa-ís</em> <sup>[5]</sup></td>
+                        </tr>
+                        <tr>
+                            <td><em>Exceção 1 (Hiato)</em></td>
+                            <td>Não acentua se seguido de <strong>NH</strong>.</td>
+                            <td><em>ra-i-nha</em> <sup>[16]</sup>, <em>mo-i-nho</em> <sup>[17]</sup></td>
+                        </tr>
+                        <tr>
+                            <td><em>Exceção 2 (Hiato)</em></td>
+                            <td><span class="highlight">Não acentua se precedido de ditongo em <strong>Paroxítona</strong>.</span></td>
+                            <td><em>fei-u-ra</em> <sup>[18]</sup>, <em>bai-u-ca</em> <sup>[5]</sup></td>
+                        </tr>
+                        <tr>
+                            <td><em>Exceção da Exceção (Hiato)</em></td>
+                            <td>Acentua se for <strong>Oxítona</strong> (mesmo com ditongo antes).</td>
+                            <td><em>Pi-au-í</em> <sup>[5]</sup>, <em>tui-u-iú</em> <sup>[15]</sup></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ditongos Abertos (ÉI, ÉU, ÓI)</strong></td>
+                            <td><span class="highlight">Perderam acento nas <strong>Paroxítonas</strong>.</span></td>
+                            <td><em>i-dei-a</em>, <em>ji-boi-a</em> <sup>[19]</sup>, <em>he-roi-co</em> <sup>[20]</sup></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Mantiveram acento nas <strong>Oxítonas</strong> e <strong>Monossílabos</strong>.</td>
+                            <td><em>cha-péu</em> <sup>[21]</sup>, <em>he-rói</em> <sup>[21]</sup>, <em>céu</em> <sup>[14]</sup>, <em>réis</em> <sup>[14]</sup></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hiatos OO / EE</strong></td>
+                            <td><span class="highlight">Perderam o acento.</span></td>
+                            <td><em>voo</em>, <em>enjoo</em> <sup>[22]</sup>, <em>leem</em>, <em>veem</em> <sup>[18]</sup></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="6"><strong>Diferenciais (Obrigatórios)</strong></td>
+                            <td><em>PÔDE</em> (passado) vs. <em>PODE</em> (presente)</td>
+                            <td><sup>[23]</sup></td>
+                        </tr>
+                        <tr>
+                            <td><em>PÔR</em> (verbo) vs. <em>POR</em> (preposição)</td>
+                            <td><sup>[24]</sup></td>
+                        </tr>
+                        <tr>
+                            <td><span class="highlight"><em>TEM</em> (sing.) vs. <em>TÊM</em> (plural)</span></td>
+                            <td><sup>[25, 26]</sup></td>
+                        </tr>
+                        <tr>
+                            <td><span class="highlight"><em>VEM</em> (sing.) vs. <em>VÊM</em> (plural)</span></td>
+                            <td><sup>[7, 27]</sup></td>
+                        </tr>
+                        <tr>
+                            <td><em>Manter/Intervir</em> (Singular)</td>
+                            <td><em>man-tém</em> (agudo), <em>in-ter-vém</em> (agudo) <sup>[28, 29]</sup></td>
+                        </tr>
+                        <tr>
+                            <td><em>Manter/Intervir</em> (Plural)</td>
+                            <td><em>man-têm</em> (circunflexo), <em>in-ter-vêm</em> (circunflexo) <sup>[28, 29]</sup></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SEÇÃO: PÁGINA 2 -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-5 border-b-2 border-gray-300 pb-2 text-gray-700">
+                Página 2: Armadilhas e Pontos Críticos (Foco AOCP)
+            </h2>
+
+            <h3 class="text-xl font-semibold mb-4 text-gray-700">1. A Regra Mais Fácil: Proparoxítonas</h3>
+            <ul class="list-disc list-inside space-y-2 mb-6 pl-2 text-gray-700">
+                <li><strong>Regra:</strong> <span class="highlight"><strong>Todas</strong> são acentuadas.</span><sup>[13, 14, 30]</sup></li>
+                <li><strong>Exemplos:</strong> <em>lâmpada</em> <sup>[30]</sup>, <em>médico</em>, <em>psicológico</em> <sup>[7]</sup>, <em>análise</em> <sup>[8, 31]</sup>, <em>parâmetro</em>.<sup>[9, 32]</sup></li>
+            </ul>
+
+            <h3 class="text-xl font-semibold mb-4 text-gray-700">2. A Armadilha de TI: <em>Algoritmo</em></h3>
+            <ul class="list-disc list-inside space-y-2 mb-6 pl-2 text-gray-700">
+                <li>A palavra <strong class="highlight"><em>algoritmo</em> NÃO tem acento</strong>.<sup>[33, 34]</sup></li>
+                <li><strong>Análise:</strong> <em>al-go-rit-mo</em>.</li>
+                <li><strong>Classificação:</strong> É <strong>Paroxítona</strong> (tônica = <em>rit</em>).</li>
+                <li><strong>Terminação:</strong> Termina em <strong>O</strong>.</li>
+                <li><strong>Justificativa:</strong> Paroxítonas terminadas em "O" não são acentuadas (como <em>livro</em>).</li>
+            </ul>
+
+            <h3 class="text-xl font-semibold mb-4 text-gray-700">3. A Armadilha "Mesma Regra" (Foco AOCP)</h3>
+            <ul class="list-disc list-inside space-y-2 mb-6 pl-2 text-gray-700">
+                <li>A banca AOCP considera as classes de tonicidade para definir a "mesma regra".<sup>[1, 2]</sup></li>
+                <li><em>pé</em> (acentuado pela regra dos <strong class="highlight">Monossílabos Tônicos</strong>) <sup>[14]</sup></li>
+                <li><em>café</em> (acentuado pela regra das <strong class="highlight">Oxítonas</strong>) <sup>[35]</sup></li>
+                <li><strong>Conclusão (AOCP):</strong> <span class="highlight">Não é a mesma regra.</span></li>
+            </ul>
+            
+            <h3 class="text-xl font-semibold mb-4 text-gray-700">4. A Armadilha do Plural: <em>Hífen</em> vs. <em>Hifens</em></h3>
+            <ul class="list-disc list-inside space-y-2 mb-6 pl-2 text-gray-700">
+                <li><strong>Singular:</strong> <em>hí-fen</em>.
+                    <ul class="list-disc list-inside ml-6 mt-1">
+                        <li><strong>Análise:</strong> Paroxítona terminada em <strong>N</strong>. (Recebe acento).<sup>[11]</sup></li>
+                    </ul>
+                </li>
+                <li><strong>Plural:</strong> <em>hi-fens</em>.
+                    <ul class="list-disc list-inside ml-6 mt-1">
+                        <li><strong>Análise:</strong> Paroxítona terminada em <strong>ENS</strong>.</li>
+                        <li><strong>Conclusão:</strong> <span class="highlight">Paroxítonas terminadas em <strong>ENS</strong> <em>não</em> são acentuadas</span> (pela regra de exclusão).</li>
+                    </ul>
+                </li>
+                <li>O mesmo vale para: <em>elétron</em> <sup>[36]</sup> vs. <em>elétrons</em>; <em>pólen</em> vs. <em>polens</em>.</li>
+            </ul>
+
+            <h3 class="text-xl font-semibold mb-4 text-gray-700">5. Ponto Crítico (Foco da Banca AOCP): Paroxítonas Terminadas em Ditongo</h3>
+            <ul class="list-disc list-inside space-y-2 mb-6 pl-2 text-gray-700">
+                <li><strong>A Posição Obrigatória (AOCP):</strong> A banca <strong class="highlight">NÃO</strong> adota a classificação de "Proparoxítona Eventual".<sup>[5]</sup></li>
+                <li><strong>Para a Prova:</strong> Palavras como <em>história</em>, <em>série</em>, <em>á-gua</em>, <em>ne-ces-sá-rio</em> <sup>[3]</sup>, <em>ex-ce-lên-cia</em> <sup>[4]</sup> e <em>va-ri-á-veis</em> <sup>[12]</sup> são justificadas como <strong class="highlight">PAROXÍTONAS TERMINADAS EM DITONGO</strong>.</li>
+                <li><strong>Implicação:</strong>
+                    <ul class="list-disc list-inside ml-6 mt-1">
+                        <li><em>lâmpada</em> (Proparoxítona) <sup>[30]</sup> e <em>história</em> (Paroxítona em ditongo) <strong>NÃO</strong> têm a mesma regra.</li>
+                        <li><em>história</em> e <em>necessário</em> <sup>[3]</sup> <strong>TÊM</strong> a mesma regra.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3 class="text-xl font-semibold mb-4 text-gray-700">6. Armadilhas do Novo Acordo Ortográfico</h3>
+
+            <strong class="text-lg">A) Regra do Hiato (I / U Tônicos)</strong>
+            <ul class="list-disc list-inside space-y-2 mb-6 pl-2 mt-2 text-gray-700">
+                <li><strong>Regra Base:</strong> Acentua-se <em>i</em> e <em>u</em> tônicos que formam hiato e ficam sozinhos na sílaba (ou com 's').
+                    <ul><li>Exs: <em>sa-ú-de</em> <sup>[15]</sup>, <em>sa-í-da</em> <sup>[15]</sup>, <em>Pa-ís</em>.<sup>[5]</sup></li></ul>
+                </li>
+                <li><strong>Exceção 1 (Mantida):</strong> Não se acentua se seguido de <strong>NH</strong>.
+                    <ul><li>Exs: <em>ra-i-nha</em> <sup>[17, 16]</sup>, <em>mo-i-nho</em>.<sup>[17]</sup></li></ul>
+                </li>
+                <li><strong>Exceção 2 (Novo Acordo):</strong> <span class="highlight">Não se acentua se vier após <strong>Ditongo</strong> em palavra <strong>Paroxítona</strong>.</span>
+                    <ul><li>Exs (Perderam acento): <em>fei-u-ra</em> <sup>[5, 16, 18]</sup>, <em>bai-u-ca</em>.<sup>[5]</sup></li></ul>
+                </li>
+                <li><strong>Exceção da Exceção:</strong> Se for <strong>Oxítona</strong> (mesmo após ditongo), o acento <strong>permanece</strong>.
+                    <ul><li>Exs (Mantiveram acento): <em>Pi-au-í</em> <sup>[15, 5]</sup>, <em>tui-u-iú</em>.<sup>[15]</sup></li></ul>
+                </li>
+            </ul>
+
+            <strong class="text-lg">B) Regra dos Ditongos Abertos (ÉI, ÉU, ÓI)</strong>
+            <ul class="list-disc list-inside space-y-2 mb-6 pl-2 mt-2 text-gray-700">
+                <li><strong>A Mudança (Novo Acordo):</strong> O acento foi <span class="highlight"><strong>removido</strong> das palavras <strong>Paroxítonas</strong>.</span><sup>[15, 18, 20, 19]</sup>
+                    <ul><li>Exs (Perderam acento): <em>i-dei-a</em>, <em>pla-tei-a</em>, <em>ji-boi-a</em> <sup>[19]</sup>, <em>he-roi-co</em>.<sup>[20]</sup></li></ul>
+                </li>
+                <li><strong>A Regra (Mantida):</strong> O acento <strong>permanece</strong> em <span class="highlight"><strong>Monossílabos Tônicos</strong> e <strong>Oxítonas</strong>.</span><sup>[15, 20]</sup>
+                    <ul>
+                        <li>Monossílabos: <em>céu</em>, <em>véu</em>, <em>réis</em>, <em>sóis</em>.<sup>[14, 21, 15]</sup></li>
+                        <li>Oxítonas: <em>cha-péu</em> <sup>[21, 37]</sup>, <em>tro-féu</em> <sup>[21]</sup>, <em>pa-péis</em> <sup>[21]</sup>, <em>he-rói</em>.<sup>[21]</sup></li>
+                    </ul>
+                </li>
+                <li><strong>Questão de Prova:</strong> "Por que 'herói' tem acento, mas 'heroico' não?"
+                    <ul><li><strong>Resposta:</strong> <span class="highlight">"Herói" é oxítona (regra mantida); "heroico" é paroxítona (regra abolida).</span></li></ul>
+                </li>
+            </ul>
+
+            <strong class="text-lg">C) Regra dos Hiatos OO / EE (Novo Acordo)</strong>
+            <ul class="list-disc list-inside space-y-2 mb-6 pl-2 mt-2 text-gray-700">
+                <li><strong>A Mudança:</strong> <span class="highlight">Perderam o acento circunflexo.</span><sup>[18, 22, 38]</sup></li>
+                <li><strong>Exemplos (OO):</strong> <em>voo</em> (antes <em>vôo</em>), <em>enjoo</em> (antes <em>enjôo</em>).<sup>[22]</sup></li>
+                <li><strong>Exemplos (EE):</strong> <em>leem</em> (antes <em>lêem</em>), <em>veem</em> (antes <em>vêem</em>), <em>creem</em>, <em>deem</em>.<sup>[18, 38]</sup></li>
+            </ul>
+        </section>
+
+        <!-- Botão de Questões -->
+        <div class="text-center mt-12 border-t-2 border-gray-300 pt-8">
+            <a href="lp-acentuacaoquestoes.html" 
+               class="inline-block bg-blue-600 text-white font-bold py-3 px-12 rounded-xl text-lg hover:bg-blue-700 transition duration-300 shadow-xl transform hover:scale-105 active:scale-95">
+                Praticar com Questões
+            </a>
+        </div>
+
+    </div> <!-- Fim do container principal -->
+
+</body>
+</html>

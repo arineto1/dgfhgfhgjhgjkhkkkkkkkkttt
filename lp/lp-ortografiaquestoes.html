@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz de Ortografia (Estilo AOCP)</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilo para um layout de leitura confortável */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Melhora o espaçamento entre parágrafos na resolução */
+        .resolution-content p {
+            margin-bottom: 0.75rem; /* 12px */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+    <div class="container mx-auto max-w-3xl p-4 sm:p-8">
+        
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold text-center text-gray-800">Quiz de Ortografia Oficial</h1>
+            <p class="text-center text-gray-600 mt-2">Baseado em questões do Instituto AOCP</p>
+        </header>
+
+        <!-- Container para as questões do quiz -->
+        <form id="quiz-form">
+            <div id="quiz-container" class="space-y-8">
+                <!-- As questões serão injetadas aqui pelo JavaScript -->
+            </div>
+
+            <!-- Botão de Submissão -->
+            <div class="mt-10 text-center">
+                <button type="submit" id="submit-btn" class="w-full sm:w-auto bg-blue-600 text-white font-bold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                    Finalizar Quiz e Ver Resoluções
+                </button>
+            </div>
+        </form>
+
+        <!-- Container para os resultados -->
+        <div id="results-container" class="hidden mt-12 bg-white p-6 sm:p-8 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-bold text-center mb-4">Seu Resultado</h2>
+            <p id="score" class="text-3xl font-bold text-center text-blue-600"></p>
+            <p class="text-center text-gray-600 mt-2">Veja abaixo a resolução detalhada para cada questão.</p>
+        </div>
+
+    </div>
+
+    <script>
+        // --- BANCO DE DADOS DAS QUESTÕES ---
+        // As questões, opções, respostas corretas e resoluções são armazenadas aqui.
+        const quizData = [
+            {
+                id: 1,
+                prompt: "(Instituto AOCP - Adaptada) Hífen (Assertivas)<br>Sobre o emprego do hífen conforme o Novo Acordo Ortográfico, analise as assertivas abaixo:",
+                items: [
+                    "I. Prefixos terminados em vogal (como <i>auto-</i> e <i>infra-</i>) aglutinam-se quando o segundo elemento começa com vogal diferente. Exemplos corretos: <i>autoescola</i>, <i>infraestrutura</i>.",
+                    "II. Quando o prefixo termina em vogal e o segundo elemento começa com a <i>mesma</i> vogal, o hífen é obrigatório. Exemplos corretos: <i>micro-ondas</i>, <i>anti-inflamatório</i>.",
+                    "III. Prefixos como <i>ex-</i> (sentido de anterior) e <i>vice-</i> exigem hífen independentemente do elemento seguinte. Exemplos corretos: <i>ex-diretor</i>, <i>vice-presidente</i>."
+                ],
+                options: [
+                    "A) Apenas I.",
+                    "B) Apenas II.",
+                    "C) Apenas I e II.",
+                    "D) Apenas II e III.",
+                    "E) I, II e III."
+                ],
+                correctAnswer: "E",
+                resolution: `
+                    <p><strong>Gabarito: E</strong></p>
+                    <p>A questão avalia o conhecimento das regras de hifenização estabelecidas pelo Novo Acordo Ortográfico, focando em prefixos.</p>
+                    <ul class="list-disc list-inside space-y-2 pl-2">
+                        <li><strong>Assertiva I (Correta):</strong> A regra geral para prefixos terminados em vogal (como <i>auto-</i>, <i>infra-</i>, <i>neo-</i>, <i>proto-</i>, <i>pseudo-</i>) é a aglutinação (junção) quando o segundo elemento começa com uma vogal <i>diferente</i>. Os exemplos <i>autoescola</i> (auto + escola) e <i>infraestrutura</i> (infra + estrutura) estão perfeitamente corretos.</li>
+                        <li><strong>Assertiva II (Correta):</strong> Quando o prefixo termina em vogal e o segundo elemento se inicia com a <i>mesma</i> vogal, o hífen é obrigatório para evitar a junção das duas vogais idênticas. Os exemplos <i>micro-ondas</i> (micro + ondas) e <i>anti-inflamatório</i> (anti + inflamatório) estão corretos.</li>
+                        <li><strong>Assertiva III (Correta):</strong> Certos prefixos exigem hífen independentemente do elemento seguinte. É o caso de <i>ex-</i> (com sentido de estado anterior), <i>sem-</i>, <i>além-</i>, <i>aquém-</i>, <i>recém-</i>, <i>pós-</i>, <i>pré-</i>, <i>pró-</i> (tônicos) e <i>vice-</i>. Portanto, <i>ex-diretor</i> e <i>vice-presidente</i> estão corretos.</li>
+                    </ul>
+                    <p class="mt-2"><strong>Conclusão:</strong> Todas as três assertivas estão corretas.</p>
+                `
+            },
+            {
+                id: 2,
+                prompt: "(Instituto AOCP - Adaptada) Acentuação Gráfica (Novo Acordo Ortográfico)<br>O Novo Acordo Ortográfico alterou diversas regras de acentuação. Assinale a alternativa em que TODAS as palavras estão grafadas corretamente segundo as novas regras.",
+                items: [],
+                options: [
+                    "A) Assembléia, idéia, herói.",
+                    "B) Vôo, crêem, perdôo.",
+                    "C) Jiboia, feiura, medo.",
+                    "D) Pára (verbo), pêlo (substantivo), vôo.",
+                    "E) Baiúca, enjôo, feiúra."
+                ],
+                correctAnswer: "C",
+                resolution: `
+                    <p><strong>Gabarito: C</strong></p>
+                    <p>A questão exige a identificação da alternativa em que todas as palavras seguem as regras de acentuação do Novo Acordo Ortográfico, focando principalmente nas regras de <i>supressão</i> de acentos.</p>
+                    <ul class="list-disc list-inside space-y-2 pl-2">
+                        <li>(A) Incorreta. <i>Assembléia</i> e <i>idéia</i> estão incorretas. O Acordo aboliu o acento agudo dos ditongos abertos paroxítonos <i>éi</i> e <i>ói</i>. O correto é <i>assembleia</i> e <i>ideia</i>.</li>
+                        <li>(B) Incorreta. <i>Vôo</i> e <i>crêem</i> estão incorretas. O Acordo aboliu o acento circunflexo dos hiatos <i>oo</i> e <i>ee</i> em palavras paroxítonas. O correto é <i>voo</i> e <i>creem</i> (assim como <i>leem</i>, <i>veem</i>, <i>deem</i>).</li>
+                        <li>(C) Correta. <i>Jiboia</i> (ditongo <i>ói</i> paroxítono) e <i>feiura</i> (vogal <i>u</i> tônica precedida de ditongo em paroxítona) perderam seus acentos. A palavra <i>medo</i> nunca foi acentuada. Todas as palavras da alternativa estão grafadas corretamente.</li>
+                        <li>(D) Incorreta. <i>Pára</i> (verbo) e <i>pêlo</i> (substantivo) estão incorretos. O Acordo aboliu a maioria dos acentos diferenciais. O correto é <i>para</i> (verbo, igual à preposição) e <i>pelo</i> (substantivo, igual à contração).</li>
+                        <li>(E) Incorreta. <i>Baiúca</i> e <i>enjôo</i> estão incorretas. <i>Baiuca</i> perdeu o acento (regra do <i>i</i>/<i>u</i> tônico após ditongo), e <i>enjoo</i> perdeu o acento (regra do hiato <i>oo</i>). O correto é <i>baiuca</i> e <i>enjoo</i>.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 3,
+                prompt: "(Instituto AOCP - Adaptada) Acentos Diferenciais e Concordância<br>Assinale a alternativa que preenche, correta e respectivamente, as lacunas das frases a seguir:",
+                items: [
+                    "1. Os novos regulamentos ________ entrado em vigor na semana passada.",
+                    "2. O diretor, juntamente com seus assessores, ________ discutir o plano hoje.",
+                    "3. Ele não ________ comparecer à reunião no ano passado devido a um imprevisto."
+                ],
+                options: [
+                    "A) têm, vem, pôde",
+                    "B) tem, vêm, pode",
+                    "C) têm, vêm, pôde",
+                    "D) tem, vem, pode",
+                    "E) têm, vem, pode"
+                ],
+                correctAnswer: "A",
+                resolution: `
+                    <p><strong>Gabarito: A</strong></p>
+                    <p>A questão combina a ortografia (acentos diferenciais dos verbos <i>ter</i> e <i>vir</i>) com a gramática (concordância verbal), um estilo comum da banca.</p>
+                    <ul class="list-disc list-inside space-y-2 pl-2">
+                        <li><strong>Lacuna 1:</strong> O sujeito da oração é "Os novos regulamentos" (plural). Para concordar com o sujeito no plural, o verbo <i>ter</i> recebe acento circunflexo: <i>têm</i>.</li>
+                        <li><strong>Lacuna 2:</strong> O sujeito da oração é "O diretor" (singular), ainda que acompanhado pela expressão "juntamente com seus assessores" (que atua como adjunto adverbial de companhia). O verbo deve concordar com o núcleo do sujeito singular. A forma singular do verbo <i>vir</i> é <i>vem</i> (sem acento). A forma plural seria <i>vêm</i>.</li>
+                        <li><strong>Lacuna 3:</strong> O contexto temporal é dado pela expressão "no ano passado", indicando pretérito (passado). O acento diferencial é mantido para distinguir <i>pode</i> (presente do indicativo) de <i>pôde</i> (pretérito perfeito do indicativo). Como a ação ocorreu no passado, a forma correta é <i>pôde</i>.</li>
+                    </ul>
+                    <p class="mt-2"><strong>Sequência correta:</strong> <i>têm</i>, <i>vem</i>, <i>pôde</i>.</p>
+                `
+            },
+            {
+                id: 4,
+                prompt: "(Instituto AOCP - Adaptada) Emprego dos \"Porquês\"<br>Assinale a alternativa que preenche corretamente as lacunas do texto:",
+                items: [
+                    "\"________ você não foi à reunião? Eu não fui ________ estava doente. Mas você estava doente ________? Ninguém entendeu o ________ da sua ausência.\""
+                ],
+                options: [
+                    "A) Por que, porque, por quê, porquê",
+                    "B) Porque, por que, porquê, por quê",
+                    "C) Por que, porquê, por quê, porque",
+                    "D) Por quê, porque, por que, porquê",
+                    "E) Por que, porque, porquê, por quê"
+                ],
+                correctAnswer: "A",
+                resolution: `
+                    <p><strong>Gabarito: A</strong></p>
+                    <p>A questão avalia o domínio das quatro formas dos "porquês".</p>
+                     <ul class="list-disc list-inside space-y-2 pl-2">
+                        <li><strong>Lacuna 1:</strong> Início de frase interrogativa direta. Equivale a "por qual motivo" ou "por qual razão". Usa-se <i>Por que</i> (separado e sem acento).</li>
+                        <li><strong>Lacuna 2:</strong> Resposta, explicação ou causa. Equivale a <i>pois</i>, <i>já que</i>, <i>visto que</i>. Usa-se <i>porque</i> (junto e sem acento).</li>
+                        <li><strong>Lacuna 3:</strong> Fim de frase interrogativa. A forma <i>por que</i> (separado), quando no fim de uma pausa ou frase e mantendo o valor interrogativo, recebe acento: <i>por quê</i> (separado e com acento).</li>
+                        <li><strong>Lacuna 4:</strong> Substantivo. A forma é precedida pelo artigo <i>o</i>, indicando que funciona como substantivo, sinônimo de <i>o motivo</i>, <i>a razão</i>. Usa-se <i>porquê</i> (junto e com acento).</li>
+                    </ul>
+                    <p class="mt-2"><strong>Sequência correta:</strong> <i>Por que</i>, <i>porque</i>, <i>por quê</i>, <i>porquê</i>.</p>
+                `
+            },
+            {
+                id: 5,
+                prompt: "(Instituto AOCP - Adaptada) Mal vs. Mau / Hífen (Bem vs. Mal)<br>Assinale a alternativa em que o emprego de \"mal\", \"mau\" ou a regra de hifenização associada esteja <strong>INCORRETA</strong>.",
+                items: [],
+                options: [
+                    "A) O paciente recebeu um <i>mau</i> prognóstico do médico.",
+                    "B) Ele estava <i>mal-humorado</i> durante a manhã.",
+                    "C) <i>Mal</i> chegou em casa, o telefone tocou.",
+                    "D) O time teve um <i>mal</i> desempenho no campeonato.",
+                    "E) O projeto foi <i>bem-sucedido</i> apesar dos desafios."
+                ],
+                correctAnswer: "D",
+                resolution: `
+                    <p><strong>Gabarito: D</strong></p>
+                    <p>A questão pede a alternativa <strong>INCORRETA</strong>. O teste central é a distinção entre <i>mal</i> e <i>mau</i>.</p>
+                    <p><strong>Regra mnemônica:</strong> <i>Mal</i> é o oposto de <i>Bem</i>; <i>Mau</i> é o oposto de <i>Bom</i>.</p>
+                    <ul class="list-disc list-inside space-y-2 pl-2">
+                        <li>(A) Correta. O oposto de "<i>mau</i> prognóstico" é "<i>bom</i> prognóstico". <i>Mau</i> é um adjetivo que qualifica <i>prognóstico</i>.</li>
+                        <li>(B) Correta. O advérbio <i>mal</i> exige hífen antes de vogal ou H. <i>Mal-humorado</i> está grafado corretamente (oposto de <i>bem-humorado</i>).</li>
+                        <li>(C) Correta. <i>Mal</i> aqui é um advérbio de tempo, significando "assim que", "logo que".</li>
+                        <li>(D) Incorreta. O termo <i>desempenho</i> é um substantivo. Ele pode ser <i>bom</i> ou <i>mau</i>. O oposto de "<i>bom</i> desempenho" é "<i>mau</i> desempenho". A frase utiliza <i>mal</i> (advérbio) onde deveria usar <i>mau</i> (adjetivo).</li>
+                        <li>(E) Correta. O advérbio <i>bem</i> exige hífen antes de vogal ou H, e em algumas outras formações consagradas, como <i>bem-sucedido</i>.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 6,
+                prompt: "(Instituto AOCP - Adaptada) Emprego de Letras (Sufixos -ISAR vs. -IZAR)<br>Sobre a formação de verbos com os sufixos <i>-isar</i> e <i>-izar</i>, analise as assertivas:",
+                items: [
+                    "I. Verbos derivados de palavras que já possuem S no radical devem manter o S. Exemplos corretos: <i>analisar</i> (de análise), <i>pesquisar</i> (de pesquisa).",
+                    "II. Verbos derivados de palavras que não possuem S no radical são formados com o sufixo <i>-izar</i>. Exemplos corretos: <i>finalizar</i> (de final), <i>modernizar</i> (de moderno).",
+                    "III. A palavra <i>catequese</i> (com S) origina o verbo <i>catequisar</i> (com S), seguindo a mesma regra de <i>análise</i> -> <i>analisar</i>."
+                ],
+                options: [
+                    "A) Apenas I e II.",
+                    "B) Apenas I e III.",
+                    "C) Apenas II e III.",
+                    "D) I, II e III.",
+                    "E) Apenas I."
+                ],
+                correctAnswer: "A",
+                resolution: `
+                    <p><strong>Gabarito: A</strong></p>
+                    <p>A questão analisa a regra de formação de verbos com os sufixos <i>-isar</i> e <i>-izar</i>.</p>
+                    <ul class="list-disc list-inside space-y-2 pl-2">
+                        <li><strong>Assertiva I (Correta):</strong> A regra morfológica dita que, se a palavra primitiva (da qual o verbo deriva) já possui S no radical, o verbo derivado mantém esse S. Exemplos: <i>análise</i> -> <i>analisar</i>; <i>pesquisa</i> -> <i>pesquisar</i>; <i>aviso</i> -> <i>avisar</i>.</li>
+                        <li><strong>Assertiva II (Correta):</strong> Se a palavra primitiva não possui S em seu radical (e nem Z), o verbo derivado é formado com o sufixo <i>-izar</i>. Exemplos: <i>final</i> -> <i>finalizar</i>; <i>útil</i> -> <i>utilizar</i>; <i>moderno</i> -> <i>modernizar</i>.</li>
+                        <li><strong>Assertiva III (Incorreta):</strong> Esta assertiva apresenta uma exceção como se fosse regra. A palavra <i>catequese</i> (com S) origina o verbo <i>catequizar</i> (com Z). O mesmo ocorre com <i>batismo</i> -> <i>batizar</i>. A assertiva erra ao sugerir que <i>catequese</i> segue a mesma lógica de <i>análise</i>.</li>
+                    </ul>
+                    <p class="mt-2"><strong>Conclusão:</strong> Apenas as assertivas I e II estão corretas.</p>
+                `
+            },
+            {
+                id: 7,
+                prompt: "(Instituto AOCP - Adaptada) Acentuação Gráfica (Justificativa da Regra)<br>Assinale a alternativa em que as duas palavras <strong>NÃO</strong> são acentuadas pela mesma regra gramatical.",
+                items: [],
+                options: [
+                    "A) lâmpada - técnico",
+                    "B) parabéns - armazém",
+                    "C) saúva - egoísmo",
+                    "D) fácil - caráter",
+                    "E) história - série"
+                ],
+                correctAnswer: "C",
+                resolution: `
+                    <p><strong>Gabarito: C</strong></p>
+                    <p>A questão exige que o candidato identifique a regra de acentuação para cada par, procurando aquele em que as regras são distintas.</p>
+                    <ul class="list-disc list-inside space-y-2 pl-2">
+                        <li>(A) <i>lâmpada</i> - <i>técnico</i>: Ambas são acentuadas pela mesma regra. São palavras proparoxítonas (sílaba tônica na antepenúltima) e todas as proparoxítonas são acentuadas.</li>
+                        <li>(B) <i>parabéns</i> - <i>armazém</i>: Ambas são acentuadas pela mesma regra. São palavras oxítonas (sílaba tônica na última) terminadas em <i>em</i>/<i>ens</i>.</li>
+                        <li>(C) <i>saúva</i> - <i>egoísmo</i>: <strong>Não</strong> são acentuadas pela mesma regra (do ponto de vista da justificativa detalhada). Embora ambas sejam "regra do hiato", há uma distinção sutil que algumas bancas exploram:
+                            <ul class="list-disc list-inside space-y-1 pl-4 mt-1">
+                                <li><i>Saúva</i> (<i>sa-ú-va</i>): Acentua-se o <i>u</i> tônico do hiato por estar <i>sozinho</i> na sílaba.</li>
+                                <li><i>Egoísmo</i> (<i>e-go-ís-mo</i>): Acentua-se o <i>i</i> tônico do hiato por estar <i>seguido de S</i> na sílaba.</li>
+                            </ul>
+                        </li>
+                        <li>(D) <i>fácil</i> - <i>caráter</i>: Ambas são acentuadas pela mesma regra. São palavras paroxítonas terminadas em <i>l</i> e <i>r</i>, respectivamente.</li>
+                        <li>(E) <i>história</i> - <i>série</i>: Ambas são acentuadas pela mesma regra. São paroxítonas terminadas em ditongo crescente.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 8,
+                prompt: "(Instituto AOCP - Adaptada) Emprego do Hífen (Regras Especiais: H, R, S)<br>Assinale a alternativa que apresenta a grafia CORRETA de acordo com as regras de hifenização do Novo Acordo Ortográfico.",
+                items: [],
+                options: [
+                    "A) anti-social",
+                    "B) auto-retrato",
+                    "C) sub-humano",
+                    "D) coerdeiro",
+                    "E) sobre-humano"
+                ],
+                correctAnswer: "E",
+                resolution: `
+                    <p><strong>Gabarito: E</strong></p>
+                    <p>A questão foca nas regras de hifenização mais complexas do Novo Acordo.</p>
+                    <ul class="list-disc list-inside space-y-2 pl-2">
+                        <li>(A) Incorreta. A grafia é <i>antissocial</i>. Quando o prefixo termina em vogal (como <i>anti-</i>) e o segundo elemento começa com R ou S, o hífen é eliminado e a consoante (R ou S) é duplicada.</li>
+                        <li>(B) Incorreta. A grafia é <i>autorretrato</i>. Aplica-se a mesma regra da alternativa A (<i>auto-</i> + <i>retrato</i>).</li>
+                        <li>(C) Incorreta. A grafia é <i>subumano</i>. O prefixo <i>sub-</i> é uma exceção à regra do H. Quando seguido de H, o H é suprimido e a palavra se aglutina. (A regra geral seria <i>sub-humano</i>, mas esta é uma exceção consagrada).</li>
+                        <li>(D) Incorreta. A grafia é <i>co-herdeiro</i>. O prefixo <i>co-</i> geralmente se aglutina (<i>coautor</i>, <i>cooperar</i>). No entanto, diante do H, ele é uma exceção e <i>exige</i> o hífen.</li>
+                        <li>(E) Correta. A grafia é <i>sobre-humano</i>. A regra geral para a maioria dos prefixos (como <i>sobre-</i>) é o uso obrigatório do hífen antes de palavras iniciadas por H.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 9,
+                prompt: "(Instituto AOCP - Adaptada) Emprego de Letras (Homófonos/Parônimos)<br>Assinale a alternativa que preenche, correta e respectivamente, as lacunas:",
+                items: [
+                    "1. A ________ de debates foi longa e cansativa.",
+                    "2. O advogado preparou o documento de ________ de bens.",
+                    "3. Houve grande ________ entre os membros do conselho sobre o novo projeto.",
+                    "4. Não há regra sem ________."
+                ],
+                options: [
+                    "A) seção, cessão, dissenção, excessão",
+                    "B) sessão, cessão, dissensão, exceção",
+                    "C) cessão, sessão, discenção, exceção",
+                    "D) sessão, seção, dissensão, excessão",
+                    "E) seção, sessão, discenção, exceção"
+                ],
+                correctAnswer: "B",
+                resolution: `
+                    <p><strong>Gabarito: B</strong></p>
+                    <p>A questão testa o conhecimento de palavras homófonas (mesmo som, grafia diferente) e parônimas (grafia parecida).</p>
+                    <ul class="list-disc list-inside space-y-2 pl-2">
+                        <li><strong>Lacuna 1:</strong> <i>Sessão</i> (com SS) refere-se a um período de tempo, um encontro (ex: sessão de cinema, sessão de debates). <i>Seção</i> (com S e Ç) refere-se a uma divisão, departamento (ex: seção de roupas). <i>Cessão</i> (com C e SS) é o ato de ceder. O contexto "de debates" pede <i>sessão</i>.</li>
+                        <li><strong>Lacuna 2:</strong> O contexto "de bens" indica o ato de ceder. A grafia correta é <i>cessão</i>.</li>
+                        <li><strong>Lacuna 3:</strong> O contexto "entre os membros" indica divergência, desacordo. A grafia correta é <i>dissensão</i> (com SS).</li>
+                        <li><strong>Lacuna 4:</strong> A palavra <i>exceção</i> é grafada com XC. A forma <i>excessão</i> (com SS) não existe.</li>
+                    </ul>
+                    <p class="mt-2"><strong>Sequência correta:</strong> <i>sessão</i>, <i>cessão</i>, <i>dissensão</i>, <i>exceção</i>.</p>
+                `
+            },
+            {
+                id: 10,
+                prompt: "(Instituto AOCP - Adaptada) Revisão Geral (Assertivas)<br>Analise as assertivas abaixo sobre a ortografia oficial:",
+                items: [
+                    "I. O advérbio <i>bem</i> possui regras próprias de hifenização, exigindo hífen antes de vogais e da letra H, e em compostos consagrados. Exemplo correto: <i>bem-vindo</i>.",
+                    "II. O Novo Acordo Ortográfico manteve o acento diferencial obrigatório em <i>pôde</i> (pretérito) para diferenciar de <i>pode</i> (presente) e em <i>pôr</i> (verbo) para diferenciar de <i>por</i> (preposição).",
+                    "III. O substantivo derivado do verbo <i>paralisar</i> (que vem de <i>paralisia</i>) deve ser grafado com S (<i>paralisação</i>), e não com Z (<i>paralização</i>)."
+                ],
+                options: [
+                    "A) Apenas I.",
+                    "B) Apenas II.",
+                    "C) Apenas I e III.",
+                    "D) I, II e III.",
+                    "E) Apenas II e III."
+                ],
+                correctAnswer: "D",
+                resolution: `
+                    <p><strong>Gabarito: D</strong></p>
+                    <p>A questão faz uma revisão de três tópicos centrais da ortografia.</p>
+                    <ul class="list-disc list-inside space-y-2 pl-2">
+                        <li><strong>Assertiva I (Correta):</strong> O advérbio <i>bem</i> possui regras próprias de hifenização. Ele exige hífen antes de vogal (<i>bem-estar</i>) e H (<i>bem-humorado</i>), e também em várias palavras compostas consagradas (<i>bem-vindo</i>).</li>
+                        <li><strong>Assertiva II (Correta):</strong> O Novo Acordo Ortográfico aboliu a maioria dos acentos diferenciais (ex: <i>para</i> [verbo], <i>pelo</i> [subst.]), mas manteve obrigatoriamente o acento em <i>pôde</i> (verbo no pretérito perfeito) para diferenciar de <i>pode</i> (presente), e em <i>pôr</i> (verbo) para diferenciar da preposição <i>por</i>.</li>
+                        <li><strong>Assertiva III (Correta):</strong> A grafia <i>paralização</i> (com Z) é um erro comum. A regra de formação (ver Questão 6) determina que, se a palavra primitiva tiver S, o derivado mantém o S. A palavra <i>paralisia</i> (e o verbo <i>paralisar</i>) são com S. Logo, o substantivo <i>paralisação</i> também deve ser com S.</li>
+                    </ul>
+                    <p class="mt-2"><strong>Conclusão:</strong> Todas as três assertivas estão corretas.</p>
+                `
+            }
+        ];
+
+        // --- LÓGICA DO QUIZ ---
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const quizContainer = document.getElementById('quiz-container');
+            const quizForm = document.getElementById('quiz-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const resultsContainer = document.getElementById('results-container');
+            const scoreEl = document.getElementById('score');
+
+            // 1. Função para carregar as questões na página
+            function loadQuiz() {
+                quizData.forEach((question, index) => {
+                    // Cria o contêiner principal para a questão
+                    const questionEl = document.createElement('div');
+                    questionEl.className = 'bg-white p-6 rounded-lg shadow-sm border border-gray-200 question-block';
+                    questionEl.id = `question-${question.id}`;
+
+                    // Adiciona o prompt (pergunta)
+                    const promptEl = document.createElement('h3');
+                    promptEl.className = 'text-lg font-semibold text-gray-800 mb-4 leading-relaxed';
+                    promptEl.innerHTML = `<strong>${question.id}.</strong> ${question.prompt}`;
+                    questionEl.appendChild(promptEl);
+
+                    // Adiciona os itens (assertivas I, II, III) se existirem
+                    if (question.items && question.items.length > 0) {
+                        const itemsList = document.createElement('ul');
+                        itemsList.className = 'list-none space-y-2 mb-5 pl-4 text-gray-700';
+                        question.items.forEach(item => {
+                            const li = document.createElement('li');
+                            li.innerHTML = item;
+                            itemsList.appendChild(li);
+                        });
+                        questionEl.appendChild(itemsList);
+                    }
+
+                    // Adiciona as opções de múltipla escolha
+                    const optionsContainer = document.createElement('div');
+                    optionsContainer.className = 'space-y-3';
+
+                    question.options.forEach(option => {
+                        const label = document.createElement('label');
+                        label.className = 'block p-4 rounded-md border border-gray-200 hover:bg-gray-50 cursor-pointer transition-colors duration-200';
+                        
+                        const input = document.createElement('input');
+                        input.type = 'radio';
+                        input.name = `question${question.id}`;
+                        input.value = option.substring(0, 1); // Extrai "A", "B", "C", etc.
+                        input.className = 'mr-3 text-blue-600 focus:ring-blue-500';
+                        
+                        const span = document.createElement('span');
+                        span.className = 'text-gray-800';
+                        span.innerHTML = option.substring(3); // Remove o "A) "
+                        
+                        label.appendChild(input);
+                        label.appendChild(span);
+                        optionsContainer.appendChild(label);
+                    });
+
+                    questionEl.appendChild(optionsContainer);
+                    
+                    // Adiciona o contêiner (vazio) da resolução
+                    const resolutionEl = document.createElement('div');
+                    resolutionEl.id = `resolution-${question.id}`;
+                    resolutionEl.className = 'hidden mt-6 pt-5 border-t border-gray-200';
+                    questionEl.appendChild(resolutionEl);
+
+                    // Adiciona a questão completa ao contêiner do quiz
+                    quizContainer.appendChild(questionEl);
+                });
+            }
+
+            // 2. Função para checar as respostas (quando o formulário é enviado)
+            function checkAnswers(event) {
+                event.preventDefault(); // Impede o envio real do formulário
+                
+                let correctCount = 0;
+
+                quizData.forEach(question => {
+                    const questionEl = document.getElementById(`question-${question.id}`);
+                    const resolutionEl = document.getElementById(`resolution-${question.id}`);
+                    
+                    // Pega todos os inputs de rádio para esta questão
+                    const inputs = document.querySelectorAll(`input[name="question${question.id}"]`);
+                    
+                    // Pega o input selecionado pelo usuário
+                    const selectedInput = document.querySelector(`input[name="question${question.id}"]:checked`);
+                    
+                    // Pega o label da resposta correta
+                    const correctLabel = document.querySelector(`input[name="question${question.id}"][value="${question.correctAnswer}"]`).closest('label');
+
+                    // Desabilita todos os inputs após a submissão
+                    inputs.forEach(input => {
+                        input.disabled = true;
+                    });
+
+                    // Verifica a resposta
+                    if (selectedInput) {
+                        const userAnswer = selectedInput.value;
+                        const userLabel = selectedInput.closest('label');
+
+                        if (userAnswer === question.correctAnswer) {
+                            correctCount++;
+                            // Estiliza a resposta correta (verde)
+                            userLabel.classList.add('bg-green-100', 'border-green-300', 'ring-2', 'ring-green-300');
+                        } else {
+                            // Estiliza a resposta errada (vermelho)
+                            userLabel.classList.add('bg-red-100', 'border-red-300', 'ring-2', 'ring-red-300');
+                            // Mostra também a resposta correta (verde)
+                            correctLabel.classList.add('bg-green-100', 'border-green-300', 'ring-2', 'ring-green-300');
+                        }
+                    } else {
+                        // Se o usuário não respondeu, apenas destaca a correta
+                         correctLabel.classList.add('bg-green-100', 'border-green-300', 'ring-2', 'ring-green-300');
+                    }
+
+                    // Preenche e exibe a resolução
+                    resolutionEl.innerHTML = `
+                        <h4 class="text-lg font-semibold mb-3 text-gray-800">Resolução Comentada</h4>
+                        <div class="resolution-content text-gray-700 leading-relaxed space-y-3">
+                            ${question.resolution}
+                        </div>
+                    `;
+                    resolutionEl.classList.remove('hidden');
+                });
+
+                // 3. Exibe os resultados finais
+                scoreEl.textContent = `${correctCount} de ${quizData.length}`;
+                resultsContainer.classList.remove('hidden');
+                
+                // Oculta o botão de submissão
+                submitBtn.classList.add('hidden');
+
+                // Rola a página para mostrar os resultados
+                resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            // --- INICIALIZAÇÃO ---
+            loadQuiz(); // Carrega as questões na página
+            quizForm.addEventListener('submit', checkAnswers); // Adiciona o listener ao botão
+        });
+    </script>
+</body>
+</html>

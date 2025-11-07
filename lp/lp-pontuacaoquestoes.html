@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Pontuação (Instituto AOCP)</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configuração de fonte para melhor leitura -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Define a fonte Inter como padrão, com um bom fallback */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Estilos para os botões de rádio (opções) */
+        /* Esconde o rádio padrão */
+        input[type="radio"] {
+            opacity: 0;
+            position: fixed;
+            width: 0;
+        }
+
+        /* Estiliza o label que funciona como o botão */
+        input[type="radio"] + span {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem; /* 8px */
+            border: 1px solid #e5e7eb; /* border-gray-200 */
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        /* Estilo do label ao passar o mouse */
+        input[type="radio"]:not(:checked) + span:hover {
+            background-color: #f9fafb; /* bg-gray-50 */
+            border-color: #d1d5db; /* border-gray-300 */
+        }
+
+        /* Estilo do label quando o rádio está marcado */
+        input[type="radio"]:checked + span {
+            background-color: #eff6ff; /* bg-blue-50 */
+            border-color: #2563eb; /* border-blue-600 */
+            color: #1e40af; /* text-blue-800 */
+            font-weight: 500;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Círculo indicador */
+        input[type="radio"] + span::before {
+            content: '';
+            width: 1.15em;
+            height: 1.15em;
+            border-radius: 50%;
+            border: 2px solid #d1d5db; /* border-gray-300 */
+            margin-right: 0.75rem;
+            flex-shrink: 0;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        /* Círculo indicador quando marcado */
+        input[type="radio"]:checked + span::before {
+            border-color: #2563eb; /* border-blue-600 */
+            background-color: #2563eb; /* bg-blue-600 */
+            box-shadow: 0 0 0 3px white inset;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Container principal com largura limitada para leitura -->
+    <main class="max-w-3xl mx-auto p-4 sm:p-8">
+        
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Quiz: Pontuação (Banca Instituto AOCP)</h1>
+            <p class="text-lg text-gray-600">Responda às 10 questões abaixo e verifique seu desempenho.</p>
+        </header>
+
+        <!-- Container onde as questões do quiz serão injetadas -->
+        <div id="quiz-container" class="space-y-8">
+            <!-- As questões serão geradas pelo JS -->
+        </div>
+
+        <!-- Botão para finalizar o quiz -->
+        <button id="submit-btn" class="w-full mt-10 bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-200 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+            Finalizar Quiz e Ver Resoluções
+        </button>
+
+        <!-- Container dos resultados (inicialmente oculto) -->
+        <div id="results-container" class="hidden mt-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Seu Resultado</h2>
+            <!-- Sumário da pontuação -->
+            <div id="score-summary" class="text-2xl font-bold text-center mb-8 p-6 bg-white text-blue-800 rounded-lg shadow-sm border border-gray-200">
+                <!-- A pontuação será inserida aqui -->
+            </div>
+            
+            <h3 class="text-2xl font-bold text-gray-900 mb-6">Resoluções Comentadas</h3>
+            <!-- Lista de resoluções -->
+            <div id="resolutions-list" class="space-y-6">
+                <!-- As resoluções serão inseridas aqui -->
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // --- BANCO DE DADOS DAS QUESTÕES ---
+        // Extraído diretamente do documento fornecido.
+        const quizData = [
+            {
+                id: 1,
+                question: "A vírgula empregada em “Caros colegas, o relatório precisa ser entregue até sexta-feira.” justifica-se por:",
+                options: [
+                    { letter: "A", text: "isolar um aposto explicativo." },
+                    { letter: "B", text: "separar o sujeito do predicado." },
+                    { letter: "C", text: "isolar um vocativo." },
+                    { letter: "D", text: "marcar a elipse de um verbo." },
+                    { letter: "E", text: "separar um adjunto adverbial deslocado." }
+                ],
+                correctAnswer: "C",
+                resolution: `
+                    <p><strong>Gabarito: C</strong></p>
+                    <p><strong>Análise Técnica:</strong> O termo “Caros colegas” é um <strong>vocativo</strong>, que é a função sintática utilizada para chamar ou interpelar um interlocutor. O vocativo é um termo sintaticamente independente, não fazendo parte nem do sujeito nem do predicado. A regra de pontuação é clara: o vocativo deve ser sempre isolado por vírgula.</p>
+                    <p><strong>Análise dos Distratores:</strong></p>
+                    <ul class="list-disc list-inside ml-4 text-sm">
+                        <li>(A) Incorreto. O aposto explica um termo anterior (ex: “João, <em>o médico</em>,...”). “Caros colegas” não explica nenhum termo; ele chama.</li>
+                        <li>(B) Incorreto. O sujeito da oração é “o relatório”. O vocativo é um termo à parte.</li>
+                        <li>(D) Incorreto. Não há omissão de verbo.</li>
+                        <li>(E) Incorreto. O termo não indica uma circunstância (tempo, modo, lugar), função típica do adjunto adverbial.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 2,
+                question: "Em “Durante a reunião de ontem, na sala principal da empresa, os diretores debateram longamente o orçamento.”, as vírgulas foram utilizadas para:",
+                options: [
+                    { letter: "A", text: "isolar um adjunto adverbial de longa extensão deslocado." },
+                    { letter: "B", text: "separar orações coordenadas assindéticas." },
+                    { letter: "C", text: "isolar um aposto enumerativo." },
+                    { letter: "D", text: "separar o sujeito “os diretores” do verbo “debateram”." },
+                    { letter: "E", text: "enfatizar uma informação acessória de modo facultativo." }
+                ],
+                correctAnswer: "A",
+                resolution: `
+                    <p><strong>Gabarito: A</strong></p>
+                    <p><strong>Análise Técnica:</strong> O trecho “Durante a reunião de ontem, na sala principal da empresa” é uma locução adverbial complexa (indica tempo e lugar). A gramática normativa estabelece que adjuntos adverbiais de longa extensão (convencionalmente, com três ou mais palavras), quando deslocados de sua posição original (o final do período) para o início ou meio da oração, devem ser obrigatoriamente isolados por vírgula(s).</p>
+                    <p><strong>Análise dos Distratores:</strong></p>
+                    <ul class="list-disc list-inside ml-4 text-sm">
+                        <li>(B) Incorreto. Há apenas uma oração no período, cujo verbo é “debateram”.</li>
+                        <li>(C) Incorreto. O trecho indica circunstâncias, não explica o termo “os diretores”.</li>
+                        <li>(D) Incorreto. Este é um erro grave. As vírgulas isolam o adjunto que <em>antecede</em> o sujeito, e não separam o sujeito do verbo.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 3,
+                question: "No trecho “A COVID-19, doença causada pelo novo coronavírus, alterou rotinas em todo o mundo.”, as vírgulas cumprem a função de:",
+                options: [
+                    { letter: "A", text: "separar uma oração subordinada adjetiva explicativa." },
+                    { letter: "B", text: "isolar um adjunto adverbial intercalado." },
+                    { letter: "C", text: "indicar a omissão de um verbo (zeugma)." },
+                    { letter: "D", text: "isolar um aposto de caráter explicativo." },
+                    { letter: "E", text: "separar termos de mesma função sintática." }
+                ],
+                correctAnswer: "D",
+                resolution: `
+                    <p><strong>Gabarito: D</strong></p>
+                    <p><strong>Análise Técnica:</strong> O trecho “doença causada pelo novo coronavírus” é um sintagma nominal que serve para explicar ou identificar o termo antecedente (“A COVID-19”). Esta função sintática é classificada como <strong>aposto explicativo</strong>. A regra de pontuação exige que o aposto explicativo intercalado seja isolado por vírgulas.</p>
+                    <p><strong>Análise dos Distratores:</strong></p>
+                    <ul class="list-disc list-inside ml-4 text-sm">
+                        <li>(A) Incorreto. Embora a semântica seja próxima, a <em>sintaxe</em> é diferente. Uma oração subordinada adjetiva explicativa exigiria um pronome relativo e um verbo (ex: “A COVID-19, <em>que é</em> uma doença...”). Como não há pronome relativo, trata-se de um aposto.</li>
+                        <li>(B) Incorreto. Não é um adjunto adverbial, pois não indica circunstância.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 4,
+                question: "Assinale a alternativa que apresenta a análise correta do uso da vírgula no período: “Embora o esforço tenha sido considerável, o resultado não foi o esperado.”",
+                options: [
+                    { letter: "A", text: "A vírgula é facultativa, pois a oração subordinada é curta." },
+                    { letter: "B", text: "A vírgula é obrigatória, pois separa a oração subordinada adverbial (concessiva) anteposta da oração principal." },
+                    { letter: "C", text: "A vírgula está incorreta, pois não se separa a oração principal da subordinada." },
+                    { letter: "D", text: "A vírgula isola um aposto explicativo." },
+                    { letter: "E", text: "A vírgula separa duas orações coordenadas adversativas." }
+                ],
+                correctAnswer: "B",
+                resolution: `
+                    <p><strong>Gabarito: B</strong></p>
+                    <p><strong>Análise Técnica:</strong> O período é composto por subordinação. A oração “o resultado não foi o esperado” é a Oração Principal (OP). A oração “Embora o esforço tenha sido considerável” é uma Oração Subordinada Adverbial Concessiva. A regra de pontuação para períodos compostos é clara: quando a oração subordinada adverbial está <em>anteposta</em> (vem antes) da Oração Principal, o uso da vírgula para separá-las é obrigatório.</p>
+                    <p><strong>Análise dos Distratores:</strong></p>
+                    <ul class="list-disc list-inside ml-4 text-sm">
+                        <li>(A) Incorreto. O uso é obrigatório, não facultativo, devido à anteposição.</li>
+                        <li>(C) Incorreto. A vírgula é, de fato, obrigatória nesse exato contexto.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 5,
+                question: "Sobre a pontuação nos períodos I e II, assinale a alternativa correta.<br>I. Os políticos que são corruptos devem ser investigados.<br>II. Os políticos, que são corruptos, devem ser investigados.",
+                options: [
+                    { letter: "A", text: "Em I, a ausência de vírgulas indica que a oração “que são corruptos” é explicativa." },
+                    { letter: "B", text: "Em II, as vírgulas indicam que a oração “que são corruptos” é restritiva." },
+                    { letter: "C", text: "A pontuação está incorreta em ambos os períodos, pois o sentido é o mesmo." },
+                    { letter: "D", text: "Em I, restringe-se o universo de políticos a serem investigados; em II, generaliza-se a corrupção a todos os políticos." },
+                    { letter: "E", text: "Em I e II, o uso da vírgula é facultativo, tratando-se de mero recurso estilístico sem alteração de sentido." }
+                ],
+                correctAnswer: "D",
+                resolution: `
+                    <p><strong>Gabarito: D</strong></p>
+                    <p><strong>Análise Técnica:</strong> Esta questão avalia a diferença semântica entre orações subordinadas adjetivas restritivas (sem vírgula) e explicativas (com vírgula).</p>
+                    <ul class="list-disc list-inside ml-4">
+                        <li><strong>Período I (Restritiva):</strong> “Os políticos que são corruptos...” A ausência de vírgulas <em>restringe</em> o substantivo. A oração indica que, do universo total de "políticos", apenas o subconjunto "que são corruptos" deve ser investigado.</li>
+                        <li><strong>Período II (Explicativa):</strong> “Os políticos, que são corruptos,...” A presença de vírgulas <em>explica</em> uma característica do substantivo, aplicada a todo o grupo. A oração generaliza, afirmando que "os políticos" (todos eles) são corruptos, e devem ser investigados.</li>
+                    </ul>
+                    <p><strong>Análise dos Distratores:</strong></p>
+                    <ul class="list-disc list-inside ml-4 text-sm">
+                        <li>(A) Incorreto. Em I, a oração é <em>restritiva</em>.</li>
+                        <li>(B) Incorreto. Em II, a oração é <em>explicativa</em>.</li>
+                        <li>(C, E) Incorretos. A pontuação está correta em ambos, mas o uso ou não da vírgula altera radicalmente o sentido.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 6,
+                question: "No trecho “O investimento em educação – pilar essencial para o desenvolvimento social – deve ser prioridade.”, os travessões foram utilizados para:",
+                options: [
+                    { letter: "A", text: "introduzir um discurso direto." },
+                    { letter: "B", text: "indicar uma mudança de interlocutor em um diálogo." },
+                    { letter: "C", text: "isolar um termo explicativo (aposto) intercalado, podendo ser substituídos por vírgulas." },
+                    { letter: "D", text: "criar uma pausa enfática, não podendo ser substituídos por vírgulas." },
+                    { letter: "E", text: "separar uma oração subordinada adverbial da oração principal." }
+                ],
+                correctAnswer: "C",
+                resolution: `
+                    <p><strong>Gabarito: C</strong></p>
+                    <p><strong>Análise Técnica:</strong> O travessão duplo (—... —) é um sinal de pontuação utilizado para intercalar ou isolar termos ou orações. Sua função, nesse contexto, é idêntica à das vírgulas ou dos parênteses. No período, o trecho “pilar essencial para o desenvolvimento social” é um aposto explicativo do termo antecedente, “educação”.</p>
+                    <p><strong>Análise dos Distratores:</strong></p>
+                    <ul class="list-disc list-inside ml-4 text-sm">
+                        <li>(A, B) Incorreto. O travessão para discurso direto ou diálogo é único e geralmente posicionado no início da fala.</li>
+                        <li>(D) Incorreto. A substituição por vírgulas é perfeitamente gramatical.</li>
+                        <li>(E) Incorreto. O termo isolado é um aposto (sintagma nominal), não uma oração adverbial.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 7,
+                question: "No período “O relatório apontou três problemas principais: falha de comunicação, falta de recursos e prazos inadequados.”, o uso dos dois-pontos justifica-se por:",
+                options: [
+                    { letter: "A", text: "introduzir uma citação direta." },
+                    { letter: "B", text: "separar orações coordenadas que se opõem em sentido." },
+                    { letter: "C", text: "indicar uma pausa longa na leitura, de valor estilístico." },
+                    { letter: "D", text: "introduzir um aposto enumerativo, especificando os “três problemas principais”." },
+                    { letter: "E", text: "marcar a conclusão de um raciocínio lógico, equivalendo a “portanto”." }
+                ],
+                correctAnswer: "D",
+                resolution: `
+                    <p><strong>Gabarito: D</strong></p>
+                    <p><strong>Análise Técnica:</strong> Os dois-pontos (:) são usados para introduzir uma explicação, um esclarecimento, uma citação ou uma enumeração. No período, o termo antecedente “três problemas principais” é detalhado pela lista que se segue (“falha de comunicação, falta de recursos...”). Essa lista funciona como um <strong>aposto enumerativo</strong>.</p>
+                    <p><strong>Análise dos Distratores:</strong></p>
+                    <ul class="list-disc list-inside ml-4 text-sm">
+                        <li>(A) Incorreto. Não é uma citação.</li>
+                        <li>(C) Incorreto. "Pausa longa" é uma descrição fonética, não a justificativa gramatical (sintática) exigida pela banca.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 8,
+                question: "Em “Muitos especialistas afirmam que o ‘brain rot’ (apodrecimento cerebral) é um fenômeno crescente entre os jovens.”, as aspas foram utilizadas para:",
+                options: [
+                    { letter: "A", text: "indicar a citação exata da fala dos especialistas." },
+                    { letter: "B", text: "marcar o uso de uma expressão em sentido irônico." },
+                    { letter: "C", text: "destacar um estrangeirismo usado fora do contexto habitual da língua." },
+                    { letter: "D", text: "substituir o uso de itálico, de forma facultativa." },
+                    { letter: "E", text: "isolar o vocativo da oração." }
+                ],
+                correctAnswer: "C",
+                resolution: `
+                    <p><strong>Gabarito: C</strong></p>
+                    <p><strong>Análise Técnica:</strong> As aspas (“ ”) têm diversas funções. As mais comuns são: (1) isolar citações diretas; (2) indicar ironia; (3) destacar termos usados fora de seu contexto habitual, como gírias, neologismos ou <strong>estrangeirismos</strong>. No caso, “‘brain rot’” é uma expressão em língua inglesa (estrangeirismo) que ainda não é de uso corrente ou formalizado no português, justificando o destaque.</p>
+                    <p><strong>Análise dos Distratores:</strong></p>
+                    <ul class="list-disc list-inside ml-4 text-sm">
+                        <li>(A) Incorreto. Não é a fala de alguém, mas o nome de um conceito.</li>
+                        <li>(B) Incorreto. O termo é usado em seu sentido literal (técnico), não de forma irônica.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 9,
+                question: "Sobre o emprego dos sinais de pontuação, assinale a alternativa correta.",
+                options: [
+                    { letter: "A", text: "Em “O candidato, aprovado no concurso, tomou posse.”, as vírgulas isolam um adjunto adverbial de modo." },
+                    { letter: "B", text: "Em “Não foi possível verificar, se o documento era autêntico.”, a vírgula está correta para separar a oração principal da subordinada substantiva." },
+                    { letter: "C", text: "Em “Os alunos do quinto ano, apresentaram o trabalho.”, a vírgula é usada corretamente para separar o sujeito do predicado." },
+                    { letter: "D", text: "Em “O diretor solicitou novos equipamentos, mas o pedido ainda não foi atendido.”, a vírgula é usada corretamente antes da conjunção adversativa “mas”." },
+                    { letter: "E", text: "Em “Somos estimulados a sonhar, a buscar objetivos...”, a vírgula separa a oração principal de uma oração subordinada adverbial." }
+                ],
+                correctAnswer: "D",
+                resolution: `
+                    <p><strong>Gabarito: D</strong></p>
+                    <p><strong>Análise Técnica:</strong> A alternativa (D) está correta. A conjunção “mas” é coordenativa adversativa, e a regra gramatical exige o uso da vírgula para separar as orações coordenadas ligadas por conjunções adversativas (mas, porém, contudo, todavia, entretanto).</p>
+                    <p><strong>Análise dos Distratores:</strong></p>
+                    <ul class="list-disc list-inside ml-4 text-sm">
+                        <li>(A) Incorreto. O trecho “aprovado no concurso” é uma oração subordinada adjetiva explicativa (reduzida de particípio).</li>
+                        <li>(B) Incorreto. A oração “se o documento era autêntico” é subordinada substantiva objetiva direta. É um erro gramatical separar o verbo de seu complemento (objeto) por vírgula.</li>
+                        <li>(C) Incorreto. Este é o erro mais grave de pontuação. “Os alunos do quinto ano” é o sujeito; “apresentaram” é o predicado. A regra fundamental proíbe separar o sujeito do predicado por vírgula.</li>
+                        <li>(E) Incorreto. A vírgula separa termos de mesma função sintática (enumeração).</li>
+                    </ul>
+                `
+            },
+            {
+                id: 10,
+                question: `
+                    Levando em conta os usos da vírgula, relacione as colunas e assinale a alternativa com a sequência correta.
+                    <ol class="list-decimal list-inside my-3 space-y-1">
+                        <li>Isolar Vocativo</li>
+                        <li>Isolar Aposto Explicativo</li>
+                        <li>Isolar Adjunto Adverbial Deslocado</li>
+                        <li>Separar Oração Subordinada Adverbial Anteposta</li>
+                        <li>Vírgula Incorreta (separando Sujeito e Predicado)</li>
+                    </ol>
+                    <div class="space-y-2 mt-3">
+                        <p>( ) “Quando o inverno chegar, estaremos preparados.”</p>
+                        <p>( ) “O Brasil, maior país da América do Sul, possui vasta biodiversidade.”</p>
+                        <p>( ) “Maria, traga-me o café, por favor.”</p>
+                        <p>( ) “A equipe de desenvolvimento, trabalha incessantemente no projeto.”</p>
+                        <p>( ) “Naquela manhã, o sol brilhava intensamente.”</p>
+                    </div>
+                `,
+                options: [
+                    { letter: "A", text: "4 – 2 – 1 – 5 – 3" },
+                    { letter: "B", text: "3 – 2 – 1 – 5 – 4" },
+                    { letter: "C", text: "4 – 1 – 2 – 3 – 5" },
+                    { letter: "D", text: "1 – 5 – 3 – 4 – 2" },
+                    { letter: "E", text: "5 – 3 – 4 – 2 – 1" }
+                ],
+                correctAnswer: "A",
+                resolution: `
+                    <p><strong>Gabarito: A</strong></p>
+                    <p><strong>Análise Técnica:</strong> Esta questão exige a aplicação de múltiplas regras de pontuação.</p>
+                    <ul class="list-disc list-inside ml-4">
+                        <li><strong>(4) “Quando o inverno chegar, estaremos preparados.”</strong> A vírgula separa a Oração Subordinada Adverbial Temporal (anteposta) da Oração Principal.</li>
+                        <li><strong>(2) “O Brasil, maior país da América do Sul, possui vasta biodiversidade.”</strong> As vírgulas isolam o Aposto Explicativo.</li>
+                        <li><strong>(1) “Maria, traga-me o café, por favor.”</strong> A vírgula isola o Vocativo (“Maria”).</li>
+                        <li><strong>(5) “A equipe de desenvolvimento, trabalha incessantemente no projeto.”</strong> A vírgula está Incorreta, pois separa o Sujeito do seu Predicado.</li>
+                        <li><strong>(3) “Naquela manhã, o sol brilhava intensamente.”</strong> A vírgula isola o Adjunto Adverbial de Tempo deslocado.</li>
+                    </ul>
+                    <p><strong>Sequência Correta:</strong> 4 – 2 – 1 – 5 – 3.</p>
+                `
+            }
+        ];
+
+        // --- LÓGICA DO QUIZ ---
+
+        // Espera o DOM carregar para executar o script
+        document.addEventListener('DOMContentLoaded', () => {
+            const quizContainer = document.getElementById('quiz-container');
+            const submitButton = document.getElementById('submit-btn');
+
+            // 1. Carrega as questões na página
+            function loadQuiz() {
+                let quizHTML = '';
+
+                quizData.forEach((item, index) => {
+                    // Monta o HTML para as opções
+                    const optionsHTML = item.options.map(option => `
+                        <label>
+                            <input type="radio" name="question${item.id}" value="${option.letter}">
+                            <span>
+                                <strong class="mr-2">${option.letter}.</strong> ${option.text}
+                            </span>
+                        </label>
+                    `).join('');
+
+                    // Monta o HTML para a questão completa
+                    quizHTML += `
+                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                            <p class="text-lg font-semibold mb-5">
+                                <span class="text-blue-600 font-bold mr-2">Questão ${item.id}:</span>
+                                ${item.question}
+                            </p>
+                            <div class="space-y-3">
+                                ${optionsHTML}
+                            </div>
+                        </div>
+                    `;
+                });
+
+                quizContainer.innerHTML = quizHTML;
+            }
+
+            // 2. Adiciona o evento de clique ao botão de submeter
+            submitButton.addEventListener('click', showResults);
+
+            // 3. Função para calcular e mostrar os resultados
+            function showResults() {
+                let score = 0;
+                let resolutionsHTML = '';
+                const resultsContainer = document.getElementById('results-container');
+                const scoreSummaryEl = document.getElementById('score-summary');
+                const resolutionsListEl = document.getElementById('resolutions-list');
+
+                // Itera sobre cada questão para verificar a resposta
+                quizData.forEach(item => {
+                    const selectedOption = document.querySelector(`input[name="question${item.id}"]:checked`);
+                    const userAnswer = selectedOption ? selectedOption.value : null;
+                    const isCorrect = userAnswer === item.correctAnswer;
+
+                    if (isCorrect) {
+                        score++;
+                    }
+
+                    // Define as cores com base no acerto ou erro
+                    const borderColorClass = isCorrect ? 'border-green-500' : 'border-red-500';
+                    const answerColorClass = isCorrect ? 'text-green-700 bg-green-50' : 'text-red-700 bg-red-50';
+                    const correctAnswerColorClass = 'text-green-700 bg-green-50';
+
+                    // Monta o HTML da resolução
+                    resolutionsHTML += `
+                        <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 ${borderColorClass}">
+                            <p class="text-lg font-semibold mb-4">
+                                <span class="font-bold mr-2">Questão ${item.id}:</span>
+                                ${item.question}
+                            </p>
+                            
+                            <!-- Exibe a resposta do usuário -->
+                            <div class="mb-4 p-3 rounded-md ${answerColorClass}">
+                                <strong>Sua resposta:</strong> 
+                                ${userAnswer ? `${userAnswer}. ${item.options.find(opt => opt.letter === userAnswer)?.text}` : 'Não respondida'}
+                                ${isCorrect ? '<span class="font-semibold ml-2">(Correta)</span>' : '<span class="font-semibold ml-2">(Incorreta)</span>'}
+                            </div>
+
+                            <!-- Exibe o gabarito (se o usuário errou) -->
+                            ${!isCorrect ? `
+                                <div class="mb-4 p-3 rounded-md ${correctAnswerColorClass}">
+                                    <strong>Gabarito:</strong> 
+                                    ${item.correctAnswer}. ${item.options.find(opt => opt.letter === item.correctAnswer)?.text}
+                                </div>
+                            ` : ''}
+
+                            <!-- Exibe a resolução detalhada -->
+                            <div class="mt-4 pt-4 border-t border-gray-200 text-sm text-gray-700 space-y-3">
+                                <h4 class="font-semibold text-base text-gray-800">Resolução:</h4>
+                                ${item.resolution}
+                            </div>
+                        </div>
+                    `;
+                });
+
+                // Atualiza o sumário da pontuação
+                scoreSummaryEl.textContent = `Você acertou ${score} de ${quizData.length} questões.`;
+
+                // Preenche a lista de resoluções
+                resolutionsListEl.innerHTML = resolutionsHTML;
+
+                // Mostra o container de resultados
+                resultsContainer.classList.remove('hidden');
+                
+                // Esconde o botão de finalizar
+                submitButton.classList.add('hidden');
+
+                // Rola a página para o início dos resultados
+                resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            // Carrega o quiz assim que a página é aberta
+            loadQuiz();
+        });
+    </script>
+
+</body>
+</html>

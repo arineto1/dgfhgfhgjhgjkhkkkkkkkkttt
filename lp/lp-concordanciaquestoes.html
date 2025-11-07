@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Concordância (Estilo AOCP)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Aplicando a fonte Inter como padrão */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Estilização customizada para os botões de rádio */
+        .option-label.correct {
+            border-color: #22c55e; /* green-500 */
+            background-color: #f0fdf4; /* green-50 */
+            color: #15803d; /* green-800 */
+            font-weight: 600;
+        }
+        .option-label.incorrect {
+            border-color: #ef4444; /* red-500 */
+            background-color: #fef2f2; /* red-50 */
+            color: #b91c1c; /* red-800 */
+            font-weight: 500;
+        }
+        .option-label.skipped {
+             border-color: #eab308; /* yellow-500 */
+             background-color: #fefce8; /* yellow-50 */
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased">
+
+    <div class="max-w-4xl mx-auto p-4 sm:p-8">
+        
+        <header class="text-center mb-10">
+            <h1 class="text-3xl font-bold text-blue-900">Quiz: Concordância Nominal e Verbal</h1>
+            <p class="text-lg text-gray-600 mt-2">Estilo: Instituto AOCP</p>
+        </header>
+
+        <!-- Container para o Score (inicialmente escondido) -->
+        <div id="results-header" class="hidden bg-white p-6 rounded-lg shadow-md mb-8 border border-gray-200 text-center">
+            <h2 class="text-2xl font-bold text-blue-900">Seu resultado: <span id="score" class="text-green-600"></span></h2>
+            <p class="text-gray-600 mt-2">Veja abaixo a resolução comentada de cada questão.</p>
+        </div>
+
+        <!-- Formulário do Quiz -->
+        <form id="quiz-form">
+            <!-- As questões serão injetadas aqui pelo JavaScript -->
+            <div id="quiz-container" class="space-y-6"></div>
+
+            <!-- Botão de Envio -->
+            <button type="submit" id="submit-btn" class="w-full mt-10 bg-blue-600 text-white p-4 rounded-lg text-xl font-semibold hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                Finalizar e Corrigir
+            </button>
+        </form>
+
+    </div>
+
+    <script>
+        // --- BANCO DE DADOS DO QUIZ ---
+        // Contém todas as questões, opções, respostas e resoluções
+        const quizData = [
+            {
+                id: 'q1',
+                question: '(INSTITUTO AOCP) Assinale a alternativa que preenche, correta e respectivamente, as lacunas da frase: "As candidatas, já ______ cansadas após a longa jornada, apresentaram _______ motivos para a abstenção."',
+                options: [
+                    { value: 'a', text: 'meio / bastantes' },
+                    { value: 'b', text: 'meia / bastantes' },
+                    { value: 'c', text: 'meio / bastante' },
+                    { value: 'd', text: 'meia / bastante' },
+                    { value: 'e', text: 'meias / bastantes' }
+                ],
+                correct: 'a',
+                resolution: `
+                    <p class="mb-2"><strong>Tópico:</strong> Concordância Nominal (Advérbios 'meio' e 'bastante').</p>
+                    <p class="mb-2"><strong>Análise da Alternativa Correta (a):</strong></p>
+                    <ul class="list-disc list-inside space-y-1 pl-4">
+                        <li><strong>meio:</strong> Na primeira lacuna, a palavra modifica o adjetivo "cansadas". Quando "meio" tem o sentido de "um pouco" (advérbio de intensidade), ela é invariável, permanecendo no masculino singular. Portanto, o correto é "meio cansadas".</li>
+                        <li><strong>bastantes:</strong> Na segunda lacuna, a palavra modifica o substantivo "motivos". Quando "bastante" tem o sentido de "muitos" (pronome indefinido adjetivo), ela é variável e deve concordar com o substantivo a que se refere. O correto é "bastantes motivos" (equivalente a "muitos motivos").</li>
+                    </ul>
+                `
+            },
+            {
+                id: 'q2',
+                question: '(INSTITUTO AOCP) Considerando as regras de concordância verbal da norma-padrão, assinale a alternativa em que a forma verbal está correta.',
+                options: [
+                    { value: 'a', text: 'Hão de existir soluções mais práticas para o problema logístico.' },
+                    { value: 'b', text: 'Já fazem mais de dez anos que eles se mudaram daquele bairro.' },
+                    { value: 'c', text: 'Houveram muitos acidentes graves naquele trecho da rodovia.' },
+                    { value: 'd', text: 'Devem haver outras possibilidades de análise dos dados coletados.' },
+                    { value: 'e', text: 'Havia profundas divergências conceituais entre os diretores da equipe.' }
+                ],
+                correct: 'e',
+                resolution: `
+                    <p class="mb-2"><strong>Tópico:</strong> Concordância Verbal (Verbos Impessoais 'Haver' e 'Fazer').</p>
+                    <p class="mb-2"><strong>Análise da Alternativa Correta (e):</strong> O verbo "Haver" no sentido de "existir" ou "ocorrer" é um verbo impessoal. Isso significa que ele não possui sujeito e deve ser conjugado apenas na 3ª pessoa do singular, independentemente do tempo verbal. Na frase (e), "Havia" está corretamente no singular, e o termo "profundas divergências conceituais" funciona como seu objeto direto.</p>
+                    <p class="mb-2"><strong>Análise dos Distratores (Alternativas Incorretas):</strong></p>
+                    <ul class="list-disc list-inside space-y-1 pl-4">
+                        <li>(a) Em locuções verbais onde o verbo principal é impessoal (como "haver" no sentido de "existir"), o verbo auxiliar ("Hão de") absorve a impessoalidade e também deve ficar no singular. Correto: "Há de existir soluções...".</li>
+                        <li>(b) O verbo "Fazer" indicando tempo decorrido ou clima também é impessoal, devendo ficar no singular. Correto: "Já faz mais de dez anos...".</li>
+                        <li>(c) "Houveram" (sentido de "ocorreram") é impessoal. Correto: "Houve muitos acidentes...".</li>
+                        <li>(d) O verbo "Haver" (impessoal) transmite sua impessoalidade ao auxiliar "Devem". Correto: "Deve haver outras possibilities...".</li>
+                    </ul>
+                `
+            },
+            {
+                id: 'q3',
+                question: '(INSTITUTO AOCP) Considere o trecho a seguir: "A maioria dos eleitores <i>compareceu</i> às urnas, embora uma grande parte dos analistas <i>esperassem</i> abstenções significativas."<br>Em relação à concordância verbal no trecho, analise as assertivas:<br><br>I. A forma verbal "compareceu" está no singular, concordando com o núcleo do sujeito "maioria", o que é gramaticalmente aceito pela norma-padrão.<br>II. Seria igualmente correto, segundo a norma-padrão, utilizar a forma plural "compareceram", estabelecendo a concordância com o especificador "eleitores".<br>III. A forma verbal "esperassem" concorda com o especificador "analistas", sendo esta a única concordância possível para o verbo "esperar" nesse contexto.<br><br>Assinale a alternativa correta:',
+                options: [
+                    { value: 'a', text: 'Apenas I e II.' },
+                    { value: 'b', text: 'Apenas I.' },
+                    { value: 'c', text: 'Apenas III.' },
+                    { value: 'd', text: 'Apenas II e III.' },
+                    { value: 'e', text: 'I, II e III.' }
+                ],
+                correct: 'a',
+                resolution: `
+                    <p class="mb-2"><strong>Tópico:</strong> Concordância Verbal (Expressões Partitivas).</p>
+                    <p class="mb-2"><strong>Análise das Assertivas:</strong> A regra para sujeitos formados por expressões partitivas (A maioria de..., Grande parte de...) seguidas de um especificador no plural (dos eleitores, dos analistas) permite duas concordâncias:</p>
+                    <ol class="list-decimal list-inside space-y-1 pl-4">
+                        <li>Concordância gramatical (ou lógica): O verbo concorda com o núcleo do sujeito (singular: maioria, parte).</li>
+                        <li>Concordância atrativa (ou siléptica): O verbo concorda com o especificador (plural: eleitores, analistas).</li>
+                    </ol>
+                    <p class="mt-2 mb-2"><strong>Assertiva I (Correta):</strong> A forma "compareceu" (singular) está concordando com o núcleo "maioria". Esta é uma concordância válida.</p>
+                    <p class="mb-2"><strong>Assertiva II (Correta):</strong> A forma "compareceram" (plural) estaria concordando com o especificador "eleitores". Esta também é uma concordância válida.</p>
+                    <p class="mb-2"><strong>Assertiva III (Incorreta):</strong> A forma "esperassem" (plural) concorda com "analistas", o que é correto. No entanto, a assertiva afirma que esta é a <i>única</i> concordância possível, o que é falso. A concordância com o núcleo "parte" (singular: "esperasse") também seria gramaticalmente correta.</p>
+                `
+            },
+            {
+                id: 'q4',
+                question: '(INSTITUTO AOCP) Assinale a alternativa que apresenta ERRO de concordância nominal, em desacordo com a norma-padrão.',
+                options: [
+                    { value: 'a', text: 'Paciência é necessário para ocupar este cargo de liderança.' },
+                    { value: 'b', text: 'Seguem anexas as fotografias solicitadas pela perícia.' },
+                    { value: 'c', text: 'Para os atletas, água de coco é ótima após o treino.' },
+                    { value: 'd', text: 'É proibido a circulação de pedestres nesta área industrial.' },
+                    { value: 'e', text: 'Ela ficou meio desconfiada da proposta recebida.' }
+                ],
+                correct: 'd',
+                resolution: `
+                    <p class="mb-2"><strong>Tópico:</strong> Concordância Nominal (Expressões 'É proibido', 'É necessário').</p>
+                    <p class="mb-2"><strong>Análise da Alternativa Incorreta (d):</strong> Expressões como "É proibido", "É bom", "É necessário" têm uma regra específica. Elas permanecem invariáveis (masculino/singular) se o sujeito (o substantivo a que se referem) não vier determinado por um artigo ou pronome. Se o sujeito vier determinado, a expressão deve concordar com ele.</p>
+                    <ul class="list-disc list-inside space-y-1 pl-4">
+                        <li>Exemplo 1: "É proibido entrada" (sujeito "entrada" sem artigo).</li>
+                        <li>Exemplo 2: "É proibid<strong>a</strong> <i>a</i> entrada" (sujeito "a entrada" com artigo).</li>
+                        <li>Na alternativa (d), "É proibido a circulação", ocorre um erro. A presença do artigo "a" determina o sujeito "circulação", exigindo que o adjetivo concorde: "É proibid<strong>a</strong> a circulação".</li>
+                    </ul>
+                `
+            },
+            {
+                id: 'q5',
+                question: '(INSTITUTO AOCP) A concordância verbal está plenamente de acordo com a norma-padrão em:',
+                options: [
+                    { value: 'a', text: 'Foi anunciado, pelos principais jornais locais, novas medidas econômicas.' },
+                    { value: 'b', text: 'Restam aos governantes poucas alternativas viáveis para a crise.' },
+                    { value: 'c', text: 'Ocorreu, durante a madrugada, fortes chuvas em toda a região serrana.' },
+                    { value: 'd', text: 'Existe, naquelas pastas arquivadas, documentos sigilosos da diretoria.' },
+                    { value: 'e', text: 'Cabe ao funcionário selecionado as responsabilidades pela gestão do setor.' }
+                ],
+                correct: 'b',
+                resolution: `
+                    <p class="mb-2"><strong>Tópico:</strong> Concordância Verbal (Sujeito Pós-posto/Ordem Inversa).</p>
+                    <p class="mb-2"><strong>Análise da Alternativa Correta (b):</strong> O Instituto AOCP frequentemente utiliza a ordem inversa (verbo + sujeito) para dificultar a identificação do sujeito. Para analisar a concordância, deve-se colocar a frase na ordem direta.</p>
+                    <p class="mb-2">Ordem direta de (b): "Poucas alternativas viáveis" (Sujeito no plural) "restam aos governantes". O verbo "Restam" concorda corretamente com o núcleo do sujeito, "alternativas" (plural).</p>
+                    <p class="mb-2"><strong>Análise dos Distratores (Alternativas Incorretas):</strong></p>
+                    <ul class="list-disc list-inside space-y-1 pl-4">
+                        <li>(a) Ordem direta: "Novas medidas econômicas" (Sujeito no plural) "foi anunciado...". Correto: "Foram anunciadas".</li>
+                        <li>(c) Ordem direta: "Fortes chuvas" (Sujeito no plural) "ocorreu...". Correto: "Ocorreram".</li>
+                        <li>(d) Ordem direta: "Documentos sigilosos" (Sujeito no plural) "existe...". Correto: "Existem". (O verbo "Existir" é pessoal e concorda com o sujeito).</li>
+                        <li>(e) Ordem direta: "As responsabilidades pela gestão do setor" (Sujeito no plural) "cabe...". Correto: "Cabem".</li>
+                    </ul>
+                `
+            },
+            {
+                id: 'q6',
+                question: '(INSTITUTO AOCP) Assinale a alternativa que preenche correta e respectivamente as lacunas, segundo a norma-padrão da língua portuguesa.<br><br>I. _______-se, em todas as lojas da rede, funcionários bilíngues.<br>II. _______-se de novos dados para a conclusão da pesquisa.<br>III. _______-se a problemas inesperados durante a execução do projeto.',
+                options: [
+                    { value: 'a', text: 'Procura-se / Precisa-se / Aludiu-se' },
+                    { value: 'b', text: 'Procuram-se / Precisa-se / Aludiu-se' },
+                    { value: 'c', text: 'Procuram-se / Precisam-se / Aludiram-se' },
+                    { value: 'd', text: 'Procura-se / Precisam-se / Aludiu-se' },
+                    { value: 'e', text: 'Procuram-se / Precisa-se / Aludiram-se' }
+                ],
+                correct: 'b',
+                resolution: `
+                    <p class="mb-2"><strong>Tópico:</strong> Concordância Verbal (Partícula 'se' - Apassivadora vs. Indeterminação).</p>
+                    <p class="mb-2">A concordância do verbo com a partícula "se" depende da transitividade do verbo:</p>
+                    <ol class="list-decimal list-inside space-y-1 pl-4">
+                        <li><strong>"se" como Partícula Apassivadora (PA):</strong> Ocorre com Verbo Transitivo Direto (VTD). O verbo deve concordar com o sujeito paciente.</li>
+                        <li><strong>"se" como Índice de Indeterminação do Sujeito (IIS):</strong> Ocorre com Verbos Transitivos Indiretos (VTI) ou Intransitivos (VI). O verbo fica obrigatoriamente na 3ª pessoa do singular.</li>
+                    </ol>
+                    <p class="mt-2 mb-2"><strong>Frase I:</strong> "Procurar" (VTD). O "se" é PA. O sujeito paciente é "funcionários bilíngues" (plural). Verbo no plural: "Procuram-se".</p>
+                    <p class="mb-2"><strong>Frase II:</strong> "Precisar" (VTI - precisa <i>de</i> algo). O "se" é IIS. Verbo no singular: "Precisa-se".</p>
+                    <p class="mb-2"><strong>Frase III:</strong> "Aludir" (VTI - alude <i>a</i> algo). O "se" é IIS. Verbo no singular: "Aludiu-se".</p>
+                    <p class="mt-2"><strong>Combinação correta:</strong> (b) Procuram-se / Precisa-se / Aludiu-se.</p>
+                `
+            },
+            {
+                id: 'q7',
+                question: '(INSTITUTO AOCP) Assinale a alternativa que apresenta concordância nominal em total conformidade com a norma-padrão.',
+                options: [
+                    { value: 'a', text: 'A foto e o relatório da auditoria seguem anexo.' },
+                    { value: 'b', text: 'Ela parecia meia preocupada com o resultado do exame.' },
+                    { value: 'c', text: 'Havia bastantes pessoas aguardando o início da cerimônia.' },
+                    { value: 'd', text: 'As funcionárias mesmo organizaram todo o evento de recepção.' },
+                    { value: 'e', text: 'O contribuinte finalmente está quites com a Receita Federal.' }
+                ],
+                correct: 'c',
+                resolution: `
+                    <p class="mb-2"><strong>Tópico:</strong> Concordância Nominal (Casos Específicos).</p>
+                    <p class="mb-2"><strong>Análise da Alternativa Correta (c):</strong> O termo "bastantes" modifica o substantivo "pessoas". Nesse contexto, "bastantes" é um pronome/adjetivo, sinônimo de "muitas", e deve concordar com o substantivo no plural. A frase está correta.</p>
+                    <p class="mb-2"><strong>Análise dos Distratores (Alternativas Incorretas):</strong></p>
+                    <ul class="list-disc list-inside space-y-1 pl-4">
+                        <li>(a) O adjetivo "anexo" deve concordar com os substantivos ("foto" e "relatório"). Gêneros diferentes = masculino plural. Correto: "...seguem anexos".</li>
+                        <li>(b) "Meia" está incorreto. O termo modifica o adjetivo "preocupada", funcionando como advérbio ("um pouco"). Advérbios são invariáveis. Correto: "...parecia meio preocupada".</li>
+                        <li>(d) O pronome "mesmo" (com sentido de "próprio") deve concordar com o termo a que se refere ("As funcionárias"). Correto: "As funcionárias mesmas organizaram...".</li>
+                        <li>(e) O adjetivo "quite" deve concordar em número com o substantivo ("contribuinte"). Correto: "...está quite...".</li>
+                    </ul>
+                `
+            },
+            {
+                id: 'q8',
+                question: '(INSTITUTO AOCP) Considere a frase: "O novo diretor e sua equipe <i>elaboraram</i> o planejamento estratégico."<br>Em relação às possibilidades de concordância verbal e nominal, analise as assertivas:<br><br>I. A concordância verbal está correta, pois o verbo no plural ("elaboraram") concorda com o sujeito composto anteposto ("O novo diretor e sua equipe").<br>II. Se o sujeito fosse pós-posto ao verbo ("Elaboraram o planejamento estratégico o novo diretor e sua equipe"), o verbo poderia, opcionalmente, concordar apenas com o núcleo mais próximo ("diretor"), flexionando-se no singular ("Elaborou").<br>III. Se a frase fosse "O novo diretor, bem como sua equipe, elaborou...", a concordância no singular estaria correta, pois o verbo concordaria com o primeiro elemento do sujeito, "O novo diretor".<br><br>Assinale a alternativa correta:',
+                options: [
+                    { value: 'a', text: 'Apenas I e II.' },
+                    { value: 'b', text: 'Apenas II e III.' },
+                    { value: 'c', text: 'Apenas I e III.' },
+                    { value: 'd', text: 'I, II e III.' },
+                    { value: 'e', text: 'Apenas I.' }
+                ],
+                correct: 'd',
+                resolution: `
+                    <p class="mb-2"><strong>Tópico:</strong> Concordância Verbal (Sujeito Composto) e Nominal.</p>
+                    <p class="mb-2"><strong>Assertiva I (Correta):</strong> A regra geral da gramática normativa para sujeito composto (com núcleos ligados por "e") anteposto ao verbo é que o verbo deve ir para o plural.</p>
+                    <p class="mb-2"><strong>Assertiva II (Correta):</strong> Quando o sujeito composto está pós-posto (depois do verbo), a norma-padrão faculta duas concordâncias: a concordância lógica com o todo (plural: "Elaboraram") ou a concordância atrativa com o núcleo mais próximo (singular: "Elaborou").</p>
+                    <p class="mb-2"><strong>Assertiva III (Correta):</strong> Expressões como "bem como", "assim como", "com", quando isoladas por vírgulas (possuindo valor de adjunto adverbial de companhia), fazem o verbo concordar com o primeiro elemento do sujeito ("O novo diretor... elaborou").</p>
+                    <p class="mt-2">Todas as assertivas estão corretas.</p>
+                `
+            },
+            {
+                id: 'q9',
+                question: '(INSTITUTO AOCP) A concordância verbal está plenamente correta, de acordo com a norma-padrão, em:',
+                options: [
+                    { value: 'a', text: 'Cerca de 1% dos entrevistados declarou não ter opinião formada sobre o assunto.' },
+                    { value: 'b', text: '40% da população carcerária do país possui apenas o ensino fundamental incompleto.' },
+                    { value: 'c', text: 'Mais de um político foram investigados na operação deflagrada pela manhã.' },
+                    { value: 'd', text: 'Os Estados Unidos, despite da crise, é o país com o maior PIB nominal do mundo.' },
+                    { value: 'e', text: '1,5% do orçamento da união foi destinado à cultura no último ano fiscal.' }
+                ],
+                correct: 'a',
+                resolution: `
+                    <p class="mb-2"><strong>Tópico:</strong> Concordância Verbal (Porcentagem e Casos Específicos).</p>
+                    <p class="mb-2"><strong>Análise da Alternativa Correta (a):</strong> Em sujeitos formados por porcentagem seguida de especificador (ex: "1% dos entrevistados"), a concordância pode se dar com o numeral ou com o especificador. No entanto, o numeral "1%" (um por cento) é gramaticalmente singular, exigindo que o verbo fique no singular ("declarou").</p>
+                    <p class="mb-2"><strong>Análise dos Distratores (Alternativas Incorretas):</strong></p>
+                    <ul class="list-disc list-inside space-y-1 pl-4">
+                        <li>(b) O numeral "40%" (quarenta por cento) é plural. O verbo deveria concordar com ele (ou com "população", singular). Correto (preferencial): "...possuem...".</li>
+                        <li>(c) A expressão "Mais de um" exige, regra geral, o verbo no singular. Correto: "Mais de um político foi investigado...".</li>
+                        <li>(d) Nomes de lugares que são plurais e usados com artigo (como "Os Estados Unidos") exigem o verbo no plural. Correto: "...os Estados Unidos... são o país...".</li>
+                        <li>(e) Numerais decimais acima de 1 (como "1,5%") são considerados gramaticalmente plurais e exigem o verbo no plural. Correto: "...foram destinados...".</li>
+                    </ul>
+                `
+            },
+            {
+                id: 'q10',
+                question: '(INSTITUTO AOCP) Considere o trecho: "Um grande número de profissionais <i>busca</i> atualização constante. Há, no mercado, <i>bastantes</i> oportunidades, mas é <i>necessário</i> cautela para evitar escolhas precipitadas."<br>Em relação à concordância verbal e nominal no trecho, analise as assertivas:<br><br>I. O verbo "busca" está no singular, concordando com o núcleo do sujeito "número", mas também poderia estar no plural ("buscam") para concordar com o especificador "profissionais".<br>II. O verbo "Há" está corretamente no singular, pois é impessoal no sentido de "existir", e "bastantes oportunidades" funciona como seu objeto direto.<br>III. A palavra "necessário" permanece no masculino singular ("é necessário cautela") porque o sujeito "cautela" não está determinado por um artigo ou pronome.<br><br>Assinale a alternativa correta:',
+                options: [
+                    { value: 'a', text: 'Apenas I e II.' },
+                    { value: 'b', text: 'Apenas II e III.' },
+                    { value: 'c', text: 'Apenas I e III.' },
+                    { value: 'd', text: 'I, II e III.' },
+                    { value: 'e', text: 'Apenas II.' }
+                ],
+                correct: 'd',
+                resolution: `
+                    <p class="mb-2"><strong>Tópico:</strong> Concordância Mista (Verbal e Nominal).</p>
+                    <p class="mb-2"><strong>Assertiva I (Correta):</strong> O sujeito é "Um grande número de profissionais". Trata-se de uma expressão partitiva/coletiva. A gramática permite que o verbo concorde com o núcleo singular ("número" $\rightarrow$ "busca") ou com o especificador plural ("profissionais" $\rightarrow$ "buscam"). Ambas as formas são válidas.</p>
+                    <p class="mb-2"><strong>Assertiva II (Correta):</strong> O verbo "Há" está no sentido de "existir", sendo impessoal e permanecendo no singular. O termo "bastantes oportunidades" é o objeto direto. A palavra "bastantes" (sinônimo de "muitas") concorda corretamente no plural com o substantivo "oportunidades".</p>
+                    <p class="mb-2"><strong>Assertiva III (Correta):</strong> A expressão "é necessário" fica invariável (masculino/singular) quando o sujeito ("cautela") não é determinado por artigo. Se fosse "A cautela", o correto seria "é necessária".</p>
+                    <p class="mt-2">Todas as assertivas estão corretas.</p>
+                `
+            }
+        ];
+
+        // --- LÓGICA DO QUIZ ---
+
+        const quizContainer = document.getElementById('quiz-container');
+        const quizForm = document.getElementById('quiz-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const resultsHeader = document.getElementById('results-header');
+        const scoreEl = document.getElementById('score');
+
+        /**
+         * Carrega e renderiza as questões na página.
+         */
+        function loadQuiz() {
+            let quizHTML = '';
+
+            quizData.forEach((item, index) => {
+                // Monta o HTML para as opções
+                const optionsHTML = item.options.map(option => `
+                    <div>
+                        <label class="option-label flex items-start p-4 rounded-lg border border-gray-300 cursor-pointer hover:bg-gray-50 transition-colors" for="${item.id}-${option.value}">
+                            <input type="radio" name="${item.id}" id="${item.id}-${option.value}" value="${option.value}" class="mt-1 mr-3 flex-shrink-0">
+                            <span class="flex-1">${option.text}</span>
+                        </label>
+                    </div>
+                `).join('');
+
+                // Monta o HTML para a questão inteira
+                quizHTML += `
+                    <div class="question-block bg-white p-6 rounded-lg shadow-sm border border-gray-200" id="block-${item.id}">
+                        <p class="text-lg mb-5 leading-relaxed font-medium">
+                            <strong class="text-blue-800">Questão ${index + 1}:</strong> ${item.question}
+                        </p>
+                        <div class="space-y-3">
+                            ${optionsHTML}
+                        </div>
+                        <!-- Container da Resolução (escondido) -->
+                        <div id="resolution-${item.id}" class="resolution-container hidden mt-6 p-4 bg-gray-100 border-t border-gray-200 rounded-b-lg prose prose-sm max-w-none leading-relaxed">
+                            <!-- A resolução será injetada aqui -->
+                        </div>
+                    </div>
+                `;
+            });
+
+            quizContainer.innerHTML = quizHTML;
+        }
+
+        /**
+         * Verifica as respostas, calcula o score e exibe as resoluções.
+         */
+        function checkAnswers(event) {
+            event.preventDefault(); // Impede o envio do formulário
+
+            let score = 0;
+
+            quizData.forEach((item, index) => {
+                const radios = document.querySelectorAll(`input[name="${item.id}"]`);
+                const selected = document.querySelector(`input[name="${item.id}"]:checked`);
+                const resolutionEl = document.getElementById(`resolution-${item.id}`);
+                const blockEl = document.getElementById(`block-${item.id}`);
+
+                let userAnswer = null;
+
+                // Desabilita todos os rádios e encontra a label
+                radios.forEach(radio => {
+                    radio.disabled = true;
+                    const label = radio.closest('.option-label');
+                    if (radio.checked) {
+                        userAnswer = radio.value;
+                    }
+                    // Limpa classes anteriores (caso haja Múltiplas tentativas, embora aqui não haja)
+                    label.classList.remove('correct', 'incorrect', 'skipped');
+                });
+                
+                // Pega a label da resposta correta
+                const correctLabel = document.getElementById(`${item.id}-${item.correct}`).closest('.option-label');
+
+                if (!selected) {
+                    // Usuário não respondeu
+                    blockEl.classList.add('skipped'); // Adiciona um estilo ao bloco
+                    correctLabel.classList.add('correct'); // Mostra a correta
+                } else if (userAnswer === item.correct) {
+                    // Resposta Correta
+                    score++;
+                    selected.closest('.option-label').classList.add('correct');
+                } else {
+                    // Resposta Incorreta
+                    selected.closest('.option-label').classList.add('incorrect');
+                    correctLabel.classList.add('correct');
+                }
+
+                // Preenche e exibe a resolução
+                resolutionEl.innerHTML = `
+                    <h4 class="text-lg font-semibold mb-3 text-blue-800">Resolução Comentada (Q.${index + 1})</h4>
+                    ${item.resolution}
+                `;
+                resolutionEl.classList.remove('hidden');
+            });
+
+            // Exibe o score final
+            scoreEl.textContent = `${score} de ${quizData.length}`;
+            resultsHeader.classList.remove('hidden');
+
+            // Esconde o botão de submissão
+            submitBtn.classList.add('hidden');
+
+            // Rola para o topo dos resultados
+            resultsHeader.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- INICIALIZAÇÃO ---
+        
+        // Carrega o quiz quando a página estiver pronta
+        document.addEventListener('DOMContentLoaded', loadQuiz);
+
+        // Adiciona o listener para o botão de submissão
+        quizForm.addEventListener('submit', checkAnswers);
+
+    </script>
+</body>
+</html>

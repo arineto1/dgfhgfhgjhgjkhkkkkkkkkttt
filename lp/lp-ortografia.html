@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo de Ortografia para Concurso</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Define a fonte Inter como padrão, conforme solicitado */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Estilo para a Tabela e Células */
+        th, td {
+            vertical-align: top;
+            padding: 12px 16px;
+        }
+        /* Estilo do Marca-Texto Suave (Amarelo 100 do Tailwind: #fef9c3) */
+        strong {
+            font-weight: 600;
+            color: #111827; /* Cor da letra escura */
+            background-color: #fef9c3; /* Amarelo muito suave, excelente para leitura */
+            padding: 2px 4px;
+            border-radius: 4px;
+            /* Garante que o fundo cubra bem a linha */
+            line-height: 2; 
+            box-decoration-break: clone;
+            -webkit-box-decoration-break: clone;
+        }
+        /* Ajuste para garantir que o link do botão não perca o estilo */
+        a strong {
+            background-color: transparent; 
+            color: inherit;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800 font-sans leading-relaxed">
+
+    <!-- Container Principal -->
+    <div class="max-w-6xl mx-auto p-4 sm:p-6 md:p-10">
+
+        <!-- Título Principal -->
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">
+            Resumo Focado: Ortografia Oficial (Foco: Instituto AOCP)
+        </h1>
+
+        <!-- Reprodutor de Áudio MP3 -->
+        <div class="mb-10 p-4 bg-gray-50 border border-gray-200 rounded-lg shadow-sm">
+            <label for="audio-player" class="block text-sm font-medium text-gray-700 mb-2">
+                Áudio da Aula (substitua o valor 'src' pelo seu arquivo .mp3 local):
+            </label>
+            <audio id="audio-player" controls class="w-full">
+                <!-- IMPORTANTE: Troque 'SEU_ARQUIVO_MP3_AQUI.mp3' pelo nome do seu arquivo -->
+                <source src="lp-ortografia.mp3" type="audio/mpeg">
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
+        </div>
+
+        <!-- Seção 1: Acentuação Gráfica -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 pb-2 border-b border-gray-200">
+                1. Acentuação Gráfica: O que Mudou e o que Permanece
+            </h2>
+            <!-- Wrapper para responsividade da tabela -->
+            <div class="overflow-x-auto border border-gray-200 rounded-lg shadow-sm">
+                <table class="w-full min-w-[800px] text-sm text-left text-gray-700">
+                    <thead class="bg-gray-50 text-xs uppercase text-gray-600">
+                        <tr>
+                            <th scope="col" class="p-4">Tópico</th>
+                            <th scope="col" class="p-4">Regra</th>
+                            <th scope="col" class="p-4">Exemplos (Como era &rightarrow; Como ficou)</th>
+                            <th scope="col" class="p-4">Alerta (O que NÃO Mudou)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr>
+                            <td class="p-4"><strong>Ditongos Abertos (ÉI / ÓI)</strong></td>
+                            <td class="p-4">Perdeu o acento em palavras <strong>PAROXÍTONAS</strong>.</td>
+                            <td class="p-4">id<strong>éia</strong> &rightarrow; id<strong>eia</strong> <br> jib<strong>óia</strong> &rightarrow; jib<strong>oia</strong></td>
+                            <td class="p-4"><strong>Oxítonas</strong> (her<strong>ói</strong>, past<strong>éis</strong>) e <strong>Monossílabos</strong> (c<strong>éu</strong>, r<strong>éis</strong>) <strong>mantêm o acento</strong>.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4"><strong>Hiatos (I / U)</strong></td>
+                            <td class="p-4">Perdeu o acento em <strong>PAROXÍTONAS</strong> quando precedido de ditongo.</td>
+                            <td class="p-4">Fei<strong>ú</strong>ra &rightarrow; Fei<strong>u</strong>ra <br> Bai<strong>ú</strong>ca &rightarrow; Bai<strong>u</strong>ca</td>
+                            <td class="p-4"><strong>Oxítonas</strong> (Piau<strong>í</strong>, Tuiui<strong>ú</strong>) mantêm o acento.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4"><strong>Hiatos Repetidos (OO / EEM)</strong></td>
+                            <td class="p-4">Perdeu o acento circunflexo. (Exceção: <strong>*Vêem*</strong> e <strong>*Lêem*</strong>, que são verbos, perderam.)</td>
+                            <td class="p-4">v<strong>ôo</strong> &rightarrow; v<strong>oo</strong> <br> (eles) l<strong>êem</strong> &rightarrow; (eles) l<strong>eem</strong> <br> (eles) cr<strong>êem</strong> &rightarrow; (eles) cr<strong>eem</strong> <br> (eles) v<strong>êem</strong> &rightarrow; (eles) v<strong>eem</strong></td>
+                            <td class="p-4"></td>
+                        </tr>
+                        <tr>
+                            <td class="p-4" rowspan="2"><strong>Acentos Diferenciais (Verbos)</strong></td>
+                            <td class="p-4">Singular vs. Plural (Verbos 'Ter' e 'Vir')</td>
+                            <td class="p-4"><strong>TEM</strong> (Singular) <br> <strong>TÊM</strong> (Plural) <br> <strong>VEM</strong> (Singular) <br> <strong>VÊM</strong> (Plural)</td>
+                            <td class="p-4"><strong>Regra Mantida</strong> para diferenciar número. O IFPB <i>tem</i> servidores. Os IFs <i>têm</i> servidores.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4">Derivados (Manter, Conter, etc.)</td>
+                            <td class="p-4">Singular (Oxítona) = Acento <strong>Agudo</strong> <br> Plural = Acento <strong>Circunflexo</strong></td>
+                            <td class="p-4">Ele mant<strong>ém</strong> <br> Eles mant<strong>êm</strong> <br> Ele conv<strong>ém</strong> <br> Eles conv<strong>êm</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="p-4"><strong>Acentos Diferenciais (Obrigatórios)</strong></td>
+                            <td class="p-4">Mantiveram-se para diferenciar classes ou tempos verbais.</td>
+                            <td class="p-4"><strong>PÔDE</strong> (Verbo "poder" no Passado) <br> <strong>PODE</strong> (Verbo "poder" no Presente) <br><br> <strong>PÔR</strong> (Verbo "colocar") <br> <strong>POR</strong> (Preposição)</td>
+                            <td class="p-4"><strong>ATENÇÃO:</strong> O acento em <strong>PÉLO / PELA</strong> e <strong>PÁRA / PARA</strong> <strong>FOI ABOLIDO</strong>.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Seção 2: O Uso do Hífen -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 pb-2 border-b border-gray-200">
+                2. O Uso do Hífen: Regras Essenciais
+            </h2>
+            <div class="overflow-x-auto border border-gray-200 rounded-lg shadow-sm">
+                <table class="w-full min-w-[800px] text-sm text-left text-gray-700">
+                    <thead class="bg-gray-50 text-xs uppercase text-gray-600">
+                        <tr>
+                            <th scope="col" class="p-4">Caso de Uso</th>
+                            <th scope="col" class="p-4">Regra</th>
+                            <th scope="col" class="p-4">Exemplos</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr>
+                            <td class="p-4"><strong>Vogais Iguais</strong></td>
+                            <td class="p-4"><strong>SEMPRE</strong> usa-se o hífen.</td>
+                            <td class="p-4"><strong>micro-ondas</strong> <br> <strong>anti-inflacionário</strong> <br> contra-atacar</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4"><strong>Vogais Diferentes</strong></td>
+                            <td class="p-4"><strong>Junta-se</strong>, sem hífen (regra geral).</td>
+                            <td class="p-4"><strong>autoescola</strong> <br> <strong>antiaéreo</strong> <br> intermunicipal</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4"><strong>Vogal + R ou S</strong></td>
+                            <td class="p-4">Tira o hífen e <strong>DOBRA-SE o R/S</strong>.</td>
+                            <td class="p-4"><strong>antissocial</strong> <br> <strong>antirracismo</strong> <br> ultrassom</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4"><strong>Prefixos Tônicos (Acentuados)</strong></td>
+                            <td class="p-4"><strong>Sempre</strong> usam hífen.</td>
+                            <td class="p-4"><strong>pós-graduação</strong> <br> <strong>pré-sal</strong> <br> <strong>pró-africano</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="p-4"><strong>Prefixos (Exceções e Outros)</strong></td>
+                            <td class="p-4">O prefixo <i>co-</i> geralmente <strong>se junta</strong> (coordenar). <br> <i>Sub-</i> usa hífen antes de <strong>R</strong> ou <strong>B</strong>. <br> <i>Vice-, Ex-, Sem-, Além-, Recém-</i> <strong>sempre</strong> usam hífen.</td>
+                            <td class="p-4"><i>coordenar</i>, <i>cooperar</i> <br> <i>sub-região</i>, <i>sub-bibliotecário</i> <br> <i>vice-presidente</i></td>
+                        </tr>
+                        <tr>
+                            <td class="p-4"><strong>Locuções</strong></td>
+                            <td class="p-4">Perderam o hífen (regra geral).</td>
+                            <td class="p-4">dia a dia <br> fim de semana <br> café com leite</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4"><strong>Exceções (Consagradas)</strong></td>
+                            <td class="p-4">Palavras que se aglutinaram e perderam o hífen.</td>
+                            <td class="p-4"><strong>mandachuva</strong> <br> <strong>paraquedas</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <!-- Seção 6: O Trema e o KWY (Adicionado) -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 pb-2 border-b border-gray-200">
+                3. Mudanças Radicais: Trema e Alfabeto
+            </h2>
+            <div class="overflow-x-auto border border-gray-200 rounded-lg shadow-sm">
+                <table class="w-full min-w-[800px] text-sm text-left text-gray-700">
+                    <thead class="bg-gray-50 text-xs uppercase text-gray-600">
+                        <tr>
+                            <th scope="col" class="p-4">Tópico</th>
+                            <th scope="col" class="p-4">Regra Oficial</th>
+                            <th scope="col" class="p-4">Exemplos</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr>
+                            <td class="p-4"><strong>Abolição do Trema</strong></td>
+                            <td class="p-4">O trema (¨) <strong>FOI ABOLIDO</strong> em todas as palavras portuguesas.</td>
+                            <td class="p-4">liq<strong>ü</strong>ido &rightarrow; liq<strong>ui</strong>do <br> sag<strong>üi</strong> &rightarrow; sag<strong>ui</strong> <br> conseq<strong>üê</strong>ncia &rightarrow; conseq<strong>uê</strong>ncia</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4"><strong>Exceção do Trema</strong></td>
+                            <td class="p-4">O trema é <strong>mantido apenas em nomes próprios e derivados de origem estrangeira</strong>.</td>
+                            <td class="p-4">Gisele Bündchen <br> Müller (sobrenome)</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4"><strong>Inclusão K, W, Y</strong></td>
+                            <td class="p-4">As letras <strong>K, W e Y</strong> passaram a integrar o alfabeto oficial do português, totalizando 26 letras.</td>
+                            <td class="p-4">Usadas em nomes próprios, símbolos (Km, W), unidades de medida e estrangeirismos não adaptados.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Seção 3: Homófonos e Parônimos (Antiga Seção 3) -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 pb-2 border-b border-gray-200">
+                4. Homófonos e Parônimos: O "Bizu" da Substituição
+            </h2>
+            <div class="overflow-x-auto border border-gray-200 rounded-lg shadow-sm">
+                <table class="w-full min-w-[800px] text-sm text-left text-gray-700">
+                    <thead class="bg-gray-50 text-xs uppercase text-gray-600">
+                        <tr>
+                            <th scope="col" class="p-4">Par</th>
+                            <th scope="col" class="p-4">Mnemônico (Bizu) / Regra</th>
+                            <th scope="col" class="p-4">Exemplos</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr>
+                            <td class="p-4"><strong>Mal vs. Mau</strong></td>
+                            <td class="p-4"><strong>MAU</strong> (com U) &leftrightarrow; <strong>BOM</strong> (Adjetivo) <br> <strong>MAL</strong> (com L) &leftrightarrow; <strong>BEM</strong> (Advérbio / Substantivo)</td>
+                            <td class="p-4">O <i>mau</i> (bom) aluno. <br> Ele se comportou <i>mal</i> (bem). <br> O <i>mal</i> (bem) da sociedade.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4"><strong>Sessão vs. Seção vs. Cessão</strong></td>
+                            <td class="p-4"><strong>SESSÃO</strong> (S+SS) = <strong>Tempo</strong> (Sessão de cinema) <br> <strong>SEÇÃO</strong> (S+Ç) = <strong>Divisão</strong> / Departamento (Seção de RH) <br> <strong>CESSÃO</strong> (C+SS) = Ato de <strong>CEDER</strong> / Doar</td>
+                            <td class="p-4"><i>Sessão</i> de cinema <br> <i>Seção</i> de informática <br> <i>Cessão</i> de direitos autorais</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4"><strong>Onde vs. Aonde</strong></td>
+                            <td class="p-4"><strong>ONDE</strong> = Lugar Fixo ("Em que lugar") <br> <strong>AONDE</strong> = <strong>Movimento</strong> / Direção ("A que lugar")</td>
+                            <td class="p-4"><i>Onde</i> você está? <br> <i>Aonde</i> você vai? (Verbo <i>Ir</i> indica movimento)</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4"><strong>A vs. Há</strong></td>
+                            <td class="p-4"><strong>HÁ</strong> (Verbo Haver) = Tempo <strong>Passado</strong> (substitui <i>Faz</i>) <br> <strong>A</strong> (Preposição) = Tempo <strong>Futuro</strong> ou Distância</td>
+                            <td class="p-4"><i>Há</i> (Faz) duas horas que ele saiu. <br> Ele sairá daqui <i>a</i> duas horas.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Seção 4: Os Quatro "Porquês" -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 pb-2 border-b border-gray-200">
+                5. Os Quatro "Porquês": Foco na Substituição
+            </h2>
+            <div class="overflow-x-auto border border-gray-200 rounded-lg shadow-sm">
+                <table class="w-full min-w-[800px] text-sm text-left text-gray-700">
+                    <thead class="bg-gray-50 text-xs uppercase text-gray-600">
+                        <tr>
+                            <th scope="col" class="p-4">Grafia</th>
+                            <th scope="col" class="p-4">Uso (Bizu de Substituição)</th>
+                            <th scope="col" class="p-4">Exemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr>
+                            <td class="p-4"><strong>POR QUE</strong> (Separado)</td>
+                            <td class="p-4">Em perguntas (diretas ou indiretas). <br> Substitui por: <strong>"Por qual motivo?"</strong> <br> Conjunção/Pronome: Substitui por: <strong>"Pelo qual"</strong></td>
+                            <td class="p-4"><i>Por que</i> você não veio? <br> Não sei <i>por que</i> você não veio. <br> O caminho <i>por que</i> passei... (pelo qual)</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4"><strong>PORQUÊ</strong> (Junto, com acento)</td>
+                            <td class="p-4">É um <strong>SUBSTANTIVO</strong> (vem com artigo "o", "um"). <br> Substitui por: <strong>"O motivo"</strong>, <strong>"A razão"</strong></td>
+                            <td class="p-4">Eu não sei <i>o porquê</i> da sua raiva.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4"><strong>PORQUE</strong> (Junto)</td>
+                            <td class="p-4">Em <strong>RESPOSTAS</strong>, explicações, causa. <br> Substitui por: <strong>"Pois"</strong>, <strong>"Visto que"</strong></td>
+                            <td class="p-4">Não fui <i>porque</i> (pois) choveu.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4"><strong>POR QUÊ</strong> (Separado, com acento)</td>
+                            <td class="p-4">Usado <strong>ANTES DE PONTUAÇÃO</strong> (fim de frase). <br> É o mesmo "por qual motivo", mas tônico.</td>
+                            <td class="p-4">Você não veio <i>por quê</i>? <br> Ele está rindo sem saber <i>por quê</i>.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Seção 5: Emprego de Letras -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 pb-2 border-b border-gray-200">
+                6. Emprego de Letras (S/Z, G/J, X/CH)
+            </h2>
+            <div class="overflow-x-auto border border-gray-200 rounded-lg shadow-sm">
+                <table class="w-full min-w-[800px] text-sm text-left text-gray-700">
+                    <thead class="bg-gray-50 text-xs uppercase text-gray-600">
+                        <tr>
+                            <th scope="col" class="p-4">Dúvida</th>
+                            <th scope="col" class="p-4">Regra / Bizu</th>
+                            <th scope="col" class="p-4">Exemplos</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr>
+                            <td class="p-4"><strong>-ISAR vs. -IZAR</strong></td>
+                            <td class="p-4"><strong>-ISAR</strong> (com S): A palavra raiz <strong>TEM "S"</strong>. <br> <strong>-IZAR</strong> (com Z): A palavra raiz <strong>NÃO TEM "S"</strong>.</td>
+                            <td class="p-4">Anál<strong>is</strong>e &rightarrow; Anal<strong>is</strong>ar <br> Pesqu<strong>is</strong>a &rightarrow; Pesqu<strong>is</strong>ar <br> Atual &rightarrow; Atual<strong>iz</strong>ar <br> Civil &rightarrow; Civil<strong>iz</strong>ar</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4"><strong>-ESA vs. -EZA</strong></td>
+                            <td class="p-4"><strong>-ESA</strong> (com S): <strong>Nacionalidade</strong>, Título. <br> <strong>-EZA</strong> (com Z): <strong>Substantivo Abstrato</strong> (de Adjetivo).</td>
+                            <td class="p-4">Francês, Inglesa, Burguesa <br> Belo &rightarrow; Bel<strong>eza</strong> <br> Pobre &rightarrow; Pobr<strong>eza</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="p-4"><strong>G vs. J (Viagem)</strong></td>
+                            <td class="p-4">O <strong>Substantivo</strong> (o ato) é com <strong>G</strong>. <br> O <strong>Verbo</strong> (a ação) é com <strong>J</strong>.</td>
+                            <td class="p-4">A via<strong>g</strong>em (subst.) foi boa. <br> Espero que eles via<strong>j</strong>em (verbo) bem.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4"><strong>X vs. CH (Regras)</strong></td>
+                            <td class="p-4"><strong>Usa-se X:</strong> <br> 1. Após <strong>Ditongo</strong> (ex: ai, ei) <br> 2. Após a sílaba inicial <strong>"EN-"</strong> <br> 3. Após a sílaba inicial <strong>"ME-"</strong></td>
+                            <td class="p-4">1. C<strong>ai</strong>xa, F<strong>ei</strong>xo <br> 2. <strong>En</strong>xada, <strong>En</strong>xame <br> 3. <strong>Me</strong>xer, <strong>Me</strong>xilhão</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4"><strong>X vs. CH (Exceção)</strong></td>
+                            <td class="p-4">O verbo <strong>ENCHER</strong> e seus derivados.</td>
+                            <td class="p-4"><strong>Encher</strong> (com CH) <br> En<strong>ch</strong>ente, Preen<strong>ch</strong>er, En<strong>ch</strong>imento</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Botão de Questões -->
+        <div class="text-center mt-12 mb-6">
+            <a href="lp-ortografiaquestoes.html" 
+               class="inline-block bg-blue-600 text-white font-bold py-3 px-10 rounded-lg shadow-lg hover:bg-blue-700 transition-colors duration-200 text-lg">
+                Ir para Questões
+            </a>
+        </div>
+
+    </div> <!-- Fim do Container Principal -->
+
+</body>
+</html>
