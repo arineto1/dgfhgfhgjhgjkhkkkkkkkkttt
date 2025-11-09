@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Lei 11.892/2008 (AOCP)</title>
+    <!-- Carregando Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Importando a fonte Inter para uma melhor legibilidade -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Estilo base para um layout de leitura agradável */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f7f6; /* Fundo claro (cinza muito sutil) */
+            color: #1a202c; /* Texto escuro */
+        }
+        /* Melhora o foco nos inputs de rádio */
+        input[type="radio"]:focus {
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.4);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Container principal com largura máxima para legibilidade -->
+    <div class="container mx-auto max-w-4xl p-4 sm:p-8">
+        
+        <!-- Cartão principal do Quiz -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div class="p-6 sm:p-10">
+                <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">
+                    Quiz: Lei nº 11.892/2008 (Estilo AOCP)
+                </h1>
+
+                <!-- Formulário do Quiz -->
+                <form id="quizForm">
+                    <!-- As questões serão inseridas aqui via JavaScript -->
+                    <div id="questionsContainer"></div>
+                    
+                    <!-- Botão de Submissão -->
+                    <button type="submit" class="w-full bg-blue-600 text-white font-bold py-4 px-6 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition-all duration-200 text-lg mt-10">
+                        Finalizar Quiz e Ver Resultados
+                    </button>
+                </form>
+
+                <!-- Container dos Resultados (inicialmente oculto) -->
+                <div id="resultsContainer" class="hidden mt-12">
+                    <h2 class="text-3xl font-bold text-center text-gray-800 mb-4">Seu Resultado</h2>
+                    <div id="score" class="text-5xl font-extrabold text-center text-blue-600 mb-10"></div>
+                    
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">
+                        Gabarito e Resoluções
+                    </h3>
+                    
+                    <!-- As resoluções serão inseridas aqui via JavaScript -->
+                    <div id="resolutionsContainer"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Definição dos Dados do Quiz ---
+        // Os dados são extraídos exatamente do documento fornecido.
+        const quizData = [
+            {
+                id: "q1",
+                question: "Nos termos da Lei nº 11.892/2008, que dispõe sobre a gestão dos Institutos Federais, analise os seguintes perfis de candidatos ao cargo de Reitor e assinale a alternativa que apresenta um candidato apto:",
+                options: [
+                    { key: "A", text: "Docente da carreira EBTT, possuidor do título de Doutor, com 4 (quatro) anos de efetivo exercício em instituição federal de educação profissional e tecnológica." },
+                    { key: "B", text: "Servidor Técnico-Administrativo em Educação, ocupante de cargo de Nível Médio (Classe C), com 15 (quinze) anos de efetivo exercício na instituição." },
+                    { key: "C", text: "Docente da carreira EBTT, posicionado na Classe D IV, com 10 (dez) anos de efetivo exercício em instituição federal de educação profissional e tecnológica, sem título de Doutor." },
+                    { key: "D", text: "Servidor Técnico-Administrativo em Educação, ocupante de cargo de Nível Superior (Classe E), possuidor do título de Mestre, com 5 (cinco) anos de efetivo exercício na instituição." },
+                    { key: "E", text: "Docente da carreira EBTT, possuidor do título de Doutor, com 2 (dois) anos de efetivo exercício na instituição e 5 (cinco) anos de serviço público federal em outra autarquia (não educacional)." }
+                ],
+                correctAnswer: "C",
+                resolution: `
+                    <p class="font-semibold mb-2">Gabarito: C</p>
+                    <p class="mb-2"><b>Fundamentação Legal:</b> A resposta correta exige a análise literal do Art. 12, § 1º, da Lei nº 11.892/2008.[1]</p>
+                    <p class="mb-2"><b>Art. 12.</b> [...]<br><b>§ 1º</b> Poderão candidatar-se ao cargo de Reitor os servidores ocupantes de cargo efetivo da carreira docente ou de cargo efetivo de nível superior da carreira dos técnico-administrativos [...], desde que possuam o <b>mínimo de 5 (cinco) anos de efetivo exercício</b> em instituição federal de educação profissional e tecnológica e que atendam a, pelo menos, <b>um</b> dos seguintes requisitos:<br><b>I -</b> possuir o <b>título de doutor</b>; ou<br><b>II -</b> estar posicionado nas <b>Classes D IV ou D V</b> da Carreira do Magistério do Ensino Básico, Técnico e Tecnológico, ou na Classe de Professor Associado da Carreira do Magistério Superior.</p>
+                    <p><b>Análise das Alternativas:</b><br>
+                    (A) Incorreta. O candidato possui o título de Doutor, mas tem apenas 4 (quatro) anos de exercício, não cumprindo o requisito mínimo de 5 (cinco) anos.[1]<br>
+                    (B) Incorreta. O candidato é Técnico-Administrativo de Nível Médio. A lei exige que o servidor técnico-administrativo ocupe cargo de "nível superior".[1]<br>
+                    (C) Correta. O candidato é Docente (cumpre o requisito de cargo), possui 10 (dez) anos de exercício (cumpre o requisito de 5 anos) e, embora não seja Doutor (requisito I), ele atende ao requisito alternativo (II), pois está posicionado na Classe D IV.[1]<br>
+                    (D) Incorreta. O candidato é Técnico de Nível Superior e tem 5 anos de exercício. Contudo, ele é Mestre, e não Doutor. O título de Mestre não atende ao inciso I (Doutor), e o inciso II (Classes de carreira) aplica-se apenas à carreira docente, não sendo uma opção para o técnico-administrativo.[1]<br>
+                    (E) Incorreta. O requisito de 5 (cinco) anos de efetivo exercício deve ser "em instituição federal de educação profissional e tecnológica".[1] O candidato possui apenas 2 (dois) anos de exercício nessas instituições; o tempo de serviço em outra autarquia não é válido para este fim.</p>
+                `
+            },
+            {
+                id: "q2",
+                question: "De acordo com o Art. 10 da Lei nº 11.892/2008, a administração dos Institutos Federais terá como órgãos superiores o Colégio de Dirigentes e o Conselho Superior. Sobre o caráter desses órgãos, é correto afirmar que:",
+                options: [
+                    { key: "A", text: "ambos são de caráter consultivo e deliberativo." },
+                    { key: "B", text: "o Conselho Superior é de caráter exclusivamente consultivo, e o Colégio de Dirigentes é de caráter deliberativo." },
+                    { key: "C", text: "ambos são de caráter exclusivamente consultivo." },
+                    { key: "D", text: "o Conselho Superior é de caráter consultivo e deliberativo, e o Colégio de Dirigentes é de caráter consultivo." },
+                    { key: "E", text: "ambos são de caráter exclusivamente deliberativo." }
+                ],
+                correctAnswer: "D",
+                resolution: `
+                    <p class="font-semibold mb-2">Gabarito: D</p>
+                    <p class="mb-2"><b>Fundamentação Legal:</b> A resposta se encontra na literalidade do Art. 10, parágrafos 2º e 3º, da Lei nº 11.892/2008.[2]</p>
+                    <p class="mb-2"><b>Art. 10.</b> [...]<br><b>§ 2º</b> O Colégio de Dirigentes, de <b>caráter consultivo</b>, será composto pelo Reitor, pelos Pró-Reitores e pelo Diretor-Geral de cada um dos <i>campi</i> que integram o Instituto Federal.<br><b>§ 3º</b> O Conselho Superior, de <b>caráter consultivo e deliberativo</b>, será composto por representantes dos docentes, dos estudantes, dos servidores técnico-administrativos, dos egressos da instituição, da sociedade civil, do Ministério da Educação e do Colégio de Dirigentes do Instituto Federal [...].</p>
+                    <p><b>Análise das Alternativas:</b><br>
+                    (D) Correta. A alternativa descreve exatamente o texto da lei: o Conselho Superior possui caráter "consultivo e deliberativo" (§ 3º), e o Colégio de Dirigentes possui caráter "consultivo" (§ 2º).[2]<br>
+                    (A), (B), (C), (E) Incorretas. As demais alternativas fazem combinações equivocadas dos termos "consultivo" e "deliberativo", contrariando o texto legal.</p>
+                `
+            },
+            {
+                id: "q3",
+                question: "A Lei nº 11.892/2008 estabelece, em seu Art. 8º, que o Instituto Federal, no desenvolvimento de sua ação acadêmica, deverá garantir mínimos percentuais de suas vagas para determinados níveis de ensino. Assinale a alternativa que apresenta corretamente esses mínimos.",
+                options: [
+                    { key: "A", text: "50% (cinquenta por cento) para cursos de graduação (bacharelado e superiores de tecnologia) e 20% (vinte por cento) para cursos técnicos de nível médio." },
+                    { key: "B", text: "50% (cinquenta por cento) para cursos de formação inicial e continuada de trabalhadores e 20% (vinte por cento) para cursos de licenciatura." },
+                    { key: "C", text: "50% (cinquenta por cento) para cursos técnicos de nível médio e 20% (vinte por cento) para cursos de licenciatura." },
+                    { key: "D", text: "60% (sessenta por cento) para cursos técnicos de nível médio e 30% (trinta por cento) para cursos de engenharia." },
+                    { key: "E", text: "50% (cinquenta por cento) para cursos técnicos de nível médio e 20% (vinte por cento) para cursos de pós-graduação <i>stricto sensu</i> (mestrado e doutorado)." }
+                ],
+                correctAnswer: "C",
+                resolution: `
+                    <p class="font-semibold mb-2">Gabarito: C</p>
+                    <p class="mb-2"><b>Fundamentação Legal:</b> A resposta está no Art. 8º, <i>caput</i>, que faz referência direta aos incisos I e VI do Art. 7º.[2]</p>
+                    <p class="mb-2"><b>Art. 8º</b> No desenvolvimento da sua ação acadêmica, o Instituto Federal, em cada exercício, deverá garantir o <b>mínimo de 50% (cinqüenta por cento)</b> de suas vagas para atender aos objetivos definidos no <b>inciso I do caput do art. 7º</b> desta Lei, e o <b>mínimo de 20% (vinte por cento)</b> de suas vagas para atender ao previsto na <b>alínea b do inciso VI do caput do citado art. 7º</b>.</p>
+                    <p class="mb-2"><b>Art. 7º</b> [...]<br><b>I -</b> ministrar <b>educação profissional técnica de nível médio</b> [...];<br>[...]<br><b>VI -</b> ministrar, em nível de educação superior: [...]<br><b>b)</b> cursos de <b>licenciatura</b>, bem como programas especiais de formação pedagógica [...];</p>
+                    <p><b>Análise das Alternativas:</b><br>
+                    (C) Correta. A alternativa associa corretamente os 50% aos cursos técnicos de nível médio (Art. 7º, I) e os 20% aos cursos de licenciatura (Art. 7º, VI, 'b'), conforme exigido pelo Art. 8º.[2]<br>
+                    (A), (B), (D), (E) Incorretas. As demais alternativas erram os percentuais ou os tipos de cursos associados a eles, violando a literalidade do Art. 8º.[2]</p>
+                `
+            },
+            {
+                id: "q4",
+                question: "Conforme o Art. 7º da Lei nº 11.892/2008, são objetivos dos Institutos Federais de Educação, Ciência e Tecnologia, EXCETO:",
+                options: [
+                    { key: "A", text: "ministrar educação profissional técnica de nível médio, prioritariamente na forma de cursos integrados, para os concluintes do ensino fundamental e para o público da educação de jovens e adultos." },
+                    { key: "B", text: "ministrar cursos de pós-graduação <i>stricto sensu</i> de mestrado e doutorado, que contribuam para promover o estabelecimento de bases sólidas em educação, ciência e tecnologia." },
+                    { key: "C", text: "realizar pesquisas aplicadas, estimulando o desenvolvimento de soluções técnicas e tecnológicas, estendendo seus benefícios à comunidade." },
+                    { key: "D", text: "atuar como instituição acreditadora e certificadora de competências profissionais." },
+                    { key: "E", text: "supervisionar e avaliar, em regime de colaboração com os sistemas de ensino estaduais, as instituições privadas de educação profissional e tecnológica em sua área de atuação regional." }
+                ],
+                correctAnswer: "E",
+                resolution: `
+                    <p class="font-semibold mb-2">Gabarito: E</p>
+                    <p class="mb-2"><b>Fundamentação Legal:</b> A questão exige a identificação de uma atribuição que <i>não</i> consta no rol de objetivos do Art. 7º da Lei nº 11.892/2008.[2]</p>
+                    <p><b>Análise das Alternativas:</b><br>
+                    (A) Correta. É um objetivo, conforme Art. 7º, inciso I.[2]<br>
+                    (B) Correta. É um objetivo, conforme Art. 7º, inciso VI, alínea 'e'.[2]<br>
+                    (C) Correta. É um objetivo, conforme Art. 7º, inciso III.[2]<br>
+                    (D) Correta. É um objetivo, conforme Art. 7º, inciso V.[3]<br>
+                    (E) Incorreta. Esta atribuição ("supervisionar e avaliar [...] instituições privadas") não está listada entre os objetivos dos Institutos Federais no Art. 7º. As funções de supervisão e avaliação do sistema de ensino são de competência de outros órgãos (como o MEC e os Conselhos de Educação), não sendo um objetivo direto dos IFs em relação a instituições privadas.</p>
+                `
+            },
+            {
+                id: "q5",
+                question: "Nos termos do Art. 10 da Lei nº 11.892/2008, o Colégio de Dirigentes, órgão superior de caráter consultivo dos Institutos Federais, será composto:",
+                options: [
+                    { key: "A", text: "pelo Reitor, pelos Pró-Reitores e pelo Diretor-Geral de cada um dos <i>campi</i> que integram o Instituto Federal." },
+                    { key: "B", text: "pelo Reitor e por representantes dos docentes, dos estudantes, dos servidores técnico-administrativos e dos egressos." },
+                    { key: "C", text: "pelo Reitor, por representantes do Ministério da Educação e por representantes da sociedade civil." },
+                    { key: "D", text: "pelos Pró-Reitores e por representantes dos egressos da instituição, assegurada a representação paritária." },
+                    { key: "E", text: "pelo Reitor, pelos Diretores-Gerais dos <i>campi</i> e por um representante discente de cada <i>campus</i>." }
+                ],
+                correctAnswer: "A",
+                resolution: `
+                    <p class="font-semibold mb-2">Gabarito: A</p>
+                    <p class="mb-2"><b>Fundamentação Legal:</b> A resposta é a transcrição exata do Art. 10, § 2º, da Lei nº 11.892/2008.[2]</p>
+                    <p class="mb-2"><b>Art. 10.</b> [...]<br><b>§ 2º</b> O Colégio de Dirigentes, de caráter consultivo, será <b>composto pelo Reitor, pelos Pró-Reitores e pelo Diretor-Geral de cada um dos <i>campi</i></b> que integram o Instituto Federal.</p>
+                    <p><b>Análise das Alternativas:</b><br>
+                    (A) Correta. Descreve a composição exata do Colégio de Dirigentes conforme o § 2º do Art. 10.[2]<br>
+                    (B) Incorreta. Esta alternativa confunde a composição do Colégio de Dirigentes com a do Conselho Superior (descrita parcialmente no Art. 10, § 3º).[2]<br>
+                    (C), (D), (E) Incorretas. Apresentam composições que não correspondem ao texto legal.</p>
+                `
+            },
+            {
+                id: "q6",
+                question: "Conforme a Lei nº 11.892/2008, os Reitores dos Institutos Federais são nomeados pelo Presidente da República para um mandato de ______ anos, permitida ______ recondução, após processo de consulta à comunidade escolar em que o peso dos votos de cada segmento (docentes, técnico-administrativos e discentes) será de ______.\n\nAssinale a alternativa que preenche, correta e respectivamente, as lacunas:",
+                options: [
+                    { key: "A", text: "4 (quatro) / uma / 1/3 (um terço)" },
+                    { key: "B", text: "4 (quatro) / duas / 1/3 (um terço)" },
+                    { key: "C", text: "5 (cinco) / uma / peso paritário" },
+                    { key: "D", text: "4 (quatro) / uma / peso proporcional ao número de membros" },
+                    { key: "E", text: "5 (cinco) / vedada / 1/3 (um terço)" }
+                ],
+                correctAnswer: "A",
+                resolution: `
+                    <p class="font-semibold mb-2">Gabarito: A</p>
+                    <p class="mb-2"><b>Fundamentação Legal:</b> A resposta exige a memorização de três informações contidas no <i>caput</i> do Art. 12 da Lei nº 11.892/2008.[1, 4]</p>
+                    <p class="mb-2"><b>Art. 12.</b> Os Reitores são nomeados pelo Presidente da República, para mandato de <b>4 (quatro) anos</b>, permitida <b>uma recondução</b>, após processo de consulta à comunidade escolar, em que o <b>peso dos votos</b> de cada um dos segmentos da comunidade será de <b>1/3 (um terço)</b>.</p>
+                    <p><b>Análise das Alternativas:</b><br>
+                    (A) Correta. Preenche as lacunas com "4 (quatro) anos", "uma" recondução e "1/3 (um terço)", exatamente como no <i>caput</i> do Art. 12.[1]<br>
+                    (B) Incorreta. A lei permite apenas <i>uma</i> recondução, não duas.<br>
+                    (C) Incorreta. O mandato é de 4 anos, não 5, e o peso é de 1/3, não paritário.<br>
+                    (D) Incorreta. O peso é de 1/3 por segmento, não proporcional ao número de membros.<br>
+                    (E) Incorreta. O mandato é de 4 anos, não 5, e a recondução é permitida (uma vez), não vedada.</p>
+                `
+            },
+            {
+                id: "q7",
+                question: "A Lei nº 11.892/2008 define os Institutos Federais de Educação, Ciência e Tecnologia (IFs). Quanto à sua natureza jurídica e autonomia, assinale a alternativa correta.",
+                options: [
+                    { key: "A", text: "São fundações públicas de direito privado, vinculadas ao Ministério da Educação, com autonomia didático-pedagógica." },
+                    { key: "B", text: "São autarquias de regime especial, dotadas de autonomia administrativa, patrimonial, financeira, didático-pedagógica e disciplinar." },
+                    { key: "C", text: "São órgãos da administração direta, subordinados diretamente ao Ministro de Estado da Educação, sem autonomia financeira ou patrimonial." },
+                    { key: "D", text: "São empresas públicas, pluricurriculares e <i>multicampi</i>, com autonomia patrimonial e financeira, mas sem autonomia disciplinar." },
+                    { key: "E", text: "São sociedades de economia mista, com finalidade de ensino e pesquisa, dotadas apenas de autonomia disciplinar e didático-pedagógica." }
+                ],
+                correctAnswer: "B",
+                resolution: `
+                    <p class="font-semibold mb-2">Gabarito: B</p>
+                    <p class="mb-2"><b>Fundamentação Legal:</b> A resposta está na definição dos IFs no Art. 2º da Lei nº 11.892/2008.</p>
+                    <p class="mb-2"><b>Art. 2º</b> Os Institutos Federais são instituições de educação superior, básica e profissional, pluricurriculares e <i>multicampi</i>, [...]<br><b>I -</b> detentores de natureza jurídica de <b>autarquia</b>, vinculados ao Ministério da Educação;<br><b>II -</b> detentores de <b>autonomia administrativa, patrimonial, financeira, didático-pedagógica e disciplinar</b>.<br>Parágrafo único. Para efeito da autonomia referida no inciso II do <i>caput</i> deste artigo, os Institutos Federais são equiparados às universidades federais, sendo-lhes aplicadas [...] as disposições que regem a regulação, avaliação e supervisão das instituições e dos cursos de educação superior.</p>
+                    <p><b>Análise das Alternativas:</b><br>
+                    (B) Correta. A lei define os IFs como "autarquias" (Inciso I) e lhes confere autonomia "administrativa, patrimonial, financeira, didático-pedagógica e disciplinar" (Inciso II). A menção a "regime especial" é justificada pela equiparação às universidades federais (Parágrafo único).[5]<br>
+                    (A) Incorreta. São autarquias, não fundações públicas de direito privado.<br>
+                    (C) Incorreta. São autarquias (administração indireta), não órgãos da administração direta, e possuem autonomia financeira e patrimonial.<br>
+                    (D) Incorreta. São autarquias, não empresas públicas.<br>
+                    (E) Incorreta. São autarquias, não sociedades de economia mista.</p>
+                `
+            },
+            {
+                id: "q8",
+                question: "Dentre as finalidades e características dos Institutos Federais, conforme estabelecido no Art. 6º da Lei nº 11.892/2008, NÃO se inclui:",
+                options: [
+                    { key: "A", text: "ofertar educação profissional e tecnológica, em todos os seus níveis e modalidades, formando e qualificando cidadãos." },
+                    { key: "B", text: "atuar na forma de <i>campus</i> avançado, em articulação com os setores produtivos locais e regionais." },
+                    { key: "C", text: "orientar sua atuação na perspectiva do desenvolvimento socioeconômico local, regional e nacional." },
+                    { key: "D", text: "atuar como instituição <i>unicampus</i>, concentrando a pesquisa aplicada e a extensão tecnológica na unidade sede (Reitoria)." },
+                    { key: "E", text: "qualificar cidadãos com vistas na atuação profissional nos diversos setores da economia, com ênfase no desenvolvimento socioeconômico local." }
+                ],
+                correctAnswer: "D",
+                resolution: `
+                    <p class="font-semibold mb-2">Gabarito: D</p>
+                    <p class="mb-2"><b>Fundamentação Legal:</b> A questão testa o conhecimento das finalidades e características do Art. 6º, exigindo a identificação de uma característica contrária ao texto legal.[6]</p>
+                    <p class="mb-2"><b>Art. 6º</b> Os Institutos Federais têm por finalidades e características:<br><b>I -</b> <b>ofertar educação profissional e tecnológica</b>, em todos os seus níveis e modalidades, <b>formando e qualificando cidadãos</b> com vistas na <b>atuação profissional</b> nos diversos setores da economia, com ênfase no <b>desenvolvimento socioeconômico local, regional e nacional</b>;<br>[...]<br><b>IV -</b> atuação <i><b>multicampi</b></i> [...];</p>
+                    <p><b>Análise das Alternativas:</b><br>
+                    (A) Correta. É uma finalidade, conforme Art. 6º, inciso I.[6]<br>
+                    (B) Correta. O <i>campus</i> avançado é uma forma de atuação que se alinha à característica <i>multicampi</i> (Inciso IV) e à articulação com os setores produtivos (Inciso I).<br>
+                    (C) Correta. É uma finalidade, conforme Art. 6º, inciso I.[6]<br>
+                    (D) Incorreta. Esta alternativa é o oposto do que a lei determina. O Art. 6º, inciso IV, define que os IFs têm como característica a atuação "<i>multicampi</i>", e não <i>unicampus</i>.[5]<br>
+                    (E) Correta. É uma finalidade, conforme Art. 6º, inciso I.[6]</p>
+                `
+            },
+            {
+                id: "q9",
+                question: "O Art. 11 da Lei nº 11.892/2008 dispõe sobre o órgão executivo dos Institutos Federais. Conforme o texto legal, a reitoria é composta por:",
+                options: [
+                    { key: "A", text: "1 (um) Reitor e 3 (três) Pró-Reitores." },
+                    { key: "B", text: "1 (um) Reitor e 5 (cinco) Pró-Reitores." },
+                    { key: "C", text: "1 (um) Reitor e um número de Pró-Reitores a ser definido pelo Estatuto de cada Instituto, garantida a autonomia." },
+                    { key: "D", text: "1 (um) Reitor, 5 (cinco) Pró-Reitores e os Diretores-Gerais dos <i>campi</i>." },
+                    { key: "E", text: "1 (um) Reitor e 1 (um) Vice-Reitor, sendo este nomeado pelo Reitor." }
+                ],
+                correctAnswer: "B",
+                resolution: `
+                    <p class="font-semibold mb-2">Gabarito: B</p>
+                    <p class="mb-2"><b>Fundamentação Legal:</b> A resposta é a transcrição literal do <i>caput</i> do Art. 11 da Lei nº 11.892/2008.[2]</p>
+                    <p class="mb-2"><b>Art. 11.</b> Os Institutos Federais terão como órgão executivo a reitoria, composta por <b>1 (um) Reitor e 5 (cinco) Pró-Reitores</b>.</p>
+                    <p><b>Análise das Alternativas:</b><br>
+                    (B) Correta. A lei é específica e determina exatamente 1 Reitor e 5 Pró-Reitores.[2]<br>
+                    (A) Incorreta. O número de Pró-Reitores é 5, não 3.<br>
+                    (C) Incorreta. A lei não delega essa definição ao Estatuto; ela define o número exato no <i>caput</i> do Art. 11.<br>
+                    (D) Incorreta. Os Diretores-Gerais não compõem a reitoria (órgão executivo), mas sim o Colégio de Dirigentes (órgão superior consultivo), conforme Art. 10, § 2º.[2]<br>
+                    (E) Incorreta. A Lei 11.892/2008 não cria a figura do Vice-Reitor na composição da reitoria.</p>
+                `
+            },
+            {
+                id: "q10",
+                question: "Sobre a escolha do Diretor-Geral dos <i>campi</i> dos Institutos Federais, a Lei nº 11.892/2008 estabelece que:",
+                options: [
+                    { key: "A", text: "serão nomeados e exonerados livremente pelo Reitor, por se tratar de cargo em comissão (CD-2), independentemente de consulta." },
+                    { key: "B", text: "serão nomeados pelo Reitor, para um mandato de 4 (quatro) anos, permitida uma recondução, após processo de consulta à comunidade do respectivo <i>campus</i>." },
+                    { key: "C", text: "serão nomeados pelo Ministro de Estado da Educação, a partir de lista tríplice enviada pelo Conselho Superior do Instituto Federal." },
+                    { key: "D", text: "serão eleitos diretamente pela comunidade do <i>campus</i> para um mandato de 2 (dois) anos, vedada a recondução." },
+                    { key: "E", text: "serão nomeados pelo Reitor, sem necessidade de consulta, para um mandato coincidente com o do Reitor, visando ao alinhamento da gestão." }
+                ],
+                correctAnswer: "B",
+                resolution: `
+                    <p class="font-semibold mb-2">Gabarito: B</p>
+                    <p class="mb-2"><b>Fundamentação Legal:</b> A resposta se baseia no Art. 13 da Lei nº 11.892/2008, que define o processo de escolha dos Diretores-Gerais dos <i>campi</i>.</p>
+                    <p class="mb-2"><b>Art. 13.</b> O dirigente máximo de cada <i>campus</i> dos Institutos Federais será o Diretor-Geral, <b>nomeado pelo Reitor</b>, para um <b>mandato de 4 (quatro) anos</b>, permitida <b>uma recondução</b>, <b>após processo de consulta</b> à comunidade escolar do respectivo <i>campus</i>, na forma da legislação vigente e do estatuto do Instituto Federal.</p>
+                    <p><b>Análise das Alternativas:</b><br>
+                    (B) Correta. A alternativa descreve o processo corretamente: (1) nomeação pelo Reitor, (2) mandato de 4 anos, (3) permitida uma recondução, e (4) <i>após</i> processo de consulta à comunidade do <i>campus</i>.[7, 8]<br>
+                    (A) Incorreta. A nomeação não é "livre", pois está condicionada ao "processo de consulta".<br>
+                    (C) Incorreta. A nomeação é feita pelo Reitor, não pelo Ministro da Educação.<br>
+                    (D) Incorreta. O mandato é de 4 anos (não 2) e é permitida uma recondução (não vedada). Além disso, o processo é de "consulta" seguida de "nomeação", não de "eleição" direta.<br>
+                    (E) Incorreta. Há necessidade de consulta, e o mandato é de 4 anos, não sendo obrigatoriamente coincidente com o do Reitor.</p>
+                `
+            }
+        ];
+
+        // --- Lógica do Quiz ---
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const questionsContainer = document.getElementById('questionsContainer');
+            const quizForm = document.getElementById('quizForm');
+            const resultsContainer = document.getElementById('resultsContainer');
+            const scoreElement = document.getElementById('score');
+            const resolutionsContainer = document.getElementById('resolutionsContainer');
+
+            // 1. Função para exibir as questões
+            function displayQuestions() {
+                quizData.forEach((item, index) => {
+                    // Container para cada questão
+                    const questionBlock = document.createElement('div');
+                    questionBlock.className = 'mb-10 border-b border-gray-200 pb-8';
+                    
+                    // Texto da questão (usando white-space-pre-line para manter quebras de linha)
+                    const questionText = document.createElement('p');
+                    questionText.className = 'text-lg font-semibold text-gray-800 mb-6';
+                    questionText.style.whiteSpace = 'pre-line';
+                    questionText.innerHTML = `<b>${index + 1}.</b> ${item.question}`;
+                    questionBlock.appendChild(questionText);
+
+                    // Container para as opções
+                    const optionsContainer = document.createElement('div');
+                    optionsContainer.className = 'space-y-3';
+
+                    item.options.forEach(option => {
+                        const label = document.createElement('label');
+                        label.className = 'flex items-center p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors duration-200';
+                        
+                        const radioInput = document.createElement('input');
+                        radioInput.type = 'radio';
+                        radioInput.name = item.id;
+                        radioInput.value = option.key;
+                        radioInput.className = 'w-5 h-5 text-blue-600 mr-4 border-gray-400 focus:ring-blue-500';
+                        
+                        const optionText = document.createElement('span');
+                        optionText.className = 'text-base text-gray-700';
+                        optionText.innerHTML = `<b>${option.key})</b> ${option.text}`;
+                        
+                        label.appendChild(radioInput);
+                        label.appendChild(optionText);
+                        optionsContainer.appendChild(label);
+                    });
+
+                    questionBlock.appendChild(optionsContainer);
+                    questionsContainer.appendChild(questionBlock);
+                });
+            }
+
+            // 2. Função para lidar com a submissão do formulário
+            quizForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                
+                let score = 0;
+                const userAnswers = {};
+                const formData = new FormData(quizForm);
+
+                // Calcular pontuação
+                quizData.forEach(item => {
+                    const answer = formData.get(item.id);
+                    userAnswers[item.id] = answer;
+                    if (answer === item.correctAnswer) {
+                        score++;
+                    }
+                });
+
+                // Exibir pontuação
+                scoreElement.textContent = `${score} de ${quizData.length} Acertos`;
+
+                // Exibir resoluções
+                displayResolutions(userAnswers);
+
+                // Ocultar formulário e exibir resultados
+                quizForm.classList.add('hidden');
+                resultsContainer.classList.remove('hidden');
+
+                // Rolar para o topo dos resultados
+                resultsContainer.scrollIntoView({ behavior: 'smooth' });
+            });
+
+            // 3. Função para exibir as resoluções
+            function displayResolutions(userAnswers) {
+                resolutionsContainer.innerHTML = ''; // Limpar container
+
+                quizData.forEach((item, index) => {
+                    const userAnswer = userAnswers[item.id];
+                    
+                    // Container para o bloco de resolução
+                    const resolutionBlock = document.createElement('div');
+                    resolutionBlock.className = 'mb-8 bg-white p-6 rounded-lg shadow-md border border-gray-200';
+                    
+                    // Texto da questão
+                    const questionText = document.createElement('p');
+                    questionText.className = 'text-lg font-semibold text-gray-800 mb-5';
+                    questionText.style.whiteSpace = 'pre-line';
+                    questionText.innerHTML = `<b>${index + 1}.</b> ${item.question}`;
+                    resolutionBlock.appendChild(questionText);
+
+                    // Container das opções (para mostrar certo/errado)
+                    const optionsContainer = document.createElement('div');
+                    optionsContainer.className = 'space-y-3 mb-5';
+
+                    item.options.forEach(option => {
+                        const isCorrect = option.key === item.correctAnswer;
+                        const isUserChoice = option.key === userAnswer;
+                        
+                        let optionClass = 'border-gray-300 bg-gray-50 text-gray-700'; // Padrão
+                        let icon = '';
+
+                        if (isCorrect) {
+                            optionClass = 'border-green-500 bg-green-100 text-green-900 ring-2 ring-green-400';
+                            icon = '<span class="mr-2 font-bold">✔</span>'; // Certo
+                        } else if (isUserChoice) {
+                            optionClass = 'border-red-500 bg-red-100 text-red-900 ring-2 ring-red-400';
+                            icon = '<span class="mr-2 font-bold">✖</span>'; // Errado
+                        }
+
+                        const optionDiv = document.createElement('div');
+                        optionDiv.className = `p-4 border rounded-lg ${optionClass}`;
+                        optionDiv.innerHTML = `${icon}<b>${option.key})</b> ${option.text}`;
+                        
+                        optionsContainer.appendChild(optionDiv);
+                    });
+
+                    resolutionBlock.appendChild(optionsContainer);
+                    
+                    // Container da resolução detalhada
+                    const resolutionDetail = document.createElement('div');
+                    resolutionDetail.className = 'mt-5 p-5 bg-blue-50 border-l-4 border-blue-400 text-gray-700 rounded-r-lg';
+                    // Usando innerHTML para renderizar as tags <b> e <i> da resolução
+                    resolutionDetail.innerHTML = item.resolution; 
+                    
+                    resolutionBlock.appendChild(resolutionDetail);
+                    resolutionsContainer.appendChild(resolutionBlock);
+                });
+            }
+
+            // Iniciar o quiz
+            displayQuestions();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Decreto 5.154/2004 (Estilo AOCP)</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Define a fonte Inter como padrão, que é excelente para leitura */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Estilização customizada para o botão de rádio selecionado */
+        /* Isso melhora a visibilidade da opção escolhida */
+        label:has(input[type="radio"]:checked) {
+            background-color: #eff6ff; /* blue-50 */
+            border-color: #2563eb; /* blue-600 */
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        /* Esconde o botão de rádio original */
+        input[type="radio"] {
+            opacity: 0;
+            width: 0;
+            height: 0;
+            position: absolute;
+        }
+
+        /* Estiliza o span que atua como o botão de rádio customizado */
+        .custom-radio {
+            width: 1.25rem; /* w-5 */
+            height: 1.25rem; /* h-5 */
+            border: 2px solid #9ca3af; /* border-gray-400 */
+            border-radius: 9999px; /* rounded-full */
+            display: inline-block;
+            flex-shrink: 0;
+            margin-right: 0.75rem; /* mr-3 */
+            position: relative;
+            transition: all 0.2s ease-in-out;
+        }
+
+        /* Círculo interno quando selecionado */
+        label:has(input[type="radio"]:checked) .custom-radio::after {
+            content: '';
+            width: 0.75rem; /* w-3 */
+            height: 0.75rem; /* h-3 */
+            background-color: #2563eb; /* bg-blue-600 */
+            border-radius: 9999px; /* rounded-full */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        label:has(input[type="radio"]:checked) .custom-radio {
+             border-color: #2563eb; /* border-blue-600 */
+        }
+    </style>
+    <!-- Importa a fonte Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-900 leading-relaxed">
+
+    <!-- Container Principal -->
+    <div class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+
+        <!-- Título -->
+        <header class="text-center mb-10">
+            <h1 class="text-3xl font-bold text-gray-800">Quiz: Decreto nº 5.154/2004</h1>
+            <p class="text-lg text-gray-600 mt-2">Teste seus conhecimentos no estilo da banca Instituto AOCP</p>
+        </header>
+
+        <!-- Formulário do Quiz -->
+        <form id="quiz-form" class="space-y-8">
+
+            <!-- As questões serão injetadas aqui pelo JavaScript -->
+
+            <!-- Botão de Envio -->
+            <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:bg-blue-700 transition-all duration-200 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                Verificar Respostas
+            </button>
+        </form>
+
+        <!-- Seção de Resultados e Resoluções (oculta por padrão) -->
+        <section id="results-container" class="hidden mt-12">
+            
+            <!-- Sumário dos Resultados -->
+            <div class="bg-white shadow-xl rounded-lg p-6 sm:p-8 text-center mb-10 border border-gray-200">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Seu Resultado</h2>
+                <p id="score-text" class="text-2xl font-semibold text-gray-700"></p>
+                <p id="score-percentage" class="text-5xl font-bold my-4"></p>
+                <div class="w-full bg-gray-200 rounded-full h-4 mt-2">
+                    <div id="score-bar" class="bg-blue-600 h-4 rounded-full transition-all duration-500 ease-out" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- Título das Resoluções -->
+            <h2 class="text-3xl font-bold text-gray-800 text-center mb-8">
+                Resoluções Detalhadas
+            </h2>
+
+            <!-- Container para as Resoluções -->
+            <div id="resolutions-wrapper" class="space-y-8">
+                <!-- As resoluções serão injetadas aqui -->
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // --- BANCO DE DADOS DO QUIZ ---
+        // Contém todas as questões, opções, o gabarito e a resolução detalhada.
+        const quizData = [
+            {
+                id: 'q1',
+                question: "1. (Estilo Instituto AOCP) Conforme o Art. 9º do Decreto nº 5.154, de 23 de julho de 2004, que regulamenta dispositivos da Lei nº 9.394/1996, assinale a alternativa que indica a norma expressamente revogada.",
+                options: {
+                    A: "O Decreto-Lei nº 4.073, de 30 de janeiro de 1942.",
+                    B: "A Lei nº 9.394, de 20 de dezembro de 1996.",
+                    C: "O Decreto nº 2.208, de 17 de abril de 1997.",
+                    D: "A Resolução CNE/CEB nº 1, de 4 de fevereiro de 2004.",
+                    E: "A Lei nº 5.692, de 11 de agosto de 1971."
+                },
+                correct: 'C',
+                resolution: `
+                    <p><strong>Gabarito: C</strong></p>
+                    <p class="mt-2"><strong>Fundamentação:</strong> A alternativa correta é a <strong>C</strong>. O Instituto AOCP exige o conhecimento literal da legislação, incluindo suas disposições finais. O Art. 9º do Decreto nº 5.154/2004 é taxativo: "Revoga-se o Decreto no 2.208, de 17 de abril de 1997".</p>
+                    <p class="mt-4 font-semibold">Análise dos Distratores:</p>
+                    <ul class="list-disc list-inside space-y-1 mt-2 text-gray-700">
+                        <li><strong>A) Incorreta.</strong> O Decreto-Lei nº 4.073/1942 (Lei Orgânica do Ensino Industrial) é uma norma histórica, mas não é a revogada pelo Art. 9º.</li>
+                        <li><strong>B) Incorreta.</strong> A Lei nº 9.394/1996 (LDB) é a lei que o Decreto nº 5.154/2004 <em>regulamenta</em>, conforme seu próprio preâmbulo.</li>
+                        <li><strong>D) Incorreta.</strong> Resoluções CNE são atos normativos infralegais que complementam, mas não são o objeto da revogação do Art. 9º.</li>
+                        <li><strong>E) Incorreta.</strong> A Lei nº 5.692/1971 foi a LDB anterior, revogada pela Lei nº 9.394/1996, não pelo decreto em questão.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 'q2',
+                question: "2. (Estilo Instituto AOCP) O Art. 2º do Decreto nº 5.154/2004 estabelece as premissas que a educação profissional deve observar. Assinale a alternativa que apresenta *incorretamente* uma dessas premissas.",
+                options: {
+                    A: "Organização, por áreas profissionais, em função da estrutura sócio-ocupacional e tecnológica.",
+                    B: "Articulação de esforços das áreas da educação, do trabalho e emprego, e da ciência e tecnologia.",
+                    C: "A centralidade do trabalho como princípio educativo.",
+                    D: "A dissociabilidade entre teoria e prática.",
+                    E: "A indissociabilidade entre teoria e prática."
+                },
+                correct: 'D',
+                resolution: `
+                    <p><strong>Gabarito: D</strong></p>
+                    <p class="mt-2"><strong>Fundamentação:</strong> A alternativa correta é a <strong>D</strong>, pois o enunciado pede a premissa <em>incorreta</em>. O Art. 2º do Decreto nº 5.154/2004, em seu inciso IV (incluído pelo Decreto nº 8.268/2014), estabelece exatamente o oposto: "a indissociabilidade entre teoria e prática". A alternativa D nega diretamente o texto legal, um estilo de distrator comum.</p>
+                    <p class="mt-4 font-semibold">Análise dos Distratores:</p>
+                    <ul class="list-disc list-inside space-y-1 mt-2 text-gray-700">
+                        <li><strong>A) Correta.</strong> Corresponde ao inciso I do Art. 2º.</li>
+                        <li><strong>B) Correta.</strong> Corresponde ao inciso II do Art. 2º.</li>
+                        <li><strong>C) Correta.</strong> Corresponde ao inciso III do Art. 2º (incluído pelo Decreto nº 8.268/2014).</li>
+                        <li><strong>E) Correta.</strong> Corresponde ao inciso IV do Art. 2º.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 'q3',
+                question: "3. (Estilo Instituto AOCP) O Art. 3º do Decreto nº 5.154/2004 dispõe que os cursos e programas de formação inicial e continuada de trabalhadores poderão ser ofertados segundo itinerários formativos. De acordo com o § 1º do mesmo artigo, considera-se itinerário formativo:",
+                options: {
+                    A: "o projeto político-pedagógico da instituição de ensino, focado exclusivamente no ensino médio regular.",
+                    B: "o conjunto de etapas que compõem a organização da educação profissional em uma determinada área, possibilitando o aproveitamento contínuo e articulado dos estudos.",
+                    C: "a matriz curricular específica dos cursos de educação profissional tecnológica de graduação, excluindo os de nível médio.",
+                    D: "o documento que comprova a conclusão do ensino fundamental, permitindo o acesso ao ensino técnico.",
+                    E: "a articulação obrigatória entre a educação profissional e a modalidade de educação de jovens e adultos."
+                },
+                correct: 'B',
+                resolution: `
+                    <p><strong>Gabarito: B</strong></p>
+                    <p class="mt-2"><strong>Fundamentação:</strong> A alternativa correta é a <strong>B</strong>. Trata-se de uma questão de pura literalidade. O Art. 3º, § 1º, do Decreto nº 5.154/2004 define: "Para fins do disposto no caput considera-se itinerário formativo o conjunto de etapas que compõem a organização da educação profissional em uma determinada área, possibilitando o aproveitamento contínuo e articulado dos estudos". A alternativa B é uma cópia fiel desse dispositivo.</p>
+                    <p class="mt-4 font-semibold">Análise dos Distratores:</p>
+                    <ul class="list-disc list-inside space-y-1 mt-2 text-gray-700">
+                        <li><strong>A) Incorreta.</strong> Confunde itinerário formativo com PPP e restringe ao ensino médio regular.</li>
+                        <li><strong>C) Incorreta.</strong> Restringe o conceito aos cursos de graduação, enquanto o Art. 3º refere-se à formação inicial e continuada "em todos os níveis de escolaridade".</li>
+                        <li><strong>D) Incorreta.</strong> Descreve um documento de acesso, não o itinerário formativo.</li>
+                        <li><strong>E) Incorreta.</strong> A articulação com a EJA é uma possibilidade, mas não a definição de itinerário formativo.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 'q4',
+                question: "4. (Estilo Instituto AOCP) O Decreto nº 5.154/2004, em seu Art. 4º, § 1º, define as formas de articulação entre a educação profissional técnica de nível médio e o ensino médio. A forma <strong>integrada</strong> caracteriza-se por ser:",
+                options: {
+                    A: "oferecida somente a quem já tenha concluído o ensino médio, contando com matrículas distintas para cada curso.",
+                    B: "oferecida a quem esteja cursando o ensino médio, pressupondo a existência de matrículas distintas.",
+                    C: "oferecida somente a quem já tenha concluído o ensino fundamental, contando com matrícula única para cada aluno.",
+                    D: "oferecida somente a quem já tenha concluído o ensino fundamental, pressupondo a existência de matrículas distintas, podendo ocorrer em instituições separadas.",
+                    E: "oferecida em instituições de ensino distintas, mediante convênios de intercomplementaridade, e destinada apenas a quem concluiu o ensino médio."
+                },
+                correct: 'C',
+                resolution: `
+                    <p><strong>Gabarito: C</strong></p>
+                    <p class="mt-2"><strong>Fundamentação:</strong> A alternativa correta é a <strong>C</strong>. O Art. 4º, § 1º, inciso I, do Decreto nº 5.154/2004 define a forma <strong>integrada</strong>: "integrada, oferecida somente a quem já tenha concluído o ensino fundamental, sendo o curso planejado de modo a conduzir o aluno à habilitação profissional técnica de nível médio, na mesma instituição de ensino, contando com matrícula única para cada aluno". A alternativa C captura os dois elementos centrais: conclusão do ensino fundamental e matrícula única.</p>
+                    <p class="mt-4 font-semibold">Análise dos Distratores:</p>
+                    <ul class="list-disc list-inside space-y-1 mt-2 text-gray-700">
+                        <li><strong>A) Incorreta.</strong> "Concluído o ensino médio" é requisito da forma <em>Subsequente</em> (Inciso III). "Matrículas distintas" é característica da forma <em>Concomitante</em> (Inciso II).</li>
+                        <li><strong>B) Incorreta.</strong> "Cursando o ensino médio" e "matrículas distintas" são características da forma <em>Concomitante</em> (Inciso II).</li>
+                        <li><strong>D) Incorreta.</strong> "Matrículas distintas" é a característica da forma <em>Concomitante</em> (Inciso II).</li>
+                        <li><strong>E) Incorreta.</strong> "Concluiu o ensino médio" é requisito da forma <em>Subsequente</em> (Inciso III).</li>
+                    </ul>
+                `
+            },
+            {
+                id: 'q5',
+                question: "5. (Estilo Instituto AOCP) Nos termos do Art. 4º, § 1º, do Decreto nº 5.154/2004, a articulação da educação profissional técnica de nível médio com o ensino médio, na forma <strong>concomitante</strong>, é aquela:",
+                options: {
+                    A: "oferecida somente a quem já tenha concluído o ensino fundamental, contando com matrícula única na mesma instituição.",
+                    B: "oferecida somente a quem já tenha concluído o ensino médio, com matrícula independente da conclusão do ensino fundamental.",
+                    C: "oferecida somente a quem já tenha concluído o ensino fundamental ou esteja cursando o ensino médio, na qual a complementaridade pressupõe a existência de matrículas distintas.",
+                    D: "planejada de modo a conduzir o aluno à habilitação profissional na mesma instituição de ensino, com matrícula única e integrada ao currículo do ensino médio.",
+                    E: "que exige a conclusão do ensino médio como pré-requisito e possui organização curricular independente."
+                },
+                correct: 'C',
+                resolution: `
+                    <p><strong>Gabarito: C</strong></p>
+                    <p class="mt-2"><strong>Fundamentação:</strong> A alternativa correta é a <strong>C</strong>. O Art. 4º, § 1º, inciso II, define a forma <strong>concomitante</strong>: "concomitante, oferecida somente a quem já tenha concluído o ensino fundamental ou esteja cursando o ensino médio, na qual a complementaridade entre a educação profissional técnica de nível médio e o ensino médio pressupõe a existência de matrículas distintas para cada curso...". A alternativa C é a que melhor resume esses requisitos.</p>
+                    <p class="mt-4 font-semibold">Análise dos Distratores:</p>
+                    <ul class="list-disc list-inside space-y-1 mt-2 text-gray-700">
+                        <li><strong>A) Incorreta.</strong> "Matrícula única" é a definição da forma <em>Integrada</em> (Inciso I).</li>
+                        <li><strong>B) Incorreta.</strong> "Concluído o ensino médio" é a definição da forma <em>Subsequente</em> (Inciso III).</li>
+                        <li><strong>D) Incorreta.</strong> "Matrícula única" e "integrada ao currículo" descrevem a forma <em>Integrada</em> (Inciso I).</li>
+                        <li><strong>E) Incorreta.</strong> "Exige a conclusão do ensino médio" descreve a forma <em>Subsequente</em> (Inciso III).</li>
+                    </ul>
+                `
+            },
+            {
+                id: 'q6',
+                question: "6. (Estilo Instituto AOCP) A articulação da educação profissional técnica de nível médio, em sua forma <strong>subsequente</strong>, segundo o Art. 4º, § 1º, do Decreto nº 5.154/2004, é:",
+                options: {
+                    A: "oferecida somente a quem já tenha concluído o ensino fundamental, com matrícula única.",
+                    B: "oferecida a quem esteja cursando o ensino médio, com matrículas distintas.",
+                    C: "oferecida na mesma instituição de ensino, mediante convênios de intercomplementaridade.",
+                    D: "oferecida somente a quem já tenha concluído o ensino médio.",
+                    E: "oferecida a quem tenha concluído o ensino fundamental ou esteja cursando o ensino médio, com matrícula única."
+                },
+                correct: 'D',
+                resolution: `
+                    <p><strong>Gabarito: D</strong></p>
+                    <p class="mt-2"><strong>Fundamentação:</strong> A alternativa correta é a <strong>D</strong>. Esta é uma questão direta sobre a definição da forma <strong>subsequente</strong>, contida no Art. 4º, § 1º, inciso III: "subseqüente, oferecida somente a quem já tenha concluído o ensino médio".</p>
+                    <p class="mt-4 font-semibold">Análise dos Distratores:</p>
+                    <ul class="list-disc list-inside space-y-1 mt-2 text-gray-700">
+                        <li><strong>A) Incorreta.</strong> "Concluído o ensino fundamental" e "matrícula única" são requisitos da forma <em>Integrada</em> (Inciso I).</li>
+                        <li><strong>B) Incorreta.</strong> "Cursando o ensino médio" é requisito da forma <em>Concomitante</em> (Inciso II).</li>
+                        <li><strong>C) Incorreta.</strong> "Convênios de intercomplementaridade" é uma das possibilidades da forma <em>Concomitante</em> (Inciso II, alínea 'c').</li>
+                        <li><strong>E) Incorreta.</strong> "Concluído o ensino fundamental ou esteja cursando o ensino médio" é requisito da forma <em>Concomitante</em> (Inciso II).</li>
+                    </ul>
+                `
+            },
+            {
+                id: 'q7',
+                question: "7. (Estilo Instituto AOCP) Conforme o Parágrafo único do Art. 7º do Decreto nº 5.154/2004, para a obtenção do diploma de técnico de nível médio, o aluno deverá:",
+                options: {
+                    A: "concluir seus estudos de educação profissional técnica de nível médio ou de ensino médio, optando por uma das certificações.",
+                    B: "concluir seus estudos de educação profissional técnica de nível médio, sendo esta suficiente para a diplomação, independentemente do ensino médio.",
+                    C: "concluir seus estudos de educação profissional técnica de nível médio e de ensino médio.",
+                    D: "concluir o ensino médio, sendo a educação profissional um componente curricular deste, sem necessidade de diplomação adicional.",
+                    E: "obter certificados de qualificação em todas as etapas, que substituem o diploma de nível médio."
+                },
+                correct: 'C',
+                resolution: `
+                    <p><strong>Gabarito: C</strong></p>
+                    <p class="mt-2"><strong>Fundamentação:</strong> A alternativa correta é a <strong>C</strong>. A obtenção do <em>diploma</em> (e não apenas de certificados) exige a conclusão de ambas as etapas. O Parágrafo único do Art. 7º é explícito: "Para a obtenção do diploma de técnico de nível médio, o aluno deverá concluir seus estudos de educação profissional técnica de nível médio <strong>e</strong> de ensino médio".</p>
+                    <p class="mt-4 font-semibold">Análise dos Distratores:</p>
+                    <ul class="list-disc list-inside space-y-1 mt-2 text-gray-700">
+                        <li><strong>A) Incorreta.</strong> O uso do "ou" invalida a alternativa. A norma exige "e" (soma), não "ou" (escolha).</li>
+                        <li><strong>B) Incorreta.</strong> A norma é clara que a conclusão do ensino médio é necessária <em>juntamente</em> com a do ensino técnico para o diploma.</li>
+                        <li><strong>D) Incorreta.</strong> A educação profissional não é apenas um componente curricular, mas uma formação que leva a uma habilitação própria, embora articulada.</li>
+                        <li><strong>E) Incorreta.</strong> O decreto prevê certificados de qualificação por etapas, mas o enunciado pergunta sobre o <em>diploma</em>, que é o documento final e exige a conclusão de ambos os níveis.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 'q8',
+                question: "8. (Estilo Instituto AOCP) De acordo com o Art. 4º, § 1º, inciso II, do Decreto nº 5.154/2004, a articulação na forma <strong>concomitante</strong> pode ocorrer de diferentes maneiras, <em>exceto</em>:",
+                options: {
+                    A: "Na mesma instituição de ensino, aproveitando-se as oportunidades educacionais disponíveis.",
+                    B: "Em instituições de ensino distintas, aproveitando-se as oportunidades educacionais disponíveis.",
+                    C: "Em instituições de ensino distintas, mediante convênios de intercomplementaridade.",
+                    D: "Na mesma instituição de ensino, contando com matrícula única para cada aluno, de modo a conduzi-lo à habilitação profissional.",
+                    E: "Em instituições de ensino distintas, visando o planejamento e o desenvolvimento de projetos pedagógicos unificados."
+                },
+                correct: 'D',
+                resolution: `
+                    <p><strong>Gabarito: D</strong></p>
+                    <p class="mt-2"><strong>Fundamentação:</strong> A alternativa correta é a <strong>D</strong>, pois o enunciado pede a <em>exceção</em>. O Art. 4º, § 1º, inciso II, descreve as três formas de oferta concomitante: (a) na mesma instituição, (b) em instituições distintas, ou (c) em instituições distintas mediante convênio. A alternativa D descreve, na verdade, a forma <strong>Integrada</strong> (Inciso I), que se caracteriza pela "matrícula única". A forma concomitante é definida justamente por <em>não</em> ter matrícula única, mas sim "matrículas distintas".</p>
+                    <p class="mt-4 font-semibold">Análise dos Distratores:</p>
+                    <ul class="list-disc list-inside space-y-1 mt-2 text-gray-700">
+                        <li><strong>A) Correta.</strong> Corresponde à alínea 'a' do Inciso II do Art. 4º, § 1º.</li>
+                        <li><strong>B) Correta.</strong> Corresponde à alínea 'b' do Inciso II do Art. 4º, § 1º.</li>
+                        <li><strong>C) Correta.</strong> Corresponde à alínea 'c' do Inciso II do Art. 4º, § 1º.</li>
+                        <li><strong>E) Correta.</strong> É uma paráfrase da alínea 'c', que menciona "planejamento e o desenvolvimento de projetos pedagógicos unificados".</li>
+                    </ul>
+                `
+            },
+            {
+                id: 'q9',
+                question: "9. (Estilo Instituto AOCP) O Decreto nº 5.154/2004, com a redação atualizada pelo Decreto nº 8.268, de 2014, estabelece em seu Art. 2º as premissas da educação profissional. Assinale a alternativa que contém <em>corretamente</em> duas dessas premissas.",
+                options: {
+                    A: "a organização por disciplinas propedêuticas; e a dissociação entre teoria e prática.",
+                    B: "a articulação de esforços da área da educação e da área da saúde; e a centralidade da teoria como princípio educativo.",
+                    C: "a centralidade do trabalho como princípio educativo; e a indissociabilidade entre teoria e prática.",
+                    D: "a organização por áreas profissionais; e a separação dos esforços das áreas da educação e do trabalho.",
+                    E: "a centralidade do trabalho como princípio educativo; e a priorização da prática sobre a teoria."
+                },
+                correct: 'C',
+                resolution: `
+                    <p><strong>Gabarito: C</strong></p>
+                    <p class="mt-2"><strong>Fundamentação:</strong> A alternativa correta é a <strong>C</strong>. Esta questão testa o conhecimento das premissas atualizadas do Art. 2º. Os incisos III e IV, adicionados em 2014, são "a centralidade do trabalho como princípio educativo" e "a indissociabilidade entre teoria e prática". A alternativa C lista exatamente essas duas premissas.</p>
+                    <p class="mt-4 font-semibold">Análise dos Distratores:</p>
+                    <ul class="list-disc list-inside space-y-1 mt-2 text-gray-700">
+                        <li><strong>A) Incorreta.</strong> O Art. 2º, I, fala em "áreas profissionais", não "disciplinas propedêuticas", e o Inciso IV fala em "indissociabilidade", não "dissociação".</li>
+                        <li><strong>B) Incorreta.</strong> O Art. 2º, II, menciona as áreas da "educação, do trabalho e emprego, e da ciência e tecnologia", não "saúde".</li>
+                        <li><strong>D) Incorreta.</strong> O Art. 2º, II, prevê "articulação de esforços", não "separação".</li>
+                        <li><strong>E) Incorreta.</strong> O Art. 2º, IV, prevê "indissociabilidade" (equilíbrio), não "priorização" de uma sobre a outra.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 'q10',
+                question: "10. (Estilo Instituto AOCP) Comparando as formas de articulação \"integrada\" e \"concomitante\", conforme o Art. 4º, § 1º, do Decreto nº 5.154/2004, é correto afirmar que:",
+                options: {
+                    A: "ambas são oferecidas somente a quem já tenha concluído o ensino médio.",
+                    B: "a forma integrada exige matrícula única, enquanto a concomitante pressupõe a existência de matrículas distintas.",
+                    C: "a forma concomitante exige matrícula única, enquanto a integrada pressupõe a existência de matrículas distintas.",
+                    D: "ambas são oferecidas exclusivamente em instituições de ensino distintas.",
+                    E: "a forma integrada é offereda a quem está cursando o ensino médio, e a forma concomitante é offereda a quem concluiu o ensino fundamental."
+                },
+                correct: 'B',
+                resolution: `
+                    <p><strong>Gabarito: B</strong></p>
+                    <p class="mt-2"><strong>Fundamentação:</strong> A alternativa correta é a <strong>B</strong>. Esta questão exige a comparação dos elementos centrais das formas integrada e concomitante. A principal diferença entre elas é a forma de matrícula:</p>
+                    <ul class="list-disc list-inside space-y-1 mt-2 text-gray-700">
+                        <li>Art. 4º, § 1º, I (Integrada): "...contando com <strong>matrícula única</strong> para cada aluno."</li>
+                        <li>Art. 4º, § 1º, II (Concomitante): "...pressupõe a existência de <strong>matrículas distintas</strong> para cada curso..."</li>
+                    </ul>
+                    <p class="mt-2">A alternativa B captura perfeitamente essa distinção legal.</p>
+                    <p class="mt-4 font-semibold">Análise dos Distratores:</p>
+                    <ul class="list-disc list-inside space-y-1 mt-2 text-gray-700">
+                        <li><strong>A) Incorreta.</strong> "Concluído o ensino médio" é requisito da forma <em>Subsequente</em>.</li>
+                        <li><strong>C) Incorreta.</strong> A alternativa inverte os conceitos de matrícula única e distinta, um distrator clássico.</li>
+                        <li><strong>D) Incorreta.</strong> A forma integrada ocorre "na mesma instituição de ensino", e a concomitante <em>pode</em> ocorrer na mesma instituição (alínea 'a' do Inciso II).</li>
+                        <li><strong>E) Incorreta.</strong> Confunde os requisitos de ingresso. A integrada é para quem <em>concluiu</em> o fundamental; a concomitante é para quem <em>concluiu</em> o fundamental <em>ou</em> <em>está cursando</em> o médio.</li>
+                    </ul>
+                `
+            }
+        ];
+
+        // --- LÓGICA DO QUIZ ---
+
+        // Referências aos elementos do DOM
+        const quizForm = document.getElementById('quiz-form');
+        const resultsContainer = document.getElementById('results-container');
+        const scoreText = document.getElementById('score-text');
+        const scorePercentage = document.getElementById('score-percentage');
+        const scoreBar = document.getElementById('score-bar');
+        const resolutionsWrapper = document.getElementById('resolutions-wrapper');
+
+        // 1. Função para carregar as questões no formulário
+        function loadQuestions() {
+            quizData.forEach((item, index) => {
+                // Cria o card da questão
+                const questionCard = document.createElement('div');
+                questionCard.className = 'bg-white shadow-lg rounded-lg p-6 sm:p-8 border border-gray-200';
+
+                // Cria o texto da questão
+                const questionText = document.createElement('p');
+                questionText.className = 'font-semibold text-lg mb-6 text-gray-800';
+                questionText.innerHTML = item.question; // usa innerHTML para renderizar o <strong>
+                questionCard.appendChild(questionText);
+
+                // Cria o container das opções
+                const optionsContainer = document.createElement('div');
+                optionsContainer.className = 'flex flex-col space-y-4';
+
+                // Itera sobre as opções (A, B, C, D, E)
+                for (const key in item.options) {
+                    const optionId = `${item.id}-${key}`; // Ex: "q1-A"
+                    
+                    // Cria o label da opção (que é clicável)
+                    const label = document.createElement('label');
+                    label.htmlFor = optionId;
+                    label.className = 'flex items-center p-4 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer transition-colors duration-150';
+
+                    // Cria o input (radio button)
+                    const input = document.createElement('input');
+                    input.type = 'radio';
+                    input.id = optionId;
+                    input.name = item.id; // Agrupa os botões (q1, q2, etc.)
+                    input.value = key; // O valor da resposta (A, B, C...)
+                    
+                    // Span para o botão customizado
+                    const customRadio = document.createElement('span');
+                    customRadio.className = 'custom-radio';
+
+                    // Cria o texto da opção
+                    const optionText = document.createElement('span');
+                    optionText.className = 'text-gray-700 flex-1';
+                    optionText.textContent = `${key}) ${item.options[key]}`;
+
+                    // Monta o label
+                    label.appendChild(input);
+                    label.appendChild(customRadio);
+                    label.appendChild(optionText);
+                    
+                    // Adiciona o label ao container de opções
+                    optionsContainer.appendChild(label);
+                }
+
+                questionCard.appendChild(optionsContainer);
+                quizForm.insertBefore(questionCard, quizForm.lastElementChild); // Insere antes do botão
+            });
+        }
+
+        // 2. Função para lidar com o envio do formulário
+        function handleSubmit(e) {
+            e.preventDefault(); // Impede o recarregamento da página
+
+            let score = 0;
+            const formData = new FormData(quizForm);
+            const userAnswers = {};
+
+            // Limpa resoluções anteriores
+            resolutionsWrapper.innerHTML = '';
+
+            // Itera sobre cada questão para verificar a resposta
+            quizData.forEach(item => {
+                const userAnswer = formData.get(item.id); // Pega a resposta do usuário (A, B, C...)
+                userAnswers[item.id] = userAnswer; // Armazena a resposta
+                
+                const isCorrect = userAnswer === item.correct;
+                if (isCorrect) {
+                    score++;
+                }
+
+                // Cria e exibe a resolução detalhada para esta questão
+                createResolutionCard(item, userAnswer, isCorrect);
+            });
+
+            // 3. Exibe os resultados
+            displayResults(score);
+
+            // Desabilita o formulário
+            quizForm.style.display = 'none';
+
+            // Mostra o container de resultados
+            resultsContainer.classList.remove('hidden');
+
+            // Rola a página para os resultados
+            resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // 4. Função para criar o card de resolução
+        function createResolutionCard(item, userAnswer, isCorrect) {
+            const card = document.createElement('div');
+            card.className = 'bg-white shadow-lg rounded-lg p-6 sm:p-8 border';
+
+            // Define a cor da borda com base no acerto/erro
+            card.classList.add(isCorrect ? 'border-green-300' : 'border-red-300');
+
+            let feedbackHtml;
+            if (!userAnswer) {
+                // Usuário não respondeu
+                feedbackHtml = `
+                    <p class="text-lg font-semibold text-yellow-700">Você não respondeu esta questão.</p>
+                    <p class="text-lg font-semibold text-green-700">Gabarito: ${item.correct}</p>
+                `;
+            } else if (isCorrect) {
+                // Usuário acertou
+                feedbackHtml = `
+                    <p class="text-lg font-semibold text-green-700">Sua resposta: ${userAnswer} (Correta)</p>
+                `;
+            } else {
+                // Usuário errou
+                feedbackHtml = `
+                    <p class="text-lg font-semibold text-red-700">Sua resposta: ${userAnswer} (Incorreta)</p>
+                    <p class="text-lg font-semibold text-green-700">Gabarito: ${item.correct}</p>
+                `;
+            }
+
+            card.innerHTML = `
+                <p class="font-bold text-lg text-gray-800 mb-4">${item.question.replace(/<strong>/g, '').replace(/<\/strong>/g, '')}</p>
+                <div class="mb-4 p-4 rounded-md ${isCorrect ? 'bg-green-50' : (userAnswer ? 'bg-red-50' : 'bg-yellow-50')}">
+                    ${feedbackHtml}
+                </div>
+                <hr class="my-4">
+                <div class="text-gray-800 leading-relaxed">
+                    <h4 class="font-bold text-xl mb-2">Resolução Detalhada</h4>
+                    ${item.resolution}
+                </div>
+            `;
+
+            resolutionsWrapper.appendChild(card);
+        }
+
+        // 5. Função para exibir o sumário dos resultados
+        function displayResults(score) {
+            const total = quizData.length;
+            const percentage = (score / total) * 100;
+            
+            scoreText.textContent = `Você acertou ${score} de ${total} questões!`;
+            scorePercentage.textContent = `${percentage.toFixed(0)}%`;
+
+            // Define a cor da barra de progresso
+            if (percentage < 40) {
+                scoreBar.classList.remove('bg-blue-600', 'bg-green-600');
+                scoreBar.classList.add('bg-red-600');
+            } else if (percentage < 70) {
+                scoreBar.classList.remove('bg-blue-600', 'bg-red-600');
+                scoreBar.classList.add('bg-yellow-500');
+            } else {
+                scoreBar.classList.remove('bg-blue-600', 'bg-red-600', 'bg-yellow-500');
+                scoreBar.classList.add('bg-green-600');
+            }
+
+            // Anima a barra de progresso
+            setTimeout(() => {
+                scoreBar.style.width = `${percentage}%`;
+            }, 100); // Pequeno delay para a animação ser visível
+        }
+
+
+        // --- INICIALIZAÇÃO ---
+
+        // Adiciona o listener ao formulário
+        quizForm.addEventListener('submit', handleSubmit);
+        
+        // Carrega as questões quando a página estiver pronta
+        document.addEventListener('DOMContentLoaded', loadQuestions);
+
+    </script>
+</body>
+</html>

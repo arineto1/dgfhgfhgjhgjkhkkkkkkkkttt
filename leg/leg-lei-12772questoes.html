@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Lei 12.772/2012 (Estilo AOCP)</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Define a fonte Inter como padrão, que é excelente para leitura */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Estilo para preservar a formatação das resoluções */
+        .resolution-details {
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+        /* Estilo customizado para os botões de rádio */
+        .form-radio:checked {
+            background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='3'/%3e%3c/svg%3e");
+            background-color: #2563eb; /* azul */
+            border-color: #2563eb;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-900 leading-relaxed">
+
+    <!-- Container principal com largura máxima para melhor legibilidade -->
+    <div class="container max-w-4xl mx-auto p-6 md:p-10 bg-white rounded-lg shadow-xl my-10">
+
+        <!-- Cabeçalho do Quiz -->
+        <header class="text-center mb-10">
+            <h1 class="text-3xl md:text-4xl font-bold text-blue-800 mb-3">Quiz: Lei 12.772/2012</h1>
+            <p class="text-lg text-gray-600">Plano de Carreiras e Cargos de Magistério Federal (Estilo Instituto AOCP)</p>
+        </header>
+
+        <!-- Formulário do Quiz -->
+        <form id="quiz-form">
+            
+            <!-- As questões serão injetadas aqui pelo JavaScript -->
+            <div id="questions-container" class="space-y-10"></div>
+
+            <!-- Botão de Finalizar -->
+            <button type="submit" id="submit-btn" class="w-full mt-12 bg-blue-700 text-white font-bold py-4 px-6 rounded-lg text-xl hover:bg-blue-800 transition-all duration-200 shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300">
+                Finalizar Quiz e Ver Resoluções
+            </button>
+        </form>
+
+        <!-- Seção de Resultados (inicialmente oculta) -->
+        <section id="results-section" class="hidden mt-16 border-t-2 border-gray-200 pt-10">
+            <h2 class="text-3xl font-bold text-center text-gray-900 mb-6">Resultados</h2>
+            
+            <!-- Pontuação -->
+            <div class="text-center mb-10">
+                <p id="score" class="text-2xl font-semibold bg-gray-100 p-6 rounded-lg"></p>
+            </div>
+
+            <h3 class="text-2xl font-bold text-gray-800 mb-6 border-b border-gray-300 pb-3">Resoluções Comentadas</h3>
+            
+            <!-- As resoluções serão injetadas aqui -->
+            <div id="resolutions-container" class="space-y-8"></div>
+        </section>
+
+    </div>
+
+    <!-- Script do Quiz -->
+    <script>
+        // --- 1. DADOS DO QUIZ ---
+        // Todos os dados do documento original foram transferidos para este array de objetos
+        const quizData = [
+            {
+                question: "De acordo com a Lei nº 12.772/2012, com as alterações vigentes, a Carreira de Magistério Superior é estruturada em classes e denominações específicas. Assinale a alternativa que apresenta corretamente a correlação entre a Classe e sua respectiva denominação.",
+                options: [
+                    "(A) Classe A, com a denominação de Professor Adjunto.",
+                    "(B) Classe B, com a denominação de Professor Assistente.",
+                    "(C) Classe C, com a denominação de Professor Associado.",
+                    "(D) Classe D, com a denominação de Professor Auxiliar.",
+                    "(E) Classe E, com a denominação de Professor Titular."
+                ],
+                answer: "C",
+                letterAnswer: "(C)",
+                resolution: `**Gabarito: C**
+
+**Fundamentação Legal:** Lei nº 12.772/2012, Art. 1º, § 1º, com redação dada pela Lei nº 15.141, de 2025.[1]
+"Art. 1º [...]
+§ 1º A Carreira de Magistério Superior é estruturada nas classes A, B, C e D e respectivos níveis de vencimento, na forma do Anexo I. (Redação dada pela Lei nº 15.141, de 2025)
+[...]
+§ 2º As classes da Carreira de Magistério Superior recebem as seguintes denominações: (Redação dada pela Lei nº 15.141, de 2025)
+I - Classe A, com a denominação de Professor Assistente;
+II - Classe B, com a denominação de Professor Adjunto;
+III - Classe C, com a denominação de Professor Associado; e
+IV - Classe D, com a denominação de Professor Titular."
+
+**Comentários e Análise das Alternativas:**
+(A) Incorreta. A Classe A possui a denominação de Professor Assistente, conforme o inciso I do § 2º.[1] A alternativa comete um erro comum de associar "A" com "Adjunto", o que era uma realidade em estruturas de carreira anteriores, mas foi alterado.
+(B) Incorreta. A Classe B possui a denominação de Professor Adjunto, conforme o inciso II do § 2º.[1] A alternativa inverte as denominações das Classes A e B.
+**(C) Correta.** A alternativa reflete exatamente a literalidade do Art. 1º, § 2º, inciso III, da lei atualizada.[1]
+(D) Incorreta. A Classe D possui a denominação de Professor Titular (inciso IV). A denominação "Professor Auxiliar" existia na estrutura anterior (associada à Classe A, conforme redação dada pela Lei nº 12.863/2013), mas foi suprimida na nova estrutura de denominações.[1]
+(E) Incorreta. A Classe E, que existia na estrutura anterior, foi revogada pela Lei nº 15.141, de 2025.[1] A Carreira de Magistério Superior agora se encerra na Classe D (Professor Titular). O objetivo desta alternativa é testar o conhecimento do candidato sobre a atualização legislativa que extinguiu a Classe E.`
+            },
+            {
+                question: "Nos termos da Lei nº 12.772/2012, o Plano de Carreiras e Cargos de Magistério Federal inclui a Carreira de Magistério do Ensino Básico, Técnico e Tecnológico (EBTT). Conforme a redação atual da lei, esta carreira é composta pelas seguintes classes:",
+                options: [
+                    "(A) Classe A, Classe B, Classe C e Classe Titular.",
+                    "(B) Professor Auxiliar, Professor Assistente, Professor Adjunto e Professor Associado.",
+                    "(C) Classe DI, Classe DII, Classe DIII e Classe DIV.",
+                    "(D) Classe A (Professor Assistente), Classe B (Professor Adjunto) e Classe C (Professor Associado).",
+                    "(E) Nível 1, Nível 2, Nível 3 e Nível 4."
+                ],
+                answer: "A",
+                letterAnswer: "(A)",
+                resolution: `**Gabarito: A**
+
+**Fundamentação Legal:** Lei nº 12.772/2012, Art. 10-A, com redação dada pela Lei nº 15.141, de 2025.[1]
+"Art. 10-A. A Carreira de Magistério do Ensino Básico, Técnico e Tecnológico é composta das seguintes classes:
+I - A;
+II - B;
+III - C; e
+IV - Titular."
+
+**Comentários e Análise das Alternativas:**
+**(A) Correta.** A alternativa lista precisamente as classes da carreira de EBTT conforme a nova redação legal.[1]
+(B) Incorreta. Estas (Auxiliar, Assistente, Adjunto, Associado) são as *denominações* da Carreira de Magistério *Superior*, não as classes da carreira de EBTT.[1] A banca utiliza a confusão entre as duas carreiras (MS e EBTT) como distrator.
+(C) Incorreta. As classes DI, DII, DIII e DIV eram parte da estrutura anterior da carreira de EBTT (conforme a Lei 11.784/2008, antes de ser reestruturada pela 12.772/2012). Esta alternativa testa se o candidato está atualizado com a legislação vigente.
+(D) Incorreta. Novamente, a alternativa mistura as classes do EBTT (A, B, C) com as *denominações* do Magistério Superior (Assistente, Adjunto, Associado).[1]
+(E) Incorreta. Nível 1, 2, 3 e 4 são os *níveis* de vencimento *dentro* das classes, e não as classes em si.`
+            },
+            {
+                question: "A Lei nº 12.772/2012 estabelece as formas de desenvolvimento na carreira docente. Analise as assertivas abaixo:\n\nI. Entende-se por progressão a passagem do servidor para o nível de vencimento imediatamente superior dentro de uma mesma classe.\nII. Entende-se por promoção a passagem do servidor de uma classe para outra subsequente.\nIII. A progressão na Carreira de Magistério do Ensino Básico, Técnico e Tecnológico ocorrerá observando-se, exclusivamente, a aprovação em avaliação de desempenho individual.\n\nQuais estão corretas?",
+                options: [
+                    "(A) Apenas I.",
+                    "(B) Apenas II.",
+                    "(C) Apenas I e II.",
+                    "(D) Apenas II e III.",
+                    "(E) I, II e III."
+                ],
+                answer: "C",
+                letterAnswer: "(C)",
+                resolution: `**Gabarito: C**
+
+**Fundamentação Legal:** Lei nº 12.772/2012, Art. 12, § 1º (para MS, mas conceitualmente idêntico) e Art. 14, §§ 1º e 2º (para EBTT); e Art. 14, § 2º.
+"Art. 14. [...]
+§ 1º A promoção é a passagem do servidor de uma classe para outra subsequente.
+§ 2º A progressão na Carreira de Magistério do Ensino Básico, Técnico e Tecnológico ocorrerá com base nos critérios gerais estabelecidos nesta Lei e observará, cumulativamente: (Redação dada pela Lei nº 12.863, de 2013)
+I - o cumprimento do interstício de 24 (vinte e quatro) meses de efetivo exercício em cada nível; e
+II - aprovação em avaliação de desempenho individual."
+
+**Comentários e Análise das Alternativas:**
+* **I. Correta.** A assertiva define corretamente "progressão" como a movimentação horizontal dentro da mesma classe. Este é um conceito básico e recorrente em provas do Instituto AOCP sobre planos de carreira.
+* **II. Correta.** A assertiva define corretamente "promoção" como a movimentação vertical entre classes distintas.
+* **III. Incorreta.** A assertiva contém a palavra-chave "exclusivamente", que é uma armadilha comum. O Art. 14, § 2º, é claro ao afirmar que a progressão observará, *cumulativamente*, o interstício de 24 meses (Inciso I) *e* a avaliação de desempenho (Inciso II). Portanto, a avaliação de desempenho *não* é o único requisito.
+* Como apenas I e II estão corretas, o gabarito é a letra C.`
+            },
+            {
+                question: "Acerca dos critérios de promoção na Carreira de Magistério Superior, conforme estabelecido pela Lei nº 12.772/2012 e suas alterações recentes, assinale a alternativa INCORRETA.",
+                options: [
+                    "(A) A promoção para a Classe C (Professor Associado) exige o cumprimento do interstício mínimo de 24 (vinte e quatro) meses no último nível da classe antecedente (Classe B).",
+                    "(B) A promoção para a Classe D (Professor Titular) exige, entre outros critérios, o cumprimento do interstício mínimo de 24 (vinte e quatro) meses no último nível da classe antecedente (Classe C).",
+                    "(C) A promoção para a Classe B (Professor Adjunto) exige o cumprimento do interstício mínimo de 24 (vinte e quatro) meses no último nível da classe antecedente (Classe A).",
+                    "(D) A promoção para a Classe D (Professor Titular) exige, entre outros critérios, possuir o título de doutor.",
+                    "(E) A promoção para a Classe B (Professor Adjunto) exige, além do interstício, aprovação em processo de avaliação de desempenho."
+                ],
+                answer: "C",
+                letterAnswer: "(C)",
+                resolution: `**Gabarito: C**
+
+**Fundamentação Legal:** Lei nº 12.772/2012, Art. 12, § 3º, com redação dada pela Lei nº 15.141, de 2025.[1]
+"§ 3º São critérios da promoção:
+I - para a Classe B, com denominação de Professor Adjunto:
+a) cumprimento do **interstício mínimo de trinta e seis meses** no último nível da classe antecedente; e
+b) aprovação em processo de avaliação de desempenho;
+II - para a Classe C, com denominação de Professor Associado:
+a) cumprimento do **interstício mínimo de vinte e quatro meses** no último nível da classe antecedente; e [...]
+III - para a Classe D, com denominação de Professor Titular:
+a) cumprimento do **interstício mínimo de vinte e quatro meses** no último nível da classe antecedente;
+b) possuir o título de doutor; [...]"
+
+**Comentários e Análise das Alternativas:**
+(A) Correta. A promoção da Classe B (Adjunto) para a Classe C (Associado) exige, de fato, 24 meses de interstício, conforme o Inciso II, alínea 'a'.[1]
+(B) Correta. A promoção da Classe C (Associado) para a Classe D (Titular) exige, de fato, 24 meses de interstício, conforme o Inciso III, alínea 'a'.[1]
+**(C) Incorreta.** Esta alternativa é o gabarito da questão (pois pede a INCORRETA). Ela afirma que a promoção para a Classe B (Adjunto) exige 24 meses. Contudo, a recente alteração legislativa (Lei 15.141/2025) [1] estabeleceu uma *exceção* específica para esta promoção, exigindo **36 (trinta e seis) meses**, conforme o Inciso I, alínea 'a'. Esta é uma armadilha clássica de "letra da lei" que testa o conhecimento da atualização legislativa contra a regra geral anterior.
+(D) Correta. A promoção para a Classe D (Titular) exige expressamente o título de doutor, conforme o Inciso III, alínea 'b'.[1]
+(E) Correta. A promoção para a Classe B (Adjunto) exige interstício (de 36 meses) e aprovação em avaliação de desempenho, conforme o Inciso I, alínea 'b'.[1]`
+            },
+            {
+                question: "De acordo com a Lei nº 12.772/2012, com sua redação atualizada, são critérios para a promoção à Classe D (Professor Titular) da Carreira de Magistério Superior, EXCETO:",
+                options: [
+                    "(A) Cumprimento do interstício mínimo de 24 (vinte e quatro) meses no último nível da Classe C (Professor Associado).",
+                    "(B) Possuir o título de doutor.",
+                    "(C) Aprovação em processo de avaliação de desempenho.",
+                    "(D) Lograr aprovação de memorial, que deverá considerar as atividades de ensino, pesquisa, extensão, gestão acadêmica e produção profissional relevante.",
+                    "(E) Defesa de tese acadêmica inédita, como requisito alternativo à aprovação de memorial."
+                ],
+                answer: "E",
+                letterAnswer: "(E)",
+                resolution: `**Gabarito: E**
+
+**Fundamentação Legal:** Lei nº 12.772/2012, Art. 12, § 3º, Inciso III, com redação dada pela Lei nº 15.141, de 2025.[1]
+"III - para a Classe D, com denominação de Professor Titular:
+a) cumprimento do interstício mínimo de vinte e quatro meses no último nível da classe antecedente;
+b) possuir o título de doutor;
+c) aprovação em processo de avaliação de desempenho; e
+d) lograr aprovação de **memorial**, que deverá considerar as atividades de ensino, pesquisa, extensão, gestão acadêmica e produção profissional relevante."
+
+**Comentários e Análise das Alternativas:**
+(A) Correta. É requisito, conforme alínea 'a'.
+(B) Correta. É requisito, conforme alínea 'b'.
+(C) Correta. É requisito, conforme alínea 'c'.
+(D) Correta. É requisito, conforme alínea 'd'.
+**(E) Incorreta (Gabarito).** Esta alternativa é o "EXCETO". A redação anterior da lei previa, para a promoção à Classe Titular (então Classe E), "aprovação de memorial [...] *ou* de defesa de tese acadêmica inédita". A nova redação dada pela Lei 15.141/2025 [1], ao listar os critérios para a *promoção* à nova Classe D (Titular), menciona *apenas* a "aprovação de memorial" (alínea 'd'). A defesa de tese inédita, embora ainda prevista na lei para o *concurso* de Professor Titular-Livre, não é mais listada como alternativa ao memorial para a *promoção* na carreira.`
+            },
+            {
+                question: "Considerando as disposições da Lei nº 12.772/2012 sobre o desenvolvimento nas Carreiras de Magistério Federal, analise as assertivas e assinale a alternativa que aponta as corretas.\n\nI. Ao docente aprovado no estágio probatório que apresentar titulação de Doutor, é assegurada a promoção acelerada para o nível inicial da Classe C (Professor Associado), independentemente do interstício.\nII. A progressão na Carreira de Magistério do Ensino Básico, Técnico e Tecnológico ocorrerá mediante o cumprimento cumulativo do interstício de 24 (vinte e quatro) meses de efetivo exercício em cada nível e aprovação em avaliação de desempenho individual.\nIII. A promoção na Carreira de Magistério do Ensino Básico, Técnico e Tecnológico ocorrerá observados o interstício mínimo de 24 (vinte e quatro) meses no último nível de cada Classe antecedente e aprovação em avaliação de desempenho individual.",
+                options: [
+                    "(A) Apenas I e II.",
+                    "(B) Apenas II e III.",
+                    "(C) Apenas I e III.",
+                    "(D) Apenas II.",
+                    "(E) I, II e III."
+                ],
+                answer: "B",
+                letterAnswer: "(B)",
+                resolution: `**Gabarito: B**
+
+**Fundamentação Legal:** Lei nº 12.772/2012, Art. 13 (Revogado pela Lei nº 15.141, de 2025) [1]; e Art. 14, §§ 2º e 3º.
+"Art. 13. (Revogado pela Lei nº 15.141, de 2025)"
+(Texto revogado: "Art. 13. O docente aprovado no estágio probatório [...] poderá ter a promoção acelerada...").
+"Art. 14. [...] § 2º A progressão [...] observará, cumulativamente: I - o cumprimento do interstício de 24 (vinte e quatro) meses [...] e II - aprovação em avaliação de desempenho individual.".
+"§ 3º A promoção ocorrerá observados o interstício mínimo de 24 (vinte e quatro) meses no último nível de cada Classe antecedente [...] e, ainda, [...] II - aprovação em avaliação de desempenho individual;".
+
+**Comentários e Análise das Alternativas:**
+* **I. Incorreta.** Esta assertiva descreve a "promoção acelerada". O Art. 13, que previa este mecanismo, foi *expressamente revogado* pela Lei nº 15.141, de 2025.[1] Portanto, esta regra não existe mais no ordenamento.
+* **II. Correta.** A assertiva descreve perfeitamente os requisitos cumulativos para a progressão na carreira de EBTT, conforme o Art. 14, § 2º da lei.
+* **III. Correta.** A assertiva descreve os requisitos para a promoção na carreira de EBTT, conforme o Art. 14, § 3º (interstício de 24 meses e avaliação de desempenho).
+* Como as assertivas II e III estão corretas, o gabarito é a letra B.`
+            },
+            {
+                question: "Nos termos da Lei nº 12.772/2012, os professores das Instituições Federais de Ensino (IFE) podem ser submetidos a diversos regimes de trabalho, incluindo o de dedicação exclusiva. Sobre este regime, assinale a alternativa correta.",
+                options: [
+                    "(A) Ao docente submetido ao regime de dedicação exclusiva é vedada a participação em órgãos de direção de fundação de apoio, mesmo que de forma não remunerada.",
+                    "(B) É permitida ao docente em dedicação exclusiva a prestação de colaboração técnica ao Ministério da Educação pelo prazo de até 2 (dois) anos, com ônus para a instituição de origem.",
+                    "(C) É permitida a colaboração esporádica a outra Instituição Federal de Ensino (IFE) por um período de até 4 (quatro) anos, com ônus para a origem, sendo esta concessão restrita aos docentes aprovados no estágio probatório.",
+                    "(D) O docente em regime de dedicação exclusiva poderá participar de programa de pós-graduação *stricto sensu* ou pós-doutorado, desde que já tenha cumprido 3 (três) anos de efetivo exercício no cargo.",
+                    "(E) É permitida a cessão do docente para ocupar o cargo de dirigente máximo de fundação de apoio, com ônus para a instituição de origem (a IFE)."
+                ],
+                answer: "C",
+                letterAnswer: "(C)",
+                resolution: `**Gabarito: C**
+
+**Fundamentação Legal:** Lei nº 12.772/2012, Art. 20, § 1º; Art. 21, § 2º e § 3º; Art. 20, § 4º (Redação dada pela Lei nº 13.243, de 2016).[1]
+
+**Comentários e Análise das Alternativas:**
+(A) Incorreta. O Art. 20, § 1º permite a participação em órgãos de direção de fundação de apoio, *vedada* a percepção de remuneração paga pela fundação.[1] A alternativa afirma que é "vedada a participação", o que contraria a lei.
+(B) Incorreta. A colaboração técnica ao Ministério da Educação é permitida, mas pelo prazo *não excedente a 1 (um) ano* (Art. 21, § 3º).[1] A alternativa erra ao citar 2 (dois) anos.
+**(C) Correta.** A alternativa descreve corretamente a permissão do Art. 21, § 2º [1] (colaboração a outra IFE por até 4 anos, com ônus na origem) e sua condição do Art. 21, § 4º (só será concedida a servidores *aprovados no estágio probatório*).
+(D) Incorreta. O Art. 21, § 1º [1] permite a participação em pós-graduação *stricto sensu* ou pós-doutorado, *independentemente do tempo ocupado no cargo* ou na instituição. A alternativa erra ao impor um requisito de 3 anos de exercício (regra geral da Lei 8.112 que não se aplica aqui).
+(E) Incorreta. O Art. 20, § 4º [1] permite a cessão para dirigente máximo de fundação de apoio, mas estabelece que o ônus (custo) será da *instituição cessionária* (a fundação), e não da instituição de origem (a IFE).`
+            },
+            {
+                question: "A Lei nº 12.772/2012 dispõe sobre os regimes de trabalho dos cargos da Carreira de Magistério Federal. Assinale a alternativa que descreve corretamente um dos regimes previstos na legislação.",
+                options: [
+                    "(A) 30 (trinta) horas semanais de trabalho, em tempo integral, com dedicação exclusiva às atividades de ensino, pesquisa, extensão e gestão institucional.",
+                    "(B) 40 (quarenta) horas semanais de trabalho, em tempo integral, com dedicação exclusiva às atividades de ensino, pesquisa, extensão e gestão institucional.",
+                    "(C) 20 (vinte) horas semanais de trabalho, em tempo parcial, com dedicação exclusiva.",
+                    "(D) 40 (quarenta) horas semanais de trabalho, em tempo integral, vedada a participação em atividades de gestão institucional.",
+                    "(E) Tempo parcial de 30 (trinta) horas semanais de trabalho, sem dedicação exclusiva."
+                ],
+                answer: "B",
+                letterAnswer: "(B)",
+                resolution: `**Gabarito: B**
+
+**Fundamentação Legal:** Lei nº 12.772/2012, Art. 20 (baseado na estrutura da carreira, embora o artigo exato não esteja no snippet, o S12 cita esta opção).
+
+**Comentários e Análise das Alternativas:**
+(A) Incorreta. O regime de 30 (trinta) horas semanais existe, mas não é caracterizado como "com dedicação exclusiva". A dedicação exclusiva está atrelada ao regime de 40 horas.
+**(B) Correta.** Esta é a definição padrão do regime de trabalho de 40 (quarenta) horas semanais com Dedicação Exclusiva (DE), que implica tempo integral e dedicação às atividades-fim da universidade (ensino, pesquisa, extensão e gestão).
+(C) Incorreta. O regime de 20 (vinte) horas semanais é de tempo parcial e não prevê "dedicação exclusiva".
+(D) Incorreta. O regime de 40 horas com DE *inclui* expressamente a participação em atividades de gestão institucional, sendo vedada apenas em regimes parciais (a depender do regulamento da IFE). A alternativa erra ao vedar a gestão.
+(E) Incorreta. A lei prevê regime de tempo parcial de 20 (vinte) horas semanais. O regime de 30 horas não é definido como "tempo parcial" neste contexto.`
+            },
+            {
+                question: "A Retribuição por Titulação (RT) é um componente da remuneração dos integrantes do Plano de Carreiras e Cargos de Magistério Federal, instituída pela Lei nº 12.772/2012. Sobre a RT, assinale a alternativa correta.",
+                options: [
+                    "(A) Os valores referentes à RT serão percebidos cumulativamente para diferentes titulações, como mestrado e doutorado, desde que ambas tenham sido obtidas em instituições reconhecidas.",
+                    "(B) A RT é devida apenas aos docentes que já concluíram o estágio probatório, não sendo paga durante os primeiros 3 (três) anos de exercício.",
+                    "(C) A RT não será considerada no cálculo dos proventos de aposentadoria ou das pensões, por se tratar de uma gratificação *propter laborem*.",
+                    "(D) A RT será considerada no cálculo dos proventos e das pensões, desde que o certificado ou o título tenham sido obtidos anteriormente à data da inativação.",
+                    "(E) Caso o docente ingresse na carreira com título superior ao exigido, deverá aguardar a primeira progressão funcional para requerer η RT correspondente."
+                ],
+                answer: "D",
+                letterAnswer: "(D)",
+                resolution: `**Gabarito: D**
+
+**Fundamentação Legal:** Lei nº 12.772/2012, Art. 17.
+"Art. 17. Fica instituída a RT [...]
+§ 1º A RT será considerada no cálculo dos proventos e das pensões [...] desde que o certificado ou o título tenham sido obtidos anteriormente à data da inativação.
+§ 2º Os valores referentes à RT não serão percebidos cumulativamente para diferentes titulações ou com quaisquer outras Retribuições por Titulação, adicionais ou gratificações de mesma natureza."
+
+**Comentários e Análise das Alternativas:**
+(A) Incorreta. O Art. 17, § 2º veda expressamente a percepção cumulativa da RT para diferentes titulações. Paga-se apenas a de maior valor (ex: Doutorado), que substitui a de Mestrado.
+(B) Incorreta. A lei não impõe o fim do estágio probatório. O docente recebe a RT referente à titulação exigida no concurso desde o ingresso, e pode requerer η RT de título superior (obtido antes ou durante) a qualquer momento, inclusive no estágio probatório.
+(C) Incorreta. A alternativa contraria frontalmente o § 1º do Art. 17.
+**(D) Correta.** A alternativa é uma transcrição literal do disposto no Art. 17, § 1º da lei.
+(E) Incorreta. O docente que ingressa com título superior pode (e deve) requerer η RT imediatamente. A "Aceleração da Promoção" era um instituto diferente (e agora revogado [1]), não se confundindo com o direito à RT.`
+            },
+            {
+                question: "A Lei nº 12.772/2012 regula os afastamentos permitidos aos docentes, inclusive aqueles em regime de dedicação exclusiva. Analise as assertivas abaixo:\n\nI. Ao docente em regime de dedicação exclusiva é permitida a participação em programa de pós-graduação *stricto sensu* ou pós-doutorado, independentemente do tempo ocupado no cargo ou na instituição.\nII. A prestação de colaboração técnica ao Ministério da Educação, pelo prazo máximo de 1 (um) ano, somente será concedida a servidores aprovados no estágio probatório do respectivo cargo.\nIII. O afastamento para cursar programas de mestrado ou doutorado somente poderá ser concedido ao docente após este ter cumprido, no mínimo, 3 (três) anos de efetivo exercício no cargo.\n\nQuais estão corretas?",
+                options: [
+                    "(A) Apenas I.",
+                    "(B) Apenas II.",
+                    "(C) Apenas I e II.",
+                    "(D) Apenas II e III.",
+                    "(E) I, II e III."
+                ],
+                answer: "C",
+                letterAnswer: "(C)",
+                resolution: `**Gabarito: C**
+
+**Fundamentação Legal:** Lei nº 12.772/2012, Art. 21.[1]
+"Art. 21. No regime de dedicação exclusiva, será admitida, [...] a participação em programa de pós-graduação stricto sensu ou pós-doutorado, independentemente do tempo ocupado no cargo ou na instituição.
+[...]
+§ 3º A colaboração técnica ao Ministério da Educação [...] não excedente a 1 (um) ano e com ônus para a instituição de origem [...]
+§ 4º Os afastamentos de que tratam os §§ 2º e 3º [Colaboração a outra IFE e ao MEC] somente serão concedidos a servidores aprovados no estágio probatório do respectivo cargo [...]
+§ 5º Os servidores [...] poderão afastar-se para cursar programas de mestrado e doutorado independentemente do tempo ocupado no cargo."
+
+**Comentários e Análise das Alternativas:**
+* **I. Correta.** A assertiva é a transcrição literal do Art. 21, § 1º.[1]
+* **II. Correta.** A assertiva combina a informação do § 3º (colaboração ao MEC por 1 ano) com a condição do § 4º (só para aprovados no estágio probatório).[1]
+* **III. Incorreta.** Esta é a armadilha. A regra geral da Lei 8.112/90 para licença capacitação pode exigir 3 ou 5 anos. Contudo, a Lei 12.772/2012, sendo específica para docentes, cria uma *exceção* clara no Art. 21, § 5º, permitindo o afastamento para mestrado ou doutorado *independentemente do tempo ocupado no cargo*.[1]
+* Como apenas I e II estão corretas, o gabarito é a letra C.`
+            }
+        ];
+
+        // --- 2. REFERÊNCIAS DO DOM ---
+        const questionsContainer = document.getElementById('questions-container');
+        const quizForm = document.getElementById('quiz-form');
+        const resultsSection = document.getElementById('results-section');
+        const scoreElement = document.getElementById('score');
+        const resolutionsContainer = document.getElementById('resolutions-container');
+        const submitButton = document.getElementById('submit-btn');
+
+        // --- 3. FUNÇÃO PARA RENDERIZAR AS QUESTÕES ---
+        function renderQuestions() {
+            let questionsHTML = '';
+
+            quizData.forEach((item, index) => {
+                // Monta o HTML para as opções
+                const optionsHTML = item.options.map((option, optionIndex) => {
+                    const optionLetter = String.fromCharCode(65 + optionIndex); // A, B, C...
+                    return `
+                        <label class_name="block">
+                            <div class="flex items-center space-x-3 p-4 bg-white border border-gray-300 rounded-lg cursor-pointer hover:bg-blue-50 hover:border-blue-400 transition-all duration-150 has-[:checked]:bg-blue-50 has-[:checked]:border-blue-500 has-[:checked]:ring-2 has-[:checked]:ring-blue-300">
+                                <input type="radio" name="q${index}" value="${optionLetter}" class="form-radio h-5 w-5 text-blue-600 focus:ring-blue-500" required>
+                                <span class="text-base text-gray-700">${option}</span>
+                            </div>
+                        </label>
+                    `;
+                }).join('');
+
+                // Monta o HTML para o bloco da questão
+                questionsHTML += `
+                    <div class="question-block bg-gray-50 border border-gray-200 rounded-lg p-6 shadow-sm">
+                        <p class="text-lg font-medium text-gray-900 mb-5" style="white-space: pre-wrap;"><strong>Questão ${index + 1}:</strong> ${item.question}</p>
+                        <div class="options-grid grid grid-cols-1 gap-4">
+                            ${optionsHTML}
+                        </div>
+                    </div>
+                `;
+            });
+
+            questionsContainer.innerHTML = questionsHTML;
+        }
+
+        // --- 4. FUNÇÃO PARA LIDAR COM O ENVIO DO QUIZ ---
+        function handleSubmit(event) {
+            event.preventDefault(); // Impede o envio real do formulário
+
+            let score = 0;
+            let resolutionsHTML = '';
+            const formData = new FormData(quizForm);
+
+            // Desabilita todas as opções após o envio
+            document.querySelectorAll('#quiz-form input[type="radio"]').forEach(radio => {
+                radio.disabled = true;
+            });
+
+            quizData.forEach((item, index) => {
+                const userAnswer = formData.get(`q${index}`);
+                const isCorrect = userAnswer === item.answer;
+
+                if (isCorrect) {
+                    score++;
+                }
+
+                const userOptionText = item.options.find(opt => opt.startsWith(`(${userAnswer})`)) || "Nenhuma resposta selecionada";
+                
+                // Define a cor do bloco de resolução
+                const resultClass = isCorrect
+                    ? 'bg-green-50 border-l-4 border-green-500'
+                    : 'bg-red-50 border-l-4 border-red-500';
+
+                // Monta o HTML da resolução
+                resolutionsHTML += `
+                    <div class="resolution-block p-6 rounded-lg shadow-md ${resultClass}">
+                        <h4 class="text-xl font-bold mb-4 text-gray-900">Questão ${index + 1}</h4>
+                        
+                        <p class="mb-2 text-base">
+                            <strong class="text-gray-800">Sua resposta:</strong> 
+                            <span class="${isCorrect ? 'text-green-700 font-medium' : 'text-red-700 font-medium'}">
+                                ${userOptionText}
+                            </span>
+                        </p>
+                        
+                        ${!isCorrect ? `
+                        <p class="mb-4 text-base">
+                            <strong class="text-gray-800">Gabarito:</strong> 
+                            <span class="text-green-700 font-medium">${item.letterAnswer}</span>
+                        </p>
+                        ` : ''}
+
+                        <div class="mt-4 pt-4 border-t border-gray-300">
+                            <strong class="text-gray-800">Comentário:</strong>
+                            <div class="resolution-details text-gray-700 mt-2">${item.resolution}</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // --- 5. EXIBIR RESULTADOS ---
+            
+            // Define a mensagem de pontuação
+            let scoreMessage = `Você acertou ${score} de ${quizData.length} questões.`;
+            if (score === quizData.length) {
+                scoreMessage += " Parabéns, você gabaritou!";
+            } else if (score >= quizData.length * 0.7) {
+                scoreMessage += " Ótimo desempenho!";
+            } else if (score >= quizData.length * 0.5) {
+                scoreMessage += " Bom resultado, continue estudando!";
+            } else {
+                scoreMessage += " Recomendamos revisar o material.";
+            }
+            scoreElement.textContent = scoreMessage;
+
+            // Define a cor da pontuação
+            if (score / quizData.length >= 0.7) {
+                scoreElement.className = 'text-2xl font-semibold p-6 rounded-lg bg-green-100 text-green-800';
+            } else if (score / quizData.length >= 0.5) {
+                scoreElement.className = 'text-2xl font-semibold p-6 rounded-lg bg-yellow-100 text-yellow-800';
+            } else {
+                scoreElement.className = 'text-2xl font-semibold p-6 rounded-lg bg-red-100 text-red-800';
+            }
+
+            // Preenche e exibe a seção de resoluções
+            resolutionsContainer.innerHTML = resolutionsHTML;
+            resultsSection.classList.remove('hidden');
+
+            // Oculta o botão de submit
+            submitButton.classList.add('hidden');
+
+            // Rola a tela para os resultados
+            resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // --- 6. INICIALIZAÇÃO ---
+        document.addEventListener('DOMContentLoaded', () => {
+            renderQuestions(); // Desenha as questões na tela
+            quizForm.addEventListener('submit', handleSubmit); // Adiciona o listener para o envio
+        });
+
+    </script>
+</body>
+</html>

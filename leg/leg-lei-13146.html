@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo LBI para Concurso - IFPB Informática</title>
+    <!-- Carregando Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carregando a fonte Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Aplicando a fonte Inter como padrão */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1f2937; /* text-gray-800 */
+        }
+        /* Estilo para tabelas, garantindo que não haja scroll horizontal */
+        table {
+            table-layout: fixed; /* Impede que o conteúdo force a largura das colunas */
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #d1d5db; /* text-gray-300 */
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+            word-wrap: break-word; /* Quebra palavras longas */
+        }
+        th {
+            background-color: #f9fafb; /* text-gray-50 */
+            font-weight: 700;
+        }
+        /* Estilo para destacar (grifar) termos-chave */
+        mark {
+            background-color: #fef9c3; /* bg-yellow-100 */
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-weight: 500; /* Ajustado para um destaque mais suave */
+        }
+        h1, h2, h3 {
+            font-weight: 700;
+            margin-top: 1.5em;
+            margin-bottom: 0.75em;
+        }
+        h1 {
+            font-size: 2.25rem; /* text-3xl */
+            border-bottom: 2px solid #e5e7eb; /* border-gray-200 */
+            padding-bottom: 0.5rem;
+        }
+        h2 {
+            font-size: 1.875rem; /* text-2xl */
+            color: #111827; /* text-gray-900 */
+        }
+        h3 {
+            font-size: 1.5rem; /* text-xl */
+            color: #374151; /* text-gray-700 */
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            padding-left: 0.5rem;
+        }
+        li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+        p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        hr {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800">
+
+    <div class="max-w-4xl mx-auto p-6 md:p-10">
+
+        <!-- 1. Reprodutor de Áudio MP3 -->
+        <div class="mb-8 p-4 border border-gray-200 rounded-lg shadow-sm">
+            <h3 class="text-lg font-semibold mb-3 text-gray-700">Resumo em Áudio</h3>
+            <p class="text-sm text-gray-600 mb-3">
+                <!-- Instrução para o usuário -->
+                <strong>Instrução:</strong> Substitua o nome do arquivo no `src` abaixo pelo nome do seu arquivo MP3 (ex: "audio_lbi.mp3"). O arquivo deve estar na mesma pasta que este HTML.
+            </p>
+            <audio controls class="w-full" src="leg-lei-13146.mp3">
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
+        </div>
+
+        <!-- 2. Conteúdo da Página (transcrito do Markdown) -->
+        
+        <h1>Resumo Tático: LBI para Concurso (IFPB Informática)</h1>
+        
+        <p class="text-lg font-semibold text-gray-700">
+            <strong>Foco da Banca (AOCP):</strong> A banca foca na <mark>literalidade da lei</mark>.[1, 2, 3] O Art. 3º (glossário) é o de maior custo-benefício.
+        </p>
+        
+        <hr>
+
+        <!-- PÁGINA 1 -->
+        <h2>PÁGINA 1: FUNDAMENTOS E DIREITOS ESSENCIAIS (Arts. 2º, 3º, 6º, 11-13, 28)</h2>
+
+        <h3>1. Art. 2º - Definição de Pessoa com Deficiência (Modelo Biopsicossocial)</h3>
+        <ul>
+            <li><strong>Definição (Literalidade):</strong> "aquela que tem <mark>impedimento de longo prazo</mark> de natureza física, mental, intelectual ou sensorial, o qual, em <mark>interação com uma ou mais barreiras</mark>, pode obstruir sua participação plena e efetiva na sociedade...".[4, 5]</li>
+            <li><strong>Conceito-Chave:</strong> A deficiência não é o impedimento (a lesão), mas o resultado da <strong>interação</strong> desse impedimento com uma <strong>barreira</strong>.[6]</li>
+            <li><strong>Avaliação:</strong> Quando necessária, será <strong>biopsicossocial</strong>, realizada por equipe multiprofissional.[4, 7]</li>
+        </ul>
+
+        <h3>2. Art. 3º - O Glossário (Foco Máximo da AOCP)</h3>
+        
+        <h4>Barreiras (Foco TI):</h4>
+        <ul>
+            <li><strong>Barreiras nas comunicações e na informação:</strong> "qualquer entrave... que dificulte ou impeça a expressão ou o recebimento de mensagens e de informações por intermédio de sistemas de comunicação e de <mark>tecnologia da informação</mark>".[8]</li>
+            <li><strong>Barreiras tecnológicas:</strong> "as que dificultam ou impedem o acesso da pessoa com deficiência às <strong>tecnologias</strong>".[8]</li>
+            <li><strong>Exemplos Práticos (TI):</strong>
+                <ul>
+                    <li>PDF de edital publicado como "imagem" (impede leitor de telas).</li>
+                    <li>Sistema com `captcha` exclusivamente visual.</li>
+                    <li>Formulário web sem a tag <code>&lt;label for=""&gt;</code>.[9, 10]</li>
+                    <li>Vídeo institucional sem legendas ou audiodescrição.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h4>A Tríade da Acessibilidade (Diferenciação Crucial) [11]</h4>
+        <p>É vital saber diferenciar os três conceitos de implementação:</p>
+        
+        <div class="overflow-x-auto">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Conceito</th>
+                        <th>Definição (Resumida)</th>
+                        <th>Quando?</th>
+                        <th>Exemplo (TI)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Desenho Universal</strong></td>
+                        <td>Concepção de produtos/serviços a serem usados por <strong>todas as pessoas</strong>, <mark>sem necessidade de adaptação</mark>.[12]</td>
+                        <td><em>Proativo</em> (Na concepção).</td>
+                        <td>Site desenvolvido com HTML semântico, <code>alt text</code> e contraste adequado.[10, 13]</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Adaptação Razoável</strong></td>
+                        <td>Ajustes necessários que <mark>não acarretem ônus desproporcional</mark> e indevido.[14, 15]</td>
+                        <td><em>Reativo</em> (Quando o Desenho Universal falha).</td>
+                        <td>Servidor designado para gerar um `.txt` de contracheque, pois o sistema legado é inacessível.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tecnologia Assistiva (TA)</strong></td>
+                        <td>Produtos, dispositivos, metodologias (a <strong>ferramenta</strong>) que promovem autonomia.[16, 17, 18]</td>
+                        <td><em>Ferramenta</em> (Usada pelo indivíduo).</td>
+                        <td>O software <em>Leitor de Telas</em> (NVDA, JAWS) que o usuário utiliza.[9, 18]</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h4 class="mt-6">Outras Definições (Art. 3º)</h4>
+        <ul>
+            <li><strong>Profissional de Apoio Escolar:</strong> Atua em <em>instituições de ensino</em> (todos os níveis). Exerce atividades de alimentação, higiene e locomoção. <strong>Não</strong> pode realizar "técnicas ou os procedimentos identificados com profissões legalmente estabelecidas" (ex: não é enfermeiro).[7]</li>
+            <li><strong>Acompanhante:</strong> Aquele que acompanha a pessoa (podendo ou não ser o atendente pessoal).[7]</li>
+        </ul>
+
+        <h3>3. Art. 6º - Capacidade Civil (Revolução da LBI)</h3>
+        <ul>
+            <li><strong>Regra (Literalidade):</strong> "A deficiência <mark>NÃO afeta</mark> a plena capacidade civil da pessoa...".[3]</li>
+            <li><strong>Implicações:</strong> A pessoa com deficiência pode, por padrão:
+                <ul>
+                    <li>I - Casar-se e constituir união estável;</li>
+                    <li>II - Exercer direitos sexuais e reprodutivos;</li>
+                    <li>IV - Exercer direito à guarda, tutela, curatela e adoção (como adotante ou adotando) [3];</li>
+                    <li>V - Votar e ser votado.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3>4. Arts. 11, 12, 13 - Saúde e Consentimento (Literalidade Pura)</h3>
+        <ul>
+            <li><strong>Art. 11 (Regra):</strong> A pessoa <strong>NÃO</strong> poderá ser <strong>obrigada</strong> a se submeter a intervenção, tratamento ou institucionalização <mark>forçada</mark>.[19]</li>
+            <li><strong>Art. 12 (Regra):</strong> O consentimento prévio, livre e esclarecido é <strong>indispensável</strong>.[19]</li>
+            <li><strong>Art. 13 (Exceção):</strong> Atendimento <em>sem</em> consentimento <strong>SOMENTE</strong> em casos de <mark>risco de morte</mark> e de <mark>emergência em saúde</mark>.[19]</li>
+        </ul>
+
+        <h3>5. Art. 28 - Educação (O Dever do IFPB)</h3>
+        <ul>
+            <li><strong>Obrigação:</strong> "Incumbe ao <strong>poder público</strong> assegurar, criar, desenvolver, implementar...":
+                <ul>
+                    <li>I - <strong>sistema educacional inclusivo</strong> em todos os níveis [20];</li>
+                    <li>II - Aprimoramento... por meio da oferta de serviços e de <strong>recursos de acessibilidade</strong>.[20]</li>
+                </ul>
+            </li>
+            <li><strong>Crime:</strong> Recusar matrícula em razão da deficiência (Pena: reclusão de 2 a 5 anos e multa).</li>
+        </ul>
+
+        <hr>
+
+        <!-- PÁGINA 2 -->
+        <h2>PÁGINA 2: FOCO EM INFORMÁTICA E TECNOLOGIA (Arts. 63, 67, 72)</h2>
+
+        <h3>1. Art. 63 - Acessibilidade Digital (O Artigo-Chave de TI)</h3>
+        <ul>
+            <li><strong>Obrigação (Literalidade):</strong> "É <mark>obrigatória</mark> a acessibilidade nos <strong>sítios da internet</strong> mantidos por empresas... ou por <strong>órgãos de governo</strong>, para uso da pessoa com deficiência, garantindo-lhe acesso às informações disponíveis, conforme as melhores práticas e diretrizes de acessibilidade adotadas internacionalmente.".[14, 21, 22]</li>
+            <li><strong>§ 1º:</strong> Os sítios devem conter <strong>símbolo de acessibilidade</strong> em destaque.[14, 21, 22]</li>
+            <li><strong>§ 2º e 3º:</strong> Telecentros e <em>lan houses</em> (com recursos públicos federais) devem garantir, no mínimo, <mark>10%</mark> de seus computadores com recursos de acessibilidade (assegurado pelo menos 1 equipamento).[14, 21, 22]</li>
+        </ul>
+
+        <h3>2. O "COMO" Fazer (A Hierarquia Técnica do Art. 63)</h3>
+        <p>O Art. 63 [14] obriga o IFPB a seguir as "diretrizes internacionais". Para fins de prova:</p>
+        <ol class="list-decimal ml-6 p-2">
+            <li><strong>LBI (Art. 63):</strong> É a <strong>Obrigação Legal</strong> (O QUÊ).[14]</li>
+            <li><strong>WCAG:</strong> São as "diretrizes internacionais" (o padrão técnico global).[13]</li>
+            <li><strong>NBR 17225:</strong> É a norma técnica da ABNT que traduz as WCAG para o Brasil.[13]</li>
+        </ol>
+        <p><em>Na Prática:</em> Cumprir a LBI (Art. 63) significa aplicar as diretrizes das WCAG/NBR [13] (Ex: <code>alt text</code> [10], contraste, navegação por teclado [13]).</p>
+
+        <h3>3. Art. 72 - Fomento à Pesquisa (Seu Papel no IFPB)</h3>
+        <ul>
+            <li><strong>Literalidade:</strong> "Os programas, as linhas de pesquisa e os projetos a serem desenvolvidos com o apoio de agências de financiamento e de órgãos... da administração pública... <mark>devem contemplar</mark> temas voltados à <strong>tecnologia assistiva</strong>.".[22]</li>
+            <li><em>Contexto:</em> Este artigo fundamenta a pesquisa e extensão em TA dentro do IFPB.</li>
+            <li><em>Art. 74 (Complemento):</em> Garante à pessoa com deficiência o <em>acesso</em> aos produtos de TA.[23]</li>
+        </ul>
+
+        <h3>4. Artigos Correlatos de TI (Memorização Rápida)</h3>
+        <ul>
+            <li><strong>Art. 65:</strong> Empresas de <strong>telecomunicações</strong> devem garantir pleno acesso.[22]</li>
+            <li><strong>Art. 66:</strong> Poder público deve <strong>incentivar</strong> oferta de <strong>aparelhos de telefonia</strong> (fixo e móvel) acessíveis.[22]</li>
+            <li><strong>Art. 67 (Radiodifusão/TVs):</strong> Devem permitir o uso de 3 recursos (memorizar):
+                <ul>
+                    <li>I – Subtitulação (legenda oculta);</li>
+                    <li>II – Janela com intérprete da Libras;</li>
+                    <li>III – Audiodescrição.[22]</li>
+                </ul>
+            </li>
+            <li><strong>Art. 73:</strong> Poder público deve <strong>capacitar</strong> profissionais (Libras, Braille, Audiodescrição, etc.).[22]</li>
+        </ul>
+
+        <h3>5. Contexto Real: Sanções e o Caso IFPB</h3>
+        <ul>
+            <li><strong>Sanções (PL 4238/21):</strong> O descumprimento da acessibilidade digital (Art. 63) está em vias de ter sanções administrativas claras: 1. Advertência; 2. Multa diária; 3. Suspensão do site.[24, 25]</li>
+            <li><strong>Caso Real (IFPB):</strong>
+                <ul>
+                    <li>O MPF ajuizou Ação Civil Pública (ACP) contra o IFPB por falta de acessibilidade (inicialmente focada em barreiras físicas/arquitetônicas).[26, 27, 28]</li>
+                    <li><em>Resultado:</em> Liminar determinou que o IFPB apresentasse projeto de adequação e inserisse os recursos na próxima previsão orçamentária.[26]</li>
+                    <li><em>Conexão Digital:</em> Em audiência de conciliação, a cobrança do MPF já se expandiu para o "formulário eletrônico" de matrícula [29], indicando que a acessibilidade digital (Art. 63) é o próximo foco de fiscalização na instituição.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <!-- 3. Botão de Questões -->
+        <div class="mt-12 text-center">
+            <a href="leg-lei-13146questoes.html" class="inline-block bg-blue-600 text-white font-bold py-3 px-8 rounded-lg text-lg shadow-md hover:bg-blue-700 transition-colors duration-200">
+                Ir para Questões
+            </a>
+        </div>
+
+    </div>
+
+</body>
+</html>

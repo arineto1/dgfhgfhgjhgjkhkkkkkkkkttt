@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: PROEJA - Decreto 5.840/2006</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carrega a fonte Inter para melhor legibilidade -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Define a fonte Inter como padrão e melhora a renderização do texto */
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Estilo para preservar a formatação do texto das resoluções */
+        .resolution-text {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7; /* Altura de linha para leitura longa */
+        }
+
+        /* Estilos personalizados para os botões de rádio */
+        .option-label {
+            display: block;
+            padding: 0.875rem 1.25rem; /* 14px 20px */
+            border: 1px solid #D1D5DB; /* border-gray-300 */
+            border-radius: 0.5rem; /* rounded-lg */
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            background-color: #ffffff; /* bg-white */
+        }
+
+        .option-label:hover {
+            background-color: #F9FAFB; /* bg-gray-50 */
+            border-color: #9CA3AF; /* border-gray-400 */
+        }
+        
+        /* Estilo quando o rádio está selecionado */
+        input[type="radio"]:checked + .option-label {
+            border-color: #2563EB; /* border-blue-600 */
+            background-color: #EFF6FF; /* bg-blue-50 */
+            box-shadow: 0 0 0 2px #2563EB; /* Ring color */
+        }
+        
+        /* Esconde o botão de rádio padrão */
+        input[type="radio"] {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-900 leading-relaxed">
+
+    <!-- Container principal com largura máxima para leitura confortável -->
+    <div class="container mx-auto max-w-3xl p-4 sm:p-8">
+
+        <!-- Cabeçalho do Quiz -->
+        <header class="mb-8">
+            <h1 class="text-3xl sm:text-4xl font-bold text-slate-800 mb-2">Quiz: PROEJA - Decreto 5.840/2006</h1>
+            <p class="text-lg text-slate-600">Teste seus conhecimentos no estilo da banca Instituto AOCP.</p>
+        </header>
+
+        <!-- Formulário do Quiz -->
+        <form id="quizForm" class="bg-white p-6 sm:p-8 rounded-lg shadow-md">
+            
+            <!-- As questões serão injetadas aqui pelo JavaScript -->
+            <div id="questionsContainer" class="space-y-10"></div>
+
+            <!-- Botão de Submissão -->
+            <div class="mt-10 pt-6 border-t border-gray-200">
+                <button type="submit" class="w-full sm:w-auto px-8 py-3 bg-blue-600 text-white font-bold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 ease-in-out">
+                    Finalizar Quiz e Ver Resultados
+                </button>
+            </div>
+        </form>
+
+        <!-- Seção de Resultados (oculta por padrão) -->
+        <section id="resultsSection" class="hidden mt-12 bg-white p-6 sm:p-8 rounded-lg shadow-md">
+            <h2 class="text-3xl font-bold text-slate-800 mb-4">Seu Resultado</h2>
+            
+            <!-- Resumo da Pontuação -->
+            <div id="scoreSummary" class="text-2xl font-bold mb-8 p-4 bg-blue-50 text-blue-800 rounded-lg">
+                <!-- Ex: "Você acertou 7 de 10 questões." -->
+            </div>
+
+            <h3 class="text-2xl font-bold text-slate-800 mb-6 border-b pb-2">Resoluções Comentadas</h3>
+            
+            <!-- Container para as resoluções detalhadas -->
+            <div id="resolutionsContainer" class="space-y-8">
+                <!-- As resoluções serão injetadas aqui -->
+            </div>
+        </section>
+
+    </div> <!-- Fim do container principal -->
+
+    <script>
+        // --- BANCO DE DADOS DAS QUESTÕES ---
+        // Armazena todas as questões, opções, respostas e resoluções.
+        const quizData = [
+            {
+                question: "(Instituto AOCP - Adaptada) De acordo com o Decreto 5.840/2006, que institui, no âmbito federal, o Programa Nacional de Integração da Educação Profissional com a Educação Básica na Modalidade de Educação de Jovens e Adultos (PROEJA), as instituições federais de educação profissional:",
+                options: {
+                    A: "deveriam implantar o programa até 2006, devendo disponibilizar, no mínimo, vinte por cento do total das vagas de ingresso.",
+                    B: "tinham a faculdade, e não a obrigatoriedade, de implantar os cursos do PROEJA até o ano de 2007.",
+                    C: "deveriam implantar cursos e programas regulares do PROEJA até o ano de 2007, devendo disponibilizar, já em 2006, no mínimo, dez por cento do total das vagas de ingresso.",
+                    D: "deveriam disponibilizar, em 2006, no máximo, dez por cento do total das vagas de ingresso, tomando como referência o ano anterior.",
+                    E: "deveriam implantar a meta de dez por cento das vagas de ingresso para o PROEJA somente a partir do ano de 2007."
+                },
+                correct: "C",
+                resolution: `**Gabarito: C**
+
+* **Alternativa A (Incorreta):** O prazo de implantação estava correto (até 2007, implicando ação em 2006), mas o percentual está errado. O Art. 2º, § 1º, estabelece "dez por cento" (10%), e não vinte por cento.[1]
+* **Alternativa B (Incorreta):** O Art. 2º utiliza o verbo "deverão" ("As instituições federais de educação profissional deverão implantar..."), indicando obrigatoriedade, e não facultatividade.[1]
+* **Alternativa C (Correta):** Esta alternativa reflete com precisão o texto do Art. 2º, *caput*, e seu § 1º. O *caput* define o prazo ("deverão implantar cursos e programas regulares do PROEJA até o ano de 2007") e o § 1º define a meta para 2006 ("Em 2006, as instituições federais... deverão disponibilizar ao PROEJA, no mínimo, dez por cento do total das vagas de ingresso...").[1]
+* **Alternativa D (Incorreta):** O decreto estabelece um piso ("no mínimo, dez por cento"), e não um teto ("no máximo").[1]
+* **Alternativa E (Incorreta):** A meta de 10% é explicitamente definida para o ano de 2006, conforme o Art. 2º, § 1º.[1]`
+            },
+            {
+                question: "(Instituto AOCP - Adaptada) O Decreto 5.840/2006 estabelece diferentes cargas horárias mínimas dependendo da modalidade do curso. Conforme o Art. 3º do referido decreto, os cursos do PROEJA destinados à **formação inicial e continuada de trabalhadores** deverão:",
+                options: {
+                    A: "contar com carga horária mínima de mil e quatrocentas horas, assegurando-se cumulativamente: destinação de, no mínimo, mil e duzentas horas para a formação geral; e destinação de, no mínimo, duzentas horas para a formação profissional.",
+                    B: "contar com carga horária mínima de duas mil e quatrocentas horas, assegurando-se cumulativamente: destinação de, no mínimo, mil e duzentas horas para a formação geral; e o cumprimento da carga horária mínima da habilitação profissional.",
+                    C: "contar com carga horária mínima de mil e duzentas horas, sendo duzentas horas destinadas à formação profissional e o restante à formação geral.",
+                    D: "distribuir a carga horária de forma paritária, destinando metade das horas para a formação geral e metade para a formação profissional, dentro de um total mínimo de 1.400 horas.",
+                    E: "contar com carga horária mínima de mil e quatrocentas horas, sendo mil e duzentas para formação profissional e duzentas para formação geral."
+                },
+                correct: "A",
+                resolution: `**Gabarito: A**
+
+* **Alternativa A (Correta):** O Art. 3º do decreto é literal ao definir as regras para os cursos de formação inicial e continuada de trabalhadores: "deverão contar com carga horária mínima de mil e quatrocentas horas, assegurando-se cumulativamente: I - destinação de, no mínimo, mil e duzentas horas para a formação geral; e II - destinação de, no mínimo, duzentas horas para a formação profissional.".[1]
+* **Alternativa B (Incorreta):** Esta alternativa descreve, incorretamente, os requisitos dos cursos de *educação profissional técnica de nível médio* (Art. 4º), que possuem carga horária total mínima de 2.400 horas.[1]
+* **Alternativa C (Incorreta):** Os números estão incorretos. A carga horária total mínima é de 1.400 horas, não 1.200.[1]
+* **Alternativa D (Incorreta):** O decreto não prevê distribuição paritária (metade/metade). Ele estabelece mínimos (1.200h para geral e 200h para profissional) dentro de um total mínimo de 1.400h.[1]
+* **Alternativa E (Incorreta):** Esta alternativa inverte a lógica do Art. 4º e aplica a carga horária errada. O Art. 3º (Formação Inicial) é claro ao definir 1.400h totais.[1]`
+            },
+            {
+                question: "(Instituto AOCP - Adaptada) Em contraponto à formação inicial, o Art. 4º do Decreto 5.840/2006 estabelece os requisitos para os cursos de **educação profissional técnica de nível médio** no âmbito do PROEJA. Assinale a alternativa que descreve corretamente esses requisitos.",
+                options: {
+                    A: "Carga horária mínima de 1.400 horas, com 1.200 horas para formação geral e 200 horas para formação profissional.",
+                    B: "Carga horária mínima de 2.400 horas, assegurando-se, no mínimo, 1.200 horas para a formação geral e o cumprimento da carga horária mínima estabelecida para a respectiva habilitação profissional técnica.",
+                    C: "Carga horária mínima de 2.400 horas, assegurando-se, no mínimo, 1.200 horas para a habilitação profissional técnica e o restante para a formação geral.",
+                    D: "Carga horária total definida livremente pela instituição, desde que a formação geral não ultrapasse 1.200 horas.",
+                    E: "Carga horária mínima de 2.000 horas, sendo 1.200 horas para formação geral e 800 horas para a habilitação profissional técnica."
+                },
+                correct: "B",
+                resolution: `**Gabarito: B**
+
+Esta questão testa o conhecimento do Art. 4º, que é frequentemente confundido com o Art. 3º. A confusão entre as cargas horárias é um dos pontos principais de dificuldade no decreto.
+
+* **Alternativa A (Incorreta):** Esta alternativa descreve os requisitos do Art. 3º (Formação Inicial e Continuada), que tem total de 1.400 horas, e não do Art. 4º (Técnico de Nível Médio).[1]
+* **Alternativa B (Correta):** O Art. 4º é explícito: "Os cursos de educação profissional técnica de nível médio... deverão contar com carga horária mínima de duas mil e quatrocentas horas, assegurando-se cumulativamente: I - destinação de, no mínimo, mil e duzentas horas para a formação geral; e II - cumprimento da carga horária mínima estabelecida para a respectiva habilitação profissional técnica.".[1]
+* **Alternativa C (Incorreta):** Esta alternativa inverte as cargas horárias, atribuindo 1.200 horas à habilitação técnica e o restante à formação geral, o que contraria o inciso I do Art. 4º.[1]
+* **Alternativa D (Incorreta):** A carga horária total não é definida livremente pela instituição; ela deve respeitar o mínimo de 2.400 horas.[1]
+* **Alternativa E (Incorreta):** Os números estão incorretos. A carga horária total mínima é de 2.400 horas, não 2.000, e a formação profissional deve seguir o mínimo da habilitação, não um valor fixo de 800 horas.[1]
+
+A tabela a seguir resume as diferenças cruciais entre o Art. 3º e o Art. 4º:
+
+| Característica | Formação Inicial e Continuada (Art. 3º) | Educação Profissional Técnica de Nível Médio (Art. 4º) |
+| :--- | :--- | :--- |
+| **Carga Horária Total Mínima** | 1.400 horas | 2.400 horas |
+| **Formação Geral (Mínimo)** | 1.200 horas | 1.200 horas |
+| **Formação Profissional (Mínimo)**| 200 horas | Carga horária mínima da respectiva habilitação |
+| **Fonte:** | Decreto 5.840/2006 [1] | Decreto 5.840/2006 [1] |`
+            },
+            {
+                question: "(Instituto AOCP - Adaptada) Sobre a abrangência e a adoção do PROEJA por outras instituições, além das federais, o Decreto 5.840/2006, em seu Art. 1º, § 3º, estabelece que:",
+                options: {
+                    A: "é vedada a participação de entidades privadas, como o \"Sistema S\", por se tratar de um programa de âmbito federal público.",
+                    B: "a adoção do programa por outras esferas é restrita às entidades privadas do \"Sistema S\", excluindo sistemas estaduais e municipais.",
+                    C: "o PROEJA é restrito ao âmbito federal, não havendo previsão no decreto para sua adoção por sistemas estaduais ou municipais.",
+                    D: "O PROEJA poderá ser adotado pelas instituições públicas dos sistemas de ensino estaduais e municipais e pelas entidades privadas nacionais de serviço social, aprendizagem e formação profissional vinculadas ao sistema sindical (\"Sistema S\").",
+                    E: "O PROEJA poderá ser adotado por sistemas estaduais e municipais, desde que não haja concorrência territorial com uma instituição federal ofertante."
+                },
+                correct: "D",
+                resolution: `**Gabarito: D**
+
+* **Alternativa A (Incorreta):** O Art. 1º, § 3º, inclui explicitamente as entidades do "Sistema S", portanto a alternativa está errada ao afirmar que é "vedada a participação de entidades privadas".[1]
+* **Alternativa B (Incorreta):** O mesmo parágrafo também inclui as "instituições públicas dos sistemas de ensino estaduais e municipais", não sendo exclusivo do "Sistema S".[1]
+* **Alternativa C (Incorreta):** O decreto institui o PROEJA no âmbito federal (Art. 1º, *caput*), mas o § 3º explicitamente autoriza a adoção por outros sistemas.[1]
+* **Alternativa D (Correta):** Esta alternativa é a transcrição literal do disposto no Art. 1º, § 3º: "O PROEJA poderá ser adotado pelas instituições públicas dos sistemas de ensino estaduais e municipais e pelas entidades privadas nacionais de serviço social, aprendizagem e formação profissional vinculadas ao sistema sindical ('Sistema S')...".[1]
+* **Alternativa E (Incorreta):** O decreto não estabelece essa condição de exclusividade ou concorrência territorial.[1]`
+            },
+            {
+                question: "(Instituto AOCP - Adaptada) Segundo o Art. 5º do Decreto 5.840/2006, na estruturação dos cursos e programas do PROEJA, as áreas profissionais a serem ofertadas deverão ser, **preferencialmente**, aquelas que:",
+                options: {
+                    A: "obedeçam estritamente às diretrizes curriculares nacionais estabelecidas pelo CNE, independentemente da localidade.",
+                    B: "demonstrem maior sintonia com as demandas de nível local e regional, contribuindo para o desenvolvimento socioeconômico e cultural.",
+                    C: "estejam alinhadas às demandas do mercado internacional, visando a exportação de mão de obra qualificada.",
+                    D: "possuam maior vocação histórica na instituição de ensino ofertante, mesmo que não haja demanda regional.",
+                    E: "sigam uma definição nacional uniforme, garantindo que todos os cursos de PROEJA no país tenham as mesmas habilitações."
+                },
+                correct: "B",
+                resolution: `**Gabarito: B**
+
+* **Alternativa A (Incorreta):** Embora as diretrizes do CNE devam ser observadas (conforme Art. 4º, inciso III), o critério *preferencial* para a escolha da área, definido no Art. 5º, § 2º, foca nas demandas locais.[1]
+* **Alternativa B (Correta):** O Art. 5º, § 2º, afirma textualmente: "As áreas profissionais... deverão ser, preferencialmente, aquelas que demonstrem maior sintonia com as demandas de nível local e regional, de forma a contribuir para o fortalecimento das estratégias de desenvolvimento socioeconômico e cultural.".[1]
+* **Alternativa C (Incorreta):** O foco do decreto é "local e regional", não internacional.[1]
+* **Alternativa D (Incorreta):** O critério não é a vocação histórica da instituição, mas a sintonia com as demandas atuais do arranjo produtivo local/regional.[1]
+* **Alternativa E (Incorreta):** O decreto prioriza as demandas "local e regional", opondo-se à ideia de uma definição "nacional" e "uniforme".[1]`
+            },
+            {
+                question: "(Instituto AOCP - Adaptada) Quanto à certificação e conclusão dos cursos de educação profissional técnica de nível médio do PROEJA, assinale a alternativa correta em conformidade com o Art. 6º do Decreto 5.840/2006.",
+                options: {
+                    A: "O aluno fará jus a dois diplomas distintos: um de conclusão do ensino médio e outro de habilitação profissional.",
+                    B: "O diploma atesta a habilitação profissional, mas não serve para atestar a conclusão do ensino médio, devendo o aluno realizar exame supletivo.",
+                    C: "O aluno que obtiver aproveitamento fará jus a um diploma com validade nacional que atesta tanto a habilitação profissional quanto a conclusão do ensino médio, possibilitando o prosseguimento de estudos.",
+                    D: "A conclusão do curso é vedada antes do prazo mínimo regular estabelecido no projeto pedagógico, não sendo possível a conclusão a qualquer tempo.",
+                    E: "O diploma terá validade apenas estadual, devendo ser revalidado caso o aluno deseje prosseguir os estudos em outra unidade da federação."
+                },
+                correct: "C",
+                resolution: `**Gabarito: C**
+
+* **Alternativa A (Incorreta):** O Art. 6º, § 1º, fala em "obtenção do correspondente diploma" (singular), que atesta ambas as formações.[1]
+* **Alternativa B (Incorreta):** O Art. 6º, § 1º, é claro ao afirmar que o diploma serve "para atestar a conclusão do ensino médio", contrariando a alternativa.[1]
+* **Alternativa C (Correta):** Esta alternativa parafraseia corretamente o Art. 6º, § 1º, que diz que o aluno fará jus ao diploma, com validade nacional, "para fins de habilitação na área profissional e para atestar a conclusão do ensino médio, possibilitando o prosseguimento de estudos em nível superior.".[1]
+* **Alternativa D (Incorreta):** Esta alternativa contradiz diretamente o Art. 6º, § 2º, que afirma: "Todos os cursos e programas do PROEJA deverão prever a possibilidade de conclusão, a qualquer tempo...".[1]
+* **Alternativa E (Incorreta):** O Art. 6º, § 1º, e o Art. 8º confirmam que o diploma terá "validade nacional".[1]`
+            },
+            {
+                question: "(Instituto AOCP - Adaptada) O Art. 7º do Decreto 5.840/2006 trata do reconhecimento de saberes adquiridos fora do ambiente escolar formal. Sobre esse tema, é correto afirmar que as instituições ofertantes de cursos e programas do PROEJA:",
+                options: {
+                    A: "são proibidas de reconhecer quaisquer habilidades ou conhecimentos obtidos em processos formativos extra-escolares.",
+                    B: "poderão aferir e reconhecer, mediante avaliação individual, conhecimentos e habilidades obtidos em processos formativos extra-escolares.",
+                    C: "poderão reconhecer tais habilidades, desde que o aluno comprove, no mínimo, 400 horas de experiência prévia na área.",
+                    D: "devem reconhecer automaticamente os conhecimentos extra-escolares, sem necessidade de avaliação individual, apenas com a declaração do aluno.",
+                    E: "podem reconhecer conhecimentos da formação geral, mas estão vedadas de reconhecer habilidades relativas aos componentes da formação profissional."
+                },
+                correct: "B",
+                resolution: `**Gabarito: B**
+
+* **Alternativa A (Incorreta):** O Art. 7º autoriza expressamente essa prática, tornando a alternativa incorreta.[1]
+* **Alternativa B (Correta):** O Art. 7º estabelece: "As instituições ofertantes de cursos e programas do PROEJA poderão aferir e reconhecer, mediante avaliação individual, conhecimentos e habilidades obtidos em processos formativos extra-escolares.".[1]
+* **Alternativa C (Incorreta):** O decreto não estabelece uma carga horária mínima (como 400 horas) para essa certificação; apenas exige a "avaliação individual".[1]
+* **Alternativa D (Incorreta):** O decreto não prevê reconhecimento "automático"; ele exige "avaliação individual".[1]
+* **Alternativa E (Incorreta):** O Art. 7º é genérico e não faz exceção para os componentes da formação profissional.[1]`
+            },
+            {
+                question: `(Instituto AOCP - Adaptada) Analise as afirmativas abaixo sobre as disposições do Decreto 5.840/2006:
+
+I. Os diplomas de cursos técnicos de nível médio desenvolvidos no âmbito do PROEJA terão validade nacional, conforme a legislação aplicável.
+II. O acompanhamento e o controle social da implementação nacional do PROEJA será exercido por um comitê nacional com função deliberativa.
+III. O PROEJA abrange exclusivamente a educação profissional técnica de nível médio, não incluindo a formação inicial e continuada de trabalhadores.
+
+Está(ão) correta(s) apenas:`,
+                options: {
+                    A: "I.",
+                    B: "II.",
+                    C: "I e II.",
+                    D: "II e III.",
+                    E: "I, II e III."
+                },
+                correct: "A",
+                resolution: `**Gabarito: A**
+
+* **Afirmativa I (Correta):** Conforme o Art. 8º: "Os diplomas de cursos técnicos de nível médio desenvolvidos no âmbito do PROEJA terão validade nacional, conforme a legislação aplicável.".[1]
+* **Afirmativa II (Incorreta):** O Art. 9º afirma que o comitê nacional terá "função consultiva", e não deliberativa.[1]
+* **Afirmativa III (Incorreta):** O PROEJA abrange tanto a "formação inicial e continuada de trabalhadores" (Art. 3º) quanto a "educação profissional técnica de nível médio" (Art. 4º).[1]
+
+Portanto, apenas a afirmativa I está correta.`
+            },
+            {
+                question: "(Instituto AOCP - Adaptada) O Art. 9º do Decreto 5.840/2006 prevê um comitê nacional para o acompanhamento e o controle social da implementação do PROEJA. De acordo com o parágrafo único deste artigo, a composição, as atribuições e o regimento deste comitê serão definidos:",
+                options: {
+                    A: "pelo Ministério do Planejamento, Orçamento e Gestão.",
+                    B: "conjuntamente pelos Ministérios da Educação e do Trabalho e Emprego.",
+                    C: "pelo Ministério da Educação e pelo Ministério da Assistência Social.",
+                    D: "conjuntamente pelo Ministério da Educação e pelo Ministério da Ciência e Tecnologia.",
+                    E: "exclusivamente pelo Ministério da Educação, por se tratar de um programa educacional."
+                },
+                correct: "B",
+                resolution: `**Gabarito: B**
+
+* **Alternativa A (Incorreta):** O Ministério do Planejamento não é mencionado no Art. 9º.[1]
+* **Alternativa B (Correta):** O Art. 9º, Parágrafo único, determina: "A composição, as atribuições e o regimento do comitê de que trata o caput deste artigo serão definidos conjuntamente pelos Ministérios da Educação e do Trabalho e Emprego.".[1]
+* **Alternativa C (Incorreta):** O Ministério da Assistência Social não é mencionado no Art. 9º.[1]
+* **Alternativa D (Incorreta):** O Ministério da Ciência e Tecnologia não é mencionado no Art. 9º.[1]
+* **Alternativa E (Incorreta):** A definição não é exclusiva do Ministério da Educação; ela deve ser feita "conjuntamente" com o Ministério do Trabalho e Emprego.[1]`
+            },
+            {
+                question: "(Instituto AOCP - Adaptada) Sobre as disposições finais e transitórias do Decreto 5.840/2006, especificamente em seu Art. 11, o que ele estabelece?",
+                options: {
+                    A: "Mantém em vigor o Decreto nº 5.154/2004, que trata da educação profissional.",
+                    B: "Mantém em vigor o Decreto nº 5.478/2005, que tratava do PROEJA anteriormente.",
+                    C: "Revoga a Lei nº 9.394/96 (LDB) nos artigos que tratam da Educação de Jovens e Adultos.",
+                    D: "Fica revogado o Decreto nº 5.478, de 24 de junho de 2005.",
+                    E: "Institui o Decreto nº 5.478, de 24 de junho de 2005."
+                },
+                correct: "D",
+                resolution: `**Gabarito: D**
+
+* **Alternativa A (Incorreta):** O Decreto n.º 5.154/2004, que trata da educação profissional, é citado no preâmbulo do Decreto n.º 5.840/2006 como parte de sua fundamentação, mas não é revogado por ele.[1]
+* **Alternativa B (Incorreta):** O Decreto n.º 5.478/2005 não é mantido; ele é expressamente revogado.[1]
+* **Alternativa C (Incorreta):** Um decreto não pode revogar uma lei (como a LDB 9.394/96). O decreto é hierarquicamente inferior à lei.[1]
+* **Alternativa D (Correta):** O Art. 11 afirma, textualmente: "Fica revogado o Decreto no 5.478, de 24 de junho de 2005.".[1]
+* **Alternativa E (Incorreta):** O Art. 11 revoga, e não institui ou regulamenta, o Decreto n.º 5.478/2005.[1]`
+            }
+        ];
+
+        // --- INICIALIZAÇÃO DO QUIZ ---
+        // Obtém os elementos do DOM
+        const questionsContainer = document.getElementById('questionsContainer');
+        const quizForm = document.getElementById('quizForm');
+        const resultsSection = document.getElementById('resultsSection');
+        const scoreSummary = document.getElementById('scoreSummary');
+        const resolutionsContainer = document.getElementById('resolutionsContainer');
+
+        // Função para carregar as questões no formulário
+        function loadQuestions() {
+            let questionsHTML = '';
+
+            quizData.forEach((data, index) => {
+                const questionIndex = index + 1;
+                
+                // Monta o HTML para as opções
+                let optionsHTML = '<div class="space-y-3 mt-4">';
+                for (const [key, value] of Object.entries(data.options)) {
+                    optionsHTML += `
+                        <div>
+                            <input type="radio" id="q${questionIndex}_${key}" name="q${questionIndex}" value="${key}">
+                            <label for="q${questionIndex}_${key}" class="option-label">
+                                <span class="font-bold mr-2">${key})</span>
+                                ${value}
+                            </label>
+                        </div>
+                    `;
+                }
+                optionsHTML += '</div>';
+
+                // Monta o HTML para a questão inteira
+                questionsHTML += `
+                    <div class="question-block border-b border-gray-200 pb-8">
+                        <p class="text-lg font-semibold text-slate-800" style="white-space: pre-wrap;">
+                            <strong class="text-blue-600">Questão ${questionIndex}:</strong><br>
+                            ${data.question}
+                        </p>
+                        ${optionsHTML}
+                    </div>
+                `;
+            });
+
+            questionsContainer.innerHTML = questionsHTML;
+        }
+
+        // --- PROCESSAMENTO DO QUIZ ---
+        // Função chamada ao enviar o formulário
+        function handleSubmit(event) {
+            event.preventDefault(); // Impede o recarregamento da página
+
+            const formData = new FormData(quizForm);
+            let score = 0;
+            let resolutionsHTML = '';
+
+            quizData.forEach((data, index) => {
+                const questionIndex = index + 1;
+                const userAnswer = formData.get(`q${questionIndex}`);
+                const correctAnswer = data.correct;
+                const isCorrect = userAnswer === correctAnswer;
+
+                if (isCorrect) {
+                    score++;
+                }
+
+                // --- Monta o HTML da Resolução ---
+                let answerFeedbackHTML = '';
+                if (userAnswer) {
+                    answerFeedbackHTML = `
+                        <p class="mb-2"><strong>Sua resposta:</strong> 
+                            <span class="${isCorrect ? 'text-green-600 font-bold' : 'text-red-600 font-bold'}">
+                                ${userAnswer}) ${data.options[userAnswer]}
+                            </span>
+                            ${isCorrect ? ' (Correta)' : ' (Incorreta)'}
+                        </p>
+                    `;
+                } else {
+                    answerFeedbackHTML = `
+                        <p class="mb-2 text-yellow-700 font-bold">Você não respondeu esta questão.</p>
+                    `;
+                }
+
+                if (!isCorrect) {
+                    answerFeedbackHTML += `
+                        <p class="mb-4"><strong>Resposta correta:</strong> 
+                            <span class="text-green-600 font-bold">
+                                ${correctAnswer}) ${data.options[correctAnswer]}
+                            </span>
+                        </p>
+                    `;
+                }
+
+                resolutionsHTML += `
+                    <div class="resolution-block border-b border-gray-200 pb-6">
+                        <h4 class="text-xl font-bold text-slate-800 mb-3">Questão ${questionIndex}</h4>
+                        <p class="text-md font-medium text-gray-700 mb-4" style="white-space: pre-wrap;">${data.question}</p>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                            ${answerFeedbackHTML}
+                        </div>
+                        
+                        <h5 class="text-lg font-semibold text-slate-700 mb-2">Resolução Comentada:</h5>
+                        <div class="resolution-text p-4 bg-gray-50 rounded-lg text-gray-800">
+                            ${data.resolution}
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Atualiza o sumário da pontuação
+            scoreSummary.innerHTML = `Você acertou <span class="text-blue-800">${score}</span> de <span class="text-blue-800">${quizData.length}</span> questões.`;
+
+            // Adiciona as resoluções ao container
+            resolutionsContainer.innerHTML = resolutionsHTML;
+
+            // Exibe a seção de resultados
+            resultsSection.classList.remove('hidden');
+
+            // Rola a página para os resultados
+            resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // --- EVENT LISTENERS ---
+        // Carrega as questões quando a página é carregada
+        document.addEventListener('DOMContentLoaded', loadQuestions);
+        // Adiciona o listener para o envio do formulário
+        quizForm.addEventListener('submit', handleSubmit);
+
+    </script>
+</body>
+</html>

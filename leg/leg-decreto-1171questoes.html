@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Ética do Servidor (Decreto 1.171)</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carrega a fonte Inter para uma melhor legibilidade -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Define a fonte Inter como padrão e aplica um fundo claro */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa; /* Fundo claro (cinza muito leve) */
+            color: #212529; /* Letras escuras */
+        }
+
+        /* Estilo para a opção selecionada */
+        /* Usamos 'has' para estilizar o label quando o input dentro dele está checado */
+        .question-option:has(input[type="radio"]:checked) {
+            border-color: #0d6efd; /* Azul para destacar a seleção */
+            background-color: #e7f1ff;
+            border-width: 2px;
+        }
+
+        /* Estilo para a opção correta (após submissão) */
+        .correct-answer {
+            border-color: #198754; /* Verde */
+            background-color: #d1e7dd;
+            border-width: 2px;
+        }
+
+        /* Estilo para a opção incorreta (após submissão) */
+        .incorrect-answer {
+            border-color: #dc3545; /* Vermelho */
+            background-color: #f8d7da;
+            border-width: 2px;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Container principal com largura máxima para leitura confortável -->
+    <div class="max-w-4xl mx-auto p-4 sm:p-6 md:p-10">
+
+        <!-- Cabeçalho do Quiz -->
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Quiz: Código de Ética do Servidor (Decreto 1.171/1994)</h1>
+            <p class="text-lg text-gray-700">Teste seus conhecimentos no estilo da banca Instituto AOCP.</p>
+        </header>
+
+        <!-- Seção de Resultados (inicialmente oculta) -->
+        <div id="resultsHeader" class="hidden text-center p-6 bg-blue-100 border-2 border-blue-300 rounded-lg mb-8">
+            <h2 class="text-2xl font-bold text-blue-800">Resultado Final</h2>
+            <p id="score" class="text-xl font-medium text-blue-700 mt-2"></p>
+        </div>
+
+        <!-- Título das Resoluções (inicialmente oculto) -->
+        <h3 id="resolutionsTitle" class="hidden text-2xl font-bold mt-10 mb-6 text-gray-900">
+            Gabarito Detalhado e Resoluções
+        </h3>
+
+        <!-- Formulário do Quiz -->
+        <form id="quizForm">
+            <!-- Container das Questões -->
+            <div class="space-y-8">
+
+                <!-- Questão 1 -->
+                <div class="question-block bg-white rounded-lg shadow-sm border border-gray-200 p-6" id="q-block-1">
+                    <p class="text-gray-800 text-lg mb-5 font-medium">
+                        <strong>1.</strong> De acordo com o Código de Ética Profissional do Servidor Público Civil (Decreto 1.171/1994), no que tange às Regras Deontológicas (Seção I), assinale a alternativa que define corretamente a conduta esperada do servidor.
+                    </p>
+                    <div class="space-y-3">
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q1" value="A" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(A)</strong> O servidor deve separar sua vida particular da função pública, pois os atos em sua vida privada não impactam a moralidade administrativa.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q1" value="B" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(B)</strong> A moralidade e a legalidade são conceitos distintos, sendo a legalidade o único critério que o servidor deve observar para validar seus atos.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q1" value="C" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(C)</strong> A finalidade da função pública é o bem comum, mas a moralidade é um critério secundário, desde que o ato seja legal.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q1" value="D" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(D)</strong> O servidor deve analisar o elemento ético de sua conduta apenas no que tange à sua vida particular, pois a função pública já é regida pela legalidade.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q1" value="E" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(E)</strong> A finalidade é sempre o bem comum, e o servidor público não poderá jamais desprezar o elemento ético de sua conduta, devendo equilibrar a legalidade e a finalidade na consecução do interesse público.</span>
+                        </label>
+                    </div>
+                    <!-- Resolução Oculta -->
+                    <div id="resolution-1" class="hidden mt-5 p-4 bg-gray-50 rounded-md border-l-4">
+                        <h4 class="font-bold text-lg mb-2">Resolução da Questão 1</h4>
+                        <p><strong>Gabarito: E</strong></p>
+                        <p><strong>Tipo de Questão:</strong> Interpretação de Princípio (Regra Deontológica - Seção I).</p>
+                        <p class="mt-2"><strong>Análise da Alternativa Correta:</strong><br>
+                            (E) A finalidade é sempre o bem comum, e o servidor público não poderá jamais desprezar o elemento ético de sua conduta, devendo equilibrar a legalidade e a finalidade na consecução do interesse público.<br>
+                            <strong>Fundamentação:</strong> Esta alternativa é a mais completa e correta. Ela reflete o inciso II da Seção I (Das Regras Deontológicas): "O servidor público não poderá jamais desprezar o elemento ético de sua conduta. Assim, não terá que decidir somente entre o legal e o ilegal... mas principalmente entre o honesto e o desonesto...". A alternativa combina isso com o inciso I, que afirma que a finalidade maior é o bem comum, e o inciso III, que menciona o "equilíbrio entre a legalidade e a finalidade".
+                        </p>
+                        <p class="mt-2"><strong>Insight do Especialista (Dica de Banca AOCP):</strong> Esta questão testa a compreensão dos princípios (Regras Deontológicas). A AOCP pode criar alternativas que parecem corretas (como a B e D), mas o candidato deve buscar a alternativa que seja a *melhor e mais completa* síntese do texto legal, que no caso é a E.</p>
+                    </div>
+                </div>
+
+                <!-- Questão 2 -->
+                <div class="question-block bg-white rounded-lg shadow-sm border border-gray-200 p-6" id="q-block-2">
+                    <p class="text-gray-800 text-lg mb-5 font-medium">
+                        <strong>2.</strong> Conforme o Decreto 1.171/1994, analise os itens a seguir que tratam dos Deveres Fundamentais do Servidor Público (Seção II) e assinale a alternativa correta.<br>
+                        I. ser assíduo e frequente ao serviço, na certeza de que sua ausência provoca danos ao trabalho ordenado, refletindo negativamente em todo o sistema.<br>
+                        II. abster-se, de forma absoluta, de exercer sua função, poder ou autoridade com finalidade estranha ao interesse público, mesmo que observando as formalidades legais.<br>
+                        III. apresentar-se ao trabalho com vestimentas adequadas ao exercício da função.
+                    </p>
+                    <div class="space-y-3">
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q2" value="A" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(A)</strong> Apenas I e II estão corretos.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q2" value="B" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(B)</strong> Apenas II e III estão corretos.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q2" value="C" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(C)</strong> Apenas I e III estão corretos.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q2" value="D" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(D)</strong> Apenas II está correto.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q2" value="E" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(E)</strong> Todos os itens estão corretos.</span>
+                        </label>
+                    </div>
+                    <!-- Resolução Oculta -->
+                    <div id="resolution-2" class="hidden mt-5 p-4 bg-gray-50 rounded-md border-l-4">
+                        <h4 class="font-bold text-lg mb-2">Resolução da Questão 2</h4>
+                        <p><strong>Gabarito: C</strong></p>
+                        <p><strong>Tipo de Questão:</strong> Análise de Itens (Deveres Fundamentais - Seção II).</p>
+                        <p class="mt-2"><strong>Análise dos Itens:</strong><br>
+                            <strong>I. Correto.</strong> É uma cópia literal do inciso XIV da Seção II (Dos Principais Deveres do Servidor Público): "ser assíduo e frequente ao serviço...".<br>
+                            <strong>II. Incorreto.</strong> Este item descreve uma *Vedação* e não um *Dever*. Está na Seção III (Das Vedações), inciso XVI: "abster-se... de exercer sua função... com finalidade estranha ao interesse público...".<br>
+                            <strong>III. Correto.</strong> É um Dever Fundamental, conforme a Seção II, inciso XII: "apresentar-se ao trabalho com vestimentas adequadas ao exercício da função.".
+                        </p>
+                        <p class="mt-2"><strong>Insight do Especialista (Dica de Banca AOCP):</strong> Questões de "análise de assertivas" são muito comuns. A principal armadilha, explorada no item II, é a confusão entre as Seções II (Deveres) e III (Vedações). O candidato deve ter clareza sobre o que é *dever* (obrigação de fazer ou ser) e o que é *vedação* (proibição).</p>
+                    </div>
+                </div>
+
+                <!-- Questão 3 -->
+                <div class="question-block bg-white rounded-lg shadow-sm border border-gray-200 p-6" id="q-block-3">
+                    <p class="text-gray-800 text-lg mb-5 font-medium">
+                        <strong>3.</strong> O Decreto 1.171/1994 estabelece, em sua Seção III, um rol de vedações ao servidor público. Assinale a alternativa que corresponde a uma vedação expressa no referido decreto.
+                    </p>
+                    <div class="space-y-3">
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q3" value="A" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(A)</strong> Representar contra ilegalidade ou omissão, desde que tenha autorização expressa da chefia imediata para fazê-lo.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q3" value="B" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(B)</strong> Abster-se, de forma relativa, de exercer sua função com finalidade estranha ao interesse público.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q3" value="C" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(C)</strong> exercer atividade profissional aética ou ligar o seu nome a empreendimentos de cunho duvidoso.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q3" value="D" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(D)</strong> Manter-se atualizado com as instruções, as normas de serviço e a legislação pertinentes ao órgão onde exerce suas funções.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q3" value="E" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(E)</strong> Tratar cuidadosamente os usuários dos serviços, exceto em situações de grande volume de atendimento que justifiquem a celeridade.</span>
+                        </label>
+                    </div>
+                    <!-- Resolução Oculta -->
+                    <div id="resolution-3" class="hidden mt-5 p-4 bg-gray-50 rounded-md border-l-4">
+                        <h4 class="font-bold text-lg mb-2">Resolução da Questão 3</h4>
+                        <p><strong>Gabarito: C</strong></p>
+                        <p><strong>Tipo de Questão:</strong> Identificação de Vedação (Seção III) - Literalidade.</p>
+                        <p class="mt-2"><strong>Análise da Alternativa Correta:</strong><br>
+                            (C) exercer atividade profissional aética ou ligar o seu nome a empreendimentos de cunho duvidoso.<br>
+                            <strong>Fundamentação:</strong> Esta é uma cópia literal da Seção III (Das Vedações), inciso XVII.
+                        </p>
+                        <p class="mt-2"><strong>Análise dos Distratores (Alternativas Incorretas):</strong><br>
+                            (A) Incorreta. O erro está na condição "desde que tenha autorização...". O dever de representar (Seção II, inciso XV, 'g') não exige autorização.<br>
+                            (D) Incorreta. "Manter-se atualizado" é um *Dever Fundamental* (Seção II, inciso IX), e não uma vedação.<br>
+                            (E) Incorreta. "Tratar cuidadosamente os usuários" é um *Dever Fundamental* (Seção II, inciso IV). A exceção ("exceto em situações de grande volume") não existe no decreto.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Questão 4 -->
+                <div class="question-block bg-white rounded-lg shadow-sm border border-gray-200 p-6" id="q-block-4">
+                    <p class="text-gray-800 text-lg mb-5 font-medium">
+                        <strong>4.</strong> O Código de Ética (Decreto 1.171/1994) sofreu alterações ao longo do tempo, notadamente pelo Decreto 6.029/2007. Considerando o texto *original* do Decreto 1.171/1994, assinale a alternativa que apresenta uma regra que foi *expressamente revogada* e não está mais em vigor.
+                    </p>
+                    <div class="space-y-3">
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q4" value="A" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(A)</strong> A pena aplicável ao servidor pela Comissão de Ética é a de censura.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q4" value="B" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(B)</strong> A Comissão de Ética é competente para apurar, de ofício ou a pedido, fato ou ato que contrarie o código.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q4" value="C" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(C)</strong> O servidor, ao tomar posse, deve prestar um compromisso solene de acatamento e observância das regras estabelecidas pelo Código de Ética.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q4" value="D" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(D)</strong> A Comissão de Ética poderá tomar conhecimento de fatos ou atos que infrinjam o código.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q4" value="E" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(E)</strong> Para fins de apuração, a Comissão de Ética deve notificar o servidor.</span>
+                        </label>
+                    </div>
+                    <!-- Resolução Oculta -->
+                    <div id="resolution-4" class="hidden mt-5 p-4 bg-gray-50 rounded-md border-l-4">
+                        <h4 class="font-bold text-lg mb-2">Resolução da Questão 4</h4>
+                        <p><strong>Gabarito: C</strong></p>
+                        <p><strong>Tipo de Questão:</strong> Cobrança de Legislação Atualizada (Revogação).</p>
+                        <p class="mt-2"><strong>Análise da Alternativa Correta:</strong><br>
+                            (C) O servidor, ao tomar posse, deve prestar um compromisso solene de acatamento e observância das regras estabelecidas pelo Código de Ética.<br>
+                            <strong>Fundamentação:</strong> Esta era a exata redação do Inciso XXV do Anexo do Decreto 1.171/1994. No entanto, o Art. 25 do Decreto nº 6.029/2007 revogou expressamente este inciso. Portanto, esta regra *constava* na redação original, mas não é mais válida.
+                        </p>
+                        <p class="mt-2"><strong>Insight do Especialista (Dica de Banca AOCP):</strong> A banca pode cobrar textos que não estão mais em vigor para testar a atualização do candidato. O Decreto 6.029/2007 alterou significativamente a parte processual das Comissões de Ética, revogando os incisos XVII, XIX, XX, XXI, XXIII e XXV.</p>
+                    </div>
+                </div>
+
+                <!-- Questão 5 -->
+                <div class="question-block bg-white rounded-lg shadow-sm border border-gray-200 p-6" id="q-block-5">
+                    <p class="text-gray-800 text-lg mb-5 font-medium">
+                        <strong>5.</strong> A Seção I do Decreto 1.171/1994 (Das Regras Deontológicas) estabelece os critérios de decisão do servidor público. Conforme o texto legal, quando o servidor estiver diante de duas opções, deverá escolher:
+                    </p>
+                    <div class="space-y-3">
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q5" value="A" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(A)</strong> sempre a mais conveniente para a Administração Pública, conforme critério da chefia.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q5" value="B" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(B)</strong> aquela que melhor se adeque ao seu fluxo de trabalho, desde que seja legal.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q5" value="C" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(C)</strong> sempre a menos onerosa para o erário, independentemente do benefício social.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q5" value="D" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(D)</strong> sempre a melhor e mais vantajosa para o bem comum.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q5" value="E" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(E)</strong> abster-se de decidir, caso ambas as opções sejam legais, repassando a decisão ao superior.</span>
+                        </label>
+                    </div>
+                    <!-- Resolução Oculta -->
+                    <div id="resolution-5" class="hidden mt-5 p-4 bg-gray-50 rounded-md border-l-4">
+                        <h4 class="font-bold text-lg mb-2">Resolução da Questão 5</h4>
+                        <p><strong>Gabarito: D</strong></p>
+                        <p><strong>Tipo de Questão:</strong> Literalidade (Regra Deontológica - Seção I).</p>
+                        <p class="mt-2"><strong>Análise da Alternativa Correta:</strong><br>
+                            (D) O servidor deverá escolher, quando estiver diante de duas opções, sempre a melhor e mais vantajosa para o bem comum.<br>
+                            <strong>Fundamentação:</strong> Cópia literal do inciso V da Seção I (Das Regras Deontológicas): "...quando estiver diante de duas opções, escolher sempre a melhor e a mais vantajosa para o bem comum."
+                        </p>
+                        <p class="mt-2"><strong>Insight do Especialista (Dica de Banca AOCP):</strong> A banca exige a memorização exata da "fórmula" legal. "Mais conveniente" está errado; "melhor e mais vantajosa para o bem comum" está certo. É um teste puro de literalidade.</p>
+                    </div>
+                </div>
+
+                <!-- Questão 6 -->
+                <div class="question-block bg-white rounded-lg shadow-sm border border-gray-200 p-6" id="q-block-6">
+                    <p class="text-gray-800 text-lg mb-5 font-medium">
+                        <strong>6.</strong> Conforme o disposto na Seção III (Das Vedações) do Decreto 1.171/1994, assinale a alternativa *incorreta* ou que não encontra correspondência literal no texto do decreto.
+                    </p>
+                    <div class="space-y-3">
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q6" value="A" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(A)</strong> É vedado o uso do cargo ou função para obter qualquer favorecimento para si ou para outrem.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q6" value="B" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(B)</strong> É vedado alterar ou deturpar o teor de documentos que deva encaminhar para providências.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q6" value="C" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(C)</strong> É vedado iludir ou tentar iludir qualquer pessoa que necessite do atendimento.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q6" value="D" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(D)</strong> É vedado desviar servidor público para atendimento a interesse particular.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q6" value="E" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(E)</strong> É vedado usar de artifícios, de forma absoluta, para procrastinar ou dificultar o exercício regular de direito por qualquer pessoa, causando-lhe dano.</span>
+                        </label>
+                    </div>
+                    <!-- Resolução Oculta -->
+                    <div id="resolution-6" class="hidden mt-5 p-4 bg-gray-50 rounded-md border-l-4">
+                        <h4 class="font-bold text-lg mb-2">Resolução da Questão 6</h4>
+                        <p><strong>Gabarito: E</strong></p>
+                        <p><strong>Tipo de Questão:</strong> Identificação de Incorreta (Vedações - Seção III) - Adição de Termo.</p>
+                        <p class="mt-2"><strong>Análise da Alternativa Incorreta (o gabarito):</strong><br>
+                            (E) É vedado usar de artifícios, de forma absoluta, para procrastinar ou dificultar o exercício regular de direito por qualquer pessoa, causando-lhe dano.<br>
+                            <strong>Fundamentação:</strong> Esta alternativa está incorreta porque adiciona o termo "de forma absoluta", que *não consta* no texto legal. A Seção III, inciso XV, alínea 'f', veda: "usar de artifícios para procrastinar ou dificultar o exercício regular de direito por qualquer pessoa, causando-lhe dano." A simples adição do advérbio, que não altera substancialmente o sentido mas altera a literalidade, é um método de anulação de item no estilo AOCP.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Questão 7 -->
+                <div class="question-block bg-white rounded-lg shadow-sm border border-gray-200 p-6" id="q-block-7">
+                    <p class="text-gray-800 text-lg mb-5 font-medium">
+                        <strong>7.</strong> A Seção II do Decreto 1.171/1994 lista os Principais Deveres do Servidor Público. Assinale a alternativa que *não* apresenta um dever fundamental expressamente listado nessa seção.
+                    </p>
+                    <div class="space-y-3">
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q7" value="A" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(A)</strong> desempenhar, a tempo, as atribuições do cargo, função ou emprego público de que seja titular.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q7" value="B" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(B)</strong> ser cortês, tendo urbanidade, disponibilidade e atenção.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q7" value="C" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(C)</strong> ter consciência de que seu trabalho é regido por princípios éticos.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q7" value="D" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(D)</strong> ter modéstia, afastando de sua conduta o orgulho e a vaidade, que são formas de desonestidade.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q7" value="E" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(E)</strong> comunicar imediatamente a seus superiores todo e qualquer ato ou fato contrário ao interesse público.</span>
+                        </label>
+                    </div>
+                    <!-- Resolução Oculta -->
+                    <div id="resolution-7" class="hidden mt-5 p-4 bg-gray-50 rounded-md border-l-4">
+                        <h4 class="font-bold text-lg mb-2">Resolução da Questão 7</h4>
+                        <p><strong>Gabarito: D</strong></p>
+                        <p><strong>Tipo de Questão:</strong> "Exceto" (Deveres Fundamentais - Seção II).</p>
+                        <p class="mt-2"><strong>Análise da Alternativa Incorreta (o gabarito):</strong><br>
+                            (D) ter modéstia, afastando de sua conduta o orgulho e a vaidade, que são formas de desonestidade.<br>
+                            <strong>Fundamentação:</strong> Esta alternativa *não é* um dever listado na Seção II. Embora seja um princípio moral válido, ele não está *expresso* como um dever fundamental no texto do Decreto 1.171/1994. A AOCP cobra a literalidade, e se não está escrito, está errado para a banca.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Questão 8 -->
+                <div class="question-block bg-white rounded-lg shadow-sm border border-gray-200 p-6" id="q-block-8">
+                    <p class="text-gray-800 text-lg mb-5 font-medium">
+                        <strong>8.</strong> O Código de Ética (Decreto 1.171/1994) veda ao servidor público receber qualquer tipo de ajuda financeira, gratificação, prêmio, comissão, doação ou vantagem de qualquer espécie (Seção III, XV). No entanto, o próprio decreto estabelece uma exceção expressa a essa regra. Assinale a alternativa que apresenta essa exceção.
+                    </p>
+                    <div class="space-y-3">
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q8" value="A" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(A)</strong> Brindes de baixo valor (até R$ 100,00) que não configurem troca de favores.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q8" value="B" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(B)</strong> Donativos recebidos em épocas comemorativas, como Natal e aniversários.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q8" value="C" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(C)</strong> Condecorações e prêmios de autoridades estrangeiras, quando em missão oficial.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q8" value="D" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(D)</strong> Vantagens oferecidas por entidades sindicais ou associações de classe.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q8" value="E" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(E)</strong> Presentes de parentes até o segundo grau.</span>
+                        </label>
+                    </div>
+                    <!-- Resolução Oculta -->
+                    <div id="resolution-8" class="hidden mt-5 p-4 bg-gray-50 rounded-md border-l-4">
+                        <h4 class="font-bold text-lg mb-2">Resolução da Questão 8</h4>
+                        <p><strong>Gabarito: E</strong></p>
+                        <p><strong>Tipo de Questão:</strong> Identificação de Exceção (Vedação - Seção III).</p>
+                        <p class="mt-2"><strong>Análise da Alternativa Correta:</strong><br>
+                            (E) Presentes de parentes até o segundo grau.<br>
+                            <strong>Fundamentação:</strong> A vedação do inciso XV, alínea 'b' do mesmo inciso abre uma exceção: "receber presentes de quem quer que seja", *excetuando-se* "presentes de parentes até o segundo grau". Portanto, é permitido receber presentes de parentes até o segundo grau.
+                        </p>
+                        <p class="mt-2"><strong>Insight do Especialista (Dica de Banca AOCP):</strong> A banca testa exceções. A vedação de receber presentes (XV, 'b') é ampla, mas o candidato deve memorizar a *única exceção* contida nela: "presentes de parentes até o segundo grau".</p>
+                    </div>
+                </div>
+
+                <!-- Questão 9 -->
+                <div class="question-block bg-white rounded-lg shadow-sm border border-gray-200 p-6" id="q-block-9">
+                    <p class="text-gray-800 text-lg mb-5 font-medium">
+                        <strong>9.</strong> O Decreto 1.171/1994 regula a conduta do servidor no ambiente de trabalho, incluindo suas relações com colegas e superiores. Sobre este tema, assinale a alternativa correta.
+                    </p>
+                    <div class="space-y-3">
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q9" value="A" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(A)</strong> O servidor deve ter respeito absoluto à hierarquia, devendo acatar ordens de superiores, mesmo que manifestamente ilegais, cabendo a estes a responsabilidade exclusiva.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q9" value="B" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(B)</strong> O servidor deve resistir a todas as pressões de superiores hierárquicos que visem o cometimento de ato ilegal, mas deve manter sigilo sobre o ocorrido para preservar a instituição.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q9" value="C" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(C)</strong> A cortesia e a urbanidade são deveres do servidor, mas a solidariedade com os colegas de trabalho não é uma exigência ética, e sim moral.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q9" value="D" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(D)</strong> O servidor deve ser leal à instituição, podendo omitir fatos desabonadores sobre a repartição para proteger a imagem pública do órgão.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q9" value="E" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(E)</strong> ter respeito à hierarquia, porém sem temor de representar contra qualquer comprometimento indevido da estrutura em que se funda o Poder Estatal.</span>
+                        </label>
+                    </div>
+                    <!-- Resolução Oculta -->
+                    <div id="resolution-9" class="hidden mt-5 p-4 bg-gray-50 rounded-md border-l-4">
+                        <h4 class="font-bold text-lg mb-2">Resolução da Questão 9</h4>
+                        <p><strong>Gabarito: E</strong></p>
+                        <p><strong>Tipo de Questão:</strong> Interpretação de Dever (Seção II) - Relações Interpessoais.</p>
+                        <p class="mt-2"><strong>Análise da Alternativa Correta:</strong><br>
+                            (E) ter respeito à hierarquia, porém sem temor de representar contra qualquer comprometimento indevido da estrutura em que se funda o Poder Estatal.<br>
+                            <strong>Fundamentação:</strong> Esta alternativa é uma cópia literal da Seção II, inciso XV, alínea 'g': O servidor deve "ter respeito à hierarquia, porém sem temor de representar contra qualquer comprometimento indevido da estrutura em que se funda o Poder Estatal."
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Questão 10 -->
+                <div class="question-block bg-white rounded-lg shadow-sm border border-gray-200 p-6" id="q-block-10">
+                    <p class="text-gray-800 text-lg mb-5 font-medium">
+                        <strong>10.</strong> A Seção I do Decreto 1.171/1994 estabelece o "Direito à Verdade" como um dos pilares da conduta do servidor. Sobre este princípio, assinale a alternativa correta.
+                    </p>
+                    <div class="space-y-3">
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q10" value="A" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(A)</strong> O servidor pode falsear a verdade em situações excepcionais, desde que para proteger um colega de trabalho ou a imagem da instituição.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q10" value="B" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(B)</strong> O direito à verdade é absoluto, sobrepondo-se inclusive ao sigilo profissional ou fiscal, devendo o servidor expor todos os fatos.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q10" value="C" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(C)</strong> o servidor não pode falsear a verdade, mesmo que ela seja contrária aos interesses da própria pessoa interessada ou da Administração Pública.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q10" value="D" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(D)</strong> O servidor pode falsear a verdade apenas se o fato for contrário aos interesses da própria pessoa interessada, mas não se for contrário aos da Administração.</span>
+                        </label>
+                        <label class="question-option flex items-start p-4 rounded-md border border-gray-300 hover:bg-gray-50 transition cursor-pointer">
+                            <input type="radio" name="q10" value="E" class="mt-1 mr-3 flex-shrink-0">
+                            <span><strong>(E)</strong> A cortesia e a boa vontade no atendimento ao público podem ser usadas para encobrir erros ou omissões, visando o bem-estar do usuário.</span>
+                        </label>
+                    </div>
+                    <!-- Resolução Oculta -->
+                    <div id="resolution-10" class="hidden mt-5 p-4 bg-gray-50 rounded-md border-l-4">
+                        <h4 class="font-bold text-lg mb-2">Resolução da Questão 10</h4>
+                        <p><strong>Gabarito: C</strong></p>
+                        <p><strong>Tipo de Questão:</strong> Regra Deontológica (Seção I) - Literalidade.</p>
+                        <p class="mt-2"><strong>Análise da Alternativa Correta:</strong><br>
+                            (C) o servidor não pode falsear a verdade, mesmo que ela seja contrária aos interesses da própria pessoa interessada ou da Administração Pública.<br>
+                            <strong>Fundamentação:</strong> Cópia literal da Seção I (Das Regras Deontológicas), inciso VI: "O servidor público não pode falsear a verdade, ainda que contrária aos interesses da própria pessoa interessada ou da Administração Pública...".
+                        </p>
+                    </div>
+                </div>
+
+            </div> <!-- Fim do space-y-8 -->
+        </form>
+
+        <!-- Botão de Submissão -->
+        <div class="mt-10">
+            <button id="submitButton" class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-lg px-5 py-4 text-center transition duration-150 ease-in-out">
+                Finalizar Quiz e Ver Resultados
+            </button>
+        </div>
+
+    </div> <!-- Fim do container principal -->
+
+    <script>
+        // Objeto com as respostas corretas
+        const correctAnswers = {
+            q1: 'E',
+            q2: 'C',
+            q3: 'C',
+            q4: 'C',
+            q5: 'D',
+            q6: 'E',
+            q7: 'D',
+            q8: 'E',
+            q9: 'E',
+            q10: 'C'
+        };
+
+        // Seleciona os elementos do DOM
+        const submitButton = document.getElementById('submitButton');
+        const quizForm = document.getElementById('quizForm');
+        const resultsHeader = document.getElementById('resultsHeader');
+        const scoreElement = document.getElementById('score');
+        const resolutionsTitle = document.getElementById('resolutionsTitle');
+
+        // Adiciona o evento de clique ao botão de submissão
+        submitButton.addEventListener('click', () => {
+            let score = 0;
+            const totalQuestions = 10;
+            
+            // Pega todas as respostas do formulário
+            const formData = new FormData(quizForm);
+            
+            // Itera por cada questão (de 1 a 10)
+            for (let i = 1; i <= totalQuestions; i++) {
+                const qName = 'q' + i;
+                const userAnswer = formData.get(qName); // Resposta do usuário
+                const correctAnswer = correctAnswers[qName]; // Resposta correta
+                
+                const resolutionDiv = document.getElementById('resolution-' + i);
+                const questionBlock = document.getElementById('q-block-' + i);
+                const radioInputs = questionBlock.querySelectorAll('input[type="radio"]');
+
+                // Desabilita os inputs de rádio após a submissão
+                radioInputs.forEach(input => {
+                    input.disabled = true;
+                });
+
+                // Encontra o label da resposta correta
+                const correctLabel = questionBlock.querySelector(`label.question-option:has(input[value="${correctAnswer}"])`);
+                
+                if (userAnswer) {
+                    // Se o usuário respondeu
+                    const userLabel = questionBlock.querySelector(`label.question-option:has(input[value="${userAnswer}"])`);
+
+                    if (userAnswer === correctAnswer) {
+                        // Resposta Correta
+                        score++;
+                        userLabel.classList.add('correct-answer');
+                        resolutionDiv.classList.add('border-green-300', 'bg-green-50');
+                    } else {
+                        // Resposta Incorreta
+                        userLabel.classList.add('incorrect-answer');
+                        correctLabel.classList.add('correct-answer'); // Mostra a correta
+                        resolutionDiv.classList.add('border-red-300', 'bg-red-50');
+                    }
+                } else {
+                    // Usuário não respondeu
+                    correctLabel.classList.add('correct-answer'); // Apenas mostra a correta
+                    resolutionDiv.classList.add('border-yellow-300', 'bg-yellow-50');
+                }
+
+                // Mostra a div de resolução
+                resolutionDiv.classList.remove('hidden');
+            }
+
+            // Exibe os resultados
+            scoreElement.textContent = `Você acertou ${score} de ${totalQuestions}!`;
+            resultsHeader.classList.remove('hidden');
+            resolutionsTitle.classList.remove('hidden');
+            
+            // Oculta o botão de submissão
+            submitButton.style.display = 'none';
+
+            // Rola a página para o topo para mostrar os resultados
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+
+</body>
+</html>

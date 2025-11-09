@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: LBI (Lei 13.146/2015) - Estilo AOCP</title>
+    <!-- Carregando o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Configuração da fonte Inter, que é ótima para leitura */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Estilizando os botões de rádio para melhor acessibilidade e visual */
+        .quiz-option input[type="radio"] {
+            opacity: 0;
+            position: fixed;
+            width: 0;
+        }
+        .quiz-option label {
+            display: block;
+            padding: 1rem;
+            border: 1px solid #d1d5db; /* gray-300 */
+            border-radius: 0.5rem; /* rounded-lg */
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background-color: #f9fafb; /* gray-50 */
+        }
+        .quiz-option label:hover {
+            background-color: #f3f4f6; /* gray-100 */
+            border-color: #9ca3af; /* gray-400 */
+        }
+        .quiz-option input[type="radio"]:checked + label {
+            background-color: #e0f2fe; /* sky-100 */
+            border-color: #0284c7; /* sky-600 */
+            box-shadow: 0 0 0 2px #0284c7; /* Anel de foco */
+        }
+        
+        /* Estilos para o resultado da resolução */
+        .resolution-block {
+            border: 1px solid #e5e7eb; /* gray-200 */
+            background-color: #f9fafb; /* gray-50 */
+            border-radius: 0.5rem; /* rounded-lg */
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .resolution-block h4 {
+            font-size: 1.125rem; /* text-lg */
+            font-weight: 600; /* semibold */
+            color: #1f2937; /* gray-800 */
+            border-bottom: 1px solid #d1d5db; /* gray-300 */
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .resolution-block .user-answer-correct {
+            color: #059669; /* green-600 */
+            font-weight: 500;
+        }
+        .resolution-block .user-answer-incorrect {
+            color: #dc2626; /* red-600 */
+            font-weight: 500;
+        }
+        .resolution-block .correct-answer {
+            color: #059669; /* green-600 */
+            font-weight: 700;
+        }
+        .resolution-block .resolution-text {
+            margin-top: 1rem;
+            color: #374151; /* gray-700 */
+            line-height: 1.6; /* leading-relaxed */
+        }
+        .resolution-block .resolution-text strong {
+            color: #111827; /* gray-900 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+    <div class="container mx-auto max-w-4xl py-12 px-4 sm:px-6 lg:px-8">
+        
+        <!-- Cabeçalho do Quiz -->
+        <header class="text-center mb-10">
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-800">Quiz: Lei Brasileira de Inclusão</h1>
+            <p class="text-lg text-gray-600 mt-2">Lei 13.146/2015 (LBI) - Estilo Instituto AOCP</p>
+        </header>
+
+        <!-- Container Principal do Quiz -->
+        <main class="bg-white shadow-xl rounded-lg overflow-hidden">
+            
+            <!-- Formulário do Quiz -->
+            <form id="quizForm" class="p-6 sm:p-10">
+                <div id="quizContainer">
+                    <!-- As questões serão injetadas aqui pelo JavaScript -->
+                </div>
+
+                <!-- Botão de Finalizar -->
+                <button type
+                ="button" id="submitBtn" class="w-full mt-10 bg-blue-600 text-white font-bold text-lg py-4 px-6 rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                    Finalizar Quiz e Ver Resultados
+                </button>
+            </form>
+
+            <!-- Seção de Resultados (inicialmente oculta) -->
+            <section id="resultsSection" class="hidden p-6 sm:p-10 bg-white border-t border-gray-200">
+                <!-- Sumário da Pontuação -->
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold text-gray-800">Seu Resultado</h2>
+                    <p id="scoreSummary" class="text-2xl font-medium text-blue-700 mt-3"></p>
+                </div>
+
+                <!-- Container das Resoluções -->
+                <h3 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-3">Resoluções Comentadas</h3>
+                <div id="resolutionsContainer">
+                    <!-- As resoluções serão injetadas aqui -->
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-8 text-gray-500 text-sm">
+            <p>&copy; 2025 - Quiz Interativo LBI</p>
+        </footer>
+    </div>
+
+    <script>
+        // --- BANCO DE DADOS DO QUIZ ---
+        // Todos os dados do documento original foram transferidos para este objeto
+        const quizData = [
+            {
+                id: 'q1',
+                question: "(Instituto AOCP) De acordo com a Lei nº 13.146/2015 (Lei Brasileira de Inclusão), a avaliação da deficiência, quando necessária, será:",
+                options: [
+                    "realizada exclusivamente por perito judicial, com base nos impedimentos nas funções e nas estruturas do corpo.",
+                    "biopsicossocial, realizada por equipe multiprofissional e interdisciplinar e considerará os fatores socioambientais, psicológicos e pessoais, além dos impedimentos físicos.",
+                    "prioritariamente social, focada na restrição de participação, sendo a análise médica secundária.",
+                    "baseada no grau de incapacidade laboral do indivíduo, desconsiderando barreiras sociais.",
+                    "estritamente psicológica, realizada por profissional habilitado, para determinar a limitação no desempenho de atividades."
+                ],
+                correctAnswer: 1, // B
+                resolution: `
+                    <p><strong>Gabarito:</strong> B</p>
+                    <p><strong>Fundamentação Legal:</strong> Art. 2º, § 1º, da Lei nº 13.146/2015.</p>
+                    <p><strong>Comentário:</strong> A alternativa (B) é a resposta correta, pois reflete a literalidade do Art. 2º, § 1º da LBI. A lei estabelece que a avaliação da deficiência, quando necessária, abandona o modelo puramente médico e adota o modelo "biopsicossocial". Essa avaliação deve ser realizada por "equipe multiprofissional e interdisciplinar" e levará em conta não apenas os impedimentos do corpo (inciso I), mas também "os fatores socioambientais, psicológicos e pessoais" (inciso II), a "limitação no desempenho de atividades" (inciso III) e a "restrição de participação" (inciso IV).</p>
+                    <p><strong>Análise dos Distratores:</strong>
+                        <br>(A) Incorreta. A avaliação não é exclusivamente médica ("perito judicial") nem analisa *exclusivamente* os impedimentos do corpo; ela é biopsicossocial.
+                        <br>(C) Incorreta. Não é "prioritariamente social"; é "biopsicossocial", uma abordagem integrada.
+                        <br>(D) Incorreta. A LBI supera o conceito de "grau de incapacidade" (associado ao modelo médico) e foca na interação com as barreiras, que são ignoradas pelo distrator.
+                        <br>(E) Incorreta. A avaliação psicológica é apenas *um* dos componentes da avaliação biopsicossocial, não sendo suficiente por si só.
+                    </p>
+                `
+            },
+            {
+                id: 'q2',
+                question: "(Instituto AOCP) Conforme o Art. 6º da Lei Brasileira de Inclusão, que trata da capacidade civil da pessoa com deficiência, é correto afirmar que:",
+                options: [
+                    "a deficiência afeta parcialmente a capacidade civil, sendo a pessoa considerada relativamente incapaz para atos patrimoniais.",
+                    "a deficiência não afeta a plena capacidade civil da pessoa, inclusive para casar-se, constituir união estável e exercer o direito à guarda, tutela e curatela.",
+                    "a pessoa com deficiência intelectual não pode casar-se ou constituir união estável, dependendo de autorização judicial.",
+                    "a pessoa com deficiência pode ser submetida à curatela, mas é-lhe vedado exercê-la.",
+                    "a deficiência afeta totalmente a capacidade civil, devendo a pessoa ser representada por um tutor para todos os atos."
+                ],
+                correctAnswer: 1, // B
+                resolution: `
+                    <p><strong>Gabarito:</strong> B</p>
+                    <p><strong>Fundamentação Legal:</strong> Art. 6º da Lei nº 13.146/2015.</p>
+                    <p><strong>Comentário:</strong> A alternativa (B) é a correta. O Art. 6º da LBI é um dos pilares da lei e estabelece que "A deficiência não afeta a plena capacidade civil da pessoa". O artigo elenca, de forma exemplificativa, direitos que são mantidos, incluindo: "I - casar-se e constituir união estável;" e "VI - exercer o direito à guarda, à tutela, à curatela e à adoção...". A LBI alterou o Código Civil, retirando as pessoas com deficiência intelectual ou mental do rol dos "absolutamente incapazes".</p>
+                    <p><strong>Análise dos Distratores:</strong>
+                        <br>(A) e (E) Incorretas. A deficiência *não afeta* a capacidade civil, nem parcialmente, nem totalmente. A curatela (e não tutela) passa a ser uma medida extraordinária.
+                        <br>(C) Incorreta. O Art. 6º, I, garante *explicitamente* o direito de casar-se e constituir união estável.
+                        <br>(D) Incorreta. O Art. 6º, VI, assegura o direito de *exercer* a curatela (ser curador), e não apenas de ser submetido a ela.
+                    </p>
+                `
+            },
+            {
+                id: 'q3',
+                question: "(Instituto AOCP) O Art. 9º da LBI garante atendimento prioritário à pessoa com deficiência. O § 1º estende esse direito ao acompanhante ou atendente pessoal, com EXCEÇÃO de quais finalidades?",
+                options: [
+                    "Proteção e socorro em quaisquer circunstâncias e atendimento em serviços de atendimento ao público.",
+                    "Disponibilização de recursos humanos e tecnológicos e acesso a informações acessíveis.",
+                    "Recebimento de restituição de imposto de renda e tramitação processual e procedimentos judiciais e administrativos.",
+                    "Disponibilização de pontos de parada acessíveis e garantia de segurança no embarque e desembarque.",
+                    "Tramitação processual e proteção e socorro em quaisquer circunstâncias."
+                ],
+                correctAnswer: 2, // C
+                resolution: `
+                    <p><strong>Gabarito:</strong> C</p>
+                    <p><strong>Fundamentação Legal:</strong> Art. 9º, § 1º, da Lei nº 13.146/2015.</p>
+                    <p><strong>Comentário:</strong> A alternativa (C) é a correta. O Art. 9º lista os direitos de atendimento prioritário da pessoa com deficiência. O § 1º desse artigo determina que esses direitos são "extensivos ao acompanhante da pessoa com deficiência ou ao seu atendente pessoal", mas estabelece duas exceções literais. A exceção refere-se "ao disposto nos incisos VI e VII deste artigo". Os incisos mencionados são: "VI - recebimento de restituição de imposto de renda;" e "VII - tramitação processual e procedimentos judiciais e administrativos em que for parte ou interessada".</p>
+                    <p><strong>Análise dos Distratores:</strong>
+                        <br>(A), (B) e (D) Incorretas. Os direitos mencionados (proteção, socorro, atendimento, recursos, segurança no transporte) são, de fato, extensivos ao acompanhante e não fazem parte das exceções.
+                        <br>(E) Incorreta. Embora mencione a "tramitação processual" (exceção correta), ela a combina com "proteção e socorro" (que é extensivo), tornando a alternativa incorreta.
+                    </p>
+                `
+            },
+            {
+                id: 'q4',
+                question: "(Instituto AOCP) Em relação às ações e serviços de saúde pública destinados à pessoa com deficiência (Art. 18 da LBI), informe se é verdadeiro (V) ou falso (F) o que se afirma a seguir e assinale a alternativa com a sequência correta. <br><br> ( ) É assegurado atendimento psicológico, restrito à pessoa com deficiência, não se estendendo aos seus familiares e atendentes pessoais. <br> ( ) É assegurado o respeito à especificidade, à identidade de gênero e à orientação sexual da pessoa com deficiência. <br> ( ) É assegurada a atenção sexual e reprodutiva, incluindo o direito à fertilização assistida. <br> ( ) As ações de saúde asseguram atendimento domiciliar e tratamento ambulatorial, sendo, contudo, vedada a internação.",
+                options: [
+                    "F – V – V – F",
+                    "V – V – V – F",
+                    "F – F – V – V",
+                    "V – F – F – F",
+                    "F – V – F – V"
+                ],
+                correctAnswer: 0, // A
+                resolution: `
+                    <p><strong>Gabarito:</strong> A</p>
+                    <p><strong>Fundamentação Legal:</strong> Art. 18, § 4º, da Lei nº 13.146/2015.</p>
+                    <p><strong>Comentário:</strong> A sequência correta é F – V – V – F.
+                        <br>(F) O primeiro item é Falso. O Art. 18, § 4º, V, assegura "atendimento psicológico, *inclusive para seus familiares e atendentes pessoais*". A assertiva restringe o direito, contrariando a lei.
+                        <br>(V) O segundo item é Verdadeiro. É a transcrição literal do Art. 18, § 4º, VI: "respeito à especificidade, à identidade de gênero e à orientação sexual da pessoa com deficiência".
+                        <br>(V) O terceiro item é Verdadeiro. É a transcrição literal do Art. 18, § 4º, VII: "atenção sexual e reprodutiva, incluindo o direito à fertilização assistida".
+                        <br>(F) O quarto item é Falso. O Art. 18, § 4º, III, assegura expressamente o direito à "internação", além do "atendimento domiciliar multidisciplinar" e "tratamento ambulatorial". A vedação à internação é contrária à lei.
+                    </p>
+                `
+            },
+            {
+                id: 'q5',
+                question: "(Instituto AOCP) O Art. 27 da LBI assegura um sistema educacional inclusivo. Seu parágrafo único estabelece que é dever do Estado, da família, da comunidade escolar e da sociedade:",
+                options: [
+                    "assegurar educação de qualidade, desde que a deficiência do indivíduo não impeça seu aprendizado em classes comuns.",
+                    "priorizar a matrícula da pessoa com deficiência em escolas e classes especiais, segregadas do ensino regular.",
+                    "assegurar educação de qualidade à pessoa com deficiência, colocando-a a salvo de toda forma de violência, negligência e discriminação.",
+                    "focar no desenvolvimento das habilidades sociais, mesmo em detrimento do desenvolvimento acadêmico e intelectual.",
+                    "garantir um sistema educacional segregado, mas com os mesmos recursos pedagógicos do sistema regular."
+                ],
+                correctAnswer: 2, // C
+                resolution: `
+                    <p><strong>Gabarito:</strong> C</p>
+                    <p><strong>Fundamentação Legal:</strong> Art. 27, Parágrafo único, da Lei nº 13.146/2015.</p>
+                    <p><strong>Comentário:</strong> A alternativa (C) é a correta, pois corresponde à literalidade do Art. 27, Parágrafo único. O *caput* do Art. 27 assegura o "sistema educacional inclusivo". O parágrafo único complementa, impondo o dever do Estado, da família, da comunidade escolar e da sociedade de "assegurar educação de qualidade à pessoa com deficiência, *colocando-a a salvo de toda forma de violência, negligência e discriminação*".</p>
+                    <p><strong>Análise dos Distratores:</strong>
+                        <br>(A) Incorreta. O direito à educação inclusiva é incondicional, não podendo ser negado "desde que" a deficiência não impeça o aprendizado.
+                        <br>(B) e (E) Incorretas. A LBI adota o modelo de "sistema educacional inclusivo" (Art. 27, caput), contrapondo-se ao modelo de "escolas especiais" ou "sistema educacional segregado".
+                        <br>(D) Incorreta. O Art. 27 busca o "máximo desenvolvimento possível" de *todos* os talentos e habilidades (físicas, sensoriais, intelectuais e sociais), sem hierarquia ou detrimento entre eles.
+                    </p>
+                `
+            },
+            {
+                id: 'q6',
+                question: "(Instituto AOCP) Sobre as obrigações das instituições privadas de ensino, de qualquer nível e modalidade, conforme o Art. 28 da LBI, assinale a alternativa correta.",
+                options: [
+                    "Estão isentas de oferecer atendimento educacional especializado, sendo esta uma obrigação exclusiva do poder público.",
+                    "É permitida a cobrança de valores adicionais em suas mensalidades para custear os recursos de acessibilidade necessários.",
+                    "A oferta de educação bilíngue em Libras (Art. 28, IV) é uma obrigação restrita às instituições públicas, não se aplicando às privadas.",
+                    "Devem aplicar obrigatoriamente, entre outras medidas, a adoção de medidas individualizadas e coletivas em ambientes que maximizem o desenvolvimento acadêmico e social dos estudantes com deficiência.",
+                    "As obrigações de inclusão se aplicam apenas à educação básica, estando o ensino superior privado desobrigado de cumpri-las."
+                ],
+                correctAnswer: 3, // D
+                resolution: `
+                    <p><strong>Gabarito:</strong> D</p>
+                    <p><strong>Fundamentação Legal:</strong> Art. 28, § 1º, c/c Art. 28, V, da Lei nº 13.146/2015.</p>
+                    <p><strong>Comentário:</strong> A alternativa (D) é a correta. O Art. 28, § 1º, estabelece que às "instituições privadas, de qualquer nível e modalidade de ensino", aplicam-se obrigatoriamente vários incisos do *caput*. Entre eles, está o inciso V, que prevê a "adoção de medidas individualizadas e coletivas em ambientes que maximizem o desenvolvimento acadêmico e social dos estudantes com deficiência".</p>
+                    <p><strong>Análise dos Distratores:</strong>
+                        <br>(A) Incorreta. O § 1º do Art. 28 torna o inciso III (atendimento educacional especializado) obrigatório para as instituições privadas.
+                        <br>(B) Incorreta. Esta é uma das vedações mais famosas da LBI. O Art. 28, § 1º, ao final, proíbe expressamente: "sendo *vedada* a cobrança de valores adicionais de qualquer natureza em suas mensalidades, anuidades e matrículas no cumprimento dessas determinações".
+                        <br>(C) Incorreta. O inciso IV (oferta de educação bilíngue) também é de aplicação obrigatória às instituições privadas, conforme o § 1º.
+                        <br>(E) Incorreta. O § 1º é claro ao afirmar que a vedação se aplica a instituições "de *qualquer nível e modalidade de ensino*", incluindo, portanto, o ensino superior.
+                    </p>
+                `
+            },
+            {
+                id: 'q7',
+                question: "(Instituto AOCP) O Art. 30 da LBI trata das medidas a serem adotadas nos processos seletivos para ingresso no ensino superior. Especificamente sobre a dilação (extensão) de tempo para a realização de exames, é correto afirmar que:",
+                options: [
+                    "será concedida automaticamente a todos os candidatos que se declararem com deficiência no ato da inscrição.",
+                    "a disponibilização de provas em formatos acessíveis depende da conveniência e disponibilidade orçamentária da instituição.",
+                    "será concedida conforme demanda apresentada pelo candidato, mediante prévia solicitação e comprovação da necessidade.",
+                    "os recursos de tecnologia assistiva a serem utilizados serão definidos exclusivamente pela banca examinadora, e não pelo candidato.",
+                    "o direito se restringe ao dia do exame de seleção, não se aplicando às atividades acadêmicas durante o curso."
+                ],
+                correctAnswer: 2, // C
+                resolution: `
+                    <p><strong>Gabarito:</strong> C</p>
+                    <p><strong>Fundamentação Legal:</strong> Art. 30, V, da Lei nº 13.146/2015.</p>
+                    <p><strong>Comentário:</strong> A alternativa (C) é a correta. O Art. 30 trata dos processos seletivos. O inciso V especifica as condições para a dilação (extensão) de tempo, determinando que ela ocorrerá "conforme demanda apresentada pelo candidato com deficiência... *mediante prévia solicitação e comprovação da necessidade*". O direito não é, portanto, automático.</p>
+                    <p><strong>Análise dos Distratores:</strong>
+                        <br>(A) Incorreta. Não é concedida "automaticamente"; exige prévia solicitação e comprovação.
+                        <br>(B) Incorreta. A disponibilização de provas acessíveis (inciso III) é um dever da instituição, não uma faculdade "conforme critérios de conveniência e disponibilidade".
+                        <br>(D) Incorreta. O inciso IV do Art. 30 estabelece que os recursos de tecnologia assistiva devem ser "previamente solicitados e *escolhidos pelo candidato* com deficiência", não pela banca examinadora.
+                        <br>(E) Incorreta. O *caput* do Art. 30 fala em "ingresso e *permanência*" e o inciso I fala em atendimento preferencial "nas dependências das Instituições de Ensino Superior (IES) e nos serviços", não se restringindo ao dia da prova.
+                    </p>
+                `
+            },
+            {
+                id: 'q8',
+                question: "(Instituto AOCP) Conforme o Art. 88 da LBI, praticar, induzir ou incitar discriminação de pessoa em razão de sua deficiência tem pena de reclusão de 1 a 3 anos. Contudo, se o crime for cometido por intermédio de meios de comunicação social ou de publicação de qualquer natureza (Art. 88, § 2º), a pena será de:",
+                options: [
+                    "Detenção, de 2 (dois) a 5 (cinco) anos, e multa.",
+                    "Reclusão, de 2 (dois) a 5 (cinco) anos, e multa.",
+                    "Reclusão, de 1 (um) a 3 (três) anos, e multa.",
+                    "Reclusão, de 1 (um) a 4 (quatro) anos, e multa.",
+                    "Detenção, de 6 (seis) meses a 2 (dois) anos, e multa."
+                ],
+                correctAnswer: 1, // B
+                resolution: `
+                    <p><strong>Gabarito:</strong> B</p>
+                    <p><strong>Fundamentação Legal:</strong> Art. 88, § 2º, da Lei nº 13.146/2015.</p>
+                    <p><strong>Comentário:</strong> A alternativa (B) é a correta. A questão testa o conhecimento do crime de discriminação em sua forma qualificada. O *caput* do Art. 88 prevê a pena de reclusão de 1 a 3 anos. Contudo, o § 2º qualifica o crime se ele for "cometido por intermédio de meios de comunicação social ou de publicação de qualquer natureza", estabelecendo uma pena mais grave: "Pena - *reclusão, de 2 (dois) a 5 (cinco) anos, e multa*".</p>
+                    <p><strong>Análise dos Distratores:</strong>
+                        <br>(A) Incorreta. A pena é de Reclusão, não Detenção.
+                        <br>(C) Incorreta. Esta é a pena do crime simples (prevista no *caput*), não da forma qualificada pelos meios de comunicação.
+                        <br>(D) Incorreta. A pena de 1 a 4 anos refere-se ao Art. 89 (apropriação indébita), não ao Art. 88.
+                        <br>(E) Incorreta. Pena de detenção e intervalos incorretos.
+                    </p>
+                `
+            },
+            {
+                id: 'q9',
+                question: '(Instituto AOCP) O Art. 89 da LBI tipifica o crime de "Apropriar-se de ou desviar bens, proventos, pensão, benefícios [...] de pessoa com deficiência". O parágrafo único do mesmo artigo prevê uma causa de aumento de pena. Assinale a alternativa que descreve corretamente essa causa de aumento.',
+                options: [
+                    "A pena aumenta-se em 1/3 (um terço) se o crime é cometido por tutor ou curador.",
+                    "A pena aumenta-se pela metade se o crime é cometido por qualquer parente consanguíneo até o terceiro grau.",
+                    "A pena aumenta-se em 1/3 (um terço) se o crime é cometido pelo atendente pessoal da vítima.",
+                    "A pena aumenta-se pelo dobro se o crime é cometido por tutor, curador ou profissional de apoio.",
+                    "A pena aumenta-se pela metade se o crime é cometido por síndico ou inventariante."
+                ],
+                correctAnswer: 0, // A
+                resolution: `
+                    <p><strong>Gabarito:</strong> A</p>
+                    <p><strong>Fundamentação Legal:</strong> Art. 89, Parágrafo único, I, da Lei nº 13.146/2015.</p>
+                    <p><strong>Comentário:</strong> A alternativa (A) é a correta. O Art. 89 tipifica o crime de apropriação ou desvio de rendimentos da pessoa com deficiência. O Parágrafo único estabelece uma causa de aumento de pena, determinando: "Aumenta-se a pena em *1/3 (um terço)* se o crime é cometido: I - por *tutor, curador*, síndico, liquidatário, inventariante, testamenteiro ou depositário judicial; ou II - por aquele que se apropriou em razão de ofício ou de profissão".</p>
+                    <p><strong>Análise dos Distratores:</strong>
+                        <br>(B) Incorreta. O aumento é de 1/3 (um terço), não "pela metade", e a lei não lista "qualquer parente consanguíneo" nesta causa de aumento.
+                        <br>(C) Incorreta. O "atendente pessoal" não está listado no rol do parágrafo único do Art. 89.
+                        <br>(D) Incorreta. O aumento legalmente previsto é de 1/3, não "pelo dobro".
+                        <br>(E) Incorreta. Embora "síndico ou inventariante" estejam corretos (inciso I), o aumento é de 1/3, e não "pela metade".
+                    </p>
+                `
+            },
+            {
+                id: 'q10',
+                question: "(Instituto AOCP - Adaptada 2025) O Art. 90 da LBI tipifica o crime de abandonar pessoa com deficiência em hospitais ou entidades de abrigamento. Conforme a redação atualizada pela Lei nº 15.163, de 2025, assinale a alternativa que apresenta as penas corretas para as formas qualificadas pelo resultado.",
+                options: [
+                    "Lesão corporal grave: Reclusão, 2 a 5 anos; Morte: Reclusão, 2 a 5 anos e multa.",
+                    "Lesão corporal grave: Reclusão, 3 a 7 anos; Morte: Reclusão, 8 a 14 anos.",
+                    "Lesão corporal grave: Reclusão, 2 a 5 anos; Morte: Reclusão, 4 a 10 anos.",
+                    "Lesão corporal grave: Detenção, 1 a 3 anos; Morte: Detenção, 2 a 5 anos.",
+                    "Lesão corporal grave: Reclusão, 6 meses a 3 anos; Morte: Reclusão, 6 meses a 3 anos."
+                ],
+                correctAnswer: 1, // B
+                resolution: `
+                    <p><strong>Gabarito:</strong> B</p>
+                    <p><strong>Fundamentação Legal:</strong> Art. 90, §§ 1º e 2º (Redação dada pela Lei nº 15.163, de 2025).</p>
+                    <p><strong>Comentário:</strong> A alternativa (B) é a correta. A questão exige o conhecimento do crime de abandono (Art. 90) em suas formas qualificadas pelo resultado, conforme a redação *atualizada* pela Lei nº 15.163, de 2025.
+                        <br>Se do abandono resulta *lesão corporal de natureza grave*: "Pena - reclusão, de *3 (três) a 7 (sete) anos*, e multa" (§ 1º).
+                        <br>Se do abandono resulta *morte*: "Pena - reclusão, de *8 (oito) a 14 (catorze) anos*, e multa" (§ 2º).
+                    </p>
+                    <p><strong>Análise dos Distratores:</strong>
+                        <br>(A) e (C) Incorretas. Ambas utilizam a pena do *caput* (reclusão, de 2 a 5 anos), que se aplica ao abandono simples, não às formas qualificadas pela lesão grave ou morte.
+                        <br>(D) Incorreta. Tipo de pena (detenção) e intervalos incorretos.
+                        <br>(E) Incorreta. Esta alternativa utiliza a pena do *caput* na *redação original* da LBI (reclusão, de 6 meses a 3 anos), que foi alterada pela Lei nº 15.163/2025. É um distrator comum para testar se o candidato está atualizado.
+                    </p>
+                `
+            }
+        ];
+
+        // --- LÓGICA DO QUIZ ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const quizContainer = document.getElementById('quizContainer');
+            const submitBtn = document.getElementById('submitBtn');
+            const resultsSection = document.getElementById('resultsSection');
+            const scoreSummary = document.getElementById('scoreSummary');
+            const resolutionsContainer = document.getElementById('resolutionsContainer');
+
+            // 1. Carregar as questões na página
+            function loadQuiz() {
+                let quizHTML = '';
+                quizData.forEach((item, index) => {
+                    quizHTML += `
+                        <fieldset class="mb-8 pb-8 border-b border-gray-200">
+                            <legend class="text-xl font-semibold text-gray-800 mb-5 leading-relaxed">
+                                <strong>Questão ${index + 1}:</strong> ${item.question}
+                            </legend>
+                            <div class="space-y-3">
+                                ${item.options.map((option, optionIndex) => `
+                                    <div class="quiz-option">
+                                        <input type="radio" name="${item.id}" id="${item.id}_${optionIndex}" value="${optionIndex}">
+                                        <label for="${item.id}_${optionIndex}" class="text-gray-700 leading-normal">
+                                            <span class="font-medium mr-2">${String.fromCharCode(65 + optionIndex)})</span> ${option}
+                                        </label>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </fieldset>
+                    `;
+                });
+                quizContainer.innerHTML = quizHTML;
+            }
+
+            // 2. Mostrar os resultados
+            function showResults() {
+                let correctCount = 0;
+                let resolutionsHTML = '';
+                const form = document.getElementById('quizForm');
+                const formData = new FormData(form);
+
+                quizData.forEach((item, index) => {
+                    const userAnswer = formData.get(item.id); // Vem como string "0", "1", etc. ou null
+                    const isCorrect = userAnswer !== null && parseInt(userAnswer) === item.correctAnswer;
+
+                    if (isCorrect) {
+                        correctCount++;
+                    }
+
+                    // Monta o bloco de resolução para esta questão
+                    let answerFeedback = '';
+                    if (userAnswer === null) {
+                        answerFeedback = `<p class="user-answer-incorrect">Você não respondeu esta questão.</p>`;
+                    } else if (isCorrect) {
+                        answerFeedback = `<p class="user-answer-correct">Sua resposta: ${String.fromCharCode(65 + parseInt(userAnswer))}) ${item.options[parseInt(userAnswer)]} (Correta)</p>`;
+                    } else {
+                        answerFeedback = `<p class="user-answer-incorrect">Sua resposta: ${String.fromCharCode(65 + parseInt(userAnswer))}) ${item.options[parseInt(userAnswer)]} (Incorreta)</p>`;
+                    }
+
+                    resolutionsHTML += `
+                        <div class="resolution-block">
+                            <h4>Questão ${index + 1}</h4>
+                            ${answerFeedback}
+                            <p class="correct-answer mt-2">Gabarito: ${String.fromCharCode(65 + item.correctAnswer)}) ${item.options[item.correctAnswer]}</p>
+                            <div class="resolution-text">${item.resolution}</div>
+                        </div>
+                    `;
+                });
+
+                // Exibir pontuação
+                scoreSummary.textContent = `Você acertou ${correctCount} de ${quizData.length} questões.`;
+
+                // Exibir resoluções
+                resolutionsContainer.innerHTML = resolutionsHTML;
+
+                // Mostrar a seção de resultados e esconder o botão
+                resultsSection.classList.remove('hidden');
+                submitBtn.classList.add('hidden');
+
+                // Desabilitar todas as opções do quiz
+                form.querySelectorAll('input[type="radio"]').forEach(radio => {
+                    radio.disabled = true;
+                });
+                form.querySelectorAll('.quiz-option label').forEach(label => {
+                    label.classList.add('opacity-70', 'cursor-not-allowed');
+                });
+
+
+                // Rolar para os resultados
+                resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            // --- INICIALIZAÇÃO ---
+            loadQuiz();
+            submitBtn.addEventListener('click', showResults);
+        });
+    </script>
+</body>
+</html>
