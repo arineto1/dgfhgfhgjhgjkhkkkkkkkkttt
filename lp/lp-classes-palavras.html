@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo Definitivo: Classes de Palavras (AOCP)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #111827; /* Cinza quase preto para máximo contraste sem ser preto puro */
+            line-height: 1.6;
+        }
+        
+        /* Marcação estilo "Marca Texto" Suave */
+        mark {
+            background-color: #fef08a; /* Amarelo suave (yellow-200 do tailwind) */
+            color: #000;
+            padding: 2px 4px;
+            border-radius: 2px;
+            font-weight: 600;
+        }
+
+        /* Títulos de Seção */
+        h2 {
+            border-left: 6px solid #374151; /* Cinza escuro */
+            padding-left: 16px;
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #1f2937;
+        }
+
+        /* Tabelas Responsivas sem Scroll Horizontal */
+        table {
+            width: 100%;
+            table-layout: fixed; /* Força distribuição igual ou controlada */
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+            vertical-align: top;
+            word-wrap: break-word; /* Quebra palavras longas se necessário */
+        }
+        th {
+            background-color: #f3f4f6;
+            font-weight: 700;
+            color: #374151;
+        }
+        
+        /* Ajuste para mobile */
+        @media (max-width: 640px) {
+            th, td {
+                padding: 8px;
+                font-size: 0.875rem;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="max-w-5xl mx-auto px-4 py-10 sm:px-6 lg:px-8">
+
+        <!-- Header & Player -->
+        <header class="mb-12 text-center border-b border-gray-200 pb-10">
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">Classes de Palavras: Usos e Adequações</h1>
+            <p class="text-lg text-gray-600 font-medium">Resumo Estratégico para o Instituto AOCP</p>
+            
+            <!-- Player de Áudio -->
+            <div class="mt-8 p-4 bg-gray-50 rounded-xl border border-gray-200 max-w-lg mx-auto shadow-sm">
+                <div class="flex flex-col items-center">
+                    <span class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Áudio da Aula</span>
+                    <audio id="audioPlayer" controls class="w-full">
+                        <source src="lp-classes-palavras.mp3" type="audio/mpeg">
+                        Seu navegador não suporta áudio HTML5.
+                    </audio>
+                    <p class="text-xs text-gray-400 mt-2">Certifique-se de que o arquivo <code>resumo-aula.mp3</code> está na pasta.</p>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            
+            <!-- 1. Substantivos -->
+            <section>
+                <h2 class="text-2xl font-bold">1. Substantivos: A Base e o Plural Composto</h2>
+                <p class="mb-4 text-gray-700">Para a AOCP, foque na distinção semântica e nas regras de plural.</p>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-gray-50 p-5 rounded-lg border border-gray-100">
+                        <h3 class="font-bold text-lg mb-2">Classificação Semântica</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li><strong>Concreto:</strong> Existência independente (Mesa, Deus, Fada, Ar).</li>
+                            <li><strong>Abstrato:</strong> Depende de alguém para existir. Indica <mark>sentimento, estado ou ação</mark> (Beleza, Corrida, Tristeza).</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-50 p-5 rounded-lg border border-gray-100">
+                        <h3 class="font-bold text-lg mb-2">Plural dos Compostos (Regra de Ouro)</h3>
+                        <p class="text-sm">Apenas palavras variáveis (Subst, Adj, Numeral) vão para o plural. Verbos e Advérbios ficam no singular.</p>
+                    </div>
+                </div>
+
+                <div class="overflow-hidden rounded-lg border border-gray-300">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="w-1/4">Estrutura</th>
+                                <th class="w-1/3">Regra</th>
+                                <th>Exemplos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Subst + Subst</td>
+                                <td><mark>Ambos variam</mark></td>
+                                <td>Cirurgiões-dentistas, Couves-flores</td>
+                            </tr>
+                            <tr>
+                                <td>Subst + Subst (Tipo)</td>
+                                <td><mark>Só o 1º varia</mark> (2º delimita)</td>
+                                <td>Bananas-prata, Peixes-espada, Navios-escola</td>
+                            </tr>
+                            <tr>
+                                <td>Verbo + Subst</td>
+                                <td><mark>Só o 2º varia</mark></td>
+                                <td>Guarda-roupas, Beija-flores, Arranha-céus</td>
+                            </tr>
+                            <tr>
+                                <td>Palavras Repetidas</td>
+                                <td><mark>Só o 2º varia</mark></td>
+                                <td>Reco-recos, Tique-taques</td>
+                            </tr>
+                            <tr>
+                                <td>Com Preposição</td>
+                                <td><mark>Só o 1º varia</mark></td>
+                                <td>Pés de moleque, Mulas sem cabeça</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 2. Adjetivos e Artigos -->
+            <section>
+                <h2 class="text-2xl font-bold">2. Adjetivos e Artigos: Sentido e Concordância</h2>
+                
+                <div class="mb-6">
+                    <h3 class="font-bold text-lg text-gray-800 mb-2">Posição do Adjetivo (Semântica)</h3>
+                    <p class="text-gray-700 mb-2">A troca de posição pode alterar a classe gramatical ou o sentido.</p>
+                    <ul class="list-disc list-inside space-y-2 pl-4 text-gray-700">
+                        <li><em>Grande homem</em> (Valor/Caráter) ≠ <em>Homem grande</em> (Tamanho).</li>
+                        <li><em>Pobre mulher</em> (Coitada) ≠ <em>Mulher pobre</em> (Sem recursos).</li>
+                        <li><mark>Velho amigo</mark> (Antigo) ≠ <mark>Amigo velho</mark> (Idoso).</li>
+                    </ul>
+                </div>
+
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+                    <p class="font-bold text-gray-900">Cuidado com "Bastante" e "Meio"</p>
+                    <p class="text-sm mt-1 text-gray-800">
+                        <strong>Bastante:</strong> Troque por "Muitos". Se der certo, varia. <br>
+                        <em>"Havia <mark>bastantes</mark> (muitas) dúvidas."</em><br>
+                        <strong>Meio:</strong> Adjetivo (Metade) varia. Advérbio (Um pouco) não.<br>
+                        <em>"Ela está <mark>meio</mark> (um pouco) nervosa."</em> (NUNCA "meia" nervosa).
+                    </p>
+                </div>
+            </section>
+
+            <!-- 3. Pronomes (O Coração da Prova) -->
+            <section>
+                <h2 class="text-2xl font-bold">3. Pronomes: Coesão e Referência</h2>
+                
+                <!-- Demonstrativos -->
+                <div class="mb-8">
+                    <h3 class="font-bold text-xl text-gray-800 mb-3">3.1 Pronomes Demonstrativos (Espaço, Tempo e Texto)</h3>
+                    <div class="overflow-hidden rounded-lg border border-gray-300">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="w-1/5">Pronome</th>
+                                    <th class="w-2/5">Espaço / Tempo</th>
+                                    <th>Texto (Referenciação)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="font-bold">Este(s), Esta(s), Isto</td>
+                                    <td>Perto de quem fala / Presente ("Neste ano")</td>
+                                    <td><mark>Catafórico</mark>: Anuncia o que virá.<br><em>"Meu lema é <strong>este</strong>: estudar sempre."</em></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Esse(s), Essa(s), Isso</td>
+                                    <td>Perto do ouvinte / Passado próximo</td>
+                                    <td><mark>Anafórico</mark>: Retoma o que passou.<br><em>"Estudar. <strong>Isso</strong> é fundamental."</em></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Aquele(s), Aquilo</td>
+                                    <td>Longe de ambos / Passado distante</td>
+                                    <td>Retoma o termo mais distante na frase anterior.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Relativos -->
+                <div class="mb-8">
+                    <h3 class="font-bold text-xl text-gray-800 mb-3">3.2 Pronomes Relativos</h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li><strong>QUE:</strong> Universal. Retoma coisas ou pessoas.</li>
+                        <li><strong>QUEM:</strong> Apenas para <mark>pessoas</mark> e sempre preposicionado. <em>"O médico <strong>a quem</strong> recorri."</em></li>
+                        <li><strong>ONDE vs AONDE:</strong>
+                            <ul class="pl-6 list-circle text-sm mt-1">
+                                <li><strong>Onde:</strong> Lugar fixo (Em que). <em>"A casa <strong>onde</strong> moro."</em></li>
+                                <li><strong>Aonde:</strong> Ideia de movimento (Para que). Exige verbo de movimento. <em>"O lugar <strong>aonde</strong> vou."</em></li>
+                            </ul>
+                        </li>
+                        <li><strong>CUJO:</strong> Indica posse. Concorda com o consequente. <mark>NUNCA aceita artigo depois</mark>.
+                            <br><em>"O aluno <strong>cujas</strong> notas foram boas."</em> (Errado: cujas as).
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Colocação Pronominal -->
+                <div class="bg-gray-50 p-5 rounded-lg border border-gray-200">
+                    <h3 class="font-bold text-lg mb-2">3.3 Colocação Pronominal (Próclise Obrigatória)</h3>
+                    <p class="mb-2">O pronome é "puxado" para antes do verbo por:</p>
+                    <ol class="list-decimal list-inside text-gray-700 space-y-1">
+                        <li><strong>Palavras Negativas:</strong> Não, nunca, jamais <mark>se</mark> engane.</li>
+                        <li><strong>Advérbios:</strong> Hoje <mark>me</mark> arrependo.</li>
+                        <li><strong>Pronomes Relativos:</strong> O aluno que <mark>nos</mark> chamou.</li>
+                        <li><strong>Conjunções Subordinativas:</strong> Embora <mark>te</mark> ame.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- 4. Verbos -->
+            <section>
+                <h2 class="text-2xl font-bold">4. Verbos: Tempos, Modos e Vozes</h2>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <h3 class="font-bold text-lg text-blue-800 mb-2">Correlação Verbal (Lógica)</h3>
+                        <p class="text-sm text-gray-600 mb-2">Combine tempos harmoniosos em orações compostas.</p>
+                        <ul class="text-sm space-y-2 border-l-2 border-blue-200 pl-3">
+                            <li>Se eu estud<strong>asse</strong> (Pret. Imp. Subj) → eu passa<strong>ria</strong> (Fut. Pret. Ind).</li>
+                            <li>Se eu estud<strong>ar</strong> (Fut. Subj) → eu passa<strong>rei</strong> (Fut. Pres. Ind).</li>
+                            <li>Quando você <strong>vier</strong> (Fut. Subj de VIR) / Quando você <strong>vir</strong> (Fut. Subj de VER).</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg text-blue-800 mb-2">Vozes Verbais</h3>
+                        <p class="text-sm text-gray-600 mb-2">Passiva Analítica vs Sintética.</p>
+                        <ul class="text-sm space-y-2 border-l-2 border-blue-200 pl-3">
+                            <li><strong>Analítica:</strong> Ser + Particípio. <br><em>"O muro <strong>foi pintado</strong> por mim."</em></li>
+                            <li><strong>Sintética:</strong> VTD + SE (Partícula Apassivadora). <br><em>"Pintou-<strong>se</strong> o muro."</em> (O muro foi pintado).</li>
+                            <li><mark>VTI + SE = Índice de Indeterminação</mark> (Não tem plural, não tem sujeito determinado). <em>"Precisa-se <strong>de</strong> pedreiros."</em></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="p-4 bg-red-50 text-red-900 rounded border border-red-100 text-sm">
+                    <strong>Atenção ao verbo HAVER:</strong> No sentido de existir, ocorrer ou tempo decorrido, ele é <mark>Impessoal</mark> (não tem plural). <br>
+                    <em>"Havia muitos problemas."</em> (Correto) / <em>"Haviam muitos problemas."</em> (ERRADO).
+                </div>
+            </section>
+
+            <!-- 5. Conjunções e Preposições -->
+            <section>
+                <h2 class="text-2xl font-bold">5. Conectivos: A Alma da Coerência</h2>
+
+                <h3 class="font-bold text-lg mb-3">Principais Conjunções (Reescrita de Frases)</h3>
+                <div class="overflow-hidden rounded-lg border border-gray-300 mb-6">
+                    <table>
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="w-1/4">Sentido</th>
+                                <th>Conectivos</th>
+                                <th>Dica AOCP</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-semibold">Adversativa (Oposição)</td>
+                                <td>Mas, porém, contudo, todavia, entretanto.</td>
+                                <td>Mantém o modo indicativo.</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Concessiva (Oposição)</td>
+                                <td>Embora, ainda que, mesmo que, conquanto.</td>
+                                <td><mark>Exige verbo no Subjuntivo</mark>.</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Causal</td>
+                                <td>Porque, visto que, já que, uma vez que.</td>
+                                <td>Aponta o motivo.</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Conclusiva</td>
+                                <td>Portanto, logo, assim, por conseguinte.</td>
+                                <td>Finaliza o raciocínio.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="font-bold text-lg mb-3">Valores das Preposições</h3>
+                <ul class="grid sm:grid-cols-2 gap-3 text-sm text-gray-700">
+                    <li class="bg-gray-50 p-2 rounded"><strong>Posse:</strong> Casa <mark>de</mark> Pedro.</li>
+                    <li class="bg-gray-50 p-2 rounded"><strong>Matéria:</strong> Copo <mark>de</mark> vidro.</li>
+                    <li class="bg-gray-50 p-2 rounded"><strong>Modo:</strong> Saiu <mark>à</mark> francesa.</li>
+                    <li class="bg-gray-50 p-2 rounded"><strong>Instrumento:</strong> Feriu-se <mark>com</mark> a faca.</li>
+                    <li class="bg-gray-50 p-2 rounded"><strong>Companhia:</strong> Saiu <mark>com</mark> a mãe.</li>
+                    <li class="bg-gray-50 p-2 rounded"><strong>Causa:</strong> Morreu <mark>de</mark> fome.</li>
+                </ul>
+            </section>
+
+            <!-- 6. Crase -->
+            <section>
+                <h2 class="text-2xl font-bold">6. Crase (Regência + Artigo)</h2>
+                <p class="mb-4 text-gray-700">Fusão da preposição "A" com o artigo "A".</p>
+                
+                <div class="bg-white border border-gray-300 rounded-lg p-5 shadow-sm">
+                    <h4 class="font-bold text-blue-900 mb-2">O Macete Infalível</h4>
+                    <p class="mb-3">Troque a palavra feminina por uma masculina.</p>
+                    <ul class="list-none space-y-2 text-gray-800">
+                        <li>Se aparecer <strong>AO</strong> no masculino → Tem crase no feminino. <br> <em>Vou à feira (Vou AO mercado).</em></li>
+                        <li>Se aparecer apenas <strong>A</strong> ou <strong>O</strong> → Não tem crase. <br> <em>Vale a pena (Vale O esforço).</em></li>
+                    </ul>
+                    
+                    <hr class="my-4 border-gray-200">
+                    
+                    <h4 class="font-bold text-red-800 mb-2">Proibições (Crase Proibida)</h4>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-sm text-center font-medium">
+                        <div class="bg-red-50 p-2 rounded">Antes de Verbo</div>
+                        <div class="bg-red-50 p-2 rounded">Antes de Masculino</div>
+                        <div class="bg-red-50 p-2 rounded">Palavra Repetida</div>
+                        <div class="bg-red-50 p-2 rounded">Pronomes (Maioria)</div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Botão Final -->
+        <footer class="mt-16 mb-12 text-center">
+            <a href="lp-classes-palavrasquestoes.html" class="inline-flex items-center justify-center bg-gray-900 text-white text-lg font-semibold py-4 px-12 rounded-lg shadow-lg hover:bg-gray-800 hover:shadow-xl transition duration-300 transform hover:-translate-y-1 w-full sm:w-auto">
+                <span>Treinar com Questões</span>
+                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </a>
+            <p class="mt-4 text-sm text-gray-500">Revisão finalizada. Boa prova!</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado de Regência - Instituto AOCP</title>
+    <style>
+        :root {
+            --bg-color: #fdfbf7; /* Off-white para conforto visual */
+            --card-bg: #ffffff;
+            --text-primary: #2c3e50;
+            --text-secondary: #546e7a;
+            --accent-color: #3498db;
+            --success-color: #27ae60;
+            --error-color: #c0392b;
+            --border-color: #e0e0e0;
+            --highlight-bg: #ecf0f1;
+        }
+
+        body {
+            font-family: 'Merriweather', 'Georgia', serif; /* Serifada para leitura longa */
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        h1 {
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        h2 {
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            color: var(--text-secondary);
+            font-size: 1.4rem;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+
+        .question-header {
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .enunciado {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .options {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 0.8rem;
+            position: relative;
+        }
+
+        .option-item label {
+            display: block;
+            padding: 1rem 1rem 1rem 2.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .option-item input[type="radio"] {
+            position: absolute;
+            left: 1rem;
+            top: 1.2rem;
+        }
+
+        .option-item label:hover {
+            background-color: var(--highlight-bg);
+        }
+
+        .option-item input:checked + label {
+            border-color: var(--accent-color);
+            background-color: #eef6fb;
+            font-weight: 600;
+        }
+
+        /* Estilos de Feedback (Pós-correção) */
+        .correct-answer label {
+            background-color: #d4edda !important;
+            border-color: var(--success-color) !important;
+            color: #155724;
+        }
+
+        .wrong-answer label {
+            background-color: #f8d7da !important;
+            border-color: var(--error-color) !important;
+            color: #721c24;
+        }
+
+        .feedback-msg {
+            margin-top: 1rem;
+            font-weight: bold;
+            font-family: 'Segoe UI', sans-serif;
+            display: none;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 1.2rem;
+            background-color: var(--text-primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 2rem;
+        }
+
+        .btn-submit:hover {
+            background-color: #000;
+        }
+
+        #results-section {
+            display: none;
+            margin-top: 3rem;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .score-box {
+            background-color: var(--text-primary);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .score-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .explanation-card {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--accent-color);
+            padding: 1.5rem;
+            margin-top: 1rem;
+            font-size: 0.95rem;
+        }
+        
+        /* Tabela simples para as explicações */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 1rem; }
+            .question-card { padding: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Simulado: Regência Nominal e Verbal</h1>
+    <p style="color: var(--text-secondary);">Foco: Banca Instituto AOCP</p>
+</header>
+
+<div class="container">
+    <form id="quiz-form">
+        <!-- QUESTÃO 1 -->
+        <div class="question-card" id="q1">
+            <div class="question-header">Questão 1</div>
+            <div class="enunciado">
+                <p>Analise o excerto a seguir e assinale a alternativa que apresenta a avaliação correta quanto à regência verbal, segundo a norma-padrão exigida pelo Instituto AOCP.</p>
+                <p><em>“Os agentes <strong>assistiram</strong> os moradores durante a enchente, garantindo que todos <strong>chegassem</strong> salvos ao abrigo, onde a equipe médica <strong>procederia</strong> à triagem necessária.”</em></p>
+            </div>
+            <ul class="options">
+                <li class="option-item"><input type="radio" name="q1" value="a" id="q1a"><label for="q1a">A) O verbo “assistiram” está empregado incorretamente, pois, no sentido de prestar socorro, a norma culta exige a preposição “a” (assistiram aos moradores), sendo a forma direta considerada erro crasso pela banca.</label></li>
+                <li class="option-item"><input type="radio" name="q1" value="b" id="q1b"><label for="q1b">B) A construção “chegassem salvos ao abrigo” está correta, pois o verbo “chegar”, indicando movimento e destino, exige a preposição “a”, rejeitando a preposição “em” em contextos formais.</label></li>
+                <li class="option-item"><input type="radio" name="q1" value="c" id="q1c"><label for="q1c">C) O verbo “procederia” é transitivo direto no contexto, devendo ser grafado “procederia a triagem” (sem crase), visto que significa “realizar” ou “dar início”.</label></li>
+                <li class="option-item"><input type="radio" name="q1" value="d" id="q1d"><label for="q1d">D) Caso o verbo “assistiram” fosse substituído por “visaram”, mantendo o sentido de “ter como objetivo o cuidado”, a regência deveria ser obrigatoriamente direta: “visaram os moradores”.</label></li>
+                <li class="option-item"><input type="radio" name="q1" value="e" id="q1e"><label for="q1e">E) O verbo “chegar” poderia ser substituído por “ir”, mantendo-se a preposição “em” (fossem no abrigo), conforme aceito em variantes coloquiais frequentemente toleradas em textos oficiais.</label></li>
+            </ul>
+        </div>
+
+        <!-- QUESTÃO 2 -->
+        <div class="question-card" id="q2">
+            <div class="question-header">Questão 2</div>
+            <div class="enunciado">Considerando as regras de regência e de colocação pronominal, assinale a alternativa redigida corretamente.</div>
+            <ul class="options">
+                <li class="option-item"><input type="radio" name="q2" value="a" id="q2a"><label for="q2a">A) O perito lembrou-se de que a cena do crime havia sido alterada antes da sua chegada.</label></li>
+                <li class="option-item"><input type="radio" name="q2" value="b" id="q2b"><label for="q2b">B) Não esqueça-se de lacrar os envelopes contendo as provas materiais.</label></li>
+                <li class="option-item"><input type="radio" name="q2" value="c" id="q2c"><label for="q2c">C) Os candidatos esqueceram dos documentos originais no dia da apresentação.</label></li>
+                <li class="option-item"><input type="radio" name="q2" value="d" id="q2d"><label for="q2d">D) Lembrem de trazer os comprovantes de residência atualizados para a posse.</label></li>
+                <li class="option-item"><input type="radio" name="q2" value="e" id="q2e"><label for="q2e">E) Jamais nos esqueceremos o esforço realizado para a aprovação neste concurso.</label></li>
+            </ul>
+        </div>
+
+        <!-- QUESTÃO 3 -->
+        <div class="question-card" id="q3">
+            <div class="question-header">Questão 3</div>
+            <div class="enunciado">A alteração da regência verbal pode modificar o sentido do texto ou incorrer em desvio gramatical. Assinale a alternativa em que a regência do verbo <strong>implicar</strong> está em conformidade com a norma-padrão.</div>
+            <ul class="options">
+                <li class="option-item"><input type="radio" name="q3" value="a" id="q3a"><label for="q3a">A) A nova diretriz de segurança implicará em mudanças profundas na rotina dos batalhões.</label></li>
+                <li class="option-item"><input type="radio" name="q3" value="b" id="q3b"><label for="q3b">B) O atraso na entrega do relatório implicou ao servidor uma advertência formal.</label></li>
+                <li class="option-item"><input type="radio" name="q3" value="c" id="q3c"><label for="q3c">C) As investigações acabaram por implicar o suspeito no esquema de fraude licitatória.</label></li>
+                <li class="option-item"><input type="radio" name="q3" value="d" id="q3d"><label for="q3d">D) A falta de manutenção da viatura implica no risco de acidentes durante as perseguições.</label></li>
+                <li class="option-item"><input type="radio" name="q3" value="e" id="q3e"><label for="q3e">E) Mudanças na legislação implicam sempre em novas adaptações por parte do judiciário.</label></li>
+            </ul>
+        </div>
+
+        <!-- QUESTÃO 4 -->
+        <div class="question-card" id="q4">
+            <div class="question-header">Questão 4</div>
+            <div class="enunciado">Assinale a alternativa que apresenta a regência correta do verbo <strong>preferir</strong>, considerando a impessoalidade e o rigor da linguagem técnica.</div>
+            <ul class="options">
+                <li class="option-item"><input type="radio" name="q4" value="a" id="q4a"><label for="q4a">A) A maioria dos entrevistados prefere mais a modalidade de trabalho remoto do que o presencial.</label></li>
+                <li class="option-item"><input type="radio" name="q4" value="b" id="q4b"><label for="q4b">B) O estatuto prefere a conciliação prévia do que o litígio imediato entre as partes.</label></li>
+                <li class="option-item"><input type="radio" name="q4" value="c" id="q4c"><label for="q4c">C) Prefiro mil vezes revisar o processo agora a ter que refazê-lo posteriormente.</label></li>
+                <li class="option-item"><input type="radio" name="q4" value="d" id="q4d"><label for="q4d">D) Os cidadãos preferem a transparência pública à burocracia opaca.</label></li>
+                <li class="option-item"><input type="radio" name="q4" value="e" id="q4e"><label for="q4e">E) Prefere-se muito mais a prevenção de delitos do que a repressão violenta.</label></li>
+            </ul>
+        </div>
+
+        <!-- QUESTÃO 5 -->
+        <div class="question-card" id="q5">
+            <div class="question-header">Questão 5</div>
+            <div class="enunciado">Em relação à regência do verbo <strong>obedecer</strong>, analise as orações abaixo e assinale a correta.</div>
+            <ul class="options">
+                <li class="option-item"><input type="radio" name="q5" value="a" id="q5a"><label for="q5a">A) O soldado não obedeceu o comando do oficial e foi detido.</label></li>
+                <li class="option-item"><input type="radio" name="q5" value="b" id="q5b"><label for="q5b">B) Para a segurança de todos, é fundamental obedecer aos limites de velocidade.</label></li>
+                <li class="option-item"><input type="radio" name="q5" value="c" id="q5c"><label for="q5c">C) As crianças que obedecem os pais tendem a ter melhor desempenho escolar.</label></li>
+                <li class="option-item"><input type="radio" name="q5" value="d" id="q5d"><label for="q5d">D) Ninguém obedeceu o regulamento interno do condomínio.</label></li>
+                <li class="option-item"><input type="radio" name="q5" value="e" id="q5e"><label for="q5e">E) O funcionário obedeceu as ordens sem questionar a sua legalidade.</label></li>
+            </ul>
+        </div>
+
+        <!-- QUESTÃO 6 -->
+        <div class="question-card" id="q6">
+            <div class="question-header">Questão 6</div>
+            <div class="enunciado">Assinale a alternativa que preenche correta e respectivamente as lacunas da frase a seguir:<br>
+            <em>"Este é o recurso ______ o advogado recorreu, e esta é a decisão ______ todos discordaram, embora seja a lei ______ devemos obedecer."</em></div>
+            <ul class="options">
+                <li class="option-item"><input type="radio" name="q6" value="a" id="q6a"><label for="q6a">A) que – de que – a que</label></li>
+                <li class="option-item"><input type="radio" name="q6" value="b" id="q6b"><label for="q6b">B) de que – com que – que</label></li>
+                <li class="option-item"><input type="radio" name="q6" value="c" id="q6c"><label for="q6c">C) do qual – de que – à qual</label></li>
+                <li class="option-item"><input type="radio" name="q6" value="d" id="q6d"><label for="q6d">D) ao qual – de que – a que</label></li>
+                <li class="option-item"><input type="radio" name="q6" value="e" id="q6e"><label for="q6e">E) a que – que – a qual</label></li>
+            </ul>
+        </div>
+
+        <!-- QUESTÃO 7 -->
+        <div class="question-card" id="q7">
+            <div class="question-header">Questão 7</div>
+            <div class="enunciado">Considerando os diferentes sentidos do verbo <strong>aspirar</strong>, assinale a alternativa correta.</div>
+            <ul class="options">
+                <li class="option-item"><input type="radio" name="q7" value="a" id="q7a"><label for="q7a">A) O aspirante aspirou ao ar puro da manhã antes de iniciar a corrida (sentido de inalar).</label></li>
+                <li class="option-item"><input type="radio" name="q7" value="b" id="q7b"><label for="q7b">B) Muitos jovens aspiram o cargo de auditor fiscal devido à estabilidade (sentido de almejar).</label></li>
+                <li class="option-item"><input type="radio" name="q7" value="c" id="q7c"><label for="q7c">C) O aparelho foi utilizado para aspirar o pó acumulado na cena do crime (sentido de sorver).</label></li>
+                <li class="option-item"><input type="radio" name="q7" value="d" id="q7d"><label for="q7d">D) A candidata aspira a uma vaga no tribunal de justiça (sentido de inalar).</label></li>
+                <li class="option-item"><input type="radio" name="q7" value="e" id="q7e"><label for="q7e">E) Quem aspira o sucesso deve estudar com dedicação e constância (sentido de desejar).</label></li>
+            </ul>
+        </div>
+
+        <!-- QUESTÃO 8 -->
+        <div class="question-card" id="q8">
+            <div class="question-header">Questão 8</div>
+            <div class="enunciado">O verbo <strong>visar</strong> apresenta múltiplas regências. Assinale a alternativa em que seu emprego está adequado à norma culta.</div>
+            <ul class="options">
+                <li class="option-item"><input type="radio" name="q8" value="a" id="q8a"><label for="q8a">A) O atirador visou ao alvo com precisão milimétrica.</label></li>
+                <li class="option-item"><input type="radio" name="q8" value="b" id="q8b"><label for="q8b">B) O funcionário do banco visou o cheque antes de liberá-lo.</label></li>
+                <li class="option-item"><input type="radio" name="q8" value="c" id="q8c"><label for="q8c">C) As políticas públicas visam na melhoria da qualidade de vida da população.</label></li>
+                <li class="option-item"><input type="radio" name="q8" value="d" id="q8d"><label for="q8d">D) O projeto visa o combate à corrupção sistêmica (sentido de almejar, segundo a gramática tradicional rígida).</label></li>
+                <li class="option-item"><input type="radio" name="q8" value="e" id="q8e"><label for="q8e">E) O gerente visou ao passaporte do turista para permitir a entrada.</label></li>
+            </ul>
+        </div>
+
+        <!-- QUESTÃO 9 -->
+        <div class="question-card" id="q9">
+            <div class="question-header">Questão 9</div>
+            <div class="enunciado">Preencha as lacunas com a opção correta quanto ao uso do acento grave indicativo de crase.<br>
+            <em>"O acesso ____ informações é livre ____ todas as pessoas, mas o respeito ____ normas é essencial."</em></div>
+            <ul class="options">
+                <li class="option-item"><input type="radio" name="q9" value="a" id="q9a"><label for="q9a">A) às – à – às</label></li>
+                <li class="option-item"><input type="radio" name="q9" value="b" id="q9b"><label for="q9b">B) a – a – a</label></li>
+                <li class="option-item"><input type="radio" name="q9" value="c" id="q9c"><label for="q9c">C) às – a – as</label></li>
+                <li class="option-item"><input type="radio" name="q9" value="d" id="q9d"><label for="q9d">D) as – à – a</label></li>
+                <li class="option-item"><input type="radio" name="q9" value="e" id="q9e"><label for="q9e">E) a – à – às</label></li>
+            </ul>
+        </div>
+
+        <!-- QUESTÃO 10 -->
+        <div class="question-card" id="q10">
+            <div class="question-header">Questão 10</div>
+            <div class="enunciado">Assinale a alternativa em que a substituição do termo destacado pelo pronome oblíquo está incorreta quanto à regência.</div>
+            <ul class="options">
+                <li class="option-item"><input type="radio" name="q10" value="a" id="q10a"><label for="q10a">A) "Quero <strong>ao meu amigo</strong> muito bem." -> Quero-lhe muito bem.</label></li>
+                <li class="option-item"><input type="radio" name="q10" value="b" id="q10b"><label for="q10b">B) "Vou pagar <strong>o salário</strong> aos funcionários." -> Vou pagá-lo aos funcionários.</label></li>
+                <li class="option-item"><input type="radio" name="q10" value="c" id="q10c"><label for="q10c">C) "Vou pagar <strong>aos funcionários</strong>." -> Vou lhes pagar.</label></li>
+                <li class="option-item"><input type="radio" name="q10" value="d" id="q10d"><label for="q10d">D) "Assistimos <strong>ao filme</strong> ontem." -> Assistimo-lo ontem.</label></li>
+                <li class="option-item"><input type="radio" name="q10" value="e" id="q10e"><label for="q10e">E) "Obedecemos <strong>ao regulamento</strong>." -> Obedecemos-lhe.</label></li>
+            </ul>
+        </div>
+
+        <button type="button" class="btn-submit" onclick="finishQuiz()">Finalizar Simulado e Ver Resoluções</button>
+    </form>
+
+    <!-- ÁREA DE RESULTADOS E RESOLUÇÕES -->
+    <div id="results-section">
+        <div class="score-box">
+            <div>Você acertou</div>
+            <div class="score-number"><span id="score-count">0</span> / 10</div>
+            <p>Confira abaixo a resolução detalhada para cada questão.</p>
+        </div>
+
+        <!-- RESOLUÇÕES INJETADAS VIA JS OU ESTATICAS OCULTAS -->
+        <h2>Resoluções Analíticas</h2>
+        
+        <div class="question-card" style="border-left: 5px solid var(--text-secondary);">
+            <h3>Resolução da Questão 1</h3>
+            <p><strong>Gabarito: B</strong></p>
+            <div class="explanation-card">
+                <p>A questão aborda três verbos críticos para o Instituto AOCP: <em>Assistir</em>, <em>Chegar</em> e <em>Proceder</em>.</p>
+                <p><strong>1. Assistir (Ajudar):</strong> Tradicionalmente aceita "o" ou "ao". A AOCP aceita a forma direta ("assistiram os moradores") como correta, não considerando erro crasso.</p>
+                <p><strong>2. Chegar (Movimento):</strong> Verbos de movimento exigem preposição "a" (chegar a). "Chegar em" é coloquial. A alternativa B respeita isso ("chegassem ao abrigo").</p>
+                <p><strong>3. Proceder (Realizar):</strong> É Transitivo Indireto e exige preposição "a" (procederia à triagem).</p>
+                <table>
+                    <tr><th>Verbo</th><th>Sentido</th><th>Regência Padrão AOCP</th></tr>
+                    <tr><td>Assistir</td><td>Ajudar</td><td>VTD (Preferencial) ou VTI</td></tr>
+                    <tr><td>Chegar</td><td>Movimento</td><td>V. Intransitivo + "A"</td></tr>
+                    <tr><td>Proceder</td><td>Realizar</td><td>VTI + "A"</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="question-card" style="border-left: 5px solid var(--text-secondary);">
+            <h3>Resolução da Questão 2</h3>
+            <p><strong>Gabarito: A</strong></p>
+            <div class="explanation-card">
+                <p>Regra de simetria dos verbos <em>Lembrar</em> e <em>Esquecer</em>:</p>
+                <ul>
+                    <li><strong>Sem pronome:</strong> Transitivo Direto (sem "de"). Ex: Esqueci o livro.</li>
+                    <li><strong>Com pronome:</strong> Transitivo Indireto (com "de"). Ex: Esqueci-me do livro.</li>
+                </ul>
+                <p>A alternativa A está correta: "lembou-se de que". As demais quebram essa simetria ou erram na colocação pronominal.</p>
+            </div>
+        </div>
+
+        <div class="question-card" style="border-left: 5px solid var(--text-secondary);">
+            <h3>Resolução da Questão 3</h3>
+            <p><strong>Gabarito: C</strong></p>
+            <div class="explanation-card">
+                <p>O verbo <em>Implicar</em> possui regências diferentes conforme o sentido:</p>
+                <ul>
+                    <li><strong>Acarretar/Consequência:</strong> VTD (NÃO usa "em"). Ex: Implica demissão.</li>
+                    <li><strong>Envolver alguém:</strong> VTDI (Usa "em"). Ex: Implicou o réu no crime.</li>
+                </ul>
+                <p>A alternativa C usa o sentido de "envolver/comprometer", onde a preposição "em" (no esquema) é correta e obrigatória.</p>
+            </div>
+        </div>
+
+        <div class="question-card" style="border-left: 5px solid var(--text-secondary);">
+            <h3>Resolução da Questão 4</h3>
+            <p><strong>Gabarito: D</strong></p>
+            <div class="explanation-card">
+                <p>O verbo <em>Preferir</em> exige estrutura "Preferir X a Y".</p>
+                <p>Erros comuns rejeitados pela banca: usar "do que" (comparativo), "mais" (intensificador) ou "mil vezes".</p>
+                <p>A alternativa D está perfeita: "preferem a transparência pública [OD] à burocracia opaca [OI]".</p>
+            </div>
+        </div>
+
+        <div class="question-card" style="border-left: 5px solid var(--text-secondary);">
+            <h3>Resolução da Questão 5</h3>
+            <p><strong>Gabarito: B</strong></p>
+            <div class="explanation-card">
+                <p>Verbos <em>Obedecer</em> e <em>Desobedecer</em> são Transitivos Indiretos, exigindo a preposição "a".</p>
+                <p>A alternativa B usa corretamente "obedecer <strong>aos</strong> limites". As outras opções usam o verbo como transitivo direto (o, os, as), o que é incorreto na norma culta.</p>
+            </div>
+        </div>
+
+        <div class="question-card" style="border-left: 5px solid var(--text-secondary);">
+            <h3>Resolução da Questão 6</h3>
+            <p><strong>Gabarito: D</strong></p>
+            <div class="explanation-card">
+                <p>A preposição antes do pronome relativo depende do verbo da oração:</p>
+                <ol>
+                    <li>Recorrer <strong>a</strong> (ao meio jurídico) -> <em>ao qual</em>.</li>
+                    <li>Discordar <strong>de</strong> -> <em>de que</em>.</li>
+                    <li>Obedecer <strong>a</strong> -> <em>a que</em>.</li>
+                </ol>
+                <p>A sequência correta é a da letra D.</p>
+            </div>
+        </div>
+
+        <div class="question-card" style="border-left: 5px solid var(--text-secondary);">
+            <h3>Resolução da Questão 7</h3>
+            <p><strong>Gabarito: C</strong></p>
+            <div class="explanation-card">
+                <ul>
+                    <li><strong>Aspirar (Inalar/Sorver):</strong> VTD (sem preposição). Ex: Aspirar o pó (Alternativa C correta).</li>
+                    <li><strong>Aspirar (Almejar):</strong> VTI (com preposição "a"). Ex: Aspirar ao cargo.</li>
+                </ul>
+                <p>As outras alternativas misturam as regências ou os sentidos.</p>
+            </div>
+        </div>
+
+        <div class="question-card" style="border-left: 5px solid var(--text-secondary);">
+            <h3>Resolução da Questão 8</h3>
+            <p><strong>Gabarito: B</strong></p>
+            <div class="explanation-card">
+                <ul>
+                    <li><strong>Visar (Mirar ou Pôr visto):</strong> VTD. Ex: Visou o cheque (Alternativa B correta).</li>
+                    <li><strong>Visar (Almejar):</strong> VTI. Ex: Visar ao sucesso.</li>
+                </ul>
+                <p>A letra C erra ao usar "visar em". A letra A erra ao usar "visar ao" para mirar (deveria ser direto).</p>
+            </div>
+        </div>
+
+        <div class="question-card" style="border-left: 5px solid var(--text-secondary);">
+            <h3>Resolução da Questão 9</h3>
+            <p><strong>Gabarito: B</strong></p>
+            <div class="explanation-card">
+                <p><strong>Lacuna 1:</strong> Acesso <strong>a</strong> informações (sentido genérico, sem artigo).<br>
+                <strong>Lacuna 2:</strong> Livre <strong>a</strong> todas (pronomes indefinidos rejeitam crase).<br>
+                <strong>Lacuna 3:</strong> Respeito <strong>a</strong> normas (sentido genérico, plural sem artigo).</p>
+                <p>A alternativa B apresenta apenas as preposições puras, o que é gramaticalmente correto para generalizações.</p>
+            </div>
+        </div>
+
+        <div class="question-card" style="border-left: 5px solid var(--text-secondary);">
+            <h3>Resolução da Questão 10</h3>
+            <p><strong>Gabarito: D</strong></p>
+            <div class="explanation-card">
+                <p>A questão pede a substituição INCORRETA.</p>
+                <p><strong>Erro na D:</strong> O verbo <em>Assistir</em> (ver) é VTI, mas é uma exceção que <strong>não aceita o pronome "lhe"</strong> e tampouco o pronome "o" (pois não é VTD). A forma culta exige "a ele". O uso de "Assistimo-lo" trata o verbo como Transitivo Direto, o que é rejeitado no padrão culto estrito.</p>
+                <p>As demais estão corretas (Pagar coisa = o; Pagar pessoa = lhe; Obedecer = lhe).</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const answersKey = {
+        q1: 'b',
+        q2: 'a',
+        q3: 'c',
+        q4: 'd',
+        q5: 'b',
+        q6: 'd',
+        q7: 'c',
+        q8: 'b',
+        q9: 'b',
+        q10: 'd'
+    };
+
+    function finishQuiz() {
+        let score = 0;
+        const totalQuestions = 10;
+        
+        // Desabilita o botão para evitar múltiplos cliques
+        document.querySelector('.btn-submit').disabled = true;
+        document.querySelector('.btn-submit').textContent = "Simulado Finalizado";
+        document.querySelector('.btn-submit').style.background = "#7f8c8d";
+
+        for (let i = 1; i <= totalQuestions; i++) {
+            const qId = 'q' + i;
+            const correctAnswer = answersKey[qId];
+            
+            // Seleciona a resposta dada pelo usuário
+            const selectedOption = document.querySelector(`input[name="${qId}"]:checked`);
+            
+            // Elemento pai da questão
+            const questionContainer = document.getElementById(qId);
+            
+            // Verifica se acertou
+            if (selectedOption) {
+                if (selectedOption.value === correctAnswer) {
+                    score++;
+                    selectedOption.parentElement.classList.add('correct-answer');
+                } else {
+                    selectedOption.parentElement.classList.add('wrong-answer');
+                    // Mostra qual era a correta
+                    const correctInput = document.querySelector(`input[name="${qId}"][value="${correctAnswer}"]`);
+                    if(correctInput) correctInput.parentElement.classList.add('correct-answer');
+                }
+            } else {
+                // Se não respondeu, apenas marca a correta
+                const correctInput = document.querySelector(`input[name="${qId}"][value="${correctAnswer}"]`);
+                if(correctInput) correctInput.parentElement.classList.add('correct-answer');
+            }
+
+            // Desabilita inputs após finalizar
+            const inputs = questionContainer.querySelectorAll('input');
+            inputs.forEach(input => input.disabled = true);
+        }
+
+        // Mostra o placar
+        document.getElementById('score-count').textContent = score;
+        
+        // Mostra a seção de resultados e resoluções
+        const resultsSection = document.getElementById('results-section');
+        resultsSection.style.display = 'block';
+        
+        // Scroll suave até os resultados
+        resultsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>

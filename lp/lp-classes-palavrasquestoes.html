@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado Instituto AOCP - Classes de Palavras</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Inter:wght@400;500;600&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Slate 50 - Fundo claro e suave */
+            color: #1e293b; /* Slate 800 - Contraste alto mas não preto absoluto */
+        }
+
+        h1, h2, h3, .serif-text {
+            font-family: 'Merriweather', serif;
+        }
+
+        .text-context {
+            background-color: #f1f5f9;
+            border-left: 4px solid #64748b;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            color: #334155;
+            line-height: 1.8;
+        }
+
+        .option-label {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-label:hover {
+            background-color: #e2e8f0;
+        }
+
+        /* Estilização personalizada para radio buttons */
+        input[type="radio"] {
+            accent-color: #0f172a;
+            transform: scale(1.2);
+        }
+
+        .result-card {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .correct-badge {
+            background-color: #dcfce7;
+            color: #166534;
+            border: 1px solid #86efac;
+        }
+
+        .incorrect-badge {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen pb-20">
+
+    <!-- Cabeçalho -->
+    <header class="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-10">
+        <div class="max-w-3xl mx-auto px-6 py-4">
+            <h1 class="text-2xl md:text-3xl font-bold text-slate-900">Simulado Instituto AOCP</h1>
+            <p class="text-slate-600 mt-1">Classes de Palavras: Usos e Adequações</p>
+        </div>
+    </header>
+
+    <!-- Área Principal -->
+    <main class="max-w-3xl mx-auto px-6 py-8">
+        
+        <!-- Introdução -->
+        <div class="mb-8 prose prose-slate text-slate-700 leading-relaxed">
+            <p>Este simulado reproduz o estilo e o rigor da banca <strong>Instituto AOCP</strong>. Responda às 10 questões abaixo focadas em morfossintaxe aplicada. Ao final, clique em "Conferir Resultado" para ver sua nota e as resoluções detalhadas.</p>
+        </div>
+
+        <!-- Container do Quiz -->
+        <form id="quizForm" class="space-y-12">
+            <div id="questions-container">
+                <!-- Questões serão inseridas aqui via JS -->
+            </div>
+
+            <!-- Botão de Envio -->
+            <div class="pt-6 border-t border-slate-300 text-center">
+                <button type="button" onclick="calculateScore()" class="bg-slate-800 hover:bg-slate-900 text-white font-bold py-4 px-8 rounded-lg shadow-lg transition-all transform hover:-translate-y-1 text-lg w-full md:w-auto">
+                    Conferir Resultado e Resoluções
+                </button>
+            </div>
+        </form>
+
+        <!-- Área de Resultados (Oculta inicialmente) -->
+        <div id="results-section" class="hidden mt-12 pt-12 border-t-2 border-slate-300">
+            <h2 class="text-3xl font-bold text-center mb-8">Gabarito e Resoluções</h2>
+            
+            <!-- Placar -->
+            <div id="score-card" class="bg-white rounded-xl shadow-md p-8 text-center mb-12 border border-slate-200">
+                <p class="text-lg text-slate-600 uppercase tracking-wider font-semibold">Sua Pontuação</p>
+                <div id="score-display" class="text-5xl font-black text-slate-900 my-4">0/10</div>
+                <p id="score-message" class="text-slate-700"></p>
+            </div>
+
+            <!-- Lista de Resoluções -->
+            <div id="resolutions-list" class="space-y-8">
+                <!-- Resoluções inseridas via JS -->
+            </div>
+        </div>
+    </main>
+
+    <footer class="mt-20 bg-slate-100 py-8 text-center text-slate-500 text-sm border-t border-slate-200">
+        <p>Baseado no Relatório Analítico de Morfossintaxe Aplicada.</p>
+    </footer>
+
+    <script>
+        // Dados do Quiz (Extraídos do documento fornecido)
+        const quizData = [
+            {
+                id: 1,
+                context: `"A ciência avança a passos largos, mas a ética, <strong>por vezes</strong>, caminha trôpega logo atrás. <strong>Muitos</strong> pesquisadores defendem que <strong>tudo</strong> é válido em nome do progresso, esquecendo-se de que a história já <strong>nos</strong> ensinou o preço da desumanização. É preciso que haja limites claros <strong>para que</strong> o futuro não se torne um pesadelo tecnológico."`,
+                question: "(Estilo AOCP) Em relação às classes de palavras e à construção de sentido no texto, assinale a alternativa correta.",
+                options: [
+                    "O termo 'Muitos' classifica-se como advérbio de intensidade, modificando o substantivo 'pesquisadores' e indicando a grande quantidade de profissionais.",
+                    "A expressão 'por vezes' é uma locução adverbial de tempo que denota a frequência intermitente com que a ética acompanha a ciência.",
+                    "O vocábulo 'tudo' é um substantivo abstrato que funciona como sujeito da oração 'tudo é válido'.",
+                    "O adjetivo 'trôpega' concorda com 'ética', atribuindo-lhe uma característica permanente e inerente, funcionando sintaticamente como adjunto adnominal.",
+                    "A conjunção 'mas' inicia uma oração subordinada concessiva, estabelecendo uma oposição que não impede o avanço da ciência."
+                ],
+                correctIndex: 1, // B
+                resolution: `<strong>Gabarito: B</strong>. 
+                <br>• (A) Incorreta: 'Muitos' acompanha o substantivo 'pesquisadores'. Advérbios não modificam substantivos. Trata-se de um Pronome Indefinido Adjetivo.
+                <br>• (B) Correta: 'Por vezes' indica circunstância de tempo/frequência (intermitência).
+                <br>• (C) Incorreta: 'Tudo' é Pronome Indefinido Substantivo, não substantivo puro.
+                <br>• (D) Incorreta: 'Trôpega' é Predicativo do Sujeito (estado transitório), não adjunto adnominal.
+                <br>• (E) Incorreta: 'Mas' é conjunção coordenativa adversativa, não concessiva.`
+            },
+            {
+                id: 2,
+                context: null, // Contexto já dado na Q1
+                question: "(Estilo AOCP) No trecho \"esquecendo-se de que a história já nos ensinou\", a colocação do pronome \"nos\" antes do verbo (próclise) justifica-se:",
+                options: [
+                    "Pela presença do advérbio \"já\", que atua como fator de atração obrigatória.",
+                    "Por ser facultativa, uma vez que o verbo não está no início do período.",
+                    "Pela regência do verbo \"ensinar\", que exige objeto indireto proclítico.",
+                    "Para evitar a ênclise, que formaria cacofonia com a terminação verbal.",
+                    "Porque a oração é subordinada substantiva, o que atrai o pronome para antes do verbo."
+                ],
+                correctIndex: 0, // A
+                resolution: `<strong>Gabarito: A</strong>.
+                <br>• (A) Correta: A palavra 'já' é um advérbio de tempo. Advérbios são fatores de atração obrigatória para a próclise quando não há pausa (vírgula).
+                <br>• (B) Incorreta: A próclise é obrigatória devido à atração, não facultativa.
+                <br>• (C) Incorreta: Regência dita o tipo de objeto, não a posição do pronome.
+                <br>• (D) e (E) Incorretas: O fator determinante primário aqui é o advérbio atrativo.`
+            },
+            {
+                id: 3,
+                context: null,
+                question: "(Estilo AOCP) Assinale a alternativa que apresenta a classificação morfológica correta e a respectiva função semântica do conectivo destacado em: \"...limites claros <strong>para que</strong> o futuro não se torne um pesadelo...\"",
+                options: [
+                    "Locução conjuntiva proporcional; indica que o futuro se torna pesadelo na mesma medida dos limites.",
+                    "Conjunção coordenativa explicativa; justifica a necessidade de limites.",
+                    "Locução conjuntiva final; introduz o objetivo ou propósito da existência de limites claros.",
+                    "Conjunção subordinativa consecutiva; indica a consequência direta da falta de limites.",
+                    "Conjunção integrante; introduz uma oração que completa o sentido do substantivo \"limites\"."
+                ],
+                correctIndex: 2, // C
+                resolution: `<strong>Gabarito: C</strong>.
+                <br>• (A) Incorreta: Proporcional seria 'à medida que'.
+                <br>• (B) Incorreta: Explicativa seria 'pois' ou 'porque'.
+                <br>• (C) Correta: 'Para que' é locução conjuntiva final. Indica o objetivo/propósito da ação principal.
+                <br>• (D) Incorreta: Consecutiva seria 'de modo que'.`
+            },
+            {
+                id: 4,
+                context: `"Havia <strong>bastantes</strong> motivos para a reforma. O diretor, <strong>cujo</strong> projeto fora aprovado, <strong>meio</strong> receoso, solicitou verbas <strong>ao</strong> conselho. Ele falava <strong>baixo</strong>, mas suas palavras tinham peso."`,
+                question: "(Estilo AOCP) Sobre a concordância e a classificação das palavras destacadas, analise as assertivas.<br><br>I. \"Bastantes\" é pronome indefinido e concorda em número com o substantivo \"motivos\".<br>II. \"Meio\" é advérbio de intensidade, significando \"um pouco\", e por isso permanece invariável, concordando apenas semanticamente com o adjetivo \"receoso\".<br>III. \"Baixo\" é um adjetivo empregado com valor de advérbio (derivação imprópria), devendo permanecer invariável.<br><br>Estão corretas:",
+                options: [
+                    "Apenas I e II.",
+                    "Apenas I e III.",
+                    "Apenas II e III.",
+                    "Apenas I.",
+                    "I, II e III."
+                ],
+                correctIndex: 4, // E
+                resolution: `<strong>Gabarito: E</strong>.
+                <br>• I. Correta: 'Bastantes' modifica 'motivos' (substantivo), logo é Pronome Indefinido variável.
+                <br>• II. Correta: 'Meio' modifica 'receoso' (adjetivo), significando 'um pouco'. É Advérbio invariável.
+                <br>• III. Correta: 'Falava baixo'. Adjetivo usado como advérbio de modo (derivação imprópria). Invariável.`
+            },
+            {
+                id: 5,
+                context: null,
+                question: "(Estilo AOCP) O termo \"cujo\", no trecho \"O diretor, cujo projeto fora aprovado...\", exerce função de pronome relativo. Assinale a alternativa que descreve corretamente as regras de uso deste pronome.",
+                options: [
+                    "Concorda com o antecedente (\"diretor\") e é invariável em gênero.",
+                    "Deveria vir seguido de artigo definido (\"cujo o\") para especificar o substantivo \"projeto\".",
+                    "Indica posse, concorda em gênero e número com o consequente (\"projeto\") e conecta a oração adjetiva ao antecedente.",
+                    "Pode ser substituído por \"o qual\" sem alteração da estrutura da frase (\"O diretor, o qual projeto...\").",
+                    "Exerce a função de objeto direto do verbo \"aprovar\" na oração subordinada."
+                ],
+                correctIndex: 2, // C
+                resolution: `<strong>Gabarito: C</strong>.
+                <br>• (A) Incorreta: Concorda com o consequente, não o antecedente.
+                <br>• (B) Incorreta: Jamais se usa artigo após 'cujo'.
+                <br>• (C) Correta: Indica posse, concorda com o possuído ('projeto') e conecta orações.
+                <br>• (D) Incorreta: 'O qual' não tem valor possessivo implícito.`
+            },
+            {
+                id: 6,
+                context: null,
+                question: "(Estilo AOCP) O termo \"ao\" em \"solicitou verbas <strong>ao</strong> conselho\" resulta da combinação de:",
+                options: [
+                    "Preposição \"a\" (exigida pelo verbo solicitar) + Artigo definido \"o\" (exigido pelo substantivo conselho).",
+                    "Artigo definido \"a\" + Artigo definido \"o\".",
+                    "Preposição \"a\" (exigida pelo substantivo verbas) + Pronome demonstrativo \"o\".",
+                    "Pronome pessoal \"a\" + Artigo \"o\".",
+                    "Mera expletividade, podendo ser removido sem prejuízo sintático."
+                ],
+                correctIndex: 0, // A
+                resolution: `<strong>Gabarito: A</strong>.
+                <br>Quem solicita, solicita algo (verbas - OD) <strong>a</strong> alguém (ao conselho - OI).
+                <br>Combinação: Preposição 'a' (regência verbal) + Artigo 'o' (gênero de conselho).`
+            },
+            {
+                id: 7,
+                context: null,
+                question: "(Estilo AOCP) Considere a frase: \"Vende-se apartamentos novos\". De acordo com a norma-padrão e o rigor morfossintático cobrado em concursos, a frase apresenta:",
+                options: [
+                    "Correção gramatical, pois \"se\" é índice de indeterminação do sujeito e o verbo deve ficar no singular.",
+                    "Erro de concordância verbal, pois \"se\" é partícula apassivadora e o verbo deveria concordar com o sujeito paciente \"apartamentos novos\" (Vendem-se).",
+                    "Erro de regência, pois o verbo vender é intransitivo neste contexto.",
+                    "Correção gramatical, tratando-se de sujeito inexistente.",
+                    "Erro de colocação pronominal, pois a frase deveria iniciar com o pronome (\"Se vende\")."
+                ],
+                correctIndex: 1, // B
+                resolution: `<strong>Gabarito: B</strong>.
+                <br>• Vender é VTD. Com a partícula 'se' (apassivadora), o objeto direto vira Sujeito Paciente.
+                <br>• Sujeito: 'Apartamentos novos' (Plural).
+                <br>• Verbo deve ir para o plural: 'Vendem-se'. A frase original 'Vende-se apartamentos' contém erro de concordância.`
+            },
+            {
+                id: 8,
+                context: null,
+                question: "(Estilo AOCP) Assinale a alternativa em que a reescrita altera o sentido original do termo adjetivo devido à mudança de posição ou pontuação.<br><em>Frase original:</em> \"As medidas governamentais <strong>drásticas</strong> foram rejeitadas.\" (Sentido: Apenas as medidas que foram drásticas foram rejeitadas).",
+                options: [
+                    "\"As medidas governamentais, drásticas, foram rejeitadas.\" (Torna o adjetivo explicativo, generalizando que todas as medidas eram drásticas).",
+                    "\"Foram rejeitadas as medidas governamentais drásticas.\" (Mantém o sentido restritivo).",
+                    "\"Rejeitaram-se as medidas governamentais que eram drásticas.\" (Mantém o sentido restritivo através de oração adjetiva).",
+                    "\"As drásticas medidas governamentais foram rejeitadas.\" (A anteposição pode dar ênfase, mas mantém a restrição ao grupo nominal se não houver vírgulas).",
+                    "\"As medidas drásticas do governo foram rejeitadas.\" (Mantém o sentido original com variação de locução adjetiva)."
+                ],
+                correctIndex: 0, // A
+                resolution: `<strong>Gabarito: A</strong>.
+                <br>A inserção de vírgulas transforma o adjetivo restritivo (que limita o grupo) em um termo ou aposto explicativo (que generaliza uma característica a todo o grupo).
+                <br>Original: Apenas as drásticas.
+                <br>Opção A: Todas as medidas eram drásticas e todas foram rejeitadas.`
+            },
+            {
+                id: 9,
+                context: null,
+                question: "(Estilo AOCP) Na oração \"Prefiro a liberdade <strong>do que</strong> a segurança\", o uso da locução destacada é considerado:",
+                options: [
+                    "Correto, pois estabelece uma comparação de superioridade.",
+                    "Incorreto segundo a norma culta, pois o verbo \"preferir\" rege a preposição \"a\" e não aceita conectivos comparativos como \"do que\".",
+                    "Correto, sendo uma variação estilística aceita em textos formais.",
+                    "Incorreto, pois deveria ser usada a conjunção \"que\" isoladamente (\"Prefiro a liberdade que a segurança\").",
+                    "Correto, pois \"preferir\" é transitivo direto e não exige preposição, sendo o \"do que\" um recurso de ênfase."
+                ],
+                correctIndex: 1, // B
+                resolution: `<strong>Gabarito: B</strong>.
+                <br>A regência do verbo preferir é: 'Quem prefere, prefere X <strong>a</strong> Y'.
+                <br>O uso de 'do que' é coloquial e considerado erro em concursos. A forma culta é: 'Prefiro a liberdade <strong>à</strong> segurança'.`
+            },
+            {
+                id: 10,
+                context: "Observe o uso dos pronomes demonstrativos no parágrafo a seguir:<br>\"Machado de Assis e José de Alencar são pilares da literatura. <strong>Este</strong> consolidou o romance urbano e indianista; <strong>aquele</strong>, o realismo psicológico.\"",
+                question: "(Estilo AOCP) Os termos \"Este\" e \"aquele\" referem-se, respectivamente, a:",
+                options: [
+                    "Machado de Assis e José de Alencar.",
+                    "José de Alencar e Machado de Assis.",
+                    "Romance urbano e realismo psicológico.",
+                    "Literatura e pilares.",
+                    "Ambos referem-se a Machado de Assis."
+                ],
+                correctIndex: 1, // B
+                resolution: `<strong>Gabarito: B</strong>.
+                <br>Regra dos Demonstrativos Distributivos:
+                <br>• <strong>Este</strong>: Retoma o último citado (mais próximo no texto) -> José de Alencar.
+                <br>• <strong>Aquele</strong>: Retoma o primeiro citado (mais distante no texto) -> Machado de Assis.`
+            }
+        ];
+
+        // Renderizar Quiz
+        function renderQuiz() {
+            const container = document.getElementById('questions-container');
+            
+            quizData.forEach((item, index) => {
+                // Criar Wrapper da Questão
+                const questionCard = document.createElement('div');
+                questionCard.className = "bg-white p-6 md:p-8 rounded-xl shadow-sm border border-slate-200";
+                
+                let html = '';
+
+                // Adicionar Contexto se houver
+                if(item.context) {
+                    html += `<div class="text-context serif-text text-sm md:text-base">${item.context}</div>`;
+                }
+
+                // Título da Questão
+                html += `<h3 class="text-lg md:text-xl font-bold text-slate-800 mb-6 flex items-start gap-3">
+                            <span class="bg-slate-200 text-slate-700 text-sm py-1 px-2 rounded mt-1">Q${item.id}</span>
+                            <span>${item.question}</span>
+                         </h3>`;
+
+                // Opções
+                html += `<div class="space-y-3">`;
+                const letters = ['A', 'B', 'C', 'D', 'E'];
+                
+                item.options.forEach((opt, optIndex) => {
+                    html += `
+                        <label class="option-label flex items-start p-4 rounded-lg border border-slate-200 hover:border-slate-400 group">
+                            <input type="radio" name="q${item.id}" value="${optIndex}" class="mt-1 mr-4 flex-shrink-0">
+                            <span class="text-slate-700 group-hover:text-slate-900 text-base leading-relaxed">
+                                <strong class="mr-2">${letters[optIndex]})</strong> ${opt}
+                            </span>
+                        </label>
+                    `;
+                });
+                html += `</div>`;
+
+                questionCard.innerHTML = html;
+                container.appendChild(questionCard);
+            });
+        }
+
+        // Calcular Nota e Mostrar Resolução
+        function calculateScore() {
+            let score = 0;
+            let answeredAll = true;
+            const resolutionsContainer = document.getElementById('resolutions-list');
+            resolutionsContainer.innerHTML = ''; // Limpar anterior
+
+            // Iterar sobre os dados
+            quizData.forEach((item) => {
+                // Pegar input selecionado
+                const selected = document.querySelector(`input[name="q${item.id}"]:checked`);
+                let userVal = selected ? parseInt(selected.value) : -1;
+
+                // Contabilizar nota
+                if(userVal === item.correctIndex) {
+                    score++;
+                }
+
+                // Criar Card de Resolução
+                const resCard = document.createElement('div');
+                const isCorrect = userVal === item.correctIndex;
+                const userLetter = userVal !== -1 ? ['A', 'B', 'C', 'D', 'E'][userVal] : "Não respondeu";
+                const correctLetter = ['A', 'B', 'C', 'D', 'E'][item.correctIndex];
+
+                resCard.className = `result-card bg-white p-6 rounded-lg border-l-8 shadow-sm ${isCorrect ? 'border-green-500' : 'border-red-500'}`;
+                
+                resCard.innerHTML = `
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4 pb-4 border-b border-slate-100">
+                        <div class="mb-2 md:mb-0">
+                            <h4 class="font-bold text-lg text-slate-800">Questão ${item.id}</h4>
+                            <p class="text-sm text-slate-500 truncate max-w-md">${item.question.replace(/(<([^>]+)>)/gi, "")}</p>
+                        </div>
+                        <div class="flex gap-3">
+                            <div class="px-3 py-1 rounded text-sm font-bold ${isCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+                                Sua Resposta: ${userLetter}
+                            </div>
+                            <div class="px-3 py-1 rounded text-sm font-bold bg-slate-200 text-slate-800">
+                                Correta: ${correctLetter}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="prose prose-slate text-slate-700 text-sm md:text-base">
+                        <p class="font-semibold mb-2">Resolução:</p>
+                        <div class="bg-slate-50 p-4 rounded border border-slate-100">
+                            ${item.resolution}
+                        </div>
+                    </div>
+                `;
+                resolutionsContainer.appendChild(resCard);
+            });
+
+            // Atualizar UI de Placar
+            const display = document.getElementById('score-display');
+            const message = document.getElementById('score-message');
+            
+            display.innerText = `${score}/10`;
+            
+            if(score === 10) message.innerText = "Excelente! Domínio total do conteúdo.";
+            else if(score >= 7) message.innerText = "Muito bom! Você tem um bom conhecimento da banca.";
+            else if(score >= 5) message.innerText = "Bom, mas precisa revisar os pontos de atenção.";
+            else message.innerText = "Continue estudando! Revise as resoluções abaixo com atenção.";
+
+            // Mostrar Seção
+            document.getElementById('results-section').classList.remove('hidden');
+            
+            // Scroll suave até o resultado
+            document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Inicializar
+        renderQuiz();
+
+    </script>
+</body>
+</html>
