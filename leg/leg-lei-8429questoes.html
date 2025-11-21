@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Lei de Improbidade Administrativa - Instituto AOCP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+            color: #2d3748;
+        }
+        .serif-text {
+            font-family: 'Merriweather', serif;
+            line-height: 1.8;
+        }
+        .option-radio:checked + div {
+            border-color: #3182ce;
+            background-color: #ebf8ff;
+            color: #2c5282;
+        }
+        .correct-answer-highlight {
+            background-color: #d1fae5; /* Green 100 */
+            border-color: #10b981; /* Green 500 */
+            color: #064e3b;
+        }
+        .wrong-answer-highlight {
+            background-color: #fee2e2; /* Red 100 */
+            border-color: #ef4444; /* Red 500 */
+            color: #7f1d1d;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e0;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a0aec0;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-10">
+        <div class="max-w-4xl mx-auto px-4 py-6">
+            <h1 class="text-2xl md:text-3xl font-bold text-gray-800">Simulado: Lei 8.429/1992</h1>
+            <p class="text-gray-600 mt-2 text-sm md:text-base">Foco: Lei de Improbidade Administrativa (Atualizada) | Banca: Instituto AOCP</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 py-8 max-w-4xl">
+        
+        <!-- Intro Card -->
+        <div class="bg-white rounded-lg shadow-sm p-6 mb-8 border-l-4 border-blue-500">
+            <h2 class="text-lg font-semibold text-gray-800 mb-2">Instruções</h2>
+            <p class="text-gray-600 leading-relaxed">
+                Este simulado contém 10 questões baseadas no perfil do Instituto AOCP, focando nas alterações da Lei 14.230/2021. 
+                Responda a todas as questões e clique em "Finalizar Simulado" para ver sua pontuação e as resoluções detalhadas.
+            </p>
+        </div>
+
+        <!-- Quiz Area -->
+        <form id="quiz-form" class="space-y-8">
+            <!-- Questions will be injected here by JS -->
+        </form>
+
+        <!-- Submit Button -->
+        <div class="mt-10 mb-16 text-center">
+            <button id="submit-btn" type="button" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transform transition hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-blue-300 text-lg">
+                Finalizar Simulado e Ver Resoluções
+            </button>
+        </div>
+
+        <!-- Results Section (Hidden by default) -->
+        <div id="results-section" class="hidden">
+            <div class="bg-gray-800 text-white rounded-lg shadow-lg p-8 mb-10 text-center">
+                <h2 class="text-3xl font-bold mb-2">Resultado</h2>
+                <p class="text-xl text-gray-300">Você acertou <span id="score-display" class="text-white font-bold text-4xl text-blue-400">0</span> de 10 questões</p>
+                <p id="score-message" class="mt-4 text-sm uppercase tracking-wide font-semibold opacity-80"></p>
+            </div>
+
+            <div id="detailed-results" class="space-y-12">
+                <!-- Detailed explanations will be injected here -->
+            </div>
+            
+            <div class="text-center mt-12 pb-8">
+                <button onclick="window.location.reload()" class="text-blue-600 hover:text-blue-800 font-medium underline">Reiniciar Simulado</button>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-gray-100 border-t border-gray-200 py-8 mt-auto">
+        <div class="max-w-4xl mx-auto px-4 text-center text-gray-500 text-sm">
+            <p>Baseado no Relatório Técnico de Análise Jurídica e Estratégica da LIA.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Data Structure extracted from the document
+        const quizData = [
+            {
+                id: 1,
+                title: "Eixo I: O Elemento Subjetivo e a Extinção da Culpa",
+                question: "A Lei nº 14.230/2021 alterou profundamente a estrutura da responsabilização por atos de improbidade administrativa. Considerando a nova disciplina do elemento subjetivo da conduta e as salvaguardas interpretativas introduzidas no texto legal, assinale a alternativa correta.",
+                options: [
+                    { id: "A", text: "Configura ato de improbidade administrativa a ação ou omissão decorrente de divergência interpretativa da lei baseada em jurisprudência não pacificada, desde que a interpretação adotada pelo gestor venha a ser posteriormente considerada incorreta pelos tribunais do Poder Judiciário." },
+                    { id: "B", text: "O elemento subjetivo necessário para a configuração do ato de improbidade é o dolo genérico, caracterizado pela simples voluntariedade do agente em realizar a ação, sendo dispensável a comprovação de finalidade ilícita específica." },
+                    { id: "C", text: "Nas hipóteses de atos que causam prejuízo ao erário (Art. 10), a legislação ainda admite a modalidade culposa, desde que caracterizada a culpa grave ou a negligência crassa do administrador público na gestão da coisa pública." },
+                    { id: "D", text: "A mera perda patrimonial decorrente da atividade econômica não acarreta improbidade administrativa, salvo se comprovado o ato doloso praticado com fim ilícito de obter vantagem patrimonial indevida para si ou para outrem." },
+                    { id: "E", text: "A responsabilidade pelo ato de improbidade administrativa opera-se de forma objetiva, bastando a demonstração do nexo causal entre a conduta do agente e o dano suportado pela Administração Pública." }
+                ],
+                correct: "D",
+                explanation: `
+                    <p class="mb-4"><strong>Gabarito Oficial: Letra D</strong></p>
+                    <p class="mb-3">Esta assertiva é uma paráfrase fiel do <strong>Art. 1º, § 3º</strong>: "O mero exercício da função ou desempenho de competências públicas, sem comprovação de ato doloso com fim ilícito, afasta a responsabilidade por ato de improbidade administrativa". A gestão pública envolve riscos. Prejuízo econômico sem intenção de obter vantagem indevida não é improbidade.</p>
+                    <ul class="list-disc pl-5 space-y-2 mb-4">
+                        <li><strong>Incorreta A:</strong> Divergência interpretativa não configura improbidade (Art. 1º, § 8º), mesmo que mude depois.</li>
+                        <li><strong>Incorreta B:</strong> O dolo genérico acabou. Exige-se dolo específico (vontade livre e consciente de alcançar resultado ilícito).</li>
+                        <li><strong>Incorreta C:</strong> Não existe mais modalidade culposa, nem por erro grosseiro. Apenas dolo específico.</li>
+                        <li><strong>Incorreta E:</strong> A responsabilidade nunca é objetiva no direito sancionador; exige dolo.</li>
+                    </ul>
+                    <div class="bg-gray-50 p-4 rounded border border-gray-200 text-sm">
+                        <strong>Tabela Resumo:</strong><br>
+                        Prejuízo ao Erário (Art. 10) na Lei Antiga: Dolo ou Culpa.<br>
+                        Prejuízo ao Erário (Art. 10) na Lei Atual: <strong>Apenas Dolo Específico.</strong>
+                    </div>
+                `
+            },
+            {
+                id: 2,
+                title: "Eixo II: O Caso 'Pedro' e a Dupla Tipificação",
+                question: "Pedro, servidor público, dolosamente facilitou a aquisição de bem por preço superior ao de mercado (superfaturamento). Em contrapartida, recebeu do fornecedor um veículo de luxo. Assinale a classificação correta dos atos.",
+                options: [
+                    { id: "A", text: "Ambos os atos configuram improbidade administrativa que atenta contra os princípios da administração pública (Art. 11)." },
+                    { id: "B", text: "O primeiro ato (facilitação de superfaturamento) configura prejuízo ao erário (Art. 10), e o segundo ato (recebimento do veículo) configura enriquecimento ilícito (Art. 9º)." },
+                    { id: "C", text: "Ambos os atos são classificados exclusivamente como enriquecimento ilícito, pois o prejuízo ao erário é absorvido pela vantagem patrimonial." },
+                    { id: "D", text: "A conduta deve ser tratada como crime contra a administração pública, não sendo possível a cumulação com as sanções de improbidade administrativa." },
+                    { id: "E", text: "O ato de facilitar a aquisição por preço superior configura mera irregularidade administrativa se não houver prova de que Pedro agiu com dolo de prejudicar especificamente o ente público." }
+                ],
+                correct: "B",
+                explanation: `
+                    <p class="mb-4"><strong>Gabarito Oficial: Letra B</strong></p>
+                    <p class="mb-3">A conduta é bifronte e autônoma:</p>
+                    <ol class="list-decimal pl-5 space-y-2">
+                        <li><strong>Prejuízo ao Erário (Art. 10, V):</strong> Facilitar aquisição por preço superior. O dinheiro saiu indevidamente do cofre.</li>
+                        <li><strong>Enriquecimento Ilícito (Art. 9º, I):</strong> Receber veículo (vantagem indevida). O patrimônio do agente aumentou indevidamente.</li>
+                    </ol>
+                    <p class="mt-3">Não há absorção (C está errada) e o Art. 11 é subsidiário, só usado quando a conduta não se encaixa no 9 ou 10 (A está errada).</p>
+                `
+            },
+            {
+                id: 3,
+                title: "Eixo III: Taxatividade e Nepotismo",
+                question: "Marinalva, prefeita, nomeou seu cônjuge, José (sem qualificação técnica), para cargo em comissão de Chefe de Gabinete. Considerando a Lei nº 14.230/2021 e Súmula Vinculante 13, a conduta:",
+                options: [
+                    { id: "A", text: "Configura ato de improbidade administrativa que atenta contra os princípios da administração pública, tipificado expressamente no inciso XI do art. 11 da Lei nº 8.429/1992." },
+                    { id: "B", text: "Não configura ato de improbidade, mas mera irregularidade, uma vez que o rol do Art. 11 tornou-se taxativo e não prevê expressamente o nepotismo." },
+                    { id: "C", text: "Configura ato de improbidade que importa enriquecimento ilícito (Art. 9º), devendo Marinalva devolver os salários." },
+                    { id: "D", text: "Seria improbidade apenas se houvesse dano efetivo ao erário, pois a nova legislação aboliu a punição por atos que violem apenas princípios." },
+                    { id: "E", text: "Não configura improbidade, pois o cargo de Chefe de Gabinete é político, excluído das vedações ao nepotismo." }
+                ],
+                correct: "A",
+                explanation: `
+                    <p class="mb-4"><strong>Gabarito Oficial: Letra A</strong></p>
+                    <p class="mb-3">O nepotismo, antes baseado em Súmula, foi positivado no <strong>Art. 11, XI</strong> da LIA. A nomeação de cônjuge sem qualificação técnica viola os princípios expressamente.</p>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li><strong>Sobre a D:</strong> O Art. 11 dispensa dano financeiro ao erário (Art. 21, I).</li>
+                        <li><strong>Sobre a E:</strong> A "exceção política" cai quando há falta de qualificação técnica (nepotismo cruzado ou incompetência manifesta).</li>
+                    </ul>
+                `
+            },
+            {
+                id: 4,
+                title: "Eixo IV: Responsabilidade de Sócios e Sucessão",
+                question: "A empresa 'Beta' (ímproba) foi incorporada pela 'Gamma'. Sobre a responsabilidade na sucessão empresarial:",
+                options: [
+                    { id: "A", text: "Os sócios da empresa 'Beta' respondem solidariamente com seus patrimônios pessoais por todas as sanções." },
+                    { id: "B", text: "A responsabilidade da sucessora ('Gamma') será restrita à obrigação de reparação integral do dano, até o limite do patrimônio transferido, não se aplicando multas (salvo simulação)." },
+                    { id: "C", text: "A empresa sucessora assume integralmente o passivo, incluindo multas civis e proibição de contratar." },
+                    { id: "D", text: "Os sócios da empresa 'Beta' não responderão, pois a Lei aplica-se exclusivamente a agentes públicos." },
+                    { id: "E", text: "A sucessora limita-se à multa civil, ficando isenta do ressarcimento ao erário." }
+                ],
+                correct: "B",
+                explanation: `
+                    <p class="mb-4"><strong>Gabarito Oficial: Letra B</strong></p>
+                    <p class="mb-3">Conforme o <strong>Art. 8º, Parágrafo Único</strong>: Princípio da Intranscendência da Pena. A sucessora paga a "dívida civil" (ressarcimento) que veio com o patrimônio herdado, mas não sofre a "pena" (multa/proibição), a menos que a fusão tenha sido uma fraude para escapar da lei.</p>
+                `
+            },
+            {
+                id: 5,
+                title: "Eixo V: Acordo de Não Persecução Cível (ANPC)",
+                question: "Sobre o ANPC na Lei de Improbidade Administrativa:",
+                options: [
+                    { id: "A", text: "É direito subjetivo do investigado, devendo o juiz homologar mesmo com recusa do MP." },
+                    { id: "B", text: "O Ministério Público é legitimado para celebrar o ANPC, podendo fazê-lo na investigação, na ação judicial ou na execução da sentença." },
+                    { id: "C", text: "Dispensa a oitiva do ente público lesado." },
+                    { id: "D", text: "Deve prever obrigatoriamente multa civil de 3x o dano." },
+                    { id: "E", text: "É vedada a celebração após o trânsito em julgado." }
+                ],
+                correct: "B",
+                explanation: `
+                    <p class="mb-4"><strong>Gabarito Oficial: Letra B</strong></p>
+                    <p class="mb-3"><strong>Art. 17-B e § 4º</strong>: O MP pode celebrar o acordo a qualquer tempo ("enquanto houver dívida"), inclusive na execução da sentença.</p>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>Não é direito subjetivo absoluto do réu (A incorreta).</li>
+                        <li>Exige oitiva do ente lesado (C incorreta).</li>
+                        <li>Não exige multa tripla (D incorreta).</li>
+                    </ul>
+                `
+            },
+            {
+                id: 6,
+                title: "Eixo VI: Prescrição e Tema 1199 STF",
+                question: "No tocante à prescrição na LIA (Lei 14.230/2021 e Tema 1199 STF):",
+                options: [
+                    { id: "A", text: "Prescreve em 5 anos do término do mandato." },
+                    { id: "B", text: "Estabeleceu prescrição intercorrente de 3 anos." },
+                    { id: "C", text: "O prazo prescricional geral é de 8 anos, contados da ocorrência do fato." },
+                    { id: "D", text: "O novo regime aplica-se retroativamente a todos os processos, reiniciando prazos da data do fato antigo." },
+                    { id: "E", text: "O inquérito civil não suspende o prazo prescricional." }
+                ],
+                correct: "C",
+                explanation: `
+                    <p class="mb-4"><strong>Gabarito Oficial: Letra C</strong></p>
+                    <p class="mb-3">O novo <strong>Art. 23</strong> estabelece prazo geral de <strong>8 anos</strong> contados do <strong>FATO</strong>.</p>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li><strong>Prescrição Intercorrente:</strong> É de 4 anos (não 3).</li>
+                        <li><strong>Retroatividade:</strong> O STF definiu que a nova prescrição é irretroativa para casos julgados. Para casos em curso, a intercorrente conta a partir da publicação da lei (2021), não do fato antigo.</li>
+                        <li><strong>Suspensão:</strong> Inquérito civil suspende sim a prescrição (Art. 23, § 2º).</li>
+                    </ul>
+                `
+            },
+            {
+                id: 7,
+                title: "Eixo VII: Sanções e Dosimetria",
+                question: "Associe a conduta à suspensão de direitos políticos (Lei 14.230/2021):<br>1. Enriquecimento Ilícito<br>2. Prejuízo ao Erário<br>3. Violação de Princípios<br><br>I. Suspensão de até 12 anos<br>II. Não há previsão<br>III. Suspensão de até 14 anos",
+                options: [
+                    { id: "A", text: "1 – 2 – 3" },
+                    { id: "B", text: "2 – 3 – 1" },
+                    { id: "C", text: "3 – 1 – 2" },
+                    { id: "D", text: "2 – 1 – 3" },
+                    { id: "E", text: "1 – 3 – 2" }
+                ],
+                correct: "B",
+                explanation: `
+                    <p class="mb-4"><strong>Gabarito Oficial: Letra B</strong></p>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li><strong>Prejuízo ao Erário (Art. 10):</strong> Gravidade média -> Até 12 anos.</li>
+                        <li><strong>Violação de Princípios (Art. 11):</strong> Gravidade leve -> <strong>Sem suspensão política</strong> (apenas multa e proibição de contratar).</li>
+                        <li><strong>Enriquecimento Ilícito (Art. 9):</strong> Gravidade alta -> Até 14 anos.</li>
+                    </ul>
+                    <p class="mt-3 text-sm text-gray-600">Dica: O Instituto AOCP cobra frequentemente a <strong>ausência</strong> de suspensão política no Art. 11.</p>
+                `
+            },
+            {
+                id: 8,
+                title: "Eixo VIII: Indisponibilidade de Bens",
+                question: "Sobre a decretação de indisponibilidade de bens (Lei 14.230/2021):",
+                options: [
+                    { id: "A", text: "Depende da demonstração, no caso concreto, de perigo de dano irreparável ou risco ao resultado útil do processo, sendo vedada a presunção de urgência." },
+                    { id: "B", text: "Deve recair preferencialmente sobre bens móveis, vedado bloqueio de contas em primeiro lugar." },
+                    { id: "C", text: "O valor deve incluir o ressarcimento e a multa civil." },
+                    { id: "D", text: "Pode ser decretada pelo MP sem autorização judicial em risco iminente." },
+                    { id: "E", text: "É absoluta a impenhorabilidade do bem de família, mesmo se adquirido com ilícito." }
+                ],
+                correct: "A",
+                explanation: `
+                    <p class="mb-4"><strong>Gabarito Oficial: Letra A</strong></p>
+                    <p class="mb-3">O <strong>Art. 16, § 3º</strong> derrubou a "urgência presumida". Agora o MP precisa provar o perigo concreto (dilapidação patrimonial).</p>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li><strong>Multa Civil:</strong> Não se bloqueiam bens para garantir a multa (sanção incerta), apenas para o ressarcimento/enriquecimento (Art. 16, § 10).</li>
+                        <li><strong>Bem de Família:</strong> Protegido, salvo se fruto do ilícito.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 9,
+                title: "Eixo IX: O Procedimento do Inquérito Civil",
+                question: "Segundo o Art. 23, § 2º, o inquérito civil será concluído no prazo de _______ dias corridos, prorrogável uma única vez por igual período.",
+                options: [
+                    { id: "A", text: "90" },
+                    { id: "B", text: "180" },
+                    { id: "C", text: "365" },
+                    { id: "D", text: "60" },
+                    { id: "E", text: "120" }
+                ],
+                correct: "C",
+                explanation: `
+                    <p class="mb-4"><strong>Gabarito Oficial: Letra C</strong></p>
+                    <p class="mb-3">Questão de "lei seca". O prazo é de <strong>365 dias</strong> (1 ano). A medida visa impedir investigações eternas.</p>
+                `
+            },
+            {
+                id: 10,
+                title: "Eixo X: Natureza da Ação",
+                question: "Sobre a natureza da ação de improbidade administrativa (Art. 17-D):",
+                options: [
+                    { id: "A", text: "É de natureza civil, aplicando-se integralmente o CPC, inclusive presunção de veracidade na revelia." },
+                    { id: "B", text: "Constitui ação penal pública incondicionada." },
+                    { id: "C", text: "É repressiva, de caráter sancionatório, destinada à aplicação de sanções de caráter pessoal, e não constitui ação civil." },
+                    { id: "D", text: "Trata-se de ação popular." }
+                ],
+                correct: "C",
+                explanation: `
+                    <p class="mb-4"><strong>Gabarito Oficial: Letra C</strong></p>
+                    <p class="mb-3">O <strong>Art. 17-D</strong> define: "...não constitui ação civil". É uma ação de <strong>Direito Administrativo Sancionador</strong>. Isso serve para afastar institutos cíveis incompatíveis, como a presunção de veracidade na revelia (que não se aplica aqui).</p>
+                `
+            }
+        ];
+
+        const quizForm = document.getElementById('quiz-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const resultsSection = document.getElementById('results-section');
+        const detailedResults = document.getElementById('detailed-results');
+        const scoreDisplay = document.getElementById('score-display');
+        const scoreMessage = document.getElementById('score-message');
+
+        // Render Questions
+        function renderQuiz() {
+            quizData.forEach((item, index) => {
+                const questionEl = document.createElement('div');
+                questionEl.className = 'bg-white rounded-lg shadow-sm p-6 md:p-8 border border-gray-100';
+                questionEl.innerHTML = `
+                    <div class="flex items-center text-xs font-bold text-blue-600 uppercase tracking-wide mb-2">
+                        Questão ${index + 1} • ${item.title}
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-6 leading-relaxed">${item.question}</h3>
+                    <div class="space-y-3">
+                        ${item.options.map(opt => `
+                            <label class="cursor-pointer block relative group">
+                                <input type="radio" name="q${item.id}" value="${opt.id}" class="option-radio sr-only">
+                                <div class="p-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-all duration-200 flex items-start">
+                                    <span class="flex-shrink-0 w-6 h-6 border-2 border-gray-300 rounded-full mr-3 flex items-center justify-center group-hover:border-blue-400 transition-colors">
+                                        <div class="w-2.5 h-2.5 bg-blue-600 rounded-full opacity-0 transition-opacity check-dot"></div>
+                                    </span>
+                                    <span class="text-gray-700 text-base">${opt.text}</span>
+                                </div>
+                            </label>
+                        `).join('')}
+                    </div>
+                `;
+                quizForm.appendChild(questionEl);
+            });
+
+            // Add listener for radio styling
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    // Reset dots in this question group
+                    const name = this.name;
+                    document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+                        r.nextElementSibling.querySelector('.check-dot').style.opacity = '0';
+                    });
+                    // Show dot for selected
+                    this.nextElementSibling.querySelector('.check-dot').style.opacity = '1';
+                });
+            });
+        }
+
+        function calculateResults() {
+            let score = 0;
+            detailedResults.innerHTML = ''; // Clear previous
+
+            quizData.forEach((item, index) => {
+                const selectedOption = document.querySelector(`input[name="q${item.id}"]:checked`);
+                const userAnswer = selectedOption ? selectedOption.value : null;
+                const isCorrect = userAnswer === item.correct;
+
+                if (isCorrect) score++;
+
+                // Build explanation card
+                const resultCard = document.createElement('div');
+                resultCard.className = 'bg-white rounded-lg shadow-md overflow-hidden';
+                
+                // Header of the card (Question + User status)
+                const statusColor = isCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800';
+                const statusText = isCorrect ? 'Correto' : 'Incorreto';
+                const statusIcon = isCorrect ? '✓' : '✕';
+
+                resultCard.innerHTML = `
+                    <div class="p-6 md:p-8 border-b border-gray-100">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">Questão ${index + 1}</span>
+                            <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide ${statusColor} flex items-center">
+                                <span class="mr-1 text-sm">${statusIcon}</span> ${statusText}
+                            </span>
+                        </div>
+                        <p class="text-gray-900 font-medium text-lg mb-6">${item.question}</p>
+                        
+                        <div class="space-y-2 mb-6">
+                             ${item.options.map(opt => {
+                                let optionClass = "p-3 rounded border border-gray-200 text-gray-600 opacity-70"; // Default dimmed
+                                
+                                // Logic for highlighting
+                                if (opt.id === item.correct) {
+                                    optionClass = "p-3 rounded border-2 correct-answer-highlight font-medium"; // Always highlight correct green
+                                } else if (userAnswer === opt.id && !isCorrect) {
+                                    optionClass = "p-3 rounded border-2 wrong-answer-highlight font-medium"; // Highlight wrong selection red
+                                }
+
+                                return `<div class="${optionClass}">
+                                    <span class="font-bold mr-2">${opt.id})</span> ${opt.text}
+                                </div>`;
+                             }).join('')}
+                        </div>
+
+                        <div class="bg-slate-50 p-6 rounded-lg border-t-4 border-blue-500">
+                            <h4 class="text-blue-800 font-bold text-sm uppercase tracking-wide mb-3">Resolução Analítica</h4>
+                            <div class="text-gray-700 serif-text text-base">
+                                ${item.explanation}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                detailedResults.appendChild(resultCard);
+            });
+
+            // Update Score Board
+            scoreDisplay.innerText = score;
+            
+            if(score === 10) scoreMessage.innerText = "Desempenho Perfeito! Você domina a LIA.";
+            else if(score >= 8) scoreMessage.innerText = "Excelente desempenho! A aprovação está próxima.";
+            else if(score >= 6) scoreMessage.innerText = "Bom trabalho, mas revise os pontos fracos.";
+            else scoreMessage.innerText = "Continue estudando. A repetição leva à perfeição.";
+
+            // Show Results
+            resultsSection.classList.remove('hidden');
+            
+            // Disable inputs
+            document.querySelectorAll('input').forEach(inp => inp.disabled = true);
+            submitBtn.classList.add('hidden');
+
+            // Scroll to results
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Initialize
+        renderQuiz();
+        submitBtn.addEventListener('click', calculateResults);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado LGPD - Instituto AOCP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F3F4F6;
+            color: #1F2937;
+        }
+        .option-radio:checked + div {
+            border-color: #2563EB;
+            background-color: #EFF6FF;
+            color: #1E40AF;
+        }
+        .option-radio:checked + div .check-circle {
+            background-color: #2563EB;
+            border-color: #2563EB;
+            color: white;
+        }
+        
+        /* Animação suave para o resultado */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Estilo para resoluções */
+        .resolution-box {
+            border-left: 4px solid;
+        }
+        .res-correct {
+            border-color: #10B981; /* Verde */
+            background-color: #ECFDF5;
+        }
+        .res-wrong {
+            border-color: #EF4444; /* Vermelho */
+            background-color: #FEF2F2;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="max-w-4xl mx-auto px-4 py-10">
+        
+        <!-- Cabeçalho -->
+        <header class="text-center mb-12">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-600 rounded-2xl shadow-lg mb-6 transform rotate-3">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                </svg>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 tracking-tight">Simulado LGPD</h1>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                Foco: <strong>Instituto AOCP</strong> | Lei 13.709/2018<br>
+                Responda as 10 questões abaixo. O gabarito e os comentários aparecerão ao final.
+            </p>
+        </header>
+
+        <!-- Container do Quiz -->
+        <form id="quizForm" class="space-y-8">
+            <!-- As questões serão injetadas aqui via JS -->
+        </form>
+
+        <!-- Botão de Finalizar -->
+        <div class="mt-12 text-center pb-20">
+            <button type="button" onclick="finishQuiz()" id="btnFinish" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-10 rounded-xl shadow-xl transform transition hover:-translate-y-1 hover:shadow-2xl text-xl w-full md:w-auto">
+                Finalizar Simulado e Ver Gabarito
+            </button>
+
+            <!-- Placar Final (Escondido inicialmente) -->
+            <div id="resultPanel" class="hidden mt-10 bg-white p-8 rounded-2xl shadow-xl border border-gray-200 max-w-xl mx-auto fade-in">
+                <div class="text-6xl mb-2" id="scoreIcon">🏆</div>
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Resultado</h2>
+                <div class="text-5xl font-black text-blue-600 mb-4">
+                    <span id="scoreValue">0</span><span class="text-2xl text-gray-400 font-normal">/10</span>
+                </div>
+                <p id="scoreMessage" class="text-gray-600 text-lg mb-6"></p>
+                <button type="button" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="text-blue-600 font-semibold hover:underline">
+                    Revisar Questões
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Dados das Questões
+        const questions = [
+            {
+                id: 1,
+                theme: "Princípios",
+                text: "Um determinado banco programou uma campanha de empréstimos a juros baixos. Após ampla campanha, vários pretendentes subscreveram fichas com informações pessoais e autorizaram que o banco as divulgasse sempre que julgasse necessário e sem comunicação prévia. Nos termos da Lei nº 13.709/2018, a cláusula de divulgação deve obedecer, especificamente, ao princípio da:",
+                options: ["Negociação", "Taxação", "Menção", "Referência", "Transparência"],
+                correct: 4, // Índice 4 = E
+                comment: "<strong>Gabarito: E.</strong> Viola o Princípio da Transparência (Art. 6º, VI). O titular tem direito a informações claras, precisas e facilmente acessíveis sobre a realização do tratamento. Uma cláusula genérica de 'divulgar quando julgar necessário' fere a autodeterminação informativa."
+            },
+            {
+                id: 2,
+                theme: "Conceitos",
+                text: "Para fins da Lei n° 13.709/2018, de Proteção de Dados, considera-se dado anonimizado:",
+                options: [
+                    "A utilização de meios técnicos razoáveis pelos quais um dado perde a possibilidade de associação a um indivíduo.",
+                    "O dado pessoal sobre origem racial ou étnica, convicção religiosa ou saúde.",
+                    "O dado relativo a titular que não possa ser identificado, considerando a utilização de meios técnicos razoáveis e disponíveis na ocasião de seu tratamento.",
+                    "A informação relacionada a pessoa natural identificada ou identificável.",
+                    "O conjunto estruturado de dados pessoais em suporte eletrônico."
+                ],
+                correct: 2, // Índice 2 = C
+                comment: "<strong>Gabarito: C.</strong> Conforme Art. 5º, III. Dado anonimizado é o <em>resultado</em> (o dado que não identifica mais). A alternativa A descreve o processo de anonimização (Art. 5º, XI). A alternativa B descreve dado sensível."
+            },
+            {
+                id: 3,
+                theme: "Bases Legais",
+                text: "Assinale a alternativa que apresenta uma situação que NÃO constitui uma base legal direta do Art. 7º ou que representa uma definição INCORRETA de base legal:",
+                options: [
+                    "Mediante o fornecimento de consentimento pelo titular.",
+                    "Para o cumprimento de obrigação legal ou regulatória pelo controlador.",
+                    "Para a proteção da vida ou da incolumidade física do titular ou de terceiro.",
+                    "Quando necessário para atender aos interesses legítimos do controlador, independentemente dos direitos e liberdades fundamentais do titular.",
+                    "Para a tutela da saúde, exclusivamente, em procedimento realizado por profissionais de saúde."
+                ],
+                correct: 3, // Índice 3 = D
+                comment: "<strong>Gabarito: D.</strong> A definição está incorreta. O Legítimo Interesse (Art. 7º, IX) <strong>não</strong> pode ser usado 'independentemente dos direitos e liberdades fundamentais'. Pelo contrário, ele só é válido <em>exceto</em> quando prevalecerem esses direitos."
+            },
+            {
+                id: 4,
+                theme: "Direitos do Titular",
+                text: "Nos termos da LGPD, sobre o exercício dos direitos de acesso facilitado às informações, assinale a alternativa correta.",
+                options: [
+                    "O acesso deve ser providenciado mediante pagamento de taxas administrativas.",
+                    "O controlador deve fornecer as informações imediatamente (formato simplificado) ou em até 15 dias (declaração completa).",
+                    "O direito de portabilidade implica transferência dos segredos comerciais do controlador original.",
+                    "A confirmação de existência será providenciada exclusivamente por meio eletrônico, vedada cópia impressa.",
+                    "O titular não possui direito de peticionar contra o controlador perante a ANPD."
+                ],
+                correct: 1, // Índice 1 = B
+                comment: "<strong>Gabarito: B.</strong> Art. 19, I e II. O acesso é gratuito (erro da A). A portabilidade resguarda segredos comerciais (erro da C). O fornecimento pode ser impresso se o titular quiser (erro da D)."
+            },
+            {
+                id: 5,
+                theme: "Sanções",
+                text: "Os agentes de tratamento ficam sujeitos a sanções administrativas. Assinale a alternativa que apresenta corretamente uma dessas sanções:",
+                options: [
+                    "Reclusão de 2 a 4 anos.",
+                    "Advertência, com indicação de prazo para adoção de medidas corretivas.",
+                    "Multa simples de até 10% do faturamento, limitada a R$ 100 milhões.",
+                    "Dissolução compulsória da sociedade empresária.",
+                    "Prisão preventiva do Encarregado (DPO)."
+                ],
+                correct: 1, // Índice 1 = B
+                comment: "<strong>Gabarito: B.</strong> Art. 52, I. A LGPD não tem sanções penais como reclusão (erro da A e E). A multa é de até 2% do faturamento, limitada a R$ 50 milhões (erro da C)."
+            },
+            {
+                id: 6,
+                theme: "Encarregado (DPO)",
+                text: "Sobre o Encarregado (DPO) previsto no Art. 41 da LGPD, assinale a correta:",
+                options: [
+                    "Sua identidade deve ser mantida sob sigilo absoluto.",
+                    "Deve ser necessariamente pessoa física, vedada a contratação de escritórios.",
+                    "Suas atividades consistem em aceitar reclamações dos titulares, prestar esclarecimentos e adotar providências.",
+                    "Possui responsabilidade objetiva por todos os danos da empresa.",
+                    "É dispensado para órgãos da Administração Pública."
+                ],
+                correct: 2, // Índice 2 = C
+                comment: "<strong>Gabarito: C.</strong> Art. 41, §2º, I. A identidade deve ser pública (erro da A). Pode ser pessoa jurídica (erro da B). A Adm. Pública também deve indicar (erro da E)."
+            },
+            {
+                id: 7,
+                theme: "Dados Sensíveis",
+                text: "Sobre dados sensíveis de saúde (Art. 11), assinale a vedação expressa:",
+                options: [
+                    "É vedada a comunicação ou uso compartilhado entre controladores com objetivo de obter vantagem econômica (exceto portabilidade/saúde suplementar).",
+                    "É vedado o acesso a dados de saúde por médicos em emergências sem consentimento escrito.",
+                    "É vedada a utilização de dados sensíveis para tutela da saúde.",
+                    "É vedada a cobrança diferenciada baseada em dados anonimizados.",
+                    "É vedado o tratamento de biometria em hospitais."
+                ],
+                correct: 0, // Índice 0 = A
+                comment: "<strong>Gabarito: A.</strong> Art. 11, §4º. A lei proíbe vender dados de saúde para lucro (vantagem econômica), salvo as exceções técnicas necessárias para o sistema funcionar."
+            },
+            {
+                id: 8,
+                theme: "Transferência Internacional",
+                text: "Assinale a alternativa que NÃO apresenta uma hipótese válida para transferência internacional de dados:",
+                options: [
+                    "Para países com grau de proteção adequado.",
+                    "Quando o controlador oferecer garantias via cláusulas contratuais padrão.",
+                    "Para cooperação jurídica internacional entre órgãos de inteligência.",
+                    "Com consentimento específico e em destaque do titular.",
+                    "Mediante compromisso verbal da empresa destinatária em respeitar a privacidade."
+                ],
+                correct: 4, // Índice 4 = E
+                comment: "<strong>Gabarito: E.</strong> A transferência exige formalidade jurídica (Art. 33). Compromisso verbal não tem validade legal para autorizar fluxo internacional de dados."
+            },
+            {
+                id: 9,
+                theme: "Responsabilidade",
+                text: "Um operador realiza tratamento violando a LGPD e as instruções lícitas do controlador. A responsabilidade é:",
+                options: [
+                    "Exclusiva do operador.",
+                    "Solidária, pois o operador equipara-se ao controlador ao descumprir instruções.",
+                    "Subsidiária do controlador.",
+                    "Apenas administrativa, sem efeitos civis.",
+                    "Nula, pois a culpa é do titular."
+                ],
+                correct: 1, // Índice 1 = B
+                comment: "<strong>Gabarito: B.</strong> Art. 42, §1º, I. Quando o operador descumpre as instruções lícitas, ele responde solidariamente pelos danos causados."
+            },
+            {
+                id: 10,
+                theme: "Princípios",
+                text: "O princípio que garante aos titulares exatidão, clareza, relevância e atualização dos dados é o da:",
+                options: [
+                    "Livre Acesso",
+                    "Qualidade dos Dados",
+                    "Segurança",
+                    "Adequação",
+                    "Prevenção"
+                ],
+                correct: 1, // Índice 1 = B
+                comment: "<strong>Gabarito: B.</strong> Art. 6º, V. Qualidade dos dados refere-se à exatidão e atualização. Adequação refere-se à compatibilidade com a finalidade."
+            }
+        ];
+
+        const letters = ['A', 'B', 'C', 'D', 'E'];
+        const quizForm = document.getElementById('quizForm');
+
+        // Renderizar Questões
+        questions.forEach((q, index) => {
+            const questionHTML = `
+                <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 relative overflow-hidden" id="qbox-${q.id}">
+                    <div class="flex justify-between items-center mb-6">
+                        <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Questão ${index + 1}</span>
+                        <span class="text-gray-400 text-xs font-medium">${q.theme}</span>
+                    </div>
+                    
+                    <p class="text-lg md:text-xl text-gray-800 mb-8 font-medium leading-relaxed">
+                        ${q.text}
+                    </p>
+
+                    <div class="space-y-3">
+                        ${q.options.map((opt, i) => `
+                            <label class="block cursor-pointer group">
+                                <input type="radio" name="q${q.id}" value="${i}" class="hidden option-radio">
+                                <div class="flex items-start p-4 rounded-xl border border-gray-200 transition-all duration-200 hover:bg-gray-50 group-hover:border-gray-300">
+                                    <div class="check-circle w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center mr-4 flex-shrink-0 text-sm font-bold text-gray-400 transition-colors">
+                                        ${letters[i]}
+                                    </div>
+                                    <span class="text-gray-700 text-base pt-1">${opt}</span>
+                                </div>
+                            </label>
+                        `).join('')}
+                    </div>
+
+                    <!-- Área de Resolução (Invisível inicialmente) -->
+                    <div id="res-${q.id}" class="hidden mt-8 pt-6 border-t border-gray-100 fade-in">
+                        <div class="resolution-box p-5 rounded-lg text-gray-800 text-base leading-relaxed">
+                            <!-- Ícone e Título injetados via JS -->
+                            <div class="res-header font-bold text-lg mb-2 flex items-center gap-2"></div>
+                            <div class="res-text">${q.comment}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            quizForm.innerHTML += questionHTML;
+        });
+
+        function finishQuiz() {
+            let score = 0;
+            let answeredCount = 0;
+            const inputs = document.querySelectorAll('input[type="radio"]:checked');
+            
+            // Verificar quantas respondidas (opcional: forçar responder tudo)
+            // Aqui vamos apenas calcular o que foi respondido
+            
+            // Desabilitar botão e inputs
+            document.getElementById('btnFinish').classList.add('hidden');
+            const allInputs = document.querySelectorAll('input[type="radio"]');
+            allInputs.forEach(inp => inp.disabled = true);
+
+            questions.forEach(q => {
+                const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
+                const resBox = document.getElementById(`res-${q.id}`);
+                const innerBox = resBox.querySelector('.resolution-box');
+                const header = resBox.querySelector('.res-header');
+                
+                // Mostrar caixa de resolução
+                resBox.classList.remove('hidden');
+
+                if (selected) {
+                    const userVal = parseInt(selected.value);
+                    if (userVal === q.correct) {
+                        score++;
+                        // Estilo de Acerto
+                        innerBox.classList.add('res-correct');
+                        header.innerHTML = `<svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> <span class="text-green-800">Correto!</span>`;
+                        
+                        // Destacar a opção escolhida como verde
+                        selected.nextElementSibling.style.backgroundColor = '#ECFDF5';
+                        selected.nextElementSibling.style.borderColor = '#10B981';
+                        selected.nextElementSibling.querySelector('.check-circle').style.backgroundColor = '#10B981';
+                        selected.nextElementSibling.querySelector('.check-circle').style.borderColor = '#10B981';
+                    } else {
+                        // Estilo de Erro
+                        innerBox.classList.add('res-wrong');
+                        header.innerHTML = `<svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg> <span class="text-red-800">Incorreto</span>`;
+                        
+                        // Destacar a opção errada como vermelho
+                        selected.nextElementSibling.style.backgroundColor = '#FEF2F2';
+                        selected.nextElementSibling.style.borderColor = '#EF4444';
+                        selected.nextElementSibling.style.color = '#991B1B';
+                        selected.nextElementSibling.querySelector('.check-circle').style.backgroundColor = '#EF4444';
+                        selected.nextElementSibling.querySelector('.check-circle').style.borderColor = '#EF4444';
+                    }
+                } else {
+                    // Não respondeu
+                    innerBox.classList.add('bg-gray-100', 'border-gray-400');
+                    header.innerHTML = `<span class="text-gray-600">Não respondida</span>`;
+                }
+
+                // Sempre destacar a CORRETA visualmente se o usuário errou ou não marcou
+                if (!selected || parseInt(selected.value) !== q.correct) {
+                    const correctInput = document.querySelector(`input[name="q${q.id}"][value="${q.correct}"]`);
+                    if(correctInput) {
+                        const div = correctInput.nextElementSibling;
+                        div.style.border = '2px solid #10B981';
+                        div.classList.add('ring-2', 'ring-green-100');
+                        // Adicionar um pequeno texto "Correta"
+                        const badge = document.createElement('span');
+                        badge.className = 'ml-auto text-xs font-bold text-green-600 bg-green-100 px-2 py-1 rounded';
+                        badge.innerText = 'CORRETA';
+                        div.appendChild(badge);
+                    }
+                }
+            });
+
+            // Mostrar Placar
+            const resultPanel = document.getElementById('resultPanel');
+            const scoreValue = document.getElementById('scoreValue');
+            const scoreMessage = document.getElementById('scoreMessage');
+            const scoreIcon = document.getElementById('scoreIcon');
+
+            scoreValue.innerText = score;
+            resultPanel.classList.remove('hidden');
+
+            if (score >= 9) {
+                scoreMessage.innerText = "Excelente! Domínio total da lei.";
+                scoreIcon.innerText = "🌟";
+            } else if (score >= 7) {
+                scoreMessage.innerText = "Muito bom! Você está no caminho certo.";
+                scoreIcon.innerText = "👏";
+            } else if (score >= 5) {
+                scoreMessage.innerText = "Bom, mas revise os erros para fixar.";
+                scoreIcon.innerText = "📚";
+            } else {
+                scoreMessage.innerText = "Atenção aos detalhes da banca AOCP. Continue estudando!";
+                scoreIcon.innerText = "⚠️";
+            }
+
+            // Scroll suave até o resultado
+            setTimeout(() => {
+                resultPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+        }
+    </script>
+</body>
+</html>

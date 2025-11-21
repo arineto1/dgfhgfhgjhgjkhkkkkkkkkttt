@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo de Véspera: Lei de Improbidade (IFPB/AOCP)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+        }
+        /* Ajuste para tabelas em telas pequenas para evitar scroll horizontal */
+        @media (max-width: 640px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+            tr {
+                margin-bottom: 1rem;
+                border: 1px solid #e5e7eb;
+                border-radius: 0.5rem;
+                padding: 0.5rem;
+                background-color: #fff;
+            }
+            td {
+                border: none;
+                position: relative;
+                padding-left: 50%;
+                text-align: right;
+                padding-top: 0.5rem;
+                padding-bottom: 0.5rem;
+            }
+            td:before {
+                position: absolute;
+                top: 0.5rem;
+                left: 0.5rem;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+                text-align: left;
+                font-weight: bold;
+                color: #374151;
+                content: attr(data-label);
+            }
+            td:last-child {
+                border-bottom: 0;
+            }
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900 antialiased">
+
+    <!-- Player de Áudio Fixo ou no Topo -->
+    <div class="bg-gray-100 border-b border-gray-200 sticky top-0 z-50 shadow-sm transition-all duration-300">
+        <div class="max-w-4xl mx-auto p-3 flex flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <i class="fas fa-headphones-alt text-blue-800 text-2xl"></i>
+                <div>
+                    <h2 class="font-semibold text-gray-800 text-sm sm:text-base">Áudio Aula: Resumo</h2>
+                    <p class="text-xs text-gray-500 hidden sm:block">Ouça enquanto revisa</p>
+                </div>
+            </div>
+            
+            <!-- Botão Player Personalizado (Topo) -->
+            <div class="flex items-center gap-3">
+                <button onclick="togglePlay('audio-top', 'icon-top')" class="group flex items-center gap-2 bg-blue-800 hover:bg-blue-700 text-white px-4 py-2 rounded-full shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                    <i id="icon-top" class="fas fa-play text-sm"></i>
+                    <span class="text-sm font-bold">Ouvir</span>
+                </button>
+                <audio id="audio-top" class="hidden" onended="resetIcon('icon-top')">
+                    <source src="leg-lei-8429.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <main class="max-w-4xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+      
+        <!-- Cabeçalho do Documento -->
+        <header class="mb-10 border-l-4 border-blue-800 pl-4">
+            <h1 class="text-3xl font-bold text-gray-900 sm:text-4xl mb-2">RESUMÃO DE VÉSPERA: LEI DE IMPROBIDADE</h1>
+            <p class="text-lg text-gray-600">Lei 8.429/92 + Alterações da Lei 14.230/21</p>
+            <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded mt-2">Foco: Instituto AOCP | IFPB - Informática</span>
+            
+            <!-- Botão Player Personalizado (Principal) -->
+            <div class="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200 inline-block w-full sm:w-auto">
+                <div class="flex items-center gap-4">
+                    <button onclick="togglePlay('audio-main', 'icon-main')" class="w-12 h-12 flex items-center justify-center bg-blue-800 hover:bg-blue-700 text-white rounded-full shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                        <i id="icon-main" class="fas fa-play text-lg ml-1"></i>
+                    </button>
+                    <div>
+                        <p class="font-bold text-gray-800">Dar Play na Aula</p>
+                        <p class="text-xs text-gray-500">Arquivo: leg-lei-8429.mp3</p>
+                    </div>
+                </div>
+                <audio id="audio-main" class="hidden" onended="resetIcon('icon-main')">
+                    <source src="leg-lei-8429.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+        </header>
+
+        <!-- Seção 1 -->
+        <section class="mb-12">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="bg-gray-900 text-white w-8 h-8 flex items-center justify-center rounded-full font-bold">1</span>
+                <h2 class="text-2xl font-bold text-gray-800">O "Mantra" da Nova Lei (Decore isso!)</h2>
+            </div>
+            
+            <div class="bg-red-50 border-l-4 border-red-600 p-6 rounded-r shadow-sm mb-6">
+                <p class="text-xl font-bold text-red-800 mb-2">
+                    <i class="fas fa-exclamation-triangle mr-2"></i> NÃO EXISTE MAIS IMPROBIDADE CULPOSA.
+                </p>
+                <p class="text-gray-700">Se você esquecer tudo, lembre-se disto.</p>
+            </div>
+
+            <ul class="space-y-4 ml-2">
+                <li class="flex items-start gap-3">
+                    <i class="fas fa-check text-green-600 mt-1"></i>
+                    <div>
+                        <strong class="text-gray-900">Regra de Ouro:</strong> Só é improbidade se houver <strong class="text-red-700 bg-red-50 px-1">DOLO</strong> (vontade livre e consciente).
+                    </div>
+                </li>
+                <li class="flex items-start gap-3">
+                    <i class="fas fa-check text-green-600 mt-1"></i>
+                    <div>
+                        <strong class="text-gray-900">O Gestor Incompetente:</strong> Aquele que causa prejuízo por burrice, falta de habilidade ou descuido (negligência/imprudência) <strong class="text-red-700">NÃO</strong> comete improbidade. Pode ser demitido ou pagar indenização civil, mas não é ímprobo.
+                    </div>
+                </li>
+                <li class="flex items-start gap-3">
+                    <i class="fas fa-check text-green-600 mt-1"></i>
+                    <div>
+                        <strong class="text-gray-900">Fim da Culpa:</strong> A modalidade "culposa" (sem intenção) foi revogada.
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Seção 2 -->
+        <section class="mb-12">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="bg-gray-900 text-white w-8 h-8 flex items-center justify-center rounded-full font-bold">2</span>
+                <h2 class="text-2xl font-bold text-gray-800">Os Três Tipos de Atos (Arts. 9, 10 e 11)</h2>
+            </div>
+            <p class="mb-4 text-gray-600">Para a prova, identifique o <strong class="text-blue-800">VERBO</strong> e o <strong class="text-blue-800">RESULTADO</strong>:</p>
+
+            <!-- Tabela 1 -->
+            <div class="overflow-hidden rounded-lg border border-gray-200 shadow-sm mb-6">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Artigo / Tipo</th>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Palavra-Chave</th>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Exige Dolo?</th>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Exige Prejuízo $$?</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200 text-sm">
+                        <tr>
+                            <td class="px-4 py-3 font-medium" data-label="Artigo/Tipo">
+                                <div class="text-blue-900 font-bold">Art. 9º</div>
+                                <div class="text-gray-500">Enriquecimento Ilícito</div>
+                            </td>
+                            <td class="px-4 py-3" data-label="Palavra-Chave">
+                                <span class="font-bold text-green-700">AUFERIR</span> (ganhar)
+                            </td>
+                            <td class="px-4 py-3 font-bold text-red-700" data-label="Exige Dolo?">SIM</td>
+                            <td class="px-4 py-3 text-gray-600" data-label="Prejuízo $$?">Não necessariamente (foco é o ganho do agente)</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 font-medium" data-label="Artigo/Tipo">
+                                <div class="text-blue-900 font-bold">Art. 10</div>
+                                <div class="text-gray-500">Prejuízo ao Erário</div>
+                            </td>
+                            <td class="px-4 py-3" data-label="Palavra-Chave">
+                                <span class="font-bold text-red-700">PERDA EFETIVA</span>
+                            </td>
+                            <td class="px-4 py-3 font-bold text-red-700" data-label="Exige Dolo?">SIM</td>
+                            <td class="px-4 py-3 text-gray-600" data-label="Prejuízo $$?"><strong class="text-gray-900">SIM</strong> (Deve provar perda real, não presumida)</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 font-medium" data-label="Artigo/Tipo">
+                                <div class="text-blue-900 font-bold">Art. 11</div>
+                                <div class="text-gray-500">Violação de Princípios</div>
+                            </td>
+                            <td class="px-4 py-3" data-label="Palavra-Chave">
+                                <span class="font-bold text-purple-700">ROL TAXATIVO</span>
+                            </td>
+                            <td class="px-4 py-3 font-bold text-red-700" data-label="Exige Dolo?">SIM</td>
+                            <td class="px-4 py-3 text-gray-600" data-label="Prejuízo $$?">Não (é um ilícito moral/ético)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded">
+                <h4 class="font-bold text-yellow-800 mb-2 flex items-center"><i class="fas fa-exclamation-circle mr-2"></i> ATENÇÃO (Pegadinha AOCP):</h4>
+                <ul class="list-disc list-inside space-y-2 text-gray-800 text-sm">
+                    <li><strong>Art. 11 (Princípios):</strong> O rol agora é <strong>TAXATIVO</strong>. Só é improbidade o que está escrito nos incisos (ex: negar publicidade, revelar segredo, nepotismo). Se não estiver na lista, não é improbidade do Art. 11.</li>
+                    <li><strong>Divergência Interpretativa:</strong> Se o gestor agiu baseando-se em uma interpretação da lei aceitável na época, <strong>NÃO</strong> é improbidade. A lei protege a "caneta" do gestor.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Seção 3 -->
+        <section class="mb-12">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="bg-gray-900 text-white w-8 h-8 flex items-center justify-center rounded-full font-bold">3</span>
+                <h2 class="text-2xl font-bold text-gray-800">Tabela de Sanções (O Terror da Decoreba)</h2>
+            </div>
+            <p class="mb-4 text-gray-600">A Lei 14.230/2021 mudou os prazos. <span class="line-through text-gray-400">Esqueça a lei antiga.</span></p>
+
+            <!-- Tabela 2 -->
+            <div class="overflow-hidden rounded-lg border border-gray-200 shadow-sm mb-6">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase">Sanção</th>
+                            <th class="px-4 py-3 text-left text-xs font-bold text-red-800 uppercase bg-red-50">Art. 9º (Enriquecimento)</th>
+                            <th class="px-4 py-3 text-left text-xs font-bold text-yellow-800 uppercase bg-yellow-50">Art. 10 (Prejuízo)</th>
+                            <th class="px-4 py-3 text-left text-xs font-bold text-blue-800 uppercase bg-blue-50">Art. 11 (Princípios)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200 text-sm">
+                        <tr>
+                            <td class="px-4 py-3 font-bold text-gray-700" data-label="Sanção">Gravidade</td>
+                            <td class="px-4 py-3 font-bold text-red-600 bg-red-50/30" data-label="Art. 9º">ALTA (Mais grave)</td>
+                            <td class="px-4 py-3 text-yellow-700 bg-yellow-50/30" data-label="Art. 10">MÉDIA</td>
+                            <td class="px-4 py-3 text-blue-700 bg-blue-50/30" data-label="Art. 11">BAIXA (Menos grave)</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 font-bold text-gray-700" data-label="Sanção">Suspensão Dir. Políticos</td>
+                            <td class="px-4 py-3 bg-red-50/30" data-label="Art. 9º">Até <strong>14 anos</strong></td>
+                            <td class="px-4 py-3 bg-yellow-50/30" data-label="Art. 10">Até <strong>12 anos</strong></td>
+                            <td class="px-4 py-3 font-bold text-red-500 bg-blue-50/30" data-label="Art. 11">NÃO TEM (Cuidado!)</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 font-bold text-gray-700" data-label="Sanção">Proibição de Contratar</td>
+                            <td class="px-4 py-3 bg-red-50/30" data-label="Art. 9º">Até <strong>14 anos</strong></td>
+                            <td class="px-4 py-3 bg-yellow-50/30" data-label="Art. 10">Até <strong>12 anos</strong></td>
+                            <td class="px-4 py-3 bg-blue-50/30" data-label="Art. 11">Até <strong>4 anos</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 font-bold text-gray-700" data-label="Sanção">Multa Civil</td>
+                            <td class="px-4 py-3 bg-red-50/30" data-label="Art. 9º">Até valor do <strong>acréscimo</strong></td>
+                            <td class="px-4 py-3 bg-yellow-50/30" data-label="Art. 10">Até valor do <strong>dano</strong></td>
+                            <td class="px-4 py-3 bg-blue-50/30" data-label="Art. 11">Até <strong>24x</strong> a remuneração</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 font-bold text-gray-700" data-label="Sanção">Perda da Função</td>
+                            <td class="px-4 py-3 bg-red-50/30" data-label="Art. 9º">SIM</td>
+                            <td class="px-4 py-3 bg-yellow-50/30" data-label="Art. 10">SIM</td>
+                            <td class="px-4 py-3 bg-blue-50/30" data-label="Art. 11"><strong>NÃO TEM</strong> (Regra geral)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bg-blue-50 p-4 rounded border-l-4 border-blue-300">
+                <h4 class="font-bold text-blue-800 mb-2"><i class="far fa-lightbulb mr-2"></i> MACETE DE PROVA:</h4>
+                <ul class="text-sm text-gray-700 space-y-1">
+                    <li><strong>Art. 11 é o "primo pobre":</strong> NÃO suspende direitos políticos e NÃO gera perda da função (para a literalidade da prova).</li>
+                    <li><strong>Prazos Políticos:</strong> 14 (Enriquece) > 12 (Prejuízo) > 0 (Princípios).</li>
+                    <li><strong>Multa do Art. 11:</strong> Teto de 24 vezes o salário (antes era 100x).</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Seção 4 -->
+        <section class="mb-12">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="bg-gray-900 text-white w-8 h-8 flex items-center justify-center rounded-full font-bold">4</span>
+                <h2 class="text-2xl font-bold text-gray-800">Prescrição: O Relógio do Processo</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-white border border-gray-200 p-4 rounded shadow-sm hover:shadow-md transition-shadow">
+                    <h3 class="text-lg font-bold text-gray-800 mb-2">Prazo Geral</h3>
+                    <p class="text-3xl font-bold text-blue-600 mb-1">8 ANOS</p>
+                    <p class="text-sm text-gray-600">Contados da ocorrência do fato.</p>
+                </div>
+                <div class="bg-white border border-gray-200 p-4 rounded shadow-sm hover:shadow-md transition-shadow">
+                    <h3 class="text-lg font-bold text-gray-800 mb-2">Intercorrente</h3>
+                    <p class="text-3xl font-bold text-orange-500 mb-1">4 ANOS</p>
+                    <p class="text-sm text-gray-600">Processo parado ou entre marcos.</p>
+                </div>
+                <div class="bg-white border border-gray-200 p-4 rounded shadow-sm hover:shadow-md transition-shadow">
+                    <h3 class="text-lg font-bold text-gray-800 mb-2">Ressarcimento</h3>
+                    <p class="text-xl font-bold text-green-600 mb-1 uppercase">Imprescritível</p>
+                    <p class="text-sm text-gray-600">Para atos dolosos, o Estado sempre pode cobrar a devolução.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção 5 -->
+        <section class="mb-12">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="bg-gray-900 text-white w-8 h-8 flex items-center justify-center rounded-full font-bold">5</span>
+                <h2 class="text-2xl font-bold text-gray-800">Top 5 "Pegadinhas" para Professor de Informática</h2>
+            </div>
+            
+            <div class="space-y-4">
+                <div class="flex gap-4 p-4 bg-gray-50 rounded border border-gray-200">
+                    <div class="flex-shrink-0 w-8 h-8 bg-gray-800 text-white rounded-full flex items-center justify-center font-bold">1</div>
+                    <div>
+                        <h3 class="font-bold text-gray-900">Nepotismo (Art. 11, XI)</h3>
+                        <p class="text-gray-700">É improbidade expressa. Nomear cônjuge, companheiro ou parente até <strong>3º grau</strong> para cargo de confiança. Vale para nepotismo cruzado. Súmula Vinculante 13 agora é lei.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4 p-4 bg-gray-50 rounded border border-gray-200">
+                    <div class="flex-shrink-0 w-8 h-8 bg-gray-800 text-white rounded-full flex items-center justify-center font-bold">2</div>
+                    <div>
+                        <h3 class="font-bold text-gray-900">Promoção Pessoal (Art. 11, XII)</h3>
+                        <p class="text-gray-700">Usar verba/site do IFPB para se promover. É improbidade. A publicidade deve ser <strong>educativa, informativa ou de orientação social</strong>.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4 p-4 bg-gray-50 rounded border border-gray-200">
+                    <div class="flex-shrink-0 w-8 h-8 bg-gray-800 text-white rounded-full flex items-center justify-center font-bold">3</div>
+                    <div>
+                        <h3 class="font-bold text-gray-900">Sucessores (Herdeiros)</h3>
+                        <p class="text-gray-700">Se o ímprobo morrer, o filho paga a conta? <strong>SIM</strong>, mas só até o <strong>limite do valor da herança</strong>. O filho nunca tira dinheiro do próprio bolso.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4 p-4 bg-gray-50 rounded border border-gray-200">
+                    <div class="flex-shrink-0 w-8 h-8 bg-gray-800 text-white rounded-full flex items-center justify-center font-bold">4</div>
+                    <div>
+                        <h3 class="font-bold text-gray-900">Indisponibilidade de Bens</h3>
+                        <ul class="list-disc list-inside text-gray-700 mt-1">
+                            <li>Não pode bloquear conta poupança com até <strong>40 salários mínimos</strong>.</li>
+                            <li>Não pode bloquear o <strong>bem de família</strong> (salvo se comprado com dinheiro ilícito).</li>
+                            <li>Exige prova de perigo/urgência (<em>periculum in mora</em>).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="flex gap-4 p-4 bg-gray-50 rounded border border-gray-200">
+                    <div class="flex-shrink-0 w-8 h-8 bg-gray-800 text-white rounded-full flex items-center justify-center font-bold">5</div>
+                    <div>
+                        <h3 class="font-bold text-gray-900">Quem processa?</h3>
+                        <p class="text-gray-700">O MP e a Pessoa Jurídica lesada (IFPB/União) têm legitimidade. (Fim da exclusividade do MP).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="mb-12 bg-green-50 p-6 rounded-lg border border-green-200">
+            <h2 class="text-xl font-bold text-green-800 mb-4 border-b border-green-200 pb-2">Check-list Final</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <label class="flex items-center space-x-3 cursor-pointer p-2 rounded hover:bg-green-100 transition">
+                    <input type="checkbox" class="form-checkbox h-5 w-5 text-green-600 rounded" checked disabled>
+                    <span class="text-gray-800 font-medium"><strong>Dolo:</strong> Sempre necessário.</span>
+                </label>
+                <label class="flex items-center space-x-3 cursor-pointer p-2 rounded hover:bg-green-100 transition">
+                    <input type="checkbox" class="form-checkbox h-5 w-5 text-green-600 rounded" checked disabled>
+                    <span class="text-gray-800 font-medium"><strong>Art. 11:</strong> Rol taxativo + Sem suspensão política.</span>
+                </label>
+                <label class="flex items-center space-x-3 cursor-pointer p-2 rounded hover:bg-green-100 transition">
+                    <input type="checkbox" class="form-checkbox h-5 w-5 text-green-600 rounded" checked disabled>
+                    <span class="text-gray-800 font-medium"><strong>Prescrição:</strong> 8 anos (geral) / 4 (inter).</span>
+                </label>
+                <label class="flex items-center space-x-3 cursor-pointer p-2 rounded hover:bg-green-100 transition">
+                    <input type="checkbox" class="form-checkbox h-5 w-5 text-green-600 rounded" checked disabled>
+                    <span class="text-gray-800 font-medium"><strong>Sanções:</strong> Só após trânsito em julgado.</span>
+                </label>
+            </div>
+        </section>
+
+        <!-- Botão de Ação -->
+        <div class="text-center pb-12">
+            <a href="leg-lei-8429questoes.html" class="inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-bold rounded-md text-white bg-gray-900 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-all shadow-lg transform hover:-translate-y-1">
+                <i class="fas fa-pen-alt mr-2"></i> Ir para Questões
+            </a>
+        </div>
+
+    </main>
+
+    <!-- Footer Simples -->
+    <footer class="bg-gray-50 border-t border-gray-200 py-6 text-center text-gray-500 text-sm">
+        <p>Estudo para Concurso IFPB - Área Informática | Instituto AOCP</p>
+    </footer>
+
+    <!-- Script para controlar o Áudio Personalizado -->
+    <script>
+        // Função para tocar ou pausar o áudio
+        function togglePlay(audioId, iconId) {
+            var audio = document.getElementById(audioId);
+            var icon = document.getElementById(iconId);
+
+            // Pausa todos os outros áudios primeiro (opcional, mas recomendado)
+            document.querySelectorAll('audio').forEach(function(el) {
+                if(el.id !== audioId) {
+                    el.pause();
+                    // Reseta o ícone dos outros
+                    var otherIcon = document.querySelector(`button[onclick*="${el.id}"] i`);
+                    if(otherIcon) {
+                        otherIcon.classList.remove('fa-pause');
+                        otherIcon.classList.add('fa-play');
+                    }
+                }
+            });
+
+            if (audio.paused) {
+                audio.play();
+                icon.classList.remove('fa-play');
+                icon.classList.add('fa-pause');
+                icon.classList.add('text-yellow-300'); // Opcional: destaque visual
+            } else {
+                audio.pause();
+                icon.classList.remove('fa-pause');
+                icon.classList.add('fa-play');
+                icon.classList.remove('text-yellow-300');
+            }
+        }
+
+        // Função para resetar o ícone quando o áudio termina
+        function resetIcon(iconId) {
+            var icon = document.getElementById(iconId);
+            icon.classList.remove('fa-pause');
+            icon.classList.add('fa-play');
+            icon.classList.remove('text-yellow-300');
+        }
+    </script>
+</body>
+</html>

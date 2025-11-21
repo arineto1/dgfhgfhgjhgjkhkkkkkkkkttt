@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado Estatuto IFPB - Instituto AOCP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Ajustes finos para leitura confortável */
+        body {
+            background-color: #fdfbf7; /* Creme suave para menos fadiga ocular */
+            color: #2d3748; /* Cinza escuro, não preto puro */
+            font-family: 'Georgia', 'Cambria', 'Times New Roman', serif; /* Serifada para corpo de texto longo */
+        }
+        
+        .sans-serif-title {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .option-card {
+            transition: all 0.2s ease;
+        }
+        
+        .option-card:hover {
+            background-color: #f0f4f8;
+            cursor: pointer;
+        }
+
+        /* Estilos de Feedback */
+        .correct-answer {
+            background-color: #c6f6d5 !important;
+            border-color: #48bb78 !important;
+            color: #065f46;
+        }
+
+        .wrong-answer {
+            background-color: #fed7d7 !important;
+            border-color: #f56565 !important;
+            color: #742a2a;
+        }
+
+        .resolution-box {
+            display: none; /* Oculto por padrão */
+            border-left: 4px solid #4a5568;
+        }
+        
+        /* Animação suave ao aparecer o resultado */
+        .fade-in {
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen pb-20">
+
+    <!-- Cabeçalho -->
+    <header class="bg-white border-b border-gray-200 py-8 shadow-sm">
+        <div class="max-w-3xl mx-auto px-6 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 sans-serif-title mb-2">Simulado Estatuto IFPB</h1>
+            <p class="text-gray-600 text-lg">Foco na banca Instituto AOCP - Lei nº 11.892/2008 e Resolução nº 246/2015 (atualizada)</p>
+            <div class="mt-4 inline-block bg-blue-50 text-blue-800 px-4 py-1 rounded-full text-sm font-semibold">
+                10 Questões Comentadas
+            </div>
+        </div>
+    </header>
+
+    <!-- Container Principal -->
+    <main class="max-w-3xl mx-auto px-4 mt-10" id="quiz-container">
+        <!-- As questões serão renderizadas aqui via JavaScript -->
+    </main>
+
+    <!-- Botão de Ação -->
+    <div class="max-w-3xl mx-auto px-4 mt-8 mb-16 text-center">
+        <button id="submit-btn" onclick="calculateResults()" class="bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-10 rounded-lg shadow-lg text-xl transition transform hover:scale-105 sans-serif-title">
+            Finalizar Simulado e Ver Resoluções
+        </button>
+        
+        <div id="score-display" class="hidden mt-8 p-6 bg-white rounded-lg shadow-md border border-gray-200">
+            <h2 class="text-2xl font-bold text-gray-800 mb-2 sans-serif-title">Resultado Final</h2>
+            <p class="text-4xl font-bold text-blue-600" id="score-text">0/10</p>
+            <p class="text-gray-500 mt-2">Confira abaixo os comentários detalhados de cada questão.</p>
+            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="mt-4 text-blue-600 hover:underline text-sm">Voltar ao topo</button>
+        </div>
+    </div>
+
+    <script>
+        // Dados das Questões e Resoluções extraídos do documento
+        const quizData = [
+            {
+                id: 1,
+                question: "A natureza jurídica do Instituto Federal de Educação, Ciência e Tecnologia da Paraíba (IFPB) é definida tanto na sua lei de criação quanto no seu Estatuto. Considerando as disposições estatutárias vigentes e o ordenamento jurídico administrativo federal, assinale a alternativa correta quanto à caracterização jurídica e vinculação do IFPB.",
+                options: [
+                    "O IFPB constitui-se como fundação pública de direito privado, dotada de autonomia administrativa, financeira e didática, vinculada diretamente à Presidência da República.",
+                    "O IFPB é uma autarquia federal, detentora de autonomia administrativa, patrimonial, financeira, didático-pedagógica e disciplinar, vinculada ao Ministério da Educação.",
+                    "O IFPB caracteriza-se como órgão desconcentrado da administração direta, subordinado hierarquicamente ao Ministério da Educação e Cultura, sem personalidade jurídica própria.",
+                    "O IFPB é uma empresa pública federal prestadora de serviços educacionais, com fins lucrativos revertidos ao Tesouro Nacional, vinculada ao Ministério da Economia.",
+                    "O IFPB possui natureza de autarquia especial em regime de agência executiva, vinculada ao Ministério da Ciência, Tecnologia e Inovação, com autonomia restrita à gestão de pessoal."
+                ],
+                correctIndex: 1, // B
+                resolution: `<strong>Gabarito: Letra B</strong><br><br>
+                <strong>Fundamentação Teórica e Legal:</strong><br>
+                A compreensão da natureza jurídica do IFPB é a pedra angular para entender todo o seu funcionamento administrativo. O IFPB foi criado pela Lei Federal nº 11.892/2008, que em seu artigo 1º institui a Rede Federal e cria os Institutos Federais como <strong>autarquias</strong>.<br><br>
+                No Direito Administrativo brasileiro, a autarquia é uma pessoa jurídica de direito público, integrante da Administração Indireta. Esta natureza jurídica atrai para o IFPB um regime jurídico específico (Estatutário Lei 8.112/90, Bens Públicos, etc.).<br>
+                A alternativa B sintetiza perfeitamente a personalidade jurídica (autarquia federal), o escopo da autonomia e a vinculação ministerial (MEC).`
+            },
+            {
+                id: 2,
+                question: "O Conselho Superior (CONSUPER) é o órgão máximo do IFPB, possuindo caráter consultivo e deliberativo. No que tange às competências expressas deste colegiado, conforme o Estatuto e seu Regimento Interno, analise as assertivas e assinale a alternativa correta.",
+                options: [
+                    "Compete ao Conselho Superior exercer a administração executiva diária dos campi, nomeando livremente os Diretores Gerais sem necessidade de consulta à comunidade.",
+                    "O Conselho Superior tem a competência exclusiva de julgar, em primeira instância, todos os processos administrativos disciplinares movidos contra discentes, sem possibilidade de recurso.",
+                    "É atribuição do Conselho Superior autorizar a criação, desmembramento, incorporação e fusão de órgãos administrativos da estrutura organizacional do IFPB, bem como a criação ou extinção de cursos regulares.",
+                    "O Conselho Superior funciona apenas como órgão de aconselhamento político, sendo vedada a sua deliberação sobre o orçamento anual da instituição, competência exclusiva do Colégio de Dirigentes.",
+                    "As decisões do Conselho Superior são tomadas por aclamação, sendo vedada a votação nominal ou secreta em quaisquer matérias, inclusive nas de natureza eleitoral."
+                ],
+                correctIndex: 2, // C
+                resolution: `<strong>Gabarito: Letra C</strong><br><br>
+                <strong>Fundamentação:</strong><br>
+                O Conselho Superior atua como o "cérebro" legislativo e estratégico da instituição. A criação de órgãos (como uma nova Pró-Reitoria) ou de cursos (como uma nova Engenharia) impacta o orçamento e a missão institucional a longo prazo, exigindo a deliberação do colegiado máximo.<br>
+                A alternativa A está incorreta pois o Consuper não faz administração diária. A alternativa B está incorreta pois o Consuper é instância recursal máxima, não primeira instância.`
+            },
+            {
+                id: 3,
+                question: "A estrutura organizacional sistêmica do IFPB compreende órgãos colegiados com funções distintas. Sobre o Colégio de Dirigentes (CODIR), assinale a alternativa que descreve corretamente sua composição e natureza conforme o Estatuto.",
+                options: [
+                    "O CODIR é um órgão deliberativo máximo, composto paritariamente por representantes dos sindicatos, do movimento estudantil e da sociedade civil organizada.",
+                    "O CODIR é órgão de natureza consultiva, composto pelo Reitor, que o preside, pelos Pró-Reitores e pelos Diretores Gerais dos campi, atuando no assessoramento executivo da Reitoria.",
+                    "O CODIR é composto exclusivamente pelos Diretores Gerais dos campi, que se reúnem para fiscalizar os atos do Reitor e vetar o orçamento da Reitoria.",
+                    "A função do CODIR é substituir o Conselho Superior em seus recessos, assumindo plenamente as competências deliberativas sobre criação de cursos e alteração estatutária.",
+                    "O CODIR é presidido pelo Pró-Reitor de Administração e Finanças e tem como finalidade exclusiva a aprovação de balancetes contábeis mensais."
+                ],
+                correctIndex: 1, // B
+                resolution: `<strong>Gabarito: Letra B</strong><br><br>
+                <strong>Fundamentação:</strong><br>
+                O Colégio de Dirigentes (CODIR) reflete a estrutura federativa interna dos Institutos. Conforme o Estatuto, o CODIR é <strong>consultivo</strong>. Ele não tem o poder de "mandar" no Reitor, mas sim de aconselhá-lo tecnicamente.<br>
+                A alternativa B descreve com exatidão a composição (Reitor, Pró-Reitores, Diretores Gerais) e a natureza (consultiva/assessoramento). É o órgão de "Staff" da alta gestão.`
+            },
+            {
+                id: 4,
+                question: "O cargo de Reitor é o de autoridade executiva máxima no âmbito do IFPB. O Estatuto prevê requisitos para a investidura e regras específicas para vacância e substituição. Assinale a alternativa correta sobre a autoridade máxima da instituição.",
+                options: [
+                    "Para candidatar-se ao cargo de Reitor, o servidor deve possuir apenas o título de graduação e estar em estágio probatório, não sendo exigido tempo mínimo de efetivo exercício.",
+                    "O mandato do Reitor é vitalício, encerrando-se apenas com a aposentadoria compulsória aos 75 anos, conforme regras do serviço público federal.",
+                    "Nos impedimentos e ausências do Reitor, a direção da Reitoria será exercida por um Pró-Reitor designado para este fim; em caso de vacância, o substituto deve promover eleições em até 90 dias, se não houver norma superior diversa.",
+                    "A vacância do cargo de Reitor por renúncia implica a ascensão automática do Presidente do Conselho Estudantil para completar o mandato tampão.",
+                    "O Reitor pode alterar unilateralmente o Estatuto do IFPB através de portaria simples, dispensando a convocação do Conselho Superior."
+                ],
+                correctIndex: 2, // C
+                resolution: `<strong>Gabarito: Letra C</strong><br><br>
+                <strong>Fundamentação:</strong><br>
+                A substituição imediata é feita por Pró-Reitor (cargo de confiança da gestão eleita), mantendo a linha política. Se a vacância for definitiva, novas eleições devem ser chamadas em 90 dias para garantir a democracia.<br>
+                A alternativa A está incorreta pois exige-se 5 anos de efetivo exercício. O mandato é de 4 anos, não vitalício (Alternativa B).`
+            },
+            {
+                id: 5,
+                question: "Recentemente, a estrutura organizacional do IFPB sofreu atualizações normativas visando o fortalecimento da governança e da integridade. Com base na Resolução que altera o Estatuto (Resolução nº 27/2024), assinale a correta sobre a Corregedoria.",
+                options: [
+                    "A Corregedoria é um órgão subordinado à Pró-Reitoria de Ensino, com competência limitada à análise de diários de classe.",
+                    "A Corregedoria foi extinta da estrutura do IFPB, passando suas atribuições para a Procuradoria Federal junto ao IFPB.",
+                    "A Corregedoria do IFPB constitui-se como unidade seccional de correição, órgão auxiliar vinculado diretamente à Reitoria, dirigida por titular com cargo de direção nomeado pelo Reitor.",
+                    "A Corregedoria é um órgão externo, composto por membros do Ministério Público, sem vínculo funcional com o Instituto Federal.",
+                    "O Corregedor do IFPB é eleito por voto direto dos estudantes para um mandato de dois anos, vedada a recondução."
+                ],
+                correctIndex: 2, // C
+                resolution: `<strong>Gabarito: Letra C</strong><br><br>
+                <strong>Fundamentação:</strong><br>
+                A Resolução nº 27/2024 alterou o Estatuto para incluir a Corregedoria como órgão auxiliar da Reitoria. Ela tem a função de zelar pela correição (integridade disciplinar).<br>
+                A alternativa C está correta ao definir que a Corregedoria é uma unidade seccional de correição vinculada à Reitoria e dirigida por titular nomeado, garantindo independência em relação às pró-reitorias.`
+            },
+            {
+                id: 6,
+                question: "Os campi são as unidades descentralizadas de execução das atividades de ensino, pesquisa e extensão. Sobre a gestão dos campi e as competências dos Diretores Gerais, assinale a alternativa correta.",
+                options: [
+                    "Os Diretores Gerais dos campi não possuem competência de ordenadores de despesas, dependendo da Reitoria para qualquer aquisição de material de consumo.",
+                    "A escolha do Diretor Geral ocorre por livre nomeação do Governador do Estado, a partir de lista tríplice enviada pelo Reitor.",
+                    "Compete ao Diretor Geral administrar e representar o campus, sendo responsável por indicar os representantes locais para comissões sistêmicas, respondendo solidariamente pelos atos desses indicados.",
+                    "Os campi possuem autonomia absoluta para criar seus próprios estatutos, independentes do Estatuto Geral do IFPB e da legislação federal.",
+                    "O Diretor Geral de campus não integra o Conselho Superior nem o Colégio de Dirigentes, dedicando-se exclusivamente à gestão pedagógica local."
+                ],
+                correctIndex: 2, // C
+                resolution: `<strong>Gabarito: Letra C</strong><br><br>
+                <strong>Fundamentação:</strong><br>
+                O Diretor Geral é a autoridade máxima local. A alternativa C está correta ao destacar a responsabilidade administrativa e o poder de representação do Diretor Geral.<br>
+                A alternativa A é incorreta, pois os Diretores Gerais <em>são</em> ordenadores de despesas por delegação. A alternativa D é incorreta pois a autonomia dos campi é relativa ao Estatuto Geral.`
+            },
+            {
+                id: 7,
+                question: "O regime acadêmico do IFPB fundamenta-se na indissociabilidade entre ensino, pesquisa e extensão. Sobre a definição estatutária da Extensão, identifique a alternativa correta.",
+                options: [
+                    "A Extensão é definida como atividade comercial de venda de serviços tecnológicos, visando exclusivamente o lucro para custeio da instituição.",
+                    "As ações de Extensão constituem processo educativo, cultural e científico que articula o ensino e a pesquisa de forma indissociável, viabilizando a relação transformadora entre o IFPB e a sociedade.",
+                    "A Extensão resume-se à oferta de cursos de reforço escolar para os próprios alunos do IFPB, sem interação com a comunidade externa.",
+                    "A Extensão é um departamento subordinado à Diretoria de Administração, focado na manutenção predial e na extensão das redes elétricas dos campi.",
+                    "A participação em projetos de Extensão é vedada aos técnicos administrativos, sendo exclusiva para docentes e discentes."
+                ],
+                correctIndex: 1, // B
+                resolution: `<strong>Gabarito: Letra B</strong><br><br>
+                <strong>Fundamentação:</strong><br>
+                A base filosófica dos Institutos Federais reside na tríade constitucional: Ensino, Pesquisa e Extensão. O Estatuto define a Extensão não como assistencialismo ou comércio, mas como um processo educativo.<br>
+                A alternativa B reproduz o conceito clássico de extensão: processo educativo, cultural e científico, articulado e indissociável.`
+            },
+            {
+                id: 8,
+                question: "A alteração do Estatuto do IFPB é um processo solene que exige ritos específicos para garantir a legitimidade das mudanças institucionais. Sobre este processo, assinale a alternativa correta.",
+                options: [
+                    "O Estatuto só pode ser alterado por Medida Provisória editada pelo Presidente da República.",
+                    "A alteração estatutária é competência exclusiva do Colégio de Dirigentes, sem necessidade de aprovação pelo Conselho Superior.",
+                    "O processo de alteração do Estatuto deve ser deliberado pelo Conselho Superior, podendo envolver consulta à comunidade e exigindo quórum qualificado conforme regulamentação.",
+                    "Qualquer cidadão pode alterar o Estatuto do IFPB mediante petição pública com cem assinaturas, que entra em vigor imediatamente.",
+                    "O Estatuto é uma cláusula pétrea da instituição, sendo juridicamente impossível qualquer tipo de emenda ou revisão ao seu texto original de 2008."
+                ],
+                correctIndex: 2, // C
+                resolution: `<strong>Gabarito: Letra C</strong><br><br>
+                <strong>Fundamentação:</strong><br>
+                O Estatuto é a norma maior interna do IFPB. Sua alteração requer estabilidade e consenso. A competência é do Conselho Superior (órgão deliberativo máximo), geralmente exigindo quórum qualificado para evitar instabilidade institucional.<br>
+                A alternativa C respeita a hierarquia (Consuper decide) e o princípio democrático.`
+            },
+            {
+                id: 9,
+                question: "O patrimônio do IFPB é essencial para o cumprimento de suas finalidades educacionais. De acordo com o Estatuto, sobre a constituição e gestão do patrimônio, assinale a correta.",
+                options: [
+                    "O patrimônio do IFPB pertence aos seus fundadores e pode ser reclamado por eles a qualquer tempo.",
+                    "Os bens imóveis do IFPB são de propriedade privada da Reitoria, podendo ser vendidos livremente pelo Reitor para cobrir déficits orçamentários.",
+                    "O patrimônio do IFPB é constituído pelos bens móveis, imóveis, semoventes, direitos e acervos de sua propriedade, sendo administrado em conformidade com a lei, garantida a sua impenhorabilidade como bem público.",
+                    "O IFPB não pode receber doações ou legados, devendo seu patrimônio ser constituído exclusivamente por repasses do Tesouro Nacional.",
+                    "Em caso de extinção de um campus, seu patrimônio é automaticamente leiloado e o valor dividido entre os servidores lotados naquela unidade."
+                ],
+                correctIndex: 2, // C
+                resolution: `<strong>Gabarito: Letra C</strong><br><br>
+                <strong>Fundamentação:</strong><br>
+                O patrimônio das autarquias é público. A alternativa C define corretamente a abrangência do patrimônio e seu regime jurídico (impenhorabilidade - bens públicos não podem ser penhorados por dívidas; a execução se dá por precatórios).`
+            },
+            {
+                id: 10,
+                question: "A representação democrática no Conselho Superior obedece a critérios de paridade e regras de suplência. Com base nas disposições estatutárias sobre a composição do CONSUPER, assinale a alternativa correta.",
+                options: [
+                    "Os representantes dos discentes são indicados diretamente pelos coordenadores de curso, sem processo eleitoral.",
+                    "Os suplentes dos representantes de docentes, discentes e técnicos administrativos são eleitos juntamente com os titulares (em chapa), garantindo a legitimidade da representação em caso de vacância ou ausência.",
+                    "O representante do Ministério da Educação no Conselho Superior não tem direito a voto, atuando apenas como observador externo.",
+                    "Em caso de ausência do titular docente, a vaga é ocupada temporariamente por um representante dos técnicos administrativos para manter o quórum.",
+                    "Os egressos (ex-alunos) não possuem representação no Conselho Superior, sendo este restrito à comunidade interna ativa."
+                ],
+                correctIndex: 1, // B
+                resolution: `<strong>Gabarito: Letra B</strong><br><br>
+                <strong>Fundamentação:</strong><br>
+                A legitimidade da representação depende da conexão entre o eleitor e o representante. A alternativa B está correta pois o Estatuto prevê que os suplentes são eleitos juntamente com seus titulares (eleição em chapa), garantindo que, se o titular faltar, o suplente da mesma linha política assuma.`
+            }
+        ];
+
+        // Função para renderizar as questões
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container');
+            
+            quizData.forEach((item, index) => {
+                const questionBlock = document.createElement('div');
+                questionBlock.className = 'bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8 question-block';
+                questionBlock.id = `question-${index}`;
+
+                const title = document.createElement('h3');
+                title.className = 'text-lg font-bold text-gray-800 mb-4 sans-serif-title';
+                title.innerText = `Questão ${item.id}`;
+                
+                const text = document.createElement('p');
+                text.className = 'text-lg leading-relaxed text-gray-700 mb-6';
+                text.innerText = item.question;
+
+                const optionsDiv = document.createElement('div');
+                optionsDiv.className = 'space-y-3';
+
+                const letters = ['A', 'B', 'C', 'D', 'E'];
+
+                item.options.forEach((opt, optIndex) => {
+                    const label = document.createElement('label');
+                    label.className = 'flex items-start p-4 rounded-lg border border-gray-200 option-card';
+                    label.setAttribute('for', `q${index}-opt${optIndex}`);
+                    
+                    const input = document.createElement('input');
+                    input.type = 'radio';
+                    input.name = `q${index}`;
+                    input.id = `q${index}-opt${optIndex}`;
+                    input.value = optIndex;
+                    input.className = 'mt-1.5 mr-3 text-blue-600 focus:ring-blue-500 h-4 w-4';
+                    
+                    const span = document.createElement('span');
+                    span.className = 'text-gray-700 text-lg';
+                    span.innerHTML = `<strong class="mr-2 text-gray-900">${letters[optIndex]})</strong> ${opt}`;
+
+                    label.appendChild(input);
+                    label.appendChild(span);
+                    optionsDiv.appendChild(label);
+                });
+
+                // Área da Resolução (Invisível no início)
+                const resolutionDiv = document.createElement('div');
+                resolutionDiv.className = 'resolution-box mt-6 p-6 bg-blue-50 text-gray-800 rounded-r-lg text-lg';
+                resolutionDiv.id = `resolution-${index}`;
+                resolutionDiv.innerHTML = `<h4 class="font-bold text-blue-800 mb-2 sans-serif-title">Resolução Analítica</h4>${item.resolution}`;
+
+                questionBlock.appendChild(title);
+                questionBlock.appendChild(text);
+                questionBlock.appendChild(optionsDiv);
+                questionBlock.appendChild(resolutionDiv);
+                container.appendChild(questionBlock);
+            });
+        }
+
+        // Lógica de Cálculo e Feedback
+        function calculateResults() {
+            let score = 0;
+            let allAnswered = true;
+
+            // Desabilitar botão para evitar duplo clique
+            const btn = document.getElementById('submit-btn');
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+            btn.innerText = "Simulado Finalizado";
+
+            quizData.forEach((item, index) => {
+                const selectedInput = document.querySelector(`input[name="q${index}"]:checked`);
+                const labels = document.querySelectorAll(`#question-${index} .option-card`);
+                const resolution = document.getElementById(`resolution-${index}`);
+                
+                // Resetar estilos
+                labels.forEach(l => l.classList.remove('correct-answer', 'wrong-answer'));
+
+                if (selectedInput) {
+                    const selectedVal = parseInt(selectedInput.value);
+                    
+                    if (selectedVal === item.correctIndex) {
+                        score++;
+                        labels[selectedVal].classList.add('correct-answer');
+                    } else {
+                        labels[selectedVal].classList.add('wrong-answer');
+                        labels[item.correctIndex].classList.add('correct-answer'); // Mostra a correta
+                    }
+                } else {
+                    // Se não respondeu, apenas mostra a correta
+                    labels[item.correctIndex].classList.add('correct-answer');
+                }
+
+                // Mostrar resolução com animação
+                resolution.style.display = 'block';
+                resolution.classList.add('fade-in');
+            });
+
+            // Mostrar Placar
+            const scoreDisplay = document.getElementById('score-display');
+            const scoreText = document.getElementById('score-text');
+            
+            scoreDisplay.classList.remove('hidden');
+            scoreDisplay.classList.add('fade-in');
+            scoreText.innerText = `${score} / ${quizData.length}`;
+            
+            // Mudar cor do texto da nota dependendo do desempenho
+            if (score >= 7) {
+                scoreText.className = "text-4xl font-bold text-green-600";
+            } else if (score >= 5) {
+                scoreText.className = "text-4xl font-bold text-yellow-600";
+            } else {
+                scoreText.className = "text-4xl font-bold text-red-600";
+            }
+            
+            // Scroll suave até o placar
+            scoreDisplay.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', renderQuiz);
+
+    </script>
+</body>
+</html>

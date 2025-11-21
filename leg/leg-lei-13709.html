@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo Turbo: LGPD para IFPB (AOCP)</title>
+    <style>
+        /* Reset básico e Tipografia */
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #ffffff;
+            color: #1a1a1a; /* Cinza muito escuro para não cansar, melhor que preto absoluto */
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Layout Container */
+        .container {
+            max-width: 800px; /* Largura ideal para leitura */
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Cabeçalho */
+        header {
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #2c3e50;
+            border-left: 5px solid #2c3e50;
+            padding-left: 15px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        h3 {
+            color: #444;
+            font-size: 1.2rem;
+            margin-top: 25px;
+        }
+
+        /* Player de Áudio */
+        .audio-box {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .audio-label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        audio {
+            width: 100%;
+            outline: none;
+        }
+
+        /* Destaques e Grifos */
+        p, li {
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+
+        strong {
+            color: #000;
+            font-weight: 700;
+        }
+
+        .highlight {
+            background-color: #fff3cd; /* Amarelo suave */
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        .alert {
+            background-color: #f8d7da; /* Vermelho muito suave */
+            color: #721c24;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        .box-destaque {
+            background-color: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        /* Listas */
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* Tabelas Responsivas */
+        .table-wrapper {
+            overflow-x: hidden; /* Garante sem scroll */
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+            word-wrap: break-word; /* Quebra palavras longas se necessário */
+        }
+
+        th {
+            background-color: #e9ecef;
+            color: #333;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fcfcfc;
+        }
+
+        /* Botão Final */
+        .btn-container {
+            margin-top: 50px;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .btn-questoes {
+            display: inline-block;
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .btn-questoes:hover {
+            background-color: #1a252f;
+        }
+
+        /* Cards de Resumo (Pontos focais) */
+        .card-resumo {
+            border: 1px solid #e0e0e0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .card-title {
+            font-weight: bold;
+            color: #0d6efd;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Responsividade Mobile */
+        @media (max-width: 600px) {
+            h1 { font-size: 1.5rem; }
+            h2 { font-size: 1.3rem; }
+            .container { padding: 15px; }
+            th, td { padding: 8px; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>⚡ Resumo Turbo: LGPD para Concurso IFPB</h1>
+            <p><strong>Banca:</strong> Instituto AOCP | <strong>Foco:</strong> Literalidade e Definições Técnicas</p>
+        </header>
+
+        <!-- ÁREA DO PLAYER DE ÁUDIO -->
+        <div class="audio-box">
+            <span class="audio-label">🎧 Resumo em Áudio (Clique no Play)</span>
+            <!-- 
+                INSTRUÇÃO: Coloque o seu arquivo MP3 na mesma pasta deste arquivo HTML.
+                Substitua "resumo_audio.mp3" pelo nome exato do seu arquivo.
+            -->
+            <audio controls>
+                <source src="leg-lei-13709.mp3" type="audio/mpeg">
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
+        </div>
+
+        <section>
+            <p><strong>O que não cair:</strong> Jurisprudência complexa ou casos muito longos.</p>
+            <p><strong>O que vai cair:</strong> Conceitos (Art. 5º), Bases Legais (Art. 7º/11) e Exceções do Poder Público.</p>
+
+            <h2>1. Dicionário de Dados (Art. 5º) - Decore as Definições</h2>
+            <p>A banca AOCP adora trocar uma definição pela outra. Fique atento às palavras-chave.</p>
+
+            <div class="card-resumo">
+                <span class="card-title">Dado Pessoal</span>
+                Informação de pessoa natural <strong>identificada</strong> ou <strong>identificável</strong>.
+                <ul>
+                    <li><em>Exemplos TI:</em> Nome, CPF, E-mail, <span class="highlight">Endereço IP</span>, Cookies, Logs de navegação.</li>
+                    <li><span class="alert">Pegadinha:</span> Dado de empresa (CNPJ) ou dado anônimo <strong>NÃO</strong> é dado pessoal.</li>
+                </ul>
+            </div>
+
+            <div class="card-resumo">
+                <span class="card-title">Dado Sensível</span>
+                Rol taxativo (lista fechada) de dados que geram discriminação.
+                <ul>
+                    <li><em>A Lista:</em> Origem racial/étnica, religião, opinião política, filiação a sindicato/org. religiosa/política, saúde, vida sexual, genético ou biométrico.</li>
+                    <li>⚠️ <strong>A PEGADINHA DE OURO:</strong> <span class="highlight">Dados Bancários, Cartão de Crédito e CPF NÃO SÃO DADOS SENSÍVEIS.</span> São dados pessoais comuns (alto risco financeiro, mas não sensíveis pela lei).</li>
+                </ul>
+            </div>
+
+            <div class="card-resumo">
+                <span class="card-title">Anonimização vs. Pseudonimização</span>
+                <ul>
+                    <li><strong>Anonimizado:</strong> Meios técnicos razoáveis tornam impossível identificar o titular. <span class="alert">NÃO É DADO PESSOAL</span> (sai da LGPD). Irreversível na prática.</li>
+                    <li><strong>Pseudonimizado:</strong> O dado é separado da identificação, mas o controlador guarda a "chave" em local seguro. <span class="highlight">CONTINUA SENDO DADO PESSOAL</span> (aplica-se a LGPD). Reversível.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Os Atores do Tratamento (Quem é Quem)</h2>
+            <ul>
+                <li><strong>Controlador (O Dono):</strong> Quem toma as decisões (decide o "quê" e o "como").
+                    <br><em>No Concurso:</em> O <strong>IFPB</strong> é o Controlador.
+                </li>
+                <li><strong>Operador (O Executor):</strong> Quem realiza o tratamento em nome do controlador.
+                    <br><em>No Concurso:</em> O <strong>Instituto AOCP</strong> (banca) é o Operador.
+                </li>
+                <li><strong>Encarregado (DPO):</strong> Canal de comunicação (Ponte entre Controlador, Titular e ANPD).
+                    <br><em>Regra:</em> Pode ser pessoa física ou jurídica. É <span class="highlight">obrigatório</span> no Poder Público.
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. Princípios (Art. 6º) - Requisitos Não-Funcionais</h2>
+            <p>Use os mnemônicos para não esquecer os 10 princípios na hora da prova.</p>
+
+            <div class="box-destaque">
+                <h3>F.A.N. (O núcleo do tratamento)</h3>
+                <ul>
+                    <li><strong>F</strong>inalidade: Propósito legítimo e informado. (Não pode mudar a regra no meio do jogo).</li>
+                    <li><strong>A</strong>dequação: Compatibilidade entre o dado e a finalidade.</li>
+                    <li><strong>N</strong>ecessidade: Mínimo de dados possível (<em>Data Minimization</em>).</li>
+                </ul>
+
+                <h3>T.Q.L. (Interface com o usuário)</h3>
+                <ul>
+                    <li><strong>T</strong>ransparência: Informações claras e acessíveis.</li>
+                    <li><strong>Q</strong>ualidade: Dados exatos e atualizados.</li>
+                    <li><strong>L</strong>ivre Acesso: Consulta gratuita e facilitada.</li>
+                </ul>
+
+                <h3>S.P.N. + R (Segurança e Governança)</h3>
+                <ul>
+                    <li><strong>S</strong>egurança: Medidas técnicas (Criptografia, Firewall).</li>
+                    <li><strong>P</strong>revenção: Evitar danos antes que ocorram.
+                    <li><strong>N</strong>ão Discriminação: Não usar dados para fins ilícitos/abusivos.</li>
+                    <li><strong>R</strong>esponsabilização (<em>Accountability</em>): Dever de provar que cumpre a lei (Logs, relatórios).</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Bases Legais (O "Permitido" do Sistema)</h2>
+            <p>Não ache que tudo precisa de consentimento. O Poder Público usa outras bases.</p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Base Legal</th>
+                            <th>Dados Pessoais (Art. 7º)</th>
+                            <th>Dados Sensíveis (Art. 11)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Consentimento</strong></td>
+                            <td>Sim (Livre, informado, inequívoco)</td>
+                            <td>Sim (Específico e destacado)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Obrigação Legal</strong></td>
+                            <td>Sim</td>
+                            <td>Sim</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Políticas Públicas</strong></td>
+                            <td>Sim</td>
+                            <td>Sim</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Execução de Contrato</strong></td>
+                            <td>Sim</td>
+                            <td><span class="alert">Não</span> (Regra geral)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Legítimo Interesse</strong></td>
+                            <td><span class="highlight">Sim</span> (Só privados!)</td>
+                            <td><span class="alert">NÃO</span> (Pegadinha!)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Proteção do Crédito</strong></td>
+                            <td>Sim</td>
+                            <td><span class="alert">NÃO</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Prevenção à Fraude</strong></td>
+                            <td>Sim</td>
+                            <td><span class="highlight">Sim</span> (Biometria bancária)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section>
+            <h2>5. Direitos dos Titulares (Art. 18) e Prazos</h2>
+            <p>O titular pode pedir a qualquer momento (Requisição).</p>
+            <ul>
+                <li><strong>Verbos:</strong> Confirmar, Acessar, Corrigir, Anonimizar/Bloquear/Eliminar, Portar, Revogar Consentimento.</li>
+                <li><strong>Portabilidade:</strong> Deve ser em formato estruturado e interoperável (JSON/XML), não apenas PDF.</li>
+            </ul>
+            
+            <div class="box-destaque">
+                <strong>Prazos de Resposta (Decore!):</strong>
+                <ul>
+                    <li>Formato Simplificado: <span class="highlight">Imediato</span>.</li>
+                    <li>Declaração Completa: <span class="highlight">15 dias</span>.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>6. LGPD no Poder Público (Cap. IV) - Foco IFPB</h2>
+            <ul>
+                <li><strong>Finalidade:</strong> Sempre pública e persecução do interesse público.</li>
+                <li><strong>Compartilhamento:</strong> Pode compartilhar dados entre órgãos para políticas públicas (deve informar ao titular).</li>
+                <li><strong>Proibição:</strong> O Governo <span class="alert">NÃO</span> pode passar dados para empresas privadas, <strong>EXCETO</strong>:
+                    <ol>
+                        <li>Execução descentralizada de serviço público (ex: folha de pagamento no banco).</li>
+                        <li>Prevenção a fraudes.</li>
+                        <li>Dados já públicos.</li>
+                        <li>Previsão legal/contratual.</li>
+                    </ol>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>7. Sanções Administrativas (Art. 52) - O Grande Alerta</h2>
+            <p>Quem multa é <strong>apenas a ANPD</strong>. As sanções vão de advertência a multa de R$ 50 milhões.</p>
+
+            <div style="border: 2px solid #d9534f; background-color: #fff5f5; padding: 15px; border-radius: 8px;">
+                <h3 style="color: #d9534f; margin-top: 0;">🔴 MEGA ALERTA PARA O CONCURSO IFPB</h3>
+                <p>O Poder Público (Autarquias, Fundações Públicas, Estatais dependentes) <strong class="alert">NÃO PODE SOFRER MULTA EM DINHEIRO</strong>.</p>
+                <ul>
+                    <li>O IFPB pode levar advertência? <strong>Sim.</strong></li>
+                    <li>O IFPB pode ter dados bloqueados? <strong>Sim.</strong></li>
+                    <li>O IFPB pode ter a atividade suspensa? <strong>Sim.</strong></li>
+                    <li>O IFPB pode ser multado em R$ 50 milhões? <strong class="alert">NÃO.</strong> (Art. 52, §3º).</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>8. Checklist de Engenharia de Software para a Prova</h2>
+            <p>Se a questão for um Estudo de Caso ou envolver TI:</p>
+            <ol>
+                <li><strong>Privacy by Design:</strong> Privacidade deve vir configurada por padrão (<em>Default</em>) e desde a concepção do projeto.</li>
+                <li><strong>Ciclo de Vida:</strong> Não guarde dados para sempre (<em>Storage Limitation</em>). Cumpriu a finalidade? Elimine ou Anonimize.</li>
+                <li><strong>Banco de Dados:</strong>
+                    <ul>
+                        <li><code>DELETE</code> lógico com anonimização é melhor que <code>DELETE</code> físico (para manter integridade e histórico estatístico).</li>
+                        <li>Criptografia em repouso (TDE) e trânsito (TLS) é obrigatória para <em>Accountability</em>.</li>
+                    </ul>
+                </li>
+                <li><strong>Desenvolvimento:</strong> Nunca use dados reais de produção em ambiente de teste (Staging) sem anonimizar (Mascaramento de Dados/Data Masking).</li>
+            </ol>
+        </section>
+
+        <div class="btn-container">
+            <a href="leg-lei-13709questoes.html" class="btn-questoes">Ir para Questões 📝</a>
+        </div>
+
+    </div>
+</body>
+</html>
