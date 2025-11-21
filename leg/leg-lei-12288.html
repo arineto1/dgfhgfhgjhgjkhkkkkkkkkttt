@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo Turbo: Lei 12.288/2010 (Estatuto da Igualdade Racial)</title>
+    <!-- Tailwind CSS para estilização rápida, limpa e responsiva -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilos personalizados para garantir leitura confortável */
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #ffffff;
+            color: #1f2937; /* Cinza muito escuro para reduzir cansaço visual comparado ao preto puro */
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            color: #111827;
+            font-weight: 700;
+        }
+
+        /* Estilo de Marcação (Grifo) */
+        mark {
+            background-color: #fef08a; /* Amarelo suave */
+            color: #000;
+            padding: 0 4px;
+            border-radius: 2px;
+        }
+
+        /* Ajustes da Tabela para evitar Scroll Horizontal */
+        .table-container {
+            width: 100%;
+            overflow-wrap: break-word;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid #e5e7eb;
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: #f3f4f6;
+            font-weight: 600;
+        }
+
+        /* Garante que a tabela quebre linhas e não estoure a tela */
+        td {
+            white-space: normal;
+            word-wrap: break-word;
+        }
+
+        /* Estilo para os cards de checklist */
+        .checklist-item {
+            border-left: 4px solid;
+            padding-left: 1rem;
+            margin-bottom: 1rem;
+        }
+        .checklist-error { border-color: #ef4444; } /* Vermelho */
+        .checklist-correct { color: #15803d; font-weight: 600; } /* Verde Escuro */
+
+        /* Botão de Ação */
+        .btn-questoes {
+            background-color: #2563eb; /* Azul Royal */
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .btn-questoes:hover {
+            background-color: #1d4ed8;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col items-center py-10 px-4 sm:px-6 lg:px-8">
+
+    <main class="max-w-4xl w-full bg-white">
+        
+        <!-- Cabeçalho -->
+        <header class="mb-8 border-b pb-6">
+            <h1 class="text-3xl sm:text-4xl mb-2">Resumo Turbo: Estatuto da Igualdade Racial</h1>
+            <p class="text-xl text-gray-600">Lei 12.288/2010 — Foco: Instituto AOCP (IFPB)</p>
+        </header>
+
+        <!-- Player de Áudio -->
+        <section class="mb-10 bg-gray-50 p-6 rounded-lg border border-gray-200">
+            <label class="block text-sm font-medium text-gray-700 mb-2">🎧 Ouça o Resumo em Áudio:</label>
+            <!-- Substitua 'nome-do-arquivo.mp3' pelo seu arquivo real -->
+            <audio controls class="w-full">
+                <source src="leg-lei-12288.mp3" type="audio/mpeg">
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
+            <p class="text-xs text-gray-500 mt-2">Dica: Insira o arquivo mp3 na mesma pasta deste arquivo html.</p>
+        </section>
+
+        <!-- 1. Glossário -->
+        <section class="mb-10">
+            <h2 class="text-2xl mb-4 border-l-4 border-blue-600 pl-3">1. Glossário Obrigatório (Art. 1º)</h2>
+            <p class="mb-4 text-red-600 font-semibold italic bg-red-50 p-2 rounded">⚠️ Atenção: A AOCP costuma trocar as definições de "Discriminação" e "Desigualdade".</p>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="w-1/4">Conceito</th>
+                            <th class="w-1/4">Palavra-Chave</th>
+                            <th class="w-2/4">Definição Simplificada</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Discriminação</strong> Racial</td>
+                            <td><mark>ATO / VERBO</mark></td>
+                            <td>Distinção, exclusão ou restrição que visa <strong>anular ou restringir</strong> direitos.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Desigualdade</strong> Racial</td>
+                            <td><mark>SITUAÇÃO / FOTO</mark></td>
+                            <td>Situação injustificada de <strong>diferenciação de acesso</strong> e fruição de bens/serviços.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Desigualdade</strong> Gênero e Raça</td>
+                            <td><mark>MULHER NEGRA</mark></td>
+                            <td>Assimetria que acentua a distância social da <strong>mulher negra</strong>.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>População</strong> Negra</td>
+                            <td><mark>PRETOS + PARDOS</mark></td>
+                            <td>Autodeclaração (critério do IBGE) ou autodefinição análoga.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ações</strong> Afirmativas</td>
+                            <td><mark>PÚBLICO + PRIVADO</mark></td>
+                            <td>Programas especiais adotados pelo Estado <strong>E</strong> pela iniciativa privada.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="mt-4 bg-yellow-50 p-4 rounded border-l-4 border-yellow-400 text-sm">
+                <strong>⚠️ Pegadinha AOCP:</strong> Se a questão disser que Ações Afirmativas são exclusivas do Estado, está <strong>ERRADA</strong>. Políticas Públicas são do Estado; Ações Afirmativas são de ambos.
+            </div>
+        </section>
+
+        <!-- 2. Saúde -->
+        <section class="mb-10">
+            <h2 class="text-2xl mb-4 border-l-4 border-blue-600 pl-3">2. Saúde (Arts. 6º a 8º)</h2>
+            <ul class="list-disc pl-5 space-y-3 text-gray-700">
+                <li><strong>Acesso:</strong> Universal e igualitário (SUS).</li>
+                <li><strong>Doenças Prioritárias:</strong> O Estado deve priorizar doenças com recorte racial genético (ex: <mark>Anemia Falciforme</mark>).</li>
+                <li><strong>Obrigatoriedade de Dados:</strong> É obrigatório o registro de "cor/raça" nos prontuários e fichas epidemiológicas.</li>
+                <li class="bg-red-50 p-2 rounded border border-red-100">
+                    <strong>Proibição Absoluta (Planos de Saúde):</strong> As operadoras de saúde privada <strong class="text-red-600">NÃO PODEM</strong> aplicar valores diferenciados, recusa ou exclusão baseados na raça. <em>Não há exceção atuarial.</em>
+                </li>
+            </ul>
+        </section>
+
+        <!-- 3. Educação e Cultura -->
+        <section class="mb-10">
+            <h2 class="text-2xl mb-4 border-l-4 border-blue-600 pl-3">3. Educação e Cultura (O "Coração" para Professor IFPB)</h2>
+            
+            <div class="mb-4">
+                <h3 class="text-lg font-bold text-gray-800 mb-2">Estudo da História (Art. 11):</h3>
+                <ul class="list-disc pl-5 space-y-1 ml-4">
+                    <li><strong>Onde?</strong> Ensino Fundamental e Médio.</li>
+                    <li><strong>Quais Escolas?</strong> <mark>Públicas E Privadas</mark> (Cuidado: a banca diz "apenas públicas").</li>
+                    <li><strong>Conteúdo:</strong> África + População Negra no Brasil (Luta, Cultura, Formação Nacional).</li>
+                </ul>
+            </div>
+
+            <div class="mb-4">
+                <h3 class="text-lg font-bold text-gray-800 mb-2">Capoeira (Art. 22):</h3>
+                <ul class="list-disc pl-5 space-y-1 ml-4">
+                    <li><strong>Status:</strong> Desporto de criação nacional.</li>
+                    <li><strong>Ensino:</strong> É <mark>FACULTATIVO</mark> (não obrigatório) nas escolas.</li>
+                    <li><strong>Quem ensina?</strong> Capoeiristas e mestres tradicionais (reconhecimento público e formal basta, não exige licenciatura específica para parcerias).</li>
+                </ul>
+            </div>
+            <p class="font-medium ml-4">📅 <strong>Datas:</strong> 20 de Novembro (Dia Nacional da Consciência Negra).</p>
+        </section>
+
+        <!-- 4. Trabalho -->
+        <section class="mb-10">
+            <h2 class="text-2xl mb-4 border-l-4 border-blue-600 pl-3">4. Trabalho e a Atualização de 2023 (Lei 14.553)</h2>
+            <p class="text-sm text-gray-500 mb-3 italic">Hot Topic: Recentíssima alteração legislativa com alta chance de cair.</p>
+            
+            <ul class="list-disc pl-5 space-y-3">
+                <li>
+                    <strong>Obrigatoriedade de Registro:</strong> Empregadores (Setor Público e Privado) <strong>DEVEM</strong> incluir campo de raça/cor em:
+                    <ol class="list-decimal pl-5 mt-1 text-gray-600">
+                        <li>Admissão e demissão.</li>
+                        <li>Acidentes de trabalho.</li>
+                        <li>Inscrições no INSS.</li>
+                    </ol>
+                </li>
+                <li><strong>Censo no Serviço Público:</strong> O IBGE fará pesquisa a cada <mark>5 anos</mark> para medir ocupação racial no setor público.</li>
+            </ul>
+        </section>
+
+        <!-- 5. Religião e Quilombolas -->
+        <section class="mb-10">
+            <h2 class="text-2xl mb-4 border-l-4 border-blue-600 pl-3">5. Religião e Quilombolas</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-gray-50 p-4 rounded">
+                    <h3 class="font-bold text-lg mb-2 text-indigo-700">Religiões de Matriz Africana</h3>
+                    <ul class="list-disc pl-4 space-y-1 text-sm">
+                        <li>Direito a livre exercício de culto e liturgias.</li>
+                        <li>Direito de acesso aos meios de comunicação.</li>
+                        <li>Direito de <strong>assistência religiosa</strong> em hospitais e presídios (igual a padres e pastores).</li>
+                        <li>Direito a receber doações/contribuições financeiras privadas.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-gray-50 p-4 rounded">
+                    <h3 class="font-bold text-lg mb-2 text-green-700">Quilombolas (Terra e Sustentabilidade)</h3>
+                    <ul class="list-disc pl-4 space-y-1 text-sm">
+                        <li><strong>Propriedade da terra:</strong> Definitiva (Estado deve emitir título).</li>
+                        <li><strong>Agricultura:</strong> Direito a linhas de financiamento e assistência técnica <mark>especiais/diferenciadas</mark>.</li>
+                        <li><strong>Saúde:</strong> Incentivos específicos para saneamento e atenção integral.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. SINAPIR -->
+        <section class="mb-10">
+            <h2 class="text-2xl mb-4 border-l-4 border-blue-600 pl-3">6. SINAPIR (Sistema Nacional)</h2>
+            <ul class="list-disc pl-5 space-y-2">
+                <li><strong>Natureza:</strong> Forma de organização e articulação de políticas.</li>
+                <li><strong>Adesão dos Municípios/Estados:</strong> É <mark>VOLUNTÁRIA</mark> (não obrigatória).</li>
+                <li><strong>O "Preço" da Adesão:</strong> Quem adere tem <strong>prioridade</strong> no repasse de recursos federais.</li>
+                <li><strong>Requisitos para receber verba:</strong> Ter Órgão Público <strong>E</strong> Conselho de Igualdade Racial.</li>
+            </ul>
+        </section>
+
+        <!-- 7. Checklist de Pegadinhas -->
+        <section class="mb-12">
+            <h2 class="text-2xl mb-6 border-l-4 border-red-500 pl-3 text-red-700">7. Checklist de Pegadinhas Frequentes (AOCP)</h2>
+            
+            <div class="space-y-4">
+                <div class="checklist-item checklist-error bg-red-50 p-3 rounded">
+                    <p class="text-red-800">❌ "Apenas escolas públicas devem ensinar história da África."</p>
+                    <p class="checklist-correct mt-1">✅ Correto: Públicas e Privadas.</p>
+                </div>
+                
+                <div class="checklist-item checklist-error bg-red-50 p-3 rounded">
+                    <p class="text-red-800">❌ "O ensino da capoeira é obrigatório."</p>
+                    <p class="checklist-correct mt-1">✅ Correto: Facultativo.</p>
+                </div>
+
+                <div class="checklist-item checklist-error bg-red-50 p-3 rounded">
+                    <p class="text-red-800">❌ "Seguradoras podem cobrar mais de negros por risco de hipertensão."</p>
+                    <p class="checklist-correct mt-1">✅ Correto: É vedado tratamento diferenciado.</p>
+                </div>
+
+                <div class="checklist-item checklist-error bg-red-50 p-3 rounded">
+                    <p class="text-red-800">❌ "Apenas o Estado faz Ação Afirmativa."</p>
+                    <p class="checklist-correct mt-1">✅ Correto: Iniciativa Privada também faz.</p>
+                </div>
+
+                <div class="checklist-item checklist-error bg-red-50 p-3 rounded">
+                    <p class="text-red-800">❌ "A população negra restringe-se aos pretos."</p>
+                    <p class="checklist-correct mt-1">✅ Correto: Pretos + Pardos (autodeclarados).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Botão para Questões -->
+        <div class="flex justify-center pt-8 border-t">
+            <a href="leg-lei-12288questoes.html" class="btn-questoes font-bold py-4 px-10 rounded-lg shadow-lg text-lg flex items-center">
+                <span class="mr-2">📝</span> Ir para Resolução de Questões
+            </a>
+        </div>
+
+        <footer class="mt-12 text-center text-gray-400 text-sm">
+            <p>Foco IFPB / Instituto AOCP</p>
+        </footer>
+
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado Avançado: Decreto nº 7.611/2011</title>
+    <meta name="description" content="Simulado estilo Instituto AOCP sobre o Decreto 7.611/2011 com resoluções detalhadas.">
+    <style>
+        :root {
+            --bg-color: #fdfbf7; /* Tom de papel suave para leitura longa */
+            --text-color: #2d2d2d;
+            --primary-color: #2c3e50;
+            --accent-color: #2980b9;
+            --success-color: #27ae60;
+            --error-color: #c0392b;
+            --border-color: #e0e0e0;
+            --resolution-bg: #f0f4f8;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif; /* Serifada para conforto em textos longos */
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 40px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-radius: 8px;
+        }
+
+        header {
+            border-bottom: 2px solid var(--primary-color);
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Helvetica Neue', sans-serif;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        p.subtitle {
+            font-style: italic;
+            color: #666;
+        }
+
+        .question-block {
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .question-title {
+            font-weight: bold;
+            font-family: 'Helvetica Neue', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .question-text {
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .options {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 10px;
+            padding: 10px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .option-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        .option-item input[type="radio"] {
+            margin-right: 15px;
+            margin-top: 5px;
+        }
+
+        .option-item label {
+            cursor: pointer;
+            width: 100%;
+        }
+
+        /* Estilos pós-submissão */
+        .correct-answer {
+            border: 2px solid var(--success-color);
+            background-color: #e8f8f5;
+        }
+
+        .wrong-answer {
+            border: 2px solid var(--error-color);
+            background-color: #fce4e4;
+        }
+
+        .resolution-box {
+            display: none; /* Escondido inicialmente */
+            margin-top: 20px;
+            padding: 20px;
+            background-color: var(--resolution-bg);
+            border-left: 5px solid var(--accent-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+
+        .resolution-title {
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            display: block;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            font-family: sans-serif;
+        }
+
+        .status-indicator {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .status-correct { color: var(--success-color); }
+        .status-wrong { color: var(--error-color); }
+
+        #result-section {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 8px;
+            display: none;
+        }
+
+        #result-section h2 { margin: 0; }
+
+        button#submit-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background-color 0.3s;
+        }
+
+        button#submit-btn:hover {
+            background-color: #34495e;
+        }
+
+        /* Responsividade */
+        @media (max-width: 600px) {
+            .container { padding: 20px; }
+            .question-text { text-align: left; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado Decreto Federal nº 7.611/2011</h1>
+        <p class="subtitle">Foco: Instituto AOCP | Educação Especial e Inclusiva</p>
+    </header>
+
+    <form id="quiz-form">
+        <!-- Questão 1 -->
+        <div class="question-block" id="q1">
+            <div class="question-title">Questão 1 (Instituto AOCP – Adaptada)</div>
+            <div class="question-text">
+                O Decreto nº 7.611/2011 dispõe sobre a educação especial e o atendimento educacional especializado (AEE), alinhando-se às diretrizes da Convenção sobre os Direitos das Pessoas com Deficiência. No que tange à definição do público-alvo da educação especial para fins de identificação e fomento de matrículas, assinale a alternativa que interpreta corretamente o dispositivo legal.
+            </div>
+            <ul class="options">
+                <li class="option-item"><label><input type="radio" name="q1" value="A"> A) O público-alvo restringe-se aos estudantes com deficiência auditiva, visual e física, sendo os transtornos de aprendizagem como Dislexia e TDAH atendidos exclusivamente pela área clínica da saúde pública.</label></li>
+                <li class="option-item"><label><input type="radio" name="q1" value="B"> B) Considera-se público-alvo da educação especial as pessoas com deficiência, aquelas com transtornos globais do desenvolvimento (TGD) e aquelas com altas habilidades ou superdotação, sendo o AEE ofertado de forma a complementar ou suplementar a formação desses estudantes.</label></li>
+                <li class="option-item"><label><input type="radio" name="q1" value="C"> C) A legislação garante o atendimento educacional especializado a todos os alunos que apresentem baixo rendimento escolar, independentemente de diagnóstico clínico, visando à equiparação de oportunidades no ensino fundamental.</label></li>
+                <li class="option-item"><label><input type="radio" name="q1" value="D"> D) O Decreto estabelece que o público-alvo da educação especial deve ser atendido prioritariamente em escolas especiais ou classes especiais, reservando-se a inclusão no ensino regular apenas para os casos de menor complexidade.</label></li>
+                <li class="option-item"><label><input type="radio" name="q1" value="E"> E) Para os efeitos do Decreto, estudantes com transtornos funcionais específicos (dislexia, disgrafia e discalculia) são equiparados às pessoas com deficiência intelectual, garantindo-se a dupla matrícula para fins de repasse do FUNDEB.</label></li>
+            </ul>
+            <div class="resolution-box">
+                <span class="resolution-title">Resolução Analítica</span>
+                <p><strong>Gabarito: Letra B</strong></p>
+                <p>A definição do público-alvo da Educação Especial (PAEE) é a pedra angular para a aplicação do Decreto nº 7.611/2011. O público-alvo é composto estritamente por três grupos: Pessoas com Deficiência, Pessoas com Transtornos Globais do Desenvolvimento (TGD) e Altas Habilidades/Superdotação. Dislexia, TDAH e Discalculia <strong>não</strong> são considerados público-alvo da Educação Especial para os fins deste decreto e não geram dupla matrícula. Além disso, o AEE é <strong>complementar</strong> (deficiências/TGD) ou <strong>suplementar</strong> (altas habilidades), nunca substitutivo.</p>
+            </div>
+        </div>
+
+        <!-- Questão 2 -->
+        <div class="question-block" id="q2">
+            <div class="question-title">Questão 2 (Instituto AOCP – Adaptada)</div>
+            <div class="question-text">
+                Conforme o disposto no Art. 2º do Decreto nº 7.611/2011, o atendimento educacional especializado (AEE) compreende o conjunto de atividades, recursos de acessibilidade e pedagógicos organizados institucional e continuamente. Sobre as modalidades e objetivos desse atendimento, analise as assertivas abaixo:<br><br>
+                I. O AEE deve integrar a proposta pedagógica da escola, envolver a participação da família e ser realizado em articulação com as demais políticas públicas.<br>
+                II. Para estudantes com surdez ou deficiência auditiva, o AEE deve priorizar o ensino da Língua Portuguesa na modalidade oral como primeira língua, em detrimento da Libras.<br>
+                III. O atendimento educacional especializado é substitutivo às classes comuns para alunos com deficiência intelectual severa, dispensando-se a frequência ao ensino regular nesses casos.<br>
+                IV. O AEE visa prover condições de acesso, participação e aprendizagem no ensino regular, garantindo a transversalidade das ações da educação especial.<br><br>
+                Estão corretas apenas:
+            </div>
+            <ul class="options">
+                <li class="option-item"><label><input type="radio" name="q2" value="A"> A) I e II.</label></li>
+                <li class="option-item"><label><input type="radio" name="q2" value="B"> B) I e IV.</label></li>
+                <li class="option-item"><label><input type="radio" name="q2" value="C"> C) II e III.</label></li>
+                <li class="option-item"><label><input type="radio" name="q2" value="D"> D) III e IV.</label></li>
+                <li class="option-item"><label><input type="radio" name="q2" value="E"> E) I, III e IV.</label></li>
+            </ul>
+            <div class="resolution-box">
+                <span class="resolution-title">Resolução Analítica</span>
+                <p><strong>Gabarito: Letra B</strong></p>
+                <p>A assertiva I está correta ao exigir integração com a proposta pedagógica e participação familiar. A assertiva IV está correta ao reproduzir os objetivos do Art. 3º (acesso e transversalidade). A II está incorreta pois a política nacional é bilíngue (Libras como L1). A III está incorreta pois o AEE <strong>nunca</strong> substitui o ensino regular, sendo realizado no contraturno. A dispensa da frequência ao ensino regular é inconstitucional.</p>
+            </div>
+        </div>
+
+        <!-- Questão 3 -->
+        <div class="question-block" id="q3">
+            <div class="question-title">Questão 3 (Instituto AOCP – Adaptada)</div>
+            <div class="question-text">
+                O Decreto nº 7.611/2011 enfatiza a oferta de serviços de apoio especializados. No contexto específico do atendimento a estudantes com deficiência visual (cegueira e baixa visão), conforme as diretrizes do AEE e a jurisprudência técnica da banca, assinale a alternativa que descreve corretamente as atribuições e recursos pertinentes.
+            </div>
+            <ul class="options">
+                <li class="option-item"><label><input type="radio" name="q3" value="A"> A) No atendimento a estudantes com cegueira, o foco do AEE é o desenvolvimento de resíduo visual através de recursos ópticos como lupas e telelupas.</label></li>
+                <li class="option-item"><label><input type="radio" name="q3" value="B"> B) O ensino do Sistema Braille, do uso do Soroban e das técnicas de Orientação e Mobilidade (OM) constituem atividades típicas do AEE para estudantes cegos, enquanto para estudantes com baixa visão prioriza-se a avaliação funcional da visão e o uso de recursos ópticos e não ópticos.</label></li>
+                <li class="option-item"><label><input type="radio" name="q3" value="C"> C) O professor de AEE deve substituir o professor da sala comum no ensino dos conteúdos curriculares (Matemática, Geografia) para o aluno cego, garantindo que ele aprenda o conteúdo adaptado separadamente.</label></li>
+                <li class="option-item"><label><input type="radio" name="q3" value="D"> D) A transcrição de materiais em tinta para o Braille é de responsabilidade exclusiva da família do estudante, devendo a escola fornecer apenas o papel gramatura 120g.</label></li>
+                <li class="option-item"><label><input type="radio" name="q3" value="E"> E) O uso de tecnologia assistiva, como leitores de tela, é desencorajado nos anos iniciais do ensino fundamental para não prejudicar a alfabetização tátil pelo Braille.</label></li>
+            </ul>
+            <div class="resolution-box">
+                <span class="resolution-title">Resolução Analítica</span>
+                <p><strong>Gabarito: Letra B</strong></p>
+                <p>Esta alternativa delineia corretamente as ferramentas do AEE: Para <strong>cegueira</strong>, usa-se Braille, Soroban e Orientação e Mobilidade (OM). Para <strong>baixa visão</strong>, usa-se avaliação funcional e recursos ópticos/não ópticos (lupas, fontes ampliadas). O professor de AEE não substitui o regente (não ensina Geografia, ensina o meio de acesso à Geografia). A produção de material é responsabilidade do sistema de ensino, não da família.</p>
+            </div>
+        </div>
+
+        <!-- Questão 4 -->
+        <div class="question-block" id="q4">
+            <div class="question-title">Questão 4 (Instituto AOCP – Adaptada)</div>
+            <div class="question-text">
+                O Decreto nº 7.611/2011 introduziu mecanismos importantes para a sustentabilidade financeira da inclusão escolar, alterando a lógica de contabilização de matrículas no âmbito do FUNDEB. Sobre o financiamento e a atuação de instituições privadas, assinale a correta:
+            </div>
+            <ul class="options">
+                <li class="option-item"><label><input type="radio" name="q4" value="A"> A) A dupla matrícula limita-se a uma única matrícula por aluno, devendo o gestor municipal optar pelo financiamento do ensino regular ou do AEE.</label></li>
+                <li class="option-item"><label><input type="radio" name="q4" value="B"> B) É vedado o repasse de recursos públicos para instituições comunitárias, confessionais ou filantrópicas sem fins lucrativos, devendo o AEE ser ofertado exclusivamente na rede pública estatal.</label></li>
+                <li class="option-item"><label><input type="radio" name="q4" value="C"> C) Admitir-se-á, para efeito da distribuição dos recursos do FUNDEB, o cômputo das matrículas efetivadas na educação especial oferecida por instituições comunitárias, confessionais ou filantrópicas sem fins lucrativos, com atuação exclusiva na educação especial, conveniadas com o Poder Executivo competente.</label></li>
+                <li class="option-item"><label><input type="radio" name="q4" value="D"> D) A dupla matrícula aplica-se apenas aos estudantes do Ensino Médio, sendo vedada para a Educação Infantil e o Ensino Fundamental, visto que nessas etapas a prioridade é a socialização e não o suporte técnico especializado.</label></li>
+                <li class="option-item"><label><input type="radio" name="q4" value="E"> E) O financiamento da educação especial é de responsabilidade exclusiva do Ministério da Educação, não havendo contrapartida ou utilização de recursos dos fundos estaduais e municipais.</label></li>
+            </ul>
+            <div class="resolution-box">
+                <span class="resolution-title">Resolução Analítica</span>
+                <p><strong>Gabarito: Letra C</strong></p>
+                <p>A alternativa é a cópia fiel do texto legal. O decreto permite que a matrícula na instituição filantrópica (ex: APAE) conte para o FUNDEB juntamente com a matrícula na escola regular pública, caracterizando a <strong>dupla matrícula</strong>. Isso é permitido para instituições comunitárias, confessionais ou filantrópicas sem fins lucrativos, exclusivas e conveniadas. A dupla matrícula vale para toda a Educação Básica, não apenas Ensino Médio.</p>
+            </div>
+        </div>
+
+        <!-- Questão 5 -->
+        <div class="question-block" id="q5">
+            <div class="question-title">Questão 5 (Instituto AOCP – Adaptada)</div>
+            <div class="question-text">
+                O Art. 5º do Decreto nº 7.611/2011 estabelece que a União prestará apoio técnico e financeiro aos sistemas públicos de ensino. Dentre as ações previstas para esse apoio, destaca-se a "implantação de salas de recursos multifuncionais". Sobre essas salas e a infraestrutura de apoio, é correto afirmar:
+            </div>
+            <ul class="options">
+                <li class="option-item"><label><input type="radio" name="q5" value="A"> A) As salas de recursos multifuncionais são espaços destinados exclusivamente ao reforço escolar das disciplinas de Matemática e Língua Portuguesa para alunos com deficiência.</label></li>
+                <li class="option-item"><label><input type="radio" name="q5" value="B"> B) A União financia a construção de prédios anexos às escolas para que os alunos com deficiência estudem separadamente, garantindo a tranquilidade do ambiente escolar regular.</label></li>
+                <li class="option-item"><label><input type="radio" name="q5" value="C"> C) O apoio técnico e financeiro da União abrange, entre outros, a adequação arquitetônica de prédios escolares para acessibilidade e a formação continuada de professores, inclusive para a educação bilíngue e o ensino do Braille.</label></li>
+                <li class="option-item"><label><input type="radio" name="q5" value="D"> D) O mobiliário e os equipamentos das salas de recursos multifuncionais são padronizados e não podem ser adaptados às necessidades locais, sendo proibida a aquisição de tecnologia assistiva digital.</label></li>
+                <li class="option-item"><label><input type="radio" name="q5" value="E"> E) A responsabilidade pela implantação das salas de recursos é exclusiva dos Municípios, cabendo à União apenas a fiscalização do uso dos recursos, sem aporte financeiro direto para equipamentos.</label></li>
+            </ul>
+            <div class="resolution-box">
+                <span class="resolution-title">Resolução Analítica</span>
+                <p><strong>Gabarito: Letra C</strong></p>
+                <p>O Art. 5º lista o apoio da União para: implantação de SRMs, formação continuada (citando bilinguismo e Braille) e adequação arquitetônica (acessibilidade). A SRM <strong>não</strong> é sala de reforço (Erro da A), e a União não financia prédios para segregação (Erro da B). A tecnologia assistiva é incentivada e os equipamentos visam atender necessidades específicas.</p>
+            </div>
+        </div>
+
+        <!-- Questão 6 -->
+        <div class="question-block" id="q6">
+            <div class="question-title">Questão 6 (Instituto AOCP – Adaptada)</div>
+            <div class="question-text">
+                O credenciamento de instituições e a oferta do AEE não ocorrem no vácuo administrativo. Segundo o Decreto nº 7.611/2011, a institucionalização do serviço depende de instrumentos de planejamento. Assinale a alternativa que reflete corretamente a exigência legal para o funcionamento do AEE.
+            </div>
+            <ul class="options">
+                <li class="option-item"><label><input type="radio" name="q6" value="A"> A) O AEE dispensa projeto pedagógico formal, bastando a existência de laudo médico de todos os alunos atendidos para justificar o repasse de verbas.</label></li>
+                <li class="option-item"><label><input type="radio" name="q6" value="B"> B) O credenciamento perante o órgão competente do sistema de ensino, para fins de repasse do FUNDEB a instituições filantrópicas, depende da aprovação de projeto pedagógico.</label></li>
+                <li class="option-item"><label><input type="radio" name="q6" value="C"> C) O Plano de AEE deve ser elaborado exclusivamente por psicólogos e terapeutas ocupacionais, sem a ingerência dos professores da rede regular, para garantir a neutralidade clínica.</label></li>
+                <li class="option-item"><label><input type="radio" name="q6" value="D"> D) A oferta de AEE é facultativa para as escolas privadas, que podem cobrar taxas extras das famílias para custear a acessibilidade, conforme livre iniciativa de mercado.</label></li>
+                <li class="option-item"><label><input type="radio" name="q6" value="E"> E) O projeto pedagógico da escola regular não precisa contemplar a educação especial, devendo esta ser regida por um regulamento paralelo e independente da gestão escolar.</label></li>
+            </ul>
+            <div class="resolution-box">
+                <span class="resolution-title">Resolução Analítica</span>
+                <p><strong>Gabarito: Letra B</strong></p>
+                <p>Baseado no Art. 2º, § 2º. O repasse de verbas públicas (FUNDEB) exige a aprovação de um <strong>Projeto Pedagógico</strong> pelo Conselho de Educação ou órgão competente. O AEE é uma ação pedagógica, não clínica, portanto não pode ser condicionado a laudo médico (Erro da A) nem ser comandado exclusivamente por terapeutas (Erro da C). A cobrança de taxas extras é ilegal.</p>
+            </div>
+        </div>
+
+        <!-- Questão 7 -->
+        <div class="question-block" id="q7">
+            <div class="question-title">Questão 7 (Instituto AOCP – Adaptada)</div>
+            <div class="question-text">
+                O Art. 3º do Decreto nº 7.611/2011 elenca os objetivos do atendimento educacional especializado. Dentre as alternativas abaixo, assinale aquela que <strong>NÃO</strong> corresponde a um objetivo expresso no referido dispositivo legal.
+            </div>
+            <ul class="options">
+                <li class="option-item"><label><input type="radio" name="q7" value="A"> A) Prover condições de acesso, participação e aprendizagem no ensino regular.</label></li>
+                <li class="option-item"><label><input type="radio" name="q7" value="B"> B) Garantir a transversalidade das ações da educação especial no ensino regular.</label></li>
+                <li class="option-item"><label><input type="radio" name="q7" value="C"> C) Fomentar o desenvolvimento de recursos didáticos e pedagógicos que eliminem as barreiras no processo de ensino e aprendizagem.</label></li>
+                <li class="option-item"><label><input type="radio" name="q7" value="D"> D) Assegurar condições para a continuidade de estudos nos demais níveis, etapas e modalidades de ensino.</label></li>
+                <li class="option-item"><label><input type="radio" name="q7" value="E"> E) Centralizar o atendimento dos estudantes com deficiência em centros de referência distritais, visando otimizar os recursos terapêuticos e reduzir a presença desses alunos nas escolas de bairro.</label></li>
+            </ul>
+            <div class="resolution-box">
+                <span class="resolution-title">Resolução Analítica</span>
+                <p><strong>Gabarito: Letra E</strong></p>
+                <p>A lógica do decreto é a inclusão e a descentralização, não a segregação em centros distritais. "Reduzir a presença desses alunos nas escolas de bairro" viola o princípio da preferência pela rede regular próxima à residência. As alternativas A, B, C e D são cópias literais dos objetivos do Art. 3º.</p>
+            </div>
+        </div>
+
+        <!-- Questão 8 -->
+        <div class="question-block" id="q8">
+            <div class="question-title">Questão 8 (Instituto AOCP – Adaptada)</div>
+            <div class="question-text">
+                A legislação educacional brasileira passa por constantes atualizações. O Decreto nº 7.611/2011, ao entrar em vigor, revogou expressamente uma norma anterior que tratava do atendimento educacional especializado. Assinale a alternativa que aponta corretamente o decreto revogado.
+            </div>
+            <ul class="options">
+                <li class="option-item"><label><input type="radio" name="q8" value="A"> A) Decreto nº 5.626/2005 (Decreto de Libras).</label></li>
+                <li class="option-item"><label><input type="radio" name="q8" value="B"> B) Decreto nº 3.298/1999 (Política Nacional para Integração).</label></li>
+                <li class="option-item"><label><input type="radio" name="q8" value="C"> C) Decreto nº 6.571/2008.</label></li>
+                <li class="option-item"><label><input type="radio" name="q8" value="D"> D) Decreto nº 6.949/2009 (Convenção de Nova York).</label></li>
+                <li class="option-item"><label><input type="radio" name="q8" value="E"> E) Decreto nº 7.612/2011 (Plano Viver sem Limite).</label></li>
+            </ul>
+            <div class="resolution-box">
+                <span class="resolution-title">Resolução Analítica</span>
+                <p><strong>Gabarito: Letra C</strong></p>
+                <p>O Art. 11 do Decreto 7.611/2011 revogou expressamente o <strong>Decreto nº 6.571/2008</strong>, que dispunha anteriormente sobre o AEE. O Decreto 5.626 (Libras) continua vigente, assim como a Convenção de Nova York (status constitucional).</p>
+            </div>
+        </div>
+
+        <!-- Questão 9 -->
+        <div class="question-block" id="q9">
+            <div class="question-title">Questão 9 (Instituto AOCP – Adaptada)</div>
+            <div class="question-text">
+                O conceito de "eliminação de barreiras" é central no Art. 3º do Decreto nº 7.611/2011. Para a efetivação desse objetivo, o texto legal fomenta o desenvolvimento de recursos didáticos e pedagógicos. Nesse contexto, a atuação do AEE sobre as barreiras deve ser compreendida como:
+            </div>
+            <ul class="options">
+                <li class="option-item"><label><input type="radio" name="q9" value="A"> A) Um processo clínico de cura das patologias do estudante, eliminando a barreira biológica da deficiência.</label></li>
+                <li class="option-item"><label><input type="radio" name="q9" value="B"> B) A simplificação e empobrecimento do currículo escolar (currículo funcional) para que o aluno não encontre dificuldades cognitivas.</label></li>
+                <li class="option-item"><label><input type="radio" name="q9" value="C"> C) A identificação e remoção de obstáculos atitudinais, comunicacionais, arquitetônicos e metodológicos que impedem o acesso e a participação plena, sem reduzir a expectativa de aprendizagem.</label></li>
+                <li class="option-item"><label><input type="radio" name="q9" value="D"> D) A construção de escolas exclusivas livres de escadas, eliminando a necessidade de adaptação dos prédios históricos da rede regular.</label></li>
+                <li class="option-item"><label><input type="radio" name="q9" value="E"> E) A proibição do uso de tecnologias complexas em sala de aula para não criar barreiras digitais aos alunos com deficiência intelectual.</label></li>
+            </ul>
+            <div class="resolution-box">
+                <span class="resolution-title">Resolução Analítica</span>
+                <p><strong>Gabarito: Letra C</strong></p>
+                <p>O decreto baseia-se no Modelo Social da Deficiência: a deficiência resulta da interação entre impedimentos corporais e barreiras sociais. O AEE visa eliminar barreiras (arquitetônicas, atitudinais, metodológicas) para permitir acesso pleno, sem "curar" o aluno (visão médica) nem empobrecer o currículo (visão assistencialista).</p>
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-block" id="q10">
+            <div class="question-title">Questão 10 (Instituto AOCP – Adaptada)</div>
+            <div class="question-text">
+                O Art. 8º do Decreto nº 7.611/2011 trata da produção e distribuição de recursos educacionais voltados para a acessibilidade. Segundo o parágrafo único deste artigo, a execução dessa distribuição deve considerar:
+            </div>
+            <ul class="options">
+                <li class="option-item"><label><input type="radio" name="q10" value="A"> A) A garantia da acessibilidade nos exames nacionais (como o ENEM) e nas avaliações promovidas pelo Ministério da Educação.</label></li>
+                <li class="option-item"><label><input type="radio" name="q10" value="B"> B) A prioridade absoluta para a compra de livros impressos em tinta, visto que o Braille está em desuso.</label></li>
+                <li class="option-item"><label><input type="radio" name="q10" value="C"> C) A cobrança de taxas módicas das famílias de alta renda para subsidiar os materiais dos alunos de baixa renda.</label></li>
+                <li class="option-item"><label><input type="radio" name="q10" value="D"> D) A exclusividade de produção de materiais pela Imprensa Nacional, vedada a compra de recursos produzidos pela iniciativa privada.</label></li>
+                <li class="option-item"><label><input type="radio" name="q10" value="E"> E) A distribuição de materiais apenas para as escolas que atingirem metas elevadas no IDEB, como forma de meritocracia inclusiva.</label></li>
+            </ul>
+            <div class="resolution-box">
+                <span class="resolution-title">Resolução Analítica</span>
+                <p><strong>Gabarito: Letra A</strong></p>
+                <p>O Parágrafo Único do Art. 8º é explícito: a execução considerará a garantia da acessibilidade nos exames nacionais e avaliações do MEC. Isso garante que o aluno tenha condições justas de avaliação (prova em Braille, ledor, Libras) ao final do ciclo escolar.</p>
+            </div>
+        </div>
+
+        <button type="button" id="submit-btn" onclick="calcularResultado()">Finalizar Simulado e Ver Correção</button>
+        
+        <div id="result-section">
+            <h2>Resultado: <span id="score-display">0</span>/10</h2>
+            <p>Abaixo, veja as resoluções comentadas para cada questão.</p>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Gabarito oficial conforme o documento
+    const answers = {
+        q1: 'B',
+        q2: 'B',
+        q3: 'B',
+        q4: 'C',
+        q5: 'C',
+        q6: 'B',
+        q7: 'E',
+        q8: 'C',
+        q9: 'C',
+        q10: 'A'
+    };
+
+    function calcularResultado() {
+        let score = 0;
+        const total = 10;
+        const btn = document.getElementById('submit-btn');
+
+        // Desabilita o botão para evitar múltiplos cliques
+        btn.disabled = true;
+        btn.innerText = "Simulado Finalizado";
+        btn.style.backgroundColor = "#7f8c8d";
+
+        for (let i = 1; i <= total; i++) {
+            const qKey = 'q' + i;
+            const selected = document.querySelector(`input[name="${qKey}"]:checked`);
+            const block = document.getElementById(qKey);
+            const resolutionBox = block.querySelector('.resolution-box');
+            
+            // Revela a caixa de resolução
+            resolutionBox.style.display = 'block';
+            
+            // Cria indicador de status (Acertou/Errou)
+            const statusSpan = document.createElement('span');
+            statusSpan.className = 'status-indicator';
+
+            if (selected && selected.value === answers[qKey]) {
+                score++;
+                // Estilo visual para acerto
+                selected.parentElement.classList.add('correct-answer');
+                statusSpan.innerText = "✓ Você acertou!";
+                statusSpan.classList.add('status-correct');
+            } else {
+                // Estilo visual para erro (se houve seleção)
+                if (selected) {
+                    selected.parentElement.classList.add('wrong-answer');
+                }
+                // Destacar a correta
+                const correctOption = block.querySelector(`input[value="${answers[qKey]}"]`);
+                if (correctOption) {
+                    correctOption.parentElement.classList.add('correct-answer');
+                }
+                statusSpan.innerText = "✗ Você errou.";
+                statusSpan.classList.add('status-wrong');
+            }
+
+            // Insere o status antes da explicação
+            resolutionBox.insertBefore(statusSpan, resolutionBox.firstChild);
+        }
+
+        // Mostra o painel de resultado final
+        const resultSection = document.getElementById('result-section');
+        const scoreDisplay = document.getElementById('score-display');
+        scoreDisplay.innerText = score;
+        resultSection.style.display = 'block';
+
+        // Scroll suave até o resultado
+        resultSection.scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>

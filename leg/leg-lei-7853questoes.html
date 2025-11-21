@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado Lei 7.853/1989 - Instituto AOCP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Open+Sans:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f8fafc; /* Slate 50 - Fundo claro e suave */
+            color: #334155; /* Slate 700 - Contraste confortável */
+        }
+
+        h1, h2, h3 {
+            font-family: 'Merriweather', serif; /* Serifada para títulos, melhor leitura */
+        }
+
+        .question-card {
+            transition: all 0.3s ease;
+        }
+        
+        .option-label:hover {
+            background-color: #f1f5f9;
+            cursor: pointer;
+        }
+
+        /* Estilo para quando a resposta está correta/errada após submissão */
+        .correct-answer {
+            background-color: #dcfce7 !important; /* Green 100 */
+            border-color: #22c55e !important; /* Green 500 */
+            color: #14532d;
+        }
+
+        .wrong-answer {
+            background-color: #fee2e2 !important; /* Red 100 */
+            border-color: #ef4444 !important; /* Red 500 */
+            color: #7f1d1d;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen py-8 px-4 sm:px-6 lg:px-8">
+
+    <div class="max-w-4xl mx-auto bg-white shadow-xl rounded-lg overflow-hidden border border-slate-200">
+        
+        <!-- Cabeçalho -->
+        <div class="bg-slate-800 text-white p-8">
+            <h1 class="text-2xl sm:text-3xl font-bold leading-relaxed mb-2">
+                Simulado: Lei 7.853/1989
+            </h1>
+            <p class="text-slate-300 text-lg font-light">
+                Foco: Banca Instituto AOCP | Temas: Tutela Coletiva, Crimes e Obrigações Estatais.
+            </p>
+        </div>
+
+        <!-- Conteúdo do Quiz -->
+        <div class="p-8 space-y-12" id="quiz-container">
+            <!-- As questões serão injetadas aqui via JavaScript -->
+        </div>
+
+        <!-- Botão de Ação -->
+        <div class="p-8 bg-slate-50 border-t border-slate-200 flex justify-center">
+            <button onclick="submitQuiz()" id="submit-btn" class="bg-blue-700 hover:bg-blue-800 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition transform hover:-translate-y-0.5 text-lg w-full sm:w-auto">
+                Finalizar Simulado e Ver Resoluções
+            </button>
+        </div>
+
+        <!-- Seção de Resultados (Oculta inicialmente) -->
+        <div id="results-section" class="hidden bg-slate-100 border-t-2 border-blue-800 p-8 animate-fade-in">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="text-3xl font-bold text-slate-800 mb-6 text-center">Resultado</h2>
+                
+                <!-- Placar -->
+                <div class="bg-white p-6 rounded-lg shadow-sm mb-10 text-center border border-slate-200">
+                    <p class="text-lg text-slate-600 mb-2">Você acertou</p>
+                    <div class="text-5xl font-bold text-blue-700 mb-2">
+                        <span id="score-display">0</span> / 10
+                    </div>
+                    <p id="feedback-message" class="font-medium text-slate-500"></p>
+                </div>
+
+                <h3 class="text-2xl font-bold text-slate-800 mb-6 border-b pb-2">Resoluções Analíticas</h3>
+                <div id="resolutions-container" class="space-y-8">
+                    <!-- Resoluções serão injetadas aqui -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center text-slate-400 text-sm py-8">
+        Baseado no Relatório Técnico Exaustivo sobre a Lei 7.853/1989.
+    </footer>
+
+    <script>
+        // Banco de Dados das Questões
+        const quizData = [
+            {
+                id: 1,
+                question: "(Estilo Instituto AOCP - Adaptada) A Lei nº 7.853/1989 dispõe sobre o apoio às pessoas portadoras de deficiência e sua integração social. No que tange à tutela jurisdicional de interesses coletivos ou difusos dessas pessoas, assinale a alternativa correta sobre a legitimidade para a propositura da ação civil pública.",
+                options: [
+                    "A) Apenas o Ministério Público e a Defensoria Pública têm legitimidade para propor as ações civis públicas previstas na referida lei.",
+                    "B) As associações legalmente constituídas há pelo menos 6 (seis) meses e que incluam, entre suas finalidades institucionais, a proteção das pessoas portadoras de deficiência, têm legitimidade ativa.",
+                    "C) A sentença que concluir pela improcedência do pedido por falta de provas não impedirá que qualquer outro legitimado intente outra ação com idêntico fundamento, valendo-se de nova prova.",
+                    "D) O Ministério Público, se não intervier no processo como parte, atuará obrigatoriamente como fiscal da lei, salvo nas ações propostas pela União.",
+                    "E) Para instruir a petição inicial, o interessado poderá requerer às autoridades competentes as certidões necessárias, que deverão ser fornecidas no prazo improrrogável de 30 (trinta) dias."
+                ],
+                correct: 2, // Índice C (0, 1, 2...)
+                explanation: `<strong>Gabarito: Letra C</strong><br><br>
+                <strong>Fundamentação Jurídica:</strong> A questão aborda a eficácia da sentença na Ação Civil Pública (ACP). A regra geral do Art. 4º da Lei 7.853/89 é a eficácia <em>erga omnes</em>. Contudo, existe a exceção <em>secundum eventum probationis</em>. Se o autor perder a ação por <strong>insuficiência de provas</strong>, a lei permite que outro legitimado entre com nova ação, munido de novas provas.<br><br>
+                <strong>Análise dos Erros:</strong><br>
+                (A) O rol do Art. 3º é amplo (inclui União, Estados, Autarquias, etc.).<br>
+                (B) O prazo de constituição da associação é de <strong>1 ano</strong>, não 6 meses.<br>
+                (D) A intervenção do MP é obrigatória em <strong>todas</strong> as ações.<br>
+                (E) O prazo para fornecimento de certidões é de <strong>15 dias</strong>.`
+            },
+            {
+                id: 2,
+                question: "(Estilo Instituto AOCP - Adaptada) Considerando as disposições da Lei nº 7.853/1989 acerca das obrigações do Poder Público na área da educação, é CORRETO afirmar que deve ser garantida:",
+                options: [
+                    "A) A oferta de educação especial em estabelecimentos públicos de ensino, sendo facultativa a gratuidade para o ensino médio.",
+                    "B) A matrícula compulsória em cursos regulares de estabelecimentos públicos e particulares de pessoas portadoras de deficiência capazes de se integrarem no sistema regular de ensino.",
+                    "C) A criação de escolas especiais exclusivas para portadores de deficiência, segregadas do sistema regular de ensino, visando a proteção integral.",
+                    "D) A oferta de educação especial apenas para o ensino fundamental, sendo o ensino superior de responsabilidade exclusiva da iniciativa privada.",
+                    "E) A inserção, no sistema educacional, da educação especial, mas sem a necessidade de currículos ou etapas próprias, devendo seguir rigorosamente o padrão do ensino regular."
+                ],
+                correct: 1, // Índice B
+                explanation: `<strong>Gabarito: Letra B</strong><br><br>
+                <strong>Fundamentação Jurídica:</strong> Art. 2º, Parágrafo Único, I, alínea "f". A lei determina a matrícula <strong>compulsória</strong> em cursos regulares de estabelecimentos <strong>públicos e particulares</strong> para aqueles capazes de se integrar.<br><br>
+                <strong>Análise dos Erros:</strong><br>
+                (A) A educação especial pública é sempre gratuita.<br>
+                (C) O princípio é a integração, não a segregação.<br>
+                (D) Abrange todos os níveis, inclusive superior.<br>
+                (E) A lei exige currículos, etapas e exigências de diplomação <strong>próprios</strong>.`
+            },
+            {
+                id: 3,
+                question: "(Estilo Instituto AOCP - Penal) Um diretor de uma escola particular de ensino fundamental recusa a matrícula de uma criança, alegando exclusivamente que a escola não possui estrutura para atender alunos com deficiência motora, mesmo a criança tendo capacidade de integração. Nos termos do Art. 8º da Lei nº 7.853/1989, a conduta do diretor configura crime punível com:",
+                options: [
+                    "A) Detenção, de 1 (um) a 4 (quatro) anos, e multa.",
+                    "B) Reclusão, de 2 (dois) a 5 (cinco) anos, e multa.",
+                    "C) Reclusão, de 1 (um) a 3 (três) anos, sem previsão de multa.",
+                    "D) Detenção, de 2 (dois) a 4 (quatro) anos, e multa.",
+                    "E) Multa simples e prestação de serviços à comunidade, não havendo pena privativa de liberdade."
+                ],
+                correct: 1, // Índice B
+                explanation: `<strong>Gabarito: Letra B</strong><br><br>
+                <strong>Fundamentação Jurídica:</strong> Art. 8º, I. Recusar matrícula em estabelecimento público ou privado é crime. A pena base para discriminação nesta lei é <strong>Reclusão, de 2 a 5 anos, e multa</strong>.<br><br>
+                <strong>Dica:</strong> A banca AOCP costuma tentar confundir "Reclusão" com "Detenção" ou alterar os anos (1 a 4, etc). Memorize: 2 a 5 Reclusão.`
+            },
+            {
+                id: 4,
+                question: "(Estilo Instituto AOCP - Processual) Sobre a atuação do Ministério Público definida na Lei nº 7.853/1989, assinale a alternativa correta quanto ao inquérito civil e requisição de informações.",
+                options: [
+                    "A) O Ministério Público poderá requisitar de qualquer pessoa física ou jurídica certidões e informações, fixando prazo que não poderá ser inferior a 10 (dez) dias úteis.",
+                    "B) O prazo mínimo para resposta às requisições do Ministério Público é de 5 (cinco) dias úteis, dada a urgência da matéria.",
+                    "C) O Ministério Público só pode instaurar inquérito civil após provocação de uma associação constituída há mais de um ano.",
+                    "D) O arquivamento do inquérito civil pelo órgão do Ministério Público não depende de homologação ou reexame por órgão superior da instituição.",
+                    "E) As informações requisitadas pelo Ministério Público durante o inquérito civil gozam de sigilo absoluto, não podendo ser utilizadas para instruir a ação civil."
+                ],
+                correct: 0, // Índice A
+                explanation: `<strong>Gabarito: Letra A</strong><br><br>
+                <strong>Fundamentação Jurídica:</strong> Art. 6º. O MP pode requisitar informações e o prazo fixado para resposta <strong>não poderá ser inferior a 10 (dez) dias úteis</strong>.<br><br>
+                <strong>Análise dos Erros:</strong><br>
+                (C) MP age de ofício.<br>
+                (D) O arquivamento depende de homologação do Conselho Superior.<br>
+                (E) A regra é a publicidade para instruir a ação; sigilo é exceção.`
+            },
+            {
+                id: 5,
+                question: "(Estilo Instituto AOCP - Saúde) No tocante às medidas prioritárias na área da saúde previstas no Art. 2º da Lei nº 7.853/1989, incumbe aos órgãos da administração direta e indireta assegurar:",
+                options: [
+                    "A) A internação compulsória de todas as pessoas com deficiência mental, independentemente de laudo médico.",
+                    "B) A garantia de atendimento à saúde exclusivamente em hospitais públicos especializados, vedado o custeio em rede privada.",
+                    "C) O atendimento domiciliar de saúde para pessoas com deficiência grave, não internadas.",
+                    "D) A prioridade de atendimento apenas em casos de risco de morte, seguindo a fila regular nos demais casos.",
+                    "E) O fornecimento de medicamentos importados mesmo sem registro na ANVISA, desde que prescritos por médico particular."
+                ],
+                correct: 2, // Índice C
+                explanation: `<strong>Gabarito: Letra C</strong><br><br>
+                <strong>Fundamentação Jurídica:</strong> Art. 2º, II, "e". A lei garante atendimento domiciliar ("Home Care" público) especificamente para: 1) Deficiência <strong>grave</strong>; e 2) Paciente <strong>não internado</strong>.`
+            },
+            {
+                id: 6,
+                question: "(Estilo Instituto AOCP - Penal/Agravantes) Considere que um médico, em um hospital privado, recusa atendimento de urgência a um paciente em razão de sua deficiência. De acordo com a Lei nº 7.853/1989, a pena prevista para o crime cometido será:",
+                options: [
+                    "A) Reduzida de 1/3 a 2/3 em razão da função social do médico.",
+                    "B) Agravada em 1/3 (um terço) se o crime for praticado em atendimento de urgência e emergência.",
+                    "C) Substituída por pena restritiva de direitos automaticamente.",
+                    "D) Aumentada em metade se a vítima for idosa, independentemente da urgência.",
+                    "E) Aplicada em dobro se o hospital receber verbas públicas."
+                ],
+                correct: 1, // Índice B
+                explanation: `<strong>Gabarito: Letra B</strong><br><br>
+                <strong>Fundamentação Jurídica:</strong> Art. 8º, § 4º. Se o crime é praticado em atendimento de <strong>urgência e emergência</strong>, a pena é agravada em <strong>1/3 (um terço)</strong>.`
+            },
+            {
+                id: 7,
+                question: "(Estilo Instituto AOCP - Trabalho) A Lei nº 7.853/1989 estabelece diretrizes para a área de formação profissional e trabalho. Dentre as medidas previstas, destaca-se:",
+                options: [
+                    "A) A proibição de trabalho em tempo parcial para pessoas com deficiência, para garantir renda integral.",
+                    "B) O apoio governamental para a formação profissional, exceto para cursos de nível superior.",
+                    "C) A adoção de legislação específica que discipline a reserva de mercado de trabalho, em favor das pessoas portadoras de deficiência, nas entidades da Administração Pública e no setor privado.",
+                    "D) A concessão de aposentadoria automática a qualquer pessoa com deficiência que não consiga emprego em 6 meses.",
+                    "E) A criação de oficinas protegidas onde não se aplicam as leis trabalhistas vigentes (CLT)."
+                ],
+                correct: 2, // Índice C
+                explanation: `<strong>Gabarito: Letra C</strong><br><br>
+                <strong>Fundamentação Jurídica:</strong> Art. 2º, III, "d". Medida que fundamenta as cotas: legislação específica para <strong>reserva de mercado</strong> no setor público e privado.`
+            },
+            {
+                id: 8,
+                question: "(Estilo Instituto AOCP - Administração Pública) Segundo o Art. 9º da Lei nº 7.853/1989, a Administração Pública Federal deve conferir aos assuntos relativos às pessoas portadoras de deficiência:",
+                options: [
+                    "A) Tratamento igualitário, sem qualquer tipo de prioridade, para evitar discriminação reversa.",
+                    "B) Tratamento prioritário e apropriado, para que lhes seja efetivamente ensejado o pleno exercício de seus direitos individuais e sociais.",
+                    "C) Tratamento subsidiário, devendo as ações ser executadas primariamente pelos Estados e Municípios.",
+                    "D) Tratamento assistencialista, focado exclusivamente na distribuição de benefícios pecuniários.",
+                    "E) Tratamento sigiloso, para preservar a identidade das pessoas com deficiência."
+                ],
+                correct: 1, // Índice B
+                explanation: `<strong>Gabarito: Letra B</strong><br><br>
+                <strong>Fundamentação Jurídica:</strong> Literalidade do Art. 9º. A Administração deve conferir tratamento <strong>prioritário e apropriado</strong>.`
+            },
+            {
+                id: 9,
+                question: "(Estilo Instituto AOCP - Penal) Assinale a alternativa que NÃO constitui crime punível com reclusão de 2 a 5 anos e multa, conforme o Art. 8º da Lei nº 7.853/1989.",
+                options: [
+                    "A) Obstar inscrição em concurso público em razão da deficiência.",
+                    "B) Negar ou obstar emprego, trabalho ou promoção à pessoa em razão de sua deficiência.",
+                    "C) Deixar de cumprir exigências de acessibilidade previstas nas normas técnicas da ABNT em edificações privadas multifamiliares (sem intenção discriminatória direta contra pessoa específica).",
+                    "D) Recusar ou fazer cessar inscrição de aluno em estabelecimento de ensino de qualquer curso ou grau, público ou privado, em razão de sua deficiência.",
+                    "E) Impedir ou dificultar o ingresso de pessoa com deficiência em planos privados de assistência à saúde, inclusive com cobrança de valores diferenciados."
+                ],
+                correct: 2, // Índice C
+                explanation: `<strong>Gabarito: Letra C</strong><br><br>
+                <strong>Fundamentação Jurídica:</strong> A mera inadequação arquitetônica (descumprimento da ABNT) em prédio privado, sem a conduta dolosa direta de "recusar/obstar" o acesso de alguém, é ilícito administrativo/civil, mas <strong>não é tipificado</strong> como o crime de reclusão do Art. 8º. As demais alternativas (A, B, D, E) são cópias literais dos tipos penais.`
+            },
+            {
+                id: 10,
+                question: "(Estilo Instituto AOCP - Processual) Nas ações civis públicas destinadas à proteção de interesses coletivos ou difusos das pessoas portadoras de deficiência, a sentença proferida terá eficácia de coisa julgada oponível erga omnes. Contudo, a lei prevê uma exceção a essa regra. Assinale a alternativa que apresenta corretamente essa exceção.",
+                options: [
+                    "A) Quando a ação for julgada improcedente por insuficiência de provas.",
+                    "B) Quando a ação for julgada improcedente por prescrição.",
+                    "C) Quando a ação for proposta por associação e houver desistência.",
+                    "D) Quando o Ministério Público opinar contrariamente ao pedido.",
+                    "E) Quando a ação envolver interesse da União e esta não participar do feito."
+                ],
+                correct: 0, // Índice A
+                explanation: `<strong>Gabarito: Letra A</strong><br><br>
+                <strong>Fundamentação Jurídica:</strong> Reforço do Art. 4º. A exceção à coisa julgada <em>erga omnes</em> ocorre apenas na improcedência por <strong>insuficiência de provas</strong>, permitindo repropositura da ação com novas provas.`
+            }
+        ];
+
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = '';
+
+            quizData.forEach((item, index) => {
+                const questionHTML = `
+                    <div class="question-card" id="card-${index}">
+                        <h3 class="text-lg sm:text-xl font-semibold text-slate-800 mb-4 leading-relaxed">
+                            <span class="text-blue-700 font-bold mr-2">Q${index + 1}.</span> ${item.question}
+                        </h3>
+                        <div class="space-y-3">
+                            ${item.options.map((option, optIndex) => `
+                                <label class="option-label flex items-start p-4 rounded-lg border border-slate-200 transition-colors">
+                                    <input type="radio" name="q${index}" value="${optIndex}" class="mt-1.5 mr-3 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                    <span class="text-slate-700 leading-relaxed text-base">${option}</span>
+                                </label>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', questionHTML);
+            });
+        }
+
+        function submitQuiz() {
+            let score = 0;
+            let answeredAll = true;
+            const resolutionsContainer = document.getElementById('resolutions-container');
+            resolutionsContainer.innerHTML = ''; // Limpa anteriores
+
+            quizData.forEach((item, index) => {
+                // Verifica resposta do usuário
+                const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                const card = document.getElementById(`card-${index}`);
+                const labels = card.querySelectorAll('.option-label');
+
+                // Desabilita inputs
+                const inputs = card.querySelectorAll('input');
+                inputs.forEach(input => input.disabled = true);
+
+                // Lógica de Correção Visual na Questão
+                if (selected) {
+                    const userVal = parseInt(selected.value);
+                    if (userVal === item.correct) {
+                        score++;
+                        labels[userVal].classList.add('correct-answer');
+                    } else {
+                        labels[userVal].classList.add('wrong-answer');
+                        labels[item.correct].classList.add('correct-answer'); // Mostra qual era a certa
+                    }
+                } else {
+                    // Se não respondeu, marca a correta como visualização
+                    labels[item.correct].classList.add('correct-answer');
+                    const unansweredMsg = document.createElement('p');
+                    unansweredMsg.className = "text-red-500 text-sm mt-2 font-bold";
+                    unansweredMsg.innerText = "Não respondida.";
+                    card.appendChild(unansweredMsg);
+                }
+
+                // Gera o Card de Resolução
+                const resolutionHTML = `
+                    <div class="bg-white p-6 rounded-lg border-l-4 ${selected && parseInt(selected.value) === item.correct ? 'border-green-500' : 'border-red-500'} shadow-sm">
+                        <h4 class="font-bold text-slate-800 mb-2 flex items-center">
+                            Questão ${index + 1}: 
+                            <span class="ml-2 text-sm font-normal px-2 py-1 rounded ${selected && parseInt(selected.value) === item.correct ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+                                ${selected && parseInt(selected.value) === item.correct ? 'Você acertou' : 'Atenção'}
+                            </span>
+                        </h4>
+                        <div class="prose text-slate-600 text-base leading-relaxed">
+                            ${item.explanation}
+                        </div>
+                    </div>
+                `;
+                resolutionsContainer.insertAdjacentHTML('beforeend', resolutionHTML);
+            });
+
+            // Atualiza Placar e UI
+            document.getElementById('score-display').innerText = score;
+            
+            let feedback = "";
+            if (score === 10) feedback = "Excelente! Domínio total da lei.";
+            else if (score >= 8) feedback = "Muito bom! Você está no caminho certo.";
+            else if (score >= 5) feedback = "Bom, mas revise os pontos detalhados abaixo.";
+            else feedback = "É necessário reforçar a leitura da lei e das resoluções.";
+            
+            document.getElementById('feedback-message').innerText = feedback;
+
+            // Esconde botão, mostra resultados
+            document.getElementById('submit-btn').classList.add('hidden');
+            const resultsSection = document.getElementById('results-section');
+            resultsSection.classList.remove('hidden');
+
+            // Scroll suave até o resultado
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Inicializa o quiz
+        renderQuiz();
+    </script>
+</body>
+</html>

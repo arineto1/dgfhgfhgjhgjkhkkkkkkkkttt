@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado: Crimes contra a Administração Pública - AOCP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #fdfbf7; /* Cream background for eye comfort */
+            color: #2d3748;
+            font-family: 'Merriweather', serif; /* Serif for long reading */
+        }
+        h1, h2, h3, button, .option-label {
+            font-family: 'Inter', sans-serif; /* Sans-serif for UI elements */
+        }
+        .question-card {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .option-item:hover {
+            background-color: #f7fafc;
+        }
+        .option-input:checked + .option-label {
+            color: #2b6cb0;
+            font-weight: 600;
+        }
+        /* Status colors for correction */
+        .correct-answer {
+            background-color: #c6f6d5 !important;
+            border-left: 4px solid #38a169;
+        }
+        .wrong-answer {
+            background-color: #fed7d7 !important;
+            border-left: 4px solid #e53e3e;
+        }
+        .resolution-text {
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen py-10 px-4">
+
+    <div class="max-w-3xl mx-auto">
+        <!-- Header -->
+        <header class="mb-10 text-center border-b pb-6 border-gray-300">
+            <p class="text-sm text-gray-500 uppercase tracking-wide font-semibold mb-2">Simulado Instituto AOCP</p>
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Crimes contra a Administração Pública</h1>
+            <p class="text-lg text-gray-700 italic">Arts. 312 ao 327 do Código Penal</p>
+            <p class="text-sm text-gray-500 mt-2">10 Questões | Resolução Comentada ao Final</p>
+        </header>
+
+        <!-- Quiz Form -->
+        <form id="quiz-form">
+            <div id="questions-container" class="space-y-8">
+                <!-- Questions will be injected here by JS -->
+            </div>
+
+            <!-- Submit Button -->
+            <div class="mt-12 text-center">
+                <button type="submit" 
+                    class="bg-blue-700 hover:bg-blue-800 text-white font-semibold py-4 px-10 rounded-lg shadow-lg transform transition hover:-translate-y-1 text-lg w-full md:w-auto">
+                    Finalizar Simulado e Ver Gabarito
+                </button>
+            </div>
+        </form>
+
+        <!-- Results Section (Hidden by default) -->
+        <div id="results-section" class="hidden mt-16 border-t-2 border-gray-200 pt-10">
+            <div class="bg-gray-100 rounded-xl p-8 text-center mb-10 border border-gray-200">
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Resultado</h2>
+                <div class="text-5xl font-bold text-blue-700 mb-2" id="score-display">0/10</div>
+                <p class="text-gray-600" id="score-message">Confira abaixo as resoluções detalhadas.</p>
+            </div>
+
+            <h3 class="text-2xl font-bold text-gray-900 mb-6 border-l-4 border-blue-700 pl-4">Resoluções Detalhadas</h3>
+            <div id="resolutions-container" class="space-y-12">
+                <!-- Resolutions injected here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                id: 1,
+                tema: "Peculato Culposo (Art. 312, §§ 2º e 3º)",
+                enunciado: "Considere a disciplina do Código Penal acerca dos Crimes contra a Administração Pública. No que tange especificamente ao crime de peculato culposo, a legislação prevê consequências jurídicas distintas dependendo do momento em que ocorre a reparação do dano pelo agente. Assinale a alternativa que descreve corretamente essas consequências.",
+                alternativas: [
+                    "A reparação do dano, se precede à sentença irrecorrível, reduz a pena imposta de um a dois terços, não gerando extinção da punibilidade, visto que o crime já se consumou.",
+                    "A reparação do dano, se posterior à sentença irrecorrível, extingue a punibilidade, dado o caráter patrimonial e a ausência de dolo do delito.",
+                    "No crime de peculato culposo, a reparação do dano, se precede à sentença irrecorrível, extingue a punibilidade; se lhe é posterior, reduz de metade a pena imposta.",
+                    "A reparação do dano no peculato culposo atua apenas como circunstância atenuante genérica, não possuindo eficácia para extinguir a punibilidade, independentemente do momento processual.",
+                    "A extinção da punibilidade pela reparação do dano aplica-se indistintamente ao peculato doloso e ao culposo, desde que realizada antes do recebimento da denúncia."
+                ],
+                correta: 2, // Index 0-based (C)
+                resolucao: `<strong>Gabarito: C.</strong><br><br>
+                A compreensão do <strong>Peculato Culposo</strong> exige uma análise do Art. 312, § 3º. O legislador criou um benefício jurídico (política criminal) exclusivo para a modalidade culposa:<br>
+                1. <strong>Antes da sentença irrecorrível (trânsito em julgado):</strong> A reparação do dano <strong>extingue a punibilidade</strong>.<br>
+                2. <strong>Após a sentença irrecorrível:</strong> A reparação do dano <strong>reduz a pena pela metade</strong>.<br><br>
+                As demais alternativas estão incorretas pois confundem os momentos processuais ou tentam estender o benefício ao peculato doloso (onde a reparação atua apenas como arrependimento posterior ou atenuante, mas nunca extingue a punibilidade).`
+            },
+            {
+                id: 2,
+                tema: "Peculato mediante Erro de Outrem (Art. 313)",
+                enunciado: "Considere a seguinte situação hipotética: Caio, funcionário público responsável pelo recebimento de custas em um cartório judicial, atende um cidadão que, por equívoco pessoal na leitura da tabela de preços, lhe entrega uma quantia em dinheiro superior ao valor realmente devido. Caio, percebendo o erro espontâneo do cidadão e valendo-se da facilidade que o cargo lhe proporciona, não alerta o contribuinte e apropria-se do valor excedente, incorporando-o ao seu patrimônio pessoal. De acordo com o Código Penal, a conduta de Caio caracteriza o crime de:",
+                alternativas: [
+                    "Peculato-apropriação (Art. 312, caput).",
+                    "Peculato-furto (Art. 312, § 1º).",
+                    "Estelionato (Art. 171).",
+                    "Peculato mediante erro de outrem (Art. 313).",
+                    "Concussão (Art. 316)."
+                ],
+                correta: 3, // Index 0-based (D)
+                resolucao: `<strong>Gabarito: D.</strong><br><br>
+                Trata-se do crime de <strong>Peculato mediante erro de outrem</strong> (Art. 313), vulgarmente conhecido como "Peculato-Estelionato".<br>
+                A distinção chave está na origem do erro:<br>
+                - No <strong>Estelionato</strong>, o agente induz a vítima ao erro mediante fraude.<br>
+                - No <strong>Peculato mediante erro de outrem</strong>, o erro é <strong>espontâneo</strong> da vítima. O funcionário apenas percebe o erro e se cala para apropriar-se do valor. Como o enunciado diz que o cidadão errou "por equívoco pessoal", a conduta se amolda perfeitamente ao Art. 313.`
+            },
+            {
+                id: 3,
+                tema: "Concussão vs. Corrupção Passiva",
+                enunciado: "Mévio, funcionário público, exigiu determinada quantia em dinheiro para liberar estabelecimento comercial de eventuais providências administrativas, alegando necessidade financeira. Marque a alternativa CORRETA sobre o crime:",
+                alternativas: [
+                    "Corrupção passiva, dada a solicitação de vantagem indevida.",
+                    "Concussão, caracterizada pelo emprego do verbo nuclear 'exigir'.",
+                    "Peculato-desvio, pois houve desvio da finalidade.",
+                    "Prevaricação, por deixar de praticar ato de ofício.",
+                    "Excesso de exação, pois houve cobrança indevida."
+                ],
+                correta: 1, // Index 0-based (B)
+                resolucao: `<strong>Gabarito: B.</strong><br><br>
+                Questão clássica do Instituto AOCP baseada nos verbos nucleares.<br>
+                - <strong>Concussão (Art. 316):</strong> Verbo <strong>EXIGIR</strong>. Implica imposição, constrangimento baseado no medo da autoridade.<br>
+                - <strong>Corrupção Passiva (Art. 317):</strong> Verbos SOLICITAR, RECEBER ou ACEITAR PROMESSA. Implica mercancia, solicitação ou acordo.<br>
+                Como o enunciado é explícito ao dizer que Mévio <strong>exigiu</strong>, o crime é Concussão. O motivo (necessidade financeira) não altera a tipicidade.`
+            },
+            {
+                id: 4,
+                tema: "Corrupção Passiva e Consumação",
+                enunciado: "Josué, funcionário público, solicitou R$ 500,00 a um empresário para não praticar ato de ofício. O empresário concordou, mas faleceu antes de pagar. É correto afirmar que:",
+                alternativas: [
+                    "Josué cometeu prevaricação.",
+                    "O fato é atípico pois não houve recebimento.",
+                    "Josué praticou corrupção passiva consumado, independentemente do recebimento.",
+                    "Josué responderá apenas por tentativa de corrupção passiva.",
+                    "A conduta configura concussão."
+                ],
+                correta: 2, // Index 0-based (C)
+                resolucao: `<strong>Gabarito: C.</strong><br><br>
+                A <strong>Corrupção Passiva</strong> é um <strong>crime formal</strong> (de consumação antecipada). O tipo penal prevê a conduta de \"Solicitar\". O crime se consuma no momento em que a solicitação chega ao conhecimento do destinatário, independentemente do efetivo recebimento da vantagem (que é mero exaurimento) ou da concordância da vítima.`
+            },
+            {
+                id: 5,
+                tema: "Prevaricação (Art. 319)",
+                enunciado: "Servidor deixa de publicar edital para beneficiar amigo pessoal (satisfazer sentimento pessoal de amizade). Esse fato caracteriza:",
+                alternativas: [
+                    "Exploração de prestígio.",
+                    "Tráfico de influência.",
+                    "Condescendência criminosa.",
+                    "Prevaricação.",
+                    "Corrupção passiva privilegiada."
+                ],
+                correta: 3, // Index 0-based (D)
+                resolucao: `<strong>Gabarito: D.</strong><br><br>
+                <strong>Prevaricação (Art. 319):</strong> Ocorre quando o funcionário retarda ou deixa de praticar ato de ofício para satisfazer <strong>interesse ou sentimento pessoal</strong> (como amizade, ódio, vingança).<br>
+                Diferente da Corrupção Passiva Privilegiada (§ 2º do Art. 317), onde o funcionário age cedendo a pedido ou influência de outrem. Na prevaricação, a motivação nasce espontaneamente dentro do agente (o sentimento de amizade).`
+            },
+            {
+                id: 6,
+                tema: "Abandono de Função (Art. 323)",
+                enunciado: "Joaquim, aprovado em outro concurso, abandona o cargo público municipal antes da exoneração. Sobre o Abandono de Função, assinale a correta:",
+                alternativas: [
+                    "O fato é atípico penalmente.",
+                    "A pena prevista para a modalidade simples é de detenção, de 15 dias a 1 mês, ou multa.",
+                    "O crime só se consuma se resultar prejuízo público.",
+                    "O abandono em faixa de fronteira é causa de diminuição.",
+                    "A pena é de reclusão."
+                ],
+                correta: 1, // Index 0-based (B)
+                resolucao: `<strong>Gabarito: B.</strong><br><br>
+                A banca AOCP cobra a literalidade das penas em crimes de menor potencial. O Art. 323, caput, estabelece pena de <strong>Detenção, de 15 dias a 1 mês, ou multa</strong>.<br>
+                O prejuízo público (§ 1º) e o fato ocorrer em faixa de fronteira (§ 2º) são qualificadoras que aumentam a pena, não requisitos para o tipo básico.`
+            },
+            {
+                id: 7,
+                tema: "Advocacia Administrativa (Art. 321)",
+                enunciado: "A conduta de 'Patrocinar, direta ou indiretamente, interesse privado perante a administração pública, valendo-se da qualidade de funcionário' refere-se a:",
+                alternativas: [
+                    "Tráfico de Influência.",
+                    "Exploração de Prestígio.",
+                    "Advocacia Administrativa.",
+                    "Corrupção Ativa.",
+                    "Condescendência Criminosa."
+                ],
+                correta: 2, // Index 0-based (C)
+                resolucao: `<strong>Gabarito: C.</strong><br><br>
+                É a definição literal do Art. 321. A <strong>Advocacia Administrativa</strong> é o crime do funcionário que atua como gestor de interesses privados dentro da repartição, usando sua facilidade de acesso. <br>
+                Cuidado: Tráfico de Influência é crime de particular contra a administração.`
+            },
+            {
+                id: 8,
+                tema: "Condescendência Criminosa (Art. 320)",
+                enunciado: "Delegado deixa de punir Escrivão por infração leve, alegando ter sentido 'pena' (indulgência) do subordinado. Essa conduta configura:",
+                alternativas: [
+                    "Prevaricação.",
+                    "Corrupção Passiva Privilegiada.",
+                    "Favorecimento Pessoal.",
+                    "Condescendência Criminosa.",
+                    "Fato Atípico."
+                ],
+                correta: 3, // Index 0-based (D)
+                resolucao: `<strong>Gabarito: D.</strong><br><br>
+                A palavra-chave é <strong>Indulgência</strong> (clemência, pena).<br>
+                Se o superior hierárquico deixa de responsabilizar o subordinado por infração, motivado exclusivamente por indulgência, comete Condescendência Criminosa (Art. 320). Se a motivação fosse outra (preguiça, interesse), seria Prevaricação.`
+            },
+            {
+                id: 9,
+                tema: "Funcionário Público por Equiparação",
+                enunciado: "Funcionário de empresa terceirizada 'Vênus' (serviços de reprografia dentro do órgão) subtrai scanner público. Sobre a equiparação (Art. 327, § 1º):",
+                alternativas: [
+                    "Não comete peculato, pois é atividade meio.",
+                    "Equipara-se a funcionário público, respondendo por peculato-furto.",
+                    "É furto comum, pois o vínculo é celetista.",
+                    "Equipara-se apenas quem exerce cargo em entidade paraestatal.",
+                    "Deveria exercer cargo de direção para haver equiparação."
+                ],
+                correta: 1, // Index 0-based (B)
+                resolucao: `<strong>Gabarito: B.</strong><br><br>
+                O Art. 327, § 1º, equipara a funcionário público quem trabalha para <strong>empresa prestadora de serviço contratada ou conveniada</strong> para a execução de atividade típica da Administração. Para fins de concursos (AOCP), quem trabalha dentro da repartição por empresa contratada é considerado funcionário público por equiparação para fins penais, respondendo por Peculato.`
+            },
+            {
+                id: 10,
+                tema: "Excesso de Exação (Art. 316, § 1º)",
+                enunciado: "Assinale a alternativa que descreve a conduta típica do Excesso de Exação:",
+                alternativas: [
+                    "Exigir vantagem indevida em razão da função.",
+                    "Desviar verbas públicas de que tem posse.",
+                    "Exigir tributo indevido, ou, quando devido, empregar meio vexatório.",
+                    "Deixar de recolher tributo descontado.",
+                    "Patrocinar interesse privado na fazenda."
+                ],
+                correta: 2, // Index 0-based (C)
+                resolucao: `<strong>Gabarito: C.</strong><br><br>
+                <strong>Excesso de Exação</strong> é uma forma especial de concussão relacionada à atividade tributária.<br>
+                Configura-se quando o funcionário:<br>
+                1. Exige tributo que sabe ser indevido;<br>
+                2. Na cobrança do tributo devido, emprega meio vexatório ou gravoso não autorizado por lei.`
+            }
+        ];
+
+        function renderQuiz() {
+            const container = document.getElementById('questions-container');
+            
+            quizData.forEach((q, index) => {
+                const questionHTML = `
+                    <div class="question-card rounded-lg p-6 md:p-8" id="card-${index}">
+                        <div class="mb-4">
+                            <span class="bg-gray-200 text-gray-700 text-xs font-bold px-2 py-1 rounded uppercase tracking-wide mb-2 inline-block">Questão ${q.id}</span>
+                            <span class="text-blue-600 text-xs font-bold px-2 py-1 uppercase tracking-wide mb-2 inline-block ml-2">${q.tema}</span>
+                            <p class="text-lg md:text-xl text-gray-800 font-medium leading-relaxed mt-2">${q.enunciado}</p>
+                        </div>
+                        
+                        <div class="space-y-3 mt-6">
+                            ${q.alternativas.map((alt, i) => `
+                                <div class="option-item relative flex items-start p-3 rounded cursor-pointer group">
+                                    <div class="flex items-center h-6">
+                                        <input id="q${index}-opt${i}" name="question-${index}" type="radio" value="${i}" class="option-input h-5 w-5 text-blue-600 border-gray-300 focus:ring-blue-500 cursor-pointer">
+                                    </div>
+                                    <div class="ml-3 text-base">
+                                        <label for="q${index}-opt${i}" class="option-label font-medium text-gray-600 cursor-pointer w-full block leading-relaxed">
+                                            <span class="font-bold mr-2 text-gray-400 group-hover:text-gray-600">${String.fromCharCode(65+i)})</span> ${alt}
+                                        </label>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', questionHTML);
+            });
+        }
+
+        function renderResolutions(userAnswers) {
+            const container = document.getElementById('resolutions-container');
+            container.innerHTML = '';
+
+            quizData.forEach((q, index) => {
+                const userSelected = userAnswers[index];
+                const isCorrect = parseInt(userSelected) === q.correta;
+                
+                const statusClass = isCorrect ? 'border-green-500 bg-green-50' : 'border-red-500 bg-red-50';
+                const statusIcon = isCorrect ? '✅ Acertou' : '❌ Errou';
+                const statusColor = isCorrect ? 'text-green-700' : 'text-red-700';
+
+                const html = `
+                    <article class="bg-white border-l-4 ${statusClass} shadow-sm p-6 rounded-r-lg">
+                        <div class="flex items-center justify-between mb-4">
+                            <h4 class="font-bold text-lg text-gray-800">Questão ${q.id} - ${q.tema}</h4>
+                            <span class="font-bold ${statusColor} text-sm border border-current px-2 py-1 rounded">${statusIcon}</span>
+                        </div>
+                        <div class="resolution-text text-gray-700 border-t pt-4 mt-2 border-gray-200">
+                            ${q.resolucao}
+                        </div>
+                    </article>
+                `;
+                container.insertAdjacentHTML('beforeend', html);
+            });
+        }
+
+        document.getElementById('quiz-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            let score = 0;
+            let answeredCount = 0;
+            const userAnswers = {};
+
+            // Calculate Score
+            quizData.forEach((q, index) => {
+                const selected = document.querySelector(`input[name="question-${index}"]:checked`);
+                if (selected) {
+                    answeredCount++;
+                    userAnswers[index] = selected.value;
+                    if (parseInt(selected.value) === q.correta) {
+                        score++;
+                    }
+                } else {
+                    userAnswers[index] = null;
+                }
+            });
+
+            if (answeredCount < quizData.length) {
+                if(!confirm(`Você respondeu apenas ${answeredCount} de ${quizData.length} questões. Deseja finalizar mesmo assim?`)) {
+                    return;
+                }
+            }
+
+            // UI Updates
+            const resultsSection = document.getElementById('results-section');
+            const scoreDisplay = document.getElementById('score-display');
+            const scoreMessage = document.getElementById('score-message');
+            const submitBtn = this.querySelector('button[type="submit"]');
+
+            resultsSection.classList.remove('hidden');
+            
+            // Animate Scroll to results
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+
+            // Update Score Text
+            scoreDisplay.textContent = `${score} / 10`;
+            
+            if(score >= 8) scoreMessage.textContent = "Excelente! Você domina os crimes contra a Administração Pública.";
+            else if(score >= 6) scoreMessage.textContent = "Bom trabalho! Mas atenção aos detalhes da lei seca.";
+            else scoreMessage.textContent = "Recomendamos revisar os artigos 312 ao 327 do CP com atenção.";
+
+            // Disable inputs
+            const inputs = document.querySelectorAll('input[type="radio"]');
+            inputs.forEach(input => input.disabled = true);
+            submitBtn.style.display = 'none';
+
+            // Highlight Quiz Cards
+            quizData.forEach((q, index) => {
+                const card = document.getElementById(`card-${index}`);
+                const inputs = document.getElementsByName(`question-${index}`);
+                
+                inputs.forEach((input, i) => {
+                    const label = document.querySelector(`label[for="${input.id}"]`).parentElement.parentElement;
+                    
+                    // Highlight Correct Answer Green
+                    if (i === q.correta) {
+                        label.classList.add('correct-answer', 'rounded');
+                    }
+                    
+                    // Highlight Wrong Selection Red
+                    if (input.checked && i !== q.correta) {
+                        label.classList.add('wrong-answer', 'rounded');
+                    }
+                });
+            });
+
+            renderResolutions(userAnswers);
+        });
+
+        // Initialize
+        renderQuiz();
+    </script>
+</body>
+</html>

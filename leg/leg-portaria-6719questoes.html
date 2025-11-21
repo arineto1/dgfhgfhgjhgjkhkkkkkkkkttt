@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado: Portaria MGI 6.719/2024 (AOCP)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Merriweather', serif; /* Ótimo para leitura longa */
+            background-color: #f5f5f4; /* Stone-100: Fundo claro mas não branco puro */
+            color: #1c1917; /* Stone-900: Contraste suave */
+        }
+        h1, h2, h3, button, .ui-font {
+            font-family: 'Inter', sans-serif;
+        }
+        .option-label {
+            transition: all 0.2s ease;
+        }
+        .option-input:checked + .option-label {
+            background-color: #e7e5e4; /* Stone-200 */
+            border-color: #57534e; /* Stone-600 */
+            font-weight: 600;
+        }
+        .correct-answer {
+            background-color: #dcfce7 !important; /* Green-100 */
+            border-color: #16a34a !important; /* Green-600 */
+            color: #14532d !important;
+        }
+        .wrong-answer {
+            background-color: #fee2e2 !important; /* Red-100 */
+            border-color: #dc2626 !important; /* Red-600 */
+            color: #7f1d1d !important;
+        }
+        .resolution-box {
+            display: none;
+            border-left: 4px solid #0ea5e9; /* Sky-500 */
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen pb-20">
+
+    <!-- Cabeçalho -->
+    <header class="bg-white shadow-sm border-b border-stone-200 py-8 sticky top-0 z-10">
+        <div class="max-w-3xl mx-auto px-6">
+            <h1 class="text-2xl md:text-3xl font-bold text-stone-800">Simulado: Portaria MGI nº 6.719/2024</h1>
+            <p class="mt-2 text-stone-600 ui-font">Foco: Banca Instituto AOCP | Prevenção e Enfrentamento do Assédio</p>
+        </div>
+    </header>
+
+    <!-- Container Principal -->
+    <main class="max-w-3xl mx-auto px-6 py-10">
+        
+        <!-- Introdução -->
+        <div class="mb-10 prose prose-stone">
+            <p>Este simulado contém 10 questões elaboradas com base no perfil da banca Instituto AOCP. Responda todas as questões e clique em "Finalizar Simulado" para ver seu desempenho e as resoluções detalhadas.</p>
+        </div>
+
+        <!-- Área do Quiz -->
+        <form id="quizForm" class="space-y-12">
+            <!-- As questões serão injetadas aqui via JavaScript -->
+        </form>
+
+        <!-- Botão de Ação -->
+        <div class="mt-12 border-t border-stone-300 pt-8 text-center">
+            <button type="button" onclick="calculateScore()" id="btnSubmit" 
+                class="ui-font bg-stone-800 hover:bg-stone-900 text-white font-bold py-4 px-10 rounded shadow-lg transform transition hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stone-900 text-lg w-full md:w-auto">
+                Finalizar Simulado
+            </button>
+        </div>
+
+        <!-- Placar (Escondido inicialmente) -->
+        <div id="resultSummary" class="hidden mt-12 p-8 bg-white rounded-lg border border-stone-200 shadow-lg text-center">
+            <h2 class="text-3xl font-bold text-stone-800 mb-4">Resultado</h2>
+            <div class="text-5xl font-bold mb-4" id="scoreDisplay">0/10</div>
+            <p id="scoreMessage" class="text-lg text-stone-600 mb-6"></p>
+            <p class="text-sm text-stone-500 ui-font">Confira abaixo a resolução detalhada de cada questão.</p>
+        </div>
+
+    </main>
+
+    <script>
+        // Dados das Questões
+        const quizData = [
+            {
+                id: 1,
+                question: "A Portaria MGI nº 6.719/2024 institui o Plano Federal de Prevenção e Enfrentamento do Assédio e da Discriminação (PFPEAD). Dentre as definições trazidas pela norma em sua Seção 2, assinale a alternativa que corresponde corretamente ao conceito de \"Assédio Moral Organizacional\".",
+                options: [
+                    "Conduta de conotação sexual praticada no exercício profissional, manifestada fisicamente ou por palavras, proposta ou imposta à pessoa contra sua vontade, causando-lhe constrangimento.",
+                    "Processo de condutas abusivas ou hostis, amparado por estratégias organizacionais ou métodos gerenciais que visem a obter engajamento intensivo ou a excluir pessoas que exercem atividade pública.",
+                    "Distinção, exclusão, restrição ou preferência fundada na raça, cor, sexo, religião ou opinião política, que atente contra o reconhecimento de direitos em condições de igualdade.",
+                    "Conduta praticada no ambiente de trabalho, por meio de gestos, palavras faladas ou escritas que exponham a pessoa a situações humilhantes e constrangedoras, degradando o clima de trabalho.",
+                    "Conjunto de práticas pedagógicas que têm por objetivo conscientizar a pessoa da estrutura e do funcionamento do racismo e da misoginia na sociedade."
+                ],
+                correct: 1, // Index B
+                resolution: "<strong>Análise:</strong> A questão exige a distinção técnica entre as definições. A alternativa correta reproduz <em>ipsis litteris</em> a definição de <strong>Assédio Moral Organizacional</strong>. O ponto chave é a menção a 'estratégias organizacionais' e 'métodos gerenciais'.<br><br><strong>Erros das demais:</strong><br>A) Define Assédio Sexual.<br>C) Define Discriminação.<br>D) Define Assédio Moral (interpessoal).<br>E) Define Letramento em Gênero e Raça."
+            },
+            {
+                id: 2,
+                question: "Considerando as diretrizes gerais estabelecidas no Art. 3º da Portaria MGI nº 6.719/2024, o princípio da \"Universalidade\" determina que a esfera de proteção do Plano abrange:",
+                options: [
+                    "Exclusivamente os servidores públicos efetivos e os ocupantes de cargos em comissão da administração direta.",
+                    "Servidores efetivos, temporários e empregados públicos, vedada a aplicação das diretrizes aos trabalhadores terceirizados.",
+                    "Todas as pessoas na esfera de atuação do órgão, incluindo servidoras e servidores efetivos, temporários, comissionados, empregados públicos, estagiários e trabalhadores terceirizados.",
+                    "Apenas as vítimas de assédio sexual, dada a gravidade da conduta, excluindo-se os casos de conflitos interpessoais leves.",
+                    "Prioritariamente as mulheres e pessoas com deficiência, não se estendendo a proteção aos servidores do sexo masculino em cargos de chefia."
+                ],
+                correct: 2, // Index C
+                resolution: "<strong>Análise:</strong> O princípio da Universalidade visa a proteção integral do meio ambiente de trabalho. A alternativa correta inclui todos os atores, inclusive <strong>estagiários e terceirizados</strong>. A administração pública tem o dever de garantir que as empresas contratadas também adotem políticas de enfrentamento ao assédio."
+            },
+            {
+                id: 3,
+                question: "Para a execução do PFPEAD, a Portaria estabelece uma estrutura de governança denominada \"Rede Federal de Prevenção e Enfrentamento do Assédio e da Discriminação\". Assinale a alternativa que indica corretamente a composição desta Rede, conforme o Art. 5º da norma.",
+                options: [
+                    "Comitê Gestor do Plano Federal, Comitês Estaduais de Acompanhamento e Órgãos e entidades da administração pública federal direta, autárquica e fundacional.",
+                    "Controladoria-Geral da União (CGU), Advocacia-Geral da União (AGU) e Ministério Público Federal (MPF).",
+                    "Ouvidorias, Comissões de Ética, Unidades de Gestão de Pessoas e Unidades do SIASS.",
+                    "Rede de Acolhimento, Escolas de Governo e Sindicatos representativos das categorias funcionais.",
+                    "Comitê de Governança Digital, Comitê de Integridade e Comitê de Auditoria Interna."
+                ],
+                correct: 0, // Index A
+                resolution: "<strong>Análise:</strong> A 'Rede Federal' é a estrutura de governança do plano. A alternativa correta lista os três níveis: Central (Comitê Gestor), Regional (Comitês Estaduais) e Local (Órgãos).<br><br><strong>Atenção:</strong> Não confundir com a Rede de Acolhimento (Ouvidorias, RH, etc.), que é interna."
+            },
+            {
+                id: 4,
+                question: "No tocante aos procedimentos administrativos correcionais e à apuração de denúncias, a Portaria MGI nº 6.719/2024 estabelece garantias para evitar a revitimização. Sobre a realização de oitivas, é correto afirmar que:",
+                options: [
+                    "Devem ocorrer sempre na presença da pessoa denunciada, para assegurar o princípio do contraditório e da ampla defesa em tempo real.",
+                    "As declarações da vítima possuem valor probatório relativo, dependendo exclusivamente de comprovação material por vídeo ou áudio para serem consideradas.",
+                    "A oitiva da pessoa afetada deve ser realizada sem a presença da pessoa denunciada, salvo em situações devidamente justificadas pela comissão processante.",
+                    "É proibida a participação de defensores constituídos durante a oitiva da vítima, para manter o sigilo do procedimento.",
+                    "A vítima deve ser confrontada com o agressor na fase inicial da apuração para tentar uma autocomposição imediata do conflito."
+                ],
+                correct: 2, // Index C
+                resolution: "<strong>Análise:</strong> A proteção à vítima é prioridade. A alternativa correta afirma que a oitiva deve ser feita <strong>sem a presença do denunciado</strong>, salvo justificativa, para evitar a revitimização. Além disso, a declaração da vítima tem 'alta relevância' probatória."
+            },
+            {
+                id: 5,
+                question: "A Portaria MGI nº 6.719/2024 determina um prazo para que os órgãos e entidades da administração pública federal aprovem e publiquem, ou revisem, seus planos específicos de prevenção e enfrentamento do assédio e da discriminação. Esse prazo é de:",
+                options: [
+                    "30 dias contados da publicação da Portaria.",
+                    "60 dias contados da publicação da Portaria.",
+                    "90 dias contados da publicação da Portaria.",
+                    "120 dias contados da publicação da Portaria.",
+                    "180 dias contados da publicação da Portaria."
+                ],
+                correct: 3, // Index D
+                resolution: "<strong>Análise:</strong> Questão de memorização de prazo ('lei seca'). A Portaria estipula <strong>120 dias</strong> para a aprovação ou revisão dos planos específicos pelos órgãos. Este prazo é peremptório e visa acelerar a implementação da política."
+            },
+            {
+                id: 6,
+                question: "A \"Rede de Acolhimento\" é definida na Portaria como o conjunto de espaços institucionais responsáveis pela primeira escuta, orientação e acolhimento. Dentre as unidades citadas na norma como componentes desta rede, NÃO se encontra:",
+                options: [
+                    "Unidades de gestão de pessoas.",
+                    "Ouvidorias.",
+                    "Tribunal de Contas da União (TCU).",
+                    "Comissões de Ética.",
+                    "Unidades do Subsistema Integrado de Atenção à Saúde do Servidor Público Federal (SIASS)."
+                ],
+                correct: 2, // Index C
+                resolution: "<strong>Análise:</strong> A questão pede a exceção. O <strong>TCU</strong> é órgão de controle externo (Legislativo). A Portaria MGI regula o Executivo Federal. As demais alternativas (RH, Ouvidoria, Ética, SIASS) são citadas expressamente como partes da Rede de Acolhimento."
+            },
+            {
+                id: 7,
+                question: "A prevenção é um eixo estruturante do PFPEAD. Nesse sentido, a Portaria estabelece que as Escolas de Governo deverão propiciar formação continuada da Rede de Acolhimento e da Rede Federal, incluindo obrigatoriamente letramento em:",
+                options: [
+                    "Gestão de projetos ágeis e indicadores de desempenho.",
+                    "Legislação orçamentária e responsabilidade fiscal.",
+                    "Gênero, raça, diversidade e inclusão.",
+                    "Processo administrativo eletrônico e segurança da informação.",
+                    "Redação oficial e padronização documental."
+                ],
+                correct: 2, // Index C
+                resolution: "<strong>Análise:</strong> O foco educativo do plano é combater as raízes da violência. A alternativa correta indica que o letramento obrigatório é em <strong>gênero, raça, diversidade e inclusão</strong>."
+            },
+            {
+                id: 8,
+                question: "Segundo as definições constantes na Portaria MGI nº 6.719/2024, o conceito de \"Racismo\" é compreendido como:",
+                options: [
+                    "Apenas atos isolados de injúria racial proferidos por um servidor contra outro.",
+                    "Um fenômeno social marcado por dinâmicas de poder pautadas em diferenciações étnico-raciais hierárquicas e excludentes, concretizando-se em práticas institucionais e estruturais.",
+                    "A distinção de tratamento baseada exclusivamente na competência técnica e no desempenho funcional dos servidores.",
+                    "A aversão a estrangeiros ou pessoas de outras nacionalidades, não se aplicando a cidadãos brasileiros.",
+                    "Um comportamento individual desviante que não possui relação com as estruturas organizacionais da administração pública."
+                ],
+                correct: 1, // Index B
+                resolution: "<strong>Análise:</strong> A Portaria adota uma visão sociológica. A alternativa correta reflete a definição complexa: racismo como <strong>fenômeno de poder e estrutura</strong> (racismo estrutural e institucional), e não apenas injúria individual."
+            },
+            {
+                id: 9,
+                question: "De acordo com o Art. 2º da Portaria, um dos objetivos específicos do Plano é assegurar às pessoas denunciantes proteção contra ações de retaliação. Constitui exemplo de retaliação expressamente vedada no contexto de proteção a denunciantes:",
+                options: [
+                    "A abertura de procedimento investigativo regular para apurar a denúncia feita.",
+                    "A alteração injustificada de funções, atribuições ou local de trabalho da pessoa denunciante.",
+                    "A solicitação de provas materiais que corroborem o relato apresentado.",
+                    "O oferecimento de suporte psicológico e assistência social à vítima.",
+                    "A garantia de sigilo dos dados pessoais durante o curso do processo."
+                ],
+                correct: 1, // Index B
+                resolution: "<strong>Análise:</strong> A proteção ao denunciante proíbe retaliações. A alternativa correta descreve uma forma clássica de assédio retaliatório: a <strong>alteração injustificada de funções ou local de trabalho</strong> (esvaziamento de funções ou remoção punitiva)."
+            },
+            {
+                id: 10,
+                question: "A Portaria MGI nº 6.719/2024 determina que todas as fases de execução do Plano deverão adotar o uso de linguagem:",
+                options: [
+                    "Estritamente técnica e formal, vedado o uso de termos coloquiais.",
+                    "Neutra, com a utilização de pronomes não binários em documentos oficiais.",
+                    "Inclusiva e não violenta.",
+                    "Cifrada, para garantir a confidencialidade das informações sensíveis.",
+                    "Jurídica, para assegurar a precisão dos termos nos processos disciplinares."
+                ],
+                correct: 2, // Index C
+                resolution: "<strong>Análise:</strong> A diretriz de comunicação exige o uso de linguagem <strong>inclusiva e não violenta</strong>. O objetivo é promover o respeito e a visibilidade de todos os gêneros e grupos através da comunicação oficial."
+            }
+        ];
+
+        const formContainer = document.getElementById('quizForm');
+        const letters = ['(A)', '(B)', '(C)', '(D)', '(E)'];
+
+        // Função para renderizar as questões
+        function renderQuiz() {
+            quizData.forEach((item, index) => {
+                const questionHTML = `
+                    <div class="bg-white p-8 rounded-lg shadow-sm border border-stone-200 relative" id="q-card-${index}">
+                        <div class="absolute -top-3 -left-3 w-10 h-10 bg-stone-800 text-white flex items-center justify-center rounded-full font-bold text-lg shadow-md">
+                            ${index + 1}
+                        </div>
+                        <h3 class="text-lg font-semibold mb-6 leading-relaxed text-stone-800 pl-4">${item.question}</h3>
+                        
+                        <div class="space-y-3 ui-font">
+                            ${item.options.map((option, optIndex) => `
+                                <div class="flex items-start">
+                                    <input type="radio" name="q${index}" id="q${index}_opt${optIndex}" value="${optIndex}" class="option-input hidden peer">
+                                    <label for="q${index}_opt${optIndex}" class="option-label flex-1 p-4 rounded-md border border-stone-300 cursor-pointer hover:bg-stone-50 hover:border-stone-400 text-stone-700">
+                                        <span class="font-bold mr-2 text-stone-900">${letters[optIndex]}</span> ${option}
+                                    </label>
+                                </div>
+                            `).join('')}
+                        </div>
+
+                        <!-- Container da Resolução (Inicia oculto) -->
+                        <div id="resolution-${index}" class="resolution-box mt-6 p-5 bg-sky-50 rounded-r-md text-stone-700 text-sm leading-relaxed">
+                            <h4 class="font-bold text-sky-800 mb-2 uppercase text-xs tracking-wider ui-font">Resolução & Gabarito</h4>
+                            ${item.resolution}
+                        </div>
+                    </div>
+                `;
+                formContainer.insertAdjacentHTML('beforeend', questionHTML);
+            });
+        }
+
+        // Função Principal de Correção
+        function calculateScore() {
+            let score = 0;
+            const btnSubmit = document.getElementById('btnSubmit');
+            
+            // Bloquear o botão para evitar múltiplos cliques
+            btnSubmit.disabled = true;
+            btnSubmit.classList.add('opacity-50', 'cursor-not-allowed');
+            btnSubmit.innerText = 'Simulado Finalizado';
+
+            quizData.forEach((item, index) => {
+                const selectedOption = document.querySelector(`input[name="q${index}"]:checked`);
+                const resolutionBox = document.getElementById(`resolution-${index}`);
+                const questionCard = document.getElementById(`q-card-${index}`);
+                const correctInputId = `q${index}_opt${item.correct}`;
+                const correctLabel = document.querySelector(`label[for="${correctInputId}"]`);
+
+                // Mostrar Resolução
+                resolutionBox.style.display = 'block';
+
+                // Lógica de Estilização
+                if (selectedOption) {
+                    const selectedVal = parseInt(selectedOption.value);
+                    const selectedLabel = document.querySelector(`label[for="q${index}_opt${selectedVal}"]`);
+
+                    if (selectedVal === item.correct) {
+                        score++;
+                        selectedLabel.classList.add('correct-answer');
+                    } else {
+                        selectedLabel.classList.add('wrong-answer');
+                        correctLabel.classList.add('correct-answer'); // Mostra a correta também
+                    }
+                } else {
+                    // Se não respondeu, marca a correta e avisa
+                    correctLabel.classList.add('correct-answer');
+                    questionCard.classList.add('border-red-300'); // Borda vermelha suave no card
+                }
+
+                // Desabilitar todos os inputs dessa questão
+                const inputs = document.querySelectorAll(`input[name="q${index}"]`);
+                inputs.forEach(input => input.disabled = true);
+            });
+
+            // Exibir Placar Final
+            const resultSummary = document.getElementById('resultSummary');
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            const scoreMessage = document.getElementById('scoreMessage');
+
+            scoreDisplay.innerText = `${score}/${quizData.length}`;
+            
+            if (score >= 8) {
+                scoreDisplay.classList.add('text-green-600');
+                scoreMessage.innerText = "Excelente! Você domina os conceitos da Portaria MGI 6.719/2024.";
+            } else if (score >= 6) {
+                scoreDisplay.classList.add('text-yellow-600');
+                scoreMessage.innerText = "Bom trabalho! Revise as questões que errou para garantir a aprovação.";
+            } else {
+                scoreDisplay.classList.add('text-red-600');
+                scoreMessage.innerText = "Atenção. Recomendamos uma nova leitura do material teórico.";
+            }
+
+            resultSummary.classList.remove('hidden');
+            
+            // Scroll suave até o resultado
+            resultSummary.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Inicializar
+        renderQuiz();
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado Comentado: Estatuto da Igualdade Racial (Lei 12.288/2010)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fdfbf7; /* Fundo creme suave para leitura */
+            color: #2d3748;
+        }
+        .serif-text {
+            font-family: 'Merriweather', serif;
+            line-height: 1.8;
+        }
+        .resolution-box {
+            display: none; /* Oculto inicialmente */
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Estilização para tabelas dentro das resoluções */
+        .res-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        .res-table th, .res-table td {
+            border: 1px solid #e2e8f0;
+            padding: 0.5rem;
+            text-align: left;
+        }
+        .res-table th {
+            background-color: #edf2f7;
+            font-weight: 600;
+        }
+        /* Estilo para inputs de rádio */
+        .option-label {
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option-label:hover {
+            background-color: #f7fafc;
+        }
+        input[type="radio"]:checked + div {
+            border-color: #4a5568;
+            background-color: #edf2f7;
+            font-weight: 600;
+        }
+        
+        /* Classes de estado após submissão */
+        .correct-answer-highlight {
+            background-color: #d1fae5 !important; /* Verde claro */
+            border-color: #10b981 !important;
+            color: #065f46;
+        }
+        .wrong-answer-highlight {
+            background-color: #fee2e2 !important; /* Vermelho claro */
+            border-color: #ef4444 !important;
+            color: #991b1b;
+        }
+    </style>
+</head>
+<body class="min-h-screen py-10 px-4">
+
+    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden border border-gray-100">
+        <!-- Cabeçalho -->
+        <div class="bg-slate-800 text-white p-8">
+            <h1 class="text-3xl font-bold mb-2">Simulado Técnico-Jurídico</h1>
+            <h2 class="text-xl text-slate-300">Lei Federal nº 12.288/2010 (Estatuto da Igualdade Racial)</h2>
+            <p class="mt-4 text-sm text-slate-400">Foco: Instituto AOCP | Nível: Superior/Jurídico</p>
+        </div>
+
+        <!-- Introdução -->
+        <div class="p-8 border-b border-gray-100 bg-stone-50 serif-text text-gray-600">
+            <p>
+                Este simulado apresenta uma análise técnica detalhada focada na Lei Federal nº 12.288/2010.
+                Responda às 10 questões abaixo e clique em <strong>"Finalizar Simulado"</strong> para ver sua nota e acessar 
+                a resolução analítica completa de cada item, integrando doutrina e jurisprudência.
+            </p>
+        </div>
+
+        <!-- Área do Quiz -->
+        <form id="quizForm" class="p-8 space-y-12">
+            <!-- As questões serão injetadas aqui via JavaScript -->
+        </form>
+
+        <!-- Botão de Ação -->
+        <div class="p-8 bg-gray-50 border-t border-gray-200 flex flex-col items-center justify-center">
+            <div id="scoreBoard" class="hidden mb-6 text-center p-4 bg-blue-50 border border-blue-200 rounded-lg w-full">
+                <h3 class="text-2xl font-bold text-blue-800">Resultado</h3>
+                <p class="text-lg text-blue-700">Você acertou <span id="scoreCount" class="font-bold">0</span> de 10 questões.</p>
+                <p class="text-sm text-blue-600 mt-2">Confira as resoluções detalhadas abaixo de cada questão.</p>
+            </div>
+            
+            <button type="button" onclick="submitQuiz()" id="submitBtn" class="bg-slate-800 hover:bg-slate-700 text-white font-bold py-4 px-8 rounded shadow-lg transition transform hover:-translate-y-0.5 w-full md:w-auto">
+                Finalizar Simulado e Ver Resoluções
+            </button>
+        </div>
+    </div>
+
+    <!-- Rodapé -->
+    <footer class="text-center text-gray-500 text-sm mt-10 pb-10">
+        &copy; 2025 Material de Estudo - Baseado no Relatório Técnico-Jurídico
+    </footer>
+
+    <script>
+        // Dados do Quiz baseados no documento fornecido
+        const quizData = [
+            {
+                id: 1,
+                title: "Questão 01: Conceitos Operacionais",
+                question: "O Artigo 1º da Lei nº 12.288/2010 estabelece definições fundamentais para a aplicação do Estatuto da Igualdade Racial. Considerando a literalidade da norma e a jurisprudência aplicável, assinale a alternativa que apresenta corretamente a definição legal de \"desigualdade de gênero e raça\".",
+                options: [
+                    "Toda distinção, exclusão, restrição ou preferência baseada em raça, cor, descendência ou origem nacional ou étnica que tenha por objeto anular ou restringir o reconhecimento, gozo ou exercício, em igualdade de condições, de direitos humanos e liberdades fundamentais.",
+                    "Assimetria existente no âmbito da sociedade que acentua a distância social entre mulheres negras e os demais segmentos sociais.",
+                    "O conjunto de pessoas que se autodeclaram pretas e pardas, conforme o quesito cor ou raça usado pela Fundação Instituto Brasileiro de Geografia e Estatística (IBGE), ou que adotam autodefinição análoga.",
+                    "Toda situação injustificada de diferenciação de acesso e fruição de bens, serviços e oportunidades, nas esferas pública e privada, em virtude de raça, cor, descendência ou origem nacional ou étnica.",
+                    "Os programas e medidas especiais adotados exclusivamente pelo Estado para a correção das desigualdades raciais e para a promoção da igualdade de oportunidades."
+                ],
+                correct: 1, // Index B
+                resolution: `
+                    <h4 class="font-bold text-lg mb-2 text-slate-700">Resolução Analítica</h4>
+                    <p class="mb-3"><strong>Gabarito: Letra B</strong>. A questão exige precisão terminológica do Art. 1º, Parágrafo Único.</p>
+                    <ul class="list-disc pl-5 space-y-2 mb-4">
+                        <li><strong>Alternativa A (Incorreta):</strong> Trata-se do conceito de <em>Discriminação Racial ou Étnico-racial</em> (Inciso I). É um ato ou conduta (verbo de ação).</li>
+                        <li><strong>Alternativa B (Correta):</strong> Reproduz fielmente o inciso III. Introduz o conceito de <strong>interseccionalidade</strong>, reconhecendo a dupla vulnerabilidade da mulher negra (gênero + raça), criando uma "assimetria" social singular.</li>
+                        <li><strong>Alternativa C (Incorreta):</strong> Refere-se à <em>População Negra</em> (Inciso IV), baseada na autodeclaração (Pretos + Pardos).</li>
+                        <li><strong>Alternativa D (Incorreta):</strong> Refere-se à <em>Desigualdade Racial</em> (Inciso II), que é uma situação de fato/estrutural, não o ato em si.</li>
+                        <li><strong>Alternativa E (Incorreta):</strong> Erra ao dizer "exclusivamente pelo Estado". As Ações Afirmativas (Inciso VI) são adotadas pelo Estado <strong>e pela iniciativa privada</strong>.</li>
+                    </ul>
+                    <p class="text-sm italic bg-gray-100 p-2 rounded">Dica: Associe "Assimetria" sempre a "Desigualdade de Gênero e Raça" nas provas da AOCP.</p>
+                `
+            },
+            {
+                id: 2,
+                title: "Questão 02: Deveres do Estado",
+                question: "O Artigo 4º da Lei nº 12.288/2010 elenca os instrumentos prioritários para a promoção da participação da população negra... Assinale a alternativa que <strong>NÃO</strong> corresponde a um desses instrumentos previstos na literalidade da lei.",
+                options: [
+                    "Inclusão nas políticas públicas de desenvolvimento econômico e social.",
+                    "Adoção de medidas, programas e políticas de ação afirmativa.",
+                    "Modificação das estruturas institucionais do Estado para o adequado enfrentamento e a superação das desigualdades étnicas.",
+                    "Implementação de programas de ação afirmativa destinados ao enfrentamento das desigualdades étnicas no tocante à educação, cultura, esporte e lazer, saúde, segurança, trabalho, moradia, meios de comunicação de massa, financiamentos públicos, acesso à terra, à Justiça, e outros.",
+                    "Criação obrigatória de Secretarias Especiais de Igualdade Racial em todos os Municípios com mais de 50.000 habitantes, sob pena de improbidade administrativa."
+                ],
+                correct: 4, // Index E
+                resolution: `
+                    <h4 class="font-bold text-lg mb-2 text-slate-700">Resolução Analítica</h4>
+                    <p class="mb-3"><strong>Gabarito: Letra E</strong>.</p>
+                    <p>O Estatuto da Igualdade Racial <strong>não impõe</strong> a criação obrigatória de Secretarias Municipais baseadas em número de habitantes, nem comina pena de improbidade administrativa automática no texto da lei 12.288/2010.</p>
+                    <p class="mt-2">O que a lei institui é o <strong>Sinapir</strong> (Sistema Nacional de Promoção da Igualdade Racial), cuja adesão é voluntária (Art. 47). As alternativas A, B, C e D são cópias fiéis dos incisos do Art. 4º, que preveem a transversalidade da política e o combate ao racismo institucional.</p>
+                `
+            },
+            {
+                id: 3,
+                title: "Questão 03: Saúde da População Negra",
+                question: "No que tange ao Direito à Saúde previsto no Estatuto da Igualdade Racial e à Política Nacional de Saúde Integral da População Negra, analise as assertivas e assinale a alternativa correta.<br><br>I. O acesso universal e igualitário ao SUS... será de responsabilidade exclusiva da União...<br>II. O poder público garantirá que o segmento da população negra vinculado aos seguros privados de saúde seja tratado sem discriminação.<br>III. Os moradores de comunidades de remanescentes de quilombos serão beneficiários de incentivos específicos para a garantia do direito à saúde...",
+                options: [
+                    "Apenas I está correta.",
+                    "Apenas II está correta.",
+                    "Apenas I e III estão corretas.",
+                    "Apenas II e III estão corretas.",
+                    "I, II e III estão corretas."
+                ],
+                correct: 3, // Index D (II e III)
+                resolution: `
+                    <h4 class="font-bold text-lg mb-2 text-slate-700">Resolução Analítica</h4>
+                    <p class="mb-3"><strong>Gabarito: Letra D</strong>.</p>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li><strong>Item I (Incorreto):</strong> A saúde é competência comum. O Art. 6º, § 1º cita órgãos federais, estaduais, distritais e municipais. Não é exclusivo da União.</li>
+                        <li><strong>Item II (Correto):</strong> Baseado no Art. 6º, § 2º. A ANS deve fiscalizar práticas discriminatórias nos planos de saúde.</li>
+                        <li><strong>Item III (Correto):</strong> Baseado no Art. 8º, Parágrafo Único. O conceito de saúde para quilombolas é ampliado, incluindo saneamento, segurança alimentar e condições ambientais.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 4,
+                title: "Questão 04: Educação e História",
+                question: "A Lei nº 12.288/2010... estabelece normas sobre o ensino de história. Assinale a alternativa correta sobre a obrigatoriedade e a forma de ministrar tais conteúdos.",
+                options: [
+                    "Nos estabelecimentos de ensino fundamental e de ensino médio, públicos e privados, é facultativo o estudo da história geral da África...",
+                    "O conteúdo programático... incluirá o estudo da História da África e dos Africanos, a luta dos negros no Brasil, a cultura negra brasileira e o negro na formação da sociedade nacional...",
+                    "Os conteúdos... serão ministrados exclusivamente nas disciplinas de Educação Artística...",
+                    "A obrigatoriedade do estudo aplica-se apenas às escolas públicas...",
+                    "O corpo docente para o ensino desses temas deve ser composto exclusivamente por professores autodeclarados negros..."
+                ],
+                correct: 1, // Index B
+                resolution: `
+                    <h4 class="font-bold text-lg mb-2 text-slate-700">Resolução Analítica</h4>
+                    <p class="mb-3"><strong>Gabarito: Letra B</strong>. Integra o Art. 11 do Estatuto com a LDB.</p>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li><strong>Alternativa A e D (Incorretas):</strong> O ensino é <strong>obrigatório</strong> tanto em escolas públicas quanto privadas.</li>
+                        <li><strong>Alternativa B (Correta):</strong> Reproduz o conteúdo material previsto na legislação (visão ativa do negro na história).</li>
+                        <li><strong>Alternativa C (Incorreta):</strong> O ensino deve permear <strong>todo o currículo</strong> escolar (transversalidade), apenas com destaque (não exclusividade) para Artes, Literatura e História.</li>
+                        <li><strong>Alternativa E (Incorreta):</strong> Não há restrição racial para a docência desses temas.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 5,
+                title: "Questão 05: Capoeira",
+                question: "Considerando as disposições do Estatuto da Igualdade Racial sobre a capoeira, assinale a alternativa correta.",
+                options: [
+                    "A capoeira é reconhecida como desporto de criação nacional, sendo obrigatório o ensino da capoeira nas instituições públicas...",
+                    "É facultado o ensino da capoeira nas instituições públicas e privadas pelos capoeiristas e mestres tradicionais, pública e formalmente reconhecidos.",
+                    "O exercício da atividade de capoeirista requer registro prévio no Conselho Regional de Educação Física (CREF)...",
+                    "A capoeira é reconhecida apenas como dança folclórica, não possuindo status desportivo constitucional.",
+                    "O poder público buscará garantir a preservação... apenas no território nacional..."
+                ],
+                correct: 1, // Index B
+                resolution: `
+                    <h4 class="font-bold text-lg mb-2 text-slate-700">Resolução Analítica</h4>
+                    <p class="mb-3"><strong>Gabarito: Letra B</strong>. </p>
+                    <p>Cuidado com a distinção: O ensino de <em>História</em> é obrigatório; o ensino prático de <em>Capoeira</em> é <strong>facultativo</strong>.</p>
+                    <p>A alternativa B reproduz o Art. 22, § 2º, valorizando o saber do mestre tradicional ("notório saber") para ensinar nas escolas, mesmo sem licenciatura formal. A capoeira tem status desportivo constitucional (Art. 217 CF) e proteção inclusive nas relações internacionais (contra apropriação indevida).</p>
+                `
+            },
+            {
+                id: 6,
+                title: "Questão 06: Sinapir",
+                question: "O Artigo 47... institui o Sinapir... Assinale a alternativa que preenche corretamente as lacunas: \"...destinados a superar as __________ existentes no País. Os Estados... poderão participar do Sinapir mediante __________.\"",
+                options: [
+                    "discriminações raciais / lei própria",
+                    "desigualdades étnicas / adesão",
+                    "barreiras sociais / concurso de projetos",
+                    "segregações regionais / decreto legislativo",
+                    "desigualdades de gênero / convênio temporário"
+                ],
+                correct: 1, // Index B
+                resolution: `
+                    <h4 class="font-bold text-lg mb-2 text-slate-700">Resolução Analítica</h4>
+                    <p class="mb-3"><strong>Gabarito: Letra B</strong>.</p>
+                    <p><strong>Lacuna 1:</strong> Desigualdades étnicas. O termo é usado de forma abrangente no Art. 47.</p>
+                    <p><strong>Lacuna 2:</strong> Adesão. O Sinapir funciona por <strong>adesão voluntária</strong> (Art. 47, § 1º). A adesão é a chave que libera prioridade no repasse de recursos federais (Art. 49). Não se exige lei própria ou decreto legislativo para a entrada no sistema, mas um ato administrativo formal de adesão.</p>
+                `
+            },
+            {
+                id: 7,
+                title: "Questão 07: Terras de Quilombos",
+                question: "O Estatuto da Igualdade Racial dedica atenção especial às terras ocupadas por remanescentes das comunidades dos quilombos. Nos termos da Lei nº 12.288/2010, é correto afirmar que:",
+                options: [
+                    "Os moradores dessas comunidades têm apenas o direito de posse, sendo a propriedade mantida em nome da União.",
+                    "É assegurado aos remanescentes das comunidades dos quilombos o direito à preservação de seus usos, costumes, tradições e manifestos religiosos, sob a proteção do Estado, bem como a garantia de acesso a financiamento para a agricultura familiar.",
+                    "A titulação das terras quilombolas é condicionada à comprovação de produtividade agrícola nos últimos cinco anos...",
+                    "O Estado deve promover a realocação dessas comunidades para áreas urbanas...",
+                    "O direito à propriedade definitiva é exclusivo para as comunidades que possuem registro cartorial anterior a 1888."
+                ],
+                correct: 1, // Index B
+                resolution: `
+                    <h4 class="font-bold text-lg mb-2 text-slate-700">Resolução Analítica</h4>
+                    <p class="mb-3"><strong>Gabarito: Letra B</strong>.</p>
+                    <p>Sintetiza o Art. 18 (Cultura) e o Art. 39, § 5º (Crédito/Agricultura). A terra quilombola é protegida como substrato para a sobrevivência física e cultural.</p>
+                    <p><strong>Erros das demais:</strong> Garantem-se <em>propriedade definitiva</em> (não só posse); o critério é histórico-antropológico (ocupação tradicional) e não de produtividade econômica; a realocação é vedada (direito de permanecer na terra); não há marco temporal de registro de 1888 na lei.</p>
+                `
+            },
+            {
+                id: 8,
+                title: "Questão 08: Trabalho e Dados (Lei 14.553/2023)",
+                question: "O Capítulo sobre Trabalho no Estatuto... Considerando as alterações recentes na legislação (Lei nº 14.553/2023), assinale a alternativa correta.",
+                options: [
+                    "As ações afirmativas no mercado de trabalho são restritas ao setor público...",
+                    "É vedada a inclusão de campos destinados à identificação do segmento étnico e racial em formulários de admissão...",
+                    "O poder público estimulará, por meio de incentivos, a adoção de iguais medidas de promoção da igualdade de oportunidades pelo setor privado.",
+                    "O acesso a crédito para a pequena produção será igualitário, proibindo-se a criação de linhas de financiamento com ações afirmativas específicas para mulheres negras.",
+                    "O Estatuto determina a reserva de 20% das vagas em todas as empresas privadas nacionais para a população negra."
+                ],
+                correct: 2, // Index C
+                resolution: `
+                    <h4 class="font-bold text-lg mb-2 text-slate-700">Resolução Analítica</h4>
+                    <p class="mb-3"><strong>Gabarito: Letra C</strong>.</p>
+                    <p>Baseado no Art. 39, § 3º. O Estado usa o poder de fomento para induzir o setor privado.</p>
+                    <p><strong>Atenção à Lei 14.553/2023 (Alternativa B):</strong> Agora é <strong>obrigatória</strong> (e não vedada) a inclusão de campos de raça/etnia em registros administrativos (admissão, demissão, etc.) para gerar estatísticas. A Alternativa D está errada pois a lei prevê crédito específico para mulheres negras. A Alternativa E está errada pois a cota de 20% obrigatória é para o serviço público federal (Lei 12.990), não para o setor privado geral.</p>
+                `
+            },
+            {
+                id: 9,
+                title: "Questão 09: Alterações Legislativas e Penais",
+                question: "O Estatuto da Igualdade Racial alterou dispositivos da Lei nº 7.716/1989, Lei nº 9.029/1995 e Lei nº 7.347/1985. Assinale a alternativa que reflete corretamente uma dessas alterações.",
+                options: [
+                    "O crime de racismo passou a ser afiançável nos casos de injúria racial simples.",
+                    "Na Lei da Ação Civil Pública, foi determinado que, havendo condenação por dano causado por ato de discriminação étnica, a indenização em dinheiro reverterá a um fundo específico para ser usado em ações de promoção da igualdade étnica.",
+                    "A exigência de \"boa aparência\" em anúncios de emprego foi criminalizada com pena de reclusão de 2 a 5 anos...",
+                    "O rompimento da relação de trabalho por ato discriminatório dá ao empregado apenas o direito à indenização por dano moral, sem possibilidade de reintegração.",
+                    "A veiculação de símbolos nazistas... foi descriminalizada..."
+                ],
+                correct: 1, // Index B
+                resolution: `
+                    <h4 class="font-bold text-lg mb-2 text-slate-700">Resolução Analítica</h4>
+                    <p class="mb-3"><strong>Gabarito: Letra B</strong>.</p>
+                    <p>O Estatuto (Art. 62) alterou a Lei da Ação Civil Pública (Art. 13 da Lei 7.347/85). Se o dano é racial, o dinheiro da indenização não vai para o fundo genérico (FDDD), mas deve reverter para ações de promoção da igualdade étnica.</p>
+                    <p><strong>Correções:</strong> A pena para exigência de "boa aparência" (racismo estético) é multa e prestação de serviços (não reclusão); na demissão discriminatória, a reintegração é um direito potestativo do empregado (ele escolhe entre voltar ou indenização em dobro).</p>
+                `
+            },
+            {
+                id: 10,
+                title: "Questão 10: Status das Convenções Internacionais",
+                question: "Considerando o contexto jurídico... a Convenção Interamericana contra o Racismo... foi aprovada pelo Congresso Nacional seguindo o rito do Art. 5º, § 3º da Constituição Federal... É correto afirmar que:",
+                options: [
+                    "A Convenção possui status de Lei Ordinária Federal...",
+                    "A Convenção possui status de Emenda Constitucional, situando-se hierarquicamente acima do Estatuto da Igualdade Racial (Lei Ordinária).",
+                    "A Convenção possui status de norma supralegal...",
+                    "O Estatuto da Igualdade Racial prevalece sobre a Convenção devido ao princípio da especialidade.",
+                    "Ambos possuem o mesmo status hierárquico..."
+                ],
+                correct: 1, // Index B
+                resolution: `
+                    <h4 class="font-bold text-lg mb-2 text-slate-700">Resolução Analítica</h4>
+                    <p class="mb-3"><strong>Gabarito: Letra B</strong>.</p>
+                    <table class="res-table">
+                        <tr><th>Norma</th><th>Status Hierárquico</th></tr>
+                        <tr><td>Convenção Interamericana contra o Racismo</td><td><strong>Emenda Constitucional</strong> (Art. 5º, § 3º CF)</td></tr>
+                        <tr><td>Estatuto da Igualdade Racial</td><td><strong>Lei Ordinária Federal</strong></td></tr>
+                    </table>
+                    <p>Como a Convenção foi aprovada com quórum qualificado, ela integra o Bloco de Constitucionalidade, estando hierarquicamente acima do Estatuto. O Estatuto deve ser interpretado à luz da Convenção.</p>
+                `
+            }
+        ];
+
+        const quizForm = document.getElementById('quizForm');
+        const scoreBoard = document.getElementById('scoreBoard');
+        const scoreCount = document.getElementById('scoreCount');
+        const submitBtn = document.getElementById('submitBtn');
+
+        function renderQuiz() {
+            quizData.forEach((item, index) => {
+                const questionBlock = document.createElement('div');
+                questionBlock.className = 'bg-white p-6 rounded-lg shadow-sm border border-gray-200';
+                questionBlock.innerHTML = `
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">${item.title}</h3>
+                    <p class="serif-text text-lg mb-6 text-gray-700 leading-relaxed">${item.question}</p>
+                    <div class="space-y-3 options-container" id="q${index}-options">
+                        ${item.options.map((opt, i) => `
+                            <label class="option-label flex items-start p-3 rounded-lg border border-gray-200 cursor-pointer">
+                                <input type="radio" name="q${index}" value="${i}" class="mt-1.5 mr-3">
+                                <div class="flex-1 text-gray-700">${['A', 'B', 'C', 'D', 'E'][i]}) ${opt}</div>
+                            </label>
+                        `).join('')}
+                    </div>
+                    <div id="res-${index}" class="resolution-box mt-6 p-6 bg-stone-100 border-l-4 border-slate-500 rounded-r text-gray-800 serif-text text-base">
+                        ${item.resolution}
+                    </div>
+                `;
+                quizForm.appendChild(questionBlock);
+            });
+        }
+
+        function submitQuiz() {
+            let score = 0;
+            const questions = document.querySelectorAll('.options-container');
+            
+            questions.forEach((container, index) => {
+                const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                const userAnswer = selected ? parseInt(selected.value) : -1;
+                const correctAnswer = quizData[index].correct;
+                const labels = container.querySelectorAll('label');
+                const resolutionBox = document.getElementById(`res-${index}`);
+
+                // Reset styles
+                labels.forEach(l => {
+                    l.classList.remove('correct-answer-highlight', 'wrong-answer-highlight');
+                    l.querySelector('div').classList.remove('font-bold');
+                });
+
+                // Logic
+                if (userAnswer === correctAnswer) {
+                    score++;
+                    if (selected) {
+                        selected.parentElement.classList.add('correct-answer-highlight');
+                    }
+                } else {
+                    if (selected) {
+                        selected.parentElement.classList.add('wrong-answer-highlight');
+                    }
+                }
+                
+                // Always highlight the correct answer
+                labels[correctAnswer].classList.add('correct-answer-highlight');
+                labels[correctAnswer].querySelector('div').innerHTML += ' <span class="text-green-700 font-bold ml-2">✓ (Correta)</span>';
+
+                // Disable inputs
+                const inputs = container.querySelectorAll('input');
+                inputs.forEach(input => input.disabled = true);
+
+                // Show resolution
+                resolutionBox.style.display = 'block';
+            });
+
+            // Show Score
+            scoreCount.textContent = score;
+            scoreBoard.classList.remove('hidden');
+            submitBtn.classList.add('hidden');
+
+            // Scroll to top nicely
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Initialize
+        renderQuiz();
+
+    </script>
+</body>
+</html>

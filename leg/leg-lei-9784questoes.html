@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado Lei 9.784/1999 - Estilo AOCP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Slate 50 */
+            color: #1e293b; /* Slate 800 */
+        }
+        .reading-text {
+            font-family: 'Merriweather', serif;
+            line-height: 1.8;
+        }
+        .option-radio:checked + label {
+            background-color: #e2e8f0;
+            border-color: #475569;
+            font-weight: 600;
+        }
+        .correct-answer-bg {
+            background-color: #dcfce7 !important; /* Green 100 */
+            border-color: #16a34a !important;
+        }
+        .wrong-answer-bg {
+            background-color: #fee2e2 !important; /* Red 100 */
+            border-color: #dc2626 !important;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen py-10 px-4 sm:px-6 lg:px-8">
+
+    <main class="max-w-4xl mx-auto bg-white shadow-xl rounded-2xl overflow-hidden border border-slate-200">
+        
+        <!-- Header -->
+        <div class="bg-slate-900 text-white p-8 sm:p-12 text-center">
+            <h1 class="text-3xl sm:text-4xl font-bold mb-4 tracking-tight">Simulado Lei nº 9.784/1999</h1>
+            <p class="text-slate-300 text-lg max-w-2xl mx-auto">
+                Exegese Avançada no Paradigma do Instituto AOCP. Responda às 10 questões abaixo e confira sua pontuação e a resolução analítica ao final.
+            </p>
+        </div>
+
+        <!-- Quiz Form -->
+        <form id="quizForm" class="p-6 sm:p-12 space-y-16">
+            <!-- Questions will be injected here by JS -->
+            <div id="questions-container"></div>
+
+            <!-- Submit Button -->
+            <div class="text-center pt-8 border-t border-slate-200">
+                <button type="button" onclick="submitQuiz()" id="btn-submit" class="bg-blue-700 hover:bg-blue-800 text-white font-bold py-4 px-10 rounded-lg shadow-lg transform transition hover:-translate-y-0.5 text-lg w-full sm:w-auto">
+                    Finalizar Simulado e Ver Gabarito
+                </button>
+            </div>
+        </form>
+
+        <!-- Results Section (Hidden initially) -->
+        <div id="results-section" class="hidden bg-slate-50 border-t-4 border-blue-700">
+            <div class="p-8 sm:p-12">
+                
+                <!-- Score Header -->
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-2">Resultado</h2>
+                    <div id="score-display" class="text-5xl font-black text-blue-700 mb-4"></div>
+                    <p class="text-slate-600 text-lg">Confira abaixo as resoluções detalhadas para cada questão.</p>
+                </div>
+
+                <!-- Resolutions List -->
+                <div id="resolutions-container" class="space-y-12">
+                    <!-- Resolutions injected here -->
+                </div>
+
+                <div class="text-center mt-12">
+                    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="text-blue-700 font-semibold hover:underline">
+                        Voltar ao topo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-center text-slate-500 text-sm py-8">
+        Baseado no Relatório Técnico-Jurídico sobre a Lei 9.784/1999.
+    </footer>
+
+    <!-- Javascript Logic -->
+    <script>
+        const quizData = [
+            {
+                id: 1,
+                title: "Estudo de Caso 1: O Regime Jurídico dos Impedimentos",
+                enunciado: "Um servidor público federal, lotado em unidade de fiscalização, foi designado pela autoridade superior para conduzir e instruir um processo administrativo disciplinar. Ao analisar os autos, o servidor verifica que a matéria objeto do processo envolve, indiretamente, interesses de uma sociedade empresarial da qual ele é sócio minoritário, configurando um benefício reflexo caso a decisão seja favorável ao indiciado. Com base no regime de imparcialidade estatuído pela Lei Federal nº 9.784/1999, assinale a alternativa que descreve corretamente a conduta mandatória do servidor e as consequências jurídicas aplicáveis.",
+                options: [
+                    { id: 'a', text: "O servidor, caso se sinta subjetivamente comprometido, poderá comunicar o fato ao seu superior hierárquico, solicitando dispensa, sendo o ato de comunicação facultativo dada a natureza indireta do interesse." },
+                    { id: 'b', text: "A configuração do impedimento exige interesse direto e imediato na matéria; tratando-se de interesse indireto, aplica-se o regime de suspeição, cuja arguição é prerrogativa das partes, não dever de ofício do servidor." },
+                    { id: 'c', text: "O servidor deverá comunicar o impedimento à autoridade competente e abster-se de atuar no processo, sob pena de a omissão constituir falta grave para efeitos disciplinares." },
+                    { id: 'd', text: "O servidor poderá continuar atuando no processo desde que declare seu interesse na ata de instrução, garantindo a transparência, mas sem necessidade de afastamento, em homenagem ao princípio da eficiência." },
+                    { id: 'e', text: "A legislação processual administrativa federal não prevê o interesse indireto como causa de impedimento, sendo tal situação resolvida apenas na esfera ética, sem nulidade dos atos praticados." }
+                ],
+                correct: 'c',
+                resolution: `
+                    <h3 class="text-xl font-bold mb-3 text-slate-800">Resolução Analítica</h3>
+                    <p class="mb-4">A questão submete à análise o princípio da <strong>impessoalidade</strong> em sua vertente de <strong>imparcialidade</strong>.</p>
+                    
+                    <p class="mb-4 font-semibold">1. A Natureza Jurídica do Impedimento (Artigos 18 e 19)</p>
+                    <p class="mb-4">O Artigo 18 da Lei nº 9.784/1999 define o impedimento como uma presunção absoluta. O Inciso I é claro ao incluir o <strong>interesse indireto</strong> como causa de impedimento. O Artigo 19 impõe o dever: "A autoridade ou servidor que incorrer em impedimento <strong>deve</strong> comunicar o fato... e abster-se de atuar".</p>
+                    
+                    <p class="mb-4 font-semibold">2. Falta Grave</p>
+                    <p class="mb-4">A omissão desse dever constitui <strong>falta grave</strong> para efeitos disciplinares (Art. 19, parágrafo único), transformando o silêncio em infração administrativa.</p>
+                    
+                    <p class="mb-4 text-sm bg-yellow-50 p-3 border-l-4 border-yellow-400 italic">Dica: Impedimento é objetivo e gera nulidade. Suspeição é subjetiva (amizade/inimizade).</p>
+                `
+            },
+            {
+                id: 2,
+                title: "Estudo de Caso 2: Delegação de Competência",
+                enunciado: "O Ministro de Estado de determinada pasta, visando conferir maior celeridade aos trâmites burocráticos, edita uma portaria delegando a um Secretário Executivo (hierarquicamente subordinado) a competência para decidir recursos administrativos interpostos contra decisões de primeira instância, bem como a competência para editar atos normativos secundários que regulamentem procedimentos internos. O ato de delegação foi devidamente publicado no Diário Oficial. Diante desse cenário, assinale a alternativa correta.",
+                options: [
+                    { id: 'a', text: "O ato de delegação é plenamente válido, pois a delegação é um instrumento de desconcentração administrativa que visa à eficiência, sendo permitida a transferência de qualquer competência não exclusiva, desde que publicada oficialmente." },
+                    { id: 'b', text: "A delegação para a decisão de recursos administrativos é válida, mas a delegação para a edição de atos normativos é nula, pois a função normativa é indelegável por sua natureza legislativa atípica." },
+                    { id: 'c', text: "Ambas as delegações são nulas de pleno direito, uma vez que a Lei nº 9.784/1999 veda expressamente a delegação de decisão de recursos administrativos e de edição de atos de caráter normativo." },
+                    { id: 'd', text: "A delegação é válida apenas quanto à edição de atos normativos, visto que a decisão de recursos administrativos exige a autoridade hierárquica superior para garantir o duplo grau de jurisdição." },
+                    { id: 'e', text: "A delegação seria válida se houvesse comprovação de circunstâncias de índole técnica, social, econômica, jurídica ou territorial que a justificassem, independentemente da matéria delegada." }
+                ],
+                correct: 'c',
+                resolution: `
+                    <h3 class="text-xl font-bold mb-3 text-slate-800">Resolução Analítica</h3>
+                    <p class="mb-4">A questão aborda as vedações do Artigo 13 da Lei nº 9.784/1999, conhecida pela regra do <strong>NOREX</strong>.</p>
+                    <ul class="list-disc pl-5 mb-4 space-y-1">
+                        <li><strong>NO</strong>rmativos (Edição de atos de caráter normativo);</li>
+                        <li><strong>R</strong>ecursos (Decisão de recursos administrativos);</li>
+                        <li><strong>EX</strong>clusiva (Matérias de competência exclusiva).</li>
+                    </ul>
+                    <p class="mb-4">No caso, o Ministro delegou exatamente duas matérias proibidas (recursos e atos normativos), tornando o ato nulo, independentemente da hierarquia ou publicação.</p>
+                `
+            },
+            {
+                id: 3,
+                title: "Estudo de Caso 3: Prazos Processuais",
+                enunciado: "No curso de um processo administrativo federal, um interessado foi intimado da decisão final no dia 20 de setembro de 2023 (quarta-feira). O prazo legal para a interposição de recurso administrativo, salvo disposição legal específica em contrário, é de 10 (dez) dias. Considerando as regras de contagem de prazos estabelecidas na Lei nº 9.784/1999, assinale a alternativa correta quanto ao termo final para a apresentação do recurso.",
+                options: [
+                    { id: 'a', text: "O prazo começa a fluir no dia 20/09, dia da intimação, e encerra-se no dia 29/09." },
+                    { id: 'b', text: "O prazo inicia-se no dia 21/09 (primeiro dia útil seguinte à intimação) e a contagem é feita em dias úteis, suspendendo-se no final de semana, o que prorroga o vencimento para meados de outubro." },
+                    { id: 'c', text: "O prazo inicia-se no dia 21/09 (excluindo-se o dia do começo) e a contagem é contínua, incluindo-se sábados e domingos, encerrando-se no dia 30/09 (sábado), prorrogando-se automaticamente para o dia 02/10 (segunda-feira)." },
+                    { id: 'd', text: "O prazo inicia-se na data da juntada do aviso de recebimento (AR) aos autos do processo, independentemente da data da ciência real pelo interessado." },
+                    { id: 'e', text: "O prazo é de 15 (quinze) dias, conforme a regra geral da Lei 9.784/99, iniciando-se no dia útil seguinte à intimação." }
+                ],
+                correct: 'c',
+                resolution: `
+                    <h3 class="text-xl font-bold mb-3 text-slate-800">Resolução Analítica</h3>
+                    <p class="mb-4">A contagem segue o Artigo 66:</p>
+                    <ol class="list-decimal pl-5 mb-4 space-y-1">
+                        <li><strong>Exclui-se o dia do começo:</strong> Intimação dia 20/09, início dia 21/09.</li>
+                        <li><strong>Contagem Contínua:</strong> Diferente do CPC, contam-se sábados e domingos.</li>
+                        <li><strong>Vencimento:</strong> 10 dias a partir de 21/09 cai em 30/09 (Sábado).</li>
+                        <li><strong>Prorrogação:</strong> Como o vencimento caiu em dia sem expediente (sábado), prorroga-se para o primeiro dia útil seguinte (02/10, segunda-feira).</li>
+                    </ol>
+                    <p class="mb-4 text-sm text-red-600">Atenção: O prazo geral de recurso é de 10 dias (Art. 59), não 15.</p>
+                `
+            },
+            {
+                id: 4,
+                title: "Estudo de Caso 4: Motivação dos Atos",
+                enunciado: "A motivação dos atos administrativos é princípio consectário do Estado Democrático de Direito. Assinale a alternativa que apresenta uma hipótese em que a motivação é **obrigatória** segundo o rol taxativo do Art. 50 da Lei nº 9.784/1999.",
+                options: [
+                    { id: 'a', text: "Atos que defiram pedidos de férias de servidores, quando não houver controvérsia fática ou jurídica." },
+                    { id: 'b', text: "Atos que importem anulação, revogação, suspensão ou convalidação de ato administrativo." },
+                    { id: 'c', text: "Atos de mero expediente, como o encaminhamento de autos entre setores de um mesmo órgão." },
+                    { id: 'd', text: "Atos que nomeiem servidores aprovados em concurso público dentro do número de vagas, seguindo estritamente a ordem de classificação." },
+                    { id: 'e', text: "Atos que acolham pareceres anteriores, sendo vedada a motivação aliunde (por referência)." }
+                ],
+                correct: 'b',
+                resolution: `
+                    <h3 class="text-xl font-bold mb-3 text-slate-800">Resolução Analítica</h3>
+                    <p class="mb-4">O Artigo 50, inciso VIII, exige motivação obrigatória para atos que <strong>importem anulação, revogação, suspensão ou convalidação</strong> de ato administrativo. Isso ocorre porque tais atos alteram a estabilidade das relações jurídicas.</p>
+                    <p class="mb-4">A alternativa E está incorreta pois a motivação <em>aliunde</em> (por referência a pareceres anteriores) é expressamente permitida pelo Art. 50, § 1º.</p>
+                `
+            },
+            {
+                id: 5,
+                title: "Estudo de Caso 5: Autotutela e Decadência",
+                enunciado: "A Administração Pública reviu um ato administrativo que havia concedido uma gratificação indevida a um servidor. Considerando a Lei nº 9.784/1999 e o entendimento sumulado do STF, analise as assertivas e assinale a correta.",
+                options: [
+                    { id: 'a', text: "A Administração pode anular seus próprios atos, por motivo de conveniência ou oportunidade, e revogá-los quando eivados de vício de legalidade." },
+                    { id: 'b', text: "O direito da Administração de anular os atos administrativos de que decorram efeitos favoráveis para os destinatários decai em cinco anos, contados da data em que foram praticados, salvo comprovada má-fé." },
+                    { id: 'c', text: "A anulação produz efeitos ex nunc, ou seja, respeita os efeitos produzidos no passado, enquanto a revogação opera efeitos ex tunc." },
+                    { id: 'd', text: "Tratando-se de ato inconstitucional, o prazo decadencial de cinco anos aplica-se integralmente, impedindo a anulação após esse período, em nome da segurança jurídica." },
+                    { id: 'e', text: "A má-fé do beneficiário não interfere no prazo decadencial, devendo a Administração respeitar o quinquênio legal em qualquer hipótese." }
+                ],
+                correct: 'b',
+                resolution: `
+                    <h3 class="text-xl font-bold mb-3 text-slate-800">Resolução Analítica</h3>
+                    <p class="mb-4">A questão exige conhecimento do Art. 54:</p>
+                    <blockquote class="border-l-4 border-slate-300 pl-4 italic mb-4">"O direito da Administração de anular os atos administrativos de que decorram efeitos favoráveis para os destinatários decai em <strong>cinco anos</strong>... salvo comprovada <strong>má-fé</strong>."</blockquote>
+                    <p class="mb-4">Se houver má-fé, não há decadência. A alternativa A inverteu os conceitos (Anulação é para ilegalidade, Revogação é para conveniência). A alternativa C inverteu os efeitos temporais.</p>
+                `
+            },
+            {
+                id: 6,
+                title: "Estudo de Caso 6: Desistência e Extinção",
+                enunciado: "Em um processo administrativo instaurado a pedido de dois interessados para a obtenção de licença ambiental, um dos requerentes protocola pedido de desistência total do pleito. A Administração verifica que a matéria envolve interesse público relevante na preservação de área de manancial. Diante disso:",
+                options: [
+                    { id: 'a', text: "A Administração é obrigada a homologar a desistência e extinguir o processo imediatamente, pois o processo iniciou-se a pedido e vige o princípio da disponibilidade." },
+                    { id: 'b', text: "A desistência do interessado não impede o prosseguimento do processo se a Administração considerar que o interesse público assim o exige." },
+                    { id: 'c', text: "A desistência de um dos interessados obriga a extinção do processo para todos, inclusive para o que não desistiu, dada a indivisibilidade do objeto." },
+                    { id: 'd', text: "O processo administrativo não admite desistência, sendo obrigatória a decisão de mérito em qualquer circunstância." },
+                    { id: 'e', text: "A desistência só pode ser formulada até a fase de instrução; após isso, a decisão é mandatória." }
+                ],
+                correct: 'b',
+                resolution: `
+                    <h3 class="text-xl font-bold mb-3 text-slate-800">Resolução Analítica</h3>
+                    <p class="mb-4">Conforme o Artigo 51, § 2º, a desistência ou renúncia do interessado <strong>não prejudica o prosseguimento do processo</strong>, se a Administração considerar que o <strong>interesse público</strong> assim o exige.</p>
+                    <p class="mb-4">O processo administrativo é regido pela indisponibilidade do interesse público e pela oficialidade, não ficando a Administração refém da vontade da parte quando há interesse coletivo envolvido.</p>
+                `
+            },
+            {
+                id: 7,
+                title: "Estudo de Caso 7: Início e Pluralidade",
+                enunciado: "Sobre a formalização e o início do processo administrativo federal, assinale a alternativa correta.",
+                options: [
+                    { id: 'a', text: "O requerimento inicial deve ser sempre escrito, sendo vedada a solicitação oral mesmo quando houver permissivo em norma específica." },
+                    { id: 'b', text: "É vedada a formulação de pedidos de vários interessados em um único requerimento, devendo cada cidadão iniciar um processo individual para garantir o sigilo." },
+                    { id: 'c', text: "Quando os pedidos de uma pluralidade de interessados tiverem conteúdo e fundamentos idênticos, poderão ser formulados em um único requerimento, salvo preceito legal em contrário." },
+                    { id: 'd', text: "A Administração pode recusar o protocolo de documentos se o servidor verificar que o pedido é improcedente de plano, não sendo necessário orientar o cidadão." },
+                    { id: 'e', text: "O processo administrativo inicia-se exclusivamente por iniciativa da parte interessada, sendo vedada a instauração de ofício pela autoridade competente." }
+                ],
+                correct: 'c',
+                resolution: `
+                    <h3 class="text-xl font-bold mb-3 text-slate-800">Resolução Analítica</h3>
+                    <p class="mb-4">A alternativa C reflete a literalidade do Art. 6º, parágrafo único (ou interpretação sistêmica de pluralidade de interessados no processo administrativo). A eficiência administrativa permite que pedidos com conteúdo e fundamentos idênticos sejam formulados conjuntamente.</p>
+                    <p class="mb-4">Erros das demais: A oralidade é permitida se houver norma (A); A recusa de protocolo é vedada, devendo haver orientação (D); O processo pode iniciar de ofício (E).</p>
+                `
+            },
+            {
+                id: 8,
+                title: "Estudo de Caso 8: Recurso e Reformatio in Pejus",
+                enunciado: "Um servidor punido com suspensão de 10 dias recorre, pleiteando absolvição. A autoridade superior decide aumentar a pena para 30 dias. Considerando a Lei nº 9.784/1999, essa conduta é:",
+                options: [
+                    { id: 'a', text: "Lícita, pois o recurso devolve toda a matéria à autoridade superior, que pode reavaliar tanto os fatos quanto a dosimetria da pena (efeito devolutivo pleno)." },
+                    { id: 'b', text: "Lícita, desde que o servidor seja previamente cientificado para que formule novas alegações antes da decisão de agravamento." },
+                    { id: 'c', text: "Ilícita, pois a Lei nº 9.784/1999 veda expressamente a reformatio in pejus (reforma para pior) em sede de recurso administrativo." },
+                    { id: 'd', text: "Ilícita, pois o recurso administrativo possui apenas efeito suspensivo, não permitindo nova decisão de mérito." },
+                    { id: 'e', text: "Lícita apenas se houver fato novo superveniente que justifique o agravamento." }
+                ],
+                correct: 'b',
+                resolution: `
+                    <h3 class="text-xl font-bold mb-3 text-slate-800">Resolução Analítica</h3>
+                    <p class="mb-4">No <strong>Recurso Administrativo</strong> (Art. 64), a <em>reformatio in pejus</em> é permitida, desde que observado o contraditório prévio (aviso ao recorrente para formular alegações sobre o possível agravamento).</p>
+                    <p class="mb-4">Diferente da <strong>Revisão</strong> (Art. 65), onde o agravamento é expressamente vedado. Como o enunciado falava de recurso, a piora é possível mediante ciência prévia.</p>
+                `
+            },
+            {
+                id: 9,
+                title: "Estudo de Caso 9: Instrução e Provas",
+                enunciado: "Durante a instrução, o interessado requer prova pericial complexa. A Administração indefere. Nos termos da Lei nº 9.784/1999, tal indeferimento:",
+                options: [
+                    { id: 'a', text: "É ilegal, pois o direito à prova é absoluto no processo administrativo." },
+                    { id: 'b', text: "É legal, desde que a prova seja considerada ilícita, impertinente, desnecessária ou protelatória, devendo a decisão ser fundamentada." },
+                    { id: 'c', text: "Depende de prévia autorização judicial para ser válido." },
+                    { id: 'd', text: "Só pode ocorrer se o interessado não antecipar os custos da perícia, visto que o ônus financeiro é sempre do requerente." },
+                    { id: 'e', text: "Não precisa ser motivado, pois a instrução é ato discricionário da autoridade condutora." }
+                ],
+                correct: 'b',
+                resolution: `
+                    <h3 class="text-xl font-bold mb-3 text-slate-800">Resolução Analítica</h3>
+                    <p class="mb-4">Conforme o Artigo 38, § 2º, as provas propostas pelos interessados somente podem ser recusadas mediante <strong>decisão fundamentada</strong>, quando sejam <strong>ilícitas, impertinentes, desnecessárias ou protelatórias</strong>.</p>
+                `
+            },
+            {
+                id: 10,
+                title: "Estudo de Caso 10: Princípios e Formalismo",
+                enunciado: "A Lei nº 9.784/1999 estabelece normas básicas. Dentre os critérios a serem observados, destacam-se a impulsão de ofício e o formalismo. Assinale a alternativa correta.",
+                options: [
+                    { id: 'a', text: "O processo administrativo rege-se pelo formalismo estrito, sendo nulos os atos que não obedeçam à forma determinada em lei, independentemente de prejuízo." },
+                    { id: 'b', text: "A impulsão de ofício retira do interessado a responsabilidade de atuar no processo, cabendo à Administração todas as providências instrutórias." },
+                    { id: 'c', text: "Nos processos administrativos, deve-se observar a adoção de formas simples, suficientes para propiciar adequado grau de certeza, segurança e respeito aos direitos dos administrados." },
+                    { id: 'd', text: "A interpretação da norma administrativa deve privilegiar a forma em detrimento do fim público, garantindo a estrita legalidade procedimental." },
+                    { id: 'e', text: "O processo administrativo depende de representação de advogado para a prática de todos os atos, garantindo a ampla defesa técnica." }
+                ],
+                correct: 'c',
+                resolution: `
+                    <h3 class="text-xl font-bold mb-3 text-slate-800">Resolução Analítica</h3>
+                    <p class="mb-4">Vige o princípio do <strong>Formalismo Moderado</strong> (Art. 2º, IX e Art. 22). Devem ser adotadas formas simples, suficientes para garantir segurança e certeza.</p>
+                    <p class="mb-4">A impulsão de ofício não retira a responsabilidade do interessado (Art. 2º, XII). A presença de advogado é facultativa (Súmula Vinculante 5).</p>
+                `
+            }
+        ];
+
+        function renderQuestions() {
+            const container = document.getElementById('questions-container');
+            
+            quizData.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = "bg-white p-6 sm:p-8 rounded-xl shadow-sm border border-slate-200";
+                questionDiv.id = `card-q${q.id}`;
+                
+                // Options HTML
+                const optionsHtml = q.options.map(opt => `
+                    <div class="flex items-start mb-3 option-item">
+                        <input type="radio" name="q${q.id}" id="q${q.id}_${opt.id}" value="${opt.id}" class="option-radio mt-1.5 mr-3 w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500 cursor-pointer">
+                        <label for="q${q.id}_${opt.id}" class="reading-text text-slate-700 cursor-pointer flex-1 p-2 rounded transition-colors border border-transparent text-base sm:text-lg">
+                            <span class="font-bold mr-2 uppercase text-slate-500 text-sm">${opt.id})</span> ${opt.text}
+                        </label>
+                    </div>
+                `).join('');
+
+                questionDiv.innerHTML = `
+                    <div class="mb-6 pb-4 border-b border-slate-100">
+                        <span class="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1 block">Questão ${q.id}</span>
+                        <h2 class="text-xl font-bold text-slate-900">${q.title}</h2>
+                    </div>
+                    <p class="reading-text text-slate-800 mb-8 text-lg text-justify leading-relaxed">${q.enunciado}</p>
+                    <div class="space-y-2">
+                        ${optionsHtml}
+                    </div>
+                    <!-- Feedback area inside the card (hidden initially) -->
+                    <div id="feedback-q${q.id}" class="hidden mt-6 p-4 rounded-lg text-sm font-semibold"></div>
+                `;
+                container.appendChild(questionDiv);
+            });
+        }
+
+        function submitQuiz() {
+            let score = 0;
+            const resultsSection = document.getElementById('results-section');
+            const resolutionsContainer = document.getElementById('resolutions-container');
+            const btnSubmit = document.getElementById('btn-submit');
+            
+            // Disable button
+            btnSubmit.disabled = true;
+            btnSubmit.classList.add('opacity-50', 'cursor-not-allowed');
+            btnSubmit.innerText = "Prova Corrigida";
+
+            resolutionsContainer.innerHTML = ''; // Clear previous
+
+            quizData.forEach(q => {
+                const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
+                const userAnswer = selected ? selected.value : null;
+                const card = document.getElementById(`card-q${q.id}`);
+                const feedback = document.getElementById(`feedback-q${q.id}`);
+                
+                let isCorrect = false;
+
+                // Visual Feedback on Question Card
+                if (userAnswer === q.correct) {
+                    score++;
+                    isCorrect = true;
+                    feedback.className = "mt-6 p-4 rounded-lg text-green-800 bg-green-50 border border-green-200 flex items-center";
+                    feedback.innerHTML = `<svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg> Resposta Correta!`;
+                    
+                    // Highlight selected label
+                    selected.nextElementSibling.classList.add('correct-answer-bg');
+                } else {
+                    feedback.className = "mt-6 p-4 rounded-lg text-red-800 bg-red-50 border border-red-200 flex items-center";
+                    feedback.innerHTML = `<svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg> Incorreto. A resposta correta era a letra <strong class="ml-1 uppercase">${q.correct}</strong>.`;
+                    
+                    if(selected) {
+                         selected.nextElementSibling.classList.add('wrong-answer-bg');
+                    }
+                }
+                feedback.classList.remove('hidden');
+
+                // Add Detailed Resolution to Bottom Section
+                const resDiv = document.createElement('div');
+                resDiv.className = "bg-white p-8 rounded-xl shadow-sm border border-slate-200 reading-text";
+                resDiv.innerHTML = `
+                    <div class="flex items-center justify-between mb-6 border-b border-slate-100 pb-4">
+                        <h3 class="text-lg font-bold text-slate-700">Questão ${q.id} - ${q.title}</h3>
+                        <span class="px-3 py-1 rounded-full text-xs font-bold uppercase ${isCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+                            ${isCorrect ? 'Você acertou' : 'Você errou'}
+                        </span>
+                    </div>
+                    <div class="mb-4 p-4 bg-slate-50 rounded border border-slate-200 text-sm text-slate-600">
+                        <strong>Gabarito:</strong> Letra ${q.correct.toUpperCase()}
+                    </div>
+                    <div class="text-slate-800 text-lg leading-relaxed space-y-4">
+                        ${q.resolution}
+                    </div>
+                `;
+                resolutionsContainer.appendChild(resDiv);
+            });
+
+            // Update Score Display
+            const scoreDisplay = document.getElementById('score-display');
+            scoreDisplay.textContent = `${score} / ${quizData.length}`;
+            
+            // Show Results Section
+            resultsSection.classList.remove('hidden');
+            
+            // Smooth scroll to results
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Initialize
+        renderQuestions();
+
+    </script>
+</body>
+</html>
