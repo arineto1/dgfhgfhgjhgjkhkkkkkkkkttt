@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado: Lei nº 8.027/1990 - Instituto AOCP</title>
+    <style>
+        :root {
+            --bg-color: #fdfbf7; /* Off-white amarelado suave para leitura */
+            --text-color: #2c3e50; /* Azul escuro/cinza para alto contraste */
+            --accent-color: #2980b9; /* Azul para destaques */
+            --success-color: #27ae60;
+            --error-color: #c0392b;
+            --border-color: #e0e0e0;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Merriweather', 'Georgia', serif; /* Serif para leitura longa */
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding-bottom: 60px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #1a252f;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        .question-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .question-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #34495e;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .options-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .option-item:hover {
+            background-color: #f0f4f8;
+        }
+
+        .option-item label {
+            display: flex;
+            align-items: flex-start;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .option-item input[type="radio"] {
+            margin-right: 12px;
+            margin-top: 6px;
+            transform: scale(1.2);
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 40px auto;
+            padding: 15px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: bold;
+        }
+
+        .btn-submit:hover {
+            background-color: #1a5276;
+        }
+
+        /* Estilos de Feedback (Pós-submissão) */
+        .feedback-section {
+            display: none;
+            margin-top: 40px;
+            border-top: 2px solid var(--border-color);
+            padding-top: 20px;
+        }
+
+        .score-display {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #e8f6f3;
+            border: 1px solid #a3e4d7;
+            border-radius: 8px;
+            color: #0e6251;
+        }
+
+        .resolution-block {
+            background-color: #fcfcfc;
+            border-left: 4px solid var(--accent-color);
+            padding: 20px;
+            margin-top: 15px;
+            margin-bottom: 40px;
+            font-size: 0.95rem;
+        }
+
+        .resolution-title {
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            display: block;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .correct-answer-text {
+            color: var(--success-color);
+            font-weight: bold;
+        }
+
+        /* Marcações visuais nas opções */
+        .option-item.correct {
+            background-color: #d4efdf;
+            border-color: #a9dfbf;
+            color: #145a32;
+        }
+
+        .option-item.incorrect {
+            background-color: #fadbd8;
+            border-color: #e6b0aa;
+            color: #78281f;
+        }
+        
+        /* Ocultar input radio após responder para ficar mais limpo (opcional, mantendo visivel por usabilidade) */
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Lei nº 8.027/1990</h1>
+        <p class="subtitle">Simulado Comentado - Estilo Instituto AOCP<br>Normas de Conduta dos Servidores Públicos Civis</p>
+    </header>
+
+    <form id="quizForm">
+        <!-- QUESTÃO 01 -->
+        <div class="question-card" id="q1">
+            <div class="question-title">QUESTÃO 01</div>
+            <p>A Lei nº 8.027/1990 define o seu campo de incidência subjetiva logo em seu artigo inaugural. De acordo com o Art. 1º da referida Lei, para os efeitos desta norma, considera-se servidor público a pessoa legalmente investida em:</p>
+            <ul class="options-list">
+                <li class="option-item"><label><input type="radio" name="q1" value="A"> (A) Cargo público na administração direta, exclusivamente, excluindo-se os regidos pela Consolidação das Leis do Trabalho.</label></li>
+                <li class="option-item"><label><input type="radio" name="q1" value="B"> (B) Emprego público na administração direta e nas autarquias, vedada a aplicação às fundações públicas de direito privado.</label></li>
+                <li class="option-item"><label><input type="radio" name="q1" value="C"> (C) Cargo ou em emprego público na administração direta, nas autarquias ou nas fundações públicas.</label></li>
+                <li class="option-item"><label><input type="radio" name="q1" value="D"> (D) Função de confiança ou cargo em comissão, apenas no âmbito do Poder Executivo Federal, não se aplicando aos servidores do Legislativo.</label></li>
+                <li class="option-item"><label><input type="radio" name="q1" value="E"> (E) Cargo efetivo, vitalício ou temporário, em qualquer um dos três Poderes da União, desde que aprovado em concurso público.</label></li>
+            </ul>
+        </div>
+
+        <!-- QUESTÃO 02 -->
+        <div class="question-card" id="q2">
+            <div class="question-title">QUESTÃO 02</div>
+            <p>O regime disciplinar impõe padrões éticos e funcionais de comportamento. Assinale a alternativa que apresenta corretamente um dever do servidor público civil, conforme a redação literal do Art. 2º da Lei nº 8.027/1990.</p>
+            <ul class="options-list">
+                <li class="option-item"><label><input type="radio" name="q2" value="A"> (A) Exercer com zelo e dedicação as atribuições legais e regulamentares inerentes ao cargo ou função.</label></li>
+                <li class="option-item"><label><input type="radio" name="q2" value="B"> (B) Levar ao conhecimento da autoridade superior as irregularidades de que tiver ciência em razão do cargo, desde que tal denúncia não comprometa o sigilo da repartição.</label></li>
+                <li class="option-item"><label><input type="radio" name="q2" value="C"> (C) Atender com presteza ao público em geral, prestando as informações requeridas, inclusive aquelas protegidas por sigilo, em nome da transparência.</label></li>
+                <li class="option-item"><label><input type="radio" name="q2" value="D"> (D) Manter conduta compatível com a moralidade administrativa, salvo quando estiver no gozo de licença ou férias.</label></li>
+                <li class="option-item"><label><input type="radio" name="q2" value="E"> (E) Representar contra ilegalidade, omissão ou abuso de poder, diretamente ao Ministério Público Federal.</label></li>
+            </ul>
+        </div>
+
+        <!-- QUESTÃO 03 -->
+        <div class="question-card" id="q3">
+            <div class="question-title">QUESTÃO 03</div>
+            <p>A correta tipificação da falta administrativa é essencial para a aplicação da penalidade adequada. Segundo a Lei nº 8.027/1990, assinale a alternativa que elenca uma conduta punível especificamente com a pena de <strong>advertência por escrito</strong>.</p>
+            <ul class="options-list">
+                <li class="option-item"><label><input type="radio" name="q3" value="A"> (A) Aceitar comissão, emprego ou pensão de Estado estrangeiro, sem licença do Presidente da República.</label></li>
+                <li class="option-item"><label><input type="radio" name="q3" value="B"> (B) Atuar como procurador ou intermediário junto a repartições públicas, salvo quando se tratar de benefícios previdenciários de parentes.</label></li>
+                <li class="option-item"><label><input type="radio" name="q3" value="C"> (C) Opor resistência ao andamento de documento, processo ou à execução de serviço.</label></li>
+                <li class="option-item"><label><input type="radio" name="q3" value="D"> (D) Utilizar pessoal ou recursos materiais da repartição em serviços ou atividades particulares.</label></li>
+                <li class="option-item"><label><input type="radio" name="q3" value="E"> (E) Praticar usura em qualquer de suas modalidades.</label></li>
+            </ul>
+        </div>
+
+        <!-- QUESTÃO 04 -->
+        <div class="question-card" id="q4">
+            <div class="question-title">QUESTÃO 04</div>
+            <p>Um servidor público federal, regido pela Lei nº 8.027/1990, cometeu a infração de "ausentar-se do serviço durante o expediente, sem prévia autorização do superior imediato". Segundo o texto legal, essa conduta enseja a aplicação de qual sanção disciplinar?</p>
+            <ul class="options-list">
+                <li class="option-item"><label><input type="radio" name="q4" value="A"> (A) Demissão a bem do serviço público, devido ao abandono de posto.</label></li>
+                <li class="option-item"><label><input type="radio" name="q4" value="B"> (B) Suspensão por até 90 dias, dada a gravidade da interrupção do serviço.</label></li>
+                <li class="option-item"><label><input type="radio" name="q4" value="C"> (C) Advertência verbal, registrada apenas nos assentamentos locais.</label></li>
+                <li class="option-item"><label><input type="radio" name="q4" value="D"> (D) Advertência por escrito.</label></li>
+                <li class="option-item"><label><input type="radio" name="q4" value="E"> (E) Destituição de cargo em comissão, independentemente da natureza do vínculo originário.</label></li>
+            </ul>
+        </div>
+
+        <!-- QUESTÃO 05 -->
+        <div class="question-card" id="q5">
+            <div class="question-title">QUESTÃO 05</div>
+            <p>Analise as assertivas abaixo à luz do Art. 4º da Lei nº 8.027/1990 e assinale a alternativa que corresponde a uma falta administrativa punível com a pena de <strong>suspensão por até 90 (noventa) dias</strong>.</p>
+            <ul class="options-list">
+                <li class="option-item"><label><input type="radio" name="q5" value="A"> (A) Recusar fé a documentos públicos.</label></li>
+                <li class="option-item"><label><input type="radio" name="q5" value="B"> (B) Retirar, sem prévia anuência da autoridade competente, qualquer documento ou objeto da repartição.</label></li>
+                <li class="option-item"><label><input type="radio" name="q5" value="C"> (C) Promover manifestação de apreço ou desapreço no recinto da repartição.</label></li>
+                <li class="option-item"><label><input type="radio" name="q5" value="D"> (D) Atribuir a outro servidor público funções ou atividades estranhas às do cargo, emprego ou função que ocupa, exceto em situação de emergência e transitória.</label></li>
+                <li class="option-item"><label><input type="radio" name="q5" value="E"> (E) Coagir ou aliciar subordinados com objetivos de natureza político-partidária.</label></li>
+            </ul>
+        </div>
+
+        <!-- QUESTÃO 06 -->
+        <div class="question-card" id="q6">
+            <div class="question-title">QUESTÃO 06</div>
+            <p>A penalidade capital do regime disciplinar é a demissão. Segundo a Lei nº 8.027/1990, a penalidade de <strong>demissão</strong> será aplicada, entre outras hipóteses, ao servidor que:</p>
+            <ul class="options-list">
+                <li class="option-item"><label><input type="radio" name="q6" value="A"> (A) Coagir ou aliciar subordinados com objetivos de natureza político-partidária.</label></li>
+                <li class="option-item"><label><input type="radio" name="q6" value="B"> (B) Manter sob sua chefia imediata cônjuge, companheiro ou parente até o segundo grau civil.</label></li>
+                <li class="option-item"><label><input type="radio" name="q6" value="C"> (C) Exercer quaisquer atividades incompatíveis com o cargo ou a função pública, ou, ainda, com horário de trabalho.</label></li>
+                <li class="option-item"><label><input type="radio" name="q6" value="D"> (D) Cometer a pessoa estranha à repartição, fora dos casos previstos em lei, o desempenho de encargo que lhe competir ou a seus subordinados.</label></li>
+                <li class="option-item"><label><input type="radio" name="q6" value="E"> (E) Recusar-se a atualizar seus dados cadastrais quando solicitado.</label></li>
+            </ul>
+        </div>
+
+        <!-- QUESTÃO 07 -->
+        <div class="question-card" id="q7">
+            <div class="question-title">QUESTÃO 07</div>
+            <p>A prescrição da pretensão punitiva é um dos temas onde há maior divergência entre a Lei 8.027/90 e a Lei 8.112/90. Para fins de prova baseada estritamente na Lei nº 8.027/1990, assinale a alternativa correta sobre os prazos prescricionais.</p>
+            <ul class="options-list">
+                <li class="option-item"><label><input type="radio" name="q7" value="A"> (A) A falta sujeita à pena de advertência prescreve em 180 dias, contados da data do conhecimento do fato.</label></li>
+                <li class="option-item"><label><input type="radio" name="q7" value="B"> (B) A falta sujeita à pena de suspensão prescreve em 2 (dois) anos.</label></li>
+                <li class="option-item"><label><input type="radio" name="q7" value="C"> (C) A falta sujeita à pena de demissão prescreve em 10 (dez) anos.</label></li>
+                <li class="option-item"><label><input type="radio" name="q7" value="D"> (D) A falta também prevista na lei penal como crime prescreve em 5 anos, independentemente da pena cominada na esfera criminal.</label></li>
+                <li class="option-item"><label><input type="radio" name="q7" value="E"> (E) O prazo prescricional não se interrompe com a abertura de sindicância ou processo administrativo.</label></li>
+            </ul>
+        </div>
+
+        <!-- QUESTÃO 08 -->
+        <div class="question-card" id="q8">
+            <div class="question-title">QUESTÃO 08</div>
+            <p>Considere a situação hipotética de um servidor inativo que tenha praticado, quando ainda estava na ativa, uma falta punível com demissão. Após apurada a infração em processo administrativo disciplinar, qual será a consequência jurídica segundo o Art. 9º da Lei nº 8.027/1990?</p>
+            <ul class="options-list">
+                <li class="option-item"><label><input type="radio" name="q8" value="A"> (A) A conversão da pena em multa de 50% dos proventos por período determinado.</label></li>
+                <li class="option-item"><label><input type="radio" name="q8" value="B"> (B) O arquivamento do processo, dada a impossibilidade de demitir quem não ocupa mais cargo.</label></li>
+                <li class="option-item"><label><input type="radio" name="q8" value="C"> (C) A aplicação de censura pública registrada em diário oficial.</label></li>
+                <li class="option-item"><label><input type="radio" name="q8" value="D"> (D) A cassação da aposentadoria ou a disponibilidade do inativo.</label></li>
+                <li class="option-item"><label><input type="radio" name="q8" value="E"> (E) A reintegração automática ao cargo para posterior aplicação da demissão.</label></li>
+            </ul>
+        </div>
+
+        <!-- QUESTÃO 09 -->
+        <div class="question-card" id="q9">
+            <div class="question-title">QUESTÃO 09</div>
+            <p>A Lei nº 8.027/1990 prevê, em seu Art. 4º, uma hipótese específica de cumulação de penalidades. A pena de suspensão por até 90 dias poderá ser cumulada, se couber, com:</p>
+            <ul class="options-list">
+                <li class="option-item"><label><input type="radio" name="q9" value="A"> (A) A pena de multa pecuniária.</label></li>
+                <li class="option-item"><label><input type="radio" name="q9" value="B"> (B) A destituição do cargo em comissão.</label></li>
+                <li class="option-item"><label><input type="radio" name="q9" value="C"> (C) A obrigação de ressarcimento ao erário.</label></li>
+                <li class="option-item"><label><input type="radio" name="q9" value="D"> (D) A inabilitação para o exercício de função pública pelo prazo de 5 anos.</label></li>
+                <li class="option-item"><label><input type="radio" name="q9" value="E"> (E) A advertência por escrito, para fins de registro de reincidência.</label></li>
+            </ul>
+        </div>
+
+        <!-- QUESTÃO 10 -->
+        <div class="question-card" id="q10">
+            <div class="question-title">QUESTÃO 10</div>
+            <p>Sobre a vigência e as disposições finais da Lei nº 8.027/1990, é correto afirmar que:</p>
+            <ul class="options-list">
+                <li class="option-item"><label><input type="radio" name="q10" value="A"> (A) A lei aplica-se exclusivamente aos servidores do Poder Legislativo e do Ministério Público da União.</label></li>
+                <li class="option-item"><label><input type="radio" name="q10" value="B"> (B) A lei foi tacitamente revogada pela Constituição Federal de 1988.</label></li>
+                <li class="option-item"><label><input type="radio" name="q10" value="C"> (C) A lei prevê expressamente a revogação das disposições em contrário e entrou em vigor na data de sua publicação.</label></li>
+                <li class="option-item"><label><input type="radio" name="q10" value="D"> (D) As faltas administrativas previstas na lei devem ser apuradas exclusivamente mediante processo judicial, sendo vedada a via administrativa.</label></li>
+                <li class="option-item"><label><input type="radio" name="q10" value="E"> (E) O servidor que não assumir no prazo legal o exercício do cargo em que for aproveitado sofrerá apenas a pena de suspensão.</label></li>
+            </ul>
+        </div>
+
+        <button type="button" class="btn-submit" onclick="submitQuiz()">Finalizar Simulado e Ver Resoluções</button>
+    </form>
+
+    <!-- ÁREA DE RESULTADOS (INICIALMENTE OCULTA) -->
+    <div id="resultsArea" class="feedback-section">
+        <div class="score-display" id="scoreDisplay"></div>
+        
+        <h2 style="text-align: center; margin-bottom: 30px;">Resolução Analítica e Gabarito</h2>
+
+        <!-- Resoluções serão inseridas aqui via JS para manter a organização, mas o conteúdo está "hardcoded" no JS abaixo para fidelidade -->
+        <div id="resolutionsContainer"></div>
+    </div>
+</div>
+
+<script>
+    // Gabarito e Resoluções extraídas do documento original
+    const quizData = [
+        {
+            id: "q1",
+            correct: "C",
+            explanation: `
+                <strong>Gabarito: C</strong><br><br>
+                <strong>Exegese do Artigo 1º da Lei 8.027/1990:</strong> O texto legal é taxativo: "Art. 1º Para os efeitos desta lei, servidor público é a pessoa legalmente investida em cargo ou em emprego público na administração direta, nas autarquias ou nas fundações públicas."<br>
+                A análise revela três elementos cruciais:
+                1. Natureza do Vínculo: Abrange tanto "cargo" quanto "emprego público".
+                2. Abrangência: Administração Direta, Autarquias e Fundações Públicas. Empresas Públicas e Sociedades de Economia Mista NÃO são citadas.
+                3. Fundações: A menção expressa às "fundações públicas" é essencial. A exclusão de celetistas (emprego público) na alternativa A e a exclusão de fundações na B estão incorretas.
+            `
+        },
+        {
+            id: "q2",
+            correct: "A",
+            explanation: `
+                <strong>Gabarito: A</strong><br><br>
+                <strong>Análise do Dever de Zelo:</strong> A alternativa reproduz fielmente o inciso I do Art. 2º: "exercer com zelo e dedicação as atribuições legais e regulamentares inerentes ao cargo ou função".<br>
+                Erros das outras opções:
+                (B) O sigilo não impede a denúncia de irregularidades.
+                (C) O dever é prestar informações RESSALVADAS as protegidas por sigilo.
+                (D) A moralidade administrativa é exigida permanentemente, inclusive em férias.
+                (E) O dever primário é representar à autoridade superior (via administrativa), e não diretamente ao MPF nesta lei.
+            `
+        },
+        {
+            id: "q3",
+            correct: "C",
+            explanation: `
+                <strong>Gabarito: C</strong><br><br>
+                <strong>Taxonomia das Infrações Leves:</strong> O Art. 3º, inciso IV, é claro: "opor resistência ao andamento de documento, processo ou à execução de serviço" é falta punível com advertência por escrito.<br>
+                Divergências importantes:
+                (A) Aceitar comissão estrangeira: Na Lei 8.027 é SUSPENSÃO (Art. 4º), diferente da Lei 8.112 (Demissão).
+                (B) Atuar como procurador: É SUSPENSÃO na Lei 8.027.
+                (D) Utilizar recursos da repartição: É DEMISSÃO (Art. 5º).
+                (E) Usura: É DEMISSÃO.
+            `
+        },
+        {
+            id: "q4",
+            correct: "D",
+            explanation: `
+                <strong>Gabarito: D</strong><br><br>
+                <strong>A Formalidade da Punição:</strong> O Art. 3º dispõe: "São faltas administrativas, puníveis com a pena de advertência por escrito: I - ausentar-se do serviço durante o expediente, sem prévia autorização do superior imediato".<br>
+                A figura da "advertência verbal" não existe juridicamente na Lei 8.027/90 ou 8.112/90. Para punir, o ato deve ser formal e escrito.
+            `
+        },
+        {
+            id: "q5",
+            correct: "D",
+            explanation: `
+                <strong>Gabarito: D</strong><br><br>
+                <strong>Desvio de Função:</strong> O Art. 4º, IV, pune com suspensão por até 90 dias o ato de "atribuir a outro servidor público funções ou atividades estranhas às do cargo, emprego ou função que ocupa, exceto em situação de emergência e transitória".<br>
+                As demais opções (Recusar fé, Retirar documento, Manifestação de apreço, Coação política) são todas puníveis com ADVERTÊNCIA segundo o Art. 3º desta lei.
+            `
+        },
+        {
+            id: "q6",
+            correct: "C",
+            explanation: `
+                <strong>Gabarito: C</strong><br><br>
+                <strong>Incompatibilidade:</strong> O Art. 5º, V, determina a demissão para quem "exercer quaisquer atividades incompatíveis com o cargo ou a função pública, ou, ainda, com horário de trabalho".<br>
+                Erros comuns: Coação política e Nepotismo direto (manter parente sob chefia) são ADVERTÊNCIA na Lei 8.027, embora pareçam graves.
+            `
+        },
+        {
+            id: "q7",
+            correct: "B",
+            explanation: `
+                <strong>Gabarito: B</strong><br><br>
+                <strong>O Conflito de Prazos Prescricionais:</strong> A Lei 8.027 estabelece no Art. 8º, § 9º:<br>
+                I - em 2 (dois) anos, a falta sujeita às penas de advertência e suspensão;<br>
+                II - em 5 (cinco) anos, a falta sujeita à pena de demissão.<br>
+                Atenção: Na Lei 8.112/90 a advertência prescreve em 180 dias, mas na Lei 8.027 são 2 ANOS.
+            `
+        },
+        {
+            id: "q8",
+            correct: "D",
+            explanation: `
+                <strong>Gabarito: D</strong><br><br>
+                <strong>Punição Post-Mortem (Funcional):</strong> Segundo o Art. 9º: "Será cassada a aposentadoria ou a disponibilidade do inativo que houver praticado, na ativa, falta punível com demissão...".<br>
+                A aposentadoria não blinda o servidor de atos cometidos na ativa. Não existe conversão em multa ou censura pública para este caso.
+            `
+        },
+        {
+            id: "q9",
+            correct: "B",
+            explanation: `
+                <strong>Gabarito: B</strong><br><br>
+                <strong>Cumulação de Sanções:</strong> O Art. 4º prevê: "São faltas administrativas, puníveis com a pena de suspensão por até 90 (noventa) dias, cumulada, se couber, com a destituição do cargo em comissão".<br>
+                Se a falta é grave o suficiente para suspender, ela quebra a confiança necessária para o cargo de comissão.
+            `
+        },
+        {
+            id: "q10",
+            correct: "C",
+            explanation: `
+                <strong>Gabarito: C</strong><br><br>
+                <strong>Vigência:</strong> O Art. 10 determina a vigência na data da publicação e o Art. 11 revoga disposições em contrário. A Lei 8.027 não foi revogada pela 8.112 e continua válida, sendo frequentemente cobrada por bancas legalistas como a AOCP.
+            `
+        }
+    ];
+
+    function submitQuiz() {
+        let score = 0;
+        const total = quizData.length;
+        const resolutionsContainer = document.getElementById('resolutionsContainer');
+        resolutionsContainer.innerHTML = ''; // Limpar anterior
+
+        quizData.forEach((item, index) => {
+            const questionNum = index + 1;
+            const selectedOption = document.querySelector(`input[name="${item.id}"]:checked`);
+            const questionCard = document.getElementById(item.id);
+            
+            // Lógica de Correção Visual nas Opções
+            const allOptions = questionCard.querySelectorAll('.option-item');
+            allOptions.forEach(opt => {
+                const input = opt.querySelector('input');
+                // Remove estilos anteriores
+                opt.classList.remove('correct', 'incorrect');
+                
+                // Marca a correta
+                if (input.value === item.correct) {
+                    opt.classList.add('correct');
+                }
+                
+                // Se usuário errou, marca a incorreta dele
+                if (selectedOption && input === selectedOption && input.value !== item.correct) {
+                    opt.classList.add('incorrect');
+                }
+            });
+
+            // Contagem de pontos
+            if (selectedOption && selectedOption.value === item.correct) {
+                score++;
+            }
+
+            // Criação do Bloco de Resolução no final da página
+            const resDiv = document.createElement('div');
+            resDiv.className = 'resolution-block';
+            resDiv.innerHTML = `
+                <span class="resolution-title">Resolução da Questão ${questionNum}</span>
+                ${item.explanation}
+            `;
+            resolutionsContainer.appendChild(resDiv);
+        });
+
+        // Exibir Placar
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        const percentage = (score / total) * 100;
+        let message = '';
+        
+        if (percentage >= 80) message = "Excelente desempenho! Você domina a Lei 8.027/90.";
+        else if (percentage >= 60) message = "Bom trabalho, mas atenção aos detalhes divergentes da Lei 8.112.";
+        else message = "Recomenda-se a leitura atenta do relatório e da lei seca.";
+
+        scoreDisplay.innerHTML = `
+            <strong>Você acertou ${score} de ${total} questões (${percentage}%)</strong><br>
+            <span style="font-size: 1rem; color: #555;">${message}</span>
+        `;
+
+        // Mostrar área de resultados e rolar até ela
+        document.getElementById('resultsArea').style.display = 'block';
+        document.getElementById('resultsArea').scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>

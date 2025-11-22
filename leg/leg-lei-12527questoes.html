@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado LAI - Instituto AOCP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fdfbf7; /* Creme muito suave para conforto visual */
+            color: #292524; /* Stone 800 - Contraste suave */
+        }
+        .serif-text {
+            font-family: 'Merriweather', serif;
+        }
+        .option-radio:checked + label {
+            background-color: #e7e5e4;
+            border-color: #57534e;
+        }
+        .correct-answer {
+            background-color: #dcfce7 !important; /* Green 100 */
+            border-color: #166534 !important; /* Green 800 */
+            color: #14532d;
+        }
+        .wrong-answer {
+            background-color: #fee2e2 !important; /* Red 100 */
+            border-color: #991b1b !important; /* Red 800 */
+            color: #7f1d1d;
+        }
+        /* Transições suaves */
+        .transition-colors {
+            transition: all 0.2s ease-in-out;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen py-8 px-4 sm:px-6 lg:px-8">
+
+    <div class="max-w-4xl mx-auto">
+        
+        <!-- Cabeçalho -->
+        <header class="mb-12 text-center">
+            <h1 class="text-3xl sm:text-4xl font-bold text-stone-800 mb-4 tracking-tight">
+                Simulado: Lei de Acesso à Informação (LAI)
+            </h1>
+            <p class="text-lg text-stone-600 max-w-2xl mx-auto serif-text leading-relaxed">
+                Foco: Banca Instituto AOCP. <br>
+                Responda às 10 questões abaixo. Ao finalizar, o gabarito e as resoluções detalhadas serão exibidos.
+            </p>
+            
+            <!-- Placar (Oculto inicialmente) -->
+            <div id="score-board" class="hidden mt-8 p-6 bg-white border border-stone-200 rounded-xl shadow-sm animate-fade-in">
+                <h2 class="text-2xl font-bold mb-2">Resultado</h2>
+                <p class="text-xl">Você acertou <span id="score-count" class="font-bold text-emerald-700"></span> de <span class="font-bold">10</span> questões.</p>
+                <p id="score-message" class="mt-2 text-stone-600"></p>
+                <button onclick="window.location.reload()" class="mt-4 px-6 py-2 bg-stone-800 text-white rounded-lg hover:bg-stone-700 transition-colors text-sm font-medium">
+                    Refazer Simulado
+                </button>
+            </div>
+        </header>
+
+        <!-- Formulário do Quiz -->
+        <form id="quiz-form" class="space-y-12">
+            <!-- As questões serão injetadas aqui via JavaScript -->
+        </form>
+
+        <!-- Botão de Finalização -->
+        <div class="mt-12 text-center">
+            <button type="button" id="submit-btn" onclick="calculateResults()" class="px-8 py-4 bg-emerald-700 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-emerald-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition-all transform hover:scale-105">
+                Finalizar Simulado e Ver Resoluções
+            </button>
+        </div>
+
+        <footer class="mt-16 text-center text-stone-400 text-sm">
+            <p>Baseado no Relatório Técnico Analítico sobre a Hermenêutica da Lei nº 12.527/2011.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Dados das Questões extraídos do documento
+        const quizData = [
+            {
+                id: 1,
+                title: "Tema: Definições Legais - Art. 4º",
+                question: "A Lei Federal nº 12.527/2011, que regula o direito constitucional de acesso à informação, estabelece um glossário técnico em seu Artigo 4º para evitar ambiguidades interpretativas. De acordo com a literalidade desta Lei, considera-se 'informação':",
+                options: [
+                    "A unidade de registro de dados, processados ou não, que podem ser utilizados para produção e transmissão de conhecimento, contidos em qualquer meio, suporte ou formato.",
+                    "O dado submetido temporariamente à restrição de acesso público em razão de sua imprescindibilidade para a segurança da sociedade e do Estado, classificado como reservado, secreto ou ultrassecreto.",
+                    "A qualidade da informação que tenha sido produzida, expedida, recebida ou modificada por determinado indivíduo, equipamento ou sistema, garantindo sua autoria.",
+                    "Dados, processados ou não, que podem ser utilizados para produção e transmissão de conhecimento, contidos em qualquer meio, suporte ou formato.",
+                    "O conjunto de ações referentes à produção, recepção, classificação, utilização, acesso, reprodução, transporte, transmissão, distribuição, arquivamento, armazenamento, eliminação, avaliação, destinação ou controle de dados."
+                ],
+                correct: 3, // Índice 0-based (D é o índice 3)
+                explanation: `<strong>Gabarito: D</strong><br><br>
+                Reproduz fielmente o texto legal (Art. 4º, I): "informação: dados, processados ou não, que podem ser utilizados para produção e transmissão de conhecimento...".<br>
+                <strong>Análise dos Erros:</strong><br>
+                A) Define "Documento" (conteúdo vs suporte).<br>
+                B) Define "Informação Sigilosa".<br>
+                C) Define "Autenticidade".<br>
+                E) Define "Tratamento da Informação".`
+            },
+            {
+                id: 2,
+                title: "Tema: Abrangência e Entidades Privadas - Art. 2º",
+                question: "Considerando o escopo de aplicação da Lei de Acesso à Informação, analise a situação das entidades privadas. Conforme o disposto na Lei nº 12.527/2011, é correto afirmar que:",
+                options: [
+                    "As entidades privadas sem fins lucrativos estão totalmente isentas das obrigações de transparência, dada a natureza jurídica de direito privado e a autonomia estatutária.",
+                    "Apenas as empresas públicas e sociedades de economia mista estão sujeitas à LAI, excluindo-se organizações sociais e organizações da sociedade civil de interesse público (OSCIPs).",
+                    "As entidades privadas sem fins lucrativos que recebam recursos públicos para realização de ações de interesse público submetem-se à publicidade da parcela dos recursos públicos recebidos e à sua destinação, sem prejuízo das prestações de contas a que estejam legalmente obrigadas.",
+                    "As entidades privadas com fins lucrativos que firmem contrato de gestão com o Poder Público submetem-se integralmente à LAI, devendo divulgar inclusive suas estratégias comerciais e segredos industriais.",
+                    "A obrigação de prestar informações por parte de entidades privadas restringe-se àquelas que recebam subvenções sociais superiores a um milhão de reais, conforme regulamento do Poder Executivo."
+                ],
+                correct: 2,
+                explanation: `<strong>Gabarito: C</strong><br><br>
+                O parágrafo único do Art. 2º é explícito: as entidades privadas sem fins lucrativos que recebam recursos públicos submetem-se à publicidade da <strong>parcela dos recursos públicos recebidos e à sua destinação</strong>. A transparência não é total sobre a entidade, mas focada no dinheiro público gerido por ela.`
+            },
+            {
+                id: 3,
+                title: "Tema: Transparência Ativa e Remuneração - Art. 8º",
+                question: 'A "Transparência Ativa" impõe aos órgãos públicos o dever de divulgação ex officio de informações. Sobre este tema, e considerando a jurisprudência administrativa refletida na Lei nº 12.527/2011, assinale a alternativa correta:',
+                options: [
+                    "A divulgação de informações sobre salários, subsídios e remunerações de cargos, empregos e funções públicas é vedada, visando proteger a intimidade e a segurança dos servidores públicos.",
+                    "Os Municípios com população de até 10.000 (dez mil) habitantes ficam dispensados da divulgação obrigatória na internet das informações exigidas no art. 8º, mantendo-se a obrigatoriedade de disponibilização em tempo real de informações pormenorizadas sobre a execução orçamentária e financeira.",
+                    "É facultativa a divulgação de registros de repasses ou transferências de recursos financeiros nos sítios oficiais, devendo tal informação ser fornecida apenas mediante requerimento (transparência passiva).",
+                    "Os órgãos públicos devem utilizar apenas meios físicos, como diários oficiais impressos, para a divulgação de informações, sendo a internet um meio complementar e não obrigatório.",
+                    "A divulgação de procedimentos licitatórios deve ocorrer apenas após a adjudicação e homologação do certame, para garantir o sigilo das propostas."
+                ],
+                correct: 1,
+                explanation: `<strong>Gabarito: B</strong><br><br>
+                O Art. 8º, § 4º prevê a dispensa de divulgação na internet para municípios com até 10.000 habitantes. Contudo, a ressalva final é vital: a Lei de Responsabilidade Fiscal exige a divulgação em tempo real da execução orçamentária e financeira para <strong>todos</strong> os entes, inclusive os pequenos.`
+            },
+            {
+                id: 4,
+                title: "Tema: Procedimento de Acesso e Prazos - Art. 11",
+                question: "Um cidadão protocola um pedido de acesso à informação junto a uma autarquia federal. A informação solicitada não está disponível para entrega imediata. Diante disso, o Serviço de Informação ao Cidadão (SIC) deverá observar os seguintes prazos legais para resposta, conforme a Lei nº 12.527/2011:",
+                options: [
+                    "Prazo de 20 (vinte) dias, podendo ser prorrogado por mais 20 (vinte) dias, totalizando 40 dias, desde que mediante justificativa expressa.",
+                    "Prazo de 15 (quinze) dias, improrrogáveis, devendo o órgão comunicar a data, local e modo para se realizar a consulta.",
+                    "Prazo não superior a 20 (vinte) dias, podendo ser prorrogado por mais 10 (dez) dias, mediante justificativa expressa, da qual será cientificado o requerente.",
+                    "Prazo de 30 (trinta) dias, prorrogável por igual período, conforme disposição geral da Lei de Processo Administrativo Federal, aplicada subsidiariamente.",
+                    "Prazo de 10 (dez) dias para análise preliminar, seguido de mais 10 (dez) dias para fornecimento da informação."
+                ],
+                correct: 2,
+                explanation: `<strong>Gabarito: C</strong><br><br>
+                O acesso deve ser imediato. Se impossível, o órgão tem até <strong>20 dias</strong>. Este prazo pode ser prorrogado por mais <strong>10 dias</strong>, mediante justificativa expressa. A regra é 20 + 10.`
+            },
+            {
+                id: 5,
+                title: "Tema: Recursos Administrativos - Art. 15",
+                question: "No caso de negativa de acesso à informação ou de não fornecimento das razões da negativa, o requerente poderá interpor recurso. Assinale a alternativa que descreve corretamente o trâmite recursal em primeira instância administrativa previsto na LAI:",
+                options: [
+                    "O recurso deve ser interposto no prazo de 10 (dez) dias a contar da ciência da decisão, dirigido à autoridade hierarquicamente superior à que exarou a decisão impugnada, que deverá se manifestar no prazo de 5 (cinco) dias.",
+                    "O recurso deve ser dirigido à Controladoria-Geral da União (CGU) no prazo de 20 (vinte) dias, que terá competência originária para julgar a recusa.",
+                    "O requerente deve solicitar reconsideração à mesma autoridade que negou o acesso, a qual terá o prazo de 10 (dez) dias para emitir nova decisão, não cabendo recurso hierárquico.",
+                    "O recurso deve ser interposto no prazo de 30 (trinta) dias, dirigido à Comissão Mista de Reavaliação de Informações, que decidirá em última instância.",
+                    "A interposição de recurso depende de advogado constituído e deve ser acompanhada de justificativa motivada sobre a utilidade da informação para o requerente."
+                ],
+                correct: 0,
+                explanation: `<strong>Gabarito: A</strong><br><br>
+                Reproduz o rito do Art. 15 e seu parágrafo único: <strong>Recurso em 10 dias; Decisão em 5 dias; Autoridade superior</strong>. A CGU é instância posterior (Art. 16).`
+            },
+            {
+                id: 6,
+                title: "Tema: Classificação da Informação e Prazos de Sigilo - Art. 24",
+                question: "A restrição de acesso à informação é medida excepcional. A Lei nº 12.527/2011 estabelece três graus de classificação de sigilo, com seus respectivos prazos máximos de restrição, contados a partir da data de produção da informação. Assinale a alternativa que apresenta a correlação correta:",
+                options: [
+                    "Ultrassecreta: 50 anos; Secreta: 20 anos; Reservada: 10 anos.",
+                    "Ultrassecreta: 30 anos; Secreta: 15 anos; Reservada: 5 anos.",
+                    "Ultrassecreta: 25 anos; Secreta: 15 anos; Reservada: 5 anos.",
+                    "Ultrassecreta: 20 anos; Secreta: 10 anos; Reservada: 5 anos.",
+                    "Ultrassecreta: 15 anos; Secreta: 10 anos; Reservada: 2 anos."
+                ],
+                correct: 2,
+                explanation: `<strong>Gabarito: C</strong><br><br>
+                Conforme Art. 24, § 1º:<br>
+                - Ultrassecreta: <strong>25 anos</strong>.<br>
+                - Secreta: <strong>15 anos</strong>.<br>
+                - Reservada: <strong>5 anos</strong>.<br>
+                Os prazos contam da data de produção.`
+            },
+            {
+                id: 7,
+                title: "Tema: Competência para Classificação - Art. 27",
+                question: "A competência para classificar informações no grau de sigilo ultrassecreto é restrita a altas autoridades. Considerando o rol taxativo do Art. 27 da Lei nº 12.527/2011, assinale a autoridade que NÃO possui competência originária para classificar uma informação como ultrassecreta:",
+                options: [
+                    "Presidente da República.",
+                    "Vice-Presidente da República.",
+                    "Ministros de Estado e autoridades com as mesmas prerrogativas.",
+                    "Comandantes da Marinha, do Exército e da Aeronáutica.",
+                    "Dirigentes máximos de autarquias e fundações públicas."
+                ],
+                correct: 4,
+                explanation: `<strong>Gabarito: E</strong><br><br>
+                Dirigentes de autarquias e fundações podem classificar no máximo como <strong>Secreta</strong> (Art. 27, § 1º, I) ou Reservada. Eles não têm competência para classificar como Ultrassecreta.`
+            },
+            {
+                id: 8,
+                title: "Tema: Informações Pessoais - Art. 31",
+                question: "O tratamento das informações pessoais (intimidade, vida privada, honra e imagem) possui regime específico na LAI. Sobre este tema, assinale a alternativa correta:",
+                options: [
+                    "As informações pessoais terão seu acesso restrito pelo prazo máximo de 100 (cem) anos a contar da data de sua produção, independentemente de classificação de sigilo.",
+                    "O acesso a informações pessoais é público e irrestrito, prevalecendo sempre o princípio da transparência sobre o da privacidade, salvo decisão judicial em contrário.",
+                    "A restrição de acesso às informações pessoais pode ser invocada para impedir a apuração de irregularidades em que o titular das informações estiver envolvido.",
+                    "O prazo de restrição para informações pessoais é o mesmo da classificação ultrassecreta, ou seja, 25 anos, renováveis por igual período.",
+                    "O consentimento expresso da pessoa a que se referem as informações não é suficiente para liberar o acesso a terceiros, sendo necessária autorização judicial."
+                ],
+                correct: 0,
+                explanation: `<strong>Gabarito: A</strong><br><br>
+                O Art. 31, § 1º, I estabelece o prazo de <strong>100 anos</strong> para informações pessoais (intimidade, vida privada, honra, imagem). Essa restrição independe de ato formal de classificação de sigilo.`
+            },
+            {
+                id: 9,
+                title: "Tema: Responsabilização - Art. 32",
+                question: "O agente público ou militar que recusar-se a fornecer informação requerida nos termos da Lei nº 12.527/2011, retardar deliberadamente o seu fornecimento ou fornecê-la intencionalmente de forma incorreta, incompleta ou imprecisa, estará sujeito a:",
+                options: [
+                    "Apenas advertência verbal, considerando o caráter educativo da norma.",
+                    "Medidas disciplinares, nos termos da legislação aplicável, podendo responder também por improbidade administrativa.",
+                    "Suspensão automática de 90 dias, sem direito a ampla defesa prévia.",
+                    "Multa pecuniária aplicada diretamente pelo requerente da informação.",
+                    "Demissão a bem do serviço público como pena mínima obrigatória."
+                ],
+                correct: 1,
+                explanation: `<strong>Gabarito: B</strong><br><br>
+                A conduta ilícita sujeita o agente às medidas disciplinares (advertência, suspensão, demissão, conforme o estatuto) e, cumulativamente, à responsabilização por <strong>improbidade administrativa</strong> (Lei 8.429/92), conforme o Art. 32, § 2º da LAI.`
+            },
+            {
+                id: 10,
+                title: "Tema: Reavaliação e Comissão Mista - Art. 39 e 35",
+                question: "A Lei de Acesso à Informação prevê mecanismos de revisão das classificações de sigilo. Sobre a reavaliação das informações classificadas, assinale a alternativa correta conforme os dispositivos da Lei nº 12.527/2011:",
+                options: [
+                    "As informações classificadas como secretas e reservadas não estão sujeitas a reavaliação, permanecendo sigilosas até o termo final do prazo.",
+                    "Os órgãos e entidades públicas deverão proceder à reavaliação das informações classificadas como ultrassecretas e secretas, mediante revisão de ofício, a ocorrer, no máximo, a cada 4 (quatro) anos.",
+                    "A reavaliação de informações classificadas cabe exclusivamente ao Poder Judiciário, mediante provocação do Ministério Público.",
+                    "A Comissão Mista de Reavaliação de Informações tem competência para prorrogar o prazo de sigilo de informação reservada por uma única vez.",
+                    "Após o transcurso do prazo de classificação, a informação permanece sigilosa até que haja um ato administrativo expresso de desclassificação."
+                ],
+                correct: 1,
+                explanation: `<strong>Gabarito: B</strong><br><br>
+                O Art. 39, § 4º e o Art. 35, § 3º estabelecem a obrigação de revisão de ofício das informações classificadas como ultrassecretas e secretas a cada <strong>4 anos</strong>.`
+            }
+        ];
+
+        function renderQuiz() {
+            const quizContainer = document.getElementById('quiz-form');
+            const letters = ['A', 'B', 'C', 'D', 'E'];
+
+            quizData.forEach((item, index) => {
+                // Container da Questão
+                const questionDiv = document.createElement('div');
+                questionDiv.className = "bg-white p-6 sm:p-8 rounded-xl shadow-sm border border-stone-100";
+                questionDiv.id = `question-${index}`;
+
+                // Título da Questão
+                const header = document.createElement('div');
+                header.className = "mb-6";
+                header.innerHTML = `
+                    <span class="text-sm font-bold text-emerald-700 uppercase tracking-wider">${item.title}</span>
+                    <h3 class="mt-2 text-lg sm:text-xl font-medium text-stone-800 serif-text leading-relaxed">
+                        <span class="font-bold mr-1">${index + 1}.</span> ${item.question}
+                    </h3>
+                `;
+                questionDiv.appendChild(header);
+
+                // Opções
+                const optionsDiv = document.createElement('div');
+                optionsDiv.className = "space-y-3";
+
+                item.options.forEach((opt, optIndex) => {
+                    const optionId = `q${index}_opt${optIndex}`;
+                    const optionWrapper = document.createElement('div');
+                    optionWrapper.className = "relative";
+
+                    optionWrapper.innerHTML = `
+                        <input type="radio" name="question${index}" id="${optionId}" value="${optIndex}" class="option-radio peer sr-only">
+                        <label for="${optionId}" class="flex items-start p-4 rounded-lg border border-stone-200 cursor-pointer hover:bg-stone-50 transition-colors select-none text-stone-700">
+                            <span class="flex-shrink-0 w-6 h-6 flex items-center justify-center border border-stone-300 rounded-full text-xs font-bold mr-4 text-stone-500 peer-checked:bg-stone-600 peer-checked:text-white peer-checked:border-stone-600">
+                                ${letters[optIndex]}
+                            </span>
+                            <span class="text-base leading-relaxed">${opt}</span>
+                        </label>
+                    `;
+                    optionsDiv.appendChild(optionWrapper);
+                });
+                questionDiv.appendChild(optionsDiv);
+
+                // Área de Resolução (Inicialmente oculta)
+                const explanationDiv = document.createElement('div');
+                explanationDiv.id = `explanation-${index}`;
+                explanationDiv.className = "hidden mt-6 pt-6 border-t border-stone-100 bg-stone-50 p-4 rounded-lg";
+                explanationDiv.innerHTML = `
+                    <h4 class="text-sm font-bold text-stone-900 uppercase mb-2">Resolução Técnica:</h4>
+                    <div class="prose prose-stone prose-sm text-stone-600 serif-text max-w-none">
+                        ${item.explanation}
+                    </div>
+                `;
+                questionDiv.appendChild(explanationDiv);
+
+                quizContainer.appendChild(questionDiv);
+            });
+        }
+
+        function calculateResults() {
+            const submitBtn = document.getElementById('submit-btn');
+            if (submitBtn.disabled) return; // Evita duplo clique
+            
+            let score = 0;
+            let answeredCount = 0;
+
+            quizData.forEach((item, index) => {
+                const selected = document.querySelector(`input[name="question${index}"]:checked`);
+                const explanationDiv = document.getElementById(`explanation-${index}`);
+                const optionsLabels = document.querySelectorAll(`input[name="question${index}"] + label`);
+                
+                // Desabilita inputs
+                document.querySelectorAll(`input[name="question${index}"]`).forEach(input => {
+                    input.disabled = true;
+                });
+
+                let userChoice = -1;
+
+                if (selected) {
+                    userChoice = parseInt(selected.value);
+                    answeredCount++;
+                }
+
+                // Lógica de Estilização
+                if (userChoice === item.correct) {
+                    score++;
+                    // Estilo para acerto
+                    if (selected) optionsLabels[userChoice].classList.add('correct-answer');
+                } else {
+                    // Estilo para erro (se respondeu)
+                    if (selected) {
+                        optionsLabels[userChoice].classList.add('wrong-answer');
+                    }
+                    // Mostra a correta
+                    optionsLabels[item.correct].classList.add('correct-answer');
+                }
+
+                // Mostra explicação
+                explanationDiv.classList.remove('hidden');
+                explanationDiv.classList.add('animate-fade-in');
+            });
+
+            // Atualiza Placar
+            const scoreBoard = document.getElementById('score-board');
+            const scoreCount = document.getElementById('score-count');
+            const scoreMessage = document.getElementById('score-message');
+
+            scoreCount.innerText = score;
+            scoreBoard.classList.remove('hidden');
+
+            if (score >= 9) {
+                scoreMessage.innerHTML = "Excelente! Você tem domínio do perfil da banca AOCP.";
+                scoreBoard.classList.add("border-emerald-200", "bg-emerald-50");
+            } else if (score >= 7) {
+                scoreMessage.innerHTML = "Bom trabalho. Revise os pontos onde houve confusão nos prazos ou autoridades.";
+                scoreBoard.classList.add("border-blue-200", "bg-blue-50");
+            } else {
+                scoreMessage.innerHTML = "Atenção aos detalhes taxonômicos e prazos. Releia as resoluções com cuidado.";
+                scoreBoard.classList.add("border-amber-200", "bg-amber-50");
+            }
+
+            // Rola suavemente para o topo para ver o resultado
+            scoreBoard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            // Altera botão
+            submitBtn.innerText = "Simulado Finalizado";
+            submitBtn.className = "px-8 py-4 bg-stone-400 text-white text-lg font-semibold rounded-lg cursor-not-allowed";
+            submitBtn.disabled = true;
+        }
+
+        // Inicializa
+        document.addEventListener('DOMContentLoaded', renderQuiz);
+    </script>
+</body>
+</html>

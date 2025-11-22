@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo Turbo: Decreto 7.724/2012 (LAI)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1a202c; /* Cinza escuro para leitura confortável */
+            background-color: #ffffff;
+        }
+        
+        /* Estilo para grifos de "marca-texto" */
+        .highlight {
+            background-color: #fef08a; /* Amarelo suave */
+            padding: 0 4px;
+            border-radius: 2px;
+            font-weight: 600;
+        }
+
+        /* Destaque para palavras-chave da banca */
+        .keyword {
+            color: #b91c1c; /* Vermelho escuro */
+            font-weight: 700;
+        }
+
+        /* Estilo da Tabela para evitar scroll horizontal */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed; /* Força o texto a quebrar */
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+            word-wrap: break-word; /* Quebra palavras longas se necessário */
+        }
+
+        th {
+            background-color: #f7fafc; /* Cinza muito claro */
+            color: #2d3748;
+            font-weight: 700;
+            border-top: 2px solid #cbd5e0;
+        }
+
+        /* Ajustes para telas muito pequenas */
+        @media (max-width: 640px) {
+            th, td {
+                font-size: 0.875rem;
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen pb-12">
+
+    <!-- Container Principal -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- Cabeçalho -->
+        <header class="mb-8 border-b border-gray-200 pb-6">
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">Resumo Turbo: Decreto nº 7.724/2012 (LAI)</h1>
+            <div class="flex flex-wrap gap-4 text-sm font-semibold text-gray-600">
+                <span class="bg-gray-100 px-3 py-1 rounded-full border border-gray-300">🎯 Foco: Concurso IFPB</span>
+                <span class="bg-gray-100 px-3 py-1 rounded-full border border-gray-300">🏛️ Banca: Instituto AOCP</span>
+                <span class="bg-gray-100 px-3 py-1 rounded-full border border-gray-300">💻 Área: TI/Docência</span>
+            </div>
+        </header>
+
+        <!-- Player de Áudio -->
+        <section class="mb-10 bg-gray-50 border border-gray-200 rounded-lg p-6 shadow-sm">
+            <div class="flex items-center gap-3 mb-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                </svg>
+                <h2 class="text-lg font-bold text-gray-800">Resumo em Áudio</h2>
+            </div>
+            <p class="text-sm text-gray-500 mb-2">Ouça enquanto revisa:</p>
+            <!-- LOCAL PARA COLOCAR O NOME DO ARQUIVO MP3 ABAIXO (src) -->
+            <audio controls class="w-full h-10">
+                <source src="leg-decreto-7724.mp3" type="audio/mpeg">
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
+        </section>
+
+        <!-- Conteúdo 1: Conceitos Básicos -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4 pb-2 border-b border-blue-100">1. Conceitos Básicos (O "Dicionário" da Banca)</h2>
+            <p class="italic text-gray-600 mb-4">Memorize as palavras-chave para não cair em trocas de definições.</p>
+            
+            <div class="overflow-hidden border border-gray-200 rounded-lg mb-6">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="w-1/4">Termo</th>
+                            <th class="w-1/3">Palavra-Chave (Prova)</th>
+                            <th>Exemplo Prático (TI)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-semibold">Disponibilidade</td>
+                            <td><span class="highlight">Uso / Conhecimento</span></td>
+                            <td>O sistema está online e acessível.</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">Autenticidade</td>
+                            <td><span class="highlight">Autoria / Origem</span></td>
+                            <td>Assinatura digital (garante quem fez).</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">Integridade</td>
+                            <td><span class="highlight">Não modificada</span></td>
+                            <td>O arquivo não foi corrompido.</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">Primariedade</td>
+                            <td><span class="highlight">Fonte / Detalhe máximo</span></td>
+                            <td>Dado bruto (CSV), não o PDF.</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">Informação Pessoal</td>
+                            <td><span class="highlight">Identificada / Identificável</span></td>
+                            <td>Nome, CPF (Salário é público!).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg">
+                <p class="text-red-800">
+                    <strong>⚠️ Pegadinha AOCP:</strong> A banca adora dizer que "Primariedade" é a informação tratada e resumida. 
+                    <br><span class="font-bold underline">Errado!</span> Primariedade é a informação <span class="highlight">bruta, coletada na fonte</span>.
+                </p>
+            </div>
+        </section>
+
+        <!-- Conteúdo 2: Transparência Ativa -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4 pb-2 border-b border-blue-100">2. Transparência Ativa (Sites Oficiais)</h2>
+            <p class="text-gray-700 mb-4">O que o IFPB deve publicar <span class="highlight">sem ninguém pedir</span> (Art. 8º).</p>
+            
+            <ul class="space-y-3 text-gray-800 list-disc pl-5">
+                <li><strong class="text-gray-900">Obrigatório:</strong> Ferramenta de pesquisa, dados abertos, acessibilidade, estrutura organizacional, <span class="highlight">remuneração individualizada</span> (nome + valor).</li>
+                <li><strong class="text-gray-900">Requisito Técnico:</strong> Formatos <span class="keyword">não proprietários</span> (ex: CSV, ODS, XML) são obrigatórios. Publicar tabela apenas em imagem ou PDF fechado <span class="text-red-600 font-bold">viola a norma</span>.</li>
+                <li><strong class="text-gray-900">Conteúdo Mínimo:</strong>
+                    <ul class="list-circle pl-5 mt-2 text-gray-600 space-y-1">
+                        <li>Execução orçamentária e financeira.</li>
+                        <li>Licitações (editais, resultados e contratos na íntegra).</li>
+                        <li>Remuneração de servidores.</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Conteúdo 3: Prazos e Transparência Passiva -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4 pb-2 border-b border-blue-100">3. Prazos e Transparência Passiva (SIC)</h2>
+            <p class="italic text-gray-600 mb-6">A matemática da prova. <span class="highlight">Decore os números.</span></p>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Fluxo do Pedido -->
+                <div class="bg-white border border-gray-200 p-5 rounded-lg shadow-sm">
+                    <h3 class="font-bold text-lg text-gray-900 mb-3 border-b pb-2">Fluxo do Pedido (SIC)</h3>
+                    <ol class="list-decimal pl-5 space-y-2 text-gray-800">
+                        <li><strong>Regra de Ouro:</strong> Acesso <span class="highlight">imediato</span> se disponível.</li>
+                        <li><strong>Se não imediato:</strong> Prazo de <span class="keyword text-xl">20 dias</span>.</li>
+                        <li><strong>Prorrogação:</strong> <span class="keyword">+10 dias</span> (Total máx: 30 dias). <em>Exige justificativa.</em></li>
+                        <li><strong>Custo:</strong> Gratuito (salvo custos de material).</li>
+                        <li><strong>Motivação:</strong> É <span class="text-red-600 font-bold">VEDADO</span> exigir o motivo do pedido.</li>
+                    </ol>
+                </div>
+
+                <!-- Fluxo de Recursos -->
+                <div class="bg-white border border-gray-200 p-5 rounded-lg shadow-sm">
+                    <h3 class="font-bold text-lg text-gray-900 mb-3 border-b pb-2">Fluxo de Recursos (Negativa)</h3>
+                    <p class="text-sm mb-2">Cidadão recorre em <strong>10 dias</strong>. Autoridade decide em <strong>5 dias</strong>.</p>
+                    <ol class="list-decimal pl-5 space-y-2 text-gray-800">
+                        <li><strong>1ª Instância:</strong> Autoridade hierarquicamente superior.</li>
+                        <li><strong>2ª Instância:</strong> Autoridade máxima (ex: Reitor).</li>
+                        <li><strong>3ª Instância:</strong> Controladoria-Geral da União (<span class="highlight">CGU</span>).</li>
+                        <li><strong>4ª Instância:</strong> CMRI.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="mt-4 bg-gray-50 p-3 rounded border border-gray-200">
+                <strong>💡 Omissão (Silêncio):</strong> Se o órgão não responder em 30 dias, cabe <strong>Reclamação</strong> (não recurso) em 10 dias à Autoridade de Monitoramento.
+            </div>
+        </section>
+
+        <!-- Conteúdo 4: Classificação de Sigilo -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4 pb-2 border-b border-blue-100">4. Classificação de Sigilo (A "Escadinha")</h2>
+            
+            <div class="overflow-hidden border border-gray-200 rounded-lg mb-4">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Grau</th>
+                            <th>Prazo Máx.</th>
+                            <th>Quem Classifica</th>
+                            <th>Delegação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold text-red-800">Ultrassecreto</td>
+                            <td><span class="highlight">25 anos</span> (+25*)</td>
+                            <td>Presidente, Vice, Ministros, Comandantes.</td>
+                            <td class="text-red-600 font-bold">Vedada*</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold text-orange-700">Secreto</td>
+                            <td><span class="highlight">15 anos</span></td>
+                            <td>Acima + Titulares de Autarquias (Reitor).</td>
+                            <td class="text-red-600 font-bold">Vedada*</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold text-yellow-700">Reservado</td>
+                            <td><span class="highlight">5 anos</span></td>
+                            <td>Acima + DAS 101.5 (Diretores).</td>
+                            <td class="text-green-700 font-bold">Permitida</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <ul class="text-sm text-gray-600 space-y-1 list-disc pl-5">
+                <li><strong>Prorrogação:</strong> Apenas o <span class="highlight">Ultrassecreto</span> pode ser prorrogado uma única vez (Total: 50 anos). Quem decide é a CMRI.</li>
+                <li><strong>Contagem:</strong> O prazo conta da <span class="highlight">data de produção</span>, não do carimbo.</li>
+                <li><strong>TCI:</strong> Termo de Classificação de Informação (documento público que formaliza o sigilo).</li>
+            </ul>
+        </section>
+
+        <!-- Conteúdo 5: Comissão Mista (CMRI) -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4 pb-2 border-b border-blue-100">5. A Comissão Mista (CMRI)</h2>
+            <p class="mb-3">A última palavra no Executivo Federal. <strong>Composição (10 membros - 1 de cada):</strong></p>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-sm">
+                <div class="bg-gray-50 p-2 rounded border border-gray-100">1. Casa Civil (Preside)</div>
+                <div class="bg-gray-50 p-2 rounded border border-gray-100">2. Justiça e Seg. Pública</div>
+                <div class="bg-gray-50 p-2 rounded border border-gray-100">3. Relações Exteriores</div>
+                <div class="bg-gray-50 p-2 rounded border border-gray-100">4. Defesa</div>
+                <div class="bg-gray-50 p-2 rounded border border-gray-100">5. Fazenda</div>
+                <div class="bg-gray-50 p-2 rounded border border-gray-100">6. Planejamento</div>
+                <div class="bg-gray-50 p-2 rounded border border-gray-100">7. Gestão (MGI)</div>
+                <div class="bg-gray-50 p-2 rounded border border-gray-100">8. CGU</div>
+                <div class="bg-gray-50 p-2 rounded border border-gray-100">9. AGU</div>
+                <div class="bg-gray-50 p-2 rounded border border-gray-100">10. GSI</div>
+            </div>
+        </section>
+
+        <!-- Conteúdo 6: Informações Pessoais -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4 pb-2 border-b border-blue-100">6. Informações Pessoais (Art. 55-62)</h2>
+            <ul class="space-y-3 list-disc pl-5 text-gray-800">
+                <li><strong>Proteção:</strong> Intimidade, vida privada, honra e imagem.</li>
+                <li><strong>Prazo:</strong> <span class="highlight text-xl">100 anos</span>.</li>
+                <li><strong>Quem acessa:</strong> O próprio titular ou terceiros com consentimento.</li>
+                <li><strong>Exceção (Quebra de Sigilo):</strong>
+                    <ul class="pl-5 mt-1 text-gray-600 text-sm space-y-1">
+                        <li>- Ordem judicial.</li>
+                        <li>- Defesa de direitos humanos.</li>
+                        <li>- Proteção do interesse público geral.</li>
+                        <li>- Saúde (tratamento médico).</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Conteúdo 7: Responsabilização -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4 pb-2 border-b border-blue-100">7. Resumo da Responsabilização</h2>
+            <p class="mb-4">O servidor que descumprir a LAI (recusar, ocultar, destruir) responde por improbidade/processo disciplinar.</p>
+            <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
+                <p><strong>Autoridade de Monitoramento (Art. 67):</strong> Todo órgão deve ter um servidor (ou comissão) responsável por garantir que a LAI funcione. No IFPB, essa pessoa recebe as reclamações por omissão.</p>
+            </div>
+        </section>
+
+        <!-- Dica Final -->
+        <section class="mb-12 p-6 bg-gray-100 rounded-xl border border-gray-200">
+            <h3 class="font-bold text-lg mb-3">🚀 Dica Final para Prova de TI</h3>
+            <div class="grid sm:grid-cols-3 gap-4 text-center">
+                <div class="bg-white p-3 rounded shadow-sm">
+                    <div class="text-sm text-gray-500">Transparência Ativa =</div>
+                    <div class="font-bold">Dados Abertos + Acessibilidade</div>
+                </div>
+                <div class="bg-white p-3 rounded shadow-sm">
+                    <div class="text-sm text-gray-500">Transparência Passiva =</div>
+                    <div class="font-bold">Workflow (e-SIC)</div>
+                </div>
+                <div class="bg-white p-3 rounded shadow-sm">
+                    <div class="text-sm text-gray-500">Integridade =</div>
+                    <div class="font-bold">Segurança (Hash)</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Botão de Ação -->
+        <div class="text-center pb-8">
+            <a href="leg-decreto-7724questoes.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white text-xl font-bold py-4 px-10 rounded-full shadow-lg transition duration-300 transform hover:scale-105">
+                📝 Ir para Questões
+            </a>
+            <p class="mt-4 text-gray-500 text-sm">Teste seus conhecimentos agora</p>
+        </div>
+
+    </main>
+</body>
+</html>

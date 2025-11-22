@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado Decreto 7.724/2012 - Instituto AOCP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Merriweather', serif;
+            background-color: #f8f9fa; /* Fundo claro suave */
+            color: #2d3748; /* Cinza escuro para leitura */
+        }
+        .ui-font {
+            font-family: 'Inter', sans-serif;
+        }
+        .option-label {
+            transition: all 0.2s;
+        }
+        .option-input:checked + .option-label {
+            background-color: #e2e8f0;
+            border-color: #4a5568;
+        }
+        .correct-answer {
+            background-color: #c6f6d5 !important; /* Verde claro */
+            border-color: #2f855a !important;
+            color: #22543d;
+        }
+        .wrong-answer {
+            background-color: #fed7d7 !important; /* Vermelho claro */
+            border-color: #c53030 !important;
+            color: #742a2a;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-slate-800 text-white py-8 shadow-md ui-font">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <h1 class="text-2xl md:text-3xl font-bold mb-2">Simulado: Decreto nº 7.724/2012</h1>
+            <p class="text-slate-300 text-sm md:text-base">Foco: Instituto AOCP | Regulamentação da Lei de Acesso à Informação</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 max-w-4xl py-8">
+        
+        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-8 ui-font text-sm text-gray-600">
+            <p><strong>Instruções:</strong> Este simulado contém 10 questões no estilo da banca Instituto AOCP. Selecione a alternativa correta para cada questão. Ao final, clique em "Finalizar Simulado" para ver sua pontuação e as resoluções detalhadas.</p>
+        </div>
+
+        <form id="quizForm">
+            <!-- As questões serão renderizadas aqui via JS -->
+            <div id="questionsContainer"></div>
+
+            <!-- Botão de Finalização -->
+            <div class="mt-10 mb-16 text-center ui-font">
+                <button type="button" onclick="finishQuiz()" class="bg-slate-800 hover:bg-slate-700 text-white font-bold py-4 px-8 rounded-lg shadow-lg transform transition hover:scale-105 text-lg">
+                    Finalizar Simulado e Ver Resoluções
+                </button>
+            </div>
+        </form>
+
+        <!-- Modal de Resultado (inicialmente oculto) -->
+        <div id="resultSection" class="hidden fixed bottom-0 left-0 right-0 bg-white border-t-4 border-slate-800 p-6 shadow-2xl z-50 ui-font">
+            <div class="container mx-auto max-w-4xl flex flex-col md:flex-row items-center justify-between">
+                <div class="mb-4 md:mb-0">
+                    <h2 class="text-2xl font-bold text-slate-800">Resultado Final</h2>
+                    <p class="text-lg">Você acertou <span id="scoreDisplay" class="font-bold text-blue-600 text-2xl">0</span> de 10 questões.</p>
+                </div>
+                <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-md font-medium">
+                    Revisar Questões
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-gray-200 text-center py-6 text-sm text-gray-500 ui-font mt-auto">
+        <p>Baseado no Decreto Federal nº 7.724/2012.</p>
+    </footer>
+
+    <script>
+        // Dados das Questões
+        const quizData = [
+            {
+                id: 1,
+                title: "Questão 01 - Definições Legais",
+                text: "De acordo com o Decreto nº 7.724/2012, que regulamenta a Lei de Acesso à Informação no âmbito do Poder Executivo Federal, assinale a alternativa que apresenta corretamente a definição legal de \"autenticidade\".",
+                options: [
+                    "Qualidade da informação que pode ser conhecida e utilizada por indivíduos, equipamentos ou sistemas autorizados, garantindo sua interoperabilidade.",
+                    "Qualidade da informação não modificada, inclusive quanto à origem, trânsito e destino, assegurando que o conteúdo permanece íntegro.",
+                    "Qualidade da informação que tenha sido produzida, expedida, recebida ou modificada por determinado indivíduo, equipamento ou sistema, confirmando sua autoria.",
+                    "Qualidade da informação coletada na fonte, com o máximo de detalhamento possível, sem modificações ou filtragens interpretativas.",
+                    "Informação submetida temporariamente à restrição de acesso público em razão de sua imprescindibilidade para a segurança da sociedade e do Estado."
+                ],
+                correct: 2, // Index 2 = C
+                resolution: `
+                    <p class="mb-2"><strong>Gabarito: C</strong></p>
+                    <p class="mb-2">Esta questão testa a precisão conceitual do candidato sobre o Artigo 3º do Decreto.</p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li><strong>Alternativa A (Incorreta):</strong> Descreve, em parte, o conceito de <em>Disponibilidade</em>.</li>
+                        <li><strong>Alternativa B (Incorreta):</strong> Descreve com exatidão o conceito de <em>Integridade</em> (não modificada).</li>
+                        <li><strong>Alternativa C (Correta):</strong> Reproduz literalmente a definição de <strong>Autenticidade</strong> (Art. 3º, VIII). O núcleo do conceito é a garantia da autoria/origem.</li>
+                        <li><strong>Alternativa D (Incorreta):</strong> Define <em>Primariedade</em>.</li>
+                        <li><strong>Alternativa E (Incorreta):</strong> Define <em>Informação Sigilosa</em>.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 2,
+                title: "Questão 02 - Transparência Ativa",
+                text: "Considerando as disposições do Decreto nº 7.724/2012 acerca da transparência ativa, é dever dos órgãos e entidades divulgar informações de interesse coletivo em seus sítios oficiais. No que tange especificamente à divulgação da remuneração dos servidores públicos, assinale a alternativa correta.",
+                options: [
+                    "A divulgação deve preservar a identidade do servidor, apresentando os dados de remuneração de forma agregada por cargo ou função, para garantir a segurança dos agentes públicos.",
+                    "É obrigatória a divulgação individualizada da remuneração, incluindo subsídios, auxílios, ajudas de custo, jetons e quaisquer outras vantagens pecuniárias, bem como proventos de aposentadoria e pensões.",
+                    "A divulgação restringe-se ao salário base e gratificações fixas, sendo vedada a publicação de verbas indenizatórias e eventuais descontos pessoais, como empréstimos consignados.",
+                    "A obrigatoriedade de divulgação individualizada aplica-se apenas aos ocupantes de cargos de comissão (DAS) e agentes políticos, não abrangendo os servidores efetivos sem função de confiança.",
+                    "As sociedades de economia mista que atuam em regime de concorrência estão automaticamente dispensadas de qualquer divulgação salarial, em virtude do sigilo comercial absoluto."
+                ],
+                correct: 1, // Index 1 = B
+                resolution: `
+                    <p class="mb-2"><strong>Gabarito: B</strong></p>
+                    <p>A assertiva é uma paráfrase fiel do inciso VI do § 3º do Art. 7º. A transparência deve ser total e <strong>individualizada</strong>, abrangendo todas as parcelas remuneratórias ("jetons", auxílios, etc.) e alcançando inclusive inativos (aposentados e pensionistas). As demais alternativas erram ao sugerir anonimato (A), restrição de verbas públicas (C), distinção de cargos (D) ou isenção total para estatais (E).</p>
+                `
+            },
+            {
+                id: 3,
+                title: "Questão 03 - Prazos do Procedimento",
+                text: "Um cidadão protocolou um pedido de acesso à informação junto ao SIC de um Ministério. A informação solicitada exige consolidação de dados e não está disponível para entrega imediata. Conforme o Decreto nº 7.724/2012, qual é o prazo máximo total, incluindo eventual prorrogação, que o órgão possui para fornecer a resposta?",
+                options: [
+                    "15 (quinze) dias, improrrogáveis.",
+                    "20 (vinte) dias, podendo ser prorrogado por mais 20 (vinte) dias, totalizando 40 dias.",
+                    "20 (vinte) dias, podendo ser prorrogado por mais 10 (dez) dias, mediante justificativa expressa, totalizando 30 dias.",
+                    "30 (trinta) dias, podendo ser prorrogado por mais 30 (trinta) dias em casos de extrema complexidade.",
+                    "10 (dez) dias, podendo ser prorrogado por mais 10 (dez) dias, totalizando 20 dias."
+                ],
+                correct: 2, // Index 2 = C
+                resolution: `
+                    <p class="mb-2"><strong>Gabarito: C</strong></p>
+                    <p>Conforme os Artigos 15 e 16: O prazo regra é o acesso imediato. Na impossibilidade, o órgão tem <strong>20 dias</strong>. Este prazo pode ser prorrogado por mais <strong>10 dias</strong>, totalizando 30 dias, desde que haja justificativa expressa dada ao requerente.</p>
+                `
+            },
+            {
+                id: 4,
+                title: "Questão 04 - Sistema Recursal",
+                text: "Caso um pedido de acesso à informação seja negado por uma autoridade de um órgão da administração direta federal, o requerente poderá interpor recurso. Sobre o procedimento recursal previsto no Decreto nº 7.724/2012, assinale a alternativa correta.",
+                options: [
+                    "O recurso deve ser dirigido diretamente à Controladoria-Geral da União (CGU), ignorando-se a instância interna do órgão, no prazo de 20 dias.",
+                    "O requerente deve apresentar recurso no prazo de 10 (dez) dias, contado da ciência da decisão, à autoridade hierarquicamente superior à que adotou a decisão, que deverá apreciá-lo no prazo de 5 (cinco) dias.",
+                    "O prazo para recurso é de 15 (quinze) dias úteis, e a autoridade competente tem 30 (trinta) dias para emitir parecer definitivo.",
+                    "Não cabe recurso administrativo contra negativa de acesso baseada em informação sigilosa classificada como ultrassecreta.",
+                    "O recurso de primeira instância deve ser dirigido à Comissão Mista de Reavaliação de Informações (CMRI), que é o órgão originário para julgar negativas de acesso."
+                ],
+                correct: 1, // Index 1 = B
+                resolution: `
+                    <p class="mb-2"><strong>Gabarito: B</strong></p>
+                    <p>Reprodução fiel do Art. 21, <em>caput</em>:</p>
+                    <ul class="list-disc pl-5">
+                        <li>Prazo para recorrer: <strong>10 dias</strong>.</li>
+                        <li>Prazo para decidir: <strong>5 dias</strong>.</li>
+                        <li>Destinatário: Autoridade <strong>hierarquicamente superior</strong>.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 5,
+                title: "Questão 05 - Competência de Classificação",
+                text: "No âmbito do Poder Executivo Federal, a competência para classificar informações no grau de sigilo <strong>ultrassecreto</strong> é restrita. Assinale a alternativa que indica uma autoridade que <strong>NÃO</strong> possui competência originária para classificar informações nesse grau máximo.",
+                options: [
+                    "Presidente da República.",
+                    "Vice-Presidente da República.",
+                    "Ministros de Estado.",
+                    "Comandantes da Marinha, do Exército e da Aeronáutica.",
+                    "Presidentes de Autarquias, Fundações Públicas, Empresas Públicas e Sociedades de Economia Mista."
+                ],
+                correct: 4, // Index 4 = E
+                resolution: `
+                    <p class="mb-2"><strong>Gabarito: E</strong></p>
+                    <p>O grau Ultrassecreto (25 anos) é competência exclusiva do alto escalão (Presidente, Vice, Ministros, Comandantes de Força). Os titulares de entidades da administração indireta (como Presidentes de Autarquias e Estatais) possuem competência máxima apenas para o grau <strong>Secreto</strong> (15 anos), conforme Art. 30.</p>
+                `
+            },
+            {
+                id: 6,
+                title: "Questão 06 - Prazos de Sigilo",
+                text: "O Decreto nº 7.724/2012 estabelece prazos máximos de restrição de acesso à informação, contados a partir da data de sua produção. Assinale a alternativa que apresenta a correlação correta entre o grau de sigilo e o respectivo prazo máximo.",
+                options: [
+                    "Reservado: 5 anos; Secreto: 10 anos; Ultrassecreto: 20 anos.",
+                    "Reservado: 5 anos; Secreto: 15 anos; Ultrassecreto: 25 anos.",
+                    "Reservado: 10 anos; Secreto: 20 anos; Ultrassecreto: 30 anos.",
+                    "Reservado: 5 anos; Secreto: 20 anos; Ultrassecreto: 50 anos.",
+                    "Reservado: 4 anos; Secreto: 8 anos; Ultrassecreto: 12 anos."
+                ],
+                correct: 1, // Index 1 = B
+                resolution: `
+                    <p class="mb-2"><strong>Gabarito: B</strong></p>
+                    <p>Conforme tabela do Art. 28:</p>
+                    <ul class="list-disc pl-5">
+                        <li>Ultrassecreto: 25 anos.</li>
+                        <li>Secreto: 15 anos.</li>
+                        <li>Reservado: 5 anos.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 7,
+                title: "Questão 07 - Segurança Presidencial",
+                text: "Sobre o tratamento dado às informações que puderem colocar em risco a segurança do Presidente da República, do Vice-Presidente e de seus cônjuges e filhos, o Decreto nº 7.724/2012 estabelece que:",
+                options: [
+                    "Serão classificadas como ultrassecretas e ficarão sob sigilo pelo prazo máximo de 25 anos, prorrogáveis por mais 25.",
+                    "Serão consideradas de acesso livre e imediato, dada a figura pública dos envolvidos.",
+                    "Serão classificadas como reservadas e ficarão sob sigilo até o término do mandato em exercício ou do último mandato, em caso de reeleição.",
+                    "Serão classificadas como secretas, com prazo de sigilo de 15 anos, independentemente da duração do mandato.",
+                    "Não são passíveis de classificação, sendo protegidas apenas pela Lei Geral de Proteção de Dados (LGPD)."
+                ],
+                correct: 2, // Index 2 = C
+                resolution: `
+                    <p class="mb-2"><strong>Gabarito: C</strong></p>
+                    <p>Conforme Art. 29: As informações sobre a segurança do Presidente/Vice e família são classificadas como <strong>Reservadas</strong> e o sigilo perdura até o <strong>término do mandato</strong>.</p>
+                `
+            },
+            {
+                id: 8,
+                title: "Questão 08 - Estatais e Concorrência",
+                text: "A respeito da aplicação do Decreto nº 7.724/2012 às empresas estatais, assinale a alternativa correta, considerando o Artigo 5º e seus parágrafos.",
+                options: [
+                    "As empresas públicas e sociedades de economia mista estão totalmente isentas do cumprimento da LAI, submetendo-se apenas ao direito privado.",
+                    "A divulgação de informações de empresas estatais que atuem em regime de concorrência estará submetida às normas da Comissão de Valores Mobiliários (CVM), a fim de assegurar sua competitividade e governança corporativa.",
+                    "As estatais devem divulgar todas as suas informações estratégicas e industriais no Portal da Transparência, prevalecendo o interesse público sobre o sigilo empresarial em qualquer hipótese.",
+                    "O Banco Central do Brasil não se sujeita ao Decreto 7.724/2012 em nenhuma de suas atividades, possuindo regime de sigilo próprio e absoluto.",
+                    "Apenas as empresas públicas prestadoras de serviço público exclusivo (monopólio) estão sujeitas à transparência passiva."
+                ],
+                correct: 1, // Index 1 = B
+                resolution: `
+                    <p class="mb-2"><strong>Gabarito: B</strong></p>
+                    <p>O Art. 5º, § 1º estabelece uma proteção à atividade empresarial do Estado. Estatais em regime de concorrência seguem normas da CVM para proteger a competitividade, não sendo obrigadas a divulgar segredos industriais ou estratégicos via LAI.</p>
+                `
+            },
+            {
+                id: 9,
+                title: "Questão 09 - Última Instância (CMRI)",
+                text: "No fluxo recursal administrativo estabelecido pelo Decreto nº 7.724/2012, qual é o órgão colegiado competente para decidir, em última instância, sobre recursos interpostos contra decisões da Controladoria-Geral da União (CGU) que negaram acesso à informação?",
+                options: [
+                    "O Conselho de Transparência Pública e Combate à Corrupção.",
+                    "O Tribunal de Contas da União (TCU).",
+                    "A Comissão de Ética Pública da Presidência.",
+                    "A Comissão Mista de Reavaliação de Informações (CMRI).",
+                    "A Advocacia-Geral da União (AGU)."
+                ],
+                correct: 3, // Index 3 = D
+                resolution: `
+                    <p class="mb-2"><strong>Gabarito: D</strong></p>
+                    <p>A <strong>CMRI</strong> (Comissão Mista de Reavaliação de Informações) é a 4ª e última instância administrativa do Executivo Federal, responsável por julgar recursos contra decisões da CGU (Art. 24).</p>
+                `
+            },
+            {
+                id: 10,
+                title: "Questão 10 - Documentos Preparatórios",
+                text: "O acesso a documentos preparatórios, como notas técnicas e pareceres jurídicos que fundamentam a tomada de decisão, possui regime específico no Decreto nº 7.724/2012. Assinale a alternativa que descreve corretamente esse regime.",
+                options: [
+                    "O acesso é restrito por 5 anos, classificando-se automaticamente como Reservado.",
+                    "O acesso é livre e imediato desde a criação do documento, em nome da transparência em tempo real.",
+                    "O acesso a documento preparatório ou informação nele contida, utilizados como fundamento de tomada de decisão, será assegurado a partir da edição do ato ou decisão.",
+                    "Tais documentos são considerados propriedade intelectual do servidor que os elaborou, não sendo passíveis de acesso público.",
+                    "O acesso depende de autorização judicial, pois envolve o processo cognitivo da administração."
+                ],
+                correct: 2, // Index 2 = C
+                resolution: `
+                    <p class="mb-2"><strong>Gabarito: C</strong></p>
+                    <p>Segundo o Art. 20, documentos preparatórios (notas, pareceres) têm acesso garantido apenas <strong>a partir da edição do ato ou decisão</strong>. Isso protege o processo de deliberação, garantindo transparência total dos fundamentos após a decisão tomada.</p>
+                `
+            }
+        ];
+
+        const container = document.getElementById('questionsContainer');
+
+        function renderQuiz() {
+            container.innerHTML = quizData.map((q, index) => `
+                <article class="bg-white p-8 rounded-xl shadow-md mb-8 border-l-4 border-slate-300 hover:shadow-lg transition-shadow" id="question-${index}">
+                    <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 ui-font">${q.title}</h3>
+                    <p class="text-lg md:text-xl leading-relaxed text-gray-800 mb-6">${q.text}</p>
+                    
+                    <div class="space-y-3 ui-font text-base">
+                        ${q.options.map((opt, optIndex) => `
+                            <div class="relative">
+                                <input type="radio" name="q${index}" id="q${index}_opt${optIndex}" value="${optIndex}" class="option-input peer hidden">
+                                <label for="q${index}_opt${optIndex}" 
+                                    class="option-label block p-4 rounded-lg border border-gray-200 cursor-pointer hover:bg-gray-50 peer-checked:bg-slate-100 peer-checked:border-slate-500 peer-checked:text-slate-900 select-none">
+                                    <span class="font-bold mr-2 text-slate-400">${String.fromCharCode(65 + optIndex)})</span> ${opt}
+                                </label>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <!-- Área de Resolução (Inicialmente Oculta) -->
+                    <div id="resolution-${index}" class="hidden mt-6 pt-6 border-t border-dashed border-gray-300 bg-blue-50 rounded-lg p-6 text-sm md:text-base text-slate-700 leading-relaxed">
+                        <h4 class="font-bold text-blue-800 mb-2 ui-font uppercase text-xs">Resolução / Comentário:</h4>
+                        ${q.resolution}
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        function finishQuiz() {
+            let score = 0;
+            let allAnswered = true; // Opcional: checar se respondeu tudo
+
+            quizData.forEach((q, index) => {
+                const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                const resolutionDiv = document.getElementById(`resolution-${index}`);
+                const questionCard = document.getElementById(`question-${index}`);
+                
+                // Revelar resolução
+                resolutionDiv.classList.remove('hidden');
+                
+                // Desabilitar inputs
+                const inputs = document.querySelectorAll(`input[name="q${index}"]`);
+                inputs.forEach(inp => inp.disabled = true);
+
+                if (selected) {
+                    const selectedVal = parseInt(selected.value);
+                    const labelSelected = document.querySelector(`label[for="q${index}_opt${selectedVal}"]`);
+                    
+                    if (selectedVal === q.correct) {
+                        score++;
+                        labelSelected.classList.add('correct-answer');
+                        questionCard.classList.remove('border-slate-300');
+                        questionCard.classList.add('border-green-500');
+                    } else {
+                        labelSelected.classList.add('wrong-answer');
+                        questionCard.classList.remove('border-slate-300');
+                        questionCard.classList.add('border-red-500');
+                        
+                        // Marcar a correta também para o usuário ver
+                        const labelCorrect = document.querySelector(`label[for="q${index}_opt${q.correct}"]`);
+                        labelCorrect.classList.add('correct-answer');
+                    }
+                } else {
+                    // Se não respondeu, apenas mostra a correta
+                    const labelCorrect = document.querySelector(`label[for="q${index}_opt${q.correct}"]`);
+                    labelCorrect.classList.add('correct-answer');
+                    questionCard.classList.remove('border-slate-300');
+                    questionCard.classList.add('border-yellow-400'); // Amarelo para não respondida
+                }
+            });
+
+            // Atualizar e mostrar placar
+            const resultSection = document.getElementById('resultSection');
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            
+            scoreDisplay.innerText = score;
+            resultSection.classList.remove('hidden');
+
+            // Scroll suave até o primeiro erro ou topo se tudo certo
+            // Simplesmente revelando a barra inferior já é feedback suficiente, o usuário pode rolar
+        }
+
+        // Inicializar
+        renderQuiz();
+
+    </script>
+</body>
+</html>

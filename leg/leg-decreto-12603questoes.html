@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado PNEPT - Decreto 12.603/2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        .serif-text {
+            font-family: 'Merriweather', serif;
+        }
+        .option-label {
+            transition: all 0.2s ease-in-out;
+        }
+        .option-radio:checked + .option-label {
+            background-color: #e2e8f0;
+            border-color: #64748b;
+            font-weight: 600;
+        }
+        .correct-answer {
+            background-color: #dcfce7 !important; /* Green-100 */
+            border-color: #16a34a !important; /* Green-600 */
+            color: #14532d !important;
+        }
+        .wrong-answer {
+            background-color: #fee2e2 !important; /* Red-100 */
+            border-color: #dc2626 !important; /* Red-600 */
+            color: #7f1d1d !important;
+        }
+        .resolution-box {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-10">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div>
+                <h1 class="text-xl font-bold text-slate-900">Simulado PNEPT</h1>
+                <p class="text-sm text-slate-500">Decreto nº 12.603/2025 - Estilo Instituto AOCP</p>
+            </div>
+            <div class="text-sm font-medium bg-slate-100 px-3 py-1 rounded-full text-slate-600">
+                10 Questões
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow w-full max-w-4xl mx-auto px-4 py-8">
+        
+        <!-- Intro Card -->
+        <div class="bg-white rounded-xl shadow-sm p-8 mb-8 border border-slate-100">
+            <h2 class="text-2xl font-bold mb-4 text-slate-800 serif-text">Instruções</h2>
+            <p class="text-slate-600 mb-4 leading-relaxed">
+                Este simulado contém 10 questões inéditas baseadas no Decreto nº 12.603/2025, elaboradas no perfil da banca Instituto AOCP. 
+                Ao finalizar, você verá sua pontuação e a resolução detalhada (gabarito comentado) de cada item logo abaixo da questão.
+            </p>
+        </div>
+
+        <!-- Quiz Container -->
+        <form id="quiz-form" onsubmit="event.preventDefault(); submitQuiz();">
+            <div id="questions-container" class="space-y-12">
+                <!-- Questions will be injected here by JS -->
+            </div>
+
+            <!-- Submit Button -->
+            <div class="mt-12 mb-16 text-center">
+                <button type="submit" id="submit-btn" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-4 px-12 rounded-lg shadow-lg transition transform hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-slate-300 text-lg">
+                    Finalizar Simulado e Ver Resoluções
+                </button>
+            </div>
+        </form>
+
+        <!-- Result Section (Hidden initially) -->
+        <div id="result-section" class="hidden bg-white rounded-xl shadow-lg border border-slate-200 p-8 mb-12 text-center scroll-mt-24">
+            <h3 class="text-3xl font-bold text-slate-900 mb-2">Resultado</h3>
+            <div class="text-5xl font-black text-blue-600 mb-4" id="score-display">0/10</div>
+            <p id="score-message" class="text-lg text-slate-600 mb-6 serif-text"></p>
+            <p class="text-sm text-slate-500">Role para cima para ver as resoluções detalhadas em cada questão.</p>
+            <button onclick="window.location.reload()" class="mt-6 text-blue-600 hover:text-blue-800 font-medium underline">Refazer Simulado</button>
+        </div>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-sm">
+        <p>&copy; 2025 Simulado Educacional. Baseado no Decreto 12.603/2025.</p>
+    </footer>
+
+    <script>
+        const quizData = [
+            {
+                id: 1,
+                question: "O Decreto nº 12.603, de 28 de agosto de 2025, institui a Política Nacional de Educação Profissional e Tecnológica (PNEPT). O Art. 2º deste normativo elenca os princípios que regem a EPT. Assinale a alternativa que apresenta corretamente um desses princípios, respeitando a integridade do texto legal e seus fundamentos pedagógicos.",
+                options: [
+                    "A fragmentação entre o ensino propedêutico e a formação técnica, visando a especialização precoce do trabalhador para o mercado.",
+                    "A centralidade do lucro empresarial como princípio educativo orientador da gestão escolar e curricular.",
+                    "A indissociabilidade entre educação e prática social, de modo a assegurar a formação crítica e cidadã, considerada a historicidade dos conhecimentos e dos sujeitos.",
+                    "A uniformização da oferta educacional em todo o território nacional, desconsiderando as diferenças regionais em prol de um currículo único.",
+                    "A autonomia absoluta da instituição educacional, que poderá definir suas normas independentemente da legislação e do sistema de ensino vigente."
+                ],
+                correct: 2, // Index C
+                letter: "C",
+                resolution: `
+                    <p class="mb-2"><strong>Análise:</strong> A questão testa o conhecimento dos princípios do Art. 2º.</p>
+                    <p class="mb-2"><strong>Alternativa C (Correta):</strong> Reproduz fielmente o inciso IV: "Indissociabilidade entre educação e prática social, de modo a assegurar a formação crítica e cidadã...". Este princípio é vital pois conecta a escola à vida. A menção à "historicidade" alinha-se à pedagogia crítica.</p>
+                    <ul class="list-disc list-inside space-y-1 ml-2 text-sm text-slate-700">
+                        <li>(A) Incorreta: A PNEPT prega a <em>integração</em> e a formação integral, combatendo a especialização precoce.</li>
+                        <li>(B) Incorreta: O princípio é a centralidade do <em>trabalho</em> (categoria ontológica), não do lucro.</li>
+                        <li>(D) Incorreta: A PNEPT prega o respeito às <em>diferenças regionais</em> (Inciso VII).</li>
+                        <li>(E) Incorreta: A autonomia (Inciso XIII) é relativa e deve respeitar a legislação.</li>
+                    </ul>`
+            },
+            {
+                id: 2,
+                question: "Conforme disposto no Art. 3º do Decreto nº 12.603/2025, são diretrizes para a implementação da Política Nacional de Educação Profissional e Tecnológica, EXCETO:",
+                options: [
+                    "O desenvolvimento de políticas de acesso, de permanência e de êxito dos sujeitos da educação profissional e tecnológica.",
+                    "A construção de itinerários formativos diversificados e atualizados, orientados para os interesses dos sujeitos e suas trajetórias educacionais.",
+                    "O incentivo às práticas educacionais que promovam a economia circular, a economia verde e a economia do cuidado.",
+                    "A promoção da integração entre os diferentes níveis e as modalidades educacionais, visando o fortalecimento da verticalização do ensino.",
+                    "A concentração da oferta de cursos técnicos e tecnológicos nas regiões metropolitanas, visando a otimização logística dos recursos federais."
+                ],
+                correct: 4, // Index E
+                letter: "E",
+                resolution: `
+                    <p class="mb-2"><strong>Análise:</strong> A questão pede a EXCEÇÃO baseada no Art. 3º (Diretrizes).</p>
+                    <p class="mb-2"><strong>Alternativa E (Correta como exceção):</strong> O texto da alternativa defende a "concentração nas regiões metropolitanas". O Decreto, em sua Diretriz VIII, estabelece o exato oposto: "O estímulo à <strong>interiorização</strong> da oferta da educação profissional e tecnológica...". A política pública busca levar o desenvolvimento para o interior, descentralizando o progresso.</p>
+                    <p class="text-sm mt-2">Os demais itens (A, B, C, D) são cópias literais das diretrizes corretas presentes no decreto.</p>`
+            },
+            {
+                id: 3,
+                question: "O Art. 4º do Decreto nº 12.603/2025 estabelece os objetivos da PNEPT. Analise as assertivas abaixo quanto à teleologia da norma:<br><br>I. A PNEPT deve articular a oferta da educação profissional e tecnológica, observadas as metas do Plano Nacional de Educação (PNE).<br>II. A política deve estimular a participação do mundo do trabalho na oferta da EPT, visando exclusivamente o lucro das empresas parceiras.<br>III. É objetivo da PNEPT fomentar ações de extensão, pesquisa e inovação no âmbito da educação profissional.<br><br>Estão corretas as assertivas:",
+                options: [
+                    "Apenas I e II.",
+                    "Apenas I e III.",
+                    "Apenas II e III.",
+                    "Todas as assertivas.",
+                    "Nenhuma das assertivas."
+                ],
+                correct: 1, // Index B
+                letter: "B",
+                resolution: `
+                    <p class="mb-2"><strong>Análise:</strong> Verifica a compreensão dos Objetivos (Art. 4º).</p>
+                    <ul class="list-disc list-inside space-y-1 text-slate-700">
+                        <li><strong>Item I (Correto):</strong> O objetivo I é a articulação com o PNE. A EPT é parte do sistema nacional.</li>
+                        <li><strong>Item II (Incorreto):</strong> O objetivo é estimular a participação do mundo do trabalho com vistas à <em>inclusão socioprodutiva</em> (Inciso IV), não ao lucro empresarial.</li>
+                        <li><strong>Item III (Correto):</strong> O fomento à extensão, pesquisa e inovação (Inciso VIII) é essencial para superar o caráter de mero treinamento técnico.</li>
+                    </ul>
+                    <p class="mt-2 font-semibold">Portanto, apenas I e III estão corretas.</p>`
+            },
+            {
+                id: 4,
+                question: "Sobre o Sistema Nacional de Avaliação da Educação Profissional e Tecnológica (SINAEPT), instituído pelo Decreto nº 12.603/2025, assinale a alternativa que descreve corretamente a periodicidade e a competência avaliativa.",
+                options: [
+                    "A PNEPT será avaliada anualmente, mediante critérios definidos exclusivamente pelas secretarias estaduais de educação.",
+                    "A avaliação ocorrerá em ciclos de até quatro anos, mediante critérios e indicadores estabelecidos pelo Ministério da Educação.",
+                    "O ciclo avaliativo será decenal, coincidindo com a vigência do Plano Nacional de Educação.",
+                    "A avaliação é facultativa para as instituições da rede federal, sendo obrigatória apenas para a rede privada.",
+                    "O sistema de avaliação será gerido pelo setor produtivo, garantindo a adequação total às demandas de mercado."
+                ],
+                correct: 1, // Index B
+                letter: "B",
+                resolution: `
+                    <p class="mb-2"><strong>Análise:</strong> Foca no SINAEPT (Art. 23).</p>
+                    <p class="mb-2"><strong>Alternativa B (Correta):</strong> O texto legal é taxativo: "A PNEPT será avaliada periodicamente, em ciclos de <strong>até quatro anos</strong>, mediante critérios e indicadores estabelecidos pelo <strong>Ministério da Educação</strong>".</p>
+                    <p class="text-sm text-slate-700">Este prazo permite acompanhar a implementação de políticas de médio prazo e coincide com a duração da maioria dos cursos técnicos. Distratores como "anual" ou "decenal" e gestão por "secretarias estaduais" estão incorretos.</p>`
+            },
+            {
+                id: 5,
+                question: "O Decreto nº 12.603/2025 destaca a relação entre teoria e prática como um dos pilares da formação. Segundo os princípios da PNEPT (Art. 2º), essa relação é definida como:",
+                options: [
+                    "Indissociabilidade entre teoria e prática no processo de ensino-aprendizagem.",
+                    "Prioridade da prática sobre a teoria, dado o caráter técnico da formação.",
+                    "Prioridade da teoria sobre a prática, garantindo a base acadêmica.",
+                    "Independência total, sendo ministradas em módulos distintos e incomunicáveis.",
+                    "Alternância facultativa, a depender da disponibilidade de laboratórios."
+                ],
+                correct: 0, // Index A
+                letter: "A",
+                resolution: `
+                    <p class="mb-2"><strong>Análise:</strong> Explora o Princípio V do Art. 2º.</p>
+                    <p class="mb-2"><strong>Alternativa A (Correta):</strong> "Indissociabilidade entre teoria e prática". Na EPT, a teoria ilumina a prática, e a prática concretiza a teoria. Essa unidade é a base da <em>praxis</em>.</p>
+                    <p class="text-sm text-slate-700">Erro comum: Muitos candidatos acreditam que no ensino técnico a prática é superior. O decreto rejeita essa hierarquia, pois prática sem teoria é alienada e teoria sem prática é verbalismo.</p>`
+            },
+            {
+                id: 6,
+                question: "No contexto das diretrizes da PNEPT (Art. 3º), o decreto inova ao citar especificamente modelos econômicos que devem ser fomentados pelas práticas educacionais. Assinale a alternativa que contém apenas modelos citados explicitamente no texto legal.",
+                options: [
+                    "Economia de mercado, economia planificada e economia mista.",
+                    "Economia solidária, criptoeconomia e economia de escala.",
+                    "Economia circular, economia verde, economia criativa e economia do cuidado.",
+                    "Economia digital, economia agrícola extensiva e economia industrial clássica.",
+                    "Economia de subsistência, economia de exportação e economia bancária."
+                ],
+                correct: 2, // Index C
+                letter: "C",
+                resolution: `
+                    <p class="mb-2"><strong>Análise:</strong> Questão de memorização das "novidades" da Diretriz IV (Art. 3º).</p>
+                    <p class="mb-2"><strong>Alternativa C (Correta):</strong> As economias citadas são: <strong>Circular</strong> (reaproveitamento), <strong>Verde</strong> (sustentabilidade), <strong>Criativa</strong> (cultura/intelecto) e <strong>do Cuidado</strong> (saúde/assistência).</p>
+                    <p class="text-sm text-slate-700">A inclusão da "Economia do Cuidado" é particularmente relevante dado o envelhecimento populacional e a necessidade de profissionalizar cuidadores.</p>`
+            },
+            {
+                id: 7,
+                question: "De acordo com o Art. 1º do Decreto nº 12.603/2025, a PNEPT tem como finalidade a formação integral e cidadã. Para atingir tal finalidade, a política deve ser articulada com um conjunto de outras políticas públicas estruturantes. Assinale a opção que apresenta corretamente essas políticas conforme o texto do decreto.",
+                options: [
+                    "Políticas de segurança pública, defesa nacional e inteligência.",
+                    "Políticas de ciência e tecnologia, geração de emprego e renda, saúde, cultura e desenvolvimento sustentável.",
+                    "Políticas de austeridade fiscal, controle inflacionário e câmbio flutuante.",
+                    "Políticas de privatização de estatais, desregulação do trabalho e reforma previdenciária.",
+                    "Políticas de relações internacionais, diplomacia e comércio exterior exclusivamente."
+                ],
+                correct: 1, // Index B
+                letter: "B",
+                resolution: `
+                    <p class="mb-2"><strong>Análise:</strong> Articulação de políticas (Art. 1º).</p>
+                    <p class="mb-2"><strong>Alternativa B (Correta):</strong> O decreto vê a educação de forma sistêmica. A EPT deve dialogar com Ciência e Tecnologia (para inovar), Geração de Emprego (para empregar), Saúde, Cultura e Sustentabilidade.</p>
+                    <p class="text-sm text-slate-700">A educação profissional não resolve sozinha os problemas do país; ela precisa estar acoplada a um projeto de desenvolvimento nacional que integre essas outras áreas.</p>`
+            },
+            {
+                id: 8,
+                question: "O Art. 2º do Decreto nº 12.603/2025 elenca a \"centralidade do trabalho\" como princípio educativo. Na perspectiva da pedagogia histórico-crítica e da legislação educacional brasileira, esse princípio implica:",
+                options: [
+                    "A preparação do aluno para executar tarefas repetitivas com máxima eficiência e questionamento mínimo.",
+                    "A compreensão do trabalho como princípio inerente à condição humana e produtor de cultura, integrando saberes manuais e intelectuais.",
+                    "O início do trabalho infantil como forma de aprendizado precoce da disciplina fabril.",
+                    "A substituição do currículo escolar pelo treinamento em serviço dentro das indústrias.",
+                    "A valorização do trabalho intelectual em detrimento do trabalho manual, visto como inferior."
+                ],
+                correct: 1, // Index B
+                letter: "B",
+                resolution: `
+                    <p class="mb-2"><strong>Análise:</strong> Interpretação teórica do Princípio II (Trabalho como princípio educativo).</p>
+                    <p class="mb-2"><strong>Alternativa B (Correta):</strong> Define corretamente o conceito (LDB e PNEPT). O trabalho é o que nos faz humanos (produtor de cultura). Na escola, isso significa ensinar a ciência e a cultura que subjazem às práticas produtivas (formação omnilateral).</p>
+                    <p class="text-sm text-slate-700">Distratores: A alternativa A descreve o Taylorismo (alienação). A alternativa C descreve exploração. A alternativa D descreve o modelo dualista puro.</p>`
+            },
+            {
+                id: 9,
+                question: "A Diretriz I do Art. 3º da PNEPT estabelece o desenvolvimento de políticas de acesso, permanência e êxito. Sob a ótica da gestão educacional inclusiva promovida pelo decreto, isso significa:",
+                options: [
+                    "Que o acesso deve ser universal, mas a permanência depende exclusivamente do mérito individual do aluno.",
+                    "Que a escola deve focar apenas no êxito dos melhores alunos, descartando aqueles com dificuldades de aprendizagem.",
+                    "A implementação de ações que garantam não apenas a matrícula, mas as condições materiais e pedagógicas para a conclusão do curso com qualidade.",
+                    "Que a evasão escolar é um fenômeno natural e inevitável no ensino técnico, não cabendo à política pública intervir.",
+                    "A criação de barreiras de entrada rigorosas para assegurar que apenas alunos de alta renda acessem os cursos técnicos."
+                ],
+                correct: 2, // Index C
+                letter: "C",
+                resolution: `
+                    <p class="mb-2"><strong>Análise:</strong> Interpretação da Diretriz I (Acesso, Permanência e Êxito).</p>
+                    <p class="mb-2"><strong>Alternativa C (Correta):</strong> A democratização não é só abrir a porta (matrícula). A \"permanência\" envolve assistência estudantil (bolsas, transporte) e apoio pedagógico. O \"êxito\" é a aprendizagem efetiva.</p>
+                    <p class="text-sm text-slate-700">A alternativa A prega meritocracia pura sem equidade, o que é contrário à lógica inclusiva do decreto.</p>`
+            },
+            {
+                id: 10,
+                question: "O princípio da \"aderência da oferta educacional ao contexto\" (Art. 2º, VI) e a diretriz de \"interiorização da oferta\" (Art. 3º, VIII) visam combater qual distorção histórica da educação profissional brasileira?",
+                options: [
+                    "A excessiva oferta de cursos agrícolas em zonas urbanas.",
+                    "A concentração de investimentos e oportunidades formativas nas grandes capitais, ignorando as potencialidades dos territórios do interior.",
+                    "A falta de interesse dos jovens do interior pela educação profissional.",
+                    "O excesso de recursos financeiros destinados às escolas técnicas municipais.",
+                    "A saturação do mercado de trabalho nas pequenas cidades, que não comportam novos profissionais."
+                ],
+                correct: 1, // Index B
+                letter: "B",
+                resolution: `
+                    <p class="mb-2"><strong>Análise:</strong> Contextualização histórica e geográfica da EPT.</p>
+                    <p class="mb-2"><strong>Alternativa B (Correta):</strong> O Brasil historicamente concentrou suas escolas técnicas nas capitais. A diretriz de <strong>interiorização</strong> visa levar infraestrutura e desenvolvimento para o interior, retendo talentos e desenvolvendo a economia local.</p>`
+            }
+        ];
+
+        const quizContainer = document.getElementById('questions-container');
+        const resultSection = document.getElementById('result-section');
+        const scoreDisplay = document.getElementById('score-display');
+        const scoreMessage = document.getElementById('score-message');
+        const submitBtn = document.getElementById('submit-btn');
+
+        function renderQuiz() {
+            quizData.forEach((q, index) => {
+                const questionEl = document.createElement('div');
+                questionEl.classList.add('bg-white', 'p-8', 'rounded-xl', 'shadow-sm', 'border', 'border-slate-200');
+                questionEl.id = `q-${q.id}`;
+
+                let optionsHtml = '';
+                q.options.forEach((opt, i) => {
+                    optionsHtml += `
+                        <label class="flex items-start space-x-3 p-4 rounded-lg border border-slate-200 cursor-pointer hover:bg-slate-50 option-label" id="lbl-${q.id}-${i}">
+                            <input type="radio" name="q${q.id}" value="${i}" class="option-radio mt-1 h-4 w-4 text-blue-600 border-slate-300 focus:ring-blue-500">
+                            <span class="text-slate-700 text-lg">${String.fromCharCode(65 + i)}) ${opt}</span>
+                        </label>
+                    `;
+                });
+
+                questionEl.innerHTML = `
+                    <div class="flex items-center mb-4">
+                        <span class="bg-slate-800 text-white text-xs font-bold px-2 py-1 rounded uppercase tracking-wider mr-2">Questão ${q.id}</span>
+                        <span class="text-slate-400 text-sm">Decreto 12.603/2025</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-slate-900 mb-6 serif-text leading-relaxed">${q.question}</h3>
+                    <div class="space-y-3 flex flex-col">
+                        ${optionsHtml}
+                    </div>
+                    
+                    <!-- Resolution Area (Hidden initially) -->
+                    <div id="res-${q.id}" class="resolution-box mt-8 bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+                        <div class="flex items-center mb-3">
+                            <div class="bg-blue-600 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">
+                                ${q.letter}
+                            </div>
+                            <h4 class="font-bold text-blue-900">Gabarito e Resolução</h4>
+                        </div>
+                        <div class="text-slate-800 leading-relaxed text-base">
+                            ${q.resolution}
+                        </div>
+                    </div>
+                `;
+                quizContainer.appendChild(questionEl);
+            });
+        }
+
+        function submitQuiz() {
+            let score = 0;
+            const inputs = document.querySelectorAll('input[type="radio"]:checked');
+            
+            // Disable interaction
+            const allRadios = document.querySelectorAll('input[type="radio"]');
+            allRadios.forEach(r => r.disabled = true);
+            submitBtn.classList.add('hidden');
+
+            quizData.forEach((q) => {
+                const selectedInput = document.querySelector(`input[name="q${q.id}"]:checked`);
+                const resolutionDiv = document.getElementById(`res-${q.id}`);
+                
+                // Reveal resolution
+                resolutionDiv.style.display = 'block';
+
+                // Styling Logic
+                if (selectedInput) {
+                    const selectedValue = parseInt(selectedInput.value);
+                    const label = document.getElementById(`lbl-${q.id}-${selectedValue}`);
+
+                    if (selectedValue === q.correct) {
+                        score++;
+                        label.classList.add('correct-answer');
+                    } else {
+                        label.classList.add('wrong-answer');
+                        // Highlight correct answer
+                        document.getElementById(`lbl-${q.id}-${q.correct}`).classList.add('correct-answer');
+                    }
+                } else {
+                    // No selection, just highlight correct answer
+                    document.getElementById(`lbl-${q.id}-${q.correct}`).classList.add('correct-answer');
+                }
+            });
+
+            // Show Score
+            scoreDisplay.innerText = `${score}/${quizData.length}`;
+            resultSection.classList.remove('hidden');
+            
+            if (score === 10) {
+                scoreMessage.innerText = "Excelente! Você domina completamente o Decreto 12.603/2025.";
+            } else if (score >= 7) {
+                scoreMessage.innerText = "Muito bom! Você tem um bom conhecimento, mas revise os detalhes nas resoluções.";
+            } else {
+                scoreMessage.innerText = "Continue estudando. Leia atentamente as resoluções abaixo para fortalecer a base.";
+            }
+
+            // Scroll to result
+            resultSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Initialize
+        renderQuiz();
+    </script>
+</body>
+</html>

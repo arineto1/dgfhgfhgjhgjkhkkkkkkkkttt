@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo de Alta Performance: Sintaxe - Instituto AOCP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1f2937; /* Cinza escuro para leitura confortável */
+        }
+        h1, h2, h3 {
+            color: #111827; /* Quase preto para títulos */
+        }
+        /* Estilo de "Grifado" estilo marcador de texto */
+        .highlight {
+            background-color: #fef08a; /* Amarelo suave */
+            padding: 0 4px;
+            border-radius: 2px;
+            font-weight: 600;
+        }
+        /* Estilo para garantir que tabelas não vazem a tela */
+        table {
+            width: 100%;
+            table-layout: fixed; /* Força a tabela a respeitar a largura */
+        }
+        td, th {
+            word-wrap: break-word; /* Quebra palavras longas se necessário */
+            white-space: normal; /* Permite que o texto vá para a linha de baixo */
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col items-center py-8 px-4 sm:px-6 lg:px-8">
+
+    <!-- Container Principal (Largura de leitura otimizada) -->
+    <main class="w-full max-w-3xl space-y-8">
+
+        <!-- Cabeçalho -->
+        <header class="text-center border-b border-gray-200 pb-6">
+            <h1 class="text-3xl sm:text-4xl font-bold tracking-tight mb-2">Resumo de Alta Performance</h1>
+            <h2 class="text-xl text-gray-600 font-semibold">Sintaxe para Instituto AOCP</h2>
+            <p class="mt-4 text-gray-500">
+                <span class="font-bold">Foco:</span> Memorização, Regras de Ouro e Pegadinhas da Banca.
+            </p>
+        </header>
+
+        <!-- Player de Áudio -->
+        <section class="bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-sm">
+            <label class="block text-sm font-medium text-gray-700 mb-2">🎧 Ouça o Resumo da Aula:</label>
+            <!-- Substitua 'seu-arquivo-de-audio.mp3' pelo nome real do seu arquivo -->
+            <audio controls class="w-full h-10 outline-none">
+                <source src="lp-organizacao-sintatica.mp3" type="audio/mpeg">
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
+        </section>
+
+        <!-- 1. Mindset da Banca -->
+        <section>
+            <h2 class="text-2xl font-bold mb-4 border-l-4 border-gray-800 pl-3">1. O "Mindset" da Banca Instituto AOCP</h2>
+            <ul class="list-disc pl-5 space-y-2 text-lg">
+                <li><strong>Perfil:</strong> <span class="highlight">Gramatiquice pura</span>. Cobra nomenclatura técnica (saber o nome do termo).</li>
+                <li><strong>Estilo:</strong> Frases curtas retiradas do texto.</li>
+                <li><strong>Estratégia:</strong> Identificar o verbo &rarr; Achar o sujeito &rarr; Classificar complementos.</li>
+            </ul>
+        </section>
+
+        <!-- 2. Período Simples -->
+        <section>
+            <h2 class="text-2xl font-bold mb-4 border-l-4 border-gray-800 pl-3">2. Período Simples: Termos Essenciais e Integrantes</h2>
+            
+            <h3 class="text-xl font-semibold mt-6 mb-3 text-gray-800">Sujeito: As Pegadinhas de Concordância</h3>
+            <p class="mb-4">O verbo concorda com o <span class="highlight">núcleo</span> do sujeito.</p>
+
+            <div class="overflow-hidden border border-gray-300 rounded-lg mb-6">
+                <table class="min-w-full divide-y divide-gray-300">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-bold text-gray-900 sm:pl-6 w-1/3">Tipo de Sujeito</th>
+                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-bold text-gray-900">Regra de Ouro / Pegadinha</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200 bg-white text-base">
+                        <tr>
+                            <td class="py-4 pl-4 pr-3 sm:pl-6 font-medium">Simples (Coletivo)</td>
+                            <td class="px-3 py-4">Verbo no singular. <br>Ex: <em>"A maioria dos alunos <span class="highlight">passou</span>."</em></td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 pl-4 pr-3 sm:pl-6 font-medium">Indeterminado</td>
+                            <td class="px-3 py-4">
+                                1. Verbo 3ª PL sem referência no texto.<br>
+                                2. Verbo + <strong>SE</strong> (VTI, VI, VL). <br>
+                                <span class="highlight">Verbo obrigatoriamente no Singular.</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 pl-4 pr-3 sm:pl-6 font-medium">Inexistente (Oração s/ Sujeito)</td>
+                            <td class="px-3 py-4">
+                                <strong>Haver</strong> (= Existir/Tempo) e <strong>Fazer</strong> (= Tempo/Clima).<br>
+                                <strong>Regra:</strong> Verbo <span class="highlight">sempre na 3ª do Singular</span>. <br>
+                                <em>Atenção:</em> Em locuções, contamina o auxiliar. <em>"<span class="highlight">Deve haver</span> vagas"</em> (e não "Devem").
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="text-xl font-semibold mt-6 mb-3 text-gray-800">Transitividade Verbal (A base da Regência)</h3>
+            <ul class="space-y-3 mb-6">
+                <li class="bg-gray-50 p-3 rounded border border-gray-100">
+                    <strong>VTD (Transitivo Direto):</strong> Não pede preposição. Aceita Voz Passiva.
+                </li>
+                <li class="bg-gray-50 p-3 rounded border border-gray-100">
+                    <strong>VTI (Transitivo Indireto):</strong> Pede preposição obrigatória ("Gostar <span class="highlight">de</span>", "Visar <span class="highlight">a</span>"). Não aceita passiva pessoal.
+                </li>
+                <li class="bg-gray-50 p-3 rounded border border-gray-100">
+                    <strong>VI (Intransitivo):</strong> Sentido completo. Geralmente vem com <strong>Adjunto Adverbial</strong>. <br>
+                    <span class="text-sm text-red-700 font-semibold">⚠ Cuidado: "Cheguei a João Pessoa" ("a João Pessoa" é Adj. Adv. de lugar, não Objeto Indireto).</span>
+                </li>
+            </ul>
+
+            <h3 class="text-xl font-semibold mt-6 mb-3 text-gray-800">O Grande Vilão: Adjunto Adnominal vs. Complemento Nominal</h3>
+            <div class="bg-blue-50 p-5 rounded-lg border border-blue-100 text-gray-800">
+                <p class="font-bold mb-3">Use este algoritmo para decidir:</p>
+                <ol class="list-decimal list-inside space-y-2">
+                    <li>O termo está ligado a <strong>Adjetivo</strong> ou <strong>Advérbio</strong>?
+                        <ul class="list-disc list-inside pl-5 mt-1 text-gray-600">
+                            <li>Sim &rarr; <span class="highlight">Complemento Nominal</span> (Sempre).</li>
+                            <li><em>Ex: Fiel <strong>aos princípios</strong>.</em></li>
+                        </ul>
+                    </li>
+                    <li>O termo está ligado a <strong>Substantivo Concreto</strong>?
+                        <ul class="list-disc list-inside pl-5 mt-1 text-gray-600">
+                            <li>Sim &rarr; <span class="highlight">Adjunto Adnominal</span> (Sempre).</li>
+                            <li><em>Ex: Cadeira <strong>de madeira</strong>.</em></li>
+                        </ul>
+                    </li>
+                    <li>O termo está ligado a <strong>Substantivo Abstrato</strong>? (Ação/Sentimento)
+                        <ul class="list-disc list-inside pl-5 mt-1 text-gray-600">
+                            <li><strong>AGENTE (Ativo):</strong> Pratica a ação &rarr; <span class="highlight">Adjunto Adnominal</span>. (<em>Ex: "A crítica <strong>do diretor</strong>"</em> - ele criticou).</li>
+                            <li><strong>PACIENTE (Passivo):</strong> Sofre a ação &rarr; <span class="highlight">Complemento Nominal</span>. (<em>Ex: "A crítica <strong>ao diretor</strong>"</em> - ele foi criticado).</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- 3. Morfossintaxe -->
+        <section>
+            <h2 class="text-2xl font-bold mb-4 border-l-4 border-gray-800 pl-3">3. Morfossintaxe: As Partículas "SE" e "QUE"</h2>
+
+            <h3 class="text-xl font-semibold mt-6 mb-3 text-gray-800">Funções do "SE" (Questão Certa)</h3>
+            <div class="overflow-hidden border border-gray-300 rounded-lg mb-6">
+                <table class="min-w-full divide-y divide-gray-300">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="py-3 pl-4 text-left text-sm font-bold text-gray-900 w-1/4">Estrutura</th>
+                            <th class="px-2 py-3 text-left text-sm font-bold text-gray-900 w-1/4">Classificação</th>
+                            <th class="px-2 py-3 text-left text-sm font-bold text-gray-900 w-1/4">Concordância</th>
+                            <th class="px-2 py-3 text-left text-sm font-bold text-gray-900 w-1/4">Exemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200 bg-white text-sm sm:text-base">
+                        <tr>
+                            <td class="py-3 pl-4 font-bold">VTD + SE</td>
+                            <td class="px-2 py-3">Partícula Apassivadora (PA)</td>
+                            <td class="px-2 py-3">Concorda com o Sujeito Paciente</td>
+                            <td class="px-2 py-3"><em>"Vendem-<span class="highlight">se</span> casas."</em></td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 pl-4 font-bold">VTI / VI / VL + SE</td>
+                            <td class="px-2 py-3">Índice de Indet. do Sujeito (IIS)</td>
+                            <td class="px-2 py-3"><span class="highlight">Sempre 3ª Singular</span></td>
+                            <td class="px-2 py-3"><em>"Precisa-<span class="highlight">se</span> de técnicos."</em></td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 pl-4 font-bold">Verbo + SE (Reflexo)</td>
+                            <td class="px-2 py-3">Pronome Reflexivo</td>
+                            <td class="px-2 py-3">Concorda com o sujeito</td>
+                            <td class="px-2 py-3"><em>"A menina <span class="highlight">se</span> feriu."</em></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="text-sm text-gray-600 italic bg-gray-50 p-2 rounded border-l-4 border-yellow-400">
+                <strong>Dica:</strong> Se der para transformar em passiva ("Casas são vendidas"), é PA. Se não der ("Técnicos são precisados" = Erro), é IIS.
+            </p>
+
+            <h3 class="text-xl font-semibold mt-8 mb-3 text-gray-800">Funções do "QUE"</h3>
+            <ul class="space-y-4">
+                <li class="flex flex-col sm:flex-row gap-2">
+                    <span class="font-bold whitespace-nowrap min-w-[180px]">Conjunção Integrante:</span>
+                    <span>Troque a oração inteira por <span class="highlight">ISSO</span>.<br>
+                    <em>"Quero <strong>que</strong> você passe"</em> &rarr; <em>"Quero <strong>ISSO</strong>"</em>. (Inicia Oração Substantiva).</span>
+                </li>
+                <li class="flex flex-col sm:flex-row gap-2">
+                    <span class="font-bold whitespace-nowrap min-w-[180px]">Pronome Relativo:</span>
+                    <span>Troque por <span class="highlight">O QUAL</span> (a qual, os quais).<br>
+                    <em>"O material <strong>que</strong> estudei"</em> &rarr; <em>"O material <strong>O QUAL</strong> estudei"</em>. (Inicia Oração Adjetiva).</span>
+                </li>
+            </ul>
+        </section>
+
+        <!-- 4. Período Composto -->
+        <section>
+            <h2 class="text-2xl font-bold mb-4 border-l-4 border-gray-800 pl-3">4. Período Composto: Pontuação e Semântica</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Box Coordenadas -->
+                <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                    <h3 class="font-bold text-lg mb-2">Orações Coordenadas</h3>
+                    <ul class="list-disc pl-4 space-y-2">
+                        <li><strong>Adversativas (Oposição):</strong> Mas, porém, contudo, todavia, entretanto.</li>
+                        <li><strong>Conclusivas:</strong> Portanto, logo, assim.</li>
+                        <li class="mt-2 pt-2 border-t border-gray-200">
+                            <strong>POIS:</strong>
+                            <ul class="list-none pl-0 mt-1 text-sm">
+                                <li>&bull; Antes do verbo = Explicativo. <br><em>"Estude, <span class="highlight">pois</span> cai."</em></li>
+                                <li>&bull; Depois do verbo (entre vírgulas) = Conclusivo. <br><em>"Passou; merece, <span class="highlight">pois</span>, a vaga."</em></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Box Subordinadas Adjetivas -->
+                <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                    <h3 class="font-bold text-lg mb-2">Orações Sub. Adjetivas</h3>
+                    <p class="text-sm mb-2 text-gray-600">A pontuação altera o SENTIDO.</p>
+                    <ul class="space-y-3">
+                        <li>
+                            <strong>Restritiva:</strong> <span class="highlight">SEM vírgulas</span>.<br>
+                            <em>"Os alunos que estudam passam."</em> (Só os que estudam).
+                        </li>
+                        <li>
+                            <strong>Explicativa:</strong> <span class="highlight">COM vírgulas</span>.<br>
+                            <em>"Os alunos, que estudam, passam."</em> (Todos os alunos estudam).
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="text-xl font-semibold mt-6 mb-3 text-gray-800">Orações Subordinadas Adverbiais (Reescrita)</h3>
+            <p class="mb-3">A banca pede para trocar a conjunção mantendo o sentido.</p>
+            <ul class="list-disc pl-5 space-y-2">
+                <li><strong>Concessiva (Oposição fraca):</strong> <em>Embora, ainda que, mesmo que, conquanto</em>. (Pede verbo no subjuntivo).</li>
+                <li><strong>Causal:</strong> <em>Visto que, já que, uma vez que, como</em> (no início da frase).</li>
+                <li><strong>Proporcional:</strong> <em>À medida que</em> (Correto). <span class="text-red-700"><em>Na medida em que</em> (Causal)</span>. <br><strong>Nunca use:</strong> "À medida em que".</li>
+            </ul>
+        </section>
+
+        <!-- 5. Pontuação e Deslocamentos -->
+        <section>
+            <h2 class="text-2xl font-bold mb-4 border-l-4 border-gray-800 pl-3">5. Pontuação e Deslocamentos</h2>
+            <p class="mb-4">O Instituto AOCP adora cobrar vírgula em <span class="highlight">Adjuntos Adverbiais deslocados</span>.</p>
+            
+            <div class="space-y-3">
+                <div class="p-3 border-l-4 border-green-500 bg-gray-50">
+                    <strong>Ordem Direta:</strong> Sujeito + Verbo + Complementos + Adjuntos. <br><span class="highlight">Sem vírgula</span>.
+                </div>
+                <div class="p-3 border-l-4 border-yellow-500 bg-gray-50">
+                    <strong>Deslocado (Início da frase):</strong>
+                    <ul class="list-disc pl-5 mt-1">
+                        <li><strong>Curto:</strong> Vírgula facultativa. <em>"Ontem estudei."</em></li>
+                        <li><strong>Longo:</strong> Vírgula obrigatória. <em>"Na semana passada durante a chuva, estudei."</em></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Checklist -->
+        <section class="bg-gray-100 rounded-xl p-6 border-2 border-gray-200">
+            <h2 class="text-2xl font-bold mb-4 text-center">Checklist Final para a Prova</h2>
+            <ul class="space-y-3 text-lg">
+                <li class="flex items-start">
+                    <input type="checkbox" class="mt-1.5 h-5 w-5 rounded border-gray-300 text-gray-900 focus:ring-gray-900" disabled checked>
+                    <span class="ml-3 text-gray-800">Viu a palavra <strong>Haver</strong>? Verifique se é sentido de existir (Fica no singular!).</span>
+                </li>
+                <li class="flex items-start">
+                    <input type="checkbox" class="mt-1.5 h-5 w-5 rounded border-gray-300 text-gray-900 focus:ring-gray-900" disabled checked>
+                    <span class="ml-3 text-gray-800">Viu a palavra <strong>SE</strong>? Olhe a transitividade do verbo (VTD = Plural possível; VTI = Singular eterno).</span>
+                </li>
+                <li class="flex items-start">
+                    <input type="checkbox" class="mt-1.5 h-5 w-5 rounded border-gray-300 text-gray-900 focus:ring-gray-900" disabled checked>
+                    <span class="ml-3 text-gray-800">Viu termo com preposição "DE"? Faça o teste do Agente (Adjunto) vs. Paciente (Complemento).</span>
+                </li>
+                <li class="flex items-start">
+                    <input type="checkbox" class="mt-1.5 h-5 w-5 rounded border-gray-300 text-gray-900 focus:ring-gray-900" disabled checked>
+                    <span class="ml-3 text-gray-800">Questão de <strong>Crase</strong>? Verifique se o verbo pede "A" e se a palavra seguinte aceita "A".</span>
+                </li>
+                <li class="flex items-start">
+                    <input type="checkbox" class="mt-1.5 h-5 w-5 rounded border-gray-300 text-gray-900 focus:ring-gray-900" disabled checked>
+                    <span class="ml-3 text-gray-800">Reescrita? Verifique se manteve a <strong>Voz Verbal</strong> e o <strong>Sentido da Conjunção</strong>.</span>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Botão Final -->
+        <footer class="pt-8 pb-12 w-full flex justify-center">
+            <a href="lp-organizacao-sintaticaquestoes.html" class="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all duration-200 bg-gray-900 rounded-lg hover:bg-gray-700 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 shadow-lg">
+                Ir para Questões
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+            </a>
+        </footer>
+
+    </main>
+
+</body>
+</html>
