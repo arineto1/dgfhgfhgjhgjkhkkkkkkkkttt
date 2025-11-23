@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado Instituto AOCP - SO e Redes</title>
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --text-color: #2c3e50;
+            --accent-color: #3498db;
+            --success-color: #27ae60;
+            --error-color: #c0392b;
+            --border-color: #e0e0e0;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            background-color: #f4f7f6;
+            color: var(--text-color);
+            line-height: 1.8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--bg-color);
+            padding: 40px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            margin-top: 30px;
+            color: #34495e;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 40px;
+            font-size: 0.9rem;
+        }
+
+        .question-block {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .options {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 10px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .option-item:hover {
+            background-color: #f0f8ff;
+            border-color: var(--accent-color);
+        }
+
+        .option-item input[type="radio"] {
+            margin-right: 15px;
+            margin-top: 6px;
+            accent-color: var(--accent-color);
+            transform: scale(1.2);
+        }
+
+        .option-text {
+            flex: 1;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 40px;
+        }
+
+        .btn-submit:hover {
+            background-color: #2980b9;
+        }
+
+        #results-section {
+            display: none;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 3px solid var(--accent-color);
+            animation: fadeIn 0.8s;
+        }
+
+        .score-display {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #e8f6f3;
+            border-radius: 8px;
+            color: #16a085;
+        }
+
+        .resolution-card {
+            background-color: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-left: 5px solid #95a5a6;
+        }
+
+        .resolution-card.correct {
+            border-left-color: var(--success-color);
+        }
+
+        .resolution-card.incorrect {
+            border-left-color: var(--error-color);
+        }
+
+        .resolution-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .resolution-content {
+            font-size: 0.95rem;
+            color: #444;
+            background-color: #fafafa;
+            padding: 15px;
+            border-radius: 4px;
+        }
+        
+        .user-status {
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+
+        .status-correct { color: var(--success-color); }
+        .status-incorrect { color: var(--error-color); }
+
+        .correct-answer-highlight {
+            font-weight: bold;
+            color: var(--success-color);
+            margin-top: 10px;
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px; }
+            .question-text { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Simulado Instituto AOCP</h1>
+    <p class="subtitle">Fundamentos de Sistemas Operacionais e Redes de Computadores</p>
+
+    <form id="quiz-form">
+        <div id="quiz-container">
+            <!-- Questions will be injected here via JS -->
+        </div>
+
+        <button type="button" class="btn-submit" onclick="submitQuiz()">Finalizar Simulado e Ver Gabarito</button>
+    </form>
+
+    <div id="results-section">
+        <div class="score-display" id="score-display"></div>
+        <h2>Gabarito e Resoluções Detalhadas</h2>
+        <div id="resolutions-container">
+            <!-- Resolutions will be injected here via JS -->
+        </div>
+    </div>
+</div>
+
+<script>
+    const quizData = [
+        {
+            id: 1,
+            question: "(Instituto AOCP/Simulado - Baseada em NIST SP 800-145) A computação em nuvem representa uma mudança paradigmática no modelo de fornecimento de recursos de TI. Segundo o NIST, existem modelos de serviço e modelos de implantação distintos. Com base nesse contexto, assinale a alternativa correta.",
+            options: [
+                "No modelo SaaS (Software as a Service), o cliente mantém controle total sobre o sistema operacional subjacente, sendo responsável pela aplicação de patches de segurança e configuração de rede.",
+                "A Nuvem Híbrida é definida como a composição de duas ou mais infraestruturas de nuvem distintas (privada, comunitária ou pública) que permanecem entidades únicas, mas estão unidas por tecnologia padronizada.",
+                "O modelo IaaS (Infrastructure as a Service) fornece ao consumidor a capacidade de implantar software arbitrário, mas o consumidor não gerencia nem controla a infraestrutura de nuvem subjacente.",
+                "Em uma Nuvem Privada, a infraestrutura deve ser obrigatoriamente gerenciada pela própria organização contratante e deve estar fisicamente localizada dentro das instalações da empresa.",
+                "O PaaS (Platform as a Service) é o modelo onde o consumidor gerencia a infraestrutura de rede, servidores e sistemas operacionais, utilizando a plataforma apenas para armazenar backups."
+            ],
+            correct: 1, // Index based 0 -> B
+            explanation: `<strong>Fundamentação (NIST SP 800-145):</strong><br>
+            A <strong>Nuvem Híbrida</strong> é definida exatamente pela composição de duas ou mais nuvens (sejam elas privadas, públicas ou comunitárias) que mantêm suas identidades únicas, mas são interligadas por tecnologia que permite a portabilidade de dados e aplicações (ex: <em>Cloud Bursting</em>).<br><br>
+            <strong>Por que as outras estão erradas?</strong><br>
+            (A) No SaaS, o cliente <em>não</em> controla o SO.<br>
+            (C) A definição dada foi de PaaS/SaaS. No IaaS, o cliente <em>tem</em> controle sobre o SO e aplicações.<br>
+            (D) Nuvem Privada pode ser gerenciada por terceiros e estar fora da empresa (Off-premise).<br>
+            (E) No PaaS, o cliente <em>não</em> gerencia a infraestrutura (rede, servidores, SO).`
+        },
+        {
+            id: 2,
+            question: "Os sistemas operacionais modernos utilizam o conceito de processos e threads para gerenciar a execução de programas. Sobre o gerenciamento de processos e escalonamento, assinale a alternativa correta.",
+            options: [
+                "O algoritmo de escalonamento Round Robin é classificado como não-preemptivo, pois garante que cada processo execute até sua conclusão.",
+                "Em um ambiente multithreading, as threads pertencentes a um mesmo processo compartilham a seção de código, a seção de dados e os recursos do sistema, mas cada thread possui seu próprio contador de programa (PC) e pilha.",
+                "A técnica de Swap refere-se exclusivamente à troca de processos entre diferentes núcleos da CPU, não envolvendo disco rígido.",
+                "O estado de 'Pronto' (Ready) indica que o processo está aguardando a conclusão de uma operação de Entrada/Saída (E/S).",
+                "A mudança de contexto (context switch) é realizada inteiramente pelo hardware sem qualquer intervenção ou sobrecarga para o kernel."
+            ],
+            correct: 1, // Index 0 -> B
+            explanation: `<strong>Arquitetura de Processos e Threads:</strong><br>
+            Esta alternativa descreve perfeitamente a anatomia de uma <strong>Thread</strong>. A eficiência do modelo multithread vem do compartilhamento de memória (código/dados) e recursos (arquivos), enquanto a independência de execução é garantida pelo fato de cada thread ter seu próprio <strong>PC (Contador de Programa)</strong>, Registradores e <strong>Pilha (Stack)</strong>.<br><br>
+            <strong>Erros comuns:</strong><br>
+            Round Robin é <em>preemptivo</em>. Swap envolve disco. Estado 'Pronto' aguarda CPU (quem aguarda E/S é 'Bloqueado'). Context Switch gera overhead significativo.`
+        },
+        {
+            id: 3,
+            question: "Um administrador de redes precisa realizar a manutenção de estações de trabalho rodando Windows 10 e 11. Sobre as ferramentas de linha de comando, assinale a alternativa correta.",
+            options: [
+                "O comando ping é utilizado para verificar a rota exata salto-a-salto que um pacote percorre até o destino.",
+                "O utilitário chkdsk, quando executado com a opção /r, localiza setores defeituosos no disco rígido e tenta recuperar informações, implicando também a execução das correções lógicas da opção /f.",
+                "O comando ipconfig /flushdns é utilizado para renovar o endereço IP da interface de rede junto ao servidor DHCP.",
+                "A ferramenta PowerShell não permite a execução de scripts de automação complexos, limitando-se a comandos básicos.",
+                "O comando netstat é exclusivo para a configuração de interfaces de rede, permitindo alterar o endereço IP."
+            ],
+            correct: 1, // Index 0 -> B
+            explanation: `<strong>Comandos Windows:</strong><br>
+            A Microsoft documenta que a flag <code>/r</code> (Recover) do <strong>chkdsk</strong> inclui a funcionalidade da flag <code>/f</code> (Fix). Portanto, ao buscar setores físicos defeituosos, ele também corrige erros lógicos do sistema de arquivos.<br><br>
+            <strong>Correções:</strong><br>
+            (A) Rota salto-a-salto é <code>tracert</code>.<br>
+            (C) Renovar IP é <code>ipconfig /renew</code>. <code>flushdns</code> limpa cache de nomes.<br>
+            (D) PowerShell é uma ferramenta poderosa de automação baseada em objetos .NET.<br>
+            (E) <code>netstat</code> apenas exibe estatísticas, não configura IP.`
+        },
+        {
+            id: 4,
+            question: "No sistema operacional Linux, a estrutura de diretórios e o gerenciamento de permissões seguem padrões rigorosos. Assinale a alternativa correta sobre o sistema de arquivos e comandos Linux.",
+            options: [
+                "O diretório /etc é destinado ao armazenamento de arquivos temporários criados por usuários.",
+                "O comando chmod 751 arquivo atribui as seguintes permissões: leitura, escrita e execução para o dono; leitura e execução para o grupo; e apenas execução para outros usuários.",
+                "O sistema de arquivos ext4 não possui suporte a journaling, o que o torna mais rápido que o ext3.",
+                "O comando cd ~ tem a função de mover o usuário para o diretório raiz do sistema (/), independentemente de qual usuário esteja logado.",
+                "Arquivos iniciados com um ponto (.) são arquivos de sistema imutáveis que não podem ser deletados."
+            ],
+            correct: 1, // Index 0 -> B
+            explanation: `<strong>Permissões Linux (Octal):</strong><br>
+            A permissão <strong>751</strong> decompõe-se em:<br>
+            - <strong>7 (Dono):</strong> 4(Leitura) + 2(Escrita) + 1(Execução) = rwx.<br>
+            - <strong>5 (Grupo):</strong> 4(Leitura) + 0 + 1(Execução) = r-x.<br>
+            - <strong>1 (Outros):</strong> 0 + 0 + 1(Execução) = --x.<br><br>
+            O diretório <code>/etc</code> é para configurações, não temporários (que ficariam em <code>/tmp</code>).`
+        },
+        {
+            id: 5,
+            question: "A infraestrutura de Data Centers modernos depende de tecnologias de armazenamento robustas. Sobre SAN, NAS e DAS, assinale a alternativa correta.",
+            options: [
+                "A tecnologia SAN (Storage Area Network) caracteriza-se por ser uma rede dedicada de alta performance que oferece acesso a dados em nível de bloco (block-level), utilizando protocolos como Fibre Channel ou iSCSI.",
+                "O NAS (Network Attached Storage) é um dispositivo de armazenamento conectado diretamente ao servidor via cabo USB ou SAS.",
+                "O DAS (Direct Attached Storage) é a solução mais escalável para grandes empresas, pois permite compartilhamento simultâneo.",
+                "Em uma arquitetura SAN, o acesso aos dados ocorre em nível de arquivo (file-level), utilizando protocolos NFS e SMB.",
+                "A tecnologia RAID substitui completamente a necessidade de backups."
+            ],
+            correct: 0, // Index 0 -> A
+            explanation: `<strong>Armazenamento (SAN):</strong><br>
+            A <strong>SAN</strong> é definida por ser uma rede dedicada (fora da LAN de usuários) que fornece acesso em <strong>Nível de Bloco</strong> (o servidor vê um disco "cru"). É ideal para Bancos de Dados e Virtualização.<br><br>
+            <strong>Correções:</strong> NAS é acesso via rede (Ethernet) em nível de Arquivo. DAS é conexão direta (não escalável para compartilhamento). RAID é redundância, não backup.`
+        },
+        {
+            id: 6,
+            question: "Os modelos OSI e TCP/IP são as referências para a comunicação de dados. Sobre as camadas e protocolos desses modelos, assinale a alternativa correta.",
+            options: [
+                "A camada de Transporte do modelo OSI é responsável pelo roteamento de pacotes através da rede.",
+                "No modelo TCP/IP, o protocolo UDP oferece um serviço orientado a conexão e confiável.",
+                "A subcamada LLC da camada de Enlace do modelo OSI é responsável pelo endereçamento físico (MAC).",
+                "O protocolo HTTP opera na Camada de Aplicação do modelo TCP/IP e utiliza, por padrão, a porta 80, enquanto o HTTPS utiliza a porta 443 para comunicação segura.",
+                "O Modelo de Referência OSI possui 4 camadas, enquanto o modelo TCP/IP possui 7 camadas detalhadas."
+            ],
+            correct: 3, // Index 0 -> D
+            explanation: `<strong>Modelos e Protocolos:</strong><br>
+            A alternativa descreve corretamente os protocolos de Aplicação da web. <strong>HTTP</strong> usa porta <strong>80</strong> e <strong>HTTPS</strong> usa porta <strong>443</strong>.<br><br>
+            <strong>Erros:</strong> Roteamento é camada de Rede (não Transporte). UDP não é confiável nem orientado a conexão. Endereçamento MAC é subcamada MAC (não LLC). OSI tem 7 camadas e TCP/IP tem 4 ou 5.`
+        },
+        {
+            id: 7,
+            question: "Com o esgotamento do IPv4, a transição para o IPv6 é mandatória. Sobre endereçamento e protocolos da camada de rede, assinale a alternativa correta.",
+            options: [
+                "O endereço IPv6 possui 128 bits de extensão, é representado em notação hexadecimal e introduz o recurso de autoconfiguração stateless (SLAAC).",
+                "O protocolo ARP tem a função de mapear endereços MAC em endereços IP, sendo indispensável em redes IPv6 puras.",
+                "O NAT é um recurso nativo e obrigatório no protocolo IPv6.",
+                "Um endereço IP da classe C (máscara padrão /24) permite a criação de mais de 65.000 hosts em uma única sub-rede.",
+                "O endereço de loopback no padrão IPv4 é 127.0.0.1, enquanto no IPv6 essa funcionalidade foi removida."
+            ],
+            correct: 0, // Index 0 -> A
+            explanation: `<strong>IPv6:</strong><br>
+            O IPv6 possui <strong>128 bits</strong> (contra 32 do IPv4), usa hexadecimal e permite que dispositivos gerem seus próprios endereços globais via <strong>SLAAC</strong>, reduzindo a dependência de DHCP.<br><br>
+            <strong>Nota:</strong> ARP não existe no IPv6 (substituído por NDP). NAT não é usado no IPv6 (restaura-se a conectividade fim-a-fim).`
+        },
+        {
+            id: 8,
+            question: "A segurança perimetral é essencial para a proteção de redes corporativas. Sobre Firewalls, VPNs e Proxies, assinale a alternativa correta.",
+            options: [
+                "Um Firewall de Filtragem de Pacotes (Stateless) toma decisões baseando-se no estado das conexões e no contexto da sessão.",
+                "A VPN (Virtual Private Network) utiliza técnicas de tunelamento e criptografia para criar um canal de comunicação seguro sobre uma rede pública insegura.",
+                "O Proxy Reverso é utilizado para permitir que usuários de uma rede interna acessem a internet de forma anônima.",
+                "A DMZ é uma rede interna de alta segurança onde residem os bancos de dados críticos da organização.",
+                "O protocolo IPsec opera na Camada de Aplicação do modelo OSI."
+            ],
+            correct: 1, // Index 0 -> B
+            explanation: `<strong>Segurança de Redes:</strong><br>
+            A <strong>VPN</strong> garante Confidencialidade e Integridade ao usar <strong>Tunelamento</strong> (encapsular o pacote) e <strong>Criptografia</strong> para trafegar dados em redes públicas.<br><br>
+            <strong>Erros:</strong> Filtragem de pacotes é *Stateless* (sem estado). Proxy reverso protege o *servidor*, não o usuário. DBs críticos nunca ficam na DMZ (ficam na LAN interna). IPsec é camada de Rede (L3).`
+        },
+        {
+            id: 9,
+            question: "O protocolo TCP garante a confiabilidade da comunicação. Sobre o mecanismo de estabelecimento de conexão (Three-Way Handshake), assinale a sequência correta de flags.",
+            options: [
+                "O cliente envia SYN; o servidor responde com SYN-ACK; o cliente responde com ACK, estabelecendo a conexão.",
+                "O cliente envia ACK; o servidor responde com SYN; o cliente responde com FIN.",
+                "O cliente envia SYN; o servidor responde com ACK; o cliente envia SYN-ACK.",
+                "O servidor inicia a conexão enviando SYN; o cliente responde com ACK; o servidor confirma com SYN.",
+                "O cliente envia FIN; o servidor responde com FIN-ACK; o cliente responde com ACK."
+            ],
+            correct: 0, // Index 0 -> A
+            explanation: `<strong>TCP Handshake:</strong><br>
+            A sequência clássica de 3 vias é:<br>
+            1. <strong>SYN</strong> (Cliente pede conexão).<br>
+            2. <strong>SYN-ACK</strong> (Servidor aceita e pede confirmação).<br>
+            3. <strong>ACK</strong> (Cliente confirma).<br>
+            Isso estabelece uma conexão confiável e orientada.`
+        },
+        {
+            id: 10,
+            question: "O gerenciamento de memória é uma função crítica do SO. Sobre Paginação e Memória Virtual, assinale a alternativa correta.",
+            options: [
+                "A fragmentação externa é o principal problema resolvido pela técnica de segmentação, enquanto a paginação sofre exclusivamente de fragmentação externa.",
+                "A Memória Virtual permite a execução de processos cujo espaço de endereçamento lógico é maior que a memória física disponível, utilizando o disco rígido como área de extensão.",
+                "Na paginação, o espaço de endereçamento lógico é dividido em blocos de tamanho variável chamados páginas.",
+                "O fenômeno de Thrashing ocorre quando o sistema operacional consegue manter todos os processos na memória RAM.",
+                "A Tabela de Páginas (Page Table) é armazenada inteiramente nos registradores da CPU."
+            ],
+            correct: 1, // Index 0 -> B
+            explanation: `<strong>Memória Virtual:</strong><br>
+            A principal função da memória virtual é abstrair a memória RAM física, permitindo que programas usem mais memória do que existe fisicamente, paginando blocos ociosos para o disco rígido (Swap/Pagefile).`
+        }
+    ];
+
+    function renderQuiz() {
+        const container = document.getElementById('quiz-container');
+        let html = '';
+
+        quizData.forEach((item, index) => {
+            let optionsHtml = '';
+            item.options.forEach((opt, optIndex) => {
+                optionsHtml += `
+                    <li class="option-item">
+                        <input type="radio" name="q${index}" id="q${index}_opt${optIndex}" value="${optIndex}">
+                        <label class="option-text" for="q${index}_opt${optIndex}">${String.fromCharCode(65 + optIndex)}) ${opt}</label>
+                    </li>
+                `;
+            });
+
+            html += `
+                <div class="question-block" id="block-q${index}">
+                    <div class="question-text">Questão ${item.id}</div>
+                    <p>${item.question}</p>
+                    <ul class="options">
+                        ${optionsHtml}
+                    </ul>
+                </div>
+            `;
+        });
+
+        container.innerHTML = html;
+    }
+
+    function submitQuiz() {
+        let score = 0;
+        let unanswered = 0;
+        
+        // Disable inputs and calculate score
+        quizData.forEach((item, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            if (selected) {
+                if (parseInt(selected.value) === item.correct) {
+                    score++;
+                }
+            } else {
+                unanswered++;
+            }
+        });
+
+        if (unanswered > 0) {
+            if(!confirm(`Você deixou ${unanswered} questões sem resposta. Deseja finalizar mesmo assim?`)) {
+                return;
+            }
+        }
+
+        displayResults(score);
+    }
+
+    function displayResults(score) {
+        const resultsSection = document.getElementById('results-section');
+        const scoreDisplay = document.getElementById('score-display');
+        const resolutionsContainer = document.getElementById('resolutions-container');
+        const submitBtn = document.querySelector('.btn-submit');
+
+        // Hide submit button
+        submitBtn.style.display = 'none';
+
+        // Show Score
+        const percentage = (score / quizData.length) * 100;
+        let message = '';
+        if (percentage >= 80) message = "Excelente desempenho!";
+        else if (percentage >= 50) message = "Bom trabalho, continue estudando!";
+        else message = "Precisa revisar os fundamentos.";
+
+        scoreDisplay.innerHTML = `Você acertou ${score} de ${quizData.length} questões (${percentage}%)<br><span style="font-size: 1rem; color: #555; font-weight: normal">${message}</span>`;
+
+        // Generate detailed resolutions
+        let resolutionsHtml = '';
+
+        quizData.forEach((item, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            const userChoiceIndex = selected ? parseInt(selected.value) : -1;
+            const isCorrect = userChoiceIndex === item.correct;
+            
+            const statusClass = isCorrect ? 'correct' : 'incorrect';
+            const statusText = isCorrect ? 'Correto' : 'Incorreto';
+            const statusColorClass = isCorrect ? 'status-correct' : 'status-incorrect';
+
+            // Highlight chosen options in the quiz list (optional, but good for context)
+            const block = document.getElementById(`block-q${index}`);
+            const options = block.querySelectorAll('.option-item');
+            
+            // Visual feedback on the questions themselves
+            options.forEach((opt, i) => {
+                const radio = opt.querySelector('input');
+                radio.disabled = true;
+                if (i === item.correct) {
+                    opt.style.backgroundColor = '#d4edda'; // Greenish for correct
+                    opt.style.borderColor = '#28a745';
+                } else if (i === userChoiceIndex && !isCorrect) {
+                    opt.style.backgroundColor = '#f8d7da'; // Reddish for wrong choice
+                    opt.style.borderColor = '#dc3545';
+                }
+            });
+
+            // Build resolution card
+            resolutionsHtml += `
+                <div class="resolution-card ${statusClass}">
+                    <div class="resolution-title">
+                        <span>Questão ${item.id}</span>
+                        <span class="user-status ${statusColorClass}">${statusText}</span>
+                    </div>
+                    <div style="margin-bottom: 15px; color: #666;">
+                        <strong>Sua resposta:</strong> ${userChoiceIndex !== -1 ? String.fromCharCode(65 + userChoiceIndex) : 'Não respondida'} 
+                        ${!isCorrect ? ` <span class="correct-answer-highlight">Gabarito correto: ${String.fromCharCode(65 + item.correct)}</span>` : ''}
+                    </div>
+                    <div class="resolution-content">
+                        ${item.explanation}
+                    </div>
+                </div>
+            `;
+        });
+
+        resolutionsContainer.innerHTML = resolutionsHtml;
+        resultsSection.style.display = 'block';
+
+        // Scroll to results
+        resultsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Init
+    renderQuiz();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo Intensivo: Fundamentos de SO e Redes (Foco IFPB/AOCP)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1f2937; /* Cinza escuro para evitar fadiga visual do preto absoluto */
+        }
+
+        /* Estilo para simular marca-texto suave */
+        .highlight {
+            background-color: #fef9c3; /* Amarelo muito suave */
+            padding: 0 4px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #000;
+        }
+
+        /* Tabela responsiva sem scroll */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed; /* Força a tabela a respeitar a largura */
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+            word-wrap: break-word; /* Quebra palavras longas se necessário */
+        }
+
+        th {
+            background-color: #f3f4f6;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+    </style>
+</head>
+<body class="antialiased leading-relaxed text-lg">
+
+    <div class="max-w-4xl mx-auto px-6 py-12">
+        
+        <!-- Header e Player de Áudio -->
+        <header class="mb-12 text-center border-b pb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Resumo "Cheat Sheet": Fundamentos de SO e Redes</h1>
+            <p class="text-xl text-gray-600 mb-8">Foco IFPB / Banca Instituto AOCP</p>
+            
+            <div class="bg-gray-50 rounded-xl p-6 border border-gray-200 shadow-sm inline-block w-full max-w-md">
+                <label class="block text-sm font-semibold text-gray-500 mb-2 uppercase tracking-wide">Resumo em Áudio</label>
+                <!-- INSIRA O NOME DO SEU ARQUIVO MP3 ABAIXO NO 'SRC' -->
+                <audio controls class="w-full h-10">
+                    <source src="esp-fundamentos-so-redes.mp3" type="audio/mpeg">
+                    Seu navegador não suporta o elemento de áudio.
+                </audio>
+                <p class="text-xs text-gray-400 mt-2">Coloque o arquivo mp3 na mesma pasta desta página.</p>
+            </div>
+        </header>
+
+        <!-- Conteúdo Principal -->
+        <main class="space-y-12">
+
+            <!-- Seção 1 -->
+            <section>
+                <h2 class="text-2xl font-bold text-gray-800 border-l-4 border-gray-400 pl-4 mb-6">1. Perfil da Banca: O Que Não Pode Esquecer</h2>
+                <ul class="list-disc pl-6 space-y-3 marker:text-gray-400">
+                    <li><span class="font-bold">Estilo:</span> Literal e conteudista. Cobra <span class="highlight">sintaxe exata de comandos</span> e detalhes de protocolos.</li>
+                    <li>
+                        <span class="font-bold">Pegadinhas Frequentes:</span>
+                        <ul class="list-circle pl-6 mt-2 space-y-2 text-gray-700">
+                            <li>Confusão entre versões de protocolos (POP3 deleta vs IMAP sincroniza).</li>
+                            <li>Permissões Linux: <code class="bg-gray-100 px-1 rounded">w</code> no arquivo não permite deletá-lo; <code class="bg-gray-100 px-1 rounded">w</code> no diretório sim.</li>
+                            <li>Hardware: Switch é <span class="highlight">Camada 2 (MAC)</span>, Roteador é <span class="highlight">Camada 3 (IP)</span>. Hub é Camada 1 (Bit/Broadcast).</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Seção 2 -->
+            <section>
+                <h2 class="text-2xl font-bold text-gray-800 border-l-4 border-gray-400 pl-4 mb-6">2. Sistemas Operacionais: Processos e Memória</h2>
+                
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-3">Núcleo e Modos de Operação</h3>
+                    <ul class="list-disc pl-6 space-y-2">
+                        <li><strong>Modo Usuário:</strong> Restrito. Aplicações sem acesso direto ao hardware.</li>
+                        <li><strong>Modo Kernel:</strong> Acesso total. Transição ocorre via <span class="highlight">System Call (Trap)</span>.</li>
+                        <li><strong>Arquiteturas:</strong>
+                            <ul class="pl-4 mt-1 space-y-1 text-gray-600 text-base">
+                                <li><em>Monolítico:</em> Tudo no kernel (Rápido/Instável). Ex: Linux, Windows.</li>
+                                <li><em>Microkernel:</em> Mínimo no kernel (Lento/Estável). Ex: Minix.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-3">Gerenciamento de Processos</h3>
+                    <ul class="list-disc pl-6 space-y-2">
+                        <li><strong>Processo vs. Thread:</strong> Processo é o programa em execução (isolado). Thread é "leve", compartilha memória mas tem sua própria <span class="highlight">Pilha (Stack) e PC</span>.</li>
+                        <li><strong>Ciclo de Vida (Estados):</strong>
+                            <ul class="pl-4 mt-1 space-y-1 text-gray-600 text-base">
+                                <li><em>Running &rarr; Ready:</em> Ocorre por <span class="highlight">Preempção</span> (fim do quantum ou prioridade). O processo não escolhe sair.</li>
+                                <li><em>Running &rarr; Waiting:</em> Voluntário (I/O).</li>
+                            </ul>
+                        </li>
+                        <li><strong>Deadlock (Condições de Coffman):</strong> Para haver impasse, 4 condições devem ser simultâneas: 1) Exclusão Mútua, 2) Posse e Espera, 3) Não Preempção, 4) Espera Circular.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-700 mb-3">Memória e Paginação</h3>
+                    <ul class="list-disc pl-6 space-y-2">
+                        <li><strong>Paginação:</strong> Memória Física dividida em <span class="highlight">Quadros</span>; Lógica em <span class="highlight">Páginas</span>. Resolve fragmentação externa.</li>
+                        <li><strong>Thrashing:</strong> Sistema ocupa mais tempo trocando páginas (swap) do que processando. Causa: excesso de processos (multiprogramação alta).</li>
+                        <li><strong>TLB:</strong> Cache de hardware essencial para velocidade da tradução de endereços.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Seção 3 -->
+            <section>
+                <h2 class="text-2xl font-bold text-gray-800 border-l-4 border-gray-400 pl-4 mb-6">3. Linux: Comandos e Diretórios (Decoreba)</h2>
+                
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-100 mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Permissões (chmod)</h3>
+                    <p class="mb-2">Memorize a tabela octal: <span class="highlight">R=4 (Leitura), W=2 (Escrita), X=1 (Execução)</span>.</p>
+                    <p class="text-gray-600 italic border-l-2 border-gray-300 pl-3">Exemplo: <code>chmod 751 arquivo</code><br>
+                    Dono: 4+2+1 = 7 (Total)<br>
+                    Grupo: 4+0+1 = 5 (Leitura/Execução)<br>
+                    Outros: 0+0+1 = 1 (Execução)</p>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-3">Principais Comandos e Flags</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-white border p-3 rounded shadow-sm">
+                            <span class="font-mono font-bold text-blue-900 block">mv</span>
+                            <span class="text-gray-600">Mover ou <span class="font-semibold">Renomear</span>.</span>
+                        </div>
+                        <div class="bg-white border p-3 rounded shadow-sm">
+                            <span class="font-mono font-bold text-blue-900 block">cp -r</span>
+                            <span class="text-gray-600">Copiar diretórios (recursivo).</span>
+                        </div>
+                        <div class="bg-white border p-3 rounded shadow-sm">
+                            <span class="font-mono font-bold text-blue-900 block">rm -rf</span>
+                            <span class="text-gray-600">Remove diretórios sem perguntar (Force).</span>
+                        </div>
+                        <div class="bg-white border p-3 rounded shadow-sm">
+                            <span class="font-mono font-bold text-blue-900 block">tail -f</span>
+                            <span class="text-gray-600">Monitora logs em tempo real (append).</span>
+                        </div>
+                        <div class="bg-white border p-3 rounded shadow-sm">
+                            <span class="font-mono font-bold text-blue-900 block">grep</span>
+                            <span class="text-gray-600">Filtra texto. Flags: <code>-i</code> (ignora case), <code>-v</code> (inverte busca).</span>
+                        </div>
+                        <div class="bg-white border p-3 rounded shadow-sm">
+                            <span class="font-mono font-bold text-blue-900 block">ps aux / top</span>
+                            <span class="text-gray-600">Visualizar processos.</span>
+                        </div>
+                        <div class="bg-white border p-3 rounded shadow-sm">
+                            <span class="font-mono font-bold text-blue-900 block">kill -9</span>
+                            <span class="text-gray-600">Mata processo imediatamente (SIGKILL).</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-700 mb-3">Estrutura de Diretórios (FHS)</h3>
+                    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-base">
+                        <li class="p-2 border-b"><code>/etc</code>: Configurações (texto).</li>
+                        <li class="p-2 border-b"><code>/dev</code>: Dispositivos (hardware).</li>
+                        <li class="p-2 border-b"><code>/bin</code> vs <code>/sbin</code>: Usuário vs Admin (root).</li>
+                        <li class="p-2 border-b"><code>/proc</code>: Sistema de arquivos virtual (info kernel).</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Seção 4 -->
+            <section>
+                <h2 class="text-2xl font-bold text-gray-800 border-l-4 border-gray-400 pl-4 mb-6">4. Redes: OSI, TCP/IP e Protocolos</h2>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-3">Modelo OSI vs. TCP/IP</h3>
+                    <ul class="list-disc pl-6 space-y-2">
+                        <li><strong>Física (1):</strong> Bits, Cabos, Hub.</li>
+                        <li><strong>Enlace (2):</strong> Quadros, MAC Address, <span class="highlight">Switch</span>.</li>
+                        <li><strong>Rede (3):</strong> Pacotes, IP, <span class="highlight">Roteador</span> (Melhor caminho).</li>
+                        <li><strong>Transporte (4):</strong> Segmentos, TCP/UDP (Portas).</li>
+                        <li><strong>Sessão, Apresentação, Aplicação:</strong> No TCP/IP, condensadas na camada de <strong>Aplicação</strong>.</li>
+                    </ul>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-4">Protocolos e Portas (Tabela Mestra)</h3>
+                    <div class="overflow-hidden rounded-lg border border-gray-200 shadow-sm">
+                        <table class="text-sm md:text-base">
+                            <thead>
+                                <tr>
+                                    <th class="w-1/4">Protocolo</th>
+                                    <th class="w-1/4">Porta</th>
+                                    <th class="w-1/6">Tipo</th>
+                                    <th>Função Chave</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="font-semibold text-blue-900">SSH</td>
+                                    <td>22</td>
+                                    <td>TCP</td>
+                                    <td>Acesso remoto seguro (Substitui Telnet).</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold text-blue-900">DNS</td>
+                                    <td>53</td>
+                                    <td>UDP/TCP</td>
+                                    <td>Traduz Nomes &harr; IP.</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold text-blue-900">DHCP</td>
+                                    <td>67/68</td>
+                                    <td>UDP</td>
+                                    <td>Distribui IPs (DORA).</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold text-blue-900">HTTP</td>
+                                    <td>80</td>
+                                    <td>TCP</td>
+                                    <td>Web (Texto claro).</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold text-blue-900">HTTPS</td>
+                                    <td>443</td>
+                                    <td>TCP</td>
+                                    <td>Web Segura (SSL/TLS).</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold text-blue-900">POP3</td>
+                                    <td>110</td>
+                                    <td>TCP</td>
+                                    <td>Recebe e <span class="highlight">baixa/deleta</span> do servidor.</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold text-blue-900">IMAP</td>
+                                    <td>143</td>
+                                    <td>TCP</td>
+                                    <td>Recebe e <span class="highlight">sincroniza</span> (mantém no servidor).</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold text-blue-900">SMTP</td>
+                                    <td>25/587</td>
+                                    <td>TCP</td>
+                                    <td><span class="highlight">Envia</span> e-mail (Push).</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold text-blue-900">RDP</td>
+                                    <td>3389</td>
+                                    <td>TCP</td>
+                                    <td>Acesso Remoto Windows.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-700 mb-3">TCP vs. UDP</h3>
+                    <ul class="list-disc pl-6 space-y-2">
+                        <li><strong>TCP:</strong> Confiável, Orientado a Conexão (Handshake 3 vias), Ordenado, Lento. (Ex: Web, E-mail).</li>
+                        <li><strong>UDP:</strong> Não confiável, Sem conexão ("Fire and Forget"), Rápido. (Ex: Streaming, VoIP, DNS).</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Seção 5 -->
+            <section>
+                <h2 class="text-2xl font-bold text-gray-800 border-l-4 border-gray-400 pl-4 mb-6">5. Endereçamento IP e Cálculos</h2>
+                
+                <div class="grid md:grid-cols-2 gap-8 mb-6">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-700 mb-2">IPv4 vs. IPv6</h3>
+                        <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                            <li><strong>IPv4:</strong> 32 bits. Possui Broadcast. Fragmentação nos roteadores.</li>
+                            <li><strong>IPv6:</strong> 128 bits (Hexadecimal). <span class="highlight">Não possui Broadcast</span> (usa Multicast/Anycast). Cabeçalho fixo.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-blue-50 p-5 rounded-lg border border-blue-100">
+                        <h3 class="text-xl font-semibold text-blue-900 mb-2">Cálculo de Sub-rede (Ex: /26)</h3>
+                        <ol class="list-decimal pl-5 space-y-1 text-blue-800 text-sm">
+                            <li><strong>Bits emprestados:</strong> 26 - 24 = 2 bits.</li>
+                            <li><strong>Sub-redes:</strong> 2² = 4.</li>
+                            <li><strong>Hosts totais:</strong> 32 - 26 = 6 bits sobram &rarr; 2⁶ = 64.</li>
+                            <li><strong>Hosts Úteis:</strong> 64 - 2 = <span class="font-bold">62</span>.</li>
+                            <li><strong>Máscara:</strong> /26 = 255.255.255.192.</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção 6 -->
+            <section>
+                <h2 class="text-2xl font-bold text-gray-800 border-l-4 border-gray-400 pl-4 mb-6">6. Windows Server e Segurança</h2>
+                <ul class="list-disc pl-6 space-y-3">
+                    <li><strong>Active Directory (AD):</strong> Baseado em LDAP e Kerberos.</li>
+                    <li><strong>GPO (Group Policy):</strong> Aplicação em ordem <span class="highlight">LSDOU</span> (Local, Site, Domínio, OU). A última sobrescreve.</li>
+                    <li><strong>Segurança Wi-Fi:</strong>
+                        <ul class="pl-4 mt-2 space-y-1 text-gray-600">
+                            <li><span class="text-red-500 font-semibold">WEP:</span> Inseguro (RC4).</li>
+                            <li><span class="text-green-600 font-semibold">WPA2:</span> Seguro (AES/CCMP).</li>
+                            <li><span class="text-green-700 font-bold">WPA3:</span> Atual (SAE, proteção contra dicionário).</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+
+        </main>
+
+        <!-- Footer / CTA -->
+        <footer class="mt-20 pt-8 border-t border-gray-200 text-center">
+            <p class="text-gray-500 mb-6">Pronto para testar seus conhecimentos?</p>
+            <a href="esp-fundamentos-so-redesquestoes.html" class="inline-block bg-slate-800 hover:bg-slate-900 text-white font-bold py-4 px-10 rounded-lg shadow-lg transition duration-300 transform hover:-translate-y-1">
+                Ir para Questões
+            </a>
+        </footer>
+
+    </div>
+
+</body>
+</html>

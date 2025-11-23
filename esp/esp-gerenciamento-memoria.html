@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo Intensivo: Gerenciamento de Memória | IFPB - AOCP</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #2c3e50;
+            --heading-color: #000000;
+            --accent-color: #f1c40f; /* Amarelo para grifo */
+            --border-color: #e0e0e0;
+            --hover-color: #f9f9f9;
+            --button-bg: #2c3e50;
+            --button-text: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+        }
+
+        /* Tipografia */
+        h1 {
+            color: var(--heading-color);
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            border-bottom: 3px solid var(--button-bg);
+            padding-bottom: 15px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #555;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        h2 {
+            color: var(--heading-color);
+            border-left: 5px solid var(--button-bg);
+            padding-left: 15px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            background-color: #f8f9fa;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #444;
+            margin-top: 25px;
+            font-weight: 600;
+        }
+
+        /* Estilo de Grifo (Marca-texto) */
+        strong, .highlight {
+            font-weight: 700;
+            background-color: #fff9c4; /* Amarelo suave */
+            padding: 0 4px;
+            border-radius: 4px;
+            color: #000;
+        }
+
+        em {
+            color: #555;
+            font-style: italic;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        /* Listas */
+        ul, ol {
+            margin-bottom: 20px;
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* Player de Áudio */
+        .audio-section {
+            background-color: #f4f6f7;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+        }
+
+        audio {
+            width: 100%;
+            max-width: 500px;
+            margin-top: 10px;
+        }
+
+        .audio-label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+            color: var(--button-bg);
+        }
+
+        /* Tabelas Otimizadas */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto; /* Fallback caso seja muito estreito */
+            margin-bottom: 25px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            table-layout: fixed; /* Força o texto a quebrar e não estourar */
+        }
+
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            text-align: left;
+            vertical-align: top;
+            word-wrap: break-word; /* Quebra palavras longas */
+        }
+
+        th {
+            background-color: #f1f2f3;
+            color: #000;
+            font-weight: 700;
+            width: 30%; /* Largura fixa sugerida para a primeira coluna */
+        }
+        
+        tr:nth-child(even) {
+            background-color: #fcfcfc;
+        }
+
+        /* Citações e Fórmulas */
+        blockquote {
+            background: #fff;
+            border-left: 4px solid var(--accent-color);
+            margin: 20px 0;
+            padding: 10px 20px;
+            font-style: italic;
+            color: #555;
+        }
+
+        code {
+            background-color: #f5f5f5;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: monospace;
+            border: 1px solid #ddd;
+        }
+
+        /* Botão de Ação */
+        .action-area {
+            text-align: center;
+            margin-top: 60px;
+            margin-bottom: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .btn-questoes {
+            display: inline-block;
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            padding: 15px 30px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn-questoes:hover {
+            background-color: #1a252f;
+            transform: translateY(-2px);
+        }
+
+        /* Mobile tweaks */
+        @media (max-width: 600px) {
+            h1 { font-size: 1.6rem; }
+            th { width: auto; } /* Remove largura fixa em mobile */
+            table, thead, tbody, th, td, tr { 
+                display: block; 
+            }
+            thead tr { 
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+            tr { border: 1px solid #ccc; margin-bottom: 15px; }
+            td { 
+                border: none;
+                border-bottom: 1px solid #eee; 
+                position: relative;
+                padding-left: 50%; 
+            }
+            /* Recriando headers para mobile se necessário, mas para este conteúdo, fluxo linear é melhor */
+            td { padding-left: 15px; } 
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- Header -->
+    <header>
+        <h1>Resumo Intensivo: Gerenciamento de Memória</h1>
+        <div class="subtitle">Foco: Concurso IFPB (Professor) | Banca: Instituto AOCP</div>
+    </header>
+
+    <!-- Área de Áudio -->
+    <section class="audio-section">
+        <label class="audio-label">🎧 Ouça o Resumo em Áudio:</label>
+        <!-- INSIRA O NOME DO SEU ARQUIVO ABAIXO ONDE DIZ "seu_arquivo.mp3" -->
+        <audio controls>
+            <source src="esp-gerenciamento-memoria.mp3" type="audio/mpeg">
+            Seu navegador não suporta o elemento de áudio.
+        </audio>
+    </section>
+
+    <!-- Conteúdo -->
+    <main>
+
+        <h2>1. Hierarquia e Princípios de Localidade</h2>
+        <blockquote>
+            <em>O hardware resolve a velocidade; o SO resolve a gestão.</em>
+        </blockquote>
+
+        <h3>A Pirâmide de Memória (Do mais rápido/caro para o mais lento/barato)</h3>
+        <ol>
+            <li><strong>Registradores:</strong> Dentro da CPU. Gerenciado pelo Compilador/Hardware. Acesso imediato.</li>
+            <li><strong>Cache (L1, L2, L3):</strong> SRAM. Gerenciado pelo Hardware (transparente ao SO).</li>
+            <li><strong>Memória Principal (RAM):</strong> DRAM. <strong>Foco do SO.</strong> Volátil.</li>
+            <li><strong>Disco (Secundária):</strong> Magnético/SSD. Não-volátil. Usado como Memória Virtual (Swap).</li>
+        </ol>
+
+        <h3>Princípios de Localidade (Por que Cache funciona?)</h3>
+        <ul>
+            <li><strong>Localidade Temporal:</strong> Se acessei agora, <strong>provavelmente acessarei de novo</strong> em breve (Ex: variáveis em loops).</li>
+            <li><strong>Localidade Espacial:</strong> Se acessei endereço <em>X</em>, <strong>provavelmente acessarei <em>X+1</em></strong> (Ex: vetores, arrays sequenciais).</li>
+        </ul>
+
+        <h2>2. Evolução da Alocação e Fragmentação</h2>
+        <p><em>Palavra-chave da banca: Onde está o buraco?</em></p>
+
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Técnica</th>
+                        <th>Descrição</th>
+                        <th>Problema Principal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Monoprogramação</strong></td>
+                        <td>1 Processo + SO.</td>
+                        <td>Baixo uso da CPU (espera E/S).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Partições Fixas</strong></td>
+                        <td>Memória dividida em fatias estáticas na inicialização.</td>
+                        <td><strong>Fragmentação Interna</strong> (Processo &lt; Partição).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Partições Variáveis</strong></td>
+                        <td>Aloca exatamente o tamanho necessário.</td>
+                        <td><strong>Fragmentação Externa</strong> (Buracos entre processos). Solução: Compactação (Lento).</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>Algoritmos de Alocação (Para Partições Variáveis)</h3>
+        <ul>
+            <li><strong>First Fit:</strong> Primeiro buraco que cabe. Rápido. Concentra uso no início.</li>
+            <li><strong>Best Fit:</strong> Menor buraco que cabe (deixa sobra minúscula). Lento (varre tudo).</li>
+            <li><strong>Worst Fit:</strong> Maior buraco disponível. Lento.</li>
+            <li><strong>Next Fit:</strong> Começa de onde parou a última alocação. Distribui melhor.</li>
+        </ul>
+
+        <h2>3. Paginação (O Padrão Moderno)</h2>
+        <p><em>Conceito chave: Espaço Lógico (Páginas) separado do Espaço Físico (Quadros).</em></p>
+
+        <ul>
+            <li><strong>Página (Page):</strong> Bloco de memória lógica (Processo).</li>
+            <li><strong>Quadro (Frame):</strong> Bloco de memória física (RAM).</li>
+            <li><strong>Tamanho:</strong> Página = Quadro (Ex: 4KB).</li>
+            <li><strong>Vantagem:</strong> Elimina <strong>Fragmentação Externa</strong>. Permite alocação não-contígua.</li>
+            <li><strong>Desvantagem:</strong> Pequena <strong>Fragmentação Interna</strong> (apenas na última página do processo).</li>
+        </ul>
+
+        <h3>Tradução de Endereços (MMU)</h3>
+        <p>O processador vê <strong>Endereço Lógico</strong>. A MMU traduz para <strong>Endereço Físico</strong>.</p>
+        <ul>
+            <li><strong>Endereço Lógico:</strong> <code>&lt;Número da Página (p), Deslocamento (d)&gt;</code></li>
+            <li><strong>Tabela de Páginas:</strong> Mapeia <code>p</code> &rarr; <code>Quadro (f)</code>. Reside na RAM.</li>
+            <li><strong>Cálculo Físico:</strong> Concatena <code>f</code> com <code>d</code>. (O deslocamento não muda!).</li>
+        </ul>
+
+        <h3>Otimização: TLB (Translation Lookaside Buffer)</h3>
+        <ul>
+            <li><strong>O que é:</strong> Cache de hardware dentro da MMU. Armazena traduções recentes (<code>p</code> &rarr; <code>f</code>).</li>
+            <li><strong>Função:</strong> Evitar 2 acessos à RAM (um para tabela, um para o dado).</li>
+            <li><strong>EAT (Effective Access Time):</strong> Se der <em>Hit</em> na TLB, o acesso é quase instantâneo (1 ciclo). Se der <em>Miss</em>, custa 2 acessos à memória.</li>
+        </ul>
+
+        <h3>Tabela de Páginas (Bits de Controle)</h3>
+        <ul>
+            <li><strong>Bit de Validade (Present):</strong> 1 = Na RAM; 0 = No Disco (Gera <strong>Page Fault</strong>).</li>
+            <li><strong>Bit de Modificação (Dirty):</strong> 1 = Foi alterada (precisa salvar no disco antes de sair); 0 = Limpa.</li>
+            <li><strong>Bit de Referência:</strong> 1 = Foi acessada recentemente (usado pelo LRU/Clock).</li>
+        </ul>
+
+        <h2>4. Segmentação vs. Paginação</h2>
+        <p><em>Diferencie para não cair em pegadinhas.</em></p>
+
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Característica</th>
+                        <th>Paginação</th>
+                        <th>Segmentação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Visão</strong></td>
+                        <td>Física (blocos fixos). Invisível ao usuário.</td>
+                        <td>Lógica (funções, stack, arrays). Visível.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tamanho</strong></td>
+                        <td>Fixo (Páginas).</td>
+                        <td>Variável (Segmentos).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fragmentação</strong></td>
+                        <td>Sofre de <strong>Interna</strong>.</td>
+                        <td>Sofre de <strong>Externa</strong>.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Proteção</strong></td>
+                        <td>Por página.</td>
+                        <td>Por estrutura lógica (mais natural).</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2>5. Memória Virtual e Algoritmos de Substituição</h2>
+        <p><em>Cenário: RAM cheia. Ocorreu Page Fault. Quem sai?</em></p>
+
+        <h3>Conceitos Críticos</h3>
+        <ul>
+            <li><strong>Paginação sob Demanda:</strong> Traz a página do disco só quando o programa tenta acessá-la.</li>
+            <li><strong>Thrashing (Hiperpaginação):</strong> SO gasta mais tempo trocando páginas (Swap I/O) do que executando. <strong>Causa:</strong> Grau de multiprogramação muito alto (muitos processos, pouca RAM). <strong>Solução:</strong> Suspender processos (Swap out).</li>
+        </ul>
+
+        <h3>Algoritmos de Substituição (Teste de Mesa)</h3>
+        <ol>
+            <li><strong>FIFO (Fila):</strong> Sai o mais antigo na memória.
+                <ul>
+                    <li><strong>Problema:</strong> <strong>Anomalia de Belady</strong> (Mais quadros = Mais faltas de página). Único que sofre disso.</li>
+                </ul>
+            </li>
+            <li><strong>Ótimo (OPT/MIN):</strong> Sai a página que vai demorar <strong>mais tempo para ser usada no futuro</strong>.
+                <ul>
+                    <li><strong>Uso:</strong> Impossível na prática (não prevê futuro). Serve apenas de base de comparação.</li>
+                </ul>
+            </li>
+            <li><strong>LRU (Least Recently Used):</strong> Sai a página que <strong>não é usada há mais tempo</strong> (Passado).
+                <ul>
+                    <li><strong>Lógica:</strong> Baseado na Localidade Temporal.</li>
+                    <li><strong>Implementação:</strong> Cara (hardware complexo). Usa-se aproximações.</li>
+                </ul>
+            </li>
+            <li><strong>Clock (Relógio / Segunda Chance):</strong> Aproximação do LRU.
+                <ul>
+                    <li>Usa <strong>Bit de Referência</strong>. Se Bit=1, dá chance (zera bit e avança). Se Bit=0, substitui.</li>
+                </ul>
+            </li>
+        </ol>
+
+        <h2>6. Dicas Finais para o Instituto AOCP</h2>
+        <ol>
+            <li><strong>Cálculos Simples:</strong> Saiba converter KB/MB. (Ex: Página de 4KB = 2<sup>12</sup> bytes &rarr; 12 bits de deslocamento).</li>
+            <li><strong>Terminologia:</strong> Eles usam "Memória Virtual" muitas vezes como sinônimo da técnica de usar o disco para estender a RAM.</li>
+            <li><strong>Pegadinha Clássica:</strong> "A fragmentação interna ocorre na segmentação?" <strong>NÃO.</strong> Segmentação gera fragmentação externa. Paginação gera interna.</li>
+            <li><strong>Linux:</strong> Comandos <code>vmstat</code>, <code>top</code>, <code>free</code> são usados para monitorar memória.</li>
+        </ol>
+
+    </main>
+
+    <!-- Botão Final -->
+    <div class="action-area">
+        <a href="esp-gerenciamento-memoriaquestoes.html" class="btn-questoes">Ir para Questões de Concurso &rarr;</a>
+    </div>
+
+</div>
+
+</body>
+</html>

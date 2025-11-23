@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo: Sistemas de Arquivos (IFPB/AOCP)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        /* Estilo para tabelas forçadas a não ter scroll horizontal */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed; /* Força distribuição igualitária ou baseada em conteúdo sem estourar */
+        }
+        td, th {
+            word-wrap: break-word; /* Quebra palavras longas se necessário */
+            overflow-wrap: break-word;
+        }
+        .highlight {
+            background-color: #fef9c3; /* Amarelo muito suave */
+            padding: 0 4px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+        .warning-box {
+            border-left: 4px solid #ef4444;
+            background-color: #fff1f2;
+        }
+        .tip-box {
+            border-left: 4px solid #3b82f6;
+            background-color: #eff6ff;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800 leading-relaxed">
+
+    <!-- Container Principal -->
+    <main class="max-w-4xl mx-auto px-4 py-8 md:px-8 md:py-12">
+
+        <!-- Cabeçalho -->
+        <header class="mb-8 border-b border-gray-200 pb-6">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2">Sistemas de Arquivos</h1>
+            <p class="text-lg text-gray-600">Resumo Focado: Concurso IFPB (Banca Instituto AOCP)</p>
+        </header>
+
+        <!-- Player de Áudio -->
+        <section class="mb-10 p-6 bg-gray-50 rounded-xl border border-gray-200 shadow-sm">
+            <div class="flex flex-col md:flex-row items-center gap-4">
+                <div class="flex-shrink-0 bg-white p-3 rounded-full shadow-sm">
+                    <i class="fas fa-headphones-alt text-2xl text-blue-600"></i>
+                </div>
+                <div class="w-full">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Ouça o Resumo da Aula</label>
+                    <audio controls class="w-full h-10 outline-none">
+                        <!-- INSIRA O NOME DO ARQUIVO MP3 ABAIXO -->
+                        <source src="esp-sistemas-arquivo.mp3" type="audio/mpeg">
+                        Seu navegador não suporta o elemento de áudio.
+                    </audio>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. Conceitos Fundamentais -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 pb-2 border-b border-gray-100">1. Conceitos Fundamentais e Abstração</h2>
+            <p class="mb-4">
+                <strong>Definição:</strong> O Sistema de Arquivos (FS) mapeia a abstração lógica ("arquivo") para a realidade física (blocos no disco). Sem ele, o disco é apenas um vetor de bytes.
+            </p>
+            
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Descritores de Arquivo (File Descriptors)</h3>
+                <p class="mb-2">É um inteiro retornado pelo <code class="bg-gray-100 px-1 rounded">open()</code> que serve de índice para leitura/escrita.</p>
+                <div class="bg-gray-50 p-3 rounded text-sm font-mono text-gray-600 border border-gray-200">
+                    Fluxo: Open (cria handle) &rarr; Seek (move cursor) &rarr; Read/Write &rarr; Close
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Timestamps (Unix/Linux)</h3>
+                <ul class="list-disc pl-5 space-y-1 mb-4">
+                    <li><span class="font-bold text-blue-900">atime:</span> Acesso (leitura).</li>
+                    <li><span class="font-bold text-blue-900">mtime:</span> Modificação do <span class="highlight">conteúdo (dados)</span>.</li>
+                    <li><span class="font-bold text-blue-900">ctime:</span> Alteração do <span class="highlight">Inode/Metadados</span> (permissão, dono).</li>
+                </ul>
+                <div class="tip-box p-4 rounded-lg">
+                    <p class="text-sm"><strong>🎯 Dica de Prova:</strong> Mudar permissão (<code class="text-blue-700">chmod</code>) altera o <span class="font-bold">ctime</span>, mas <span class="underline decoration-red-500 decoration-2">NÃO</span> o mtime.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Métodos de Alocação -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 pb-2 border-b border-gray-100">2. Métodos de Alocação (Comparativo)</h2>
+            
+            <div class="overflow-hidden border border-gray-200 rounded-lg shadow-sm">
+                <table class="w-full text-left text-sm md:text-base">
+                    <thead class="bg-gray-100 text-gray-900 font-bold border-b border-gray-200">
+                        <tr>
+                            <th class="p-4 w-1/5">Método</th>
+                            <th class="p-4 w-2/5">Vantagem Principal</th>
+                            <th class="p-4 w-2/5">Desvantagem Principal</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-4 font-semibold">Contígua</td>
+                            <td class="p-4">Leitura mais rápida (sequencial e direta).</td>
+                            <td class="p-4"><span class="highlight">Fragmentação Externa</span>; difícil crescer o arquivo.</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-4 font-semibold">Encadeada</td>
+                            <td class="p-4">Sem fragmentação externa; fácil crescer.</td>
+                            <td class="p-4">Acesso aleatório lento (tem que ler tudo antes).</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-4 font-semibold">Indexada<br><span class="text-xs font-normal text-gray-500">(Ex: Inode, NTFS)</span></td>
+                            <td class="p-4">Acesso direto eficiente; sem frag. externa.</td>
+                            <td class="p-4">Overhead de espaço para índices.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="mt-3 text-sm text-gray-600 bg-yellow-50 p-2 rounded border border-yellow-100">
+                <strong>📌 Foco AOCP:</strong> A alocação encadeada resolve a fragmentação externa, mas <span class="font-bold">penaliza o acesso direto (random access)</span>.
+            </p>
+        </section>
+
+        <!-- 3. Windows: FAT vs NTFS -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 pb-2 border-b border-gray-100">3. Windows: FAT vs. NTFS</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- FAT32 -->
+                <div class="bg-white border border-gray-200 p-5 rounded-lg shadow-sm">
+                    <h3 class="text-xl font-bold text-gray-800 mb-3 border-b pb-2">FAT32</h3>
+                    <ul class="space-y-3">
+                        <li>
+                            <span class="block text-xs font-bold text-gray-500 uppercase">Limite Crítico</span>
+                            Tamanho máx. de arquivo: <span class="highlight text-red-700">4 GB - 1 Byte</span>.
+                            <br><em class="text-xs text-gray-500">(ISO de 5GB dá erro!)</em>
+                        </li>
+                        <li>
+                            <span class="block text-xs font-bold text-gray-500 uppercase">Limitação Formatação</span>
+                            Windows limita partições FAT32 a <span class="highlight">32 GB</span> nativamente.
+                        </li>
+                        <li>
+                            <span class="block text-xs font-bold text-gray-500 uppercase">Segurança</span>
+                            Nenhuma (sem permissões de usuário).
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- NTFS -->
+                <div class="bg-white border border-gray-200 p-5 rounded-lg shadow-sm">
+                    <h3 class="text-xl font-bold text-gray-800 mb-3 border-b pb-2">NTFS</h3>
+                    <ul class="space-y-3">
+                        <li>
+                            <strong>MFT (Master File Table):</strong> Banco de dados onde tudo é arquivo. Arquivos muito pequenos ficam <span class="highlight">dentro da MFT</span>.
+                        </li>
+                        <li>
+                            <strong>Journaling:</strong> Log de transações para evitar corrupção em quedas de energia.
+                        </li>
+                        <li>
+                            <strong>ADS (Alternate Data Streams):</strong> Esconde dados atrás de um arquivo.
+                        </li>
+                        <li class="bg-gray-50 p-2 rounded border border-gray-100 text-sm">
+                            <strong>Permissões:</strong>
+                            <br>• <em>Full Control:</em> Tudo.
+                            <br>• <em>Modify:</em> Lê, escreve, deleta, mas <span class="font-bold text-red-600">NÃO</span> muda permissões.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-6 warning-box p-4 rounded-lg">
+                <h4 class="font-bold text-red-800 mb-1">🚫 Regra de Sintaxe (Proibidos no Windows)</h4>
+                <p class="mb-2 text-sm">Caracteres reservados que <strong>NÃO</strong> podem ser usados em nomes:</p>
+                <div class="text-center bg-white py-3 rounded border border-red-100 text-2xl font-mono tracking-widest font-bold text-gray-800">
+                    &lt; &gt; : " / \ | ? *
+                </div>
+                <p class="text-xs text-right mt-1 text-gray-500">(Operadores, caminhos, curingas e aspas)</p>
+            </div>
+        </section>
+
+        <!-- 4. Linux: EXT4 e Inodes -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 pb-2 border-b border-gray-100">4. Linux: EXT4 e Inodes</h2>
+
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Inode (Index Node)</h3>
+                <p>Contém <strong>TUDO</strong> sobre o arquivo (tamanho, dono, permissões, ponteiros), <span class="highlight text-red-700">EXCETO o Nome</span>.</p>
+                <p class="text-sm text-gray-600 mt-1">O <strong>Nome</strong> do arquivo fica no diretório, apontando para o número do Inode.</p>
+            </div>
+
+            <div class="mb-6 overflow-hidden border border-gray-200 rounded-lg shadow-sm">
+                <table class="w-full text-left text-sm">
+                    <thead class="bg-gray-100 text-gray-900 font-bold border-b border-gray-200">
+                        <tr>
+                            <th class="p-3 w-1/4">Característica</th>
+                            <th class="p-3 w-1/3">Hard Link (Físico)</th>
+                            <th class="p-3 w-1/3">Soft Link (Simbólico)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-3 font-semibold">Inode</td>
+                            <td class="p-3"><span class="highlight">Mesmo Inode</span> do original.</td>
+                            <td class="p-3">Novo Inode.</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-3 font-semibold">Conteúdo</td>
+                            <td class="p-3">Aponta para dados no disco.</td>
+                            <td class="p-3">Aponta para o <strong>caminho</strong> (path).</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-3 font-semibold">Partição</td>
+                            <td class="p-3">Só na mesma partição.</td>
+                            <td class="p-3"><span class="highlight">Cruza partições</span>.</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-3 font-semibold">Diretório</td>
+                            <td class="p-3 text-red-600 font-bold">Não.</td>
+                            <td class="p-3 text-green-600 font-bold">Sim.</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-3 font-semibold">Se Original Deletado</td>
+                            <td class="p-3">Arquivo continua existindo.</td>
+                            <td class="p-3">Link quebra ("dangling").</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Journaling no EXT4</h3>
+                <ul class="grid md:grid-cols-3 gap-4">
+                    <li class="bg-gray-50 p-3 rounded border border-gray-200">
+                        <span class="block font-bold text-gray-900">1. Journal</span>
+                        <span class="text-sm">Salva dados + metadados. (Seguro, Lento).</span>
+                    </li>
+                    <li class="bg-blue-50 p-3 rounded border border-blue-100 ring-2 ring-blue-100">
+                        <span class="block font-bold text-blue-900">2. Ordered (Padrão)</span>
+                        <span class="text-sm">Metadados no journal, garante dados no disco antes. (Equilíbrio).</span>
+                    </li>
+                    <li class="bg-gray-50 p-3 rounded border border-gray-200">
+                        <span class="block font-bold text-gray-900">3. Writeback</span>
+                        <span class="text-sm">Só metadados. Risco de dados antigos após crash.</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 5. Permissões Linux -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 pb-2 border-b border-gray-100">5. Permissões Linux (Cálculos)</h2>
+            
+            <div class="flex justify-center space-x-6 mb-6 font-mono text-lg font-bold">
+                <div class="text-center p-3 bg-gray-100 rounded min-w-[80px]">R = 4<br><span class="text-xs font-sans font-normal text-gray-500">Read</span></div>
+                <div class="text-center p-3 bg-gray-100 rounded min-w-[80px]">W = 2<br><span class="text-xs font-sans font-normal text-gray-500">Write</span></div>
+                <div class="text-center p-3 bg-gray-100 rounded min-w-[80px]">X = 1<br><span class="text-xs font-sans font-normal text-gray-500">Execute</span></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Bits Especiais</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="p-2 bg-gray-50 rounded"><strong class="text-purple-700">SUID (4):</strong> Executa com poderes do <strong>Dono</strong> (ex: <code class="text-xs">passwd</code>).</li>
+                        <li class="p-2 bg-gray-50 rounded"><strong class="text-purple-700">SGID (2):</strong> Em diretórios, novos arquivos herdam o <strong>Grupo da Pasta</strong>.</li>
+                        <li class="p-2 bg-gray-50 rounded"><strong class="text-purple-700">Sticky Bit (1):</strong> Em pastas públicas (<code class="text-xs">/tmp</code>), só o <strong>Dono</strong> deleta seu próprio arquivo.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Cálculo de Umask</h3>
+                    <div class="bg-gray-800 text-white p-4 rounded-lg font-mono text-sm shadow-sm">
+                        <p class="text-gray-400 mb-1">// Bases Padrão</p>
+                        <p>Arquivo   = 666</p>
+                        <p>Diretório = 777</p>
+                        <br>
+                        <p class="text-yellow-400">Fórmula: Base - Umask = Final</p>
+                        <br>
+                        <p class="text-gray-400">// Exemplo (Dir com Umask 022)</p>
+                        <p>777 - 022 = <span class="font-bold">755</span> (rwxr-xr-x)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="warning-box p-4 rounded-lg">
+                <p class="font-bold text-red-800 mb-1">⚠️ Atenção Extrema!</p>
+                <p class="text-sm">Ter <code class="bg-red-100 px-1 rounded">w</code> (escrita) em um <strong>diretório</strong> permite <span class="font-bold underline">DELETAR qualquer arquivo</span> dentro dele, mesmo que você não tenha permissão de escrita no arquivo em si.</p>
+            </div>
+        </section>
+
+        <!-- 6. FHS e 7. RAID -->
+        <div class="grid md:grid-cols-2 gap-8 mb-12">
+            <!-- FHS -->
+            <section>
+                <h2 class="text-xl font-bold text-gray-900 mb-4 pb-2 border-b border-gray-100">6. FHS (Hierarquia)</h2>
+                <ul class="text-sm space-y-2">
+                    <li class="flex"><span class="w-16 font-mono font-bold text-blue-800">/</span> <span class="flex-1">Raiz.</span></li>
+                    <li class="flex"><span class="w-16 font-mono font-bold text-blue-800">/etc</span> <span class="flex-1">Configurações (texto). NADA de binários.</span></li>
+                    <li class="flex"><span class="w-16 font-mono font-bold text-blue-800">/bin</span> <span class="flex-1">Binários essenciais (usuário).</span></li>
+                    <li class="flex"><span class="w-16 font-mono font-bold text-blue-800">/sbin</span> <span class="flex-1">Binários de sistema (root/admin).</span></li>
+                    <li class="flex"><span class="w-16 font-mono font-bold text-blue-800">/dev</span> <span class="flex-1">Arquivos de dispositivo (hardware).</span></li>
+                    <li class="flex"><span class="w-16 font-mono font-bold text-blue-800">/proc</span> <span class="flex-1 bg-yellow-50 rounded px-1">Sistema virtual (Info Kernel/RAM). Não ocupa disco.</span></li>
+                    <li class="flex"><span class="w-16 font-mono font-bold text-blue-800">/var</span> <span class="flex-1">Variáveis (Logs, Spool, Site).</span></li>
+                    <li class="flex"><span class="w-16 font-mono font-bold text-blue-800">/tmp</span> <span class="flex-1">Temporários (Sticky Bit).</span></li>
+                </ul>
+            </section>
+
+            <!-- RAID -->
+            <section>
+                <h2 class="text-xl font-bold text-gray-900 mb-4 pb-2 border-b border-gray-100">7. RAID (Resumo)</h2>
+                <div class="space-y-3">
+                    <div class="p-3 border border-gray-200 rounded hover:shadow-sm transition-shadow">
+                        <strong class="text-gray-900">RAID 0 (Striping)</strong>
+                        <p class="text-sm text-gray-600">Soma velocidades. <span class="text-red-600 font-bold">Zero redundância</span>.</p>
+                    </div>
+                    <div class="p-3 border border-gray-200 rounded hover:shadow-sm transition-shadow">
+                        <strong class="text-gray-900">RAID 1 (Mirror)</strong>
+                        <p class="text-sm text-gray-600">Redundância total. Perde 50% do espaço.</p>
+                    </div>
+                    <div class="p-3 border border-gray-200 rounded hover:shadow-sm transition-shadow">
+                        <strong class="text-gray-900">RAID 5</strong>
+                        <p class="text-sm text-gray-600">Paridade distribuída. Aguenta 1 falha. Espaço: (N-1).</p>
+                    </div>
+                    <div class="p-3 border border-gray-200 rounded hover:shadow-sm transition-shadow">
+                        <strong class="text-gray-900">RAID 10</strong>
+                        <p class="text-sm text-gray-600">Espelho + Striping. Rápido e seguro. Caro.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Botão Final -->
+        <div class="mt-16 text-center border-t border-gray-100 pt-8">
+            <p class="text-gray-500 mb-4 text-sm">Terminou a revisão? Teste seus conhecimentos agora.</p>
+            <a href="esp-sistemas-arquivoquestoes.html" class="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all duration-200 bg-gray-900 rounded-lg hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                <i class="fas fa-pen-alt mr-2"></i> Ir para Questões
+            </a>
+        </div>
+
+    </main>
+
+    <!-- Footer simples -->
+    <footer class="bg-gray-50 border-t border-gray-200 py-6 text-center text-sm text-gray-500">
+        <p>Material de Estudo - Concurso IFPB (Informática)</p>
+    </footer>
+
+</body>
+</html>

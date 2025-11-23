@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado AOCP: Processos e Threads</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc; /* Off-white para não cansar a vista */
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --text-secondary: #555555;
+            --accent-color: #2c3e50; /* Azul escuro profissional */
+            --highlight-color: #e8f4f8;
+            --correct-color: #27ae60;
+            --wrong-color: #c0392b;
+            --border-color: #e0e0e0;
+            --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --font-reading: 'Georgia', 'Merriweather', serif; /* Para as resoluções longas */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h1 {
+            color: var(--accent-color);
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        p.subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Estilos do Cartão de Pergunta */
+        .question-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+        }
+
+        .question-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            margin-bottom: 20px;
+            color: var(--text-color);
+        }
+
+        /* Estilos das Opções */
+        .options-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 10px;
+            padding: 10px 15px;
+            border: 1px solid transparent;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: flex-start;
+            transition: background-color 0.2s;
+        }
+
+        .option-item:hover {
+            background-color: var(--highlight-color);
+        }
+
+        .option-item input[type="radio"] {
+            margin-right: 12px;
+            margin-top: 6px;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+
+        .option-text {
+            flex: 1;
+        }
+
+        /* Botão de Enviar */
+        .submit-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .btn-submit {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: background-color 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #1a252f;
+        }
+
+        /* Seção de Resultados */
+        #result-section {
+            display: none; /* Oculto inicialmente */
+            margin-top: 50px;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .score-card {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .score-number {
+            font-size: 3rem;
+            font-weight: bold;
+            display: block;
+            margin: 10px 0;
+        }
+
+        /* Estilos das Resoluções */
+        .resolution-block {
+            background-color: #ffffff;
+            border-left: 5px solid var(--accent-color);
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .resolution-header {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .resolution-content {
+            font-family: var(--font-reading);
+            color: #444;
+            font-size: 1.05rem;
+        }
+
+        .resolution-content strong {
+            color: #222;
+        }
+
+        .status-badge {
+            font-size: 0.9rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin-left: 10px;
+        }
+        .badge-correct { background-color: #d5f5e3; color: #196f3d; }
+        .badge-wrong { background-color: #fadbd8; color: #943126; }
+
+        /* Utilitários visuais pós-correção */
+        .option-item.correct-answer {
+            background-color: #d5f5e3;
+            border-color: #27ae60;
+            color: #145a32;
+        }
+        
+        .option-item.user-wrong {
+            background-color: #fadbd8;
+            border-color: #c0392b;
+            color: #7b241c;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Ajustes para Tabelas nas resoluções */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.95rem;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado: Sistemas Operacionais</h1>
+        <p class="subtitle">Foco: Processos e Threads | Estilo: Instituto AOCP</p>
+    </header>
+
+    <form id="quiz-form">
+        
+        <!-- QUESTÃO 1 -->
+        <div class="question-card" id="q1">
+            <div class="question-title">Questão 1</div>
+            <div class="question-text">
+                Durante a execução de um ambiente crítico de processamento paralelo, observou-se que o sistema operacional cessou a resposta a novos comandos de usuário, embora o hardware permanecesse funcional. A análise forense dos logs do <em>kernel</em> indicou que a <em>Thread</em> Alfa havia adquirido bloqueio exclusivo sobre o Recurso R1 e entrou em estado de espera pelo Recurso R2. Simultaneamente, a <em>Thread</em> Beta havia adquirido o Recurso R2 e aguardava a liberação do Recurso R1. Considerando que o sistema operacional em questão não implementa mecanismos de preempção forçada para estes recursos específicos, ambas as <em>threads</em> permaneceram estagnadas. Esta situação patológica, caracterizada pelo bloqueio circular e indefinido de dois ou mais processos, onde cada um aguarda um evento que somente o outro pode disparar, é tecnicamente denominada:
+            </div>
+            <ul class="options-list">
+                <li class="option-item"><label class="option-text"><input type="radio" name="q1" value="a"> A) Starvation.</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q1" value="b"> B) Escalonamento por Prioridade Inversa.</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q1" value="c"> C) Swapping.</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q1" value="d"> D) Deadlock.</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q1" value="e"> E) Multiprogramação Cooperativa.</label></li>
+            </ul>
+        </div>
+
+        <!-- QUESTÃO 2 -->
+        <div class="question-card" id="q2">
+            <div class="question-title">Questão 2</div>
+            <div class="question-text">
+                A computação moderna baseia-se fortemente no conceito de <em>multithreading</em> para explorar o paralelismo em nível de hardware. O Instituto AOCP define <em>thread</em> como uma "unidade básica de utilização da CPU". Diferente do modelo de processos pesados (<em>heavyweight process</em>), onde cada unidade de execução possui isolamento total, as <em>threads</em> de um mesmo processo operam em um ambiente cooperativo.<br><br>
+                Com base na arquitetura de sistemas operacionais, assinale a alternativa que discrimina corretamente os elementos do Contexto de Hardware e Software que são <strong>privados</strong> (exclusivos de cada <em>thread</em>) e os que são <strong>compartilhados</strong> (pertencentes ao processo e acessíveis por todas as suas <em>threads</em>).
+            </div>
+            <ul class="options-list">
+                <li class="option-item"><label class="option-text"><input type="radio" name="q2" value="a"> A) <strong>Privados:</strong> Seção de Código e Heap; <strong>Compartilhados:</strong> Registradores e Pilha.</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q2" value="b"> B) <strong>Privados:</strong> Pilha (<em>Stack</em>) e Contador de Programa (PC); <strong>Compartilhados:</strong> Seção de Dados (Variáveis Globais) e Arquivos Abertos.</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q2" value="c"> C) <strong>Privados:</strong> Memória Virtual completa; <strong>Compartilhados:</strong> Apenas o descritor de processo (PID).</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q2" value="d"> D) <strong>Privados:</strong> Semáforos e Mutexes; <strong>Compartilhados:</strong> Pilha e Registradores de Propósito Geral.</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q2" value="e"> E) <strong>Privados:</strong> Cache L1; <strong>Compartilhados:</strong> Barramento de Endereços e Registrador de Status.</label></li>
+            </ul>
+        </div>
+
+        <!-- QUESTÃO 3 -->
+        <div class="question-card" id="q3">
+            <div class="question-title">Questão 3</div>
+            <div class="question-text">
+                O gerenciamento de processos é a função primordial de um sistema operacional. Durante seu ciclo de vida, um processo transita por diversos estados, governados pelo escalonador (<em>scheduler</em>) e pelas interrupções de hardware. Considere o modelo clássico de estados de processo (Pronto, Executando e Bloqueado).<br><br>
+                Assinale a alternativa que descreve corretamente a semântica do estado <strong>"Bloqueado"</strong> (também conhecido como <em>Waiting</em> ou <em>Espera</em>), conforme a literatura técnica e o gabarito histórico da banca.
+            </div>
+            <ul class="options-list">
+                <li class="option-item"><label class="option-text"><input type="radio" name="q3" value="a"> A) O estado de bloqueado é um estado terminal, onde o processo aguarda a liberação de suas estruturas de memória pelo <em>garbage collector</em> do sistema.</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q3" value="b"> B) Um processo entra no estado bloqueado quando seu tempo de CPU (<em>quantum</em>) expira, devendo aguardar uma nova oportunidade no escalonador.</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q3" value="c"> C) O estado de bloqueado caracteriza-se pela incapacidade temporária de execução do processo, que aguarda a ocorrência de um evento externo (como E/S) para tornar-se apto novamente.</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q3" value="d"> D) Processos no estado bloqueado residem necessariamente na memória cache L1 do processador para garantir retorno rápido à execução.</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q3" value="e"> E) A transição do estado bloqueado leva o processo diretamente ao estado de execução (<em>Running</em>), garantindo prioridade máxima sobre os demais.</label></li>
+            </ul>
+        </div>
+
+        <!-- QUESTÃO 4 -->
+        <div class="question-card" id="q4">
+            <div class="question-title">Questão 4</div>
+            <div class="question-text">
+                Em sistemas operacionais de tempo compartilhado (<em>time-sharing</em>), o objetivo primordial é garantir que múltiplos usuários ou processos interativos recebam uma fatia justa do tempo do processador, criando a ilusão de simultaneidade. Para tal, utiliza-se um algoritmo de escalonamento preemptivo que atribui a cada processo um intervalo de tempo fixo denominado <em>quantum</em>. Caso o processo não conclua sua execução dentro deste intervalo, ele sofre preempção e é realocado ao final da fila de prontos.<br><br>
+                Assinale a alternativa que nomeia corretamente este algoritmo de escalonamento.
+            </div>
+            <ul class="options-list">
+                <li class="option-item"><label class="option-text"><input type="radio" name="q4" value="a"> A) First-In, First-Out (FIFO).</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q4" value="b"> B) Shortest Job First (SJF).</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q4" value="c"> C) Round Robin (RR).</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q4" value="d"> D) Shortest Remaining Time First (SRTF).</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q4" value="e"> E) Escalonamento por Prioridade Estática.</label></li>
+            </ul>
+        </div>
+
+        <!-- QUESTÃO 5 -->
+        <div class="question-card" id="q5">
+            <div class="question-title">Questão 5</div>
+            <div class="question-text">
+                A teoria de Sistemas Operacionais utiliza problemas clássicos para ilustrar desafios complexos de concorrência. Um desses cenários, formulado por Edsger Dijkstra, envolve cinco processos (representados por filósofos) sentados ao redor de uma mesa circular, alternando entre estados de "pensar" e "comer". Entre cada par de filósofos existe um garfo (recurso compartilhado), sendo necessários dois garfos adjacentes para que um filósofo possa comer.<br><br>
+                O problema do "Jantar dos Filósofos" é empregado academicamente e em provas do Instituto AOCP para exemplificar e testar soluções para:
+            </div>
+            <ul class="options-list">
+                <li class="option-item"><label class="option-text"><input type="radio" name="q5" value="a"> A) Processos de gestão de <em>threads</em> e filas de impressão.</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q5" value="b"> B) Semáforos assíncronos e troca de mensagens em clusters.</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q5" value="c"> C) Processos de modularização e encapsulamento de memória.</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q5" value="d"> D) Situações de competição por acesso exclusivo a recursos limitados, com riscos de <em>deadlock</em> e <em>starvation</em>.</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q5" value="e"> E) Algoritmos de balanceamento de carga em árvores AVL.</label></li>
+            </ul>
+        </div>
+
+        <!-- QUESTÃO 6 -->
+        <div class="question-card" id="q6">
+            <div class="question-title">Questão 6</div>
+            <div class="question-text">
+                Em um sistema operacional com escalonamento baseado em prioridades, observou-se que um determinado processo de baixa prioridade permaneceu na fila de prontos por um período excessivamente longo. Embora o processo estivesse apto a executar e não houvesse bloqueios de recursos ou falhas de hardware, o escalonador sistematicamente escolhia outros processos de maior prioridade que ingressavam continuamente no sistema.<br><br>
+                Essa condição, na qual um processo sofre postergação indefinida de sua execução devido a políticas de escalonamento injustas ou sobrecarga de processos prioritários, é denominada:
+            </div>
+            <ul class="options-list">
+                <li class="option-item"><label class="option-text"><input type="radio" name="q6" value="a"> A) Deadlock.</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q6" value="b"> B) Swapping.</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q6" value="c"> C) Paging.</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q6" value="d"> D) Starvation.</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q6" value="e"> E) Livelock.</label></li>
+            </ul>
+        </div>
+
+        <!-- QUESTÃO 7 -->
+        <div class="question-card" id="q7">
+            <div class="question-title">Questão 7</div>
+            <div class="question-text">
+                Sobre a implementação de <em>threads</em> e sua relação com processos em sistemas operacionais, analise as assertivas abaixo e assinale a alternativa que classifica corretamente a veracidade de cada uma.<br><br>
+                I. A criação de uma <em>thread</em> é computacionalmente menos custosa do que a criação de um processo, pois <em>threads</em> do mesmo processo compartilham o espaço de endereçamento e recursos como tabelas de arquivos.<br>
+                II. No modelo de <em>Threads</em> de Nível de Usuário (ULT), o núcleo (<em>kernel</em>) do sistema operacional não tem conhecimento da existência das múltiplas <em>threads</em>; ele gerencia o processo como uma entidade de fluxo único (<em>single-threaded</em>).<br>
+                III. <em>Threads</em> são conhecidas como "Processos Leves" (<em>Lightweight Processes</em>) e, devido à sua natureza, dispensam totalmente o uso de estruturas de controle como o Contador de Programa (PC) e registradores próprios.<br><br>
+                A sequência correta é:
+            </div>
+            <ul class="options-list">
+                <li class="option-item"><label class="option-text"><input type="radio" name="q7" value="a"> A) V – V – F.</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q7" value="b"> B) F – V – V.</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q7" value="c"> C) V – F – V.</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q7" value="d"> D) F – F – V.</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q7" value="e"> E) V – V – V.</label></li>
+            </ul>
+        </div>
+
+        <!-- QUESTÃO 8 -->
+        <div class="question-card" id="q8">
+            <div class="question-title">Questão 8</div>
+            <div class="question-text">
+                Para que uma situação de <em>Deadlock</em> se concretize em um sistema computacional, quatro condições simultâneas (conhecidas como Condições de Coffman) devem ser satisfeitas. A eliminação de qualquer uma dessas condições é suficiente para prevenir o impasse.<br><br>
+                Assinale a alternativa que <strong>NÃO</strong> representa corretamente uma dessas condições necessárias.
+            </div>
+            <ul class="options-list">
+                <li class="option-item"><label class="option-text"><input type="radio" name="q8" value="a"> A) Condição de Exclusão Mútua: pelo menos um recurso deve estar em modo não compartilhável.</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q8" value="b"> B) Condição de Posse e Espera (<em>Hold and Wait</em>): um processo deve reter recursos alocados enquanto aguarda a liberação de outros.</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q8" value="c"> C) Condição de Preempção Voluntária: o sistema operacional tem permissão para revogar recursos de um processo a qualquer momento para evitar bloqueios.</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q8" value="d"> D) Condição de Não Preempção (<em>No Preemption</em>): os recursos alocados a um processo não podem ser retirados forçosamente, devendo ser liberados voluntariamente.</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q8" value="e"> E) Condição de Espera Circular: deve existir uma cadeia fechada de processos onde cada um aguarda um recurso retido pelo próximo membro da cadeia.</label></li>
+            </ul>
+        </div>
+
+        <!-- QUESTÃO 9 -->
+        <div class="question-card" id="q9">
+            <div class="question-title">Questão 9</div>
+            <div class="question-text">
+                A multiprogramação depende da capacidade do sistema operacional de suspender a execução de um processo e retomar outro, operação conhecida como Troca de Contexto (<em>Context Switch</em>). Sobre os mecanismos internos e estruturas de dados envolvidos nesta operação, assinale a alternativa correta.
+            </div>
+            <ul class="options-list">
+                <li class="option-item"><label class="option-text"><input type="radio" name="q9" value="a"> A) A troca de contexto é realizada inteiramente pelo hardware, sem intervenção do <em>kernel</em>, para garantir latência zero.</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q9" value="b"> B) O estado do processo interrompido, incluindo registradores e ponteiros de pilha, é salvo em uma estrutura chamada Bloco de Controle de Processo (PCB).</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q9" value="c"> C) Durante a troca de contexto, o conteúdo da memória RAM do processo é copiado integralmente para o disco rígido para liberar espaço para o novo processo.</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q9" value="d"> D) A tabela de processo (<em>Process Table</em>) é uma estrutura que armazena apenas os nomes dos processos ativos, sem guardar informações de estado ou memória.</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q9" value="e"> E) Em sistemas modernos, a troca de contexto ocorre apenas quando um processo termina sua execução, nunca por interrupção de tempo ou dispositivo.</label></li>
+            </ul>
+        </div>
+
+        <!-- QUESTÃO 10 -->
+        <div class="question-card" id="q10">
+            <div class="question-title">Questão 10</div>
+            <div class="question-text">
+                Em um sistema multitarefa, é comum que múltiplos processos necessitem acessar recursos compartilhados (como uma variável global ou um arquivo de log). O trecho de código onde ocorre esse acesso e onde a execução simultânea por mais de um processo pode gerar inconsistências de dados é tecnicamente denominado:
+            </div>
+            <ul class="options-list">
+                <li class="option-item"><label class="option-text"><input type="radio" name="q10" value="a"> A) Seção de Boot.</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q10" value="b"> B) Região Crítica.</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q10" value="c"> C) Segmento de Texto.</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q10" value="d"> D) Área de Swap.</label></li>
+                <li class="option-item"><label class="option-text"><input type="radio" name="q10" value="e"> E) Vetor de Interrupção.</label></li>
+            </ul>
+        </div>
+
+        <div class="submit-container">
+            <button type="button" class="btn-submit" onclick="finalizarQuiz()">Finalizar Simulado</button>
+        </div>
+    </form>
+
+    <!-- SEÇÃO DE RESULTADOS E RESOLUÇÕES -->
+    <div id="result-section">
+        <div class="score-card">
+            <h2>Resultado Final</h2>
+            <span class="score-number" id="score-display">0/10</span>
+            <p id="score-message">Confira abaixo as resoluções detalhadas.</p>
+        </div>
+
+        <!-- RESOLUÇÕES -->
+        <h2 style="color: var(--accent-color); text-align: center; margin-bottom: 30px;">Gabarito Comentado e Análise Aprofundada</h2>
+
+        <div class="resolution-block" id="res-q1">
+            <div class="resolution-header">Questão 1: Gabarito D (Deadlock) <span class="status-badge" id="badge-q1"></span></div>
+            <div class="resolution-content">
+                <p><strong>Fundamentação Teórica:</strong> O fenômeno descrito é a definição canônica de um impasse sistêmico. A condição <em>sine qua non</em> para a existência de um deadlock é a formação de um ciclo fechado no grafo de alocação de recursos, associada à impossibilidade de compartilhamento simultâneo.</p>
+                <p>O Instituto AOCP enfatiza a natureza "indefinida" do bloqueio. Diferente de outros problemas, o deadlock é um estado terminal para os processos envolvidos sem intervenção externa.</p>
+                <p><strong>Distinção Crítica (Deadlock vs. Starvation):</strong> A alternativa A está incorreta pois <em>Starvation</em> ocorre quando um processo está Pronto (Ready) mas nunca é escolhido pelo escalonador. No <em>Deadlock</em>, o processo está Bloqueado (Blocked) esperando um recurso.</p>
+            </div>
+        </div>
+
+        <div class="resolution-block" id="res-q2">
+            <div class="resolution-header">Questão 2: Gabarito B (Pilha e PC Privados) <span class="status-badge" id="badge-q2"></span></div>
+            <div class="resolution-content">
+                <p><strong>Arquitetura Interna de Threads:</strong> Uma Thread é definida pelo seu TCB (Thread Control Block). Para executar independentemente, ela precisa obrigatoriamente de exclusividade em:</p>
+                <ul>
+                    <li><strong>Contador de Programa (PC):</strong> Para saber qual instrução está executando.</li>
+                    <li><strong>Pilha de Execução (Stack):</strong> Para armazenar variáveis locais e retornos de função sem corromper a execução de outras threads.</li>
+                </ul>
+                <p><strong>Compartilhados:</strong> Seção de Código, Variáveis Globais (Dados), Heap e Recursos do SO (Arquivos abertos) pertencem ao Processo e são visíveis por todas as threads.</p>
+            </div>
+        </div>
+
+        <div class="resolution-block" id="res-q3">
+            <div class="resolution-header">Questão 3: Gabarito C (Espera por Evento) <span class="status-badge" id="badge-q3"></span></div>
+            <div class="resolution-content">
+                <p><strong>Dinâmica dos Estados:</strong> Um processo entra no estado "Bloqueado" (ou Waiting) quando executa uma chamada de sistema (como E/S) que a CPU não pode atender imediatamente. Ele aguarda um evento externo (o disco ler o dado, o usuário digitar algo).</p>
+                <p><strong>Correção das outras opções:</strong></p>
+                <ul>
+                    <li><strong>A:</strong> Refere-se ao estado <em>Terminated</em>.</li>
+                    <li><strong>B:</strong> Quando o <em>quantum</em> expira, o processo volta para o estado <strong>Pronto</strong> (Ready), não Bloqueado.</li>
+                    <li><strong>E:</strong> Do estado Bloqueado, o processo vai para <strong>Pronto</strong>, nunca direto para Executando.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="resolution-block" id="res-q4">
+            <div class="resolution-header">Questão 4: Gabarito C (Round Robin) <span class="status-badge" id="badge-q4"></span></div>
+            <div class="resolution-content">
+                <p><strong>Mecânica do Round Robin:</strong> Este é o pilar dos sistemas interativos (time-sharing). A chave é a <strong>preempção por tempo</strong> baseada em um <em>quantum</em> (fatia de tempo). Se o processo não termina no tempo estipulado, ele é interrompido e vai para o fim da fila.</p>
+                <p><strong>Comparativo:</strong> FIFO (Alternativa A) não tem preempção por tempo. SJF (Alternativa B) baseia-se na duração total da tarefa, não em fatias iguais.</p>
+            </div>
+        </div>
+
+        <div class="resolution-block" id="res-q5">
+            <div class="resolution-header">Questão 5: Gabarito D (Competição e Deadlock) <span class="status-badge" id="badge-q5"></span></div>
+            <div class="resolution-content">
+                <p><strong>O Jantar dos Filósofos:</strong> É uma abstração sobre alocação de recursos. Filósofos são processos, Garfos são recursos de exclusão mútua.</p>
+                <p>Se todos os filósofos pegarem o garfo da esquerda simultaneamente, ocorre um <strong>Deadlock</strong> (ciclo de dependência). Se a solução for mal implementada (ex: soltar e tentar de novo aleatoriamente), pode ocorrer <strong>Starvation</strong> (um filósofo nunca consegue comer).</p>
+            </div>
+        </div>
+
+        <div class="resolution-block" id="res-q6">
+            <div class="resolution-header">Questão 6: Gabarito D (Starvation) <span class="status-badge" id="badge-q6"></span></div>
+            <div class="resolution-content">
+                <p><strong>Conceito de Inanição:</strong> Difere do Deadlock porque o processo tem recursos para rodar, mas é ignorado pelo escalonador devido a políticas injustas (prioridade estática). O processo fica "faminto" na fila de prontos.</p>
+                <p><strong>Mitigação:</strong> Sistemas modernos usam <em>Aging</em> (envelhecimento), onde a prioridade do processo aumenta gradualmente conforme o tempo que ele espera na fila.</p>
+            </div>
+        </div>
+
+        <div class="resolution-block" id="res-q7">
+            <div class="resolution-header">Questão 7: Gabarito A (V - V - F) <span class="status-badge" id="badge-q7"></span></div>
+            <div class="resolution-content">
+                <ul>
+                    <li><strong>I (Verdadeiro):</strong> Threads são mais baratas de criar pois reaproveitam o espaço de endereçamento do processo pai.</li>
+                    <li><strong>II (Verdadeiro):</strong> Em Threads de Usuário (ULT), o kernel vê apenas um processo. Se uma thread bloqueia, todo o processo para.</li>
+                    <li><strong>III (Falso):</strong> O erro está em dizer que threads dispensam Contador de Programa e registradores. Elas <strong>possuem</strong> contexto de hardware próprio (TCB) para manter fluxos de execução independentes.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="resolution-block" id="res-q8">
+            <div class="resolution-header">Questão 8: Gabarito C (Condição de Preempção Voluntária) <span class="status-badge" id="badge-q8"></span></div>
+            <div class="resolution-content">
+                <p><strong>Lógica das Condições de Coffman:</strong> A questão pede a alternativa que <strong>NÃO</strong> é uma condição para o Deadlock.</p>
+                <p>A condição necessária para o problema existir é a <strong>Não Preempção</strong> (descrita na alternativa D). A alternativa C descreve um cenário onde a preempção é permitida ("sistema pode revogar recursos"). Se a preempção fosse permitida, o deadlock seria resolvido pelo SO, logo, não é uma condição para a <em>existência</em> do problema, mas sim para sua <em>solução</em>.</p>
+            </div>
+        </div>
+
+        <div class="resolution-block" id="res-q9">
+            <div class="resolution-header">Questão 9: Gabarito B (Salvo no PCB) <span class="status-badge" id="badge-q9"></span></div>
+            <div class="resolution-content">
+                <p><strong>Troca de Contexto:</strong> Quando o SO troca processos, ele deve salvar o estado atual da CPU (registradores, ponteiros) em um local seguro na memória do kernel. Esse local é o <strong>PCB (Process Control Block)</strong>.</p>
+                <p>O PCB é a "certidão de vida" do processo, contendo ID, estado, contexto de hardware e informações de memória. As outras alternativas erram ao sugerir latência zero, uso de disco para contexto (swapping) ou tabelas vazias.</p>
+            </div>
+        </div>
+
+        <div class="resolution-block" id="res-q10">
+            <div class="resolution-header">Questão 10: Gabarito B (Região Crítica) <span class="status-badge" id="badge-q10"></span></div>
+            <div class="resolution-content">
+                <p><strong>Definição:</strong> A Região Crítica não é um local físico de memória, mas um <strong>trecho de código</strong> lógico onde ocorre acesso a dados compartilhados.</p>
+                <p>Para evitar inconsistências (Condição de Corrida), a entrada na Região Crítica deve ser controlada por mecanismos de Exclusão Mútua (como Mutexes ou Semáforos), garantindo que apenas um processo execute aquele código por vez.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    const correctAnswers = {
+        q1: 'd',
+        q2: 'b',
+        q3: 'c',
+        q4: 'c',
+        q5: 'd',
+        q6: 'd',
+        q7: 'a',
+        q8: 'c',
+        q9: 'b',
+        q10: 'b'
+    };
+
+    function finalizarQuiz() {
+        let score = 0;
+        const totalQuestions = 10;
+        
+        // Loop através de cada questão
+        for (let i = 1; i <= totalQuestions; i++) {
+            const questionId = 'q' + i;
+            const container = document.getElementById(questionId);
+            const badge = document.getElementById('badge-' + questionId);
+            
+            // Obter resposta selecionada
+            const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
+            const correctAnswer = correctAnswers[questionId];
+            
+            // Limpar estilos anteriores (caso o usuário clique em finalizar mais de uma vez)
+            const allOptions = container.querySelectorAll('.option-item');
+            allOptions.forEach(opt => {
+                opt.classList.remove('correct-answer', 'user-wrong');
+            });
+
+            if (selectedOption) {
+                if (selectedOption.value === correctAnswer) {
+                    score++;
+                    // Estilo visual para acerto na lista de opções
+                    selectedOption.parentElement.parentElement.classList.add('correct-answer');
+                    // Badge na resolução
+                    badge.textContent = "Você Acertou";
+                    badge.className = "status-badge badge-correct";
+                } else {
+                    // Estilo visual para erro na lista de opções
+                    selectedOption.parentElement.parentElement.classList.add('user-wrong');
+                    // Mostrar qual era a correta
+                    const correctInput = container.querySelector(`input[value="${correctAnswer}"]`);
+                    if(correctInput) {
+                        correctInput.parentElement.parentElement.classList.add('correct-answer');
+                    }
+                    // Badge na resolução
+                    badge.textContent = "Você Errou";
+                    badge.className = "status-badge badge-wrong";
+                }
+            } else {
+                // Não respondeu
+                const correctInput = container.querySelector(`input[value="${correctAnswer}"]`);
+                if(correctInput) {
+                    correctInput.parentElement.parentElement.classList.add('correct-answer');
+                }
+                badge.textContent = "Não Respondida";
+                badge.className = "status-badge badge-wrong";
+            }
+        }
+
+        // Atualizar Placar
+        const scoreDisplay = document.getElementById('score-display');
+        scoreDisplay.textContent = `${score} / ${totalQuestions}`;
+        
+        // Mensagem baseada no desempenho
+        const messageDisplay = document.getElementById('score-message');
+        if (score === 10) {
+            messageDisplay.textContent = "Excelente! Domínio total do conteúdo.";
+        } else if (score >= 7) {
+            messageDisplay.textContent = "Muito bom! Confira as correções para gabaritar na próxima.";
+        } else {
+            messageDisplay.textContent = "Continue estudando. Analise as resoluções abaixo com atenção.";
+        }
+
+        // Mostrar seção de resultados
+        const resultSection = document.getElementById('result-section');
+        resultSection.style.display = 'block';
+
+        // Scroll suave até o resultado
+        resultSection.scrollIntoView({ behavior: 'smooth' });
+
+        // Desabilitar botão para evitar reenvio confuso sem refresh
+        const btn = document.querySelector('.btn-submit');
+        btn.textContent = "Quiz Finalizado";
+        btn.disabled = true;
+        btn.style.backgroundColor = "#7f8c8d";
+        btn.style.cursor = "default";
+        
+        // Desabilitar inputs
+        const inputs = document.querySelectorAll('input[type="radio"]');
+        inputs.forEach(input => input.disabled = true);
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo: Processos e Threads - IFPB/AOCP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1a202c; /* Cinza escuro para texto */
+            background-color: #ffffff;
+        }
+        h2 {
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #2d3748;
+        }
+        h3 {
+            color: #4a5568;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+        p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+        .highlight {
+            background-color: #ebf8ff; /* Azul muito suave */
+            color: #2b6cb0;
+            font-weight: 600;
+            padding: 0 4px;
+            border-radius: 4px;
+        }
+        .warning-box {
+            border-left: 4px solid #ed8936;
+            background-color: #fffaf0;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+        th {
+            background-color: #f7fafc;
+            color: #2d3748;
+            font-weight: 700;
+            text-align: left;
+            padding: 0.75rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        td {
+            padding: 0.75rem;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        /* Garantir que tabelas não tenham scroll */
+        td, th {
+            word-wrap: break-word;
+            white-space: normal;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+    <!-- Cabeçalho -->
+    <header class="bg-white border-b border-gray-200 py-8 px-4 text-center">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">Resumo de Elite: Processos e Threads</h1>
+        <p class="text-gray-600 font-medium">Foco: Concurso Professor EBTT - IFPB | Banca: <span class="text-blue-600">Instituto AOCP</span></p>
+    </header>
+
+    <main class="flex-grow w-full max-w-4xl mx-auto px-4 py-8">
+
+        <!-- Player de Áudio -->
+        <section class="mb-10 bg-gray-50 rounded-xl p-6 border border-gray-200 shadow-sm flex flex-col items-center justify-center">
+            <h3 class="text-lg text-gray-700 !mt-0 !mb-4">🎧 Ouça o Resumo da Aula</h3>
+            <!-- INSIRA AQUI O NOME DO SEU ARQUIVO MP3 -->
+            <audio controls class="w-full max-w-md">
+                <source src="esp-processos-threads.mp3" type="audio/mpeg">
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
+            <p class="text-xs text-gray-400 mt-2">Certifique-se que o arquivo de áudio está na mesma pasta.</p>
+        </section>
+
+        <!-- 1. Processo vs Programa -->
+        <article>
+            <h2 class="text-2xl font-bold">1. Processo vs. Programa (A Distinção Vital)</h2>
+            <ul class="list-disc pl-5 space-y-2 mb-6">
+                <li><strong>Programa:</strong> Entidade <span class="highlight">Passiva</span>. Arquivo no disco (ex: .exe). "Receita do bolo".</li>
+                <li><strong>Processo:</strong> Entidade <span class="highlight">Ativa</span>. Programa em execução na memória. "Cozinhar o bolo".</li>
+            </ul>
+            <p class="text-sm text-gray-600 italic mb-4">* Nota: Um programa pode gerar múltiplos processos.</p>
+
+            <h3>Estrutura na Memória (Layout)</h3>
+            <p>Visualize o processo dividido em 4 áreas. A banca cobra o que vai em cada uma.</p>
+            
+            <div class="overflow-hidden rounded-lg border border-gray-200">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="w-1/4">Seção</th>
+                            <th class="w-1/3">O que guarda?</th>
+                            <th>Detalhe Crítico</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-semibold">Text (Texto)</td>
+                            <td>Código binário (instruções).</td>
+                            <td><span class="highlight">Read-only</span> (para evitar auto-modificação).</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">Data (Dados)</td>
+                            <td>Variáveis <span class="highlight">Globais</span> e <span class="highlight">Estáticas</span>.</td>
+                            <td>Persistem durante toda a vida do processo.</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">Heap</td>
+                            <td>Alocação <span class="highlight">Dinâmica</span> (malloc, new).</td>
+                            <td>Cresce para <strong>cima</strong> (endereços altos). Fonte de <em>Memory Leaks</em>.</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">Stack (Pilha)</td>
+                            <td>Variáveis <span class="highlight">Locais</span>, Parâmetros, Retorno.</td>
+                            <td>Cresce para <strong>baixo</strong> (endereços baixos). Fonte de <em>Stack Overflow</em>.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bg-blue-50 p-4 rounded-lg text-blue-800 font-medium mt-4">
+                💡 <strong>Mnemônico:</strong> Heap (High/Alto) cresce para cima. Stack (Subsolo/Baixo) cresce para baixo.
+            </div>
+        </article>
+
+        <!-- 2. O PCB -->
+        <article>
+            <h2 class="text-2xl font-bold">2. O PCB (Process Control Block)</h2>
+            <p>É a "ficha técnica" do processo no Kernel.</p>
+            <ul class="list-disc pl-5 space-y-2">
+                <li><strong>PID:</strong> Identificador único.</li>
+                <li><strong>PC (Program Counter):</strong> Endereço da <span class="highlight">próxima</span> instrução. (Fundamental para retomada).</li>
+                <li><strong>Registradores:</strong> Salva o estado da CPU na troca de contexto.</li>
+                <li><strong>Estado:</strong> (Pronto, Rodando, Bloqueado...).</li>
+            </ul>
+        </article>
+
+        <!-- 3. Ciclo de Vida -->
+        <article>
+            <h2 class="text-2xl font-bold">3. Ciclo de Vida: Estados do Processo</h2>
+            
+            <h3>Modelo de 5 Estados (Padrão Silberschatz)</h3>
+            <ol class="list-decimal pl-5 space-y-2 mb-6">
+                <li><strong>New:</strong> Sendo criado.</li>
+                <li><strong>Ready (Pronto):</strong> Tem tudo, <span class="highlight">só falta CPU</span>. Fica na fila de prontos.</li>
+                <li><strong>Running (Executando):</strong> Usando a CPU.</li>
+                <li><strong>Waiting/Blocked (Esperando):</strong> Espera <span class="highlight">E/S</span> ou evento externo.</li>
+                <li><strong>Terminated:</strong> Acabou.</li>
+            </ol>
+            <p class="text-red-600 font-semibold mb-6">⚠️ Regra de Ouro: De Waiting NUNCA vai direto para Running. Volta para Ready.</p>
+
+            <h3>Modelo de 7 Estados (Com Swap)</h3>
+            <p>Adiciona <strong>Swapping</strong> (mover processo da RAM para o Disco para liberar memória).</p>
+            <ul class="list-disc pl-5 space-y-2 mt-2">
+                <li><strong>Ready Suspended:</strong> Pronto, mas sem espaço na RAM (está no disco).</li>
+                <li><strong>Blocked Suspended:</strong> Esperando E/S e sem espaço na RAM (está no disco).</li>
+            </ul>
+
+            <div class="warning-box">
+                <strong>🚨 Alerta AOCP:</strong> "Thrashing" é quando o sistema gasta mais tempo fazendo swap (trocando páginas) do que executando. Sintoma: Disco 100%, CPU baixa.
+            </div>
+        </article>
+
+        <!-- 4. Threads -->
+        <article>
+            <h2 class="text-2xl font-bold">4. Threads: O "Processo Leve"</h2>
+            <p><strong>Conceito:</strong> Múltiplos fluxos de execução dentro do <strong>mesmo</strong> processo.</p>
+            <p><strong>Motivação:</strong> Criação rápida, troca de contexto rápida, comunicação eficiente (memória compartilhada).</p>
+
+            <h3>O Grande Divisor: Compartilhado vs. Privado</h3>
+            <p class="mb-4">Este é o ponto mais cobrado em provas de desenvolvimento.</p>
+
+            <div class="overflow-hidden rounded-lg border border-gray-200">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="w-1/4">Recurso</th>
+                            <th class="text-center w-1/4">Status na Thread</th>
+                            <th>Por quê?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-semibold">Memória (Heap/Global)</td>
+                            <td class="text-center text-green-700 font-bold bg-green-50">COMPARTILHADO</td>
+                            <td>Threads comunicam-se lendo/escrevendo as mesmas variáveis.</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">Arquivos Abertos</td>
+                            <td class="text-center text-green-700 font-bold bg-green-50">COMPARTILHADO</td>
+                            <td>Todas usam os recursos do processo pai.</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">Pilha (Stack)</td>
+                            <td class="text-center text-red-700 font-bold bg-red-50">PRIVADO</td>
+                            <td>Cada thread tem suas próprias chamadas de função e variáveis locais.</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">Registradores (PC, SP)</td>
+                            <td class="text-center text-red-700 font-bold bg-red-50">PRIVADO</td>
+                            <td>Cada uma está em um ponto diferente do código.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </article>
+
+        <!-- 5. Modelos -->
+        <article>
+            <h2 class="text-2xl font-bold">5. Modelos de Multithreading</h2>
+            <p>Como as threads do código (Usuário) se ligam às do SO (Kernel).</p>
+            <ul class="space-y-4 mt-4">
+                <li class="p-4 bg-gray-50 rounded-lg">
+                    <strong>1. Many-to-One (Muitos-para-Um):</strong> Várias threads de usuário → 1 thread de Kernel.<br>
+                    <span class="text-red-600">Problema:</span> Se uma bloqueia (faz I/O), <span class="font-bold">trava o processo todo</span>. Sem paralelismo real.
+                </li>
+                <li class="p-4 bg-gray-50 rounded-lg">
+                    <strong>2. One-to-One (Um-para-Um):</strong> Cada thread de usuário → 1 thread de Kernel.<br>
+                    <span class="text-green-600">Vantagem:</span> Paralelismo real (multicore). Se uma bloqueia, as outras continuam.<br>
+                    <em>Exemplos: Linux, Windows.</em>
+                </li>
+                <li class="p-4 bg-gray-50 rounded-lg">
+                    <strong>3. Many-to-Many:</strong> Híbrido complexo (em desuso).
+                </li>
+            </ul>
+            <p class="mt-4 text-sm text-gray-600"><strong>Atenção:</strong> O Linux chama threads e processos de <code>task_struct</code>. Uma thread é um processo que compartilha memória (<code>clone()</code>).</p>
+        </article>
+
+        <!-- 6. Concorrência -->
+        <article>
+            <h2 class="text-2xl font-bold">6. Concorrência: Problemas Clássicos</h2>
+            <p>Para quem faz prova de Dev, isso cai associado a código (Java/C).</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <div class="border border-gray-200 p-5 rounded-lg">
+                    <h4 class="font-bold text-lg text-red-600 mb-2">Race Condition (Condição de Corrida)</h4>
+                    <p><strong>O que é:</strong> O resultado depende da ordem de execução ("sorte").</p>
+                    <p><strong>Causa:</strong> Duas threads alteram dado compartilhado ao mesmo tempo sem proteção.</p>
+                    <p><strong>Solução:</strong> <span class="highlight">Exclusão Mútua</span> (Mutex, Semáforo, synchronized).</p>
+                </div>
+
+                <div class="border border-gray-200 p-5 rounded-lg">
+                    <h4 class="font-bold text-lg text-red-600 mb-2">Deadlock (Impasse)</h4>
+                    <p><strong>O que é:</strong> Travamento eterno. A espera B, e B espera A.</p>
+                    <p class="font-semibold mt-2">4 Condições Necessárias (Coffman):</p>
+                    <ul class="list-decimal pl-5 text-sm">
+                        <li>Exclusão Mútua.</li>
+                        <li>Posse e Espera (Hold and Wait).</li>
+                        <li>Não Preempção.</li>
+                        <li>Espera Circular (ciclo vicioso).</li>
+                    </ul>
+                </div>
+            </div>
+        </article>
+
+        <!-- 7. Java -->
+        <article>
+            <h2 class="text-2xl font-bold">7. Threads em Java (Mapeamento Prático)</h2>
+            <p>A JVM moderna usa o modelo <strong>One-to-One</strong> (mapeia para threads nativas do SO).</p>
+            
+            <h3 class="text-lg font-semibold mt-4">Estados Java (Thread.State) vs. SO:</h3>
+            <ul class="list-disc pl-5 space-y-2 mt-2">
+                <li><strong>RUNNABLE (Java):</strong> Engloba <span class="highlight">Ready</span> E <span class="highlight">Running</span> do SO. (A JVM não diz se está na CPU agora, só que pode estar).</li>
+                <li><strong>BLOCKED:</strong> Esperando um <em>monitor lock</em> (<code>synchronized</code>).</li>
+                <li><strong>WAITING:</strong> Esperando sinal (<code>Object.wait()</code>, <code>Thread.join()</code>).</li>
+                <li><strong>TIMED_WAITING:</strong> Dormindo com tempo (<code>Thread.sleep()</code>).</li>
+            </ul>
+
+            <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200 mt-4 text-yellow-900">
+                💣 <strong>Pegadinha:</strong> <code>Thread.sleep()</code> <strong>NÃO</strong> libera o lock. A thread dorme segurando a chave. <code>Object.wait()</code> <strong>LIBERA</strong> o lock.
+            </div>
+        </article>
+
+        <!-- 8. Raio-X Banca -->
+        <article>
+            <h2 class="text-2xl font-bold">8. Raio-X da Banca: Instituto AOCP</h2>
+            <ul class="space-y-4">
+                <li class="flex items-start">
+                    <span class="bg-gray-200 text-gray-700 font-bold px-2 py-1 rounded text-xs mr-3 mt-1">DICA 1</span>
+                    <div>
+                        <strong>"Processo Pesado":</strong> Se a prova falar "Heavyweight Process", refere-se ao processo tradicional (monothread) ou à thread de Kernel.
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <span class="bg-gray-200 text-gray-700 font-bold px-2 py-1 rounded text-xs mr-3 mt-1">DICA 2</span>
+                    <div>
+                        <strong>Multiprogramação ≠ Multithreading:</strong><br>
+                        <em>Multiprogramação:</em> Vários processos na memória (foco em uso da CPU).<br>
+                        <em>Multithreading:</em> Várias tarefas no mesmo processo (foco em responsividade).
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <span class="bg-gray-200 text-gray-700 font-bold px-2 py-1 rounded text-xs mr-3 mt-1">DICA 3</span>
+                    <div>
+                        <strong>Hiper-Threading (Hardware):</strong> A AOCP considera <strong>Verdadeiro</strong> que CPUs modernas têm suporte via hardware a threads (simulam 2 CPUs lógicas em 1 física).
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <span class="bg-gray-200 text-gray-700 font-bold px-2 py-1 rounded text-xs mr-3 mt-1">DICA 4</span>
+                    <div>
+                        <strong>Chrome (Multi-processo):</strong> Abas são processos separados para <span class="highlight">isolamento</span> (se uma trava, não derruba o navegador).
+                    </div>
+                </li>
+            </ul>
+        </article>
+
+    </main>
+
+    <!-- Botão de Ação -->
+    <footer class="bg-white py-10 text-center border-t border-gray-200">
+        <a href="esp-processos-threadsquestoes.html" class="inline-block bg-gray-800 hover:bg-gray-900 text-white font-bold py-4 px-10 rounded-lg shadow-lg transition duration-200 transform hover:-translate-y-1">
+            Resolver Questões
+        </a>
+        <p class="text-gray-400 text-sm mt-4">Bons estudos para o IFPB!</p>
+    </footer>
+
+</body>
+</html>

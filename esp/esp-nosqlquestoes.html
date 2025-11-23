@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado NoSQL - Instituto AOCP</title>
+    <style>
+        :root {
+            --bg-color: #f9f7f1; /* Tom de papel suave para não cansar a vista */
+            --text-color: #2c3e50;
+            --card-bg: #ffffff;
+            --accent-color: #2980b9;
+            --success-color: #27ae60;
+            --error-color: #c0392b;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Georgia', 'Merriweather', serif; /* Serifas facilitam leitura longa */
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--bg-color);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            color: #1a252f;
+        }
+
+        .intro {
+            font-style: italic;
+            color: #555;
+            font-size: 1.1rem;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .question-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #1a252f;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Sans-serif para títulos */
+        }
+
+        .question-text {
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        .options {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+            cursor: pointer;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .option-item:hover {
+            background-color: #f0f4f8;
+        }
+
+        .option-item input[type="radio"] {
+            margin-top: 6px;
+            margin-right: 12px;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+
+        .option-item label {
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 40px;
+        }
+
+        .btn-submit:hover {
+            background-color: #1f618d;
+        }
+
+        /* Estilos de Resultado */
+        #results-section {
+            display: none; /* Escondido inicialmente */
+            margin-top: 50px;
+            border-top: 3px solid var(--accent-color);
+            padding-top: 30px;
+        }
+
+        .score-card {
+            background-color: #e8f6f3;
+            border: 1px solid #a3e4d7;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            color: #0e6655;
+        }
+
+        .score-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .resolution-card {
+            background: #fff;
+            border-left: 5px solid var(--accent-color);
+            padding: 20px 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .resolution-title {
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 1.3rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .resolution-content h4 {
+            margin-top: 20px;
+            color: #34495e;
+        }
+        
+        .resolution-content ul {
+            padding-left: 20px;
+        }
+
+        .resolution-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+        
+        .resolution-content th, .resolution-content td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        .resolution-content th {
+            background-color: #f2f2f2;
+        }
+
+        /* Feedback Visual nas Opções */
+        .correct-answer {
+            background-color: #d4efdf !important;
+            border: 1px solid #27ae60;
+            color: #0e6655;
+        }
+
+        .wrong-answer {
+            background-color: #fadbd8 !important;
+            border: 1px solid #c0392b;
+            color: #7b241c;
+        }
+
+        .feedback-icon {
+            margin-left: auto;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 10px; }
+            .question-card { padding: 20px; }
+            h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado: Bancos de Dados NoSQL</h1>
+        <p class="intro">Focado na banca Instituto AOCP. Responda todas as questões e clique em "Finalizar Simulado" para ver sua nota e a resolução detalhada.</p>
+    </header>
+
+    <form id="quiz-form">
+        <!-- Questão 1 -->
+        <div class="question-card" id="q1">
+            <div class="question-title">Questão 1 (Analista de Big Data)</div>
+            <div class="question-text">
+                A emergência do paradigma de Big Data impôs desafios severos aos Sistemas Gerenciadores de Banco de Dados Relacionais (SGBDR) tradicionais, que, embora robustos em consistência, apresentam limitações físicas e lógicas ao lidar com a variabilidade e o volume massivo de dados modernos. No contexto de arquitetura de soluções, quando um profissional de Tecnologia da Informação se depara com a necessidade de armazenar petabytes de dados não estruturados ou semiestruturados, com alta velocidade de ingestão e requisito mandatório de escalabilidade horizontal linear, a escolha tecnológica mais adequada, em detrimento dos modelos relacionais tradicionais, é:
+            </div>
+            <ul class="options">
+                <li class="option-item"><label><input type="radio" name="q1" value="A"> A) Banco de Dados Relacional Normalizado (3FN).</label></li>
+                <li class="option-item"><label><input type="radio" name="q1" value="B"> B) Banco de Dados NoSQL.</label></li>
+                <li class="option-item"><label><input type="radio" name="q1" value="C"> C) Banco de Dados Hierárquico.</label></li>
+                <li class="option-item"><label><input type="radio" name="q1" value="D"> D) Data Warehouse Relacional (OLAP).</label></li>
+                <li class="option-item"><label><input type="radio" name="q1" value="E"> E) Banco de Dados de Rede.</label></li>
+            </ul>
+        </div>
+
+        <!-- Questão 2 -->
+        <div class="question-card" id="q2">
+            <div class="question-title">Questão 2 (Desenvolvimento de Sistemas)</div>
+            <div class="question-text">
+                A taxonomia dos sistemas de gerenciamento de banco de dados NoSQL é frequentemente dividida em quatro categorias principais, baseadas no modelo de dados subjacente. Cada categoria resolve uma classe específica de problemas de engenharia de software. Assinale a alternativa que correlaciona corretamente o Sistema Gerenciador de Banco de Dados (SGBD) específico com a sua categoria de modelo de dados predominante, conforme aceito pela literatura técnica e documentação oficial.
+            </div>
+            <ul class="options">
+                <li class="option-item"><label><input type="radio" name="q2" value="A"> A) Redis: Modelo Orientado a Documentos – MongoDB: Modelo Chave-Valor – Neo4j: Modelo Baseado em Grafos – Cassandra: Modelo Família de Colunas.</label></li>
+                <li class="option-item"><label><input type="radio" name="q2" value="B"> B) MongoDB: Modelo Orientado a Documentos – Redis: Modelo Chave-Valor – Neo4j: Modelo Baseado em Grafos – Cassandra: Modelo Orientado a Colunas (Wide-Column Store).</label></li>
+                <li class="option-item"><label><input type="radio" name="q2" value="C"> C) Cassandra: Modelo Orientado a Grafos – MongoDB: Modelo Chave-Valor – Redis: Modelo Orientado a Documentos – Neo4j: Modelo Família de Colunas.</label></li>
+                <li class="option-item"><label><input type="radio" name="q2" value="D"> D) Neo4j: Modelo Chave-Valor – Cassandra: Modelo Baseado em Grafos – MongoDB: Modelo Orientado a Colunas – Redis: Modelo Orientado a Documentos.</label></li>
+                <li class="option-item"><label><input type="radio" name="q2" value="E"> E) Redis: Modelo Orientado a Colunas – MongoDB: Modelo Baseado em Grafos – Neo4j: Modelo Orientado a Documentos – Cassandra: Modelo Chave-Valor.</label></li>
+            </ul>
+        </div>
+
+        <!-- Questão 3 -->
+        <div class="question-card" id="q3">
+            <div class="question-title">Questão 3 (Infraestrutura e Banco de Dados)</div>
+            <div class="question-text">
+                O Teorema CAP, formulado pelo cientista da computação Eric Brewer no início dos anos 2000, estabelece um limite teórico fundamental para sistemas de computação distribuída. Segundo este teorema, em um sistema de dados distribuído operando sobre uma rede não confiável, é impossível garantir simultaneamente três propriedades específicas. A compreensão dessas propriedades é vital para a escolha do banco de dados correto. Assinale a alternativa que apresenta corretamente a tríade de propriedades do Teorema CAP.
+            </div>
+            <ul class="options">
+                <li class="option-item"><label><input type="radio" name="q3" value="A"> A) Confidencialidade, Integridade e Disponibilidade (CIA Triad).</label></li>
+                <li class="option-item"><label><input type="radio" name="q3" value="B"> B) Consistência, Atomicidade e Performance.</label></li>
+                <li class="option-item"><label><input type="radio" name="q3" value="C"> C) Consistência, Disponibilidade e Tolerância a Partição.</label></li>
+                <li class="option-item"><label><input type="radio" name="q3" value="D"> D) Concorrência, Acesso e Persistência.</label></li>
+                <li class="option-item"><label><input type="radio" name="q3" value="E"> E) Clusterização, Alta Disponibilidade e Protocolos de Consenso.</label></li>
+            </ul>
+        </div>
+
+        <!-- Questão 4 -->
+        <div class="question-card" id="q4">
+            <div class="question-title">Questão 4 (Analista de TI)</div>
+            <div class="question-text">
+                Analise as assertivas abaixo referentes ao comportamento transacional e aos modelos de consistência em bancos de dados NoSQL, especificamente focando em bancos orientados a documentos como o MongoDB e suas evoluções recentes:<br><br>
+                I. Historicamente, em bancos de dados NoSQL orientados a documentos, a garantia de atomicidade era restrita ao nível de operação em um único documento, não garantindo nativamente transações ACID multi-documento em versões mais antigas.<br>
+                II. O modelo de consistência frequentemente adotado por bancos NoSQL distribuídos para garantir alta disponibilidade e baixa latência de escrita é conhecido como Consistência Eventual (Eventual Consistency), onde leituras subsequentes a uma escrita podem retornar dados obsoletos temporariamente.<br>
+                III. O conceito de sharding (fragmentação) em bancos como o MongoDB permite a distribuição horizontal de dados, mas impõe restrições ou penalidades de performance em operações de junção (lookup) ou transações que cruzam múltiplos fragmentos (shards).
+            </div>
+            <ul class="options">
+                <li class="option-item"><label><input type="radio" name="q4" value="A"> A) Apenas I.</label></li>
+                <li class="option-item"><label><input type="radio" name="q4" value="B"> B) Apenas II.</label></li>
+                <li class="option-item"><label><input type="radio" name="q4" value="C"> C) Apenas I e II.</label></li>
+                <li class="option-item"><label><input type="radio" name="q4" value="D"> D) Apenas II e III.</label></li>
+                <li class="option-item"><label><input type="radio" name="q4" value="E"> E) I, II e III.</label></li>
+            </ul>
+        </div>
+
+        <!-- Questão 5 -->
+        <div class="question-card" id="q5">
+            <div class="question-title">Questão 5 (Especialista Cassandra)</div>
+            <div class="question-text">
+                O Apache Cassandra é um banco de dados NoSQL da família Wide-Column Store, projetado para alta disponibilidade e escalabilidade linear sem ponto único de falha. No que tange à sua arquitetura lógica de armazenamento e nomenclatura específica, assinale a alternativa que apresenta o nome do objeto lógico do Cassandra que atua como o contêiner de dados mais externo, definindo a estratégia de replicação e sendo equivalente ao conceito de "Database" ou "Schema" em um SGBD Relacional.
+            </div>
+            <ul class="options">
+                <li class="option-item"><label><input type="radio" name="q5" value="A"> A) Column Family.</label></li>
+                <li class="option-item"><label><input type="radio" name="q5" value="B"> B) SuperColumn.</label></li>
+                <li class="option-item"><label><input type="radio" name="q5" value="C"> C) Keyspace.</label></li>
+                <li class="option-item"><label><input type="radio" name="q5" value="D"> D) Cluster Ring.</label></li>
+                <li class="option-item"><label><input type="radio" name="q5" value="E"> E) Tablet.</label></li>
+            </ul>
+        </div>
+
+        <!-- Questão 6 -->
+        <div class="question-card" id="q6">
+            <div class="question-title">Questão 6 (Cientista de Dados)</div>
+            <div class="question-text">
+                Um cientista de dados necessita realizar uma auditoria volumétrica em uma coleção denominada `logs_acesso` em um banco de dados MongoDB. A operação deve ser realizada via interface de linha de comando (mongo shell). Assinale a alternativa que apresenta a sintaxe correta e mais direta para retornar a contagem total de documentos presentes nesta coleção.
+            </div>
+            <ul class="options">
+                <li class="option-item"><label><input type="radio" name="q6" value="A"> A) <code>SELECT count(*) FROM logs_acesso</code></label></li>
+                <li class="option-item"><label><input type="radio" name="q6" value="B"> B) <code>db.logs_acesso.count()</code></label></li>
+                <li class="option-item"><label><input type="radio" name="q6" value="C"> C) <code>db.logs_acesso.size()</code></label></li>
+                <li class="option-item"><label><input type="radio" name="q6" value="D"> D) <code>db.logs_acesso.total()</code></label></li>
+                <li class="option-item"><label><input type="radio" name="q6" value="E"> E) <code>db.collection("logs_acesso").length()</code></label></li>
+            </ul>
+        </div>
+
+        <!-- Questão 7 -->
+        <div class="question-card" id="q7">
+            <div class="question-title">Questão 7 (Engenharia de Dados)</div>
+            <div class="question-text">
+                O Cassandra introduziu a linguagem CQL (Cassandra Query Language) para facilitar a migração de profissionais acostumados com SQL. Um recurso poderoso da CQL é a capacidade de criar Tipos Definidos pelo Usuário (UDTs - User-Defined Types), que permitem agrupar campos relacionados. Assinale a alternativa que descreve corretamente a sintaxe DDL (Data Definition Language) para a criação de um tipo `endereco` contendo os campos `logradouro` (texto) e `cep` (inteiro).
+            </div>
+            <ul class="options">
+                <li class="option-item"><label><input type="radio" name="q7" value="A"> A) <code>CREATE TABLE endereco ( logradouro text, cep int );</code></label></li>
+                <li class="option-item"><label><input type="radio" name="q7" value="B"> B) <code>DEFINE TYPE endereco AS { logradouro: text, cep: int };</code></label></li>
+                <li class="option-item"><label><input type="radio" name="q7" value="C"> C) <code>CREATE TYPE endereco ( logradouro text, cep int );</code></label></li>
+                <li class="option-item"><label><input type="radio" name="q7" value="D"> D) <code>NEW UDT endereco FIELDS ( logradouro text, cep int );</code></label></li>
+                <li class="option-item"><label><input type="radio" name="q7" value="E"> E) <code>INSERT TYPE endereco ( logradouro text, cep int );</code></label></li>
+            </ul>
+        </div>
+
+        <!-- Questão 8 -->
+        <div class="question-card" id="q8">
+            <div class="question-title">Questão 8 (Desenvolvimento MongoDB)</div>
+            <div class="question-text">
+                No MongoDB, a eficiência no tráfego de rede é otimizada através do uso de projeções, que limitam os campos retornados por uma consulta. Uma projeção é definida como um documento JSON passado como segundo argumento do método `find`. Assinale a alternativa que representa corretamente a estrutura sintática de uma projeção que inclui explicitamente o campo "status" e exclui implicitamente os demais (exceto o identificador padrão).
+            </div>
+            <ul class="options">
+                <li class="option-item"><label><input type="radio" name="q8" value="A"> A) <code>key: value</code> (exemplo: <code>{ "status": 1 }</code>)</label></li>
+                <li class="option-item"><label><input type="radio" name="q8" value="B"> B) <code>field = true</code> (exemplo: <code>{ status = true }</code>)</label></li>
+                <li class="option-item"><label><input type="radio" name="q8" value="C"> C) <code>return field</code> (exemplo: <code>{ return "status" }</code>)</label></li>
+                <li class="option-item"><label><input type="radio" name="q8" value="D"> D) <code>select: field</code> (exemplo: <code>{ select: "status" }</code>)</label></li>
+                <li class="option-item"><label><input type="radio" name="q8" value="E"> E) <code>show(field)</code> (exemplo: <code>{ show("status") }</code>)</label></li>
+            </ul>
+        </div>
+
+        <!-- Questão 9 -->
+        <div class="question-card" id="q9">
+            <div class="question-title">Questão 9 (Banco de Dados de Grafos)</div>
+            <div class="question-text">
+                Bancos de dados NoSQL baseados em Grafos, como o Neo4j, diferenciam-se fundamentalmente por tratarem as conexões entre dados como cidadãos de primeira classe, eliminando a necessidade de operações custosas de junção (JOIN) em tempo de execução. Nesse modelo, a estrutura de armazenamento é composta por dois elementos primitivos essenciais. Assinale a alternativa que os nomeia corretamente.
+            </div>
+            <ul class="options">
+                <li class="option-item"><label><input type="radio" name="q9" value="A"> A) Tabelas e Chaves Estrangeiras.</label></li>
+                <li class="option-item"><label><input type="radio" name="q9" value="B"> B) Documentos e Coleções.</label></li>
+                <li class="option-item"><label><input type="radio" name="q9" value="C"> C) Nós (Nodes) e Relacionamentos (Relationships).</label></li>
+                <li class="option-item"><label><input type="radio" name="q9" value="D"> D) Famílias de Colunas e Linhas.</label></li>
+                <li class="option-item"><label><input type="radio" name="q9" value="E"> E) Chaves e Valores.</label></li>
+            </ul>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-card" id="q10">
+            <div class="question-title">Questão 10 (Arquitetura de Software)</div>
+            <div class="question-text">
+                A arquitetura de sistemas distribuídos frequentemente contrasta o modelo ACID dos bancos relacionais com o modelo BASE dos bancos NoSQL. Julgue o item a seguir quanto à definição correta das propriedades do modelo BASE:<br><br>
+                "O acrônimo BASE significa <i>Basically Available, Soft state, Eventual consistency</i>. A propriedade 'Soft state' (Estado Leve) implica que o estado do sistema pode mudar ao longo do tempo, mesmo sem o recebimento de novas entradas (inputs) externas, devido ao processo interno de convergência e replicação de dados entre os nós do cluster."<br><br>
+                Com base na afirmação acima, assinale a alternativa correta.
+            </div>
+            <ul class="options">
+                <li class="option-item"><label><input type="radio" name="q10" value="A"> A) A afirmação é verdadeira e descreve com precisão o mecanismo de convergência em sistemas de consistência eventual.</label></li>
+                <li class="option-item"><label><input type="radio" name="q10" value="B"> B) A afirmação é falsa, pois o modelo BASE garante consistência estrita em tempo real.</label></li>
+                <li class="option-item"><label><input type="radio" name="q10" value="C"> C) A afirmação é falsa, pois "Soft state" refere-se exclusivamente à persistência em memória volátil e não à replicação.</label></li>
+                <li class="option-item"><label><input type="radio" name="q10" value="D"> D) A afirmação é verdadeira, porém o modelo BASE aplica-se apenas a bancos de dados relacionais distribuídos.</label></li>
+                <li class="option-item"><label><input type="radio" name="q10" value="E"> E) A afirmação é falsa, pois em bancos NoSQL o estado é imutável (Hard state) após a confirmação de escrita.</label></li>
+            </ul>
+        </div>
+
+        <button type="button" class="btn-submit" onclick="finalizarSimulado()">Finalizar Simulado</button>
+    </form>
+
+    <div id="results-section">
+        <div class="score-card">
+            <div class="score-title">Resultado</div>
+            <p id="score-text">Você acertou X de 10 questões.</p>
+        </div>
+
+        <h2>Resolução Detalhada e Análise</h2>
+        <p>Abaixo você encontra a explicação técnica completa para cada questão.</p>
+
+        <!-- Resolução Q1 -->
+        <div class="resolution-card" id="res-q1">
+            <div class="resolution-title">Análise da Questão 1: A Gênese do NoSQL e o Paradigma Big Data</div>
+            <div class="resolution-content">
+                <p><strong>Gabarito Oficial: Alternativa B (Banco de Dados NoSQL).</strong></p>
+                <h4>Fundamentação Teórica</h4>
+                <p>A questão atua como um pilar introdutório, testando a compreensão sobre o porquê da existência do movimento NoSQL. A resposta correta não reside apenas na memorização, mas no entendimento das limitações da Álgebra Relacional frente aos requisitos da Web moderna (Big Data). Enquanto os SGBDR tradicionais (baseados no modelo de Codd) focam em consistência rígida (ACID) e normalização, o paradigma Big Data exige escalabilidade horizontal (scale-out) e flexibilidade de esquema para lidar com petabytes de dados não estruturados.</p>
+                <h4>Por que as outras opções falham?</h4>
+                <ul>
+                    <li><strong>A) SGBD Relacional Normalizado (3FN):</strong> A Terceira Forma Normal foca na eliminação de redundâncias, o que gera muitos JOINs e dificulta a escalabilidade distribuída necessária para Big Data.</li>
+                    <li><strong>C e E) Hierárquico e Rede:</strong> Modelos antigos (década de 60/70), rígidos e inadequados para a nuvem moderna.</li>
+                    <li><strong>D) Data Warehouse (OLAP):</strong> Otimizado para análises históricas complexas, não para alta velocidade de ingestão (High Velocity) de dados variados em tempo real.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Resolução Q2 -->
+        <div class="resolution-card" id="res-q2">
+            <div class="resolution-title">Análise da Questão 2: Taxonomia dos SGBDs NoSQL</div>
+            <div class="resolution-content">
+                <p><strong>Gabarito Oficial: Alternativa B (MongoDB: Documentos – Redis: Chave-Valor – Neo4j: Grafos – Cassandra: Colunas).</strong></p>
+                <h4>A Taxonomia dos Quatro Grandes Arquétipos</h4>
+                <table>
+                    <thead>
+                        <tr><th>Categoria</th><th>Modelo</th><th>Exemplo</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Chave-Valor</td><td>Dicionário associativo (Map) de altíssima velocidade.</td><td>Redis, DynamoDB</td></tr>
+                        <tr><td>Documentos</td><td>Dados semiestruturados (JSON/BSON) com esquema flexível.</td><td>MongoDB, CouchDB</td></tr>
+                        <tr><td>Família de Colunas</td><td>Tabelas esparsas distribuídas para escrita massiva.</td><td>Cassandra, HBase</td></tr>
+                        <tr><td>Grafos</td><td>Foca em relacionamentos como cidadãos de primeira classe.</td><td>Neo4j</td></tr>
+                    </tbody>
+                </table>
+                <p>A alternativa correta mapeia cada tecnologia ao seu modelo primário. Um erro comum é confundir o Cassandra com Chave-Valor ou Documentos, mas sua arquitetura interna de <em>Wide-Column Store</em> o coloca em uma categoria própria de armazenamento tabular distribuído.</p>
+            </div>
+        </div>
+
+        <!-- Resolução Q3 -->
+        <div class="resolution-card" id="res-q3">
+            <div class="resolution-title">Análise da Questão 3: O Teorema CAP</div>
+            <div class="resolution-content">
+                <p><strong>Gabarito Oficial: Alternativa C (Consistência, Disponibilidade e Tolerância a Partição).</strong></p>
+                <h4>A Teoria</h4>
+                <p>O Teorema CAP afirma que em sistemas distribuídos sobre uma rede (que é inerentemente não confiável), é impossível garantir simultaneamente:</p>
+                <ol>
+                    <li><strong>Consistency (Consistência):</strong> Todos veem os mesmos dados ao mesmo tempo.</li>
+                    <li><strong>Availability (Disponibilidade):</strong> Toda requisição recebe uma resposta (sem garantia de ser a mais recente).</li>
+                    <li><strong>Partition Tolerance (Tolerância a Partição):</strong> O sistema continua operando mesmo com falhas de rede.</li>
+                </ol>
+                <p>Como a falha de rede (P) é inevitável em sistemas distribuídos, arquitetos devem escolher entre CP (Consistência) ou AP (Disponibilidade). As outras alternativas misturam siglas de Segurança (CIA Triad) ou Transações (ACID).</p>
+            </div>
+        </div>
+
+        <!-- Resolução Q4 -->
+        <div class="resolution-card" id="res-q4">
+            <div class="resolution-title">Análise da Questão 4: Transações e Consistência</div>
+            <div class="resolution-content">
+                <p><strong>Gabarito Oficial: Alternativa E (I, II e III).</strong></p>
+                <h4>Detalhamento das Assertivas</h4>
+                <ul>
+                    <li><strong>Assertiva I (Correta):</strong> Historicamente, bancos como MongoDB focavam na atomicidade de documento único. Transações ACID multi-documento só foram introduzidas plenamente em versões recentes (v4.0+), sendo uma "limitação histórica" importante em provas.</li>
+                    <li><strong>Assertiva II (Correta):</strong> Consistência Eventual é o padrão para alta disponibilidade (AP). O sistema aceita escritas em um nó e as propaga assincronamente, permitindo leituras de dados obsoletos temporariamente (janela de inconsistência).</li>
+                    <li><strong>Assertiva III (Correta):</strong> Sharding divide os dados em servidores. Operações que cruzam shards (como transações distribuídas ou lookups globais) exigem coordenação de rede cara, resultando em penalidades de performance severas comparadas a operações locais.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Resolução Q5 -->
+        <div class="resolution-card" id="res-q5">
+            <div class="resolution-title">Análise da Questão 5: Arquitetura Cassandra</div>
+            <div class="resolution-content">
+                <p><strong>Gabarito Oficial: Alternativa C (Keyspace).</strong></p>
+                <h4>Mapeamento Lógico</h4>
+                <p>O Cassandra usa nomenclatura específica:</p>
+                <ul>
+                    <li><strong>Keyspace:</strong> O contêiner lógico superior. Define a estratégia de replicação (quantas cópias e onde ficam). É o equivalente ao <code>DATABASE</code> ou <code>SCHEMA</code> no relacional.</li>
+                    <li><strong>Table (antiga Column Family):</strong> Onde os dados vivem.</li>
+                </ul>
+                <p>A alternativa A (Column Family) é o nome antigo para Tabela. SuperColumn é obsoleto. Cluster Ring refere-se à topologia física, não ao objeto lógico de dados.</p>
+            </div>
+        </div>
+
+        <!-- Resolução Q6 -->
+        <div class="resolution-card" id="res-q6">
+            <div class="resolution-title">Análise da Questão 6: Sintaxe Mongo Shell</div>
+            <div class="resolution-content">
+                <p><strong>Gabarito Oficial: Alternativa B (<code>db.logs_acesso.count()</code>).</strong></p>
+                <h4>Natureza JavaScript</h4>
+                <p>O shell do MongoDB é um interpretador JS. A sintaxe segue o padrão <code>objeto.coleção.método()</code>. Portanto, <code>db</code> (banco atual), <code>logs_acesso</code> (nome da coleção) e <code>count()</code> (método) formam a resposta.</p>
+                <p>A alternativa A tenta enganar com sintaxe SQL (SELECT), que o MongoDB não aceita nativamente. Embora drivers modernos prefiram <code>countDocuments()</code>, em provas e documentações clássicas, <code>count()</code> é a resposta padrão.</p>
+            </div>
+        </div>
+
+        <!-- Resolução Q7 -->
+        <div class="resolution-card" id="res-q7">
+            <div class="resolution-title">Análise da Questão 7: CQL e UDTs</div>
+            <div class="resolution-content">
+                <p><strong>Gabarito Oficial: Alternativa C (<code>CREATE TYPE</code>).</strong></p>
+                <h4>User-Defined Types</h4>
+                <p>A linguagem CQL foi feita para parecer SQL. Para criar estruturas aninhadas (como endereços dentro de usuários) sem fazer JOINs, usamos Tipos Definidos pelo Usuário (UDTs).</p>
+                <p>A sintaxe correta é <code>CREATE TYPE nome (campo tipo, ...);</code>. <code>CREATE TABLE</code> cria tabelas independentes. <code>DEFINE</code> e <code>NEW</code> não são comandos DDL válidos neste contexto.</p>
+            </div>
+        </div>
+
+        <!-- Resolução Q8 -->
+        <div class="resolution-card" id="res-q8">
+            <div class="resolution-title">Análise da Questão 8: Projeções JSON</div>
+            <div class="resolution-content">
+                <p><strong>Gabarito Oficial: Alternativa A (<code>{ "status": 1 }</code>).</strong></p>
+                <h4>O Conceito de Projeção</h4>
+                <p>Projeções limitam os campos retornados para economizar banda (evitar over-fetching). No MongoDB, isso é feito passando um objeto JSON como segundo argumento do <code>find</code>.</p>
+                <p>A sintaxe é <code>{ campo: 1 }</code> para incluir (e implicitamente excluir os outros) ou <code>{ campo: 0 }</code> para excluir. A opção <code>{ "status": 1 }</code> instrui o banco a retornar apenas o status (e o <code>_id</code>, que vem por padrão).</p>
+            </div>
+        </div>
+
+        <!-- Resolução Q9 -->
+        <div class="resolution-card" id="res-q9">
+            <div class="resolution-title">Análise da Questão 9: Primitivas de Grafos</div>
+            <div class="resolution-content">
+                <p><strong>Gabarito Oficial: Alternativa C (Nós e Relacionamentos).</strong></p>
+                <h4>Teoria dos Grafos</h4>
+                <p>Bancos como Neo4j implementam a teoria matemática de grafos onde:</p>
+                <ul>
+                    <li><strong>Nós (Nodes):</strong> São as entidades (ex: Pessoa).</li>
+                    <li><strong>Relacionamentos (Relationships/Edges):</strong> São as conexões físicas entre nós (ex: AMIGO_DE).</li>
+                </ul>
+                <p>Diferente do modelo relacional, onde a conexão é lógica (calculada via JOIN), aqui a conexão é física (ponteiro de memória), permitindo a travessia de dados em tempo constante (Index-Free Adjacency).</p>
+            </div>
+        </div>
+
+        <!-- Resolução Q10 -->
+        <div class="resolution-card" id="res-q10">
+            <div class="resolution-title">Análise da Questão 10: Modelo BASE</div>
+            <div class="resolution-content">
+                <p><strong>Gabarito Oficial: Alternativa A (Verdadeira).</strong></p>
+                <h4>Soft State e Convergência</h4>
+                <p>O acrônimo BASE (Basically Available, Soft state, Eventual consistency) opõe-se ao ACID. A propriedade <strong>Soft State</strong> (Estado Leve) significa que o estado do sistema não é rígido; ele pode mudar sem input externo.</p>
+                <p>Isso acontece porque o sistema está constantemente tentando atingir a consistência (convergência), replicando dados atrasados entre nós ou corrigindo conflitos. A assertiva descreve esse comportamento com precisão.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Respostas corretas
+    const correctAnswers = {
+        q1: 'B',
+        q2: 'B',
+        q3: 'C',
+        q4: 'E',
+        q5: 'C',
+        q6: 'B',
+        q7: 'C',
+        q8: 'A',
+        q9: 'C',
+        q10: 'A'
+    };
+
+    function finalizarSimulado() {
+        const form = document.getElementById('quiz-form');
+        const formData = new FormData(form);
+        let score = 0;
+        let total = 10;
+
+        // Resetar estilos anteriores
+        document.querySelectorAll('.option-item').forEach(el => {
+            el.classList.remove('correct-answer', 'wrong-answer');
+            const existingIcon = el.querySelector('.feedback-icon');
+            if(existingIcon) existingIcon.remove();
+        });
+
+        // Iterar sobre as 10 questões
+        for (let i = 1; i <= total; i++) {
+            const questionKey = 'q' + i;
+            const selectedValue = formData.get(questionKey);
+            const correctValue = correctAnswers[questionKey];
+            const questionDiv = document.getElementById(questionKey);
+            
+            // Encontrar inputs
+            const inputs = questionDiv.querySelectorAll('input[type="radio"]');
+            
+            inputs.forEach(input => {
+                const parentLi = input.closest('.option-item');
+                
+                // Destacar a resposta CORRETA sempre
+                if (input.value === correctValue) {
+                    parentLi.classList.add('correct-answer');
+                    const check = document.createElement('span');
+                    check.className = 'feedback-icon';
+                    check.innerHTML = '✓ Correta';
+                    parentLi.appendChild(check);
+                }
+
+                // Se o usuário marcou essa
+                if (input.checked) {
+                    if (input.value === correctValue) {
+                        score++;
+                    } else {
+                        // Marcou errado
+                        parentLi.classList.add('wrong-answer');
+                        const wrong = document.createElement('span');
+                        wrong.className = 'feedback-icon';
+                        wrong.innerHTML = '✗ Sua escolha';
+                        parentLi.appendChild(wrong);
+                    }
+                }
+                
+                // Desabilitar inputs após finalizar
+                input.disabled = true;
+            });
+        }
+
+        // Mostrar Resultado
+        const resultSection = document.getElementById('results-section');
+        const scoreText = document.getElementById('score-text');
+        
+        resultSection.style.display = 'block';
+        scoreText.textContent = `Você acertou ${score} de ${total} questões.`;
+        
+        // Scroll suave até o resultado
+        resultSection.scrollIntoView({ behavior: 'smooth' });
+        
+        // Desabilitar botão de envio
+        document.querySelector('.btn-submit').disabled = true;
+        document.querySelector('.btn-submit').textContent = "Simulado Finalizado";
+        document.querySelector('.btn-submit').style.backgroundColor = "#95a5a6";
+    }
+</script>
+
+</body>
+</html>

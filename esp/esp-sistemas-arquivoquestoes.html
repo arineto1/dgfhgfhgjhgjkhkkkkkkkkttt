@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado Instituto AOCP: Sistemas de Arquivos</title>
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --text-color: #2c3e50;
+            --accent-color: #2980b9;
+            --correct-color: #27ae60;
+            --incorrect-color: #c0392b;
+            --card-bg: #ffffff;
+            --border-color: #e0e0e0;
+            --resolution-bg: #f4f6f7;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--bg-color);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--text-color);
+            margin-bottom: 10px;
+        }
+
+        p.subtitle {
+            color: #7f8c8d;
+            font-size: 1rem;
+        }
+
+        .question-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .options {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 10px 15px;
+            border: 1px solid transparent;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: flex-start;
+            transition: background-color 0.2s;
+        }
+
+        .option-item:hover {
+            background-color: #f0f4f8;
+        }
+
+        .option-item input[type="radio"] {
+            margin-right: 15px;
+            margin-top: 6px;
+            cursor: pointer;
+        }
+
+        .option-item label {
+            cursor: pointer;
+            width: 100%;
+        }
+
+        /* Styles for results state */
+        .option-item.correct {
+            background-color: rgba(39, 174, 96, 0.1);
+            border-color: var(--correct-color);
+            color: var(--correct-color);
+            font-weight: bold;
+        }
+
+        .option-item.incorrect {
+            background-color: rgba(192, 57, 43, 0.1);
+            border-color: var(--incorrect-color);
+            color: var(--incorrect-color);
+            opacity: 0.7;
+        }
+
+        .resolution-box {
+            display: none; /* Hidden by default */
+            margin-top: 20px;
+            padding: 20px;
+            background-color: var(--resolution-bg);
+            border-left: 4px solid var(--accent-color);
+            border-radius: 0 4px 4px 0;
+            font-size: 0.95rem;
+        }
+
+        .resolution-title {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+            color: var(--accent-color);
+        }
+
+        .controls {
+            text-align: center;
+            margin: 40px 0 60px 0;
+        }
+
+        .btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn:hover {
+            background-color: #2471a3;
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        #result-summary {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            background-color: #e8f6f3;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border: 1px solid #d4efdf;
+        }
+
+        #result-score {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--correct-color);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .container { padding: 10px; }
+            .question-card { padding: 15px; }
+            h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Simulado Técnico: Instituto AOCP</h1>
+            <p class="subtitle">Sistemas de Arquivos, Linux, Windows e Hardware</p>
+        </header>
+
+        <div id="result-summary">
+            <h2>Resultado do Simulado</h2>
+            <p>Você acertou <span id="result-score">0</span> de <span id="total-questions">10</span> questões.</p>
+            <p>Confira abaixo as resoluções detalhadas.</p>
+        </div>
+
+        <form id="quiz-form">
+            <!-- Questions will be injected here by JS -->
+            <div id="questions-container"></div>
+
+            <div class="controls">
+                <button type="button" class="btn" id="submit-btn" onclick="submitQuiz()">Finalizar Simulado e Ver Gabarito</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Data derived from the "Criação de Questões AOCP" document
+        const quizData = [
+            {
+                id: 1,
+                question: "Um administrador de rede está configurando um servidor de arquivos que deve ser acessado tanto por máquinas Windows quanto Linux. Ele decide formatar um disco externo para transferência de dados. Considerando as características dos sistemas de arquivos, assinale a alternativa que apresenta uma limitação crítica do sistema de arquivos FAT32 que pode inviabilizar a transferência de arquivos de backup de máquinas virtuais (geralmente arquivos únicos grandes).",
+                options: [
+                    { id: "A", text: "O FAT32 não é reconhecido nativamente pelo Linux, exigindo instalação de drivers proprietários." },
+                    { id: "B", text: "O FAT32 possui uma limitação estrutural que impede o armazenamento de arquivos individuais maiores que 4 GB." },
+                    { id: "C", text: "O FAT32 utiliza criptografia EFS obrigatória, o que torna os arquivos ilegíveis em outros sistemas operacionais." },
+                    { id: "D", text: "O FAT32 só pode ser utilizado em disquetes e não suporta discos rígidos ou SSDs modernos." },
+                    { id: "E", text: "O FAT32 não permite nomes de arquivos com mais de 8 caracteres." }
+                ],
+                correct: "B",
+                resolution: "Esta questão aborda a limitação mais famosa do FAT32. O sistema utiliza um contador de 32 bits para o tamanho do arquivo, o que limita o tamanho máximo a 4 GB menos 1 byte. Arquivos de máquinas virtuais (VHD, VMDK) ou backups de banco de dados frequentemente excedem esse tamanho, tornando o FAT32 inadequado."
+            },
+            {
+                id: 2,
+                question: "Um técnico de suporte precisa alterar o sistema de arquivos da unidade D: de um computador com Windows 10, de FAT32 para NTFS, para habilitar permissões de segurança. Ele deve realizar essa tarefa sem formatar o disco e sem perder os dados armazenados. Qual comando deve ser executado no Prompt de Comando (CMD) com privilégios administrativos?",
+                options: [
+                    { id: "A", text: "<code>format D: /fs:ntfs /q</code>" },
+                    { id: "B", text: "<code>diskpart select volume D clean</code>" },
+                    { id: "C", text: "<code>convert D: /fs:ntfs</code>" },
+                    { id: "D", text: "<code>attrib +s +h D: /ntfs</code>" },
+                    { id: "E", text: "<code>chkdsk D: /f /r /x</code>" }
+                ],
+                correct: "C",
+                resolution: "A banca exige o conhecimento da sintaxe do comando <code>convert</code>. Este utilitário modifica a estrutura do sistema de arquivos <em>in-place</em>, preservando os dados. O comando <code>format</code> apagaria os dados, e o <code>chkdsk</code> serve apenas para verificação de erros."
+            },
+            {
+                id: 3,
+                question: "No sistema operacional Linux, seguindo o padrão FHS (Filesystem Hierarchy Standard), os arquivos pessoais dos usuários comuns, como documentos de texto, planilhas e downloads, são armazenados, por padrão, dentro de subdiretórios localizados em:",
+                options: [
+                    { id: "A", text: "/usr/local" },
+                    { id: "B", text: "/root" },
+                    { id: "C", text: "/bin" },
+                    { id: "D", text: "/home" },
+                    { id: "E", text: "/var" }
+                ],
+                correct: "D",
+                resolution: "Questão direta de memorização da estrutura Linux. O diretório <code>/home</code> contém os diretórios pessoais de cada usuário (ex: /home/joao). O <code>/root</code> é exclusivo do superusuário."
+            },
+            {
+                id: 4,
+                question: "Ao analisar os arquivos presentes em um servidor web rodando Linux, um analista encontra um arquivo denominado <code>backup_site.tar.gz</code>. Com base na extensão <code>.gz</code>, é correto afirmar que este arquivo está relacionado à categoria de:",
+                options: [
+                    { id: "A", text: "Arquivos de vídeo de alta definição." },
+                    { id: "B", text: "Arquivos de áudio proprietários." },
+                    { id: "C", text: "Arquivos de imagem vetorial." },
+                    { id: "D", text: "Arquivos compactados." },
+                    { id: "E", text: "Arquivos executáveis do Windows." }
+                ],
+                correct: "D",
+                resolution: "A extensão <code>.gz</code> indica o uso do algoritmo de compressão gzip. O <code>.tar</code> indica que vários arquivos foram empacotados em um só, e o <code>.gz</code> indica que esse pacote foi comprimido."
+            },
+            {
+                id: 5,
+                question: "Um administrador de sistemas Linux deseja definir as permissões de um script chamado <code>monitoramento.sh</code>. Ele precisa que o proprietário tenha permissão total (leitura, escrita e execução), o grupo tenha permissão apenas de leitura e execução, e os outros usuários não tenham nenhuma permissão. Assinale a alternativa que apresenta o comando <code>chmod</code> correto utilizando a notação octal.",
+                options: [
+                    { id: "A", text: "<code>chmod 777 monitoramento.sh</code>" },
+                    { id: "B", text: "<code>chmod 750 monitoramento.sh</code>" },
+                    { id: "C", text: "<code>chmod 760 monitoramento.sh</code>" },
+                    { id: "D", text: "<code>chmod 755 monitoramento.sh</code>" },
+                    { id: "E", text: "<code>chmod 640 monitoramento.sh</code>" }
+                ],
+                correct: "B",
+                resolution: "Cálculo: Proprietário (r=4, w=2, x=1 = 7); Grupo (r=4, x=1 = 5); Outros (0). Resultado: 750. A opção A (777) é insegura, e a C (760) daria escrita ao grupo mas não execução, o que contradiz o enunciado."
+            },
+            {
+                id: 6,
+                question: "Uma empresa necessita configurar um servidor de arquivos com alta disponibilidade. O requisito é que o sistema suporte a falha de um disco rígido sem perda de dados, mas que utilize o espaço de armazenamento de forma mais eficiente do que o espelhamento simples. Qual nível de RAID atende a essa necessidade utilizando paridade distribuída?",
+                options: [
+                    { id: "A", text: "RAID 0" },
+                    { id: "B", text: "RAID 1" },
+                    { id: "C", text: "RAID 5" },
+                    { id: "D", text: "RAID 0+1" },
+                    { id: "E", text: "JBOD" }
+                ],
+                correct: "C",
+                resolution: "O RAID 5 é a definição clássica de redundância com paridade distribuída. Ele oferece tolerância a falha de 1 disco e melhor aproveitamento de espaço que o RAID 1 (que perde 50% em espelhamento). RAID 0 não tem redundância."
+            },
+            {
+                id: 7,
+                question: "Em relação aos formatos de arquivos de imagem digital, assinale a alternativa que apresenta uma característica técnica correta e distintiva do formato PNG (Portable Network Graphics) em comparação ao formato JPEG.",
+                options: [
+                    { id: "A", text: "O PNG utiliza compressão com perdas (lossy), resultando em arquivos menores com degradação visual." },
+                    { id: "B", text: "O PNG suporta canal alfa, permitindo transparência variável e suave." },
+                    { id: "C", text: "O PNG é limitado a uma paleta de 256 cores, similar ao GIF." },
+                    { id: "D", text: "O PNG não é suportado por navegadores modernos, sendo usado apenas em impressão." },
+                    { id: "E", text: "O PNG armazena áudio sincronizado junto com a imagem." }
+                ],
+                correct: "B",
+                resolution: "O suporte a canal alfa (transparência) é a grande 'assinatura' do PNG em provas. JPEG não suporta transparência. Além disso, PNG é lossless (sem perdas), contrariando a alternativa A."
+            },
+            {
+                id: 8,
+                question: "Um usuário do Windows 10 tenta salvar um arquivo com o nome <code>Vendas:Janeiro.docx</code>. O sistema operacional impede a operação e exibe uma mensagem de erro. Isso ocorre porque:",
+                options: [
+                    { id: "A", text: "O nome do arquivo é muito curto." },
+                    { id: "B", text: "A extensão.docx não é compatível com nomes compostos." },
+                    { id: "C", text: "O caractere dois pontos (:) é um caractere reservado e inválido para nomes de arquivos." },
+                    { id: "D", text: "O Windows não permite letras maiúsculas em nomes de arquivos." },
+                    { id: "E", text: "Já existe um arquivo oculto com esse nome." }
+                ],
+                correct: "C",
+                resolution: "O caractere <code>:</code> é proibido no Windows pois é usado para indicar unidades de disco (ex: C:). Outros caracteres proibidos incluem < > \" / \\ | ? *"
+            },
+            {
+                id: 9,
+                question: "Para conectar um computador a uma TV moderna, garantindo a transmissão de sinais de vídeo e áudio digitais de alta qualidade através de um único cabo, a interface mais indicada é:",
+                options: [
+                    { id: "A", text: "VGA" },
+                    { id: "B", text: "DVI" },
+                    { id: "C", text: "HDMI" },
+                    { id: "D", text: "USB 2.0" },
+                    { id: "E", text: "PS/2" }
+                ],
+                correct: "C",
+                resolution: "HDMI (High-Definition Multimedia Interface) é o padrão para transmissão simultânea de áudio e vídeo digitais. VGA é apenas vídeo analógico e DVI padrão geralmente transmite apenas vídeo."
+            },
+            {
+                id: 10,
+                question: "A política de segurança da informação de uma empresa exige backups diários em mídia persistente. Qual dos seguintes componentes de hardware NÃO pode ser utilizado para armazenar backups devido à sua característica de volatilidade?",
+                options: [
+                    { id: "A", text: "SSD (Solid State Drive)" },
+                    { id: "B", text: "HDD (Hard Disk Drive)" },
+                    { id: "C", text: "Memória RAM (Random Access Memory)" },
+                    { id: "D", text: "Fita LTO" },
+                    { id: "E", text: "Pen Drive" }
+                ],
+                correct: "C",
+                resolution: "A memória RAM é volátil; seu conteúdo é apagado quando a energia é cortada, tornando-a fisicamente impossível para armazenamento de backup a longo prazo."
+            }
+        ];
+
+        function renderQuiz() {
+            const container = document.getElementById('questions-container');
+            
+            quizData.forEach((q, index) => {
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.id = `card-${q.id}`;
+
+                // Header
+                const qNum = document.createElement('span');
+                qNum.className = 'question-number';
+                qNum.innerText = `Questão ${index + 1}`;
+                card.appendChild(qNum);
+
+                // Question Text
+                const qText = document.createElement('div');
+                qText.className = 'question-text';
+                qText.innerHTML = q.question; // InnerHTML to allow bold/code tags
+                card.appendChild(qText);
+
+                // Options
+                const optionsList = document.createElement('ul');
+                optionsList.className = 'options';
+
+                q.options.forEach(opt => {
+                    const li = document.createElement('li');
+                    li.className = 'option-item';
+                    
+                    const input = document.createElement('input');
+                    input.type = 'radio';
+                    input.name = `q${q.id}`;
+                    input.id = `q${q.id}-${opt.id}`;
+                    input.value = opt.id;
+
+                    const label = document.createElement('label');
+                    label.htmlFor = `q${q.id}-${opt.id}`;
+                    label.innerHTML = `${opt.id}) ${opt.text}`;
+
+                    li.appendChild(input);
+                    li.appendChild(label);
+                    optionsList.appendChild(li);
+                });
+                card.appendChild(optionsList);
+
+                // Resolution Box (Hidden initially)
+                const resBox = document.createElement('div');
+                resBox.className = 'resolution-box';
+                resBox.id = `res-${q.id}`;
+                resBox.innerHTML = `<span class="resolution-title">Resolução & Gabarito:</span>${q.resolution}`;
+                card.appendChild(resBox);
+
+                container.appendChild(card);
+            });
+        }
+
+        function submitQuiz() {
+            let score = 0;
+            const total = quizData.length;
+            const btn = document.getElementById('submit-btn');
+            
+            // Disable button
+            btn.disabled = true;
+            btn.innerText = "Gabarito Gerado";
+            btn.style.backgroundColor = "#7f8c8d";
+            btn.style.cursor = "default";
+
+            quizData.forEach(q => {
+                // Get user selection
+                const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
+                const card = document.getElementById(`card-${q.id}`);
+                const options = card.querySelectorAll('.option-item');
+                const resolution = document.getElementById(`res-${q.id}`);
+
+                // Reveal resolution
+                resolution.style.display = 'block';
+
+                let userAnswer = selected ? selected.value : null;
+
+                // Mark visuals
+                options.forEach(optLi => {
+                    const radio = optLi.querySelector('input');
+                    const val = radio.value;
+
+                    // Disable inputs
+                    radio.disabled = true;
+
+                    if (val === q.correct) {
+                        optLi.classList.add('correct');
+                    } else if (val === userAnswer && val !== q.correct) {
+                        optLi.classList.add('incorrect');
+                    }
+                });
+
+                if (userAnswer === q.correct) {
+                    score++;
+                }
+            });
+
+            // Show Result Summary
+            const resultSummary = document.getElementById('result-summary');
+            const scoreSpan = document.getElementById('result-score');
+            const totalSpan = document.getElementById('total-questions');
+            
+            scoreSpan.innerText = score;
+            totalSpan.innerText = total;
+            resultSummary.style.display = 'block';
+
+            // Scroll to top to see score
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Initialize
+        renderQuiz();
+
+    </script>
+</body>
+</html>

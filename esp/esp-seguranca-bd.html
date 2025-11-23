@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo Turbo: Segurança em BD - Foco AOCP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffffff;
+            color: #1a202c; /* Cinza muito escuro para leitura */
+            line-height: 1.8;
+        }
+        h1, h2, h3 {
+            color: #000000;
+            font-weight: 700;
+        }
+        .highlight {
+            background-color: #fff9c4; /* Amarelo pálido para destaque */
+            padding: 0 4px;
+            border-radius: 2px;
+            font-weight: 600;
+        }
+        .section-box {
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 2rem;
+            margin-bottom: 2rem;
+        }
+        /* Estilização específica para tabelas responsivas sem scroll */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+        th {
+            background-color: #f7fafc;
+            text-align: left;
+            padding: 12px;
+            border-bottom: 2px solid #cbd5e0;
+            font-weight: 700;
+            color: #2d3748;
+        }
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        /* Ajuste para telas pequenas quebrarem a palavra se necessário */
+        @media (max-width: 640px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+            tr { border: 1px solid #e2e8f0; margin-bottom: 1rem; border-radius: 8px; }
+            td {
+                border: none;
+                border-bottom: 1px solid #eee;
+                position: relative;
+                padding-left: 50%;
+            }
+            td:before {
+                position: absolute;
+                top: 12px;
+                left: 12px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+                font-weight: bold;
+                content: attr(data-label);
+                color: #4a5568;
+            }
+        }
+        .tip-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #4a5568;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-style: italic;
+        }
+        .mnemonic {
+            color: #2b6cb0;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="max-w-4xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        
+        <!-- Header e Player de Áudio -->
+        <header class="mb-10 text-center">
+            <h1 class="text-3xl sm:text-4xl mb-4">Resumo Turbo: Segurança em Banco de Dados</h1>
+            <p class="text-xl text-gray-600 mb-6">Foco: Instituto AOCP - Prof. Informática IFPB</p>
+            
+            <div class="bg-gray-100 p-4 rounded-lg shadow-sm border border-gray-200 inline-block w-full max-w-md mx-auto">
+                <p class="text-sm text-gray-500 mb-2 font-semibold"><i class="fas fa-headphones-alt mr-2"></i>Ouça o Resumo:</p>
+                <!-- INSIRA O NOME DO SEU ARQUIVO AQUI NO 'SRC' -->
+                <audio controls class="w-full">
+                    <source src="esp-seguranca-bd.mp3" type="audio/mpeg">
+                    Seu navegador não suporta o elemento de áudio.
+                </audio>
+            </div>
+        </header>
+
+        <!-- Conteúdo Principal -->
+        <main>
+            <!-- Seção 1 -->
+            <section class="section-box">
+                <h2 class="text-2xl mb-4 border-l-4 border-gray-800 pl-3">1. A Tríade da Segurança (CIA) e Conceitos Básicos</h2>
+                <p class="mb-4 text-lg">Para o Instituto AOCP, identifique estes conceitos em questões narrativas (estudos de caso).</p>
+                
+                <ul class="list-disc pl-6 space-y-3 mb-6 text-lg">
+                    <li><span class="highlight">Confidencialidade:</span> Garante o sigilo. Acesso apenas a autorizados.<br><span class="text-sm text-gray-600">Ferramentas: Criptografia, Controle de Acesso, Mascaramento.</span></li>
+                    <li><span class="highlight">Integridade:</span> Garante a precisão e não alteração indevida.<br><span class="text-sm text-gray-600">Ferramentas: Constraints (PK, FK, Check), Checksums, Hashing, Logs (WAL).</span></li>
+                    <li><span class="highlight">Disponibilidade:</span> Garante o acesso quando necessário.<br><span class="text-sm text-gray-600">Ferramentas: Backup, Cluster, Replicação.</span></li>
+                </ul>
+
+                <h3 class="text-xl mt-6 mb-3 font-bold text-gray-800">Autenticação vs. Autorização (Memorize!)</h3>
+                
+                <div class="overflow-hidden rounded-lg border border-gray-200">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Conceito</th>
+                                <th>Pergunta Chave</th>
+                                <th>Momento</th>
+                                <th>Erro Típico</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-label="Conceito" class="font-bold">Autenticação</td>
+                                <td data-label="Pergunta">"Quem é você?"</td>
+                                <td data-label="Momento">Login / Connect</td>
+                                <td data-label="Erro">Senha Inválida</td>
+                            </tr>
+                            <tr>
+                                <td data-label="Conceito" class="font-bold">Autorização</td>
+                                <td data-label="Pergunta">"O que você pode fazer?"</td>
+                                <td data-label="Momento">Acesso a Tabela/View</td>
+                                <td data-label="Erro">Acesso Negado / Privilégio Insuficiente</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="tip-box">
+                    <strong>⚠️ Pegadinha de Prova:</strong> Se o usuário logou mas não consegue ver a tabela, o problema é <span class="highlight">Autorização</span>, não Autenticação.
+                </div>
+            </section>
+
+            <!-- Seção 2 -->
+            <section class="section-box">
+                <h2 class="text-2xl mb-4 border-l-4 border-gray-800 pl-3">2. Modelos de Controle de Acesso</h2>
+                <p class="mb-4">As questões costumam pedir a associação da sigla com a definição.</p>
+
+                <div class="space-y-6">
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="text-lg font-bold mb-2">DAC (Discretionary Access Control) - Discricionário</h3>
+                        <ul class="list-disc pl-5">
+                            <li><strong>Quem manda:</strong> O <span class="highlight">Dono (Owner)</span> do objeto.</li>
+                            <li><strong>Característica:</strong> Flexível e descentralizado. O dono pode repassar permissões (<code class="bg-gray-200 px-1 rounded">WITH GRANT OPTION</code>).</li>
+                            <li><strong>Risco:</strong> Baixa segurança (vulnerável a Cavalo de Troia). É o padrão do SQL.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="text-lg font-bold mb-2">MAC (Mandatory Access Control) - Mandatório</h3>
+                        <ul class="list-disc pl-5">
+                            <li><strong>Quem manda:</strong> O <span class="highlight">Sistema (Política Central)</span>. O usuário não tem escolha.</li>
+                            <li><strong>Característica:</strong> Rígido, Militar. Uso de <strong>Rótulos/Etiquetas</strong> (Labels) de segurança (ex: Secreto, Top Secret).</li>
+                            <li><strong>Regras:</strong>
+                                <ul class="list-circle pl-5 mt-1 text-gray-700">
+                                    <li><em>No Read Up:</em> Não ler nível superior.</li>
+                                    <li><em>No Write Down:</em> Não escrever em nível inferior.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="text-lg font-bold mb-2">RBAC (Role-Based Access Control) - Baseado em Papéis</h3>
+                        <ul class="list-disc pl-5">
+                            <li><strong>Quem manda:</strong> A organização (via Administrador).</li>
+                            <li><strong>Característica:</strong> Permissões associadas a <span class="highlight">Funções/Cargos (Roles)</span>, não a pessoas.</li>
+                            <li><strong>Vantagem:</strong> Facilita a gestão em grandes empresas (rotatividade de funcionários).</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção 3 -->
+            <section class="section-box">
+                <h2 class="text-2xl mb-4 border-l-4 border-gray-800 pl-3">3. DCL: Comandos SQL de Segurança</h2>
+                <p class="mb-4">O Instituto AOCP cobra a sintaxe exata e o comportamento de dependências.</p>
+
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">GRANT (Conceder)</h3>
+                    <div class="bg-gray-100 p-3 rounded font-mono text-sm mb-2 border-l-4 border-green-500">
+                        GRANT &lt;privilégio&gt; ON &lt;objeto&gt; TO &lt;usuário&gt;;
+                    </div>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li><strong>Privilégios:</strong> SELECT, INSERT, UPDATE, DELETE, EXECUTE, ALL PRIVILEGES.</li>
+                        <li><strong><code class="bg-gray-200 px-1 rounded">WITH GRANT OPTION</code>:</strong> Permite que o usuário repasse o privilégio a outros (chave do modelo DAC).</li>
+                        <li><strong>Coluna Específica:</strong> <code class="text-sm bg-gray-100 px-1">GRANT UPDATE (salario) ON funcionarios TO joao;</code></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">REVOKE (Revogar)</h3>
+                    <div class="bg-gray-100 p-3 rounded font-mono text-sm mb-2 border-l-4 border-red-500">
+                        REVOKE &lt;privilégio&gt; ON &lt;objeto&gt; FROM &lt;usuário&gt;;
+                    </div>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li><strong><span class="highlight">CASCADE</span>:</strong> Revoga do usuário E de todos para quem ele repassou (efeito dominó).</li>
+                        <li><strong>RESTRICT:</strong> Impede a revogação se houver dependentes (o comando falha e dá erro).</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Seção 4 -->
+            <section class="section-box">
+                <h2 class="text-2xl mb-4 border-l-4 border-gray-800 pl-3">4. Criptografia e Proteção de Dados</h2>
+
+                <h3 class="text-xl mt-4 mb-3 font-bold text-gray-800">Simétrica vs. Assimétrica</h3>
+                
+                <div class="overflow-hidden rounded-lg border border-gray-200 mb-4">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Chaves</th>
+                                <th>Velocidade</th>
+                                <th>Uso Principal no BD</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-label="Tipo" class="font-bold">Simétrica</td>
+                                <td data-label="Chaves">1 (Única/Privada)</td>
+                                <td data-label="Velocidade">Muito Rápida</td>
+                                <td data-label="Uso">Cifrar dados em massa</td>
+                            </tr>
+                            <tr>
+                                <td data-label="Tipo" class="font-bold">Assimétrica</td>
+                                <td data-label="Chaves">2 (Pública + Privada)</td>
+                                <td data-label="Velocidade">Lenta</td>
+                                <td data-label="Uso">Troca de chaves, Assinatura</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p class="mb-6"><span class="mnemonic">Mnemônico:</span> <strong>S</strong>imétrica = <strong>S</strong>olo (uma). <strong>A</strong>ssimétrica = <strong>A</strong>mbas (duas).</p>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="text-lg font-bold mb-2">Hashing (Não é Criptografia!)</h3>
+                        <ul class="list-disc pl-5 text-sm space-y-2">
+                            <li><strong>Definição:</strong> Função unidirecional (One-way).</li>
+                            <li><strong>Não tem volta:</strong> Serve para <span class="highlight">verificar</span>, não esconder.</li>
+                            <li><strong>Salting:</strong> Tempero aleatório para evitar Rainbow Tables.</li>
+                            <li><strong>Algoritmos Fortes:</strong> SHA-256, SHA-512, Bcrypt.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold mb-2">TDE vs. Column-Level</h3>
+                        <ol class="list-decimal pl-5 text-sm space-y-2">
+                            <li><strong>TDE (Transparent):</strong> Cifra o arquivo físico (HD). Aplicação não vê. Protege contra roubo de servidor.</li>
+                            <li><strong>Coluna:</strong> Cifra o dado lógico. Requer função. Protege contra DBAs curiosos.</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção 5 -->
+            <section class="mb-12">
+                <h2 class="text-2xl mb-4 border-l-4 border-gray-800 pl-3">5. Auditoria</h2>
+                <p class="mb-4 font-medium">Mecanismo para responder: <em>Quem? Quando? O quê?</em></p>
+
+                <ul class="list-disc pl-6 space-y-3 mb-6">
+                    <li><strong>Auditoria de Sessão:</strong> Quem logou/falhou ao logar (Detecta Brute Force).</li>
+                    <li><strong>Auditoria de Objeto:</strong> Quem mexeu na tabela X.</li>
+                    <li><strong>Triggers de Auditoria (Shadow Tables):</strong>
+                        <ul class="list-circle pl-5 mt-1 text-gray-600 text-sm">
+                            <li>Cria-se uma tabela espelho (ex: `audit_clientes`).</li>
+                            <li>Usa-se `OLD.valor` e `NEW.valor`.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <div class="tip-box">
+                    <strong>👑 Regra de Ouro (SoD):</strong> Segregação de Funções. O <strong>DBA</strong> administra o banco, mas o <span class="highlight">Auditor</span> é quem deve ter acesso aos logs. O DBA não deve poder apagar os rastros da auditoria.
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer com Botão -->
+        <footer class="mt-12 text-center pb-12">
+            <a href="esp-seguranca-bdquestoes.html" class="inline-block bg-gray-800 hover:bg-black text-white font-bold py-4 px-10 rounded-full shadow-lg transition duration-300 transform hover:-translate-y-1 text-lg">
+                <i class="fas fa-pencil-alt mr-2"></i> Ir para Questões
+            </a>
+            <p class="text-gray-400 text-sm mt-6">Material de Apoio - IFPB Informática</p>
+        </footer>
+
+    </div>
+</body>
+</html>

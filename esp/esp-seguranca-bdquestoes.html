@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado Segurança em BD - Instituto AOCP</title>
+    <!-- Tailwind CSS para estilização rápida e responsiva -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fonte Inter para melhor leitura -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
+        .option-card { transition: all 0.2s ease; }
+        .option-card:hover:not(.disabled) { border-color: #3b82f6; background-color: #eff6ff; }
+        .selected { border-color: #2563eb !important; background-color: #eff6ff !important; box-shadow: 0 0 0 1px #2563eb; }
+        
+        /* Estilos de feedback pós-submissão */
+        .correct-answer { border-color: #22c55e !important; background-color: #f0fdf4 !important; color: #14532d; }
+        .wrong-answer { border-color: #ef4444 !important; background-color: #fef2f2 !important; color: #7f1d1d; }
+        .missed-correct { border-color: #22c55e !important; border-style: dashed !important; background-color: #f0fdf4; }
+        
+        .fade-in { animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="text-slate-800 antialiased">
+
+    <div class="max-w-4xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        
+        <!-- Cabeçalho -->
+        <header class="text-center mb-10 pb-8 border-b border-slate-200">
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-3">Simulado: Segurança em Banco de Dados</h1>
+            <p class="text-lg text-slate-600">Banca: <strong>Instituto AOCP</strong> | Temas: Controle de acesso, criptografia e auditoria.</p>
+        </header>
+
+        <!-- Placar (Inicialmente oculto) -->
+        <div id="score-card" class="hidden mb-10 bg-white rounded-xl shadow-lg border border-slate-200 p-8 fade-in">
+            <div class="text-center">
+                <div id="score-icon" class="mb-4 flex justify-center"></div>
+                <h2 class="text-3xl font-bold text-slate-900 mb-2">Resultado Final</h2>
+                <p class="text-xl text-slate-700 mb-6">Você acertou <span id="score-value" class="font-bold"></span> de <span id="total-value" class="font-bold"></span> questões.</p>
+                <div class="w-full bg-slate-200 rounded-full h-4 mb-6 max-w-md mx-auto overflow-hidden">
+                    <div id="score-bar" class="h-4 rounded-full transition-all duration-1000 bg-blue-600" style="width: 0%"></div>
+                </div>
+                <button onclick="location.reload()" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+                    <svg class="mr-2 -ml-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                    Refazer Simulado
+                </button>
+            </div>
+        </div>
+
+        <!-- Container das Questões -->
+        <div id="quiz-container" class="space-y-8">
+            <!-- As questões serão injetadas aqui via JavaScript -->
+        </div>
+
+        <!-- Botão de Finalizar -->
+        <div id="submit-section" class="mt-12 text-center pb-12">
+            <button id="submit-btn" onclick="finishQuiz()" class="px-10 py-4 bg-slate-800 text-white text-lg font-bold rounded-full shadow-lg hover:bg-slate-900 transform hover:-translate-y-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0">
+                Finalizar e Ver Resoluções
+            </button>
+            <p id="progress-text" class="mt-3 text-slate-500 text-sm">Responda todas as questões para finalizar.</p>
+        </div>
+
+    </div>
+
+    <script>
+        // --- Banco de Dados das Questões ---
+        const questions = [
+            {
+                id: 1,
+                statement: "A segurança da informação em ambientes corporativos e de banco de dados sustenta-se sobre pilares fundamentais conhecidos como a tríade CIA. Analise as assertivas abaixo e assinale a alternativa que apresenta a correlação correta entre o conceito e sua definição técnica, conforme as normas ISO/IEC 27000.\n\n(1) Confidencialidade\n(2) Integridade\n(3) Disponibilidade\n(4) Ameaça\n\n(A) Propriedade que garante que a informação não esteja disponível ou revelada a indivíduos, entidades ou processos não autorizados.\n(B) Propriedade de salvaguarda da exatidão e completude dos ativos de informação.\n(C) Propriedade de estar acessível e utilizável sob demanda por uma entidade autorizada.\n(D) Causa potencial de um incidente indesejado, que pode resultar em dano a um sistema ou organização.\n\nAssinale a alternativa que apresenta a sequência correta de cima para baixo.",
+                options: [
+                    "A) 1-A, 2-B, 3-C, 4-D.",
+                    "B) 1-B, 2-A, 3-C, 4-D.",
+                    "C) 1-A, 2-C, 3-B, 4-D.",
+                    "D) 1-D, 2-A, 3-C, 4-B.",
+                    "E) 1-C, 2-B, 3-A, 4-D."
+                ],
+                correct: 0,
+                explanation: "<strong>Gabarito: A</strong><br><br>Esta questão cobra conceitos básicos da ISO 27000:<br><strong>Confidencialidade (1-A):</strong> Garantia de que a informação é acessível apenas por quem tem autorização.<br><strong>Integridade (2-B):</strong> Garantia da exatidão e completude da informação e dos métodos de processamento.<br><strong>Disponibilidade (3-C):</strong> Garantia de que os usuários autorizados tenham acesso à informação quando necessário.<br><strong>Ameaça (4-D):</strong> Causa potencial de um incidente indesejado."
+            },
+            {
+                id: 2,
+                statement: "No que tange aos algoritmos de criptografia utilizados para a proteção de dados em SGBDs, analise as afirmativas a seguir e assinale a alternativa correta.\n\nI. O algoritmo DES (Data Encryption Standard) é um exemplo de criptografia de chave simétrica que opera em blocos de 64 bits.\nII. Na criptografia simétrica, utiliza-se um par de chaves distintas (pública e privada), o que elimina a necessidade de compartilhamento de segredos.\nIII. O algoritmo AES (Advanced Encryption Standard) é recomendado para criptografia de dados em repouso devido à sua eficiência, operando com blocos de 128 bits.",
+                options: [
+                    "A) Apenas I está correta.",
+                    "B) Apenas II está correta.",
+                    "C) Apenas I e III estão corretas.",
+                    "D) Apenas II e III estão corretas.",
+                    "E) Todas as afirmativas estão corretas."
+                ],
+                correct: 2,
+                explanation: "<strong>Gabarito: C</strong><br><br><strong>I. Correta:</strong> O DES é de fato um algoritmo simétrico antigo que opera em blocos de 64 bits.<br><strong>II. Incorreta:</strong> Esta descrição refere-se à criptografia <em>assimétrica</em>. A criptografia simétrica utiliza uma <strong>única chave</strong> para cifrar e decifrar.<br><strong>III. Correta:</strong> O AES é o padrão atual, é simétrico, rápido e opera com blocos de 128 bits (com chaves de 128, 192 ou 256 bits)."
+            },
+            {
+                id: 3,
+                statement: "Um Administrador de Banco de Dados PostgreSQL deseja criar uma nova role chamada \"auditor_senior\" que tenha permissão para realizar login no banco de dados, mas que não possa criar novos bancos de dados nem criar novas roles. Assinale a alternativa que apresenta o comando SQL correto para realizar essa operação.",
+                options: [
+                    "A) CREATE ROLE auditor_senior WITH LOGIN NOCREATEDB NOCREATEROLE;",
+                    "B) CREATE USER auditor_senior WITH SUPERUSER;",
+                    "C) GRANT LOGIN ON DATABASE TO auditor_senior;",
+                    "D) CREATE ROLE auditor_senior LOGIN CREATEDB FALSE;",
+                    "E) ALTER ROLE auditor_senior ADD ATTRIBUTE LOGIN;"
+                ],
+                correct: 0,
+                explanation: "<strong>Gabarito: A</strong><br><br>No PostgreSQL, o comando <code>CREATE ROLE</code> é utilizado para criar usuários. Para permitir que a role se conecte, usamos o atributo <code>LOGIN</code>. Para restringir privilégios administrativos, usamos explicitamente <code>NOCREATEDB</code> e <code>NOCREATEROLE</code>. A opção B concede privilégios excessivos (Superuser) e as outras possuem sintaxe inválida."
+            },
+            {
+                id: 4,
+                statement: "Sobre as finalidades e características das trilhas de auditoria em sistemas de banco de dados, informe se é verdadeiro (V) ou falso (F) o que se afirma a seguir.\n\n( ) A auditoria tem como um de seus objetivos fornecer dados para a identificação de um comportamento anômalo no sistema.\n( ) A implementação de auditoria granular é uma medida preventiva capaz de bloquear ataques de injeção de SQL em tempo real.\n( ) Manter registros de logs é essencial para permitir uma análise forense posterior em caso de incidentes de segurança.\n( ) Arquivos de log devem ser protegidos contra alterações, garantindo a integridade das evidências coletadas.",
+                options: [
+                    "A) V – F – V – V.",
+                    "B) F – V – F – V.",
+                    "C) V – V – V – F.",
+                    "D) V – F – F – V.",
+                    "E) F – F – V – V."
+                ],
+                correct: 0,
+                explanation: "<strong>Gabarito: A</strong><br><br><strong>(V)</strong> Auditoria detecta anomalias.<br><strong>(F)</strong> Auditoria é um controle <strong>detectivo</strong>, não preventivo. Ela registra o fato, mas não bloqueia o ataque no momento em que ocorre (função de Firewall/WAF/IPS).<br><strong>(V)</strong> Logs são a base da análise forense.<br><strong>(V)</strong> Logs devem ser imutáveis para servirem como prova legal."
+            },
+            {
+                id: 5,
+                statement: "Analise as situações abaixo relacionadas à segurança de dados em rede e aplicações:\n\nI. Um atacante intercepta pacotes de dados trafegando entre a aplicação cliente e o servidor de banco de dados para ler informações sensíveis.\nII. Um usuário mal-intencionado insere o comando ' OR '1'='1 em um campo de formulário web para manipular a consulta ao banco de dados.\n\nAssinale a alternativa que apresenta, respectivamente, o nome do ataque descrito em I e a medida de mitigação mais eficaz para o ataque descrito em II.",
+                options: [
+                    "A) Phishing / Configuração de Firewall.",
+                    "B) Sniffing / Uso de Prepared Statements (consultas parametrizadas).",
+                    "C) Spoofing / Instalação de Antivírus.",
+                    "D) Sniffing / Criptografia de disco.",
+                    "E) Man-in-the-Middle / Auditoria de logs."
+                ],
+                correct: 1,
+                explanation: "<strong>Gabarito: B</strong><br><br><strong>Situação I:</strong> Interceptação de tráfego é conhecida como <em>Sniffing</em>.<br><strong>Situação II:</strong> O ataque é <em>SQL Injection</em>. A medida mais eficaz e recomendada pela OWASP para mitigar injeção de SQL é o uso de <strong>Prepared Statements</strong> (ou consultas parametrizadas), que impedem que o input do usuário seja interpretado como comando SQL."
+            },
+            {
+                id: 6,
+                statement: "Considere um cenário onde a política de backup de uma organização define a realização de um backup completo (Full) todos os domingos e backups incrementais de segunda a sábado. Caso ocorra uma perda total de dados na quinta-feira à tarde, quais arquivos de backup serão necessários para restaurar o banco de dados para o estado mais recente possível?",
+                options: [
+                    "A) Apenas o último backup incremental de quinta-feira.",
+                    "B) O backup completo de domingo e apenas o backup incremental de quarta-feira.",
+                    "C) O backup completo de domingo e todos os backups incrementais de segunda, terça, quarta e quinta-feira (se houver).",
+                    "D) O backup completo de domingo e o último backup diferencial.",
+                    "E) Apenas o backup completo de domingo."
+                ],
+                correct: 2,
+                explanation: "<strong>Gabarito: C</strong><br><br>No modelo de <strong>Backup Incremental</strong>, cada backup contém apenas as alterações feitas desde o último backup (seja ele full ou incremental). Para restaurar, é necessário:<br>1. O último Full (Domingo).<br>2. A sequência ininterrupta de incrementais até o ponto de falha (Seg + Ter + Qua + Qui)."
+            },
+            {
+                id: 7,
+                statement: "Um DBA precisa revogar a permissão de atualização (UPDATE) na tabela 'CLIENTES' do usuário 'gerente_vendas'. Assinale a alternativa que apresenta a sintaxe correta do comando SQL padrão (ANSI) para esta operação.",
+                options: [
+                    "A) DENY UPDATE ON CLIENTES TO gerente_vendas;",
+                    "B) REMOVE UPDATE FROM CLIENTES FOR gerente_vendas;",
+                    "C) REVOKE UPDATE ON CLIENTES FROM gerente_vendas;",
+                    "D) DELETE PERMISSION UPDATE ON CLIENTES FROM gerente_vendas;",
+                    "E) ALTER USER gerente_vendas DROP ACCESS UPDATE ON CLIENTES;"
+                ],
+                correct: 2,
+                explanation: "<strong>Gabarito: C</strong><br><br>A sintaxe padrão SQL (DCL) para retirar privilégios é o comando <code>REVOKE</code>. A estrutura correta é: <code>REVOKE [privilégio] ON [objeto] FROM [usuário]</code>. O comando DENY é específico do SQL Server para negar explicitamente, mas REVOKE é o padrão ANSI para remover concessões."
+            },
+            {
+                id: 8,
+                statement: "Qual das seguintes tecnologias é utilizada primariamente para garantir a integridade de um arquivo de backup de banco de dados, permitindo verificar se o mesmo sofreu alterações indevidas durante o armazenamento ou transferência?",
+                options: [
+                    "A) Criptografia RSA.",
+                    "B) Protocolo SSL.",
+                    "C) Funções de Hash (como SHA-256).",
+                    "D) Firewall de Aplicação (WAF).",
+                    "E) Compactação ZIP."
+                ],
+                correct: 2,
+                explanation: "<strong>Gabarito: C</strong><br><br><strong>Funções de Hash</strong> (Resumo Criptográfico) geram uma string de tamanho fixo única para um determinado arquivo. Se o arquivo de backup for alterado (por corrupção ou ataque), o hash calculado será diferente do original, alertando sobre a quebra de <strong>integridade</strong>."
+            },
+            {
+                id: 9,
+                statement: "De acordo com as diretrizes da norma ISO/IEC 27002 para o trabalho remoto, qual das alternativas a seguir NÃO representa uma boa prática de segurança recomendada?",
+                options: [
+                    "A) Fornecer equipamentos de comunicação apropriados com métodos de acesso remoto seguro (como VPN).",
+                    "B) Permitir que familiares utilizem os equipamentos corporativos para fins educacionais, otimizando o uso dos recursos.",
+                    "C) Estabelecer uma política de mesa limpa para evitar a exposição de informações sensíveis durante videochamadas.",
+                    "D) Garantir que o disco rígido dos equipamentos portáteis esteja criptografado para proteger os dados em caso de roubo.",
+                    "E) Definir procedimentos claros para o descarte de informações e mídias no ambiente doméstico."
+                ],
+                correct: 1,
+                explanation: "<strong>Gabarito: B</strong><br><br>Permitir o uso de equipamentos corporativos por familiares ou terceiros viola princípios básicos de controle de acesso e introduz riscos desconhecidos (malware, exclusão acidental). A ISO 27002 recomenda segregação de uso."
+            },
+            {
+                id: 10,
+                statement: "Em um servidor que possui um único disco rígido físico particionado em duas unidades lógicas (C: e D:), um administrador configura a rotina de backup para copiar os dados da partição C: para a partição D:. Sobre esse procedimento, assinale a alternativa correta.",
+                options: [
+                    "A) O procedimento é seguro e recomendado, pois segrega os dados de produção dos dados de backup em letras de unidade diferentes.",
+                    "B) O procedimento garante a disponibilidade dos dados em caso de ataque de ransomware, pois a partição D: não é afetada.",
+                    "C) O procedimento apresenta um risco crítico, pois uma falha mecânica no disco rígido resultará na perda tanto dos dados originais quanto do backup.",
+                    "D) O backup na mesma mídia física é mais rápido e, portanto, preferível para grandes bases de dados.",
+                    "E) O sistema de arquivos NTFS impede que falhas na partição C: afetem a partição D:."
+                ],
+                correct: 2,
+                explanation: "<strong>Gabarito: C</strong><br><br>Particionamento é uma divisão lógica. Se houver uma falha física no disco (motor, agulha, placa lógica), todas as partições tornam-se inacessíveis simultaneamente. Backups devem seguir a regra 3-2-1 e estar em mídias físicas diferentes."
+            }
+        ];
+
+        // --- Estado da Aplicação ---
+        const userAnswers = {};
+        let isSubmitted = false;
+
+        // --- Funções de Renderização ---
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = '';
+
+            questions.forEach((q, index) => {
+                // Criação do HTML de cada questão
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8';
+                questionDiv.id = `q-${q.id}`;
+
+                // Cabeçalho da questão
+                const header = document.createElement('div');
+                header.className = 'flex gap-4 mb-6';
+                header.innerHTML = `
+                    <div class="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-slate-100 text-slate-600 font-bold text-sm">
+                        ${index + 1}
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-lg leading-relaxed text-slate-800 whitespace-pre-line">${q.statement}</p>
+                    </div>
+                `;
+                questionDiv.appendChild(header);
+
+                // Container das opções
+                const optionsDiv = document.createElement('div');
+                optionsDiv.className = 'space-y-3 pl-0 md:pl-12';
+
+                q.options.forEach((opt, optIndex) => {
+                    const btn = document.createElement('div');
+                    // Classes base
+                    btn.className = `option-card w-full text-left p-4 rounded-lg border-2 border-transparent bg-slate-50 text-slate-700 cursor-pointer flex items-center gap-3 relative`;
+                    btn.dataset.qid = q.id;
+                    btn.dataset.idx = optIndex;
+                    
+                    // Evento de clique
+                    btn.onclick = () => selectOption(q.id, optIndex);
+
+                    // Conteúdo do botão
+                    btn.innerHTML = `
+                        <div class="w-5 h-5 rounded-full border-2 border-slate-300 flex-shrink-0 flex items-center justify-center radio-indicator">
+                            <div class="w-2.5 h-2.5 bg-blue-600 rounded-full hidden"></div>
+                        </div>
+                        <span class="flex-1">${opt}</span>
+                    `;
+                    optionsDiv.appendChild(btn);
+                });
+                questionDiv.appendChild(optionsDiv);
+
+                // Área de Explicação (Escondida inicialmente)
+                const explanationDiv = document.createElement('div');
+                explanationDiv.id = `explanation-${q.id}`;
+                explanationDiv.className = 'hidden mt-6 pt-6 border-t border-slate-100 bg-slate-50 -mx-6 -mb-6 px-6 pb-6 md:-mx-8 md:-mb-8 md:px-8 md:pb-8 rounded-b-xl';
+                explanationDiv.innerHTML = `
+                    <div class="flex gap-3">
+                        <svg class="w-6 h-6 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                        <div>
+                            <h4 class="font-bold text-slate-900 mb-2">Resolução</h4>
+                            <p class="text-slate-700 text-sm leading-relaxed">${q.explanation}</p>
+                        </div>
+                    </div>
+                `;
+                questionDiv.appendChild(explanationDiv);
+
+                container.appendChild(questionDiv);
+            });
+        }
+
+        // --- Lógica de Interação ---
+        function selectOption(qId, optIndex) {
+            if (isSubmitted) return; // Bloqueia mudanças após submissão
+
+            userAnswers[qId] = optIndex;
+            
+            // Atualiza visual
+            const parent = document.getElementById(`q-${qId}`);
+            const options = parent.querySelectorAll('.option-card');
+            
+            options.forEach(opt => {
+                const indicator = opt.querySelector('.radio-indicator');
+                const dot = indicator.querySelector('div');
+                
+                if (parseInt(opt.dataset.idx) === optIndex) {
+                    opt.classList.add('selected');
+                    opt.style.borderColor = '#2563eb';
+                    indicator.style.borderColor = '#2563eb';
+                    dot.classList.remove('hidden');
+                } else {
+                    opt.classList.remove('selected');
+                    opt.style.borderColor = 'transparent';
+                    indicator.style.borderColor = '#cbd5e1';
+                    dot.classList.add('hidden');
+                }
+            });
+
+            checkCompletion();
+        }
+
+        function checkCompletion() {
+            const btn = document.getElementById('submit-btn');
+            const answeredCount = Object.keys(userAnswers).length;
+            const total = questions.length;
+            
+            if (answeredCount === total) {
+                btn.disabled = false;
+                btn.classList.remove('opacity-50', 'cursor-not-allowed');
+                btn.classList.add('animate-bounce-short');
+                document.getElementById('progress-text').innerText = "Tudo pronto para finalizar!";
+                document.getElementById('progress-text').className = "mt-3 text-blue-600 font-medium text-sm";
+            } else {
+                btn.disabled = true;
+                btn.classList.add('opacity-50', 'cursor-not-allowed');
+                document.getElementById('progress-text').innerText = `Respondidas: ${answeredCount} de ${total}`;
+                document.getElementById('progress-text').className = "mt-3 text-slate-500 text-sm";
+            }
+        }
+
+        // --- Lógica de Correção ---
+        function finishQuiz() {
+            isSubmitted = true;
+            let score = 0;
+
+            questions.forEach(q => {
+                const userAnswer = userAnswers[q.id];
+                const isCorrect = userAnswer === q.correct;
+                if (isCorrect) score++;
+
+                const qDiv = document.getElementById(`q-${q.id}`);
+                const options = qDiv.querySelectorAll('.option-card');
+                const explanation = document.getElementById(`explanation-${q.id}`);
+
+                // Remove eventos de clique e ajusta cursor
+                options.forEach(opt => {
+                    opt.classList.add('disabled', 'cursor-default');
+                    opt.onclick = null; // Remove listener
+                    
+                    const idx = parseInt(opt.dataset.idx);
+                    const indicator = opt.querySelector('.radio-indicator');
+
+                    // Lógica visual de Correto/Errado
+                    if (idx === q.correct) {
+                        // Esta é a resposta correta
+                        if (userAnswer === idx) {
+                            opt.classList.add('correct-answer');
+                            indicator.innerHTML = `<svg class="w-4 h-4 text-green-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>`;
+                            indicator.style.borderColor = 'transparent';
+                        } else {
+                            // Usuário errou, mas esta era a certa
+                            opt.classList.add('missed-correct');
+                        }
+                    } else if (idx === userAnswer) {
+                        // Esta é a resposta errada que o usuário marcou
+                        opt.classList.add('wrong-answer');
+                        indicator.innerHTML = `<svg class="w-4 h-4 text-red-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"/></svg>`;
+                        indicator.style.borderColor = 'transparent';
+                    } else {
+                        opt.classList.add('opacity-50');
+                    }
+                });
+
+                // Mostra explicação
+                explanation.classList.remove('hidden');
+                explanation.classList.add('fade-in');
+            });
+
+            // Atualiza Placar
+            const scoreCard = document.getElementById('score-card');
+            scoreCard.classList.remove('hidden');
+            document.getElementById('score-value').innerText = score;
+            document.getElementById('total-value').innerText = questions.length;
+            
+            // Ícone do Placar baseada na nota
+            const scoreIcon = document.getElementById('score-icon');
+            if (score >= 7) {
+                scoreIcon.innerHTML = `<div class="p-4 bg-green-100 rounded-full"><svg class="w-12 h-12 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>`;
+            } else {
+                scoreIcon.innerHTML = `<div class="p-4 bg-yellow-100 rounded-full"><svg class="w-12 h-12 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg></div>`;
+            }
+
+            // Animação da barra
+            setTimeout(() => {
+                const percentage = (score / questions.length) * 100;
+                const bar = document.getElementById('score-bar');
+                bar.style.width = `${percentage}%`;
+                bar.className = `h-4 rounded-full transition-all duration-1000 ${score >= 7 ? 'bg-green-500' : 'bg-yellow-500'}`;
+            }, 100);
+
+            // Esconde botão de submit
+            document.getElementById('submit-section').style.display = 'none';
+
+            // Scroll para o topo suavemente
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', () => {
+            renderQuiz();
+            checkCompletion(); // Garante estado inicial do botão
+        });
+
+    </script>
+</body>
+</html>
