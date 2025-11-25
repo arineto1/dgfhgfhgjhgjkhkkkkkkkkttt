@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo Blindado: Redes e Infraestrutura (IFPB/AOCP)</title>
+    <!-- Tailwind CSS para estilização rápida e responsiva -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilos adicionais para melhorar a leitura */
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #ffffff;
+            color: #1a202c;
+            line-height: 1.6;
+        }
+        
+        /* Estilo de "Grifado" (Marcador de texto) */
+        .highlight {
+            background-color: #fef3c7; /* Amarelo muito suave */
+            padding: 0 4px;
+            border-radius: 2px;
+            font-weight: 600;
+            color: #000;
+        }
+
+        /* Estilo para Citações/Mnemônicos */
+        .bizu-box {
+            border-left: 4px solid #d97706; /* Laranja escuro */
+            background-color: #fffbeb;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+        }
+
+        /* Ajuste de Tabela para evitar scroll horizontal em telas pequenas */
+        /* Força a quebra de palavras longas */
+        table {
+            table-layout: fixed;
+            width: 100%;
+        }
+        td, th {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+    </style>
+</head>
+<body class="bg-white min-h-screen flex flex-col items-center py-8 px-4 sm:px-6 lg:px-8">
+
+    <!-- Container Principal -->
+    <div class="w-full max-w-4xl space-y-8">
+
+        <!-- HEADER E AUDIO -->
+        <header class="text-center space-y-4 border-b pb-6 mb-8">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">
+                Resumo Blindado: Redes e Infraestrutura
+            </h1>
+            <p class="text-lg text-gray-600 font-medium">
+                Foco IFPB / Banca AOCP
+            </p>
+
+            <!-- Reprodutor de Áudio -->
+            <div class="bg-gray-50 rounded-lg p-4 mt-6 border border-gray-200 shadow-sm max-w-lg mx-auto">
+                <label class="block text-sm font-semibold text-gray-700 mb-2">🎧 Ouvir Resumo em Áudio</label>
+                <!-- TROQUE 'seu_arquivo_audio.mp3' PELO NOME DO SEU ARQUIVO -->
+                <audio controls class="w-full h-10">
+                    <source src="esp-topologia-redes.mp3" type="audio/mpeg">
+                    Seu navegador não suporta o elemento de áudio.
+                </audio>
+            </div>
+        </header>
+
+        <!-- INTRODUÇÃO -->
+        <section class="prose prose-lg max-w-none text-gray-800">
+            <p>
+                Este resumo foi desenhado para <span class="highlight">memorização rápida</span>. Focamos nas diferenças cruciais que a banca explora nas questões de "certo/errado" ou múltipla escolha.
+            </p>
+        </section>
+
+        <!-- SEÇÃO 1: O "QUEM É QUEM" -->
+        <section class="space-y-4">
+            <h2 class="text-2xl font-bold text-gray-900 border-l-4 border-gray-800 pl-3">
+                1. O "Quem é Quem" dos Equipamentos (Hardware)
+            </h2>
+            <p class="text-gray-700">
+                A AOCP adora cobrar a <strong>Camada OSI</strong> e os <strong>Domínios</strong> de cada equipamento. Memorize a tabela abaixo.
+            </p>
+
+            <!-- TABELA DE OURO -->
+            <div class="mt-6 border border-gray-300 rounded-lg overflow-hidden">
+                <table class="min-w-full divide-y divide-gray-300">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-bold text-gray-900 w-1/6">Dispositivo</th>
+                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-bold text-gray-900 w-1/6">Camada OSI</th>
+                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-bold text-gray-900 w-1/6">Inteligência</th>
+                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-bold text-gray-900 w-1/6">Domínio Colisão</th>
+                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-bold text-gray-900 w-1/6">Domínio Broadcast</th>
+                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-bold text-gray-900 w-1/6">Função Chave</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200 bg-white text-sm">
+                        <tr>
+                            <td class="px-3 py-4 font-bold">Repeater</td>
+                            <td class="px-3 py-4">1 (Física)</td>
+                            <td class="px-3 py-4 text-gray-500">Nenhuma (Burro)</td>
+                            <td class="px-3 py-4 text-red-600 font-medium">Expande (Piora)</td>
+                            <td class="px-3 py-4 text-red-600">Expande</td>
+                            <td class="px-3 py-4">Regenerar sinal elétrico</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="px-3 py-4 font-bold">Hub</td>
+                            <td class="px-3 py-4">1 (Física)</td>
+                            <td class="px-3 py-4 text-gray-500">Nenhuma</td>
+                            <td class="px-3 py-4 font-bold text-red-700">1 Único (Todos colidem)</td>
+                            <td class="px-3 py-4 text-red-700 font-bold">1 Único</td>
+                            <td class="px-3 py-4">Repetidor multiportas; <span class="italic">Flooding</span></td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-4 font-bold">Bridge</td>
+                            <td class="px-3 py-4">2 (Enlace)</td>
+                            <td class="px-3 py-4">MAC Address</td>
+                            <td class="px-3 py-4 text-green-700">Segmenta (Divide)</td>
+                            <td class="px-3 py-4 text-red-600">Expande</td>
+                            <td class="px-3 py-4">Filtrar tráfego local; conectar segmentos</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="px-3 py-4 font-bold">Switch L2</td>
+                            <td class="px-3 py-4">2 (Enlace)</td>
+                            <td class="px-3 py-4">MAC Address</td>
+                            <td class="px-3 py-4 font-bold text-green-700">Múltiplos (1 por porta)</td>
+                            <td class="px-3 py-4 text-red-700 font-bold">1 Único (VLANs separam)</td>
+                            <td class="px-3 py-4">Microsegmentação; <span class="italic">Wire-speed</span></td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-4 font-bold">Roteador</td>
+                            <td class="px-3 py-4">3 (Rede)</td>
+                            <td class="px-3 py-4">IP Address</td>
+                            <td class="px-3 py-4 text-green-700">Segmenta</td>
+                            <td class="px-3 py-4 font-bold text-green-700">Segmenta (Separa)</td>
+                            <td class="px-3 py-4">Rota (Melhor caminho); <span class="highlight">Bloqueia Broadcast</span></td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="px-3 py-4 font-bold">Switch L3</td>
+                            <td class="px-3 py-4">3 (Rede)</td>
+                            <td class="px-3 py-4">IP + MAC</td>
+                            <td class="px-3 py-4 text-green-700">Segmenta</td>
+                            <td class="px-3 py-4 font-bold text-green-700">Segmenta (Inter-VLAN)</td>
+                            <td class="px-3 py-4">Roteamento rápido em hardware (ASIC)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Bizus de Prova -->
+            <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm mt-4">
+                <h3 class="text-lg font-bold text-gray-800 mb-2">🎯 Bizus de Prova (O que cai):</h3>
+                <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                    <li><strong>Hub = Megafone:</strong> Ele grita para todo mundo. Se um fala, ninguém mais pode falar (Half-Duplex). <span class="highlight">NÃO filtra dados.</span></li>
+                    <li><strong>Switch = Telefonista:</strong> Cria um canal exclusivo entre A e B. Todo mundo pode falar ao mesmo tempo (Full-Duplex).</li>
+                    <li><strong>Roteador = Porteiro do Prédio:</strong> Só ele deixa sair para a rua (Internet/WAN). <span class="highlight">Ele NÃO deixa o barulho de dentro (Broadcast) sair para fora.</span></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 2: TOPOLOGIAS -->
+        <section class="space-y-4 pt-4">
+            <h2 class="text-2xl font-bold text-gray-900 border-l-4 border-gray-800 pl-3">
+                2. Topologias: O Desenho da Rede
+            </h2>
+            <p class="text-gray-700">A "casca de banana" clássica é confundir a topologia física (cabos) com a lógica (fluxo de dados).</p>
+
+            <div class="grid md:grid-cols-2 gap-6 mt-4">
+                <!-- Estrela -->
+                <div class="border rounded-lg p-4 hover:shadow-md transition-shadow">
+                    <h3 class="font-bold text-lg mb-2">2.1. Estrela (Star) - A "Queridinha"</h3>
+                    <ul class="list-inside space-y-1 text-gray-700 text-sm">
+                        <li><strong>Física:</strong> Cabos saem de cada PC para um ponto central (Concentrador).</li>
+                        <li><strong>Ponto de Falha:</strong> Se o concentrador queimar, a rede toda para. Se o cabo do PC queimar, só aquele PC para.</li>
+                        <li class="mt-2 p-2 bg-yellow-50 rounded border-l-2 border-yellow-400">
+                            <strong>A Pegadinha:</strong><br>
+                            Estrela + Switch = Lógica Ponto-a-Ponto.<br>
+                            Estrela + Hub = <span class="highlight">Lógica em Barramento</span> (Cuidado!).
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Barramento -->
+                <div class="border rounded-lg p-4 hover:shadow-md transition-shadow bg-gray-50">
+                    <h3 class="font-bold text-lg mb-2">2.2. Barramento (Bus) - A "Jurássica"</h3>
+                    <ul class="list-inside space-y-1 text-gray-700 text-sm">
+                        <li><strong>Estrutura:</strong> Cabo coaxial único, conectores T, terminadores.</li>
+                        <li><span class="highlight">Problema Crítico:</span> Se o cabo romper em qualquer lugar, <strong>toda a rede cai</strong>.</li>
+                        <li><strong>Memorize:</strong> Terminadores de 50 ohms.</li>
+                    </ul>
+                </div>
+
+                <!-- Anel -->
+                <div class="border rounded-lg p-4 hover:shadow-md transition-shadow bg-gray-50">
+                    <h3 class="font-bold text-lg mb-2">2.3. Anel (Ring) - O "Bastão"</h3>
+                    <ul class="list-inside space-y-1 text-gray-700 text-sm">
+                        <li><strong>Lógica:</strong> Passagem de token. Só transmite quem tem o token.</li>
+                        <li><strong>Característica:</strong> Determinística (sem colisões).</li>
+                        <li><strong>AOCP:</strong> FDDI usa <span class="highlight">anel duplo</span> (sentidos opostos) para redundância.</li>
+                    </ul>
+                </div>
+
+                <!-- Malha -->
+                <div class="border rounded-lg p-4 hover:shadow-md transition-shadow">
+                    <h3 class="font-bold text-lg mb-2">2.4. Malha (Mesh) - A "Cara e Segura"</h3>
+                    <ul class="list-inside space-y-1 text-gray-700 text-sm">
+                        <li><strong>Malha Full:</strong> Todos conectados a todos.</li>
+                        <li><strong>Fórmula:</strong> N(N-1)/2.</li>
+                        <li><strong>Uso:</strong> Backbones, satélites. <span class="highlight">Tolerância a falhas máxima.</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 3: ABRANGÊNCIA GEOGRÁFICA -->
+        <section class="space-y-4 pt-4">
+            <h2 class="text-2xl font-bold text-gray-900 border-l-4 border-gray-800 pl-3">
+                3. Abrangência Geográfica (Sopa de Letrinhas)
+            </h2>
+            <div class="bg-white rounded-lg shadow-sm border p-5 space-y-3">
+                <ol class="list-decimal pl-5 space-y-3 text-gray-800">
+                    <li>
+                        <strong>PAN (Personal):</strong> Metros. Bluetooth, NFC. (Ex: Celular e fone).
+                    </li>
+                    <li>
+                        <strong>LAN (Local):</strong> Sala, Prédio, Campus. (Ex: Laboratório IFPB).
+                        <span class="block text-sm text-gray-500 ml-1">Tecnologias: Ethernet, Wi-Fi.</span>
+                    </li>
+                    <li>
+                        <strong>MAN (Metropolitan):</strong> Cidade, Bairros.
+                        <span class="block text-sm text-gray-500 ml-1">Tecnologias: Metro Ethernet, WiMAX.</span>
+                    </li>
+                    <li>
+                        <strong>WAN (Wide):</strong> País, Continente, Mundo. (Ex: Internet).
+                        <span class="block text-sm text-gray-500 ml-1">Tecnologias: MPLS, Fibra Transoceânica, Frame Relay.</span>
+                    </li>
+                    <li>
+                        <strong>SAN (Storage):</strong> Rede de Armazenamento.
+                        <span class="highlight block text-sm ml-1 mt-1 font-semibold">Bizu: Conecta Servidores a Discos via Fibra (Fibre Channel) sem pesar a LAN.</span>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 4: RAIO-X DAS PEGADINHAS -->
+        <section class="space-y-4 pt-4">
+            <h2 class="text-2xl font-bold text-gray-900 border-l-4 border-gray-800 pl-3">
+                4. Raio-X das Pegadinhas da AOCP
+            </h2>
+            <p class="text-gray-600 italic mb-4">Baseado no histórico de provas da banca.</p>
+            
+            <div class="space-y-4">
+                <div class="flex items-start">
+                    <span class="flex-shrink-0 bg-red-100 text-red-800 font-bold px-2 py-1 rounded text-sm mr-3">1</span>
+                    <p class="text-gray-800">
+                        <strong>A "Lógica" do Hub:</strong> Topologia física estrela com Hub = Lógica de Barramento. <span class="highlight">Colisões são frequentes.</span>
+                    </p>
+                </div>
+                <div class="flex items-start">
+                    <span class="flex-shrink-0 bg-red-100 text-red-800 font-bold px-2 py-1 rounded text-sm mr-3">2</span>
+                    <p class="text-gray-800">
+                        <strong>Switch separa Broadcast?</strong> Por padrão, <span class="highlight">NÃO</span>. Switch só separa Colisão. Para separar broadcast, precisa de <strong>VLANs</strong>.
+                    </p>
+                </div>
+                <div class="flex items-start">
+                    <span class="flex-shrink-0 bg-red-100 text-red-800 font-bold px-2 py-1 rounded text-sm mr-3">3</span>
+                    <p class="text-gray-800">
+                        <strong>Roteador na Camada Física?</strong> ERRADO. Roteador processa endereços lógicos (IP) na Camada 3.
+                    </p>
+                </div>
+                <div class="flex items-start">
+                    <span class="flex-shrink-0 bg-red-100 text-red-800 font-bold px-2 py-1 rounded text-sm mr-3">4</span>
+                    <p class="text-gray-800">
+                        <strong>Internet vs WAN:</strong> Toda Internet é uma WAN, mas nem toda WAN é a Internet (ex: WAN privada de bancos).
+                    </p>
+                </div>
+                <div class="flex items-start">
+                    <span class="flex-shrink-0 bg-red-100 text-red-800 font-bold px-2 py-1 rounded text-sm mr-3">5</span>
+                    <div>
+                        <p class="text-gray-800 font-bold">Termos Sinônimos (Atenção ao Enunciado):</p>
+                        <ul class="list-disc pl-5 text-gray-700 text-sm mt-1">
+                            <li><strong>Quadro (Frame):</strong> Camada 2 (Switch).</li>
+                            <li><strong>Pacote (Packet):</strong> Camada 3 (Roteador).</li>
+                            <li><strong>Datagrama:</strong> UDP (C4) ou IP (C3).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 5: MNEMÔNICOS FINAIS -->
+        <section class="space-y-4 pt-4">
+            <h2 class="text-2xl font-bold text-gray-900 border-l-4 border-gray-800 pl-3">
+                5. Mnemônicos Finais
+            </h2>
+            
+            <div class="bizu-box">
+                <p class="text-lg font-medium text-gray-800">
+                    "O Hub é fofoqueiro (conta pra todo mundo), o Switch é discreto (só pra quem interessa) e o Roteador é o guarda de trânsito (indica o caminho para outra cidade)."
+                </p>
+            </div>
+
+            <div class="bizu-box bg-blue-50 border-blue-600">
+                <p class="font-bold text-gray-900 mb-2">Hierarquia:</p>
+                <ul class="list-none space-y-1">
+                    <li>🏠 <strong>L</strong>AN = <strong>L</strong>ar (Perto)</li>
+                    <li>🏙️ <strong>M</strong>AN = <strong>M</strong>unicípio (Médio)</li>
+                    <li>🌎 <strong>W</strong>AN = <strong>W</strong>orld (Mundo/Longe)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- BOTÃO PARA QUESTÕES -->
+        <div class="pt-10 pb-8 text-center">
+            <a href="esp-topologia-redesquestoes.html" class="inline-block bg-gray-900 hover:bg-gray-700 text-white font-bold py-4 px-8 rounded-lg shadow-lg transform transition hover:-translate-y-1">
+                📝 Ir para Resolver Questões
+            </a>
+        </div>
+
+    </div>
+</body>
+</html>

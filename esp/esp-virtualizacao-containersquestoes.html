@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado Virtualização - Instituto AOCP</title>
+    <style>
+        :root {
+            --bg-color: #faf9f6; /* Off-white, similar a papel */
+            --text-color: #2d2d2d; /* Cinza escuro suave */
+            --accent-color: #005f73; /* Azul petróleo para destaques */
+            --border-color: #e0e0e0;
+            --success-color: #2a9d8f;
+            --error-color: #e76f51;
+            --card-bg: #ffffff;
+            --explanation-bg: #f0f4f8;
+        }
+
+        body {
+            font-family: 'Georgia', 'Merriweather', serif; /* Serifada para leitura longa */
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--bg-color);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        h1 {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-style: italic;
+            color: #666;
+        }
+
+        .question-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+
+        .question-number {
+            font-family: sans-serif;
+            font-weight: bold;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .question-text {
+            font-size: 1.1em;
+            margin-bottom: 25px;
+        }
+
+        .options {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .option-item label {
+            display: flex;
+            align-items: flex-start;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 6px;
+            transition: background-color 0.2s;
+        }
+
+        .option-item label:hover {
+            background-color: #f5f5f5;
+        }
+
+        .option-item input[type="radio"] {
+            margin-right: 15px;
+            margin-top: 6px;
+            accent-color: var(--accent-color);
+            transform: scale(1.2);
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 40px;
+            font-family: sans-serif;
+        }
+
+        .btn-submit:hover {
+            background-color: #0a9396;
+        }
+
+        /* Área de Resultados */
+        #result-section {
+            display: none;
+            margin-top: 50px;
+            border-top: 3px solid var(--accent-color);
+            padding-top: 30px;
+        }
+
+        .score-box {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            font-family: sans-serif;
+        }
+
+        .score-box h2 {
+            margin: 0;
+            font-size: 2em;
+        }
+
+        .resolution-card {
+            margin-bottom: 40px;
+            border-left: 4px solid var(--border-color);
+            padding-left: 20px;
+            background-color: var(--card-bg);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            font-family: sans-serif;
+            margin-bottom: 10px;
+        }
+
+        .status-correct {
+            background-color: #e6fffa;
+            color: var(--success-color);
+            border: 1px solid var(--success-color);
+        }
+
+        .status-incorrect {
+            background-color: #fff5f5;
+            color: var(--error-color);
+            border: 1px solid var(--error-color);
+        }
+
+        .explanation-box {
+            background-color: var(--explanation-bg);
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 0.95em;
+            border: 1px solid #dbe4eb;
+        }
+
+        .explanation-box h4 {
+            margin-top: 0;
+            color: var(--accent-color);
+            font-family: sans-serif;
+        }
+
+        /* Estilização específica para o conteúdo da resolução */
+        .explanation-content ul {
+            padding-left: 20px;
+        }
+        
+        .explanation-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-family: sans-serif;
+            font-size: 0.9em;
+        }
+        
+        .explanation-content th, .explanation-content td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        .explanation-content th {
+            background-color: #ddd;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .question-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado Virtualização & Infraestrutura</h1>
+        <p class="subtitle">Foco: Instituto AOCP - Estilo de Prova e Análise Teórica</p>
+    </header>
+
+    <form id="quiz-form">
+        <!-- As questões serão injetadas aqui via JavaScript -->
+        <div id="questions-container"></div>
+        <button type="button" class="btn-submit" onclick="submitQuiz()">Finalizar Simulado e Ver Resoluções</button>
+    </form>
+
+    <div id="result-section">
+        <div class="score-box">
+            <h2 id="final-score"></h2>
+            <p>Confira abaixo a resolução detalhada de cada questão.</p>
+        </div>
+        <div id="resolutions-container"></div>
+    </div>
+</div>
+
+<script>
+    // Dados das Questões
+    const quizData = [
+        {
+            id: 1,
+            question: "A virtualização de servidores transformou o <em>design</em> de <em>Data Centers</em> modernos, permitindo a consolidação de cargas de trabalho e o isolamento de serviços. No cerne dessa tecnologia está o Monitor de Máquina Virtual (VMM), ou hypervisor. Considerando a classificação clássica de hypervisores e suas características de desempenho e segurança, assinale a alternativa que descreve corretamente o <strong>Hypervisor de Tipo 1 (Bare-Metal)</strong>:",
+            options: [
+                "É uma aplicação de software instalada sobre um sistema operacional hospedeiro convencional (como Windows ou Linux), dependendo deste para o gerenciamento de drivers de hardware e escalonamento de CPU, sendo ideal para ambientes de testes e desenvolvimento.",
+                "Executa diretamente sobre o hardware do servidor, sem a interposição de um sistema operacional de propósito geral, assumindo o controle direto dos recursos físicos e oferecendo, tipicamente, maior desempenho e segurança para ambientes de produção.",
+                "Utiliza uma técnica de emulação completa onde cada instrução da CPU virtual é traduzida em tempo real para a CPU física, dispensando o suporte a extensões de virtualização de hardware como Intel VT-x ou AMD-V.",
+                "É caracterizado pela ausência de isolamento real entre as máquinas virtuais, uma vez que todas compartilham o mesmo kernel do sistema operacional, técnica conhecida como virtualização baseada em contêineres ou 'zonas'.",
+                "Requer que os sistemas operacionais convidados (Guests) sejam modificados em nível de código-fonte para realizar chamadas de sistema especiais (*hypercalls*), não suportando a execução de sistemas operacionais proprietários não modificados, como o Microsoft Windows."
+            ],
+            correct: 1, // Index B
+            explanation: `
+                <h4>Análise Teórica Aprofundada</h4>
+                <p><strong>1. A Dicotomia dos Hypervisores: Uma Análise Estrutural</strong></p>
+                <p>Para compreender a resposta correta e eliminar as distrações, é imperativo mergulhar na arquitetura de sistemas operacionais e no conceito de anéis de privilégio (<em>Protection Rings</em>) da arquitetura x86. A virtualização insere uma camada de abstração entre o hardware e o sistema operacional, e a posição dessa camada define o "Tipo" do hypervisor.</p>
+                
+                <p><strong>Hypervisor Tipo 1 (Bare-Metal / Nativo):</strong><br>
+                A alternativa correta define a essência do modelo <em>bare-metal</em> (metal nu). Neste modelo, o hypervisor atua como um "micro-kernel" ou um sistema operacional minimalista focado exclusivamente na gestão de máquinas virtuais.</p>
+                <ul>
+                    <li><strong>Acesso ao Hardware:</strong> O hypervisor reside no "Ring -1" (conceitualmente) ou controla o modo VMX <em>root</em> nas CPUs modernas. Ele gerencia diretamente o agendamento de processador (<em>scheduling</em>), a alocação de memória e as interrupções de hardware.</li>
+                    <li><strong>Performance:</strong> A ausência de um Sistema Operacional de Propósito Geral (GPOS) intermediário elimina o <em>overhead</em> de tradução de chamadas de sistema.</li>
+                    <li><strong>Segurança:</strong> A superfície de ataque é drasticamente reduzida. Um hypervisor como o VMware ESXi possui um código base de apenas algumas centenas de megabytes.</li>
+                    <li><strong>Exemplos:</strong> VMware ESXi (vSphere), Microsoft Hyper-V Server (versão <em>standalone</em>), Citrix Hypervisor, KVM.</li>
+                </ul>
+
+                <p><strong>Análise das Incorretas:</strong></p>
+                <ul>
+                    <li>A alternativa (A) descreve o Tipo 2 (Hosted).</li>
+                    <li>A alternativa (C) descreve Emulação.</li>
+                    <li>A alternativa (D) descreve Contêineres.</li>
+                    <li>A alternativa (E) descreve Paravirtualização Clássica.</li>
+                </ul>
+            `
+        },
+        {
+            id: 2,
+            question: "Suponha que você seja um analista de infraestrutura em uma empresa de tecnologia e esteja trabalhando em um projeto que envolve o uso de Docker para orquestrar microsserviços. A segurança e a integridade das imagens são preocupações centrais. Sobre a arquitetura de contêineres Docker e suas práticas de segurança, assinale a alternativa correta:",
+            options: [
+                "O Docker utiliza uma arquitetura monolítica onde cada contêiner inclui uma cópia completa do kernel do sistema operacional, garantindo isolamento idêntico ao de máquinas virtuais, porém com maior consumo de disco.",
+                "O mecanismo <strong>Docker Content Trust (DCT)</strong> permite que as operações de transferência de dados para e de registros remotos sejam assinadas digitalmente, garantindo a proveniência e integridade das imagens executadas.",
+                "Para garantir a persistência de dados sensíveis, como senhas de banco de dados, a prática recomendada é escrever essas informações diretamente no arquivo <code>Dockerfile</code> durante a criação da imagem, pois as camadas de imagem são criptografadas por padrão.",
+                "O Docker Engine substitui a necessidade de um sistema operacional hospedeiro, atuando como um hypervisor Tipo 1 que gerencia diretamente o hardware e executa binários de diferentes arquiteturas (ARM e x86) simultaneamente sem emulação.",
+                "Uma imagem Docker é um objeto mutável; quando um contêiner em execução modifica um arquivo do sistema, essa alteração é automaticamente propagada para a imagem base armazenada no registro local, atualizando-a para todos os futuros contêineres."
+            ],
+            correct: 1, // Index B
+            explanation: `
+                <h4>Análise Teórica Aprofundada</h4>
+                <p><strong>1. Docker Content Trust (DCT)</strong></p>
+                <p>A alternativa correta aborda um recurso avançado de segurança. Em ambientes corporativos, é crítico garantir que a imagem baixada ("pull") não foi adulterada (ataque <em>Man-in-the-Middle</em>). O DCT utiliza chaves criptográficas para assinar digitalmente as imagens. Quando habilitado (<code>export DOCKER_CONTENT_TRUST=1</code>), o cliente Docker verifica a assinatura antes de executá-la.</p>
+
+                <p><strong>2. Refutando as demais opções:</strong></p>
+                <ul>
+                    <li><strong>Imutabilidade (E):</strong> Imagens Docker são <strong>imutáveis</strong> (<em>read-only</em>). Alterações ocorrem apenas na camada temporária (Read-Write Layer) do contêiner e nunca afetam a imagem original (Copy-on-Write).</li>
+                    <li><strong>Isolamento e Kernel (A):</strong> Contêineres <strong>não</strong> têm seu próprio kernel; eles compartilham o kernel do Host. O isolamento é feito via Namespaces e Cgroups, sendo considerado mais fraco que o de VMs.</li>
+                    <li><strong>Segredos (C):</strong> <em>Hardcoding</em> de senhas no Dockerfile é uma prática desastrosa. Camadas não são criptografadas por padrão e qualquer um com acesso à imagem pode ler os segredos.</li>
+                    <li><strong>Docker Engine (D):</strong> O Docker é um daemon que roda no espaço de usuário de um SO (não é um Hypervisor Tipo 1) e depende do SO hospedeiro.</li>
+                </ul>
+            `
+        },
+        {
+            id: 3,
+            question: "O Kubernetes consolidou-se como o padrão de mercado para orquestração de contêineres. Sobre os conceitos fundamentais e a arquitetura de objetos dessa plataforma, assinale a alternativa correta:",
+            options: [
+                "O <strong>Pod</strong> é a menor e mais básica unidade de computação implantável no Kubernetes; ele encapsula um ou mais contêineres que compartilham o mesmo armazenamento, endereço IP e espaço de portas de rede.",
+                "O <strong>Service</strong> no Kubernetes é um componente de hardware físico responsável por balancear a carga de tráfego de rede entre os nós do cluster, substituindo a necessidade de balanceadores de carga baseados em software ou nuvem.",
+                "O <strong>Kubelet</strong> é o componente do <em>Control Plane</em> (Master) responsável por armazenar o estado de configuração de todo o cluster em um banco de dados relacional SQL de alta disponibilidade.",
+                "O Kubernetes gerencia apenas imagens de contêineres Docker, sendo incompatível com outros <em>runtimes</em> de contêiner como containerd ou CRI-O, devido à dependência exclusiva do Docker shim.",
+                "Um <strong>Deployment</strong> é utilizado exclusivamente para aplicações <em>stateful</em> (com estado), como bancos de dados, garantindo que a identidade de rede de cada Pod seja preservada através de reinicializações, diferentemente do <em>StatefulSet</em> que é para aplicações sem estado."
+            ],
+            correct: 0, // Index A
+            explanation: `
+                <h4>Análise Teórica Aprofundada</h4>
+                <p><strong>A Anatomia de um Pod no Kubernetes</strong></p>
+                <p>O Kubernetes não executa contêineres diretamente; ele executa <strong>Pods</strong>. A alternativa correta destaca as características chave:</p>
+                <ul>
+                    <li><strong>Definição:</strong> O Pod é a menor unidade implantável.</li>
+                    <li><strong>Compartilhamento:</strong> Dentro de um Pod, todos os contêineres compartilham o mesmo <strong>Namespace de Rede</strong> (mesmo IP e portas) e podem compartilhar <strong>Volumes de Armazenamento</strong>. Eles se comunicam via <code>localhost</code>.</li>
+                </ul>
+                
+                <p><strong>Análise dos Erros:</strong></p>
+                <ul>
+                    <li><strong>Service (B):</strong> É uma abstração lógica (software), não hardware.</li>
+                    <li><strong>Kubelet e Etcd (C):</strong> O Kubelet roda nos nós (Workers). O armazenamento é o <strong>Etcd</strong>, que é chave-valor, não SQL relacional.</li>
+                    <li><strong>Runtimes (D):</strong> O Kubernetes usa CRI (Container Runtime Interface) e suporta containerd, CRI-O, etc. O Docker shim foi depreciado.</li>
+                    <li><strong>Stateful vs Stateless (E):</strong> Invertido. <em>Deployment</em> é para stateless (sem estado). <em>StatefulSet</em> é para stateful (bancos de dados).</li>
+                </ul>
+            `
+        },
+        {
+            id: 4,
+            question: "Na evolução das tecnologias de virtualização, diversas técnicas foram desenvolvidas para mitigar o <em>overhead</em> causado pela camada de virtualização. Dentre as técnicas existentes, uma delas é conhecida por necessitar, com foco no desempenho, da modificação do kernel do sistema operacional convidado para que este se comunique proativamente com o hypervisor através de <em>hypercalls</em>. O nome dessa técnica é:",
+            options: [
+                "Virtualização Total (<em>Full Virtualization</em>) com Tradução Binária.",
+                "Tradução Dinâmica de Endereços (NAT).",
+                "Emulação de Hardware via QEMU.",
+                "Paravirtualização.",
+                "Virtualização Assistida por Hardware (HVM)."
+            ],
+            correct: 3, // Index D
+            explanation: `
+                <h4>Análise Teórica Aprofundada</h4>
+                <p><strong>Paravirtualização: A Solução Colaborativa</strong></p>
+                <p>A resposta correta é a <strong>Paravirtualização</strong>. Nesta técnica, o sistema operacional convidado "sabe" que está virtualizado.</p>
+                <ul>
+                    <li><strong>Modificação de Kernel:</strong> O código-fonte do SO convidado é alterado. Em vez de executar instruções críticas que causariam falhas (traps) no hardware, ele substitui essas instruções por chamadas diretas ao hypervisor, chamadas de <strong>Hypercalls</strong>.</li>
+                    <li><strong>Analogia:</strong> Na virtualização total, o SO tenta abrir uma porta trancada e falha; na paravirtualização, ele pede educadamente ao porteiro (hypervisor) para abrir.</li>
+                </ul>
+                <p><strong>Dica de Prova:</strong> A frase-chave para Paravirtualização nas provas da AOCP é "modificação do kernel do sistema operacional convidado". Se disser "SO não modificado", refere-se à Virtualização Total ou Assistida por Hardware.</p>
+            `
+        },
+        {
+            id: 5,
+            question: "O Oracle VM VirtualBox é uma solução de virtualização de Tipo 2 amplamente utilizada. Um analista deseja garantir a segurança dos dados armazenados em suas máquinas virtuais através da criptografia de imagem de disco. Sobre esse recurso no VirtualBox, analise as assertivas e assinale a alternativa correta:",
+            options: [
+                "O VirtualBox utiliza um formato de arquivo proprietário exclusivo chamado VDI, sendo incapaz de abrir ou converter discos nos formatos VMDK (VMware) ou VHD (Microsoft).",
+                "A Chave de Criptografia de Dados (<strong>DEK</strong> - <em>Data Encryption Key</em>) é armazenada criptografada nas propriedades da mídia (arquivo de configuração da VM) e é descriptografada durante a inicialização da VM somente após o usuário fornecer a senha correta.",
+                "Para utilizar a criptografia, é necessário instalar um sistema operacional convidado que suporte nativamente criptografia de disco, como o Windows com BitLocker, pois o VirtualBox não realiza a criptografia em nível de hypervisor.",
+                "Se a senha de criptografia for perdida, é possível recuperá-la através do arquivo de log da máquina virtual, onde a DEK é armazenada temporariamente em texto plano durante o boot para fins de depuração.",
+                "A criptografia de disco no VirtualBox aplica-se apenas a discos rígidos virtuais fixos, não sendo suportada em discos dinamicamente alocados devido à variação constante de tamanho."
+            ],
+            correct: 1, // Index B
+            explanation: `
+                <h4>Análise Teórica Aprofundada</h4>
+                <p><strong>VirtualBox e Segurança de Dados</strong></p>
+                <p>A alternativa correta descreve o mecanismo de criptografia nativo do VirtualBox:</p>
+                <ol>
+                    <li><strong>DEK (Data Encryption Key):</strong> Uma chave aleatória é gerada para encriptar os dados.</li>
+                    <li><strong>Proteção:</strong> A DEK é encriptada usando a senha fornecida pelo usuário.</li>
+                    <li><strong>Armazenamento:</strong> A DEK encriptada é guardada nos arquivos de configuração da VM (<code>.vbox</code>).</li>
+                    <li><strong>Execução:</strong> Ao iniciar, o usuário digita a senha, o VirtualBox decifra a DEK e a usa para ler o disco transparente.</li>
+                </ol>
+                <p>A alternativa (A) é falsa pois o VirtualBox suporta VDI, VMDK e VHD. A alternativa (C) confunde criptografia do Hypervisor com criptografia do SO Guest (BitLocker). A alternativa (D) é falsa pois a DEK nunca fica em texto plano.</p>
+            `
+        },
+        {
+            id: 6,
+            question: "Em um ambiente corporativo utilizando VMware vSphere, a continuidade de negócios é essencial. O administrador precisa realizar a manutenção física (troca de memória RAM) em um servidor ESXi que está atualmente executando dez máquinas virtuais críticas. Qual tecnologia deve ser utilizada para mover essas máquinas virtuais em execução para outro host físico do cluster, sem interromper o serviço aos usuários e sem perda de conexão de rede?",
+            options: [
+                "vSphere Replication.",
+                "vSphere High Availability (HA).",
+                "vMotion.",
+                "Storage vMotion.",
+                "vCenter Converter."
+            ],
+            correct: 2, // Index C
+            explanation: `
+                <h4>Análise Teórica Aprofundada</h4>
+                <p><strong>vMotion: A Joia da Coroa da VMware</strong></p>
+                <p>O <strong>vMotion</strong> permite mover uma VM inteira (estado de execução/memória) de um servidor físico para outro <strong>sem downtime</strong>.</p>
+                <ul>
+                    <li>Ele copia a memória RAM de forma iterativa (monitorando páginas "sujas" ou alteradas) enquanto a VM roda.</li>
+                    <li>No momento final, congela a VM por milissegundos, transfere o estado final e comuta para o novo host.</li>
+                </ul>
+                <p><strong>Diferenças:</strong></p>
+                <ul>
+                    <li><strong>HA (High Availability):</strong> Reinicia VMs após uma falha (tem downtime de boot). É reativo.</li>
+                    <li><strong>Storage vMotion:</strong> Move os <em>arquivos de disco</em> da VM entre storages, não a execução da CPU entre hosts.</li>
+                </ul>
+            `
+        },
+        {
+            id: 7,
+            question: "A correta utilização da terminologia é fundamental na gestão de ambientes virtualizados. Ao ler a documentação de um sistema de virtualização, você encontra referências aos termos \"Anfitrião\" (<em>Host</em>) e \"Convidado\" (<em>Guest</em>). Assinale a alternativa que apresenta a definição correta desses termos no contexto de hypervisores de Tipo 2:",
+            options: [
+                "<strong>Host</strong> refere-se à máquina virtual que está sendo executada, enquanto <strong>Guest</strong> é o sistema operacional físico instalado no hardware.",
+                "<strong>Host</strong> é o sistema computacional físico (hardware + sistema operacional base) onde o software de virtualização está instalado; <strong>Guest</strong> é o sistema operacional ou máquina virtual que opera sobre essa camada de virtualização.",
+                "Ambos os termos são intercambiáveis e referem-se ao administrador de rede que possui as credenciais de acesso ao hypervisor.",
+                "<strong>Guest</strong> é o software hypervisor (como o VirtualBox), enquanto <strong>Host</strong> é a aplicação final (como o Microsoft Word) rodando dentro da VM.",
+                "<strong>Host</strong> é sempre um sistema Linux, enquanto <strong>Guest</strong> deve ser obrigatoriamente um sistema Windows, devido às limitações de licenciamento da arquitetura x86."
+            ],
+            correct: 1, // Index B
+            explanation: `
+                <h4>Análise Teórica Aprofundada</h4>
+                <p><strong>A Relação Anfitrião-Convidado</strong></p>
+                <ul>
+                    <li><strong>Host (Anfitrião):</strong> É a base. Em virtualização Tipo 2, é o hardware físico + o Sistema Operacional base (ex: seu Windows 10 instalado no PC). Ele fornece os recursos reais.</li>
+                    <li><strong>Guest (Convidado):</strong> É a visita. É a Máquina Virtual encapsulada que vive "dentro" do software de virtualização. Ela acredita ter hardware próprio, mas usa recursos cedidos pelo Host.</li>
+                </ul>
+                <p>A confusão ou inversão desses termos é uma "pegadinha" comum em provas.</p>
+            `
+        },
+        {
+            id: 8,
+            question: "A implementação de uma Infraestrutura de Desktop Virtual (VDI) busca centralizar o gerenciamento de estações de trabalho. Uma técnica comum para reduzir o consumo de espaço em disco em implementações de VDI em larga escala (por exemplo, 500 desktops virtuais Windows 10) é o uso de \"Linked Clones\" ou provisionamento baseado em imagem mestre. Qual é a característica principal dessa abordagem?",
+            options: [
+                "Cada desktop virtual possui uma cópia completa e independente de todos os arquivos do sistema operacional, garantindo que falhas na imagem mestre não afetem os usuários, ao custo de maior uso de disco.",
+                "Os desktops virtuais compartilham um disco virtual base (imagem mestre) para leitura dos arquivos do sistema operacional, e as gravações individuais de cada usuário (arquivos temporários, perfil) são armazenadas em discos diferenciais separados.",
+                "A imagem mestre é carregada inteiramente na memória RAM do servidor, eliminando a necessidade de armazenamento em disco rígido ou SSD para os desktops virtuais.",
+                "O processamento gráfico é transferido para o dispositivo cliente (endpoint) do usuário, exigindo que tablets e <em>thin clients</em> possuam placas de vídeo de alto desempenho.",
+                "Permite que usuários acessem seus desktops sem conexão de rede, pois a imagem mestre é baixada localmente para o dispositivo do usuário (streaming de OS)."
+            ],
+            correct: 1, // Index B
+            explanation: `
+                <h4>Análise Teórica Aprofundada</h4>
+                <p><strong>O Desafio do Armazenamento em VDI</strong></p>
+                <p>A alternativa correta descreve a técnica de <strong>Linked Clones</strong>.</p>
+                <ul>
+                    <li><strong>Economia:</strong> Em vez de ter 500 cópias de 20GB (Full Clones), cria-se uma <em>Golden Image</em> de 20GB.</li>
+                    <li><strong>Funcionamento:</strong> Todos os 500 desktops leem os arquivos do sistema dessa imagem única.</li>
+                    <li><strong>Escrita (Delta Disks):</strong> As alterações feitas por cada usuário (perfil, arquivos salvos) vão para pequenos discos diferenciais exclusivos. Isso economiza até 90% de espaço.</li>
+                </ul>
+                <p>A alternativa (A) descreve Full Clones. A alternativa (C) descreve RAM Disk (inviável para VDI em massa). A alternativa (D) erra ao dizer que o processamento vai para o cliente (em VDI, o processamento é no servidor).</p>
+            `
+        },
+        {
+            id: 9,
+            question: "Um Analista de Tecnologia da Informação está avaliando soluções de virtualização para um novo cluster de servidores de alta performance. Assinale a alternativa que apresenta <strong>apenas</strong> soluções classificadas tecnicamente como Hypervisores de Tipo 1 (Bare-Metal):",
+            options: [
+                "VMware ESXi, Microsoft Hyper-V Server, Citrix Hypervisor (XenServer).",
+                "Oracle VM VirtualBox, VMware Workstation Pro, Microsoft Hyper-V.",
+                "KVM, Docker, Kubernetes.",
+                "VMware ESXi, Parallels Desktop, QEMU.",
+                "Microsoft Azure, Amazon EC2, Google Compute Engine."
+            ],
+            correct: 0, // Index A
+            explanation: `
+                <h4>Análise Teórica Aprofundada</h4>
+                <p><strong>Classificação de Mercado</strong></p>
+                <ul>
+                    <li><strong>VMware ESXi:</strong> O padrão ouro de Bare-Metal. Instala-se direto no hardware.</li>
+                    <li><strong>Microsoft Hyper-V Server:</strong> Opera com arquitetura de partição pai/filho diretamente sobre o hardware.</li>
+                    <li><strong>Citrix Hypervisor (XenServer):</strong> Baseado em Xen, clássico Tipo 1 com Dom0 privilegiado.</li>
+                </ul>
+                <p><strong>Erros:</strong></p>
+                <ul>
+                    <li>(B) Contém VirtualBox e Workstation (Tipo 2).</li>
+                    <li>(C) Contém Docker e Kubernetes (Contêineres/Orquestração, não Hypervisores).</li>
+                    <li>(D) Contém Parallels (Tipo 2).</li>
+                    <li>(E) Lista provedores de Nuvem Pública (IaaS), não softwares hypervisor instaláveis on-premise.</li>
+                </ul>
+            `
+        },
+        {
+            id: 10,
+            question: "O gerenciamento eficiente de <em>storage</em> é crucial em ambientes virtualizados. O recurso conhecido como <strong>Thin Provisioning</strong> (Provisionamento Fino) permite:",
+            options: [
+                "Alocar todo o espaço físico do disco virtual no momento de sua criação, preenchendo-o com zeros para garantir a contiguidade dos dados e melhor desempenho de leitura.",
+                "Apresentar à máquina virtual um tamanho lógico de disco maior do que o espaço físico realmente ocupado no armazenamento, alocando blocos físicos apenas à medida que dados são efetivamente gravados pelo sistema convidado.",
+                "Dedupiclar blocos de dados repetidos em tempo real na memória RAM do host antes de gravá-los no disco, reduzindo a latência de I/O.",
+                "Criar cópias de segurança instantâneas (snapshots) do disco virtual sem consumir espaço adicional, utilizando ponteiros para os blocos originais.",
+                "Criptografar os dados do disco virtual utilizando algoritmos leves (\"thin\") que consomem menos ciclos de CPU do host."
+            ],
+            correct: 1, // Index B
+            explanation: `
+                <h4>Análise Teórica Aprofundada</h4>
+                <p><strong>Thick vs Thin Provisioning</strong></p>
+                <p>A alternativa correta define o <strong>Thin Provisioning</strong>.</p>
+                <ul>
+                    <li><strong>Conceito:</strong> Você cria um disco de 100GB, mas se só gravou 10GB de dados, ele ocupa apenas 10GB no storage físico. O arquivo cresce conforme a necessidade.</li>
+                    <li><strong>Overcommitment:</strong> Permite "vender mais do que se tem" (ex: criar 10 VMs de 100GB em um disco físico de 500GB), confiando que nem todas encherão o disco ao mesmo tempo.</li>
+                </ul>
+                <p>A alternativa (A) descreve o <em>Thick Provisioning Eager Zeroed</em>. A alternativa (D) refere-se a Snapshots.</p>
+            `
+        }
+    ];
+
+    function renderQuiz() {
+        const container = document.getElementById('questions-container');
+        
+        quizData.forEach((item, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            
+            let optionsHTML = '<ul class="options">';
+            item.options.forEach((opt, optIndex) => {
+                optionsHTML += `
+                    <li class="option-item">
+                        <label>
+                            <input type="radio" name="q${item.id}" value="${optIndex}">
+                            <span>${["(A)", "(B)", "(C)", "(D)", "(E)"][optIndex]} ${opt}</span>
+                        </label>
+                    </li>
+                `;
+            });
+            optionsHTML += '</ul>';
+
+            card.innerHTML = `
+                <span class="question-number">Questão ${index + 1}</span>
+                <div class="question-text">${item.question}</div>
+                ${optionsHTML}
+            `;
+            
+            container.appendChild(card);
+        });
+    }
+
+    function submitQuiz() {
+        let score = 0;
+        let answeredCount = 0;
+        const total = quizData.length;
+        const resolutionsContainer = document.getElementById('resolutions-container');
+        resolutionsContainer.innerHTML = ''; // Limpar resultados anteriores
+
+        // Verificar respostas e montar resoluções
+        quizData.forEach((item, index) => {
+            const selected = document.querySelector(`input[name="q${item.id}"]:checked`);
+            const userAnsIndex = selected ? parseInt(selected.value) : -1;
+            
+            if (selected) answeredCount++;
+            
+            const isCorrect = userAnsIndex === item.correct;
+            if (isCorrect) score++;
+
+            // Criar card de resolução
+            const resCard = document.createElement('div');
+            resCard.className = 'resolution-card';
+            
+            const letters = ["(A)", "(B)", "(C)", "(D)", "(E)"];
+            const statusClass = isCorrect ? 'status-correct' : 'status-incorrect';
+            const statusText = isCorrect ? 'Correto' : 'Incorreto / Não Respondido';
+            
+            // Texto da resposta do usuário
+            let userAnsText = "Nenhuma resposta selecionada";
+            if (userAnsIndex !== -1) {
+                userAnsText = `${letters[userAnsIndex]} ${item.options[userAnsIndex]}`;
+            }
+
+            // Texto da resposta correta
+            const correctAnsText = `${letters[item.correct]} ${item.options[item.correct]}`;
+
+            resCard.innerHTML = `
+                <div class="status-badge ${statusClass}">Questão ${index + 1}: ${statusText}</div>
+                <div class="question-text"><strong>Enunciado:</strong> ${item.question}</div>
+                
+                <div style="margin: 15px 0; padding: 10px; background: #fff; border: 1px solid #eee;">
+                    <p style="margin: 5px 0; color: ${isCorrect ? 'var(--success-color)' : 'var(--error-color)'}">
+                        <strong>Sua Resposta:</strong> ${userAnsText}
+                    </p>
+                    ${!isCorrect ? `<p style="margin: 5px 0; color: var(--success-color)"><strong>Gabarito Oficial:</strong> ${correctAnsText}</p>` : ''}
+                </div>
+
+                <div class="explanation-box explanation-content">
+                    ${item.explanation}
+                </div>
+            `;
+            
+            resolutionsContainer.appendChild(resCard);
+        });
+
+        // Atualizar placar
+        const scoreDisplay = document.getElementById('final-score');
+        scoreDisplay.textContent = `Você acertou ${score} de ${total} questões`;
+        
+        // Mostrar seção e rolar
+        document.getElementById('result-section').style.display = 'block';
+        
+        // Desabilitar formulário
+        const inputs = document.querySelectorAll('input[type="radio"]');
+        inputs.forEach(input => input.disabled = true);
+        document.querySelector('.btn-submit').style.display = 'none';
+
+        // Scroll suave para o resultado
+        document.getElementById('result-section').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Inicializar
+    renderQuiz();
+
+</script>
+
+</body>
+</html>

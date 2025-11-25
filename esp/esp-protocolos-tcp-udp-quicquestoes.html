@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado TCP/IP - Instituto AOCP</title>
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --text-color: #2d2d2d;
+            --accent-color: #0056b3;
+            --border-color: #e0e0e0;
+            --card-bg: #ffffff;
+            --success-color: #28a745;
+            --error-color: #dc3545;
+            --highlight-bg: #f0f7ff;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+        }
+
+        p.intro {
+            font-size: 1.1rem;
+            color: #555;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+        }
+
+        .question-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #000;
+        }
+
+        .question-text {
+            margin-bottom: 25px;
+            font-size: 1.05rem;
+        }
+
+        .code-block {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-left: 4px solid var(--accent-color);
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .option-label:hover {
+            background-color: #f5f5f5;
+        }
+
+        .option-input {
+            margin-top: 6px;
+            margin-right: 12px;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 40px;
+        }
+
+        .btn-submit:hover {
+            background-color: #004494;
+        }
+
+        /* Styles for Results */
+        .result-section {
+            display: none; /* Hidden by default */
+            margin-top: 50px;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .score-box {
+            background-color: var(--highlight-bg);
+            border: 2px solid var(--accent-color);
+            padding: 30px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+
+        .score-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .resolution-box {
+            display: none; /* Hidden until submission */
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f8fff9;
+            border-left: 5px solid var(--success-color);
+            font-size: 1rem;
+        }
+
+        .resolution-title {
+            font-weight: bold;
+            color: var(--success-color);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .user-correct {
+            color: var(--success-color);
+            font-weight: bold;
+        }
+        
+        .user-wrong {
+            color: var(--error-color);
+            font-weight: bold;
+        }
+
+        /* Marker classes for options after checking */
+        .option-label.correct-answer {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+        }
+
+        .option-label.wrong-answer {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px 15px;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado Especializado: Arquitetura TCP/IP</h1>
+        <p class="intro">Foco: Instituto AOCP - 10 Questões Comentadas</p>
+    </header>
+
+    <form id="quiz-form">
+        <!-- Questions will be injected here by JavaScript -->
+        <div id="questions-container"></div>
+        
+        <button type="button" class="btn-submit" onclick="submitQuiz()">Finalizar Simulado e Ver Resoluções</button>
+    </form>
+
+    <div id="result-header" class="result-section">
+        <div class="score-box">
+            <h2>Resultado</h2>
+            <div class="score-number" id="score-display">0/10</div>
+            <p id="score-message">Confira abaixo o gabarito comentado detalhado.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    const quizData = [
+        {
+            id: 1,
+            question: "O modelo de referência OSI (Open Systems Interconnection) e a arquitetura TCP/IP são as duas estruturas teóricas dominantes para a descrição de comunicações em rede. Embora o modelo OSI possua sete camadas distintas para padronizar a interoperabilidade entre sistemas diversos, a arquitetura TCP/IP, desenvolvida com foco na implementação prática e na robustez da ARPANET, adota uma abordagem mais condensada. Considerando o mapeamento funcional entre os dois modelos, é correto afirmar que as funcionalidades de controle de diálogo (sessão), tradução de sintaxe de dados e criptografia (apresentação), bem como a interface com o usuário, são, no modelo TCP/IP, consolidadas na camada de:",
+            options: [
+                "A) Transporte.",
+                "B) Inter-rede.",
+                "C) Aplicação.",
+                "D) Enlace de Dados.",
+                "E) Acesso à Rede."
+            ],
+            correct: 2, // Index C
+            explanation: `
+                <strong>Gabarito: C (Aplicação)</strong><br><br>
+                A compreensão da arquitetura de redes exige a distinção clara entre o modelo teórico (OSI) e o modelo prático (TCP/IP). A principal divergência estrutural reside nas camadas superiores.<br><br>
+                <strong>Análise Comparativa:</strong><br>
+                1. <strong>Modelo OSI (7 Camadas):</strong> Inclui Aplicação (interface), Apresentação (tradução/criptografia) e Sessão (diálogo).<br>
+                2. <strong>Arquitetura TCP/IP:</strong> Simplifica essa estrutura. A <strong>Camada de Aplicação</strong> do TCP/IP absorve todas as responsabilidades das camadas de Aplicação, Apresentação e Sessão do modelo OSI.<br><br>
+                Portanto, protocolos como HTTP, SMTP e FTP, que residem na camada de Aplicação do TCP/IP, incluem funções de apresentação e gerenciamento de sessão. O Instituto AOCP costuma cobrar essa equivalência exata: <em>Aplicação TCP/IP = Sessão + Apresentação + Aplicação OSI</em>.
+            `
+        },
+        {
+            id: 2,
+            question: "A Camada de Transporte desempenha um papel crítico na garantia da comunicação fim-a-fim entre processos em hosts distintos. Dois protocolos dominam essa camada na suíte TCP/IP: o TCP e o UDP. Em um cenário de implementação de serviços de rede, um administrador precisa escolher o protocolo adequado para uma aplicação de <em>streaming</em> de vídeo em tempo real, onde a latência é crítica e a perda ocasional de pacotes é tolerável, em contraposição a um sistema de transferência de arquivos bancários que exige integridade absoluta. Assinale a alternativa que descreve corretamente as características técnicas que fundamentam essa escolha.",
+            options: [
+                "A) O protocolo UDP é orientado a conexão e garante a entrega ordenada dos pacotes através de números de sequência, sendo ideal para a transferência bancária.",
+                "B) O protocolo TCP é não orientado a conexão, priorizando a velocidade em detrimento da confiabilidade, e utiliza o mecanismo de <em>windowing</em> apenas para estatísticas.",
+                "C) O protocolo TCP realiza o controle de fluxo e congestionamento, garantindo, através de <em>acknowledgments</em> (ACKs), que dados perdidos sejam retransmitidos, enquanto o UDP envia datagramas sem garantia de entrega ou ordenação.",
+                "D) Tanto o TCP quanto o UDP utilizam o mecanismo de <em>three-way handshake</em> para estabelecer uma conexão segura antes de iniciar a transferência de qualquer dado útil.",
+                "E) O UDP é o protocolo responsável pelo roteamento de pacotes através da rede, determinando o melhor caminho (salto a salto) baseado no endereço IP de destino, liberando o TCP para o controle de erro."
+            ],
+            correct: 2, // Index C
+            explanation: `
+                <strong>Gabarito: C</strong><br><br>
+                <strong>TCP (Transmission Control Protocol):</strong> É orientado a conexão, garante a entrega (via ACKs), realiza retransmissão de dados perdidos, ordenação e controle de fluxo. É ideal para transferências bancárias onde a integridade é crucial.<br>
+                <strong>UDP (User Datagram Protocol):</strong> É "Best Effort". Não orientado a conexão, sem handshake, sem garantia de entrega e sem reordenação. É mais leve e rápido, ideal para <em>streaming</em> e tempo real.<br><br>
+                A alternativa C resume corretamente: o TCP usa ACKs e janelas deslizantes para confiabilidade, enquanto o UDP opera no modelo "disparar e esquecer".
+            `
+        },
+        {
+            id: 3,
+            question: "A administração de redes requer o conhecimento profundo das portas padrão (<em>well-known ports</em>) associadas aos serviços da Camada de Aplicação. Analise as assertivas abaixo sobre protocolos de aplicação e suas respectivas portas.<br>I. O protocolo FTP utiliza, por padrão, a porta 21 TCP para o estabelecimento do canal de controle e comandos.<br>II. O protocolo SMTP é utilizado por clientes de e-mail (MUA) para baixar mensagens do servidor, operando tipicamente na porta 110.<br>III. O protocolo SSH oferece uma alternativa segura ao Telnet para administração remota, operando na porta 22 TCP com suporte a criptografia.<br>Assinale a alternativa correta.",
+            options: [
+                "A) Apenas I e II estão corretas.",
+                "B) Apenas I e III estão corretas.",
+                "C) Apenas II e III estão corretas.",
+                "D) Todas as assertivas estão corretas.",
+                "E) Nenhuma das assertivas está correta."
+            ],
+            correct: 1, // Index B
+            explanation: `
+                <strong>Gabarito: B (Apenas I e III estão corretas)</strong><br><br>
+                <strong>I. Correta (FTP):</strong> Utiliza a porta 21 para controle/comandos e a porta 20 para dados.<br>
+                <strong>II. Incorreta (SMTP/POP3):</strong> O SMTP (Porta 25/587) é para <em>envio</em> de e-mail. Para <em>baixar</em> mensagens (recebimento), utiliza-se o POP3 (Porta 110) ou IMAP (143). A assertiva confundiu a função do SMTP com a do POP3.<br>
+                <strong>III. Correta (SSH):</strong> O SSH (Porta 22) substitui o Telnet (Porta 23) oferecendo criptografia e segurança para administração remota.
+            `
+        },
+        {
+            id: 4,
+            question: "Durante a análise de desempenho e segurança de um servidor Windows Server 2019, um analista necessita listar todas as conexões TCP ativas. Devido a uma falha intermitente no servidor DNS local, a resolução de nomes de host está extremamente lenta. Para contornar esse problema e exibir os endereços e portas estritamente em formato numérico, qual a sintaxe correta do comando <code>netstat</code> a ser utilizada?",
+            options: [
+                "A) netstat -a",
+                "B) netstat -b",
+                "C) netstat -n",
+                "D) netstat -o",
+                "E) netstat -p"
+            ],
+            correct: 2, // Index C
+            explanation: `
+                <strong>Gabarito: C (netstat -n)</strong><br><br>
+                O comando <code>netstat</code> por padrão tenta resolver os IPs para nomes de host (DNS reverso) e portas para nomes de serviço. Se o DNS falhar, o comando trava/demora.<br>
+                <strong>-n (Numerical):</strong> Instrui o comando a não resolver nomes, exibindo endereços e portas em formato numérico (Ex: 192.168.1.50:80). Isso torna a execução instantânea mesmo sem DNS.<br>
+                Outras opções: <em>-a</em> (All connections), <em>-b</em> (Executável), <em>-o</em> (PID).
+            `
+        },
+        {
+            id: 5,
+            question: "A camada de Internet do modelo TCP/IP é responsável pelo endereçamento lógico e roteamento. O protocolo IP não possui mecanismos nativos para reportar erros. Qual protocolo é responsável pelo envio de mensagens de 'Destino Inalcançável' (<em>Destination Unreachable</em>) e é a base para o funcionamento do utilitário <code>ping</code>?",
+            options: [
+                "A) ARP (Address Resolution Protocol).",
+                "B) DNS (Domain Name System).",
+                "C) DHCP (Dynamic Host Configuration Protocol).",
+                "D) ICMP (Internet Control Message Protocol).",
+                "E) SNMP (Simple Network Management Protocol)."
+            ],
+            correct: 3, // Index D
+            explanation: `
+                <strong>Gabarito: D (ICMP)</strong><br><br>
+                O <strong>ICMP (Internet Control Message Protocol)</strong> é o protocolo de sinalização e controle da camada de Internet. Ele auxilia o IP reportando erros e informações.<br>
+                - <strong>Ping:</strong> Utiliza mensagens <em>Echo Request</em> e <em>Echo Reply</em> do ICMP.<br>
+                - <strong>Erros:</strong> Quando um pacote não chega, o roteador envia um ICMP <em>Destination Unreachable</em>.<br>
+                O ARP resolve IP em MAC (Local). O SNMP gerencia rede. O DNS resolve nomes.
+            `
+        },
+        {
+            id: 6,
+            question: "O protocolo DHCP automatiza a atribuição de endereços IP. Considere o trecho de configuração:<br><div class='code-block'>subnet 192.168.1.0 netmask 255.255.255.0 {<br>  range 192.168.1.100 192.168.1.199;<br>  default-lease-time 600;<br>}</div><br>Com base nessa configuração, assinale a alternativa correta.",
+            options: [
+                "A) A diretiva range define os endereços IP que o servidor deve bloquear.",
+                "B) O parâmetro default-lease-time 600 indica espera de 600ms pela resposta.",
+                "C) O servidor distribuirá endereços IP dinâmicos situados exclusivamente no intervalo entre 192.168.1.100 e 192.168.1.199 para os clientes que solicitarem configuração via broadcast.",
+                "D) O DHCP opera na camada de Transporte utilizando o protocolo TCP na porta 80.",
+                "E) A configuração obriga que todos os clientes utilizem endereços estáticos fora da faixa."
+            ],
+            correct: 2, // Index C
+            explanation: `
+                <strong>Gabarito: C</strong><br><br>
+                A diretiva <code>range</code> dentro da declaração de subnet define o <strong>pool de endereços</strong> que o servidor DHCP pode atribuir dinamicamente aos clientes.<br>
+                - O <em>lease-time</em> é em segundos (tempo de aluguel), não milissegundos.<br>
+                - O DHCP usa UDP (Portas 67/68), não TCP porta 80.<br>
+                - A configuração permite IPs estáticos fora do range (ex: .1 a .99), mas não obriga. A função descrita na alternativa C é a definição exata do funcionamento do servidor.
+            `
+        },
+        {
+            id: 7,
+            question: "A segurança na camada de aplicação envolve a escolha de protocolos que implementem confidencialidade. O protocolo Telnet transmite dados em texto claro. Seu sucessor, o SSH, implementa criptografia. Por padrão, em qual porta TCP o servidor SSH aguarda conexões?",
+            options: [
+                "A) 21.",
+                "B) 22.",
+                "C) 23.",
+                "D) 80.",
+                "E) 443."
+            ],
+            correct: 1, // Index B
+            explanation: `
+                <strong>Gabarito: B (22)</strong><br><br>
+                <strong>SSH (Secure Shell):</strong> Porta padrão <strong>22 TCP</strong>. Garante confidencialidade e integridade.<br>
+                <strong>Telnet:</strong> Porta 23 (Texto claro/Inseguro).<br>
+                <strong>FTP:</strong> Porta 21.<br>
+                <strong>HTTPS:</strong> Porta 443.<br>
+                Memorizar 22 para SSH é mandatório para provas da AOCP.
+            `
+        },
+        {
+            id: 8,
+            question: "O esgotamento do espaço de endereçamento IPv4 impulsionou a adoção do IPv6. Sobre as características do endereçamento IPv6 na arquitetura TCP/IP, assinale a alternativa correta.",
+            options: [
+                "A) O IPv6 mantém o tamanho de 32 bits para endereços, mas utiliza notação hexadecimal.",
+                "B) O IPv6 utiliza endereços de 128 bits, representados em notação hexadecimal, e elimina a necessidade do protocolo ARP, substituindo-o pelo protocolo de Descoberta de Vizinhos (NDP) baseado em ICMPv6.",
+                "C) No IPv6, o uso de máscaras de sub-rede foi abolido.",
+                "D) Os cabeçalhos IPv6 incluem nativamente campos de verificação de erro (checksum) para cada salto.",
+                "E) O IPv6 não suporta transmissão multicast."
+            ],
+            correct: 1, // Index B
+            explanation: `
+                <strong>Gabarito: B</strong><br><br>
+                <strong>Mudanças IPv4 para IPv6:</strong><br>
+                - <strong>Tamanho:</strong> Salta de 32 bits para <strong>128 bits</strong> (Hexadecimal).<br>
+                - <strong>ARP vs NDP:</strong> O IPv6 elimina o Broadcast e o ARP. Ele utiliza o <strong>NDP (Neighbor Discovery Protocol)</strong> via ICMPv6 e Multicast para resolução de endereços.<br>
+                - <strong>Checksum:</strong> O cabeçalho IPv6 foi simplificado e <em>não</em> possui checksum (deixando isso para camadas superiores/inferiores) para acelerar o roteamento.
+            `
+        },
+        {
+            id: 9,
+            question: "Em uma infraestrutura de rede corporativa, a resolução de nomes de domínio (DNS) é essencial. Qual comando de linha de comando permite realizar consultas DNS interativas ou diretas, especificando o servidor de nomes a ser consultado, ignorando a configuração padrão do sistema?",
+            options: [
+                "A) getmac",
+                "B) route",
+                "C) nslookup",
+                "D) arp",
+                "E) hostname"
+            ],
+            correct: 2, // Index C
+            explanation: `
+                <strong>Gabarito: C (nslookup)</strong><br><br>
+                <strong>nslookup (Name Server Lookup):</strong> Ferramenta específica para diagnósticos de DNS. Permite consultar servidores específicos (ex: <code>nslookup google.com 8.8.8.8</code>) para verificar se um servidor DNS está respondendo corretamente, isolando falhas locais.<br>
+                - <em>getmac:</em> Endereço físico.<br>
+                - <em>route:</em> Tabela de roteamento.<br>
+                - <em>arp:</em> Tabela IP-MAC.
+            `
+        },
+        {
+            id: 10,
+            question: "Os dispositivos de interconexão de redes operam em camadas específicas. Enquanto um Switch tradicional toma decisões baseadas em MAC, um Roteador tem a função de interconectar redes. Em qual camada da arquitetura TCP/IP o roteador atua primordialmente e qual identificador ele utiliza para determinar a rota?",
+            options: [
+                "A) Camada de Acesso à Rede; Endereço MAC.",
+                "B) Camada de Aplicação; URL ou URI.",
+                "C) Camada de Internet; Endereço IP.",
+                "D) Camada de Transporte; Número de Porta TCP/UDP.",
+                "E) Camada Física; Frequência do sinal."
+            ],
+            correct: 2, // Index C
+            explanation: `
+                <strong>Gabarito: C (Camada de Internet; Endereço IP)</strong><br><br>
+                <strong>Roteador (Router):</strong> É o dispositivo central da <strong>Camada de Internet (L3)</strong>. Sua função é encaminhar pacotes entre redes diferentes baseando-se no <strong>Endereço IP</strong> lógico de destino contido no cabeçalho do pacote.<br>
+                - <em>Switch:</em> Camada de Acesso/Enlace (L2), usa MAC.<br>
+                - <em>Hub:</em> Camada Física (L1).
+            `
+        }
+    ];
+
+    function renderQuiz() {
+        const container = document.getElementById('questions-container');
+        let html = '';
+
+        quizData.forEach((q, index) => {
+            let optionsHtml = '';
+            q.options.forEach((opt, optIndex) => {
+                optionsHtml += `
+                    <li class="option-item">
+                        <label class="option-label" id="label-q${index}-o${optIndex}">
+                            <input type="radio" name="q${index}" value="${optIndex}" class="option-input">
+                            ${opt}
+                        </label>
+                    </li>
+                `;
+            });
+
+            html += `
+                <div class="question-card" id="card-${index}">
+                    <div class="question-title">Questão ${q.id}</div>
+                    <div class="question-text">${q.question}</div>
+                    <ul class="options-list">
+                        ${optionsHtml}
+                    </ul>
+                    <div class="resolution-box" id="res-${index}">
+                        <span class="resolution-title">Resolução e Análise:</span>
+                        ${q.explanation}
+                    </div>
+                </div>
+            `;
+        });
+
+        container.innerHTML = html;
+    }
+
+    function submitQuiz() {
+        let score = 0;
+        let answered = 0;
+        
+        // Disable button to prevent double submit
+        document.querySelector('.btn-submit').disabled = true;
+        document.querySelector('.btn-submit').innerText = "Simulado Finalizado";
+        document.querySelector('.btn-submit').style.backgroundColor = "#6c757d";
+
+        quizData.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            const resolutionBox = document.getElementById(`res-${index}`);
+            const card = document.getElementById(`card-${index}`);
+            
+            // Show resolution
+            resolutionBox.style.display = 'block';
+
+            // Mark correct option visually
+            const correctLabel = document.getElementById(`label-q${index}-o${q.correct}`);
+            correctLabel.classList.add('correct-answer');
+
+            if (selected) {
+                const selectedVal = parseInt(selected.value);
+                if (selectedVal === q.correct) {
+                    score++;
+                } else {
+                    const wrongLabel = document.getElementById(`label-q${index}-o${selectedVal}`);
+                    wrongLabel.classList.add('wrong-answer');
+                }
+            }
+            
+            // Disable inputs
+            const inputs = document.querySelectorAll(`input[name="q${index}"]`);
+            inputs.forEach(input => input.disabled = true);
+        });
+
+        // Show Score
+        const resultSection = document.getElementById('result-header');
+        const scoreDisplay = document.getElementById('score-display');
+        const scoreMessage = document.getElementById('score-message');
+        
+        scoreDisplay.innerText = `${score}/10`;
+        
+        if(score >= 8) {
+            scoreMessage.innerText = "Excelente! Você demonstra domínio avançado do conteúdo.";
+            scoreMessage.style.color = "var(--success-color)";
+        } else if (score >= 6) {
+             scoreMessage.innerText = "Bom trabalho. Revise os tópicos onde houve erro.";
+             scoreMessage.style.color = "#d69e2e"; // warning color
+        } else {
+             scoreMessage.innerText = "Recomendamos uma revisão aprofundada das resoluções abaixo.";
+             scoreMessage.style.color = "var(--error-color)";
+        }
+
+        resultSection.style.display = 'block';
+        
+        // Scroll to results
+        resultSection.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Initialize
+    window.onload = renderQuiz;
+</script>
+
+</body>
+</html>

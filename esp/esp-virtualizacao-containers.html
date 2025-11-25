@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo: Virtualização e Containers - IFPB/AOCP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Ajustes finos para impressão e leitura */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Garantir que tabelas quebrem linha e não gerem scroll */
+        table {
+            width: 100%;
+            table-layout: fixed; /* Força as colunas a respeitarem a largura */
+        }
+        td, th {
+            word-wrap: break-word; /* Quebra palavras longas se necessário */
+            overflow-wrap: break-word;
+        }
+
+        /* Estilo de destaque (grifado) */
+        .destaque {
+            background-color: #fef9c3; /* Amarelo muito suave */
+            color: #000;
+            font-weight: 700;
+            padding: 0 4px;
+            border-radius: 2px;
+            border-bottom: 2px solid #fcd34d; /* Sublinhado mais forte */
+        }
+
+        .destaque-alerta {
+            background-color: #fee2e2; /* Vermelho suave */
+            color: #991b1b;
+            font-weight: 700;
+            padding: 0 4px;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900 leading-relaxed">
+
+    <!-- Container Principal -->
+    <main class="max-w-4xl mx-auto px-4 py-8 md:px-12 md:py-12 shadow-sm border-x border-gray-100 min-h-screen">
+
+        <!-- Cabeçalho -->
+        <header class="mb-8 border-b-2 border-gray-200 pb-6">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-800 mb-2">Resumo de Alto Rendimento</h1>
+            <h2 class="text-xl text-blue-700 font-semibold">Virtualização e Containers (Foco IFPB/AOCP)</h2>
+            <p class="mt-2 text-gray-600 italic text-sm">Estratégia: Palavras-chave e distinções binárias.</p>
+        </header>
+
+        <!-- Player de Áudio -->
+        <section class="mb-10 bg-gray-50 border border-gray-200 rounded-lg p-6 flex flex-col items-center justify-center">
+            <label class="mb-2 font-bold text-gray-700 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                </svg>
+                Ouvir Resumo em Áudio
+            </label>
+            <!-- Substitua 'nome_do_arquivo.mp3' pelo seu arquivo real -->
+            <audio controls class="w-full max-w-md shadow-sm">
+                <source src="esp-virtualizacao-containers.mp3" type="audio/mpeg">
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
+            <p class="text-xs text-gray-400 mt-2">Coloque o arquivo MP3 na mesma pasta desta página.</p>
+        </section>
+
+        <!-- Conteúdo 1 -->
+        <section class="mb-10">
+            <h3 class="text-2xl font-bold text-gray-800 mb-4 border-l-4 border-blue-600 pl-3">1. Conceitos Fundamentais (O "Bê-á-bá")</h3>
+            <ul class="space-y-3 list-disc pl-5 text-gray-800">
+                <li><strong>Definição:</strong> Camada de abstração (<span class="destaque">Hypervisor/VMM</span>) que desacopla o Sistema Operacional do Hardware físico.</li>
+                <li>
+                    <strong>Lei de Popek e Goldberg (3 Pilares):</strong>
+                    <ol class="list-decimal pl-5 mt-1 space-y-1">
+                        <li><span class="destaque">Equivalência:</span> A VM se comporta igual à máquina física.</li>
+                        <li><span class="destaque">Controle:</span> O Hypervisor tem controle total sobre os recursos.</li>
+                        <li><span class="destaque">Eficiência:</span> A maior parte das instruções roda direto no hardware.</li>
+                    </ol>
+                </li>
+                <li>
+                    <strong>Hardware Assist (VT-x / AMD-V):</strong> Extensões do processador.
+                    <p class="mt-1 p-3 bg-red-50 border-l-4 border-red-400 text-sm">
+                        <span class="destaque-alerta">Pegadinha de Prova:</span> Devem ser habilitadas na <strong>BIOS/UEFI</strong>. Se desligadas, softwares 64-bit modernos falham. Cria o <em>Root Mode</em> (Hypervisor) e <em>Non-Root Mode</em> (VMs).
+                    </p>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Conteúdo 2: Tabela Hypervisores -->
+        <section class="mb-10">
+            <h3 class="text-2xl font-bold text-gray-800 mb-4 border-l-4 border-blue-600 pl-3">2. Batalha dos Hypervisores</h3>
+            <p class="mb-4">Associe o <strong>Tipo</strong> ao <strong>Local de Instalação</strong> e ao <strong>Exemplo</strong>.</p>
+            
+            <div class="overflow-hidden rounded-lg border border-gray-300">
+                <table class="w-full text-left text-sm md:text-base">
+                    <thead class="bg-gray-100 text-gray-900 font-bold uppercase">
+                        <tr>
+                            <th class="px-4 py-3 border-b border-gray-300 w-1/4">Característica</th>
+                            <th class="px-4 py-3 border-b border-gray-300 w-1/3 bg-blue-50 text-blue-900">Tipo 1 (Bare-Metal)</th>
+                            <th class="px-4 py-3 border-b border-gray-300 w-1/3">Tipo 2 (Hosted)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-4 py-3 font-semibold">Onde instala?</td>
+                            <td class="px-4 py-3 bg-blue-50">Direto no Hardware ("Ferro")</td>
+                            <td class="px-4 py-3">Sobre um SO (Windows/Linux)</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 font-semibold">Performance</td>
+                            <td class="px-4 py-3 bg-blue-50">Alta (Acesso direto)</td>
+                            <td class="px-4 py-3">Média (Concorre com Host)</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 font-semibold">Uso Principal</td>
+                            <td class="px-4 py-3 bg-blue-50">Datacenters, Nuvem</td>
+                            <td class="px-4 py-3">Laboratórios, Testes</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 font-semibold">Exemplos (AOCP)</td>
+                            <td class="px-4 py-3 bg-blue-50 font-bold">ESXi, XenServer, Hyper-V (Svr)</td>
+                            <td class="px-4 py-3 font-bold">VirtualBox, VMware Workstation</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-4 p-4 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <p class="font-bold mb-1">⚠️ O Caso KVM (Ponto Crítico):</p>
+                <p>O KVM é um <strong>Módulo do Kernel Linux</strong> (kvm.ko). Para a AOCP/IFPB (Nível Superior), trate como <span class="destaque">Tipo 1 integrado ao Kernel</span>, usando o QEMU para emular periféricos.</p>
+            </div>
+        </section>
+
+        <!-- Conteúdo 3 -->
+        <section class="mb-10">
+            <h3 class="text-2xl font-bold text-gray-800 mb-4 border-l-4 border-blue-600 pl-3">3. Técnicas: Full vs. Para</h3>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="p-4 border border-gray-200 rounded hover:shadow-md transition">
+                    <h4 class="font-bold text-lg mb-2 text-indigo-700">Full Virtualization</h4>
+                    <ul class="list-disc pl-4 space-y-2 text-sm">
+                        <li>Guest OS <span class="destaque-alerta">NÃO sabe</span> que é virtual.</li>
+                        <li>Roda SOs não modificados (ex: Windows legado).</li>
+                        <li>Mais lento em I/O (Trap-and-Emulate).</li>
+                    </ul>
+                </div>
+                <div class="p-4 border border-gray-200 rounded hover:shadow-md transition">
+                    <h4 class="font-bold text-lg mb-2 text-indigo-700">Paravirtualização</h4>
+                    <ul class="list-disc pl-4 space-y-2 text-sm">
+                        <li>Guest OS <span class="destaque">SABE</span> que é virtual (Kernel modificado/Drivers).</li>
+                        <li>Usa <strong>Hypercalls</strong> (pede direto ao Hypervisor).</li>
+                        <li>Rápido em I/O. Palavra-chave: <span class="destaque">Drivers Virtio</span>.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conteúdo 4: Containers vs VMs -->
+        <section class="mb-10">
+            <h3 class="text-2xl font-bold text-gray-800 mb-4 border-l-4 border-blue-600 pl-3">4. Containers (Docker) vs. VMs</h3>
+            <p class="mb-4 text-sm text-gray-600">Fundamental para a área de Desenvolvimento.</p>
+
+            <div class="overflow-hidden rounded-lg border border-gray-300 mb-6">
+                <table class="w-full text-left text-sm md:text-base">
+                    <thead class="bg-gray-100 text-gray-900 font-bold uppercase">
+                        <tr>
+                            <th class="px-4 py-3 border-b w-1/4">Critério</th>
+                            <th class="px-4 py-3 border-b w-1/3">Máquina Virtual (VM)</th>
+                            <th class="px-4 py-3 border-b w-1/3 bg-green-50 text-green-900">Container (Docker)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-4 py-3 font-semibold">O que virtualiza?</td>
+                            <td class="px-4 py-3">O <strong>Hardware</strong></td>
+                            <td class="px-4 py-3 bg-green-50">O <span class="destaque">Sistema Operacional</span></td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 font-semibold">Kernel</td>
+                            <td class="px-4 py-3">Exclusivo de cada VM</td>
+                            <td class="px-4 py-3 bg-green-50"><span class="destaque">Compartilhado</span> com o Host</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 font-semibold">Isolamento</td>
+                            <td class="px-4 py-3">Forte (Hardware)</td>
+                            <td class="px-4 py-3 bg-green-50">Moderado (Processo)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bg-gray-50 p-5 rounded border border-gray-200">
+                <h4 class="font-bold text-gray-800 mb-2">Tecnologias Linux por trás dos Containers:</h4>
+                <ul class="list-none space-y-2">
+                    <li>🔹 <span class="font-bold">Namespaces:</span> Garante o <span class="destaque">Isolamento</span> (o que o container <em>vê</em>: rede, processos).</li>
+                    <li>🔹 <span class="font-bold">Cgroups:</span> Garante o <span class="destaque">Limite de Recursos</span> (o que o container <em>usa</em>: CPU, RAM).</li>
+                    <li>🔹 <span class="font-bold">UnionFS:</span> Sistema de arquivos em camadas (Layers).</li>
+                </ul>
+                <div class="mt-4 p-3 bg-white border border-red-200 rounded text-sm text-red-800">
+                    <strong>Pegadinha AOCP:</strong> "Docker roda nativo no Windows?" <br>
+                    <strong>NÃO.</strong> Containers compartilham Kernel. Docker no Windows usa uma micro-VM Linux (WSL2/Hyper-V).
+                </div>
+            </div>
+        </section>
+
+        <!-- Conteúdo 5: K8s -->
+        <section class="mb-10">
+            <h3 class="text-2xl font-bold text-gray-800 mb-4 border-l-4 border-blue-600 pl-3">5. Orquestração: Kubernetes (K8s)</h3>
+            <ul class="space-y-4">
+                <li class="bg-white border-l-4 border-indigo-500 pl-4 py-2 shadow-sm">
+                    <strong class="text-lg block text-indigo-700">Pod</strong>
+                    A menor unidade do K8s. Pode ter um ou mais containers. <span class="destaque">Não se gerencia containers soltos</span>, gerencia-se Pods.
+                </li>
+                <li class="bg-white border-l-4 border-indigo-500 pl-4 py-2 shadow-sm">
+                    <strong class="text-lg block text-indigo-700">Service</strong>
+                    Porta de entrada fixa (resolve IP dinâmico).
+                    <ul class="list-disc pl-5 mt-2 text-sm text-gray-700">
+                        <li><em>ClusterIP:</em> Interno (padrão).</li>
+                        <li><em>NodePort:</em> Expõe porta no servidor físico.</li>
+                        <li><em>LoadBalancer:</em> Usa IP externo da Nuvem.</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Conteúdo 6: Rede e Storage -->
+        <section class="mb-10">
+            <h3 class="text-2xl font-bold text-gray-800 mb-4 border-l-4 border-blue-600 pl-3">6. Rede e Armazenamento</h3>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h4 class="font-bold text-gray-700 border-b border-gray-300 pb-1 mb-3">Modos de Rede (vSwitch)</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><span class="font-bold text-blue-800">Bridged (Ponte):</span> VM ganha IP da rede física. Acessível na LAN.</li>
+                        <li><span class="font-bold text-blue-800">NAT:</span> VM fica "atrás" do Host. Navega, mas ninguém entra (seguro padrão).</li>
+                        <li><span class="font-bold text-blue-800">Host-Only:</span> Isolada do mundo. Só fala com o Host.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-gray-700 border-b border-gray-300 pb-1 mb-3">Discos (Provisioning)</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><span class="font-bold text-blue-800">Thin:</span> Cria disco de 100GB, ocupa 0GB. Cresce ao usar.</li>
+                        <li><span class="font-bold text-blue-800">Thick:</span> Aloca tudo na hora. Maior performance.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                <h4 class="font-bold text-yellow-800 mb-2 text-lg">⚠️ A Pegadinha de Ouro: Snapshot x Backup</h4>
+                <div class="flex flex-col md:flex-row gap-4 text-sm">
+                    <div class="flex-1">
+                        <strong class="text-red-700">Snapshot:</strong> Foto do momento. Arquivo de diferenças. <span class="destaque-alerta">Depende do disco original.</span> Se o original quebrar, adeus snapshot. (Uso: Testes rápidos).
+                    </div>
+                    <div class="flex-1 border-t md:border-t-0 md:border-l border-yellow-200 md:pl-4 pt-2 md:pt-0">
+                        <strong class="text-green-700">Backup:</strong> Cópia independente. Salva em outro lugar. (Uso: Disaster Recovery).
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conteúdo 7 e Dicas -->
+        <section class="mb-12">
+            <h3 class="text-2xl font-bold text-gray-800 mb-4 border-l-4 border-blue-600 pl-3">7. Alta Disponibilidade e Dicas Finais</h3>
+            
+            <div class="mb-6 space-y-2 text-gray-800">
+                <p><strong>Live Migration (vMotion):</strong> Move VM rodando (CPU/RAM). <span class="destaque">Sem desligar</span>. Exige Storage Compartilhado.</p>
+                <p><strong>Storage vMotion:</strong> Move os <span class="destaque">arquivos de disco</span>.</p>
+            </div>
+
+            <div class="p-5 bg-gray-100 rounded-lg">
+                <h4 class="font-bold text-gray-700 mb-2">Dicas Gramaticais AOCP:</h4>
+                <ul class="list-disc pl-5 text-sm space-y-1">
+                    <li>Palavras como "Apenas/Somente" geralmente estão erradas, mas cuidado com definições técnicas estritas (ex: Bare-metal roda <em>apenas</em> no hardware).</li>
+                    <li><strong>Lixeira vs Delete:</strong> Remover do inventário (lista visual) <strong>≠</strong> Deletar do disco (apagar arquivo).</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Botão de Ação -->
+        <footer class="mt-12 text-center pb-12">
+            <a href="esp-virtualizacao-containersquestoes.html" class="inline-block w-full md:w-auto md:px-16 py-4 bg-gray-800 text-white font-bold text-xl rounded-lg shadow-lg hover:bg-black hover:shadow-xl transition transform hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-gray-300">
+                Ir para Questões
+            </a>
+        </footer>
+
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado: Modelo OSI - Instituto AOCP</title>
+    <style>
+        :root {
+            --bg-color: #fdfbf7; /* Tom de papel/creme suave para leitura */
+            --text-color: #2d3748;
+            --accent-color: #2c5282; /* Azul institucional sóbrio */
+            --border-color: #e2e8f0;
+            --success-color: #c6f6d5;
+            --success-text: #22543d;
+            --error-color: #fed7d7;
+            --error-text: #822727;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif; /* Serifada para facilitar leitura longa */
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding-bottom: 60px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #4a5568;
+            font-style: italic;
+        }
+
+        /* Cartão da Questão */
+        .question-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+        }
+
+        .question-header {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-weight: bold;
+            color: #718096;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            margin-bottom: 25px;
+            text-align: justify;
+        }
+
+        /* Opções de Resposta */
+        .options-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 1rem;
+        }
+
+        .option-label:hover {
+            background-color: #edf2f7;
+        }
+
+        .option-input {
+            margin-right: 15px;
+            margin-top: 6px;
+            accent-color: var(--accent-color);
+            transform: scale(1.2);
+        }
+
+        /* Estilos de Feedback (Pós-Submissão) */
+        .correct-answer-highlight {
+            background-color: var(--success-color) !important;
+            border-color: var(--success-text) !important;
+            color: var(--success-text);
+            font-weight: bold;
+        }
+
+        .wrong-answer-highlight {
+            background-color: var(--error-color) !important;
+            border-color: var(--error-text) !important;
+            color: var(--error-text);
+        }
+
+        /* Área de Resolução */
+        .resolution-box {
+            display: none; /* Escondido inicialmente */
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #f0f4f8;
+            border-left: 5px solid var(--accent-color);
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .resolution-title {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* Painel de Resultados */
+        #result-panel {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 -4px 6px rgba(0,0,0,0.1);
+            z-index: 1000;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        #score-display {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        /* Botão Finalizar */
+        .btn-submit {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 40px auto;
+            padding: 15px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .btn-submit:hover {
+            background-color: #1a365d;
+        }
+        
+        /* Utilitários de texto na resolução */
+        strong {
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado Técnico: Modelo OSI</h1>
+        <div class="subtitle">Foco: Instituto AOCP &bull; 10 Questões &bull; Nível: Analista de TI</div>
+    </header>
+
+    <form id="quiz-form">
+        <!-- Questão 1 -->
+        <div class="question-card" id="q1">
+            <div class="question-header">Questão 1 &bull; Instituto AOCP / IF-MS - 2025 (Adaptada)</div>
+            <div class="question-text">
+                O modelo OSI (Open Systems Interconnection) é um padrão conceitual desenvolvido pela ISO que descreve como os sistemas de computadores interagem dentro de uma rede, segmentando a complexidade da comunicação em sete camadas hierárquicas. Cada camada possui funções bem delimitadas, comunicando-se diretamente apenas com suas camadas adjacentes. Considerando a estrutura organizacional e as responsabilidades funcionais do modelo OSI, analise as assertivas abaixo e assinale a alternativa correta.<br><br>
+                I. A camada de aplicação, por ser a interface com o usuário, não é tecnicamente considerada parte do modelo de referência OSI de 7 camadas, sendo exclusiva do modelo TCP/IP.<br>
+                II. A camada de transporte é responsável pela comunicação host-a-host (fim-a-fim), garantindo, através de protocolos específicos, a integridade e o sequenciamento dos dados.<br>
+                III. A camada de apresentação encontra-se posicionada funcionalmente entre a camada de Sessão e a camada de Aplicação, sendo responsável pela sintaxe dos dados.<br>
+                IV. A camada de rede está posicionada hierarquicamente abaixo da camada de enlace no modelo de abstração.
+            </div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q1" value="A" class="option-input"> A) I, II, III e IV estão incorretas.</label>
+                <label class="option-label"><input type="radio" name="q1" value="B" class="option-input"> B) Apenas II e III estão corretas.</label>
+                <label class="option-label"><input type="radio" name="q1" value="C" class="option-input"> C) Apenas I e III estão corretas.</label>
+                <label class="option-label"><input type="radio" name="q1" value="D" class="option-input"> D) Apenas I, III e IV estão corretas.</label>
+                <label class="option-label"><input type="radio" name="q1" value="E" class="option-input"> E) I, II, III e IV estão corretas.</label>
+            </div>
+            <div class="resolution-box">
+                <span class="resolution-title">Resolução Detalhada:</span>
+                <strong>Gabarito: B (Apenas II e III estão corretas)</strong><br><br>
+                <strong>Análise das Assertivas:</strong><br>
+                I. (Incorreta) A camada de Aplicação é a camada 7 do Modelo OSI. Ela existe tanto no OSI quanto no TCP/IP.<br>
+                II. (Correta) A camada de Transporte (Layer 4) gerencia a comunicação fim-a-fim, integridade e sequenciamento (ex: TCP).<br>
+                III. (Correta) A camada de Apresentação (Layer 6) está entre Sessão (5) e Aplicação (7) e trata da sintaxe (tradução/criptografia).<br>
+                IV. (Incorreta) A camada de Rede (3) está acima da camada de Enlace (2), não abaixo.
+            </div>
+        </div>
+
+        <!-- Questão 2 -->
+        <div class="question-card" id="q2">
+            <div class="question-header">Questão 2 &bull; Instituto AOCP / UFPB</div>
+            <div class="question-text">
+                A camada de rede (Layer 3) do modelo OSI desempenha um papel crucial na interconexão de sistemas heterogêneos e geograficamente dispersos. Ao projetar uma infraestrutura de rede corporativa, o administrador deve compreender as fronteiras de operação desta camada. Assinale a alternativa que apresenta, de forma correta e exclusiva, as funções e a Unidade de Dados de Protocolo (PDU) associadas à camada de rede.
+            </div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q2" value="A" class="option-input"> A) Estabelecimento de sessões de diálogo e controle de tokens; PDU: Dados.</label>
+                <label class="option-label"><input type="radio" name="q2" value="B" class="option-input"> B) Roteamento de pacotes entre inter-redes e endereçamento lógico (IP); PDU: Pacote.</label>
+                <label class="option-label"><input type="radio" name="q2" value="C" class="option-input"> C) Controle de fluxo físico e sinalização elétrica no meio de transmissão; PDU: Bit.</label>
+                <label class="option-label"><input type="radio" name="q2" value="D" class="option-input"> D) Garantia de entrega livre de erros através de confirmações (ACKs) e retransmissões; PDU: Segmento.</label>
+                <label class="option-label"><input type="radio" name="q2" value="E" class="option-input"> E) Arbitragem do acesso ao meio físico e endereçamento físico (MAC); PDU: Quadro.</label>
+            </div>
+            <div class="resolution-box">
+                <span class="resolution-title">Resolução Detalhada:</span>
+                <strong>Gabarito: B</strong><br><br>
+                A Camada de Rede (Layer 3) é responsável pelo endereçamento lógico (IP) e pelo roteamento (escolha do melhor caminho) através de inter-redes. A PDU (Protocol Data Unit) desta camada é o <strong>Pacote</strong>.<br>
+                - A refere-se à Camada de Sessão.<br>
+                - C refere-se à Camada Física.<br>
+                - D refere-se à Camada de Transporte (TCP).<br>
+                - E refere-se à Camada de Enlace.
+            </div>
+        </div>
+
+        <!-- Questão 3 -->
+        <div class="question-card" id="q3">
+            <div class="question-header">Questão 3 &bull; Instituto AOCP / Pref. Novo Hamburgo</div>
+            <div class="question-text">
+                O Modelo OSI estabelece uma separação clara de responsabilidades para facilitar a interoperabilidade. Em um cenário onde dois sistemas distintos precisam trocar informações criptografadas e comprimidas, qual camada do modelo OSI é a responsável primária pela tradução, cifragem/decifragem e compressão/descompressão, garantindo que os dados sejam legíveis para a camada de aplicação do destinatário?
+            </div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q3" value="A" class="option-input"> A) Camada de Apresentação.</label>
+                <label class="option-label"><input type="radio" name="q3" value="B" class="option-input"> B) Camada de Transporte.</label>
+                <label class="option-label"><input type="radio" name="q3" value="C" class="option-input"> C) Camada de Rede.</label>
+                <label class="option-label"><input type="radio" name="q3" value="D" class="option-input"> D) Camada de Sessão.</label>
+                <label class="option-label"><input type="radio" name="q3" value="E" class="option-input"> E) Camada Física.</label>
+            </div>
+            <div class="resolution-box">
+                <span class="resolution-title">Resolução Detalhada:</span>
+                <strong>Gabarito: A</strong><br><br>
+                A <strong>Camada de Apresentação (Layer 6)</strong> atua como o "tradutor" da rede. Suas funções principais são:<br>
+                1. <strong>Tradução de sintaxe</strong> (ex: converter ASCII para EBCDIC, tratar Endianness).<br>
+                2. <strong>Criptografia</strong> (segurança dos dados).<br>
+                3. <strong>Compressão</strong> (redução de tamanho).
+            </div>
+        </div>
+
+        <!-- Questão 4 -->
+        <div class="question-card" id="q4">
+            <div class="question-header">Questão 4 &bull; Instituto AOCP / IFBA</div>
+            <div class="question-text">
+                Os elementos ativos de rede são classificados de acordo com a camada mais alta do modelo OSI na qual conseguem operar e decodificar informações. O dispositivo de rede conhecido como <strong>Switch</strong> (Comutador), em sua operação padrão (Layer 2), processa informações contidas no cabeçalho de qual PDU e utiliza qual tipo de endereçamento para tomar decisões de encaminhamento?
+            </div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q4" value="A" class="option-input"> A) PDU: Pacote; Endereçamento: IP.</label>
+                <label class="option-label"><input type="radio" name="q4" value="B" class="option-input"> B) PDU: Quadro (Frame); Endereçamento: MAC (Media Access Control).</label>
+                <label class="option-label"><input type="radio" name="q4" value="C" class="option-input"> C) PDU: Bit; Endereçamento: Físico de porta.</label>
+                <label class="option-label"><input type="radio" name="q4" value="D" class="option-input"> D) PDU: Segmento; Endereçamento: Porta lógica (Port Number).</label>
+                <label class="option-label"><input type="radio" name="q4" value="E" class="option-input"> E) PDU: Datagrama; Endereçamento: Socket.</label>
+            </div>
+            <div class="resolution-box">
+                <span class="resolution-title">Resolução Detalhada:</span>
+                <strong>Gabarito: B</strong><br><br>
+                Um Switch padrão opera na Camada de Enlace (Layer 2). Ele toma decisões de encaminhamento baseando-se no endereço físico gravado no hardware, o <strong>Endereço MAC</strong>. A unidade de dados que ele processa é o <strong>Quadro (Frame)</strong>.<br>
+                Nota: Roteadores usam IP/Pacote. Hubs usam Bits.
+            </div>
+        </div>
+
+        <!-- Questão 5 -->
+        <div class="question-card" id="q5">
+            <div class="question-header">Questão 5 &bull; Instituto AOCP / UFS - 2024</div>
+            <div class="question-text">
+                Durante a reestruturação do backbone da rede da Universidade Federal de Sergipe, a equipe de TI optou pela segmentação da rede em múltiplas VLANs e sub-redes IP para limitar domínios de broadcast e aplicar políticas de segurança. O equipamento essencial para interconectar essas diferentes sub-redes lógicas e realizar o encaminhamento de pacotes com base no endereço IP de destino é o:
+            </div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q5" value="A" class="option-input"> A) Repetidor.</label>
+                <label class="option-label"><input type="radio" name="q5" value="B" class="option-input"> B) Hub.</label>
+                <label class="option-label"><input type="radio" name="q5" value="C" class="option-input"> C) Roteador.</label>
+                <label class="option-label"><input type="radio" name="q5" value="D" class="option-input"> D) Bridge.</label>
+                <label class="option-label"><input type="radio" name="q5" value="E" class="option-input"> E) Access Point (em modo bridge).</label>
+            </div>
+            <div class="resolution-box">
+                <span class="resolution-title">Resolução Detalhada:</span>
+                <strong>Gabarito: C</strong><br><br>
+                Para interconectar sub-redes lógicas diferentes (broadcast domains distintos) e encaminhar dados baseando-se no endereço IP, é necessário um dispositivo de Camada 3: o <strong>Roteador</strong>. Switches L2 e Bridges não roteiam entre sub-redes IP diferentes.
+            </div>
+        </div>
+
+        <!-- Questão 6 -->
+        <div class="question-card" id="q6">
+            <div class="question-header">Questão 6 &bull; Instituto AOCP / PRODEB</div>
+            <div class="question-text">
+                A camada de transporte do modelo OSI e do modelo TCP/IP fornece serviços de comunicação entre processos de aplicação em hosts diferentes. Dois protocolos fundamentais operam nesta camada: o TCP (Transmission Control Protocol) e o UDP (User Datagram Protocol). Sobre as características técnicas que diferenciam esses protocolos, assinale a alternativa correta.
+            </div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q6" value="A" class="option-input"> A) O UDP é um protocolo orientado à conexão que garante a entrega sequencial dos dados, sendo ideal para transferência de arquivos críticos.</label>
+                <label class="option-label"><input type="radio" name="q6" value="B" class="option-input"> B) O TCP oferece um serviço de entrega não confiável, sem controle de fluxo, priorizando a velocidade em detrimento da integridade, sendo usado em streaming de vídeo.</label>
+                <label class="option-label"><input type="radio" name="q6" value="C" class="option-input"> C) O TCP é orientado à conexão, realiza o <em>handshake</em> de três vias para estabelecer a sessão, garante a entrega ordenada e confiável dos dados e implementa controle de congestionamento.</label>
+                <label class="option-label"><input type="radio" name="q6" value="D" class="option-input"> D) O UDP opera na camada de rede, sendo responsável apenas pelo encapsulamento de endereços IP, sem distinguir portas de origem e destino.</label>
+                <label class="option-label"><input type="radio" name="q6" value="E" class="option-input"> E) Tanto o TCP quanto o UDP garantem a correção de erros via retransmissão automática, diferenciando-se apenas pelo tamanho do cabeçalho.</label>
+            </div>
+            <div class="resolution-box">
+                <span class="resolution-title">Resolução Detalhada:</span>
+                <strong>Gabarito: C</strong><br><br>
+                <strong>TCP:</strong> Confiável, Orientado à Conexão (3-way handshake), Ordenado, Controle de Fluxo e Congestionamento. Ideal para web, email, arquivos.<br>
+                <strong>UDP:</strong> Não confiável (Best effort), Sem conexão ("fire and forget"), Sem retransmissão, Mais leve/rápido. Ideal para streaming ao vivo, VoIP, DNS.
+            </div>
+        </div>
+
+        <!-- Questão 7 -->
+        <div class="question-card" id="q7">
+            <div class="question-header">Questão 7 &bull; Instituto AOCP / EMPREL</div>
+            <div class="question-text">
+                A comunicação em redes modernas frequentemente exige a conversão de sintaxe de dados devido à heterogeneidade dos sistemas operacionais (ex: representação de caracteres ASCII vs. EBCDIC, ou ordenação de bytes <em>Big Endian</em> vs. <em>Little Endian</em>). No modelo de referência OSI, a camada responsável por resolver essas diferenças de representação de dados, atuando como um tradutor universal para a rede, é a:
+            </div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q7" value="A" class="option-input"> A) Camada 1 - Física.</label>
+                <label class="option-label"><input type="radio" name="q7" value="B" class="option-input"> B) Camada 2 - Enlace.</label>
+                <label class="option-label"><input type="radio" name="q7" value="C" class="option-input"> C) Camada 4 - Transporte.</label>
+                <label class="option-label"><input type="radio" name="q7" value="D" class="option-input"> D) Camada 6 - Apresentação.</label>
+                <label class="option-label"><input type="radio" name="q7" value="E" class="option-input"> E) Camada 7 - Aplicação.</label>
+            </div>
+            <div class="resolution-box">
+                <span class="resolution-title">Resolução Detalhada:</span>
+                <strong>Gabarito: D</strong><br><br>
+                A questão define classicamente a <strong>Camada de Apresentação (Layer 6)</strong>. Sempre que se fala em "sintaxe", "representação de dados", "tradução ASCII/EBCDIC" ou "formatação", refere-se à Camada 6.
+            </div>
+        </div>
+
+        <!-- Questão 8 -->
+        <div class="question-card" id="q8">
+            <div class="question-header">Questão 8 &bull; Instituto AOCP / IBGE</div>
+            <div class="question-text">
+                A Camada de Enlace de Dados (Layer 2) é subdividida, segundo o padrão IEEE 802, em duas subcamadas: LLC (Logical Link Control) e MAC (Media Access Control). Além do protocolo Ethernet, amplamente usado em LANs, existem protocolos de Camada 2 projetados para conexões WAN ponto-a-ponto. Qual das alternativas abaixo lista corretamente um protocolo que opera na Camada de Enlace?
+            </div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q8" value="A" class="option-input"> A) FTP (File Transfer Protocol).</label>
+                <label class="option-label"><input type="radio" name="q8" value="B" class="option-input"> B) SMTP (Simple Mail Transfer Protocol).</label>
+                <label class="option-label"><input type="radio" name="q8" value="C" class="option-input"> C) PPP (Point-to-Point Protocol).</label>
+                <label class="option-label"><input type="radio" name="q8" value="D" class="option-input"> D) ICMP (Internet Control Message Protocol).</label>
+                <label class="option-label"><input type="radio" name="q8" value="E" class="option-input"> E) RIP (Routing Information Protocol).</label>
+            </div>
+            <div class="resolution-box">
+                <span class="resolution-title">Resolução Detalhada:</span>
+                <strong>Gabarito: C</strong><br><br>
+                O <strong>PPP (Point-to-Point Protocol)</strong> é um protocolo de Camada de Enlace (Layer 2) usado para conexões diretas entre dois nós (WAN), oferecendo autenticação, criptografia e compressão.<br>
+                - FTP/SMTP são Aplicação (L7).<br>
+                - ICMP é Rede (L3).<br>
+                - RIP é um protocolo de roteamento (L3/L7 dependendo da visão, encapsulado em UDP).
+            </div>
+        </div>
+
+        <!-- Questão 9 -->
+        <div class="question-card" id="q9">
+            <div class="question-header">Questão 9 &bull; Instituto AOCP / IF-MS</div>
+            <div class="question-text">
+                A correta ordenação e a compreensão da hierarquia de serviços do modelo OSI são fundamentais para o diagnóstico de falhas em redes. Analise a relação entre as camadas e assinale a alternativa que descreve corretamente a posição relativa entre elas na pilha de protocolos OSI.
+            </div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q9" value="A" class="option-input"> A) A camada de Sessão fornece serviços diretamente para a camada de Transporte.</label>
+                <label class="option-label"><input type="radio" name="q9" value="B" class="option-input"> B) A camada de Enlace de Dados opera sobre a camada de Rede e abaixo da camada Física.</label>
+                <label class="option-label"><input type="radio" name="q9" value="C" class="option-input"> C) A camada de Transporte situa-se imediatamente acima da camada de Rede e abaixo da camada de Sessão.</label>
+                <label class="option-label"><input type="radio" name="q9" value="D" class="option-input"> D) A camada de Apresentação é a camada de nível 1, servindo de base para a camada de Aplicação.</label>
+                <label class="option-label"><input type="radio" name="q9" value="E" class="option-input"> E) A camada Física é responsável por encapsular os quadros da camada de Enlace em pacotes.</label>
+            </div>
+            <div class="resolution-box">
+                <span class="resolution-title">Resolução Detalhada:</span>
+                <strong>Gabarito: C</strong><br><br>
+                A ordem da pilha OSI (de baixo para cima) é: Física(1) > Enlace(2) > Rede(3) > <strong>Transporte(4)</strong> > Sessão(5) > Apresentação(6) > Aplicação(7).<br>
+                Portanto, a Camada de Transporte está acima da Rede e abaixo da Sessão.
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-card" id="q10">
+            <div class="question-header">Questão 10 &bull; Instituto AOCP / MPE-BA</div>
+            <div class="question-text">
+                Ao comparar o modelo de referência OSI com a arquitetura TCP/IP (Internet Protocol Suite), observam-se diferenças na granularidade das camadas, especialmente nos níveis superiores. Assinale a alternativa que apresenta a correspondência funcional correta entre os dois modelos.
+            </div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q10" value="A" class="option-input"> A) A camada de Acesso à Rede do modelo TCP/IP corresponde funcionalmente às camadas Física e de Enlace do modelo OSI.</label>
+                <label class="option-label"><input type="radio" name="q10" value="B" class="option-input"> B) O modelo TCP/IP possui 7 camadas idênticas ao modelo OSI, diferindo apenas na nomenclatura dos protocolos.</label>
+                <label class="option-label"><input type="radio" name="q10" value="C" class="option-input"> C) A camada de Aplicação do TCP/IP corresponde exclusivamente à camada de Aplicação do OSI, deixando as funções de Sessão e Apresentação sem correspondência no TCP/IP.</label>
+                <label class="option-label"><input type="radio" name="q10" value="D" class="option-input"> D) A camada de Internet do TCP/IP é equivalente à camada de Transporte do OSI.</label>
+                <label class="option-label"><input type="radio" name="q10" value="E" class="option-input"> E) O protocolo Ethernet opera na camada de Transporte do modelo TCP/IP.</label>
+            </div>
+            <div class="resolution-box">
+                <span class="resolution-title">Resolução Detalhada:</span>
+                <strong>Gabarito: A</strong><br><br>
+                O modelo TCP/IP é mais enxuto. A sua camada inferior, chamada <strong>Acesso à Rede</strong> (ou Interface de Rede), engloba as funcionalidades das camadas <strong>Física (1) e Enlace (2)</strong> do modelo OSI. A camada de Aplicação do TCP/IP engloba Sessão, Apresentação e Aplicação do OSI.
+            </div>
+        </div>
+
+        <button type="button" class="btn-submit" onclick="checkAnswers()">Finalizar Simulado</button>
+    </form>
+</div>
+
+<div id="result-panel">
+    <div id="score-display"></div>
+    <div style="font-size: 0.9rem; margin-top: 5px;">As resoluções detalhadas foram desbloqueadas acima.</div>
+</div>
+
+<script>
+    const correctAnswers = {
+        q1: "B",
+        q2: "B",
+        q3: "A",
+        q4: "B",
+        q5: "C",
+        q6: "C",
+        q7: "D",
+        q8: "C",
+        q9: "C",
+        q10: "A"
+    };
+
+    function checkAnswers() {
+        let score = 0;
+        const total = Object.keys(correctAnswers).length;
+        const form = document.getElementById('quiz-form');
+
+        // Loop em cada questão
+        for (let q in correctAnswers) {
+            const selected = form.elements[q].value;
+            const correct = correctAnswers[q];
+            const card = document.getElementById(q);
+            const options = card.querySelectorAll('.option-label');
+            
+            // Lógica de contagem
+            if (selected === correct) {
+                score++;
+            }
+
+            // Visual Feedback
+            options.forEach(label => {
+                const input = label.querySelector('input');
+                const val = input.value;
+
+                // Destacar resposta correta em verde sempre
+                if (val === correct) {
+                    label.classList.add('correct-answer-highlight');
+                }
+
+                // Se usuário errou, destacar a dele em vermelho
+                if (selected === val && selected !== correct) {
+                    label.classList.add('wrong-answer-highlight');
+                }
+                
+                // Desabilitar inputs
+                input.disabled = true;
+            });
+
+            // Mostrar resolução
+            const resolution = card.querySelector('.resolution-box');
+            resolution.style.display = 'block';
+        }
+
+        // Mostrar Placar
+        const resultPanel = document.getElementById('result-panel');
+        const scoreDisplay = document.getElementById('score-display');
+        const btn = document.querySelector('.btn-submit');
+        
+        scoreDisplay.textContent = `Você acertou ${score} de ${total} questões.`;
+        resultPanel.style.display = 'block';
+        btn.style.display = 'none'; // Esconde botão após finalizar
+
+        // Scroll suave para o primeiro resultado
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>

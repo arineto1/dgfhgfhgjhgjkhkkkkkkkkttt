@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo Turbo: Arquitetura TCP/IP - IFPB (AOCP)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Ajustes finos para impressão e leitura */
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .highlight {
+            background-color: #fef9c3; /* Amarelo muito suave para destaque */
+            padding: 0 4px;
+            border-radius: 2px;
+            font-weight: 600;
+        }
+        /* Forçar quebra de palavras em tabelas para evitar scroll */
+        td, th {
+            word-wrap: break-word;
+            white-space: normal; 
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900 leading-relaxed">
+
+    <!-- Container Principal -->
+    <div class="max-w-4xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+
+        <!-- Cabeçalho -->
+        <header class="mb-8 border-b-2 border-gray-200 pb-6">
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-2">
+                Arquitetura TCP/IP
+            </h1>
+            <p class="text-xl text-gray-600 font-medium">Resumo Turbo para Concurso IFPB (Banca AOCP)</p>
+        </header>
+
+        <!-- Player de Áudio -->
+        <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-10 shadow-sm">
+            <label class="block text-sm font-bold text-gray-700 mb-2">🎧 Resumo em Áudio (Memorização)</label>
+            <!-- INSIRA O NOME DO SEU ARQUIVO AQUI NO 'src' -->
+            <audio controls class="w-full h-10">
+                <source src="esp-protocolos-tcp-udp-quic.mp3" type="audio/mpeg">
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
+            <p class="text-xs text-gray-500 mt-2">* Substitua "seu-arquivo-de-audio.mp3" pelo nome do arquivo gerado.</p>
+        </div>
+
+        <!-- Conteúdo: 1. Modelos -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 border-l-4 border-gray-800 pl-3">1. O Duelo de Modelos: OSI vs. TCP/IP</h2>
+            
+            <div class="bg-white mb-6">
+                <h3 class="font-bold text-lg mb-2">Quantas camadas tem o TCP/IP?</h3>
+                <ul class="list-disc pl-5 space-y-2 mb-4">
+                    <li><strong>A Regra (RFC original):</strong> <span class="highlight">4 Camadas</span> (Aplicação, Transporte, Internet, Acesso à Rede).</li>
+                    <li><strong>A Exceção (Tanenbaum/Kurose):</strong> <strong>5 Camadas</strong> (Separa Física de Enlace).</li>
+                    <li class="bg-gray-50 p-2 rounded border-l-2 border-gray-400"><strong>Dica de Ouro AOCP:</strong> Se a questão perguntar "Padrão original" ou não citar autor, vá de <strong>4</strong>. Se descrever hardware (cabos) separado de protocolos (MAC), vá de <strong>5</strong>.</li>
+                </ul>
+            </div>
+
+            <h3 class="font-bold text-lg mb-3">Mapeamento "Decorêba"</h3>
+            <div class="overflow-hidden rounded-lg border border-gray-300">
+                <table class="min-w-full divide-y divide-gray-300">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th scope="col" class="py-3 px-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider w-1/4">OSI (7)</th>
+                            <th scope="col" class="py-3 px-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider w-1/4">TCP/IP (4)</th>
+                            <th scope="col" class="py-3 px-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Palavras-Chave / PDU</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200 bg-white text-sm">
+                        <tr>
+                            <td class="px-3 py-2 font-medium">7. Aplicação</td>
+                            <td class="px-3 py-2 font-bold text-gray-900">Aplicação</td>
+                            <td class="px-3 py-2">HTTP, DNS, SMTP. PDU: <strong>Dados</strong>.</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 text-gray-500">6. Apresentação</td>
+                            <td class="px-3 py-2 text-gray-400 italic">(Aplicação faz tudo)</td>
+                            <td class="px-3 py-2 text-gray-500">Criptografia, Compressão.</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 text-gray-500">5. Sessão</td>
+                            <td class="px-3 py-2 text-gray-400 italic">(Aplicação faz tudo)</td>
+                            <td class="px-3 py-2 text-gray-500">Controle de diálogo.</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 font-medium">4. Transporte</td>
+                            <td class="px-3 py-2 font-bold text-gray-900">Transporte</td>
+                            <td class="px-3 py-2">TCP, UDP. PDU: <strong>Segmento</strong> (TCP) / <strong>Datagrama</strong> (UDP).</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 font-medium">3. Rede</td>
+                            <td class="px-3 py-2 font-bold text-gray-900">Internet</td>
+                            <td class="px-3 py-2">IP, Roteamento. PDU: <strong>Pacote</strong>.</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 font-medium">2. Enlace</td>
+                            <td class="px-3 py-2 font-bold text-gray-900" rowspan="2">Acesso à Rede</td>
+                            <td class="px-3 py-2">MAC, Switch. PDU: <strong>Quadro</strong> (Frame).</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-2 font-medium">1. Física</td>
+                            <td class="px-3 py-2">Cabos, Hub. PDU: <strong>Bits</strong>.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Conteúdo: 2. Portas -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 border-l-4 border-gray-800 pl-3">2. Decore as Portas (Aplicação)</h2>
+            <p class="mb-4 text-sm text-gray-600">Questões de "Associe a Coluna" são garantidas. Memorize esta tabela:</p>
+            
+            <div class="overflow-hidden rounded-lg border border-gray-300">
+                <table class="min-w-full divide-y divide-gray-300 table-fixed">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="py-3 px-2 text-left text-xs font-bold text-gray-700 uppercase w-1/6">Prot.</th>
+                            <th class="py-3 px-2 text-left text-xs font-bold text-gray-700 uppercase w-1/6">Porta</th>
+                            <th class="py-3 px-2 text-left text-xs font-bold text-gray-700 uppercase w-1/6">Tipo</th>
+                            <th class="py-3 px-2 text-left text-xs font-bold text-gray-700 uppercase w-1/2">Função e "Pegadinha"</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200 bg-white text-sm">
+                        <tr>
+                            <td class="px-2 py-3 font-bold">FTP</td>
+                            <td class="px-2 py-3">20 / 21</td>
+                            <td class="px-2 py-3">TCP</td>
+                            <td class="px-2 py-3">Usa duas portas! <strong>21 conecta</strong>, <strong>20 transfere</strong> dados.</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="px-2 py-3 font-bold">SSH</td>
+                            <td class="px-2 py-3">22</td>
+                            <td class="px-2 py-3">TCP</td>
+                            <td class="px-2 py-3">Acesso remoto <span class="highlight">SEGURO</span> (Criptografado). Substitui Telnet.</td>
+                        </tr>
+                        <tr>
+                            <td class="px-2 py-3 font-bold">Telnet</td>
+                            <td class="px-2 py-3">23</td>
+                            <td class="px-2 py-3">TCP</td>
+                            <td class="px-2 py-3">Acesso remoto <strong>INSEGURO</strong> (Texto plano).</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="px-2 py-3 font-bold">SMTP</td>
+                            <td class="px-2 py-3">25 / 587</td>
+                            <td class="px-2 py-3">TCP</td>
+                            <td class="px-2 py-3">Envio de e-mail. <strong>587</strong> é a padrão moderna (segura/TLS).</td>
+                        </tr>
+                        <tr>
+                            <td class="px-2 py-3 font-bold">DNS</td>
+                            <td class="px-2 py-3">53</td>
+                            <td class="px-2 py-3">UDP/TCP</td>
+                            <td class="px-2 py-3">Nome ↔ IP. Usa <span class="highlight">UDP</span> para consultas padrão.</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="px-2 py-3 font-bold">DHCP</td>
+                            <td class="px-2 py-3">67 / 68</td>
+                            <td class="px-2 py-3">UDP</td>
+                            <td class="px-2 py-3">Configuração automática IP. (67 Server, 68 Client).</td>
+                        </tr>
+                        <tr>
+                            <td class="px-2 py-3 font-bold">HTTP</td>
+                            <td class="px-2 py-3">80</td>
+                            <td class="px-2 py-3">TCP</td>
+                            <td class="px-2 py-3">Web sem segurança.</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="px-2 py-3 font-bold">POP3</td>
+                            <td class="px-2 py-3">110</td>
+                            <td class="px-2 py-3">TCP</td>
+                            <td class="px-2 py-3">Recebe e-mail. <strong>Baixa e APAGA</strong> do servidor (antigo).</td>
+                        </tr>
+                        <tr>
+                            <td class="px-2 py-3 font-bold">NTP</td>
+                            <td class="px-2 py-3">123</td>
+                            <td class="px-2 py-3">UDP</td>
+                            <td class="px-2 py-3">Sincronização de Relógio/Hora.</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="px-2 py-3 font-bold">IMAP</td>
+                            <td class="px-2 py-3">143</td>
+                            <td class="px-2 py-3">TCP</td>
+                            <td class="px-2 py-3">Recebe e-mail. <strong>SINCRONIZA</strong> e mantém no servidor.</td>
+                        </tr>
+                        <tr>
+                            <td class="px-2 py-3 font-bold">SNMP</td>
+                            <td class="px-2 py-3">161/162</td>
+                            <td class="px-2 py-3">UDP</td>
+                            <td class="px-2 py-3">Gerenciamento e monitoramento de redes.</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="px-2 py-3 font-bold">HTTPS</td>
+                            <td class="px-2 py-3">443</td>
+                            <td class="px-2 py-3">TCP</td>
+                            <td class="px-2 py-3">Web segura (SSL/TLS).</td>
+                        </tr>
+                        <tr>
+                            <td class="px-2 py-3 font-bold">RDP</td>
+                            <td class="px-2 py-3">3389</td>
+                            <td class="px-2 py-3">TCP</td>
+                            <td class="px-2 py-3">Acesso Remoto Microsoft.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Conteúdo: 3. TCP vs UDP -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 border-l-4 border-gray-800 pl-3">3. A Batalha: TCP vs. UDP</h2>
+            
+            <div class="overflow-hidden rounded-lg border border-gray-300">
+                <table class="min-w-full divide-y divide-gray-300 table-fixed">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="py-3 px-2 text-left text-xs font-bold text-gray-700 uppercase w-1/4">Característica</th>
+                            <th class="py-3 px-2 text-left text-xs font-bold text-gray-700 uppercase w-1/3">TCP (O Burocrata)</th>
+                            <th class="py-3 px-2 text-left text-xs font-bold text-gray-700 uppercase w-1/3">UDP (O Apressado)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200 bg-white text-sm">
+                        <tr>
+                            <td class="px-2 py-2 font-bold">Confiabilidade</td>
+                            <td class="px-2 py-2 text-green-700 font-medium">Alta. Garante entrega.</td>
+                            <td class="px-2 py-2 text-red-700 font-medium">Nenhuma. "Best Effort".</td>
+                        </tr>
+                        <tr>
+                            <td class="px-2 py-2 font-bold">Conexão</td>
+                            <td class="px-2 py-2">Orientado à Conexão (3-vias).</td>
+                            <td class="px-2 py-2">Connectionless (Sem conexão).</td>
+                        </tr>
+                        <tr>
+                            <td class="px-2 py-2 font-bold">Ordenação</td>
+                            <td class="px-2 py-2">Garante a ordem.</td>
+                            <td class="px-2 py-2">Chega bagunçado.</td>
+                        </tr>
+                        <tr>
+                            <td class="px-2 py-2 font-bold">Velocidade</td>
+                            <td class="px-2 py-2">Mais lento (Overhead alto).</td>
+                            <td class="px-2 py-2 font-bold">Muito Rápido.</td>
+                        </tr>
+                        <tr>
+                            <td class="px-2 py-2 font-bold">Uso Típico</td>
+                            <td class="px-2 py-2">Web, E-mail, Bancos, Arquivos.</td>
+                            <td class="px-2 py-2"><span class="highlight">VoIP, Streaming, Jogos, DNS.</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Conteúdo: 4. Camada de Internet -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 border-l-4 border-gray-800 pl-3">4. Camada de Internet (IP)</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                    <h3 class="font-bold text-lg mb-2 text-gray-900">IPv4 vs. IPv6</h3>
+                    <ul class="list-disc pl-5 space-y-2 text-sm">
+                        <li><strong>Tamanho:</strong> IPv4 (32 bits, decimal) vs IPv6 (128 bits, hexadecimal).</li>
+                        <li><strong>Fragmentação:</strong>
+                            <ul class="list-none pl-2 mt-1">
+                                <li>IPv4: Roteadores fragmentam.</li>
+                                <li class="highlight">IPv6: Roteadores NÃO fragmentam. A origem deve fragmentar.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Checksum:</strong> IPv6 NÃO tem checksum (mais rápido).</li>
+                        <li><strong>NAT:</strong> IPv6 não precisa.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                    <h3 class="font-bold text-lg mb-2 text-gray-900">Protocolos Auxiliares</h3>
+                    <ul class="list-disc pl-5 space-y-2 text-sm">
+                        <li><strong>ARP:</strong> Resolve <span class="highlight">IP (Lógico) → MAC (Físico)</span>. Opera entre camadas 2 e 3.</li>
+                        <li><strong>ICMP:</strong> Controle de erros.
+                            <ul class="list-none pl-2 mt-1">
+                                <li class="text-gray-600">Motor do comando <code>ping</code> e <code>tracert</code>. Não leva dados de usuário.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conteúdo: 5. Endereçamento -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 border-l-4 border-gray-800 pl-3">5. Endereçamento e Sub-redes</h2>
+            
+            <div class="mb-4">
+                <h3 class="font-bold text-lg mb-2">Máscaras de Rede (CIDR)</h3>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-sm">
+                    <div class="bg-gray-100 p-2 rounded"><strong>/24</strong><br>254 hosts</div>
+                    <div class="bg-gray-100 p-2 rounded"><strong>/25</strong><br>126 hosts</div>
+                    <div class="bg-gray-100 p-2 rounded"><strong>/26</strong><br>62 hosts</div>
+                    <div class="bg-gray-100 p-2 rounded"><strong>/27</strong><br>30 hosts</div>
+                </div>
+            </div>
+
+            <div class="bg-gray-50 border border-gray-200 p-4 rounded-lg mb-4">
+                <p class="font-bold mb-1">Cálculo de Hosts:</p>
+                <p class="text-lg font-mono bg-white inline-block px-2 border border-gray-300 rounded">2<sup>h</sup> - 2</p>
+                <p class="text-sm text-gray-600 mt-2">Onde <em>h</em> = bits 0 na máscara. <br><strong>Por que -2?</strong> (1 para Rede, 1 para Broadcast).</p>
+            </div>
+
+            <div>
+                <h3 class="font-bold text-lg mb-2">Endereços Privados (RFC 1918)</h3>
+                <ul class="text-sm space-y-1 font-mono bg-white p-3 border border-gray-300 rounded">
+                    <li>Classe A: 10.0.0.0 a 10.255.255.255</li>
+                    <li>Classe B: 172.16.0.0 a 172.31.255.255</li>
+                    <li>Classe C: 192.168.0.0 a 192.168.255.255</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Conteúdo: 6. Comandos -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 border-l-4 border-gray-800 pl-3">6. Comandos de Diagnóstico</h2>
+            <ul class="divide-y divide-gray-200">
+                <li class="py-2">
+                    <span class="font-mono font-bold text-gray-900 bg-gray-100 px-1">ping</span>: Testa conectividade (ICMP).
+                </li>
+                <li class="py-2">
+                    <span class="font-mono font-bold text-gray-900 bg-gray-100 px-1">tracert</span> (Win) / <span class="font-mono font-bold text-gray-900 bg-gray-100 px-1">traceroute</span> (Linux): Mostra rota e onde caiu.
+                </li>
+                <li class="py-2">
+                    <span class="font-mono font-bold text-gray-900 bg-gray-100 px-1">ipconfig</span> (Win) / <span class="font-mono font-bold text-gray-900 bg-gray-100 px-1">ifconfig</span>: IP, Máscara, Gateway.
+                    <span class="text-xs block text-gray-500 mt-1">use /all para ver o MAC.</span>
+                </li>
+                <li class="py-2">
+                    <span class="font-mono font-bold text-gray-900 bg-gray-100 px-1">nslookup</span> ou <span class="font-mono font-bold text-gray-900 bg-gray-100 px-1">dig</span>: Testa resolução DNS.
+                </li>
+                <li class="py-2">
+                    <span class="font-mono font-bold text-gray-900 bg-gray-100 px-1">netstat</span>: Portas abertas e conexões.
+                </li>
+                <li class="py-2">
+                    <span class="font-mono font-bold text-gray-900 bg-gray-100 px-1">arp -a</span>: Tabela cache IP-MAC.
+                </li>
+            </ul>
+        </section>
+
+        <!-- Conteúdo: 7. Pegadinhas -->
+        <section class="mb-12 bg-gray-50 p-6 rounded-xl border border-gray-200">
+            <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center">
+                <span class="text-2xl mr-2">🚨</span> Pegadinhas Finais - Revisão de Véspera
+            </h2>
+            <ol class="list-decimal pl-5 space-y-3 font-medium text-gray-800">
+                <li><strong>Switch</strong> é Camada 2 (Enlace) - Usa MAC.</li>
+                <li><strong>Roteador</strong> é Camada 3 (Internet) - Usa IP.</li>
+                <li><strong>Hub</strong> é Camada 1 (Física) - Repete sinal (burro).</li>
+                <li><strong>SSL/TLS</strong> roda em cima do TCP, mas serve à Aplicação.</li>
+                <li><strong>IPv6</strong> usa dois pontos (<code>:</code>) e pode usar <code>::</code> uma vez para abreviar zeros.</li>
+            </ol>
+        </section>
+
+        <!-- Botão Final -->
+        <div class="flex justify-center mt-10 pb-10">
+            <a href="esp-protocolos-tcp-udp-quicquestoes.html" class="bg-gray-900 hover:bg-gray-700 text-white font-bold py-4 px-8 rounded shadow-lg transition duration-200 w-full sm:w-auto text-center">
+                Ir para Questões 📝
+            </a>
+        </div>
+
+    </div>
+
+</body>
+</html>

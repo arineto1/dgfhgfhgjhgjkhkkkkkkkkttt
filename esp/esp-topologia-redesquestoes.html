@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado Avançado - Redes (Instituto AOCP)</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2c3e50;
+            --accent-color: #2980b9;
+            --border-color: #e0e0e0;
+            --success-color: #27ae60;
+            --error-color: #c0392b;
+            --container-width: 800px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Georgia, serif; /* Fonte otimizada para leitura */
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            background: #fff;
+            padding: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-radius: 8px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+        }
+
+        header p {
+            color: #7f8c8d;
+            font-size: 0.95rem;
+        }
+
+        .question-block {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .question-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .options-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .option-label:hover {
+            background-color: #f5f9fc;
+        }
+
+        .option-label input[type="radio"] {
+            margin-right: 12px;
+            margin-top: 5px;
+            accent-color: var(--accent-color);
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 20px;
+        }
+
+        .btn-submit:hover {
+            background-color: #1f6391;
+        }
+
+        /* Seção de Resultados */
+        #results-section {
+            display: none; /* Oculto inicialmente */
+            margin-top: 50px;
+            border-top: 3px solid var(--accent-color);
+            padding-top: 30px;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .score-board {
+            text-align: center;
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .score-board h2 {
+            margin: 0;
+            color: var(--accent-color);
+        }
+
+        .resolution-item {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #fdfdfd;
+            border-left: 4px solid var(--border-color);
+        }
+
+        .resolution-item h3 {
+            margin-top: 0;
+            font-size: 1.2rem;
+            color: #34495e;
+        }
+
+        .resolution-item h4 {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .correct-answer-display {
+            font-weight: bold;
+            color: var(--success-color);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        /* Feedback visual nas questões após envio */
+        .feedback-correct {
+            color: var(--success-color);
+            font-weight: bold;
+        }
+        
+        .feedback-incorrect {
+            color: var(--error-color);
+            font-weight: bold;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsividade */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Simulado de Redes - Padrão Instituto AOCP</h1>
+            <p>Topologia, Elementos de Rede, LANs, MANs e WANs</p>
+        </header>
+
+        <form id="quiz-form">
+            <!-- Questão 1 -->
+            <div class="question-block" id="q1-block">
+                <span class="question-title">Questão 1 (Classificação Geográfica e Evolução)</span>
+                <p>A literatura técnica classifica as redes de computadores baseando-se em sua abrangência geográfica, o que por sua vez dita as tecnologias de transmissão e os protocolos de controle de erro utilizados. Avalie as afirmativas a seguir e assinale a alternativa correta.</p>
+                <p>
+                    I. A LAN (<em>Local Area Network</em>) é caracterizada por cobrir uma área geográfica limitada, operando tipicamente com tecnologias de <em>broadcast</em> como Ethernet, apresentando baixas latências e altas taxas de transmissão.<br>
+                    II. A WMAN (<em>Wireless Metropolitan Area Network</em>) é exemplificada pelo padrão IEEE 802.16 (WiMAX), projetada para fornecer acesso de banda larga em escalas metropolitanas, distinguindo-se das WLANs pelo alcance e licenciamento de espectro.<br>
+                    III. Em redes WAN (<em>Wide Area Network</em>), o uso de tecnologias como MPLS (<em>Multiprotocol Label Switching</em>) tem substituído o antigo <em>Frame Relay</em> devido à capacidade do MPLS de gerenciar QoS (<em>Quality of Service</em>) e engenharia de tráfego de forma mais eficiente em backbones de longa distância.
+                </p>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q1" value="A"> A) Apenas I e II estão corretas.</label>
+                    <label class="option-label"><input type="radio" name="q1" value="B"> B) Apenas I e III estão corretas.</label>
+                    <label class="option-label"><input type="radio" name="q1" value="C"> C) Apenas II e III estão corretas.</label>
+                    <label class="option-label"><input type="radio" name="q1" value="D"> D) Todas as afirmativas estão corretas.</label>
+                    <label class="option-label"><input type="radio" name="q1" value="E"> E) Nenhuma das afirmativas está correta.</label>
+                </div>
+            </div>
+
+            <!-- Questão 2 -->
+            <div class="question-block" id="q2-block">
+                <span class="question-title">Questão 2 (Topologia e Resiliência)</span>
+                <p>Um arquiteto de soluções de TI de um Instituto Federal precisa projetar a topologia física de um novo <em>Data Center</em>. O requisito crítico é a alta disponibilidade: a falha de um único link de comunicação ou de um dispositivo terminal não pode, sob nenhuma circunstância, interromper a comunicação dos demais dispositivos. Além disso, a manutenção deve ser facilitada pela centralização dos pontos de conexão. Qual topologia física, combinada com qual equipamento central, atende a esses requisitos, sendo a norma em cabeamento estruturado moderno?</p>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q2" value="A"> A) Barramento (<em>Bus</em>) com terminadores de 50 ohms.</label>
+                    <label class="option-label"><input type="radio" name="q2" value="B"> B) Anel (<em>Ring</em>) utilizando interfaces FDDI.</label>
+                    <label class="option-label"><input type="radio" name="q2" value="C"> C) Estrela (<em>Star</em>) utilizando um <em>Switch</em> gerenciável.</label>
+                    <label class="option-label"><input type="radio" name="q2" value="D"> D) Malha Total (<em>Full Mesh</em>) sem elementos centrais.</label>
+                    <label class="option-label"><input type="radio" name="q2" value="E"> E) Árvore (<em>Tree</em>) utilizando concentradores passivos (<em>Hubs</em>).</label>
+                </div>
+            </div>
+
+            <!-- Questão 3 -->
+            <div class="question-block" id="q3-block">
+                <span class="question-title">Questão 3 (Modelo OSI e Dispositivos Intermediários)</span>
+                <p>A interconexão de redes heterogêneas exige dispositivos que operem em camadas específicas do Modelo OSI. Sobre a função do Roteador (<em>Router</em>) em comparação a outros elementos de rede, assinale a alternativa tecnicamente correta.</p>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q3" value="A"> A) O Roteador opera na Camada de Enlace (Camada 2), utilizando endereços MAC para segmentar domínios de colisão, mas não de <em>broadcast</em>.</label>
+                    <label class="option-label"><input type="radio" name="q3" value="B"> B) O Roteador opera na Camada de Rede (Camada 3), tomando decisões de encaminhamento baseadas em endereços lógicos (IP) e é essencial para conectar LANs a WANs, bloqueando <em>broadcasts</em> por padrão.</label>
+                    <label class="option-label"><input type="radio" name="q3" value="C"> C) O Roteador funciona primariamente na Camada Física (Camada 1), regenerando sinais digitais para estender o alcance de cabos de par trançado.</label>
+                    <label class="option-label"><input type="radio" name="q3" value="D"> D) Diferentemente do <em>Switch</em>, o Roteador não possui tabelas de encaminhamento, dependendo exclusivamente de <em>flooding</em> para encontrar o destino.</label>
+                    <label class="option-label"><input type="radio" name="q3" value="E"> E) A principal função do Roteador é a conversão de sinais digitais em analógicos, atuando como um Modem em redes discadas.</label>
+                </div>
+            </div>
+
+            <!-- Questão 4 -->
+            <div class="question-block" id="q4-block">
+                <span class="question-title">Questão 4 (Topologia Lógica vs. Física)</span>
+                <p>Considere uma rede local fisicamente estruturada com cabos UTP cat 6 conectados a um dispositivo central. Se esse dispositivo central for um <em>Hub</em> concentrador, qual é a topologia lógica resultante e qual método de controle de acesso ao meio é mandatório?</p>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q4" value="A"> A) Topologia Lógica em Estrela; Acesso por <em>Token Passing</em>.</label>
+                    <label class="option-label"><input type="radio" name="q4" value="B"> B) Topologia Lógica em Barramento; Acesso por CSMA/CD.</label>
+                    <label class="option-label"><input type="radio" name="q4" value="C"> C) Topologia Lógica em Anel; Acesso por CSMA/CA.</label>
+                    <label class="option-label"><input type="radio" name="q4" value="D"> D) Topologia Lógica Ponto-a-Ponto; Acesso por Multiplexação TDM.</label>
+                    <label class="option-label"><input type="radio" name="q4" value="E"> E) Topologia Lógica em Malha; Acesso via Polling.</label>
+                </div>
+            </div>
+
+            <!-- Questão 5 -->
+            <div class="question-block" id="q5-block">
+                <span class="question-title">Questão 5 (Meios de Transmissão Guiados)</span>
+                <p>Em projetos de infraestrutura de rede, a escolha entre fibra óptica e par trançado envolve trade-offs de custo, distância e imunidade a ruídos. Analise as assertivas:</p>
+                <p>
+                    I. Fibras ópticas são meios não guiados que utilizam a luz infravermelha dispersa no ar para comunicação de curta distância.<br>
+                    II. O cabo de par trançado blindado (STP) oferece maior proteção contra interferência eletromagnética (EMI) do que o cabo não blindado (UTP), sendo indicado para ambientes industriais.<br>
+                    III. A fibra monomodo possui um núcleo de diâmetro reduzido (aprox. 9 mícrons), permitindo apenas um modo de propagação de luz, o que elimina a dispersão modal e a torna ideal para enlaces de longa distância (WANs).
+                </p>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q5" value="A"> A) Apenas I.</label>
+                    <label class="option-label"><input type="radio" name="q5" value="B"> B) Apenas II.</label>
+                    <label class="option-label"><input type="radio" name="q5" value="C"> C) Apenas I e III.</label>
+                    <label class="option-label"><input type="radio" name="q5" value="D"> D) Apenas II e III.</label>
+                    <label class="option-label"><input type="radio" name="q5" value="E"> E) I, II e III.</label>
+                </div>
+            </div>
+
+            <!-- Questão 6 -->
+            <div class="question-block" id="q6-block">
+                <span class="question-title">Questão 6 (Cálculo de Conectividade em Malha)</span>
+                <p>Para garantir redundância máxima entre 6 roteadores de borda em uma WAN governamental, optou-se por uma topologia de Malha Total (<em>Full Mesh</em>). Quantos links físicos independentes (enlaces ponto-a-ponto) são necessários para interligar todos esses 6 dispositivos, garantindo que cada um tenha uma conexão direta com todos os outros?</p>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q6" value="A"> A) 6 links.</label>
+                    <label class="option-label"><input type="radio" name="q6" value="B"> B) 10 links.</label>
+                    <label class="option-label"><input type="radio" name="q6" value="C"> C) 12 links.</label>
+                    <label class="option-label"><input type="radio" name="q6" value="D"> D) 15 links.</label>
+                    <label class="option-label"><input type="radio" name="q6" value="E"> E) 21 links.</label>
+                </div>
+            </div>
+
+            <!-- Questão 7 -->
+            <div class="question-block" id="q7-block">
+                <span class="question-title">Questão 7 (Comutação: L2 vs. L3)</span>
+                <p>Qual é a distinção funcional fundamental entre um <em>Switch</em> de Camada 2 tradicional e um Roteador, no que tange ao tratamento de quadros de <em>broadcast</em> (endereço de destino FF:FF:FF:FF:FF:FF)?</p>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q7" value="A"> A) O Switch descarta quadros de <em>broadcast</em> para economizar banda, enquanto o Roteador os propaga para todas as redes conectadas.</label>
+                    <label class="option-label"><input type="radio" name="q7" value="B"> B) O Switch propaga o <em>broadcast</em> por todas as portas ativas (exceto a de origem), estendendo o domínio de <em>broadcast</em>; o Roteador não propaga <em>broadcasts</em>, delimitando o domínio.</label>
+                    <label class="option-label"><input type="radio" name="q7" value="C"> C) Ambos os dispositivos bloqueiam <em>broadcasts</em> nativamente para evitar tempestades de pacotes.</label>
+                    <label class="option-label"><input type="radio" name="q7" value="D"> D) O Roteador converte <em>broadcasts</em> em <em>unicasts</em> direcionados, enquanto o Switch converte <em>unicasts</em> em <em>broadcasts</em>.</label>
+                    <label class="option-label"><input type="radio" name="q7" value="E"> E) O Switch utiliza o protocolo STP para rotear <em>broadcasts</em>, enquanto o Roteador utiliza OSPF.</label>
+                </div>
+            </div>
+
+            <!-- Questão 8 -->
+            <div class="question-block" id="q8-block">
+                <span class="question-title">Questão 8 (Redes Sem Fio - WLAN)</span>
+                <p>Sobre os padrões e o funcionamento de redes sem fio (IEEE 802.11), assinale a alternativa que descreve corretamente o comportamento do meio de transmissão.</p>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q8" value="A"> A) Redes Wi-Fi operam em modo <em>Full-Duplex</em>, permitindo envio e recepção simultâneos na mesma frequência sem colisão.</label>
+                    <label class="option-label"><input type="radio" name="q8" value="B"> B) O meio aéreo é considerado um meio guiado de alta confiabilidade, imune a interferências de outros dispositivos como micro-ondas e telefones sem fio.</label>
+                    <label class="option-label"><input type="radio" name="q8" value="C"> C) WLANs utilizam a topologia lógica de Barramento compartilhado e o protocolo CSMA/CA (<em>Collision Avoidance</em>) para gerenciar o acesso ao meio, já que a detecção de colisão (CD) é impraticável no rádio.</label>
+                    <label class="option-label"><input type="radio" name="q8" value="D"> D) O padrão 802.11ac opera exclusivamente na frequência de 2.4 GHz para maximizar o alcance através de paredes de concreto.</label>
+                    <label class="option-label"><input type="radio" name="q8" value="E"> E) Um <em>Access Point</em> funciona analogamente a um <em>Switch</em>, isolando domínios de colisão para cada cliente sem fio conectado.</label>
+                </div>
+            </div>
+
+            <!-- Questão 9 -->
+            <div class="question-block" id="q9-block">
+                <span class="question-title">Questão 9 (Arquitetura de Rede)</span>
+                <p>Uma pequena empresa opta por não investir em um servidor centralizado rodando Windows Server ou Linux. Em vez disso, decide que todos os 10 computadores dos funcionários poderão compartilhar arquivos e impressoras entre si, com cada usuário gerenciando suas próprias permissões de acesso. Qual modelo de arquitetura de rede foi adotado e qual sua principal limitação?</p>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q9" value="A"> A) Cliente-Servidor; limitação de alto custo de hardware.</label>
+                    <label class="option-label"><input type="radio" name="q9" value="B"> B) Ponto-a-Ponto (<em>Peer-to-Peer</em>); limitação de dificuldade de gerenciamento centralizado e segurança descentralizada.</label>
+                    <label class="option-label"><input type="radio" name="q9" value="C"> C) Nuvem Híbrida; limitação de dependência de internet.</label>
+                    <label class="option-label"><input type="radio" name="q9" value="D"> D) Terminal <em>Mainframe</em>; limitação de processamento centralizado.</label>
+                    <label class="option-label"><input type="radio" name="q9" value="E"> E) Malha; limitação de excesso de cabos.</label>
+                </div>
+            </div>
+
+            <!-- Questão 10 -->
+            <div class="question-block" id="q10-block">
+                <span class="question-title">Questão 10 (Cabeamento e Conectores)</span>
+                <p>Para implementar uma rede Gigabit Ethernet (1000Base-T) seguindo as normas de cabeamento estruturado EIA/TIA-568, qual a combinação mínima de categoria de cabo e tipo de conector deve ser utilizada?</p>
+                <div class="options-group">
+                    <label class="option-label"><input type="radio" name="q10" value="A"> A) Cabo Coaxial Fino e conector BNC.</label>
+                    <label class="option-label"><input type="radio" name="q10" value="B"> B) Cabo de Par Trançado Categoria 3 e conector RJ-11.</label>
+                    <label class="option-label"><input type="radio" name="q10" value="C"> C) Cabo de Par Trançado Categoria 5e e conector RJ-45.</label>
+                    <label class="option-label"><input type="radio" name="q10" value="D"> D) Fibra Óptica Multimodo e conector ST.</label>
+                    <label class="option-label"><input type="radio" name="q10" value="E"> E) Cabo de Par Trançado Categoria 6a e conector DB-25.</label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit">Finalizar Simulado e Ver Gabarito</button>
+        </form>
+
+        <section id="results-section">
+            <div class="score-board">
+                <h2>Seu Resultado: <span id="score-display">0</span>/10</h2>
+            </div>
+
+            <div class="explanations">
+                <h2>Resolução Analítica Detalhada</h2>
+
+                <!-- Resolução Q1 -->
+                <div class="resolution-item">
+                    <h3>Questão 1: Taxonomia Geográfica e Evolução Tecnológica</h3>
+                    <span class="correct-answer-display">Gabarito Correto: D</span>
+                    
+                    <h4>1.1. LAN (Local Area Network)</h4>
+                    <p>A afirmação I define corretamente a LAN. Uma LAN não é definida apenas por metros, mas pelo controle administrativo e características de sinal (baixa latência, alta velocidade). A menção ao broadcast é crucial, pois protocolos como Ethernet baseiam-se na difusão para descoberta de serviços.</p>
+                    
+                    <h4>1.2. WMAN e WiMAX</h4>
+                    <p>A afirmação II aborda a WMAN. Enquanto o Wi-Fi (802.11) é para ambientes internos (LAN), o WiMAX (802.16) foi projetado para a "Última Milha" metropolitana, operando com potências maiores e frequências licenciadas.</p>
+                    
+                    <h4>1.3. WAN: Frame Relay vs MPLS</h4>
+                    <p>A afirmação III está correta. O MPLS (<em>Multiprotocol Label Switching</em>) substituiu o Frame Relay por permitir engenharia de tráfego e QoS robusto. Diferente do roteamento IP tradicional que analisa todo o cabeçalho, o MPLS comuta baseado em "labels" curtos, agilizando o backbone.</p>
+                </div>
+
+                <!-- Resolução Q2 -->
+                <div class="resolution-item">
+                    <h3>Questão 2: Topologias Físicas e Centralização</h3>
+                    <span class="correct-answer-display">Gabarito Correto: C</span>
+                    <p>A questão exige alta disponibilidade e fácil manutenção. A topologia em <strong>Estrela</strong> é a norma moderna.</p>
+                    <p>Diferente do barramento (onde um cabo quebrado derruba a rede), na estrela, a falha de um cabo afeta apenas um PC. O uso de um <strong>Switch Gerenciável</strong> (ao invés de Hub) é vital, pois cria microsegmentação, evitando colisões e permitindo controle de tráfego, essencial para Data Centers.</p>
+                </div>
+
+                <!-- Resolução Q3 -->
+                <div class="resolution-item">
+                    <h3>Questão 3: O Papel do Roteador no Modelo OSI</h3>
+                    <span class="correct-answer-display">Gabarito Correto: B</span>
+                    <p>O Roteador opera na <strong>Camada de Rede (L3)</strong>. Sua função é interconectar redes lógicas diferentes usando endereços IP.</p>
+                    <p>A característica chave cobrada é o <strong>Controle de Broadcast</strong>. Roteadores não propagam pacotes de broadcast (255.255.255.255) de uma interface para outra, delimitando o domínio de broadcast e impedindo que o tráfego de descoberta de uma rede local inunde a WAN.</p>
+                </div>
+
+                <!-- Resolução Q4 -->
+                <div class="resolution-item">
+                    <h3>Questão 4: Dualidade Topológica (Física vs. Lógica)</h3>
+                    <span class="correct-answer-display">Gabarito Correto: B</span>
+                    <p>Fisicamente, vemos uma estrela (cabos indo para um centro). Porém, se o centro é um <strong>Hub</strong>, eletricamente todos os pinos estão conectados. O sinal de um PC vai para todos os outros simultaneamente.</p>
+                    <p>Isso cria uma <strong>Topologia Lógica em Barramento</strong>. Como o meio é compartilhado, colisões podem ocorrer, exigindo o uso obrigatório do protocolo <strong>CSMA/CD</strong> (Carrier Sense Multiple Access with Collision Detection) para gerenciar o acesso.</p>
+                </div>
+
+                <!-- Resolução Q5 -->
+                <div class="resolution-item">
+                    <h3>Questão 5: A Física dos Meios de Transmissão</h3>
+                    <span class="correct-answer-display">Gabarito Correto: D</span>
+                    <ul>
+                        <li><strong>I (Falso):</strong> Fibra óptica é um meio <em>guiado</em> (luz presa no núcleo). Meios não guiados são wireless.</li>
+                        <li><strong>II (Verdadeiro):</strong> Cabos STP (Shielded Twisted Pair) possuem blindagem metálica que age como Gaiola de Faraday, essencial para ambientes industriais com alta interferência (EMI).</li>
+                        <li><strong>III (Verdadeiro):</strong> A fibra monomodo tem núcleo estreito (~9 micrômetros), permitindo que a luz viaje em um único modo axial. Isso elimina a dispersão modal, permitindo alcances de dezenas de quilômetros (WANs).</li>
+                    </ul>
+                </div>
+
+                <!-- Resolução Q6 -->
+                <div class="resolution-item">
+                    <h3>Questão 6: Matemática das Topologias (Malha)</h3>
+                    <span class="correct-answer-display">Gabarito Correto: D</span>
+                    <p>Para uma Malha Total (Full Mesh), a fórmula é <code>N * (N-1) / 2</code>.</p>
+                    <p>Com N = 6 roteadores:</p>
+                    <p><code>6 * (5) / 2 = 30 / 2 = 15 links.</code></p>
+                    <p>Isso demonstra o alto custo de cabeamento da malha total.</p>
+                </div>
+
+                <!-- Resolução Q7 -->
+                <div class="resolution-item">
+                    <h3>Questão 7: Comutação e Domínios de Broadcast</h3>
+                    <span class="correct-answer-display">Gabarito Correto: B</span>
+                    <p><strong>Switch (L2):</strong> Ao receber um broadcast (FF:FF:FF:FF:FF:FF), ele deve propagá-lo para todas as portas exceto a de origem. Isso <em>estende</em> o domínio de broadcast.</p>
+                    <p><strong>Roteador (L3):</strong> Ao receber um broadcast, ele o descarta (não roteia). Isso <em>delimita</em> o domínio de broadcast, impedindo tempestades de pacotes entre sub-redes.</p>
+                </div>
+
+                <!-- Resolução Q8 -->
+                <div class="resolution-item">
+                    <h3>Questão 8: A Realidade das Redes Wi-Fi (WLAN)</h3>
+                    <span class="correct-answer-display">Gabarito Correto: C</span>
+                    <p>O Wi-Fi é <strong>Half-Duplex</strong> (o rádio não transmite e recebe ao mesmo tempo na mesma frequência). Como não é possível detectar colisão "ouvindo" o meio enquanto se fala (como no cabo), usa-se o <strong>CSMA/CA</strong> (Collision Avoidance).</p>
+                    <p>A topologia lógica é de <strong>Barramento Compartilhado</strong>, pois todos competem pelo mesmo meio aéreo (espectro de frequência).</p>
+                </div>
+
+                <!-- Resolução Q9 -->
+                <div class="resolution-item">
+                    <h3>Questão 9: Arquiteturas Administrativas</h3>
+                    <span class="correct-answer-display">Gabarito Correto: B</span>
+                    <p>O cenário descreve uma rede sem servidor central (controlador de domínio). Cada máquina gerencia seus próprios recursos e usuários.</p>
+                    <p>Isso é o modelo <strong>Peer-to-Peer (Ponto-a-Ponto)</strong>. A principal limitação é a descentralização da segurança e gerenciamento: senhas não são sincronizadas, backup é individual e a administração se torna caótica conforme o número de usuários cresce.</p>
+                </div>
+
+                <!-- Resolução Q10 -->
+                <div class="resolution-item">
+                    <h3>Questão 10: Padrões de Cabeamento EIA/TIA</h3>
+                    <span class="correct-answer-display">Gabarito Correto: C</span>
+                    <p>Para Gigabit Ethernet (1000Base-T), o padrão exige cabos que suportem frequências de 100MHz e tenham parâmetros de diafonia controlados.</p>
+                    <p>O <strong>Cat 5e</strong> (Enhanced) é a categoria mínima para garantir 1 Gbps estavelmente. O conector padrão para par trançado em redes de dados é o <strong>RJ-45</strong> (8P8C).</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const correctAnswers = {
+            q1: 'D',
+            q2: 'C',
+            q3: 'B',
+            q4: 'B',
+            q5: 'D',
+            q6: 'D',
+            q7: 'B',
+            q8: 'C',
+            q9: 'B',
+            q10: 'C'
+        };
+
+        document.getElementById('quiz-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            let score = 0;
+            const totalQuestions = Object.keys(correctAnswers).length;
+            const formData = new FormData(this);
+
+            // Resetar estilos anteriores
+            document.querySelectorAll('.question-block').forEach(block => {
+                block.style.borderLeft = 'none';
+                block.style.backgroundColor = 'transparent';
+            });
+            document.querySelectorAll('.feedback-msg').forEach(el => el.remove());
+
+            // Verificar respostas
+            for (let i = 1; i <= totalQuestions; i++) {
+                const qKey = 'q' + i;
+                const userChoice = formData.get(qKey);
+                const block = document.getElementById(qKey + '-block');
+                const correct = correctAnswers[qKey];
+
+                const feedbackSpan = document.createElement('div');
+                feedbackSpan.className = 'feedback-msg';
+                feedbackSpan.style.marginTop = '10px';
+
+                if (userChoice === correct) {
+                    score++;
+                    block.style.borderLeft = '5px solid var(--success-color)';
+                    block.style.backgroundColor = '#f0fff4';
+                    feedbackSpan.innerHTML = '<span class="feedback-correct">✓ Resposta Correta!</span>';
+                } else {
+                    block.style.borderLeft = '5px solid var(--error-color)';
+                    block.style.backgroundColor = '#fff5f5';
+                    feedbackSpan.innerHTML = `<span class="feedback-incorrect">✗ Incorreto. A resposta correta é a letra ${correct}.</span>`;
+                }
+                
+                block.appendChild(feedbackSpan);
+            }
+
+            // Atualizar placar
+            document.getElementById('score-display').textContent = score;
+
+            // Mostrar seção de resultados
+            const resultsSection = document.getElementById('results-section');
+            resultsSection.style.display = 'block';
+
+            // Scroll suave até o resultado
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo Reta Final: Containers (Foco AOCP/IFPB)</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #1a1a1a;
+            --heading-color: #2c3e50;
+            --accent-color: #e8f0fe; /* Azul muito claro para destaque neutro */
+            --warning-bg: #fff3cd;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+        }
+
+        /* Tipografia */
+        h1, h2, h3 {
+            color: var(--heading-color);
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            border-bottom: 2px solid var(--heading-color);
+            padding-bottom: 10px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            border-left: 5px solid var(--heading-color);
+            padding-left: 10px;
+            background-color: #f9f9f9;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            color: #444;
+        }
+
+        p {
+            margin-bottom: 1em;
+            text-align: justify;
+        }
+
+        /* Destaques e Grifos */
+        strong {
+            color: #000;
+            font-weight: 700;
+        }
+
+        .highlight-box {
+            background-color: var(--accent-color);
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #4a90e2;
+            margin: 20px 0;
+        }
+
+        .warning-box {
+            background-color: var(--warning-bg);
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #ffc107;
+            margin: 20px 0;
+        }
+
+        /* Tabelas Responsivas sem Scroll Horizontal */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            table-layout: fixed; /* Força a tabela a respeitar a largura */
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+            word-wrap: break-word; /* Quebra palavras longas se necessário */
+            overflow-wrap: break-word;
+        }
+
+        th {
+            background-color: #f4f4f4;
+            color: var(--heading-color);
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+
+        /* Player de Áudio */
+        .audio-container {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        audio {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        /* Botão Final */
+        .action-area {
+            margin-top: 50px;
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .btn-questoes {
+            display: inline-block;
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px 40px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+
+        .btn-questoes:hover {
+            background-color: #1a252f;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* Ajustes Mobile */
+        @media (max-width: 600px) {
+            th, td {
+                font-size: 0.9rem;
+                padding: 8px;
+            }
+            
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- Player de Áudio -->
+        <div class="audio-container">
+            <h3>🎧 Resumo em Áudio</h3>
+            <p>Ouça enquanto acompanha o material.</p>
+            <!-- Substitua 'seu_arquivo_aqui.mp3' pelo nome do arquivo real -->
+            <audio controls>
+                <source src="esp-containers.mp3" type="audio/mpeg">
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
+        </div>
+
+        <header>
+            <h1>Resumo de Reta Final: Containers (IFPB/AOCP)</h1>
+            <div class="highlight-box">
+                <p><strong>Estratégia de Leitura:</strong> Este resumo foca em palavras-chave e diferenciações técnicas literais, que são o padrão de cobrança da AOCP. Os itens marcados com ⚠️ são "pegadinhas" clássicas.</p>
+            </div>
+        </header>
+
+        <section>
+            <h2>1. Conceitos Fundamentais (Kernel Linux)</h2>
+            <p>Para a prova, guarde esta distinção máxima: <strong>Container NÃO é Máquina Virtual</strong>. Container é <strong>virtualização de sistema operacional</strong>, enquanto VM é virtualização de hardware.</p>
+
+            <h3>1.1. O "Motor" do Container</h3>
+            <p>Um container é apenas um <strong>processo isolado</strong> rodando no Userspace, compartilhando o <strong>mesmo Kernel</strong> do host. Ele funciona através da combinação de dois recursos do Kernel Linux:</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Recurso</th>
+                        <th style="width: 30%;">Função (Palavra-Chave)</th>
+                        <th>O que faz?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>NAMESPACES</strong></td>
+                        <td><strong>Isolamento</strong></td>
+                        <td>Define o que o container <em>vê</em>. Cria a ilusão de que ele é o único no sistema (PID, Rede, Mount, User).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CGROUPS</strong></td>
+                        <td><strong>Recursos</strong></td>
+                        <td>Define o que o container <em>usa</em>. Limita e contabiliza CPU, Memória e I/O.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>1.2. VM vs. Container (Tabela de Ouro)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Característica</th>
+                        <th>Máquina Virtual (VM)</th>
+                        <th>Container</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Isolamento</strong></td>
+                        <td>Hardware / Forte</td>
+                        <td>Processo / Leve</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Kernel</strong></td>
+                        <td>Próprio (Guest OS completo)</td>
+                        <td><strong>Compartilhado com o Host</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tamanho</strong></td>
+                        <td>Gigabytes (GB)</td>
+                        <td>Megabytes (MB)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Boot</strong></td>
+                        <td>Minutos (Boot do SO)</td>
+                        <td>Milissegundos (Start do Processo)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Desempenho</strong></td>
+                        <td>Menor (Overhead do Hypervisor)</td>
+                        <td><strong>Nativo</strong> (Instrução direta na CPU)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>2. Docker: Arquitetura e Comandos</h2>
+
+            <h3>2.1. Imagens e Camadas</h3>
+            <ul>
+                <li><strong>Imagem:</strong> Template somente leitura (<em>Read-Only</em>).</li>
+                <li><strong>Container:</strong> Imagem + Camada de Escrita (<em>Read-Write Layer</em>).</li>
+            </ul>
+            
+            <div class="warning-box">
+                <p>⚠️ <strong>Copy-on-Write (CoW):</strong> Se você edita um arquivo que veio da imagem, o Docker cria uma cópia na camada de escrita. Se o container for deletado, <strong>essa modificação morre junto</strong> (a menos que use Volumes).</p>
+            </div>
+
+            <h3>2.2. Dockerfile: As Pegadinhas da Sintaxe</h3>
+            <ul>
+                <li><strong><code>COPY</code> vs <code>ADD</code></strong>
+                    <ul>
+                        <li><code>COPY</code>: Copia arquivos locais. <strong>(Preferível)</strong>.</li>
+                        <li><code>ADD</code>: Copia locais + <strong>Extrai tar.gz automaticamente</strong> + Baixa de <strong>URLs</strong>.</li>
+                    </ul>
+                </li>
+                <li><strong><code>CMD</code> vs <code>ENTRYPOINT</code></strong>
+                    <ul>
+                        <li><code>ENTRYPOINT</code>: O executável principal. Difícil de mudar (só com <code>--entrypoint</code>).</li>
+                        <li><code>CMD</code>: Argumentos padrão. <strong>Facilmente substituível</strong> ao rodar <code>docker run imagem comando</code>.</li>
+                        <li><em>Combinação:</em> <code>ENTRYPOINT ["binario"]</code> + <code>CMD ["--help"]</code>.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>2.3. Persistência de Dados (Storage)</h3>
+            <p>A banca vai descrever um cenário e pedir o tipo de armazenamento:</p>
+            <ol>
+                <li><strong>Volumes:</strong> Gerenciados pelo Docker (<code>/var/lib/docker/volumes</code>). O melhor para <strong>Banco de Dados/Produção</strong>. Sobrevivem à morte do container.</li>
+                <li><strong>Bind Mounts:</strong> Caminho exato do host (<code>/home/user/code</code>). O melhor para <strong>Desenvolvimento</strong> (código editado no host aparece no container).</li>
+                <li><strong>Tmpfs:</strong> Memória RAM. <strong>Não persiste</strong>. Usado para dados sensíveis/segredos ou alta performance volátil.</li>
+            </ol>
+
+            <h3>2.4. Redes (Networking)</h3>
+            <ul>
+                <li><strong>Bridge:</strong> (Padrão) Rede privada virtual. Usa NAT para sair.</li>
+                <li><strong>Host:</strong> Remove isolamento de rede. O container usa o IP e porta da máquina física. <strong>Melhor performance</strong>, mas gera conflito de portas.</li>
+                <li><strong>Overlay:</strong> Rede para <strong>Cluster</strong> (Swarm/K8s). Permite comunicação entre containers em hosts diferentes.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. Kubernetes (K8s): Orquestração</h2>
+            <p>O foco aqui é a arquitetura e a função de cada componente.</p>
+
+            <h3>3.1. Arquitetura do Cluster</h3>
+
+            <h4><strong>Control Plane (Master - O Cérebro)</strong></h4>
+            <ol>
+                <li><strong>API Server:</strong> A "recepcionista". Único componente que recebe requisições (kubectl).</li>
+                <li><strong>etcd:</strong> O "banco de dados". Armazena o <strong>estado</strong> do cluster. É Key-Value store. Se perder o etcd, perdeu o cluster.</li>
+                <li><strong>Scheduler:</strong> O "RH". Decide em qual nó o Pod vai rodar (baseado em recursos CPU/RAM).</li>
+                <li><strong>Controller Manager:</strong> O "fiscal". Garante que o estado atual = estado desejado (ex: se cair um pod, ele manda criar outro).</li>
+            </ol>
+
+            <h4><strong>Worker Node (O Músculo)</strong></h4>
+            <ol>
+                <li><strong>Kubelet:</strong> O "capataz". Agente que roda em <strong>todo nó</strong>. Recebe ordens do API Server e garante que o container esteja rodando.</li>
+                <li><strong>Kube-proxy:</strong> Regras de rede (iptables). Permite que os serviços sejam acessados.</li>
+                <li><strong>Container Runtime:</strong> Quem roda o container (containerd, CRI-O). <em>Nota: Docker Engine não é mais suportado diretamente desde a v1.24 (fim do dockershim).</em></li>
+            </ol>
+
+            <h3>3.2. Workloads (Cargas de Trabalho)</h3>
+            <ul>
+                <li><strong>Pod:</strong> Menor unidade do K8s. Um ou mais containers que compartilham IP e Volume. <strong>São efêmeros (morrem).</strong></li>
+                <li><strong>Deployment:</strong> Para aplicações <strong>Stateless</strong> (Web, API). Garante réplicas e faz <em>Rolling Update</em>.</li>
+                <li><strong>StatefulSet:</strong> Para aplicações <strong>Stateful</strong> (Banco de Dados). Garante ordem (0, 1, 2), identidade de rede fixa e persistência de disco estável.</li>
+                <li><strong>DaemonSet:</strong> Garante <strong>um Pod por Nó</strong>. (Ex: Logs, Monitoramento, Antivírus).</li>
+            </ul>
+
+            <h3>3.3. Services (Expondo a Aplicação)</h3>
+            <ul>
+                <li><strong>ClusterIP:</strong> IP interno. Só acessível de <strong>dentro</strong> do cluster. (Padrão).</li>
+                <li><strong>NodePort:</strong> Abre uma porta (30000-32767) no IP de <strong>cada nó</strong>.</li>
+                <li><strong>LoadBalancer:</strong> Cria um LB físico no provedor de nuvem (AWS/Azure) com IP público.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>4. Diferenças Modernas (Atualidades)</h2>
+            <ul>
+                <li><strong>Podman vs. Docker:</strong>
+                    <ul>
+                        <li><strong>Docker:</strong> Tem Daemon (<code>dockerd</code>), precisa de root (geralmente).</li>
+                        <li><strong>Podman:</strong> <strong>Daemonless</strong> (sem daemon), <strong>Rootless</strong> (seguro por padrão), roda Pods localmente.</li>
+                    </ul>
+                </li>
+                <li><strong>CRI (Container Runtime Interface):</strong> Camada que permite o K8s usar qualquer runtime (containerd, CRI-O) sem depender do Docker.</li>
+            </ul>
+        </section>
+
+        <section class="highlight-box" style="border-left-color: #2c3e50; background-color: #f0f4f8;">
+            <h3>🎯 Dica Final para a Prova AOCP:</h3>
+            <p>Se a questão falar sobre "processo que compartilha kernel", é <strong>Container</strong>.</p>
+            <p>Se falar sobre "hardware virtualizado", é <strong>VM</strong>.</p>
+            <p>Se falar sobre "garantir identidade única e ordem", é <strong>StatefulSet</strong>.</p>
+            <p>Se falar sobre "executar em todos os nós da infraestrutura", é <strong>DaemonSet</strong>.</p>
+            <p style="text-align: center; margin-top: 20px; font-weight: bold;">Boa prova!</p>
+        </section>
+
+        <div class="action-area">
+            <a href="esp-containersquestoes.html" class="btn-questoes">Ir para Questões</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

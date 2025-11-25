@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado Instituto AOCP - Containers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #fcfbf9; /* Warm paper tone */
+            color: #2d3748;
+            font-family: 'Merriweather', serif; /* Excellent for long reading */
+        }
+        h1, h2, h3, h4, .ui-font {
+            font-family: 'Inter', sans-serif;
+        }
+        .option-label {
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .option-label:hover {
+            background-color: #f3f4f6;
+        }
+        input[type="radio"]:checked + span {
+            font-weight: 600;
+            color: #1a202c;
+        }
+        /* Custom scrollbar for better reading experience */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e0;
+            border-radius: 4px;
+        }
+        .correct-answer-bg {
+            background-color: #def7ec; /* Light Green */
+            border-color: #38a169;
+        }
+        .wrong-answer-bg {
+            background-color: #fde8e8; /* Light Red */
+            border-color: #e53e3e;
+        }
+        .explanation-box {
+            border-left: 4px solid #4a5568;
+        }
+    </style>
+</head>
+<body class="antialiased leading-relaxed">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-10">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div>
+                <h1 class="text-xl md:text-2xl font-bold text-gray-800 tracking-tight">Simulado Técnico</h1>
+                <p class="text-sm text-gray-500 ui-font">Foco: Containers & Orquestração (Banca Instituto AOCP)</p>
+            </div>
+            <div id="score-display" class="hidden text-right">
+                <span class="block text-xs text-gray-500 uppercase font-bold tracking-wider">Sua Nota</span>
+                <span id="final-score" class="text-2xl font-bold text-blue-600">0/10</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-3xl mx-auto px-4 py-8">
+        
+        <!-- Intro -->
+        <section class="mb-10 prose prose-lg text-gray-700">
+            <p>
+                Este simulado contém <strong>10 questões inéditas</strong> elaboradas com base no padrão de cobrança recente do Instituto AOCP (2024-2025) para cargos de TI. O foco são tecnologias de conteinerização (Docker), orquestração (Kubernetes) e fundamentos do ecossistema Linux.
+            </p>
+            <p class="text-sm italic bg-yellow-50 p-3 border border-yellow-200 rounded ui-font text-yellow-800">
+                Instruções: Responda todas as questões e clique em "Finalizar Simulado" no final da página para ver sua pontuação e a resolução detalhada de cada item.
+            </p>
+        </section>
+
+        <!-- Quiz Container -->
+        <form id="quiz-form">
+            <div id="questions-container" class="space-y-12">
+                <!-- Questions will be injected here by JS -->
+            </div>
+
+            <!-- Submit Button -->
+            <div class="mt-16 mb-20 text-center">
+                <button type="button" onclick="submitQuiz()" id="submit-btn" class="ui-font bg-slate-800 hover:bg-slate-700 text-white font-bold py-4 px-10 rounded-lg shadow-lg transform transition hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-slate-300 text-lg">
+                    Finalizar Simulado e Ver Resoluções
+                </button>
+                <button type="button" onclick="location.reload()" id="retry-btn" class="hidden ui-font bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-bold py-4 px-10 rounded-lg shadow transform transition text-lg ml-4">
+                    Tentar Novamente
+                </button>
+            </div>
+        </form>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 py-8 mt-12">
+        <div class="max-w-3xl mx-auto px-4 text-center text-sm text-gray-500 ui-font">
+            <p>Simulado gerado para fins educacionais.</p>
+        </div>
+    </footer>
+
+    <script>
+        const quizData = [
+            {
+                id: 1,
+                title: "Questão 1 - Analista de Tecnologia da Informação",
+                context: "A tecnologia de containers transformou o cenário de desenvolvimento ao permitir o empacotamento de aplicações com todas as suas dependências. No entanto, a segurança e a comunicação multimídia em ambientes conteinerizados apresentaram desafios históricos no sistema Linux. Em um cenário onde um Analista Judiciário está configurando um servidor Ubuntu Server 22.04 para orquestrar serviços de videoconferência utilizados pelo tribunal, ele necessita de uma solução moderna que substitua o PulseAudio, oferecendo baixa latência e um modelo de segurança robusto para gerenciar fluxos de áudio e vídeo entre aplicativos isolados em containers e o hardware do host.",
+                question: "Assinale a alternativa que apresenta o servidor de mídia que atende a esses requisitos e é o padrão nas distribuições modernas.",
+                options: [
+                    "ALSA (Advanced Linux Sound Architecture)",
+                    "PipeWire",
+                    "OSS (Open Sound System)",
+                    "Jack Audio Connection Kit",
+                    "GStreamer Daemon"
+                ],
+                correct: 1, // Index of PipeWire
+                explanation: `
+                    <h4 class="font-bold text-lg mb-2 ui-font">Gabarito: (B) PipeWire</h4>
+                    <p class="mb-3">Esta questão reflete uma tendência recente do Instituto AOCP em cobrar conhecimentos sobre o ecossistema Linux moderno (Ubuntu 22.04+). O problema central é o áudio/vídeo em containers. O <strong>PipeWire</strong> surge como a solução definitiva, substituindo o PulseAudio.</p>
+                    <ul class="list-disc pl-5 mb-3 space-y-1">
+                        <li><strong>Segurança:</strong> Suporta containers (Docker/Flatpak) nativamente, gerenciando permissões de webcam/mic de forma granular.</li>
+                        <li><strong>Performance:</strong> Unifica áudio de consumo e profissional (baixa latência).</li>
+                    </ul>
+                    <p class="text-sm">Por que as outras falham? <strong>ALSA</strong> é driver de kernel (nível baixo). <strong>OSS</strong> é obsoleto. <strong>JACK</strong> é focado apenas em áudio profissional e complexo para uso geral.</p>
+                `
+            },
+            {
+                id: 2,
+                title: "Questão 2 - Analista de Infraestrutura de TI",
+                context: "Um administrador de sistemas está operando um cluster Docker e necessita realizar uma auditoria completa nos recursos em execução. Ele precisa listar todos os containers presentes no host, independentemente de estarem em execução (Up), parados (Exited) ou terem falhado. Além disso, ele precisa visualizar as versões da API (Client e Server) para garantir compatibilidade com scripts de automação legados.",
+                question: "Assinale a alternativa que contém, respectivamente, os comandos corretos para listar todos os containers (incluindo os inativos) e verificar as versões detalhadas da arquitetura cliente-servidor do Docker.",
+                options: [
+                    "docker list --all e docker info",
+                    "docker ps -a e docker version",
+                    "docker container ls -a e docker -v",
+                    "docker images e docker system info",
+                    "docker run --list e docker --version"
+                ],
+                correct: 1,
+                explanation: `
+                    <h4 class="font-bold text-lg mb-2 ui-font">Gabarito: (B) docker ps -a e docker version</h4>
+                    <p class="mb-3">A proficiência na CLI é obrigatória. O comando <code>docker ps</code> lista apenas containers rodando. Para auditoria (ver containers parados/falhos), a flag <strong>-a</strong> (--all) é essencial.</p>
+                    <p class="mb-3">Para a versão, o Docker opera em arquitetura Cliente-Servidor. O comando <code>docker version</code> exibe detalhes separados de ambos (Client e Server/Daemon). Já o comando <code>docker -v</code> mostraria apenas a versão simplificada do cliente, omitindo dados da API do servidor necessários para checagem de compatibilidade.</p>
+                `
+            },
+            {
+                id: 3,
+                title: "Questão 3 - Engenharia de Software",
+                context: "O Kubernetes utiliza uma arquitetura baseada em objetos para representar o estado do cluster. Dentre esses objetos, existe uma unidade que é considerada a menor e mais simples entidade que pode ser criada e implantada. Essa unidade encapsula um ou mais containers, recursos de armazenamento compartilhados e uma configuração única de rede, permitindo que os containers internos se comuniquem via localhost.",
+                question: "Assinale a alternativa correta que denomina esse objeto.",
+                options: [
+                    "Deployment",
+                    "Node",
+                    "Service",
+                    "Pod",
+                    "Namespace"
+                ],
+                correct: 3,
+                explanation: `
+                    <h4 class="font-bold text-lg mb-2 ui-font">Gabarito: (D) Pod</h4>
+                    <p class="mb-3">Muitos iniciantes erram ao assumir que o K8s gerencia "containers" diretamente. A unidade atômica é o <strong>Pod</strong>.</p>
+                    <ul class="list-disc pl-5 mb-3 space-y-1">
+                        <li><strong>Definição:</strong> Um invólucro lógico para um ou mais containers.</li>
+                        <li><strong>Rede:</strong> Containers no mesmo Pod compartilham o IP e portas (comunicam-se via localhost).</li>
+                        <li><strong>Armazenamento:</strong> Podem montar os mesmos volumes compartilhados.</li>
+                    </ul>
+                    <p class="text-sm">Nota: O <em>Deployment</em> gerencia Pods; o <em>Node</em> é a máquina física/virtual; o <em>Service</em> é a abstração de rede.</p>
+                `
+            },
+            {
+                id: 4,
+                title: "Questão 4 - Analista de Desenvolvimento",
+                context: "Durante a definição de um manifesto YAML para um objeto do tipo Deployment no Kubernetes, um desenvolvedor especificou o campo replicas: 3 dentro da seção spec. Considerando o comportamento dos controladores do Kubernetes e o conceito de estado desejado...",
+                question: "O que essa configuração assegura no cluster?",
+                options: [
+                    "Que a aplicação será implantada obrigatoriamente em três nós físicos distintos.",
+                    "Que o Kubernetes manterá três instâncias do Pod em execução simultânea; caso uma falhe, iniciará uma nova.",
+                    "Que cada container dentro do Pod terá acesso a três núcleos de processamento (vCPU).",
+                    "Que o serviço será exposto em três portas diferentes no balanceador de carga.",
+                    "Que serão criadas três versões distintas da aplicação (dev, homolog, prod)."
+                ],
+                correct: 1,
+                explanation: `
+                    <h4 class="font-bold text-lg mb-2 ui-font">Gabarito: (B) Manter três instâncias do Pod (Estado Desejado)</h4>
+                    <p class="mb-3">O Kubernetes opera com base em Loops de Reconciliação. A instrução <code>replicas: 3</code> define o <strong>Estado Desejado</strong>.</p>
+                    <p>O controlador verifica o estado atual. Se houver 2 pods, ele cria 1. Se houver 4, ele mata 1. Isso garante a autocura (self-healing). Importante notar que isso <strong>não</strong> garante distribuição geográfica/física por padrão (isso exigiria afinidade/anti-afinidade), apenas a contagem lógica de réplicas.</p>
+                `
+            },
+            {
+                id: 5,
+                title: "Questão 5 - Tecnologia da Informação",
+                context: "A construção de imagens de container é regida por um arquivo de script que contém uma série de instruções executadas sequencialmente. Ao analisar o processo de CI/CD de uma empresa, um auditor identificou um arquivo chamado Dockerfile.",
+                question: "Qual comando deve ser executado no terminal para processar as instruções contidas nesse arquivo e gerar uma imagem local pronta para uso?",
+                options: [
+                    "docker create image",
+                    "docker build",
+                    "docker commit",
+                    "docker-compose up",
+                    "docker import"
+                ],
+                correct: 1,
+                explanation: `
+                    <h4 class="font-bold text-lg mb-2 ui-font">Gabarito: (B) docker build</h4>
+                    <p class="mb-3">O comando <code>docker build</code> é a ferramenta primária para transformar o código fonte e o <strong>Dockerfile</strong> em uma imagem imutável.</p>
+                    <p>O mecanismo lê o Dockerfile linha por linha. Cada instrução (RUN, COPY) cria uma nova camada (layer) em cache. <em>Docker create</em> apenas prepara um container, não cria a imagem. <em>Docker commit</em> cria imagem de um container rodando (má prática para produção).</p>
+                `
+            },
+            {
+                id: 6,
+                title: "Questão 6 - Gestão de Redes e Containers",
+                context: "O Docker Compose é amplamente utilizado para definir e compartilhar aplicações multi-container. Sobre as funcionalidades e características dessa ferramenta, analise as assertivas abaixo.",
+                question: "Assinale a alternativa correta.",
+                options: [
+                    "O Docker Compose substitui o Kubernetes em ambientes de produção de larga escala com failover nativo.",
+                    "O arquivo de configuração padrão do Docker Compose é escrito em XML.",
+                    "A ferramenta permite definir serviços, redes e volumes em um arquivo YAML único, facilitando a subida do ambiente.",
+                    "O Docker Compose serve exclusivamente para converter máquinas virtuais do VirtualBox em containers.",
+                    "O comando docker-compose start é responsável por construir as imagens e criar os containers do zero."
+                ],
+                correct: 2,
+                explanation: `
+                    <h4 class="font-bold text-lg mb-2 ui-font">Gabarito: (C) Definição em YAML único</h4>
+                    <p class="mb-3">O Docker Compose foca na orquestração local (single-host) usando uma sintaxe declarativa em <strong>YAML</strong>.</p>
+                    <ul class="list-disc pl-5 mb-3 space-y-1">
+                        <li>Permite subir todo o stack (ex: App + Banco) com um comando: <code>docker-compose up</code>.</li>
+                        <li>Cria uma rede virtual padrão permitindo comunicação via DNS de serviço.</li>
+                    </ul>
+                    <p class="text-sm">Erro da (E): O comando <code>start</code> apenas inicia containers parados. O comando que constrói e cria é o <code>up</code>.</p>
+                `
+            },
+            {
+                id: 7,
+                title: "Questão 7 - Analista de Suporte - Ambientes Edge",
+                context: "Uma equipe de arquitetura de soluções está selecionando uma distribuição Kubernetes para operar em conjunto com a plataforma Rancher. O cenário impõe restrições severas: a solução será implantada em dispositivos de borda (Edge Computing/IoT) com recursos limitados, não deve ter dependência rígida de nuvens públicas e não deve depender do Docker como runtime.",
+                question: "Qual distribuição Kubernetes atende a todos esses requisitos de leveza e independência?",
+                options: [
+                    "K3s",
+                    "OpenShift",
+                    "EKS (Elastic Kubernetes Service)",
+                    "RKE1",
+                    "Docker Swarm"
+                ],
+                correct: 0,
+                explanation: `
+                    <h4 class="font-bold text-lg mb-2 ui-font">Gabarito: (A) K3s</h4>
+                    <p class="mb-3">O <strong>K3s</strong> é uma distro Kubernetes certificada, mas drasticamente reduzida (<100MB binário) para Edge Computing.</p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li><strong>Sem Docker:</strong> Usa containerd diretamente como padrão.</li>
+                        <li><strong>Sem Nuvem:</strong> Funciona em bare-metal e IoT sem dependências de drivers de nuvem pesados.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 8,
+                title: "Questão 8 - Segurança e Governança em Kubernetes",
+                context: "No Kubernetes, a unicidade dos objetos é fundamental. Enquanto nomes de objetos (como my-pod) devem ser únicos apenas dentro de um Namespace, o sistema gera automaticamente um identificador global para cada objeto criado, garantindo que ele seja distinguível através de todo o tempo e espaço do cluster, inclusive diferenciando objetos recriados com o mesmo nome.",
+                question: "Assinale a alternativa que apresenta o nome técnico dessa string gerada pelo sistema.",
+                options: [
+                    "PID (Process ID)",
+                    "Token de Serviço",
+                    "UID (Universally Unique Identifier)",
+                    "Etcd Key",
+                    "ContainerID"
+                ],
+                correct: 2,
+                explanation: `
+                    <h4 class="font-bold text-lg mb-2 ui-font">Gabarito: (C) UID</h4>
+                    <p class="mb-3">A integridade referencial no K8s é mantida via <strong>UID</strong>. Se você deletar um pod 'app-web' e criar outro com o mesmo nome, para o K8s são objetos distintos pois terão UIDs diferentes (ex: 1234-5678-aaaa-bbbb).</p>
+                    <p>PID é conceito de SO. ContainerID é do runtime (Docker/containerd). O UID é o identificador do objeto na API do Kubernetes.</p>
+                `
+            },
+            {
+                id: 9,
+                title: "Questão 9 - Operação de Redes em Docker",
+                context: "Um analista precisa iniciar um container Nginx e expor o serviço web para a rede externa. A porta interna do container onde o Nginx escuta é a 80, e o requisito é que ela seja acessível pela porta 8080 do host.",
+                question: "Qual é a sintaxe correta do comando docker run utilizando o parâmetro de mapeamento de portas?",
+                options: [
+                    "docker run --net 8080:80 nginx",
+                    "docker run -p 8080:80 nginx",
+                    "docker run -expose 8080 -to 80 nginx",
+                    "docker run -P 80:8080 nginx",
+                    "docker run --link 8080:80 nginx"
+                ],
+                correct: 1,
+                explanation: `
+                    <h4 class="font-bold text-lg mb-2 ui-font">Gabarito: (B) docker run -p 8080:80 nginx</h4>
+                    <p class="mb-3">A sintaxe da flag <code>-p</code> (publish) é sempre <strong>HOST_PORT:CONTAINER_PORT</strong>.</p>
+                    <p>O lado esquerdo (8080) é a porta da máquina real. O lado direito (80) é a porta interna da aplicação. A opção com <code>-P</code> (maiúsculo) publica todas as portas em portas aleatórias (ephemeral), o que não atende ao requisito específico de usar a 8080.</p>
+                `
+            },
+            {
+                id: 10,
+                title: "Questão 10 - Ecossistema de Containers",
+                context: "O ecossistema Docker é composto por diversos componentes. Existe um serviço de registro (Registry) baseado em nuvem, mantido pela Docker Inc., que atua como o repositório padrão para imagens de container. É através dele que desenvolvedores compartilham imagens oficiais (como ubuntu, python, redis) e privadas.",
+                question: "Assinale a alternativa que nomeia corretamente esse serviço.",
+                options: [
+                    "Docker Machine",
+                    "Docker Swarm",
+                    "Docker Compose",
+                    "Docker Hub",
+                    "Docker Engine"
+                ],
+                correct: 3,
+                explanation: `
+                    <h4 class="font-bold text-lg mb-2 ui-font">Gabarito: (D) Docker Hub</h4>
+                    <p class="mb-3">O <strong>Docker Hub</strong> é o Registry (registro) público padrão. Quando você digita <code>docker pull ubuntu</code>, o daemon busca essa imagem no Hub por padrão.</p>
+                    <p>Outras opções: Swarm é orquestrador, Compose é definição de app, Engine é o runtime, Machine é ferramenta legada de provisionamento de hosts.</p>
+                `
+            }
+        ];
+
+        function renderQuiz() {
+            const container = document.getElementById('questions-container');
+            
+            quizData.forEach((item, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'bg-white p-6 md:p-8 rounded-lg shadow-sm border border-gray-100 transition duration-300';
+                questionDiv.id = `q-card-${index}`;
+
+                // Header
+                const headerHtml = `
+                    <div class="border-b border-gray-100 pb-4 mb-4">
+                        <span class="text-xs font-bold text-gray-400 uppercase tracking-widest ui-font">Questão ${index + 1}</span>
+                        <h3 class="text-lg md:text-xl font-bold text-gray-800 mt-1 leading-snug">${item.title}</h3>
+                    </div>
+                `;
+
+                // Context and Question
+                const bodyHtml = `
+                    <div class="mb-6 text-gray-700">
+                        <p class="mb-4">${item.context}</p>
+                        <p class="font-semibold text-gray-900">${item.question}</p>
+                    </div>
+                `;
+
+                // Options
+                let optionsHtml = '<div class="space-y-3 ui-font">';
+                item.options.forEach((opt, optIndex) => {
+                    optionsHtml += `
+                        <label class="option-label flex items-start p-3 rounded-md border border-gray-200 bg-gray-50/50 hover:border-blue-300 select-none group">
+                            <div class="flex items-center h-6">
+                                <input id="q${index}_opt${optIndex}" name="q${index}" type="radio" value="${optIndex}" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                            </div>
+                            <span class="ml-3 text-sm md:text-base text-gray-700 group-hover:text-gray-900">${opt}</span>
+                        </label>
+                    `;
+                });
+                optionsHtml += '</div>';
+
+                // Explanation Block (Hidden initially)
+                const explanationHtml = `
+                    <div id="explanation-${index}" class="hidden mt-8 pt-6 border-t border-gray-100 animation-fade-in">
+                        <div class="explanation-box pl-4 bg-gray-50 py-4 pr-4 rounded-r-md text-gray-700 text-sm md:text-base">
+                            ${item.explanation}
+                        </div>
+                    </div>
+                `;
+
+                questionDiv.innerHTML = headerHtml + bodyHtml + optionsHtml + explanationHtml;
+                container.appendChild(questionDiv);
+            });
+        }
+
+        function submitQuiz() {
+            let score = 0;
+            let allAnswered = true;
+
+            // Basic validation
+            quizData.forEach((item, index) => {
+                const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                if (!selected) allAnswered = false;
+            });
+
+            if (!allAnswered) {
+                if(!confirm("Algumas questões não foram respondidas. Deseja finalizar mesmo assim?")) return;
+            }
+
+            // Calculation and UI Update
+            quizData.forEach((item, index) => {
+                const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                const card = document.getElementById(`q-card-${index}`);
+                const explanationDiv = document.getElementById(`explanation-${index}`);
+                const options = document.getElementsByName(`q${index}`);
+
+                // Disable inputs
+                options.forEach(opt => opt.disabled = true);
+
+                let isCorrect = false;
+                
+                if (selected) {
+                    const val = parseInt(selected.value);
+                    if (val === item.correct) {
+                        score++;
+                        isCorrect = true;
+                        // Style correct card
+                        selected.closest('label').classList.add('bg-green-100', 'border-green-400');
+                        card.classList.add('border-green-200');
+                    } else {
+                        // Style wrong card
+                        selected.closest('label').classList.add('bg-red-100', 'border-red-400');
+                        card.classList.add('border-red-200');
+                    }
+                }
+
+                // Highlight correct answer visually regardless of user choice
+                const correctInput = document.getElementById(`q${index}_opt${item.correct}`);
+                if (correctInput) {
+                    const label = correctInput.closest('label');
+                    label.classList.add('ring-2', 'ring-green-500', 'bg-green-50');
+                    // Add a checkmark icon or text
+                    const span = label.querySelector('span');
+                    span.innerHTML += ' <span class="text-green-700 font-bold ml-2">✓ (Correta)</span>';
+                }
+
+                // Reveal explanation
+                explanationDiv.classList.remove('hidden');
+            });
+
+            // Update Score Header
+            const scoreDisplay = document.getElementById('score-display');
+            const finalScoreEl = document.getElementById('final-score');
+            scoreDisplay.classList.remove('hidden');
+            finalScoreEl.innerText = `${score}/10`;
+            
+            // Buttons
+            document.getElementById('submit-btn').classList.add('hidden');
+            document.getElementById('retry-btn').classList.remove('hidden');
+
+            // Scroll to top to see score
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', renderQuiz);
+
+    </script>
+</body>
+</html>
