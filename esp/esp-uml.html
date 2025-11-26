@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo de Elite: UML para Concurso IFPB</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb; /* Cinza muito claro para descanso visual */
+            color: #1f2937; /* Cinza quase preto para alto contraste sem ser preto puro */
+        }
+        h1, h2, h3 {
+            color: #111827;
+        }
+        /* Estilização específica para garantir que tabelas não tenham scroll */
+        table {
+            width: 100%;
+            table-layout: fixed; /* Força a tabela a respeitar a largura da tela */
+            border-collapse: collapse;
+        }
+        td, th {
+            word-wrap: break-word; /* Quebra palavras longas se necessário */
+            overflow-wrap: break-word;
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            vertical-align: top;
+        }
+        /* Destaques personalizados */
+        .highlight {
+            background-color: #fef9c3; /* Amarelo muito suave */
+            padding: 0 4px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #000;
+        }
+        .mnemonic-box {
+            background-color: #eff6ff; /* Azul muito claro */
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .warning-box {
+            background-color: #fff1f2; /* Vermelho muito claro */
+            border-left: 4px solid #ef4444;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen pb-12">
+
+    <!-- Container Principal -->
+    <main class="max-w-4xl mx-auto bg-white shadow-sm sm:shadow-lg mt-0 sm:mt-6 mb-6 p-6 sm:p-10 rounded-none sm:rounded-xl">
+        
+        <!-- Cabeçalho e Player de Áudio -->
+        <header class="mb-8 border-b border-gray-200 pb-6">
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-2 tracking-tight">Resumo de Elite: UML</h1>
+            <p class="text-lg text-gray-600 mb-6">Foco: Memorização e "Pegadinhas" da Banca Instituto AOCP (IFPB)</p>
+            
+            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 flex flex-col sm:flex-row items-center gap-4">
+                <div class="flex items-center gap-2 text-gray-700 font-semibold whitespace-nowrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                    </svg>
+                    Resumo em Áudio:
+                </div>
+                <!-- LOCAL PARA INSERIR O ARQUIVO MP3 -->
+                <audio controls class="w-full h-10 focus:outline-none">
+                    <source src="esp-uml.mp3" type="audio/mpeg">
+                    Seu navegador não suporta o elemento de áudio.
+                </audio>
+            </div>
+        </header>
+
+        <!-- Conteúdo do Resumo -->
+        <article class="prose prose-slate max-w-none text-gray-800">
+            
+            <p class="mb-6">
+                Este resumo condensa a especificação UML 2.5 em pontos-chave de memorização. O Instituto AOCP cobra <span class="highlight">sintaxe visual exata</span> e <span class="highlight">definições literais</span>.
+            </p>
+
+            <!-- Seção 1 -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4 pb-2 border-b border-gray-100">1. Taxonomia: Os 14 Diagramas (7 + 7)</h2>
+                <p class="mb-4">A primeira questão clássica é classificar o diagrama. Use a regra de exclusão: <strong>memorizar os estruturais (estáticos)</strong>. Se não for estrutural, é comportamental (dinâmico).</p>
+
+                <div class="overflow-hidden rounded-lg border border-gray-200 mb-4">
+                    <table class="w-full text-sm text-left">
+                        <thead class="bg-gray-100 text-gray-700 uppercase">
+                            <tr>
+                                <th class="w-1/2">ESTRUTURAIS<br><span class="text-xs font-normal text-gray-500">(Estáticos - "Aquilo que É")</span></th>
+                                <th class="w-1/2">COMPORTAMENTAIS<br><span class="text-xs font-normal text-gray-500">(Dinâmicos - "Aquilo que FAZ")</span></th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="bg-white">
+                                    <ul class="list-disc pl-4 space-y-1">
+                                        <li><strong>Classes</strong> (O mais cobrado)</li>
+                                        <li><strong>Objetos</strong> (Retrato instantâneo)</li>
+                                        <li><strong>Componentes</strong> (Módulos)</li>
+                                        <li><strong>Implantação</strong> (Hardware/Infra)</li>
+                                        <li><strong>Pacotes</strong> (Organização)</li>
+                                        <li><strong>Estrutura Composta</strong></li>
+                                        <li><strong>Perfil</strong></li>
+                                    </ul>
+                                </td>
+                                <td class="bg-gray-50/50">
+                                    <ul class="list-disc pl-4 space-y-1">
+                                        <li><strong>Casos de Uso</strong> (Funcional)</li>
+                                        <li><strong>Atividades</strong> (Fluxo)</li>
+                                        <li><strong>Máquina de Estados</strong></li>
+                                        <li><strong>Sequência</strong> (Interação)</li>
+                                        <li><strong>Comunicação</strong> (Antigo Colaboração)</li>
+                                        <li><strong>Tempo</strong></li>
+                                        <li><strong>Visão Geral de Interação</strong></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mnemonic-box">
+                    <strong class="block text-blue-800 mb-1">Mnemônico AOCP:</strong>
+                    Se o diagrama mostra <span class="highlight">tempo</span>, <span class="highlight">mensagem</span>, <span class="highlight">evento</span> ou <span class="highlight">processo</span>, ele é <strong>Comportamental</strong>.<br>
+                    Se mostra <span class="highlight">arquivos</span>, <span class="highlight">classes</span> ou <span class="highlight">nós</span>, é <strong>Estrutural</strong>.
+                </div>
+            </section>
+
+            <!-- Seção 2 -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4 pb-2 border-b border-gray-100">2. Diagrama de Classes: O Rei das Questões</h2>
+                <p class="mb-4">Foco total nos relacionamentos. A banca troca os diamantes para confundir.</p>
+
+                <h3 class="font-bold text-lg mb-2 text-gray-800">Tabela da Verdade dos Relacionamentos</h3>
+                <div class="overflow-hidden rounded-lg border border-gray-200 mb-4">
+                    <table class="w-full text-sm">
+                        <thead class="bg-gray-100 text-gray-700">
+                            <tr>
+                                <th class="w-1/4">Relação</th>
+                                <th class="w-1/4 text-center">Símbolo</th>
+                                <th class="w-1/2">Palavras-Chave da Banca</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td><strong>Associação</strong></td>
+                                <td class="text-center font-bold text-lg">───</td>
+                                <td>"Usa", "Conhece", "Vinculado a"</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Agregação</strong></td>
+                                <td class="text-center font-bold text-2xl">◇</td>
+                                <td>"Parte-Todo", "Fraco", <span class="highlight">"Independente"</span>. O filho existe sem o pai.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Composição</strong></td>
+                                <td class="text-center font-bold text-2xl">◆</td>
+                                <td>"Forte", "Dependente", <span class="highlight">"Destruição em cascata"</span>. Filho morre com o pai.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Generalização</strong></td>
+                                <td class="text-center font-bold text-xl">△</td>
+                                <td>"É um", "Herança", "Especialização"</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Realização</strong></td>
+                                <td class="text-center font-bold text-xl text-gray-500">△ - -</td>
+                                <td>"Implementa", "Contrato" (Interface)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Dependência</strong></td>
+                                <td class="text-center font-bold text-xl text-gray-500">&lt; - -</td>
+                                <td>"Usa temporariamente", "Parâmetro"</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="bg-yellow-50 p-4 rounded border border-yellow-200 mb-4">
+                    <strong class="text-yellow-800 block mb-1">Macete de Memorização:</strong>
+                    <ul class="list-disc pl-5 space-y-1 text-gray-800">
+                        <li><strong>Com</strong>posição = <strong>Com</strong> vida (Diamante <strong>Preenchido</strong>). Se o pai morre, o filho morre.</li>
+                        <li><strong>A</strong>gregação = <strong>A</strong>berto (Diamante <strong>Vazio</strong>). A parte é livre.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-gray-50 p-4 rounded border border-gray-200">
+                    <strong class="block mb-2 text-gray-700">Multiplicidade (Cardinalidade):</strong>
+                    <div class="grid grid-cols-2 gap-2 text-sm">
+                        <div><code>0..1</code>: Opcional (Zero ou Um)</div>
+                        <div><code>1</code>: Obrigatório (Exatamente um)</div>
+                        <div><code>0..*</code>: Zero ou muitos</div>
+                        <div><code>1..*</code>: Pelo menos um</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção 3 -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4 pb-2 border-b border-gray-100">3. Casos de Uso: Include vs. Extend</h2>
+                <p class="mb-4">O erro número 1 em provas é inverter a direção da seta ou a definição.</p>
+
+                <div class="overflow-hidden rounded-lg border border-gray-200 mb-4">
+                    <table class="w-full text-sm">
+                        <thead class="bg-gray-100 text-gray-700">
+                            <tr>
+                                <th class="w-1/4">Tipo</th>
+                                <th class="w-1/4">Obrigatório?</th>
+                                <th class="w-1/2">Direção da Seta (Tracejada)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="font-mono text-blue-700 font-bold">&lt;&lt;include&gt;&gt;</td>
+                                <td><span class="highlight">SIM</span> (Indispensável)</td>
+                                <td>Base <span class="font-bold">---&gt;</span> Incluído<br>(Aponta para quem é usado)</td>
+                            </tr>
+                            <tr>
+                                <td class="font-mono text-blue-700 font-bold">&lt;&lt;extend&gt;&gt;</td>
+                                <td><span class="highlight">NÃO</span> (Opcional/Extra)</td>
+                                <td>Extensão <span class="font-bold">---&gt;</span> Base<br>(Aponta para quem é estendido)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="warning-box">
+                    <strong>Atenção:</strong> O <code>Extend</code> funciona como um <strong>Insert</strong>. A seta sai da extensão (o pedaço novo) e aponta para onde ela vai se encaixar (o caso de uso base).
+                </div>
+            </section>
+
+            <!-- Seção 4 -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4 pb-2 border-b border-gray-100">4. Diagrama de Sequência: Fragmentos</h2>
+                <p class="mb-4">A AOCP pergunta o significado dos operadores no canto superior esquerdo.</p>
+                <ul class="space-y-3 pl-0">
+                    <li class="flex items-start"><span class="bg-gray-200 font-mono text-sm px-2 py-1 rounded mr-2 font-bold min-w-[3.5rem] text-center">alt</span> <span><strong>Alternatives (IF / ELSE):</strong> Apenas UM caminho executa.</span></li>
+                    <li class="flex items-start"><span class="bg-gray-200 font-mono text-sm px-2 py-1 rounded mr-2 font-bold min-w-[3.5rem] text-center">opt</span> <span><strong>Option (IF sem else):</strong> Executa ou não.</span></li>
+                    <li class="flex items-start"><span class="bg-gray-200 font-mono text-sm px-2 py-1 rounded mr-2 font-bold min-w-[3.5rem] text-center">loop</span> <span>Repetição (FOR / WHILE).</span></li>
+                    <li class="flex items-start"><span class="bg-gray-200 font-mono text-sm px-2 py-1 rounded mr-2 font-bold min-w-[3.5rem] text-center">par</span> <span><strong>Parallel:</strong> Threads executando ao mesmo tempo.</span></li>
+                    <li class="flex items-start"><span class="bg-gray-200 font-mono text-sm px-2 py-1 rounded mr-2 font-bold min-w-[3.5rem] text-center">break</span> <span>Interrompe o fluxo (Throw Exception).</span></li>
+                </ul>
+            </section>
+
+            <!-- Seção 5 -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4 pb-2 border-b border-gray-100">5. Diagrama de Atividades</h2>
+                <p class="mb-4">Diferença visual crítica entre Paralelismo e Decisão.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div class="border border-gray-200 p-4 rounded bg-white">
+                        <h4 class="font-bold text-lg mb-2">Losango (◇)</h4>
+                        <p class="text-sm">Decisão (<code>if</code>) ou Fusão (Merge). <br><span class="highlight">Apenas um fluxo passa.</span></p>
+                    </div>
+                    <div class="border border-gray-200 p-4 rounded bg-white">
+                        <h4 class="font-bold text-lg mb-2">Barra Espessa (Preta)</h4>
+                        <p class="text-sm"><strong>Fork:</strong> Entra 1, saem vários (Paralelismo).<br><strong>Join:</strong> Entram vários, sai 1 (Sincroniza).</p>
+                    </div>
+                </div>
+
+                <div class="warning-box mt-2">
+                    <strong>Pegadinha:</strong> Fork deve fechar com Join. Se fechar com Losango (Merge), gera erro lógico.
+                </div>
+            </section>
+
+            <!-- Seção 6 -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4 pb-2 border-b border-gray-100">6. Componentes e Implantação</h2>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li>
+                        <strong>Bola e Soquete:</strong>
+                        <ul class="list-disc pl-5 mt-1 text-sm text-gray-600">
+                            <li><span class="font-bold text-gray-800">Bola (Lollipop):</span> Interface Fornecida (Eu faço!).</li>
+                            <li><span class="font-bold text-gray-800">Soquete (Meia-lua):</span> Interface Requerida (Eu preciso!).</li>
+                        </ul>
+                    </li>
+                    <li><strong>Nó (Cubo 3D):</strong> Hardware ou Ambiente de Execução (Docker).</li>
+                    <li><strong>Artefato:</strong> Arquivo físico (.jar, .war). Vive dentro do nó.</li>
+                </ul>
+            </section>
+
+            <!-- Seção 7 -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4 pb-2 border-b border-gray-100">7. Glossário Rápido AOCP</h2>
+                <p class="mb-4 text-sm text-gray-600">Palavras-chave para matar a questão:</p>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                    <div class="p-3 bg-gray-50 rounded border border-gray-100">
+                        "Troca de mensagens ordenada pelo tempo"<br>
+                        <span class="font-bold text-blue-800">→ Diagrama de Sequência</span>
+                    </div>
+                    <div class="p-3 bg-gray-50 rounded border border-gray-100">
+                        "Vínculos entre objetos e organização espacial"<br>
+                        <span class="font-bold text-blue-800">→ Diagrama de Comunicação</span>
+                    </div>
+                    <div class="p-3 bg-gray-50 rounded border border-gray-100">
+                        "Estados de um objeto reativo a eventos"<br>
+                        <span class="font-bold text-blue-800">→ Máquina de Estados</span>
+                    </div>
+                    <div class="p-3 bg-gray-50 rounded border border-gray-100">
+                        "Visão estática do sistema"<br>
+                        <span class="font-bold text-blue-800">→ Diagrama de Classes</span>
+                    </div>
+                    <div class="p-3 bg-gray-50 rounded border border-gray-100">
+                        "Interação com usuário/fronteira do sistema"<br>
+                        <span class="font-bold text-blue-800">→ Casos de Uso</span>
+                    </div>
+                    <div class="p-3 bg-gray-50 rounded border border-gray-100">
+                        "Instalação física em servidores"<br>
+                        <span class="font-bold text-blue-800">→ Implantação</span>
+                    </div>
+                </div>
+            </section>
+
+        </article>
+
+        <!-- Botão Final -->
+        <div class="mt-12 text-center pt-8 border-t border-gray-200">
+            <a href="esp-umlquestoes.html" class="inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-bold rounded-lg text-white bg-gray-900 hover:bg-gray-800 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                Ir para Banco de Questões
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+            </a>
+            <p class="text-sm text-gray-500 mt-4">Clique para praticar o conteúdo estudado.</p>
+        </div>
+
+    </main>
+
+</body>
+</html>

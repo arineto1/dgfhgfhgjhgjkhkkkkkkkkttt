@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo de Elite: Análise e Projeto de Sistemas (AOCP)</title>
+    <!-- Importando Tailwind CSS para estrutura rápida -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fonte Inter para melhor legibilidade -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Estilos Personalizados para Foco e Leitura */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1a202c; /* Cinza muito escuro, quase preto, para alto contraste */
+            line-height: 1.6;
+        }
+
+        h1 { color: #111827; }
+        h2 { 
+            border-bottom: 2px solid #e5e7eb; 
+            padding-bottom: 0.5rem;
+            color: #1f2937;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        h3 { color: #374151; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+
+        /* Estilo de Grifo (Marca-texto) */
+        .highlight {
+            background-color: #fef08a; /* Amarelo suave */
+            padding: 0.1rem 0.3rem;
+            border-radius: 0.25rem;
+            font-weight: 600;
+            color: #000;
+        }
+        
+        .attention {
+            background-color: #fee2e2; /* Vermelho muito suave para alertas */
+            color: #991b1b;
+            font-weight: 600;
+            padding: 0 0.2rem;
+            border-radius: 0.2rem;
+        }
+
+        /* Tabelas Responsivas sem Scroll Horizontal */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            table-layout: fixed; /* Força a tabela a respeitar a largura */
+        }
+        
+        th, td {
+            border: 1px solid #d1d5db;
+            padding: 1rem;
+            text-align: left;
+            vertical-align: top;
+            word-wrap: break-word; /* Quebra palavras longas se necessário */
+            overflow-wrap: break-word;
+        }
+
+        th {
+            background-color: #f3f4f6; /* Cinza muito claro */
+            font-weight: 700;
+            color: #111827;
+            width: 30%; /* Largura fixa para a primeira coluna para organização */
+        }
+
+        /* Player de Áudio */
+        .audio-wrapper {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        /* Botão de Questões */
+        .btn-questions {
+            display: block;
+            width: 100%;
+            padding: 1.25rem;
+            background-color: #334155; /* Azul acinzentado neutro */
+            color: white;
+            font-size: 1.125rem;
+            font-weight: 700;
+            text-align: center;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+            text-decoration: none;
+            margin-top: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .btn-questions:hover {
+            background-color: #1e293b;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Header -->
+        <header class="mb-8 text-center sm:text-left">
+            <h1 class="text-3xl sm:text-4xl font-bold mb-2">Resumo de Elite: Análise e Projeto de Sistemas</h1>
+            <p class="text-lg text-gray-600">Foco Instituto AOCP - Memorização e Revisão Rápida</p>
+        </header>
+
+        <!-- Área do Player de Áudio -->
+        <div class="audio-wrapper shadow-sm">
+            <p class="font-semibold text-gray-700 mb-3">🎧 Resumo em Áudio (Memorização)</p>
+            <!-- LOCAL PARA INSERIR SEU ARQUIVO MP3 -->
+            <!-- Substitua 'resumo_audio.mp3' pelo nome do seu arquivo -->
+            <audio controls class="w-full h-12">
+                <source src="esp-analise-projeto-oo.mp3" type="audio/mpeg">
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
+            <p class="text-xs text-gray-400 mt-2">Coloque o arquivo .mp3 na mesma pasta desta página.</p>
+        </div>
+
+        <p class="italic text-gray-600 mb-6 border-l-4 border-gray-300 pl-4">
+            Este resumo condensa o conteúdo em palavras-chave e definições exatas cobradas pela banca Instituto AOCP. Utilize para revisão rápida.
+        </p>
+
+        <!-- Seção 1 -->
+        <section>
+            <h2 class="text-2xl font-bold">1. O "Dicionário" da Orientação a Objetos</h2>
+            <p class="mb-4 text-sm text-gray-600">A banca cobra a correlação exata entre o termo e sua definição clássica.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Conceito</th>
+                        <th>Palavra-Chave para a Prova</th>
+                        <th>Pegadinha / Atenção</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Abstração</strong></td>
+                        <td>Focar no essencial, <span class="highlight">ignorar o acidental</span>.</td>
+                        <td>É o ato de <em>simplificar</em> a realidade para o domínio do problema.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Encapsulamento</strong></td>
+                        <td>Proteger o estado; <span class="highlight">agrupar dados e métodos</span>.</td>
+                        <td>Não é só "esconder", é garantir a <span class="highlight">consistência interna</span> do objeto.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Herança</strong></td>
+                        <td>Reuso, extensão, relação <span class="highlight">"É-UM"</span>.</td>
+                        <td>Java tem herança <strong>simples</strong> de classes, mas <span class="attention">múltipla de interfaces</span>.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Polimorfismo</strong></td>
+                        <td>Mesma mensagem, <span class="highlight">comportamentos diferentes</span>.</td>
+                        <td>A banca ama separar em Estático (Sobrecarga) e Dinâmico (Sobrescrita).</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="bg-gray-50 border border-gray-200 rounded p-4 my-4">
+                <h3 class="text-xl font-bold text-gray-800 border-none m-0 mb-2">Diferença Crítica: Sobrecarga vs. Sobrescrita</h3>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li>
+                        <strong>Sobrecarga (Overloading):</strong> Mesma classe, <span class="highlight">mesmo nome</span>, parâmetros diferentes (assinatura diferente). Ocorre na <span class="highlight">Compilação</span>.
+                    </li>
+                    <li>
+                        <strong>Sobrescrita (Overriding):</strong> Superclasse e Subclasse, <span class="highlight">assinatura idêntica</span>. Ocorre na <span class="highlight">Execução</span> (@Override).
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Seção 2 -->
+        <section>
+            <h2 class="text-2xl font-bold">2. UML 2.5: O Que Cai de Verdade</h2>
+            <p class="mb-4 text-sm text-gray-600">Foco na interpretação visual e semântica dos conectores.</p>
+
+            <h3 class="text-xl font-bold">Diagrama de Casos de Uso (O Terror da Seta)</h3>
+            <ul class="list-none space-y-4 mb-6">
+                <li class="pl-4 border-l-4 border-blue-200">
+                    <strong class="text-lg text-blue-900">Include (`&lt;&lt;include&gt;&gt;`):</strong><br>
+                    <span class="text-gray-700">Significado:</span> <span class="highlight">Obrigatoriedade</span>. O base <em>sempre</em> chama o incluído.<br>
+                    <span class="text-gray-700">Seta:</span> <strong>Base -> Incluído</strong>. (A seta sai de quem "manda" executar).
+                </li>
+                <li class="pl-4 border-l-4 border-yellow-200">
+                    <strong class="text-lg text-yellow-900">Extend (`&lt;&lt;extend&gt;&gt;`):</strong><br>
+                    <span class="text-gray-700">Significado:</span> <span class="highlight">Opcionalidade</span>. O extensor <em>pode</em> rodar sob condição.<br>
+                    <span class="text-gray-700">Seta:</span> <strong>Extensor -> Base</strong>. <span class="attention">Cuidado:</span> A seta aponta para o caso de uso original que está sendo estendido, <em>não</em> para o novo.
+                </li>
+            </ul>
+
+            <h3 class="text-xl font-bold">Relacionamentos de Classe (Decore os Losangos)</h3>
+            <ul class="list-disc pl-5 space-y-2 mb-6">
+                <li><strong>Associação:</strong> Linha sólida. Relação estrutural simples.</li>
+                <li><strong>Agregação (◇ Branco):</strong> "Tem-um" fraco. A parte <span class="highlight">vive sem</span> o todo (ex: Time e Jogador).</li>
+                <li><strong>Composição (◆ Preto):</strong> "Tem-um" forte. A parte <span class="attention">morre com</span> o todo (ex: Nota Fiscal e Item). <em>Dica: Preto = Morte conjunta.</em></li>
+            </ul>
+
+            <h3 class="text-xl font-bold">Diagrama de Implantação (Definição de Prova)</h3>
+            <ul class="list-disc pl-5 space-y-2">
+                <li><strong>Nó (Node):</strong> Elemento genérico de hardware/software.</li>
+                <li><strong>Dispositivo (Device):</strong> A AOCP define estritamente como <span class="highlight">"um recurso físico com capacidade de processamento (memória/CPU)"</span> onde artefatos são implantados.</li>
+            </ul>
+        </section>
+
+        <!-- Seção 3 -->
+        <section>
+            <h2 class="text-2xl font-bold">3. Qualidade de Software: A Regra de Ouro</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div class="bg-green-50 p-4 rounded border border-green-100">
+                    <strong class="text-green-900 block mb-1">Acoplamento</strong>
+                    <span class="text-sm">Nível de interdependência. <span class="highlight">Quanto MENOS, melhor.</span> (Ideal: Acoplamento de Dados. Pior: Conteúdo/Controle).</span>
+                </div>
+                <div class="bg-blue-50 p-4 rounded border border-blue-100">
+                    <strong class="text-blue-900 block mb-1">Coesão</strong>
+                    <span class="text-sm">Foco único da classe. <span class="highlight">Quanto MAIS, melhor.</span> (Uma classe faz uma única coisa bem feita).</span>
+                </div>
+            </div>
+
+            <h3 class="text-xl font-bold">Princípios SOLID (Memorize o Acrônimo)</h3>
+            <ul class="space-y-2 pl-2">
+                <li><strong class="text-indigo-900">S (SRP):</strong> Única responsabilidade.</li>
+                <li><strong class="text-indigo-900">O (OCP - Open/Closed):</strong> Aberto para <span class="highlight">extensão</span>, fechado para <span class="highlight">modificação</span>. <span class="attention">(Cai muito!)</span>.</li>
+                <li><strong class="text-indigo-900">L (LSP):</strong> Substituição de Liskov (Subclasse substitui Superclasse sem quebrar).</li>
+                <li><strong class="text-indigo-900">I (ISP):</strong> Segregação de Interface (Muitas interfaces finas > Uma gorda).</li>
+                <li><strong class="text-indigo-900">D (DIP):</strong> Inversão de Dependência (Dependa de abstrações, não de classes concretas).</li>
+            </ul>
+        </section>
+
+        <!-- Seção 4 -->
+        <section>
+            <h2 class="text-2xl font-bold">4. Padrões de Projeto (GoF) - Resumo "Vapt-Vupt"</h2>
+            <p class="mb-4 text-sm text-gray-600">Associe o Nome à "Intenção".</p>
+
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-lg font-bold text-gray-800 border-l-4 border-gray-400 pl-2">Criacionais (Construção)</h3>
+                    <ul class="list-disc pl-5 mt-2 space-y-1">
+                        <li><strong>Singleton:</strong> Garante <span class="highlight">uma única instância</span> e acesso global.</li>
+                        <li><strong>Factory Method:</strong> Define interface, mas <span class="highlight">subclasses decidem</span> quem instanciar.</li>
+                        <li><strong>Abstract Factory:</strong> Cria <span class="highlight">famílias</span> de objetos relacionados.</li>
+                        <li><strong>Builder:</strong> Separa a construção de objetos <span class="highlight">complexos</span> da representação.</li>
+                        <li><strong>Prototype:</strong> Cria objetos <span class="highlight">copiando</span> (clonando) uma instância existente.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold text-gray-800 border-l-4 border-gray-400 pl-2">Estruturais (Montagem)</h3>
+                    <ul class="list-disc pl-5 mt-2 space-y-1">
+                        <li><strong>Adapter:</strong> Converte <span class="highlight">interfaces incompatíveis</span> (ex: tomada de 3 pinos em 2 pinos).</li>
+                        <li><strong>Facade:</strong> Fornece uma interface <span class="highlight">unificada/simplificada</span> para um subsistema complexo.</li>
+                        <li><strong>Composite:</strong> Estrutura de <span class="highlight">árvore</span> (parte-todo) tratada de forma uniforme.</li>
+                        <li><strong>Bridge:</strong> Separa a abstração da implementação para variarem independentemente.</li>
+                        <li><strong>Decorator:</strong> Adiciona responsabilidades <span class="highlight">dinamicamente</span> (alternativa à herança).</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold text-gray-800 border-l-4 border-gray-400 pl-2">Comportamentais (Comunicação)</h3>
+                    <ul class="list-disc pl-5 mt-2 space-y-1">
+                        <li><strong>Observer:</strong> Dependência <span class="highlight">um-para-muitos</span>. Quando um muda, notifica todos (Eventos, Listeners).</li>
+                        <li><strong>Strategy:</strong> Família de <span class="highlight">algoritmos intercambiáveis</span> (ex: vários tipos de frete).</li>
+                        <li><strong>Template Method:</strong> Define o <span class="highlight">esqueleto</span> do algoritmo, subclasses preenchem os passos.</li>
+                        <li><strong>Iterator:</strong> Acesso sequencial sem expor estrutura interna.</li>
+                        <li><strong>Command:</strong> Encapsula uma requisição como objeto (permite Undo/Redo).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção 5 -->
+        <section>
+            <h2 class="text-2xl font-bold">5. Checklist Final: Pegadinhas da AOCP</h2>
+            <div class="bg-red-50 border border-red-100 rounded-lg p-5">
+                <ol class="list-decimal pl-5 space-y-3 font-medium text-gray-800">
+                    <li>
+                        <strong>Classes Abstratas:</strong> Podem ter métodos concretos? <span class="highlight">SIM.</span>
+                    </li>
+                    <li>
+                        <strong>Interfaces (Java 8+):</strong> Podem ter métodos com corpo (`default`)? <span class="highlight">SIM.</span> (Atenção à data da questão).
+                    </li>
+                    <li>
+                        <strong>Seta do Extend:</strong> Lembre-se que ela aponta para o caso de uso que <span class="highlight">"já existia"</span> (o Base), não para o novo.
+                    </li>
+                    <li>
+                        <strong>Herança Múltipla:</strong> Se a questão falar de Java, <span class="attention">NÃO</span> existe herança múltipla de classes, apenas de interfaces (tipos).
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Botão de Ação -->
+        <a href="esp-analise-projeto-ooquestoes.html" class="btn-questions">
+            Ir para Questões
+        </a>
+        
+        <footer class="text-center text-xs text-gray-400 mt-8 mb-4">
+            Resumo Preparatório IFPB - Instituto AOCP
+        </footer>
+
+    </div>
+
+</body>
+</html>

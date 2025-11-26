@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado Instituto AOCP - Padrões de Projeto</title>
+    <style>
+        :root {
+            --bg-color: #fdfbf7; /* Tom creme suave para leitura */
+            --card-bg: #ffffff;
+            --text-color: #2c3e50;
+            --accent-color: #34495e;
+            --highlight-color: #3498db;
+            --success-color: #27ae60;
+            --error-color: #c0392b;
+            --border-color: #e0e0e0;
+            --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --font-serif: 'Georgia', serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-radius: 8px;
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-style: italic;
+            color: #7f8c8d;
+        }
+
+        .question-card {
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .question-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+
+        .question-text {
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        .options {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 10px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .option-label:hover {
+            background-color: #f8f9fa;
+        }
+
+        .option-input {
+            margin-right: 15px;
+            margin-top: 5px;
+        }
+
+        /* Estilos de Feedback (Pós-submissão) */
+        .correct-answer-highlight {
+            background-color: #d4edda !important;
+            border-color: var(--success-color) !important;
+            color: #155724;
+        }
+
+        .wrong-answer-highlight {
+            background-color: #f8d7da !important;
+            border-color: var(--error-color) !important;
+            color: #721c24;
+        }
+
+        .resolution-box {
+            display: none; /* Oculto inicialmente */
+            margin-top: 20px;
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--accent-color);
+            padding: 20px;
+            font-family: var(--font-serif);
+            font-size: 1rem;
+        }
+
+        .resolution-box h4 {
+            margin-top: 0;
+            color: var(--accent-color);
+        }
+
+        .resolution-content strong {
+            color: #2c3e50;
+        }
+
+        #actions {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        button.btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button.btn-primary:hover {
+            background-color: #2c3e50;
+        }
+
+        #score-display {
+            display: none;
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #e8f6f3;
+            border: 1px solid #a3e4d7;
+            border-radius: 8px;
+        }
+
+        #score-display h2 {
+            color: var(--success-color);
+            margin: 0;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado Padrões de Projeto</h1>
+        <p class="subtitle">Focado na Banca Instituto AOCP - Analista de TI e Sistemas</p>
+    </header>
+
+    <div id="score-display">
+        <h2>Resultado: <span id="score-value"></span>/10</h2>
+        <p>Confira abaixo o gabarito comentado e a análise exaustiva.</p>
+    </div>
+
+    <form id="quiz-form">
+        <!-- As questões serão injetadas aqui via JavaScript -->
+    </form>
+
+    <div id="actions">
+        <button type="button" class="btn-primary" onclick="submitQuiz()">Finalizar Simulado</button>
+    </div>
+</div>
+
+<script>
+    const quizData = [
+        {
+            id: 1,
+            title: "Questão 1 (Instituto AOCP / Simulado Baseado em Histórico - Analista de Sistemas)",
+            text: "A literatura clássica de Engenharia de Software, especificamente o catálogo do <em>Gang of Four</em> (GoF), estabelece uma taxonomia rígida para os padrões de projeto, classificando-os de acordo com o seu propósito. Em provas da banca, a confusão entre categorias é um distrator comum. Assinale a alternativa que apresenta, estritamente, as três categorias de classificação dos padrões de projeto GoF.",
+            options: [
+                "A) Situacional, Estrutural, Complementar.",
+                "B) Criacional, Evolutiva, Contingencial.",
+                "C) Compartimental, Vinculada, Comportamental.",
+                "D) Criacional, Estrutural, Comportamental.",
+                "E) Criacional, Step-by-step, Orientada a requisitos."
+            ],
+            correctIndex: 3, // D
+            resolution: `
+                <h4>Gabarito: D (Criacional, Estrutural, Comportamental)</h4>
+                <p><strong>Análise Teórica:</strong> A questão aborda o fundamento taxonômico proposto por Erich Gamma e o Gang of Four (1994). A classificação reflete a natureza do problema que o padrão resolve:</p>
+                <ul>
+                    <li><strong>Padrões Criacionais:</strong> Abstraem o processo de instanciação (Ex: Factory Method, Singleton). Foco na flexibilidade da criação.</li>
+                    <li><strong>Padrões Estruturais:</strong> Lidam com a composição de classes e objetos (Ex: Adapter, Facade). Foco na organização.</li>
+                    <li><strong>Padrões Comportamentais:</strong> Focam nos algoritmos e na comunicação entre objetos (Ex: Strategy, Observer).</li>
+                </ul>
+                <p><strong>Por que as outras estão erradas?</strong> Termos como "Situacional", "Evolutiva" e "Contingencial" são inexistentes na teoria GoF e usados apenas como distratores.</p>
+            `
+        },
+        {
+            id: 2,
+            title: "Questão 2 (Instituto AOCP / Adaptação TRE-TO 2025 - Analista Judiciário)",
+            text: "Analise o cenário a seguir: Um arquiteto de software precisa implementar um módulo de exportação de relatórios que deve suportar múltiplos formatos (PDF, CSV, Excel) e algoritmos de compressão variados (ZIP, GZIP). O requisito fundamental é que a escolha do algoritmo de exportação possa ser trocada em tempo de execução, sem alterar a classe cliente que utiliza o serviço, e que novos algoritmos possam ser adicionados sem modificar o código existente. A definição formal do padrão aplicável é: \"Define uma família de algoritmos, encapsula cada um deles e os torna intercambiáveis.\"<br><br>Qual padrão de projeto satisfaz esse requisito arquitetural?",
+            options: [
+                "A) Singleton.",
+                "B) Factory Method.",
+                "C) Observer.",
+                "D) Strategy.",
+                "E) Template Method."
+            ],
+            correctIndex: 3, // D
+            resolution: `
+                <h4>Gabarito: D (Strategy)</h4>
+                <p><strong>Fundamentação:</strong> O padrão Strategy é a personificação do princípio "Prefira composição a herança". A definição citada ("Define uma família de algoritmos...") é literal do livro GoF.</p>
+                <p>No cenário, a necessidade de trocar o algoritmo de exportação em <em>tempo de execução</em> e a facilidade de adicionar novos algoritmos sem mexer no cliente (Princípio Aberto/Fechado) apontam diretamente para o Strategy.</p>
+                <p>Diferente do <em>Template Method</em> (que usa herança e é estático), o Strategy usa delegação/composição. Diferente do <em>Factory Method</em>, o foco aqui é no comportamento do algoritmo, não na sua criação.</p>
+            `
+        },
+        {
+            id: 3,
+            title: "Questão 3 (Instituto AOCP / Adaptação IFMS 2025 - Professor EBTT)",
+            text: "Em sistemas corporativos, frequentemente surge a necessidade de garantir que uma determinada classe, como um gerenciador de conexões de banco de dados ou um sistema de <em>logging</em>, possua apenas uma única instância em toda a aplicação, fornecendo um ponto global de acesso a essa instância. O uso indiscriminado desse padrão pode levar a problemas de acoplamento e dificuldades em testes unitários.<br><br>Assinale a alternativa que corresponde ao padrão de projeto criacional descrito.",
+            options: [
+                "A) Command.",
+                "B) Iterator.",
+                "C) Singleton.",
+                "D) Adapter.",
+                "E) Flyweight."
+            ],
+            correctIndex: 2, // C
+            resolution: `
+                <h4>Gabarito: C (Singleton)</h4>
+                <p><strong>Análise:</strong> A premissa "garantir que uma classe tenha apenas uma instância e fornecer um ponto de acesso global" é a definição clássica do Singleton. Os elementos essenciais são: construtor privado e método estático <code>getInstance()</code>.</p>
+                <p>A questão menciona "problemas de acoplamento e testes", que é a crítica moderna ao padrão (visto por muitos como um anti-pattern se mal utilizado), pois introduz estado global difícil de "mockar" em testes.</p>
+            `
+        },
+        {
+            id: 4,
+            title: "Questão 4 (Instituto AOCP / Adaptação BRDE - Analista de Sistemas)",
+            text: "Os padrões estruturais lidam com a composição de classes e objetos. Sobre o padrão <strong>Adapter</strong> (Adaptador), analise as assertivas abaixo e assinale a alternativa correta.<br><br>I. O padrão Adapter permite que objetos com interfaces incompatíveis trabalhem juntos, atuando como um \"wrapper\" que converte a interface de uma classe em outra interface esperada pelo cliente.<br>II. O Adapter não é um padrão reconhecido pelo GoF, sendo considerado apenas uma técnica de refatoração de código legado sem formalização arquitetural.<br>III. Existem duas variações principais deste padrão: o Adaptador de Classe (que utiliza herança múltipla ou implementação de interfaces) e o Adaptador de Objeto (que utiliza composição).",
+            options: [
+                "A) Apenas a assertiva I está correta.",
+                "B) Apenas a assertiva II está correta.",
+                "C) Apenas as assertivas I e III estão corretas.",
+                "D) Apenas as assertivas II e III estão corretas.",
+                "E) Todas as assertivas estão corretas."
+            ],
+            correctIndex: 2, // C
+            resolution: `
+                <h4>Gabarito: C (I e III corretas)</h4>
+                <ul>
+                    <li><strong>I (Correta):</strong> Definição perfeita. O Adapter traduz interfaces incompatíveis.</li>
+                    <li><strong>II (Incorreta):</strong> O Adapter É um dos 23 padrões originais do GoF. Dizer que não é reconhecido invalida a assertiva.</li>
+                    <li><strong>III (Correta):</strong> O GoF define explicitamente o <em>Class Adapter</em> (Herança) e o <em>Object Adapter</em> (Composição).</li>
+                </ul>
+            `
+        },
+        {
+            id: 5,
+            title: "Questão 5 (Instituto AOCP / Adaptação TRF2 - Analista de TI)",
+            text: "Um desenvolvedor precisa estender as responsabilidades de um objeto individualmente e de forma dinâmica, sem utilizar herança para criar subclasses para cada nova combinação de funcionalidades. Por exemplo, em um sistema de interface gráfica, deseja-se adicionar barras de rolagem ou bordas a uma janela existente em tempo de execução. Qual padrão de projeto estrutural fornece uma alternativa flexível à submissão para estender a funcionalidade?",
+            options: [
+                "A) Decorator.",
+                "B) Proxy.",
+                "C) Composite.",
+                "D) Facade.",
+                "E) Bridge."
+            ],
+            correctIndex: 0, // A
+            resolution: `
+                <h4>Gabarito: A (Decorator)</h4>
+                <p><strong>Análise:</strong> O Decorator resolve o problema da "explosão de subclasses". Ele permite adicionar responsabilidades a objetos individuais (não a classes inteiras) em tempo de execução.</p>
+                <p>A frase chave "alternativa flexível à herança (submissão) para estender funcionalidade" é clássica do GoF para descrever o Decorator. Diferente do Proxy (que controla acesso) ou Composite (que lida com estruturas de árvore), o Decorator foca no enriquecimento do objeto.</p>
+            `
+        },
+        {
+            id: 6,
+            title: "Questão 6 (Instituto AOCP / Adaptação EBSERH - Analista de TI)",
+            text: "O padrão de projeto <strong>Factory Method</strong> é um dos mais cobrados em concursos públicos. Sobre sua intenção e aplicabilidade, assinale a alternativa correta.",
+            options: [
+                "A) Define uma interface para criar um objeto, mas deixa as subclasses decidirem qual classe instanciar. O Factory Method permite a uma classe deferir a instanciação para subclasses.",
+                "B) Garante que uma classe tenha apenas uma instância e fornece um ponto global de acesso a ela.",
+                "C) Separa a construção de um objeto complexo da sua representação, de modo que o mesmo processo de construção possa criar diferentes representações.",
+                "D) Fornece uma interface unificada para um conjunto de interfaces em um subsistema, definindo uma interface de nível mais alto que torna o subsistema mais fácil de usar.",
+                "E) Especifica os tipos de objetos a serem criados usando uma instância prototípica e cria novos objetos copiando esse protótipo."
+            ],
+            correctIndex: 0, // A
+            resolution: `
+                <h4>Gabarito: A</h4>
+                <p><strong>Análise das Alternativas:</strong></p>
+                <ul>
+                    <li><strong>A (Factory Method):</strong> Correta. A frase "deixa as subclasses decidirem" é a assinatura deste padrão.</li>
+                    <li><strong>B (Singleton):</strong> Garante instância única.</li>
+                    <li><strong>C (Builder):</strong> Separa construção da representação (passo a passo).</li>
+                    <li><strong>D (Facade):</strong> Interface unificada para subsistemas.</li>
+                    <li><strong>E (Prototype):</strong> Criação via clonagem.</li>
+                </ul>
+            `
+        },
+        {
+            id: 7,
+            title: "Questão 7 (Instituto AOCP / Adaptação UFCE - Analista de Sistemas)",
+            text: "Considere um sistema de monitoramento de ações na bolsa de valores. Sempre que o valor de uma ação muda, diversos investidores (clientes) e sistemas de auditoria interessados devem ser notificados automaticamente para tomarem decisões em tempo real. O objeto que detém o dado (Ação) não deve conhecer os detalhes concretos dos objetos interessados, garantindo baixo acoplamento.<br><br>Qual padrão comportamental modela essa relação de dependência \"um-para-muitos\"?",
+            options: [
+                "A) Chain of Responsibility.",
+                "B) Mediator.",
+                "C) Observer.",
+                "D) State.",
+                "E) Visitor."
+            ],
+            correctIndex: 2, // C
+            resolution: `
+                <h4>Gabarito: C (Observer)</h4>
+                <p><strong>Mecânica:</strong> Define uma dependência um-para-muitos. Quando o Sujeito (Ação) muda de estado, notifica todos os Observadores (Investidores).</p>
+                <p>É a base de sistemas orientados a eventos. Diferente do Mediator (que centraliza a comunicação), o Observer distribui a notificação. A característica de "baixo acoplamento" (o sujeito não sabe quem são os observadores concretos) é crucial.</p>
+            `
+        },
+        {
+            id: 8,
+            title: "Questão 8 (Instituto AOCP / Adaptação TRE-TO 2025 - Arquitetura de Software)",
+            text: "A arquitetura de software moderna, especialmente em ambientes de microsserviços, exige padrões de resiliência que previnam falhas em cascata. Um analista implementou um componente que monitora falhas em chamadas remotas. Se o número de falhas ultrapassar um limite, o componente \"abre\" o circuito e rejeita imediatamente novas chamadas, evitando sobrecarga do serviço falho. Após um tempo, ele permite algumas chamadas de teste (\"meio-aberto\").<br><br>Qual é o nome desse padrão de resiliência, frequentemente cobrado junto aos padrões GoF em provas recentes?",
+            options: [
+                "A) Retry Pattern.",
+                "B) Bulkhead.",
+                "C) Circuit Breaker.",
+                "D) Sidecar.",
+                "E) Ambassador."
+            ],
+            correctIndex: 2, // C
+            resolution: `
+                <h4>Gabarito: C (Circuit Breaker)</h4>
+                <p><strong>Contexto Moderno:</strong> Embora não seja GoF, aparece frequentemente em provas recentes da AOCP sobre arquitetura.</p>
+                <p>O padrão funciona como um disjuntor elétrico:
+                <br>1. <strong>Fechado:</strong> Fluxo normal.
+                <br>2. <strong>Aberto:</strong> Falha imediata (proteção).
+                <br>3. <strong>Meio-Aberto:</strong> Teste de recuperação.</p>
+                <p>O <em>Retry</em> apenas tenta novamente, o que pode piorar a situação se o serviço estiver sobrecarregado. O <em>Circuit Breaker</em> protege o sistema.</p>
+            `
+        },
+        {
+            id: 9,
+            title: "Questão 9 (Instituto AOCP / Adaptação Colégio Pedro II)",
+            text: "No contexto de padrões arquiteturais para desenvolvimento de interfaces de usuário, o <strong>MVC (Model-View-Controller)</strong> desempenha um papel fundamental na separação de interesses. Assinale a alternativa que descreve corretamente a responsabilidade do componente <strong>Controller</strong> neste padrão.",
+            options: [
+                "A) Armazena o estado da aplicação e a lógica de negócios, notificando a View sempre que ocorrem mudanças nos dados.",
+                "B) É responsável pela renderização da interface gráfica e pela captura direta de eventos de baixo nível, como cliques do mouse.",
+                "C) Atua como intermediário, recebendo a entrada do usuário através da View, processando-a e invocando alterações no Model ou na própria View.",
+                "D) Garante a persistência dos dados em bancos relacionais e valida a integridade referencial das transações.",
+                "E) Define a aparência visual dos componentes, como cores e fontes, sem interagir com a lógica da aplicação."
+            ],
+            correctIndex: 2, // C
+            resolution: `
+                <h4>Gabarito: C</h4>
+                <p><strong>Responsabilidades no MVC:</strong></p>
+                <ul>
+                    <li><strong>Model:</strong> Lógica de negócio e estado (Alternativa A).</li>
+                    <li><strong>View:</strong> Apresentação e renderização (Alternativas B e E).</li>
+                    <li><strong>Controller:</strong> Intermediário. Recebe input, interpreta e comanda o Model ou a View.</li>
+                </ul>
+                <p>A AOCP cobra o fluxo: Usuário -> View -> Controller -> Model.</p>
+            `
+        },
+        {
+            id: 10,
+            title: "Questão 10 (Instituto AOCP / Adaptação PRODEB)",
+            text: "Muitos padrões de projeto baseiam-se nos princípios <strong>SOLID</strong> para garantir flexibilidade e manutenibilidade. A letra \"O\" do acrônimo refere-se ao <strong>Open/Closed Principle (Princípio Aberto/Fechado)</strong>. Qual é a definição correta deste princípio?",
+            options: [
+                "A) Uma classe deve ter uma, e apenas uma, razão para mudar.",
+                "B) Módulos de alto nível não devem depender de módulos de baixo nível. Ambos devem depender de abstrações.",
+                "C) Entidades de software (classes, módulos, funções, etc.) devem estar abertas para extensão, mas fechadas para modificação.",
+                "D) Subclasses devem ser substituíveis por suas superclasses sem quebrar a integridade do sistema.",
+                "E) Clientes não devem ser forçados a depender de interfaces que não utilizam."
+            ],
+            correctIndex: 2, // C
+            resolution: `
+                <h4>Gabarito: C (Abertas para extensão, fechadas para modificação)</h4>
+                <p><strong>Mapeamento SOLID:</strong></p>
+                <ul>
+                    <li><strong>S (SRP):</strong> Uma razão para mudar (A).</li>
+                    <li><strong>O (OCP):</strong> Aberto/Fechado (C). Base para Strategy e Decorator.</li>
+                    <li><strong>L (LSP):</strong> Substituição de Liskov (D).</li>
+                    <li><strong>I (ISP):</strong> Segregação de Interface (E).</li>
+                    <li><strong>D (DIP):</strong> Inversão de Dependência (B).</li>
+                </ul>
+            `
+        }
+    ];
+
+    function renderQuiz() {
+        const form = document.getElementById('quiz-form');
+        
+        quizData.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `q-card-${index}`;
+            
+            let optionsHTML = '';
+            q.options.forEach((opt, optIndex) => {
+                optionsHTML += `
+                    <li class="option-item">
+                        <label class="option-label" id="label-${index}-${optIndex}">
+                            <input type="radio" name="question-${index}" value="${optIndex}" class="option-input">
+                            <span>${opt}</span>
+                        </label>
+                    </li>
+                `;
+            });
+
+            card.innerHTML = `
+                <div class="question-title">${q.title}</div>
+                <div class="question-text">${q.text}</div>
+                <ul class="options">${optionsHTML}</ul>
+                <div class="resolution-box" id="resolution-${index}">
+                    <div class="resolution-content">${q.resolution}</div>
+                </div>
+            `;
+            
+            form.appendChild(card);
+        });
+    }
+
+    function submitQuiz() {
+        let score = 0;
+        const total = quizData.length;
+        const btn = document.querySelector('.btn-primary');
+
+        // Desabilitar botão após envio
+        btn.disabled = true;
+        btn.innerText = "Simulado Finalizado";
+        btn.style.backgroundColor = "#95a5a6";
+        btn.style.cursor = "default";
+
+        quizData.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="question-${index}"]:checked`);
+            const resolutionBox = document.getElementById(`resolution-${index}`);
+            const correctLabel = document.getElementById(`label-${index}-${q.correctIndex}`);
+            
+            // Exibir resolução
+            resolutionBox.style.display = "block";
+
+            // Marcar a resposta correta visualmente (sempre verde)
+            correctLabel.classList.add('correct-answer-highlight');
+
+            if (selected) {
+                const userVal = parseInt(selected.value);
+                if (userVal === q.correctIndex) {
+                    score++;
+                    // Adicionar indicador de acerto
+                } else {
+                    // Marcar a resposta errada do usuário visualmente (vermelho)
+                    const userLabel = document.getElementById(`label-${index}-${userVal}`);
+                    userLabel.classList.add('wrong-answer-highlight');
+                }
+            } else {
+                // Caso não tenha respondido
+            }
+
+            // Desabilitar todos os inputs desta questão
+            const inputs = document.getElementsByName(`question-${index}`);
+            inputs.forEach(input => input.disabled = true);
+        });
+
+        // Mostrar Placar
+        const scoreDisplay = document.getElementById('score-display');
+        const scoreValue = document.getElementById('score-value');
+        scoreValue.innerText = score;
+        scoreDisplay.style.display = "block";
+        
+        // Scroll suave para o topo para ver o resultado
+        scoreDisplay.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Inicializar o quiz ao carregar a página
+    window.onload = renderQuiz;
+
+</script>
+
+</body>
+</html>

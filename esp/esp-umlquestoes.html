@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado UML - Instituto AOCP</title>
+    <style>
+        :root {
+            --bg-color: #f9f9f9;
+            --card-bg: #ffffff;
+            --text-primary: #2c3e50;
+            --text-secondary: #546e7a;
+            --accent-color: #3498db;
+            --accent-hover: #2980b9;
+            --success-color: #d4edda;
+            --success-text: #155724;
+            --error-color: #f8d7da;
+            --error-text: #721c24;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        p.subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        .question-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+        }
+
+        .question-header {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .options-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+
+        .option-label:hover {
+            background-color: #f0f4f8;
+            border-color: #cbd5e1;
+        }
+
+        .option-label input {
+            margin-top: 6px;
+            margin-right: 12px;
+        }
+
+        /* Estilos de Feedback */
+        .correct-answer {
+            background-color: var(--success-color) !important;
+            border-color: #c3e6cb !important;
+            color: var(--success-text);
+            font-weight: 600;
+        }
+
+        .wrong-answer {
+            background-color: var(--error-color) !important;
+            border-color: #f5c6cb !important;
+            color: var(--error-text);
+        }
+
+        .resolution-box {
+            display: none; /* Escondido por padrão */
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+            font-size: 1rem;
+            color: #444;
+        }
+
+        .resolution-box h4 {
+            margin-top: 0;
+            color: var(--accent-color);
+        }
+
+        .actions {
+            text-align: center;
+            margin-top: 50px;
+            padding-bottom: 60px;
+        }
+
+        button#finish-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(52, 152, 219, 0.3);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button#finish-btn:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        #score-display {
+            display: none;
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: var(--text-primary);
+            color: white;
+            border-radius: 8px;
+        }
+
+        strong {
+            font-weight: 700;
+        }
+
+        /* Responsividade */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px 15px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            .question-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado UML</h1>
+        <p class="subtitle">Foco: Instituto AOCP | Engenharia de Software</p>
+    </header>
+
+    <div id="score-display"></div>
+
+    <form id="quiz-form">
+        <!-- As questões serão injetadas aqui via JavaScript -->
+    </form>
+
+    <div class="actions">
+        <button type="button" id="finish-btn">Finalizar e Ver Resoluções</button>
+    </div>
+</div>
+
+<script>
+    const quizData = [
+        {
+            id: 1,
+            context: "Instituto AOCP / EBSERH - Analista de TI",
+            text: "A UML 2.0 (Unified Modeling Language) evoluiu significativamente em relação às suas versões anteriores, consolidando uma taxonomia clara para seus artefatos de modelagem. Segundo a especificação da UML 2.0, o Diagrama de Caso de Uso é classificado como um dos diagramas disponíveis para a modelagem de aspectos comportamentais (dinâmicos) de sistemas, pois foca na funcionalidade externa observável. Considerando a taxonomia da linguagem, outro exemplo de diagrama que pertence à categoria de modelagem das partes dinâmicas de um sistema é o:",
+            options: [
+                "A) Diagrama de Atividades.",
+                "B) Diagrama de Objetos.",
+                "C) Diagrama de Componentes.",
+                "D) Diagrama de Implantação.",
+                "E) Diagrama de Artefatos."
+            ],
+            correct: 0,
+            resolution: `
+                <p><strong>Gabarito: Letra A.</strong></p>
+                <p>A UML divide seus diagramas em duas grandes categorias: <strong>Estruturais (Estáticos)</strong> e <strong>Comportamentais (Dinâmicos)</strong>.</p>
+                <ul>
+                    <li><strong>Comportamentais (Dinâmicos):</strong> Focam na execução, fluxo e mudança de estado. Exemplos: Casos de Uso, <em>Atividades</em>, Máquina de Estados e os diagramas de Interação (Sequência, Comunicação).</li>
+                    <li><strong>Estruturais (Estáticos):</strong> Focam na organização física e lógica. Exemplos: Classes, Objetos, Componentes, Implantação e Artefatos.</li>
+                </ul>
+                <p>O Diagrama de Atividades modela o fluxo de controle e dados, sendo essencialmente dinâmico.</p>
+            `
+        },
+        {
+            id: 2,
+            context: "Instituto AOCP / FUNPRESP-JUD - Analista",
+            text: "A modelagem de infraestrutura é uma etapa crítica no desenho de arquiteturas de software. Quanto à análise e ao projeto orientados a objetos utilizando a UML, julgue o item a seguir referente aos elementos do Diagrama de Implantação.<br><br>No diagrama de implantação, em UML 2.0, o elemento denominado <em>Device</em> (Dispositivo) representa um dispositivo computacional, ou seja, um recurso físico com capacidade de processamento ou memória em que os artefatos de software podem ser implantados para execução.",
+            options: [
+                "( ) Certo",
+                "( ) Errado"
+            ],
+            correct: 0,
+            resolution: `
+                <p><strong>Gabarito: Certo.</strong></p>
+                <p>No Diagrama de Implantação, um Nó (Node) pode ser classificado como:</p>
+                <ol>
+                    <li><strong>Device (Dispositivo):</strong> Hardware físico com capacidade de processamento ou memória (ex: Servidor, Smartphone, Sensor).</li>
+                    <li><strong>Execution Environment:</strong> Software que hospeda outros softwares (ex: SO, JVM, Container).</li>
+                </ol>
+                <p>A definição apresentada na questão está correta e alinhada com a especificação da UML 2.0.</p>
+            `
+        },
+        {
+            id: 3,
+            context: "Instituto AOCP / FUNPRESP-JUD - Analista",
+            text: "O diagrama de comunicação, conforme definido na UML 2.0, mostra a comunicação entre objetos, enfatizando a organização estrutural dos objetos que participam da interação. Ou seja, ele ilustra o fluxo de mensagens que ocorre entre os objetos de um sistema de informação, sendo utilizado preferencialmente quando a intenção é destacar a colaboração e os relacionamentos (links) entre os objetos, em detrimento da sequência temporal explícita.",
+            options: [
+                "( ) Certo",
+                "( ) Errado"
+            ],
+            correct: 0,
+            resolution: `
+                <p><strong>Gabarito: Certo.</strong></p>
+                <p>O <strong>Diagrama de Comunicação</strong> (anteriormente chamado de Colaboração) é isomórfico ao Diagrama de Sequência, mas com foco oposto:</p>
+                <ul>
+                    <li>Ele destaca a <strong>estrutura espacial</strong> e os relacionamentos (links) entre os objetos.</li>
+                    <li>A ordem das mensagens é mostrada por numeração (1, 1.1, 2...), não pelo eixo vertical, tornando a sequência temporal menos evidente visualmente, mas destacando a topologia da colaboração.</li>
+                </ul>
+            `
+        },
+        {
+            id: 4,
+            context: "Instituto AOCP / IBGE - Analista de Sistemas",
+            text: "Na modelagem de sistemas orientados a objetos, a compreensão do fluxo temporal das operações é fundamental. Um dos importantes diagramas da UML utilizados para esse fim é o diagrama de sequência. Assinale a alternativa correta acerca das características e objetivos desse diagrama.",
+            options: [
+                "A) Cria uma documentação do sistema sob o ponto de vista exclusivo do usuário final, utilizando linguagem natural...",
+                "B) Representa as interações entre objetos de um cenário específico, realizadas por meio de troca de mensagens, operações ou métodos, organizadas em uma ordem cronológica descendente.",
+                "C) Apresenta o fluxo de dados de um sistema orientado a objetos por meio da implementação física das regras de negócio...",
+                "D) É um tipo de diagrama estático que representa a hierarquia de chamadas aos métodos...",
+                "E) Demonstra o comportamento de um único objeto e mostra as transições de estado..."
+            ],
+            correct: 1,
+            resolution: `
+                <p><strong>Gabarito: Letra B.</strong></p>
+                <p>O <strong>Diagrama de Sequência</strong> foca na ordem temporal das mensagens.</p>
+                <ul>
+                    <li><strong>A:</strong> Descreve Casos de Uso.</li>
+                    <li><strong>B:</strong> Correta. Mostra interações (mensagens) em ordem cronológica (eixo vertical).</li>
+                    <li><strong>C:</strong> Descreve DFD (Análise Estruturada), não UML.</li>
+                    <li><strong>D:</strong> O diagrama de sequência é dinâmico, não estático.</li>
+                    <li><strong>E:</strong> Descreve Diagrama de Máquina de Estados.</li>
+                </ul>
+            `
+        },
+        {
+            id: 5,
+            context: "Instituto AOCP / UFS - Analista de TI",
+            text: "A equipe necessita validar a lógica de um processo de matrícula, entendendo detalhadamente as interações e trocas de mensagens entre diferentes objetos do sistema (Aluno, Turma, Curso, BancoDeDados) ao longo do tempo para um determinado cenário de 'Matrícula com Sucesso'. Qual tipo de diagrama UML deveria ser utilizado para atender especificamente a essa necessidade de visualização temporal?",
+            options: [
+                "A) Diagrama de Classes.",
+                "B) Diagrama de Sequência.",
+                "C) Diagrama de Atividades.",
+                "D) Diagrama de Implantação.",
+                "E) Diagrama de Estados."
+            ],
+            correct: 1,
+            resolution: `
+                <p><strong>Gabarito: Letra B.</strong></p>
+                <p>As palavras-chave são 'interações', 'mensagens entre objetos' e 'ao longo do tempo'.</p>
+                <ul>
+                    <li>O <strong>Diagrama de Sequência</strong> é a ferramenta padrão para modelar a realização de um Caso de Uso (cenário), mostrando exatamente qual objeto chama qual método e em que ordem.</li>
+                    <li>Diagrama de Atividades mostraria o fluxo do processo, mas abstrairia os objetos.</li>
+                    <li>Diagrama de Classes é estático.</li>
+                </ul>
+            `
+        },
+        {
+            id: 6,
+            context: "Instituto AOCP / Câmara Municipal de Teresina - Analista",
+            text: "Willian precisa criar um diagrama que ilustre a organização física do código fonte e dos executáveis. Ele precisa de um artefato que mostre os módulos do sistema (como bibliotecas, pacotes e executáveis) quando ele for implementado, bem como as dependências e interfaces através das quais esses módulos irão interagir. Assinale a alternativa que apresenta o diagrama UML que atende a essa demanda de modelagem de implementação:",
+            options: [
+                "A) Diagrama de implantação.",
+                "B) Diagrama de máquina de estado.",
+                "C) Diagrama de intercomunicação.",
+                "D) Diagrama de componentes.",
+                "E) Diagrama de comunicação."
+            ],
+            correct: 3,
+            resolution: `
+                <p><strong>Gabarito: Letra D.</strong></p>
+                <p>O foco é na estrutura modular do software (bibliotecas, executáveis, código fonte) e suas dependências (interfaces).</p>
+                <ul>
+                    <li><strong>Diagrama de Componentes:</strong> Modela a organização e as dependências entre componentes de software. É o diagrama da fase de implementação/arquitetura lógica.</li>
+                    <li>Diagrama de Implantação foca no hardware (nós).</li>
+                    <li>'Diagrama de Intercomunicação' não existe na UML oficial.</li>
+                </ul>
+            `
+        },
+        {
+            id: 7,
+            context: "Instituto AOCP / MPE-RS - Técnico de Informática",
+            text: "A UML divide seus diagramas em duas grandes categorias principais: diagramas estruturais e diagramas comportamentais. Sabendo disso e considerando a versão atual da linguagem, assinale a alternativa que apresenta, correta e exclusivamente, um diagrama classificado como estrutural.",
+            options: [
+                "A) Diagrama de casos de uso.",
+                "B) Diagrama de sequência.",
+                "C) Diagrama de comunicação.",
+                "D) Diagrama de atividade.",
+                "E) Diagrama de classes."
+            ],
+            correct: 4,
+            resolution: `
+                <p><strong>Gabarito: Letra E.</strong></p>
+                <p>Classificação rápida:</p>
+                <ul>
+                    <li>Casos de Uso, Sequência, Comunicação, Atividade -> <strong>Comportamentais</strong>.</li>
+                    <li>Classes -> <strong>Estrutural</strong>. É o diagrama base que define a estrutura estática (atributos e métodos) do sistema.</li>
+                </ul>
+            `
+        },
+        {
+            id: 8,
+            context: "Instituto AOCP / BRDE - Analista de Sistemas",
+            text: "Assinale a seguir a alternativa que apresenta somente tipos de diagramas oficialmente reconhecidos e utilizados pela UML (Unified Modeling Language) em suas versões 2.x.",
+            options: [
+                "A) Diagrama de classes, diagrama de objetos, diagrama de componentes... e diagrama de tempo.",
+                "B) Diagrama de entidade relacionamento... e o diagrama de execução.",
+                "C) ... diagrama de fluxo de dados (DFD)...",
+                "D) Diagrama de entidade relacionamento... diagrama de fluxo de dados...",
+                "E) ... diagrama de fluxo de dados..."
+            ],
+            correct: 0,
+            resolution: `
+                <p><strong>Gabarito: Letra A.</strong></p>
+                <p>Estratégia de eliminação:</p>
+                <ul>
+                    <li><strong>DER (Entidade Relacionamento):</strong> Pertence à modelagem de banco de dados, não à UML.</li>
+                    <li><strong>DFD (Fluxo de Dados):</strong> Pertence à Análise Estruturada, não à UML.</li>
+                    <li><strong>Diagrama de Execução:</strong> Não existe na UML.</li>
+                </ul>
+                <p>Apenas a alternativa A lista diagramas válidos da especificação UML.</p>
+            `
+        },
+        {
+            id: 9,
+            context: "Instituto AOCP / Prefeitura de Novo Hamburgo",
+            text: "A UML fornece mecanismos de extensão que permitem aos modeladores adaptar a linguagem a domínios específicos sem alterar seu metamodelo subjacente. Um desses mecanismos é o estereótipo. Considerando a sintaxe padrão da UML 2.0, considere que um analista deseja aplicar um estereótipo denominado metaclass a um elemento de modelo. A forma literal correta de representar graficamente esse estereótipo acima do nome do elemento é:",
+            options: [
+                "A) [metaclass]",
+                "B) //metaclass//",
+                "C) &lt;&lt;metaclass&gt;&gt;",
+                "D) %metaclass%",
+                "E) #metaclass#"
+            ],
+            correct: 2,
+            resolution: `
+                <p><strong>Gabarito: Letra C.</strong></p>
+                <p>Estereótipos na UML são representados textualmente entre <em>guillemets</em> (« »). Como esses caracteres são especiais, a notação amplamente aceita e usada em provas é o uso de sinais de menor/maior duplos: <strong>&lt;&lt; estereótipo &gt;&gt;</strong>.</p>
+            `
+        },
+        {
+            id: 10,
+            context: "Instituto AOCP / BRDE - Analista de Sistemas",
+            text: "Os diagramas de interação são fundamentais para modelar a parte dinâmica do sistema. Sobre o Diagrama de Sequência, analise a assertiva abaixo quanto ao seu foco principal de representação.<br><br>'O diagrama de sequência é um tipo de diagrama de interação entre objetos que enfatiza, visualmente e semanticamente, a sequência temporal das mensagens trocadas, em detrimento da representação espacial dos relacionamentos estáticos entre os objetos.'",
+            options: [
+                "( ) Certo",
+                "( ) Errado"
+            ],
+            correct: 0,
+            resolution: `
+                <p><strong>Gabarito: Certo.</strong></p>
+                <p>A definição é precisa quanto ao trade-off do diagrama:</p>
+                <ul>
+                    <li><strong>Enfatiza:</strong> Tempo (eixo vertical).</li>
+                    <li><strong>Em detrimento de:</strong> Espaço/Estrutura (os objetos são colocados lado a lado arbitrariamente, não mostrando seus links estruturais permanentes de forma explícita como no Diagrama de Comunicação).</li>
+                </ul>
+            `
+        }
+    ];
+
+    const form = document.getElementById('quiz-form');
+    const finishBtn = document.getElementById('finish-btn');
+    const scoreDisplay = document.getElementById('score-display');
+
+    // Renderizar questões
+    quizData.forEach((q, index) => {
+        const card = document.createElement('div');
+        card.className = 'question-card';
+        
+        // Header da questão
+        const header = document.createElement('div');
+        header.className = 'question-header';
+        header.innerText = `Questão ${index + 1} • ${q.context}`;
+        card.appendChild(header);
+
+        // Texto da questão
+        const text = document.createElement('div');
+        text.className = 'question-text';
+        text.innerHTML = q.text; // Usando innerHTML para permitir quebras de linha se houver
+        card.appendChild(text);
+
+        // Opções
+        const optionsGroup = document.createElement('div');
+        optionsGroup.className = 'options-group';
+
+        q.options.forEach((opt, i) => {
+            const label = document.createElement('label');
+            label.className = 'option-label';
+            
+            const input = document.createElement('input');
+            input.type = 'radio';
+            input.name = `q${index}`;
+            input.value = i;
+
+            label.appendChild(input);
+            label.appendChild(document.createTextNode(opt));
+            
+            optionsGroup.appendChild(label);
+        });
+        card.appendChild(optionsGroup);
+
+        // Caixa de resolução (escondida inicialmente)
+        const resolution = document.createElement('div');
+        resolution.className = 'resolution-box';
+        resolution.id = `res-${index}`;
+        resolution.innerHTML = `<h4>Resolução Analítica</h4>${q.resolution}`;
+        card.appendChild(resolution);
+
+        form.appendChild(card);
+    });
+
+    // Lógica de finalização
+    finishBtn.addEventListener('click', () => {
+        let score = 0;
+        let answered = 0;
+        const total = quizData.length;
+
+        quizData.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            const resolutionBox = document.getElementById(`res-${index}`);
+            const labels = document.querySelectorAll(`input[name="q${index}"]`);
+            
+            // Revelar resolução
+            resolutionBox.style.display = 'block';
+
+            // Desabilitar inputs
+            labels.forEach(input => input.disabled = true);
+
+            if (selected) {
+                answered++;
+                const val = parseInt(selected.value);
+                const parentLabel = selected.parentElement;
+
+                if (val === q.correct) {
+                    score++;
+                    parentLabel.classList.add('correct-answer');
+                } else {
+                    parentLabel.classList.add('wrong-answer');
+                    // Mostrar a correta
+                    labels.forEach(input => {
+                        if(parseInt(input.value) === q.correct) {
+                            input.parentElement.classList.add('correct-answer');
+                        }
+                    });
+                }
+            } else {
+                // Se não respondeu, mostrar qual era a correta
+                labels.forEach(input => {
+                    if(parseInt(input.value) === q.correct) {
+                        input.parentElement.classList.add('correct-answer');
+                    }
+                });
+            }
+        });
+
+        // Mostrar nota
+        scoreDisplay.style.display = 'block';
+        scoreDisplay.innerHTML = `<h2>Resultado Final</h2><p>Você acertou <strong>${score}</strong> de <strong>${total}</strong> questões.</p>`;
+        
+        // Rolar para o topo suavemente
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        
+        // Mudar texto do botão
+        finishBtn.innerText = "Simulado Concluído";
+        finishBtn.disabled = true;
+        finishBtn.style.backgroundColor = "#95a5a6";
+    });
+
+</script>
+
+</body>
+</html>

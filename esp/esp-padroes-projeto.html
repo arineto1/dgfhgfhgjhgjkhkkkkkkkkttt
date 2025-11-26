@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumão GoF: Foco Instituto AOCP</title>
+    <!-- Tailwind CSS para estilização rápida e responsiva -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilos adicionais para garantir que as tabelas não tenham scroll horizontal */
+        table {
+            width: 100%;
+            table-layout: fixed; /* Força a tabela a respeitar a largura do container */
+        }
+        td, th {
+            word-wrap: break-word; /* Quebra palavras longas se necessário */
+            overflow-wrap: break-word;
+        }
+        
+        /* Ajustes de tipografia para leitura confortável */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+        }
+
+        .highlight-box {
+            background-color: #fef9c3; /* Amarelo muito suave */
+            border-left: 4px solid #facc15; /* Amarelo mais forte */
+        }
+        
+        .important-term {
+            font-weight: 700;
+            color: #1f2937; /* Cinza muito escuro */
+            background-color: #f3f4f6; /* Cinza muito claro de fundo para destaque sutil */
+            padding: 0 4px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800 p-4 md:p-8 max-w-4xl mx-auto">
+
+    <!-- Player de Áudio -->
+    <div class="mb-8 p-4 bg-gray-50 rounded-lg border border-gray-200 shadow-sm sticky top-0 z-10">
+        <label class="block text-sm font-bold mb-2 text-gray-700">🎧 Ouça o Resumo (Áudio de Memorização)</label>
+        <audio controls class="w-full">
+            <!-- Substitua 'nome_do_arquivo.mp3' pelo seu arquivo real -->
+            <source src="esp-padroes-projeto.mp3" type="audio/mpeg">
+            Seu navegador não suporta o elemento de áudio.
+        </audio>
+        <p class="text-xs text-gray-500 mt-1">Coloque o arquivo MP3 na mesma pasta desta página.</p>
+    </div>
+
+    <!-- Cabeçalho -->
+    <header class="mb-8 text-center border-b pb-6">
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2">Resumão de Véspera: Padrões de Projeto (GoF)</h1>
+        <div class="text-gray-600 font-medium">
+            <span class="mr-4">🎯 Foco: Instituto AOCP</span>
+            <span>💼 Cargo: Professor EBTT - Informática</span>
+        </div>
+    </header>
+
+    <!-- Regra de Ouro -->
+    <section class="mb-10">
+        <div class="highlight-box p-4 rounded text-lg">
+            <strong class="text-yellow-800 uppercase text-sm tracking-wide block mb-1">Regra de Ouro da Banca</strong>
+            <p>O Instituto AOCP cobra <strong class="text-red-700">literalidade</strong> e <strong class="text-red-700">taxonomia</strong>. Você deve saber <u>decorar</u> em qual categoria cada padrão está e qual sua "intenção" oficial (definição de 1 linha).</p>
+        </div>
+    </section>
+
+    <!-- 1. A Taxonomia Sagrada -->
+    <section class="mb-12">
+        <h2 class="text-2xl font-bold text-blue-900 mb-4 border-l-4 border-blue-500 pl-3">1. A Taxonomia Sagrada (Decore esta Tabela)</h2>
+        <p class="mb-4 text-gray-600 italic">A banca frequentemente pede para "associar a coluna A (Padrão) com a coluna B (Categoria)".</p>
+
+        <div class="overflow-hidden border border-gray-300 rounded-lg">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th scope="col" class="px-3 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider w-1/4">Categoria</th>
+                        <th scope="col" class="px-3 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider w-1/4">Palavra-Chave</th>
+                        <th scope="col" class="px-3 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider w-1/2">Lista de Padrões (Mnemônicos)</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200 text-sm">
+                    <tr>
+                        <td class="px-3 py-4 align-top font-bold text-blue-800">CRIACIONAIS<br><span class="font-normal text-gray-500">(Creational)</span></td>
+                        <td class="px-3 py-4 align-top text-gray-700"><span class="important-term">Instanciação</span> / Criação</td>
+                        <td class="px-3 py-4 align-top">
+                            <p class="font-semibold text-indigo-700 mb-1">"Uma Fábrica Abstrata constrói um Protótipo Único."</p>
+                            <ol class="list-decimal list-inside space-y-1 text-gray-700">
+                                <li>Abstract Factory</li>
+                                <li>Builder</li>
+                                <li>Factory Method</li>
+                                <li>Prototype</li>
+                                <li>Singleton</li>
+                            </ol>
+                        </td>
+                    </tr>
+                    <tr class="bg-gray-50">
+                        <td class="px-3 py-4 align-top font-bold text-green-800">ESTRUTURAIS<br><span class="font-normal text-gray-500">(Structural)</span></td>
+                        <td class="px-3 py-4 align-top text-gray-700"><span class="important-term">Composição</span> / Estrutura</td>
+                        <td class="px-3 py-4 align-top">
+                            <p class="font-semibold text-indigo-700 mb-1">"ABC DE F... P"</p>
+                            <ul class="list-none space-y-1 text-gray-700">
+                                <li><strong>A</strong>dapter</li>
+                                <li><strong>B</strong>ridge</li>
+                                <li><strong>C</strong>omposite</li>
+                                <li><strong>D</strong>ecorator</li>
+                                <li><strong>F</strong>acade</li>
+                                <li><strong>F</strong>lyweight</li>
+                                <li><strong>P</strong>roxy</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-3 py-4 align-top font-bold text-red-800">COMPORTAMENTAIS<br><span class="font-normal text-gray-500">(Behavioral)</span></td>
+                        <td class="px-3 py-4 align-top text-gray-700"><span class="important-term">Comunicação</span> / Algoritmo</td>
+                        <td class="px-3 py-4 align-top">
+                            <p class="mb-1 text-gray-600">Todos os outros (11 padrões).</p>
+                            <p class="mb-2 text-sm">Focam em <strong>responsabilidades</strong> e <strong>interação</strong>.</p>
+                            <p class="text-gray-700 font-medium">Principais: Strategy, Observer, Template Method, Command, Iterator.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- 2. Gatilhos Criacionais -->
+    <section class="mb-12">
+        <h2 class="text-2xl font-bold text-blue-900 mb-2 border-l-4 border-blue-500 pl-3">2. Gatilhos de Memória: Padrões Criacionais</h2>
+        <p class="mb-6 text-gray-600 bg-blue-50 p-2 rounded inline-block">Pergunta chave: <em>Como o objeto é criado? Evita o <code>new</code> direto.</em></p>
+
+        <div class="space-y-6">
+            <div class="border-l-4 border-gray-300 pl-4 py-1">
+                <h3 class="text-lg font-bold text-gray-900">Singleton</h3>
+                <ul class="mt-1 text-gray-700 space-y-1">
+                    <li>🎯 Gatilho: <span class="important-term">"Uma única instância"</span>, "Ponto global de acesso".</li>
+                    <li>💻 Código: Construtor <code>private</code>, atributo <code>static instance</code>.</li>
+                    <li>⚠️ Atenção: Cuidado com ambientes multithread (concorrência).</li>
+                </ul>
+            </div>
+
+            <div class="border-l-4 border-gray-300 pl-4 py-1">
+                <h3 class="text-lg font-bold text-gray-900">Builder</h3>
+                <ul class="mt-1 text-gray-700 space-y-1">
+                    <li>🎯 Gatilho: <span class="important-term">"Passo a passo"</span>, "Objeto complexo", "Separar construção da representação".</li>
+                    <li>👁️ Visual: Encadeamento de métodos (<code>.setX().setY().build()</code>).</li>
+                </ul>
+            </div>
+
+            <div class="border-l-4 border-gray-300 pl-4 py-1">
+                <h3 class="text-lg font-bold text-gray-900">Prototype</h3>
+                <ul class="mt-1 text-gray-700 space-y-1">
+                    <li>🎯 Gatilho: <span class="important-term">"Clonar"</span>, "Cópia de objeto existente", "Evitar custo de criação".</li>
+                    <li>🛠️ Técnica: Interface <code>Cloneable</code> (Java).</li>
+                </ul>
+            </div>
+
+            <div class="border-l-4 border-gray-300 pl-4 py-1">
+                <h3 class="text-lg font-bold text-gray-900">Factory Method</h3>
+                <ul class="mt-1 text-gray-700 space-y-1">
+                    <li>🎯 Gatilho: <span class="important-term">"Subclasses decidem"</span> qual classe instanciar.</li>
+                    <li>🏗️ Estrutura: Define uma interface, mas deixa a <strong>herança</strong> resolver a criação.</li>
+                </ul>
+            </div>
+
+            <div class="border-l-4 border-gray-300 pl-4 py-1">
+                <h3 class="text-lg font-bold text-gray-900">Abstract Factory</h3>
+                <ul class="mt-1 text-gray-700 space-y-1">
+                    <li>🎯 Gatilho: <span class="important-term">"Famílias de objetos"</span> relacionados ou dependentes.</li>
+                    <li>🆚 Diferença: Cria <em>vários</em> tipos de objetos (família), enquanto o Factory Method cria <em>um</em> tipo.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Gatilhos Estruturais -->
+    <section class="mb-12">
+        <h2 class="text-2xl font-bold text-blue-900 mb-2 border-l-4 border-blue-500 pl-3">3. Gatilhos de Memória: Padrões Estruturais</h2>
+        <p class="mb-6 text-gray-600 bg-blue-50 p-2 rounded inline-block">Pergunta chave: <em>Como classes e objetos são compostos?</em></p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Coluna 1 -->
+            <div class="space-y-6">
+                <div class="border-l-4 border-gray-300 pl-4 py-1">
+                    <h3 class="text-lg font-bold text-gray-900">Adapter</h3>
+                    <ul class="mt-1 text-gray-700 space-y-1">
+                        <li>🎯 Gatilho: <span class="important-term">"Converter interface"</span>, "Compatibilidade".</li>
+                        <li>🔌 Analogia: Adaptador de tomada (2 para 3 pinos).</li>
+                    </ul>
+                </div>
+
+                <div class="border-l-4 border-gray-300 pl-4 py-1">
+                    <h3 class="text-lg font-bold text-gray-900">Decorator</h3>
+                    <ul class="mt-1 text-gray-700 space-y-1">
+                        <li>🎯 Gatilho: <span class="important-term">"Adicionar responsabilidade dinamicamente"</span>, "Flexível".</li>
+                        <li>👁️ Visual: Um objeto dentro do outro (<code>new Borda(new Janela())</code>).</li>
+                        <li>⚠️ Pegadinha: Mantém a interface original.</li>
+                    </ul>
+                </div>
+
+                <div class="border-l-4 border-gray-300 pl-4 py-1">
+                    <h3 class="text-lg font-bold text-gray-900">Facade</h3>
+                    <ul class="mt-1 text-gray-700 space-y-1">
+                        <li>🎯 Gatilho: <span class="important-term">"Interface simplificada"</span>, "Subsistema complexo".</li>
+                        <li>🥅 Objetivo: Facilitar o uso (ex: classe única que chama 10 classes).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Coluna 2 -->
+            <div class="space-y-6">
+                <div class="border-l-4 border-gray-300 pl-4 py-1">
+                    <h3 class="text-lg font-bold text-gray-900">Proxy</h3>
+                    <ul class="mt-1 text-gray-700 space-y-1">
+                        <li>🎯 Gatilho: <span class="important-term">"Controlar acesso"</span>, "Substituto".</li>
+                        <li>📋 Tipos: Remoto, Virtual (lazy loading), Proteção.</li>
+                    </ul>
+                </div>
+
+                <div class="border-l-4 border-gray-300 pl-4 py-1">
+                    <h3 class="text-lg font-bold text-gray-900">Composite</h3>
+                    <ul class="mt-1 text-gray-700 space-y-1">
+                        <li>🎯 Gatilho: <span class="important-term">"Estrutura de árvore"</span>, "Partes-Todo".</li>
+                        <li>🌳 Exemplo: Arquivos e Pastas.</li>
+                    </ul>
+                </div>
+
+                <div class="border-l-4 border-gray-300 pl-4 py-1">
+                    <h3 class="text-lg font-bold text-gray-900">Bridge</h3>
+                    <ul class="mt-1 text-gray-700 space-y-1">
+                        <li>🎯 Gatilho: <span class="important-term">"Desacoplar abstração da implementação"</span>.</li>
+                        <li>⚖️ Efeito: Permite que ambos variem independentemente.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Gatilhos Comportamentais -->
+    <section class="mb-12">
+        <h2 class="text-2xl font-bold text-blue-900 mb-2 border-l-4 border-blue-500 pl-3">4. Gatilhos de Memória: Padrões Comportamentais</h2>
+        <p class="mb-6 text-gray-600 bg-blue-50 p-2 rounded inline-block">Pergunta chave: <em>Quem faz o quê e como conversam?</em></p>
+
+        <div class="space-y-6">
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <h3 class="text-lg font-bold text-gray-900">Strategy</h3>
+                <p class="text-gray-700 mt-1">🎯 Gatilho: <span class="important-term">"Família de algoritmos"</span>, "Intercambiáveis", "Variar independentemente".</p>
+                <p class="text-gray-600 text-sm mt-1">Uso: Mudar cálculo (Frete, Imposto) em tempo de execução via composição.</p>
+            </div>
+
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <h3 class="text-lg font-bold text-gray-900">Observer</h3>
+                <p class="text-gray-700 mt-1">🎯 Gatilho: <span class="important-term">"Notificação"</span>, "Dependência um-para-muitos", "Mudança de estado".</p>
+                <p class="text-gray-600 text-sm mt-1">Atores: Subject (quem muda) e Observer (quem é avisado).</p>
+            </div>
+
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <h3 class="text-lg font-bold text-gray-900">Template Method</h3>
+                <p class="text-gray-700 mt-1">🎯 Gatilho: <span class="important-term">"Esqueleto do algoritmo"</span>, "Passos fixos", "Subclasses redefinem passos".</p>
+                <p class="text-gray-600 text-sm mt-1">Técnica: Usa <strong>herança</strong> (classe abstrata).</p>
+            </div>
+
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <h3 class="text-lg font-bold text-gray-900">Command</h3>
+                <p class="text-gray-700 mt-1">🎯 Gatilho: <span class="important-term">"Solicitação como objeto"</span>, "Desfazer (Undo)", "Enfileirar".</p>
+            </div>
+            
+             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                 <div class="bg-gray-50 p-4 rounded-lg">
+                     <h3 class="text-lg font-bold text-gray-900">Iterator</h3>
+                     <p class="text-gray-700 mt-1">Acesso sequencial sem expor estrutura interna.</p>
+                 </div>
+                 <div class="bg-gray-50 p-4 rounded-lg">
+                     <h3 class="text-lg font-bold text-gray-900">State</h3>
+                     <p class="text-gray-700 mt-1">Objeto altera seu comportamento quando seu estado interno muda (parece mudar de classe).</p>
+                 </div>
+             </div>
+        </div>
+    </section>
+
+    <!-- 5. Tabela Tira-Teima -->
+    <section class="mb-16">
+        <h2 class="text-2xl font-bold text-blue-900 mb-4 border-l-4 border-blue-500 pl-3">5. Tabela "Tira-Teima" (As Pegadinhas da AOCP)</h2>
+        <p class="mb-4 text-gray-600">Memorize estas distinções finas, pois são usadas nas questões "difíceis".</p>
+
+        <div class="overflow-hidden border border-gray-300 rounded-lg">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th scope="col" class="px-3 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider w-1/4">Padrão A</th>
+                        <th scope="col" class="px-3 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider w-1/4">Padrão B</th>
+                        <th scope="col" class="px-3 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider w-1/2">Diferença Chave para Concurso</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200 text-sm">
+                    <tr>
+                        <td class="px-3 py-4 font-semibold text-gray-800 bg-gray-50">Adapter</td>
+                        <td class="px-3 py-4 font-semibold text-gray-800 bg-gray-50">Decorator</td>
+                        <td class="px-3 py-4 text-gray-700">
+                            <strong>Adapter</strong>: <em class="text-red-600">muda</em> a interface para encaixar.<br>
+                            <strong>Decorator</strong>: <em class="text-green-600">mantém</em> a interface e adiciona comportamento.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-3 py-4 font-semibold text-gray-800">Strategy</td>
+                        <td class="px-3 py-4 font-semibold text-gray-800">State</td>
+                        <td class="px-3 py-4 text-gray-700">
+                            <strong>Strategy</strong>: O cliente <em class="text-blue-600">escolhe</em> a estratégia.<br>
+                            <strong>State</strong>: O estado muda <em class="text-blue-600">sozinho</em> internamente.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-3 py-4 font-semibold text-gray-800 bg-gray-50">Strategy</td>
+                        <td class="px-3 py-4 font-semibold text-gray-800 bg-gray-50">Template Method</td>
+                        <td class="px-3 py-4 text-gray-700">
+                            <strong>Strategy</strong>: Usa <span class="important-term">Composição</span>. Algoritmo inteiro.<br>
+                            <strong>Template Method</strong>: Usa <span class="important-term">Herança</span>. Partes do algoritmo.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-3 py-4 font-semibold text-gray-800">Factory Method</td>
+                        <td class="px-3 py-4 font-semibold text-gray-800">Abstract Factory</td>
+                        <td class="px-3 py-4 text-gray-700">
+                            <strong>Factory Method</strong>: Cria <em class="text-purple-600">um</em> produto.<br>
+                            <strong>Abstract Factory</strong>: Cria <em class="text-purple-600">família</em> de produtos.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Botão de Questões -->
+    <div class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-4 text-center shadow-lg md:relative md:bg-transparent md:border-0 md:shadow-none md:mt-12 md:mb-12">
+        <a href="esp-padroes-projetoquestoes.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition duration-200 w-full md:w-auto shadow-md">
+            ✍️ Ir para Questões de Fixação
+        </a>
+    </div>
+
+    <!-- Espaço extra no final para não esconder conteúdo atrás do botão fixo no mobile -->
+    <div class="h-20 md:h-0"></div>
+
+</body>
+</html>

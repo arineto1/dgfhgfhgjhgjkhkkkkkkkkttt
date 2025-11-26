@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Análise e Projeto de Sistemas (AOCP)</title>
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --card-bg: #ffffff;
+            --text-color: #2d3748;
+            --heading-color: #1a202c;
+            --accent-color: #3182ce;
+            --success-color: #38a169;
+            --error-color: #e53e3e;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            color: var(--heading-color);
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        h2, h3 {
+            color: var(--heading-color);
+            margin-top: 30px;
+        }
+
+        .subtitle {
+            color: #718096;
+            font-size: 1.1rem;
+        }
+
+        /* Question Styles */
+        .question-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+        }
+
+        .question-header {
+            font-size: 0.9rem;
+            color: #718096;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-label:hover {
+            border-color: var(--accent-color);
+            background-color: #ebf8ff;
+        }
+
+        input[type="radio"] {
+            margin-right: 15px;
+            transform: scale(1.2);
+            accent-color: var(--accent-color);
+        }
+
+        input[type="radio"]:checked + span {
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+
+        /* Submit Button */
+        .btn-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        button#finish-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(49, 130, 206, 0.3);
+            transition: background-color 0.2s;
+        }
+
+        button#finish-btn:hover {
+            background-color: #2b6cb0;
+        }
+
+        /* Results Section */
+        #result-section {
+            display: none; /* Hidden by default */
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 3px solid var(--border-color);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .score-board {
+            text-align: center;
+            background: #2d3748;
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 50px;
+        }
+
+        .score-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent-color); /* Fallback */
+            color: #63b3ed;
+        }
+
+        .resolution-card {
+            background-color: #f7fafc;
+            border-left: 5px solid var(--accent-color);
+            padding: 25px;
+            margin-bottom: 40px;
+        }
+
+        .resolution-title {
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .correct-answer-display {
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #e6fffa;
+            color: #2c7a7b;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        /* Tables in resolutions */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid #cbd5e0;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #edf2f7;
+            font-weight: 600;
+        }
+
+        /* Feedback classes for questions after submission */
+        .q-correct {
+            border-color: var(--success-color) !important;
+            background-color: #f0fff4 !important;
+        }
+        .q-incorrect {
+            border-color: var(--error-color) !important;
+            background-color: #fff5f5 !important;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container { padding: 20px 15px; }
+            h1 { font-size: 1.8rem; }
+            .question-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Caderno Técnico de Questões</h1>
+        <div class="subtitle">Análise e Projeto de Sistemas - Banca Instituto AOCP</div>
+        <p style="margin-top: 10px; font-size: 0.9rem; color: #718096;">Responda às 10 questões abaixo. Ao finalizar, veja sua pontuação e a resolução analítica detalhada.</p>
+    </header>
+
+    <form id="quiz-form">
+        
+        <!-- Questão 1 -->
+        <div class="question-card" id="q1-card">
+            <div class="question-header">Questão 1 | Disciplina: Análise de Sistemas | Assunto: Abstração</div>
+            <div class="question-text">
+                Quanto à análise e ao projeto orientados a objetos, julgue o item a seguir.<br><br>
+                Na análise e no projeto orientados a objeto, um dos aspectos mais difíceis na modelagem é a abstração. Em linhas gerais, abstrair é retirar ou capturar todas as informações observadas e fornecidas ao arquiteto de software, independentemente se serão usadas posteriormente na análise ou não, visando garantir que o modelo represente a totalidade absoluta do domínio, sem perda de dados brutos.
+            </div>
+            <div class="options">
+                <label class="option-label">
+                    <input type="radio" name="q1" value="C"> <span>Certo</span>
+                </label>
+                <label class="option-label">
+                    <input type="radio" name="q1" value="E"> <span>Errado</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Questão 2 -->
+        <div class="question-card" id="q2-card">
+            <div class="question-header">Questão 2 | Disciplina: Engenharia de Software | Assunto: UML 2.0 - Implantação</div>
+            <div class="question-text">
+                No contexto da modelagem de sistemas utilizando a UML 2.0, o Diagrama de Implantação desempenha um papel crucial na definição da arquitetura física. Sobre os elementos que compõem este diagrama, julgue o item subsequente.<br><br>
+                O elemento denominado <em>Device</em> (Dispositivo) representa um recurso físico com capacidade de processamento computacional, sobre o qual os artefatos de software podem ser implantados para execução. Diferencia-se dos ambientes de execução por corresponder ao hardware tangível.
+            </div>
+            <div class="options">
+                <label class="option-label">
+                    <input type="radio" name="q2" value="C"> <span>Certo</span>
+                </label>
+                <label class="option-label">
+                    <input type="radio" name="q2" value="E"> <span>Errado</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Questão 3 -->
+        <div class="question-card" id="q3-card">
+            <div class="question-header">Questão 3 | Disciplina: Eng. Software | Assunto: Padrões de Projeto (Criacional)</div>
+            <div class="question-text">
+                Durante o desenvolvimento de um sistema corporativo web, a equipe de arquitetura identificou a necessidade de restringir a instanciação de uma classe responsável pelo gerenciamento de conexões com o banco de dados. O requisito técnico estipula que o sistema deve manter uma única instância dessa classe ativa durante todo o ciclo de vida da aplicação, garantindo que todas as solicitações de conexão utilizem esse mesmo ponto global de acesso para preservar a integridade transacional e o gerenciamento de recursos. Assinale a alternativa que apresenta o Padrão de Projeto GoF (Gang of Four) que atende estritamente a essas características.
+            </div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q3" value="A"> <span>A) Adapter</span></label>
+                <label class="option-label"><input type="radio" name="q3" value="B"> <span>B) Singleton</span></label>
+                <label class="option-label"><input type="radio" name="q3" value="C"> <span>C) Facade</span></label>
+                <label class="option-label"><input type="radio" name="q3" value="D"> <span>D) Decorator</span></label>
+                <label class="option-label"><input type="radio" name="q3" value="E"> <span>E) Observer</span></label>
+            </div>
+        </div>
+
+        <!-- Questão 4 -->
+        <div class="question-card" id="q4-card">
+            <div class="question-header">Questão 4 | Disciplina: Eng. Software | Assunto: Engenharia de Requisitos</div>
+            <div class="question-text">
+                A Engenharia de Requisitos estabelece distinções claras entre os tipos de necessidades que um sistema deve atender. Considere a definição a seguir: "São requisitos que descrevem o que o sistema deve fazer, especificando as funções, os serviços e as interações do software com os usuários ou outros sistemas. Eles definem as reações do sistema a entradas específicas e o comportamento esperado em situações particulares."<br><br>
+                Essa definição refere-se aos:
+            </div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q4" value="A"> <span>A) Requisitos Não Funcionais.</span></label>
+                <label class="option-label"><input type="radio" name="q4" value="B"> <span>B) Requisitos de Restrição de Domínio.</span></label>
+                <label class="option-label"><input type="radio" name="q4" value="C"> <span>C) Requisitos Funcionais.</span></label>
+                <label class="option-label"><input type="radio" name="q4" value="D"> <span>D) Requisitos de Processo.</span></label>
+                <label class="option-label"><input type="radio" name="q4" value="E"> <span>E) Requisitos de Qualidade Externa.</span></label>
+            </div>
+        </div>
+
+        <!-- Questão 5 -->
+        <div class="question-card" id="q5-card">
+            <div class="question-header">Questão 5 | Disciplina: Eng. Software | Assunto: UML 2.0 - Diagrama de Sequência</div>
+            <div class="question-text">
+                Um dos diagramas mais utilizados na UML 2.0 para modelar aspectos dinâmicos do sistema é o Diagrama de Sequência. Assinale a alternativa correta que descreve a finalidade primária e as características estruturais desse diagrama.
+            </div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q5" value="A"> <span>A) É um diagrama estrutural que representa a hierarquia de herança entre classes e a composição de pacotes.</span></label>
+                <label class="option-label"><input type="radio" name="q5" value="B"> <span>B) Representa as interações entre objetos de um cenário, realizadas por meio de trocas de mensagens, com ênfase explícita na ordem temporal em que essas mensagens ocorrem.</span></label>
+                <label class="option-label"><input type="radio" name="q5" value="C"> <span>C) Modela o fluxo de dados (Data Flow) através do sistema, focando nas transformações que os dados sofrem desde a entrada até a saída, sem considerar os objetos responsáveis.</span></label>
+                <label class="option-label"><input type="radio" name="q5" value="D"> <span>D) É utilizado exclusivamente para modelar a implantação física de nós e dispositivos de hardware em uma rede.</span></label>
+                <label class="option-label"><input type="radio" name="q5" value="E"> <span>E) Descreve os estados internos de um único objeto e as transições de estado causadas por eventos externos, sem mostrar a interação com outros objetos.</span></label>
+            </div>
+        </div>
+
+        <!-- Questão 6 -->
+        <div class="question-card" id="q6-card">
+            <div class="question-header">Questão 6 | Disciplina: Eng. Software | Assunto: Padrões de Projeto (Estrutural)</div>
+            <div class="question-text">
+                No projeto de sistemas complexos, frequentemente surge a necessidade de simplificar a interação entre o cliente e um conjunto de classes inter-relacionadas que compõem um subsistema. Para resolver esse problema, utiliza-se um padrão estrutural que fornece uma interface unificada de alto nível, ocultando a complexidade subjacente e reduzindo o acoplamento entre o cliente e o subsistema. Esse padrão é conhecido como:
+            </div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q6" value="A"> <span>A) Bridge.</span></label>
+                <label class="option-label"><input type="radio" name="q6" value="B"> <span>B) Facade (Fachada).</span></label>
+                <label class="option-label"><input type="radio" name="q6" value="C"> <span>C) Composite.</span></label>
+                <label class="option-label"><input type="radio" name="q6" value="D"> <span>D) Flyweight.</span></label>
+                <label class="option-label"><input type="radio" name="q6" value="E"> <span>E) Chain of Responsibility.</span></label>
+            </div>
+        </div>
+
+        <!-- Questão 7 -->
+        <div class="question-card" id="q7-card">
+            <div class="question-header">Questão 7 | Disciplina: Eng. Software | Assunto: UML 2.0 - Casos de Uso</div>
+            <div class="question-text">
+                No Diagrama de Casos de Uso da UML 2.0, os relacionamentos entre casos de uso permitem modularizar e reutilizar comportamentos. Analise o seguinte cenário: Um caso de uso base "Realizar Venda" possui um comportamento completo e funcional. No entanto, em situações específicas e opcionais (como quando o cliente solicita entrega expressa), um comportamento adicional definido no caso de uso "Calcular Frete Expresso" deve ser incorporado. Qual é o tipo de relacionamento correto para modelar essa situação, onde o caso de uso acessório insere comportamento no base sob condições específicas?
+            </div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q7" value="A"> <span>A) Generalização (<code>&lt;&lt;generalization&gt;&gt;</code>).</span></label>
+                <label class="option-label"><input type="radio" name="q7" value="B"> <span>B) Inclusão (<code>&lt;&lt;include&gt;&gt;</code>).</span></label>
+                <label class="option-label"><input type="radio" name="q7" value="C"> <span>C) Extensão (<code>&lt;&lt;extend&gt;&gt;</code>).</span></label>
+                <label class="option-label"><input type="radio" name="q7" value="D"> <span>D) Associação Bidirecional.</span></label>
+                <label class="option-label"><input type="radio" name="q7" value="E"> <span>E) Realização (<code>&lt;&lt;realize&gt;&gt;</code>).</span></label>
+            </div>
+        </div>
+
+        <!-- Questão 8 -->
+        <div class="question-card" id="q8-card">
+            <div class="question-header">Questão 8 | Disciplina: Eng. Software | Assunto: Elicitação de Requisitos</div>
+            <div class="question-text">
+                A etapa de elicitação de requisitos é crítica para o sucesso de um projeto. Dentre as diversas técnicas disponíveis, existe uma técnica observacional onde o analista se insere no ambiente de trabalho dos usuários para compreender as nuances dos processos de negócio, as interações sociais e os requisitos tácitos que dificilmente seriam verbalizados em entrevistas formais. Essa técnica é denominada:
+            </div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q8" value="A"> <span>A) Brainstorming.</span></label>
+                <label class="option-label"><input type="radio" name="q8" value="B"> <span>B) Workshop JAD (Joint Application Design).</span></label>
+                <label class="option-label"><input type="radio" name="q8" value="C"> <span>C) Etnografia.</span></label>
+                <label class="option-label"><input type="radio" name="q8" value="D"> <span>D) Prototipagem Evolutiva.</span></label>
+                <label class="option-label"><input type="radio" name="q8" value="E"> <span>E) Questionário (Survey).</span></label>
+            </div>
+        </div>
+
+        <!-- Questão 9 -->
+        <div class="question-card" id="q9-card">
+            <div class="question-header">Questão 9 | Disciplina: POO | Assunto: Polimorfismo</div>
+            <div class="question-text">
+                Sobre os pilares da Programação Orientada a Objetos, analise as assertivas abaixo e assinale a alternativa que define corretamente o conceito de Polimorfismo no contexto de linguagens fortemente tipadas como Java ou C++.
+            </div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q9" value="A"> <span>A) É a capacidade de ocultar os detalhes internos de implementação de uma classe, expondo apenas uma interface pública segura.</span></label>
+                <label class="option-label"><input type="radio" name="q9" value="B"> <span>B) É o mecanismo pelo qual uma classe (subclasse) pode herdar atributos e métodos de outra classe (superclasse), promovendo o reuso de código.</span></label>
+                <label class="option-label"><input type="radio" name="q9" value="C"> <span>C) É a capacidade de uma referência de um tipo genérico (superclasse ou interface) apontar para objetos de diferentes tipos específicos (subclasses) e invocar métodos que se comportam de maneira distinta dependendo do tipo real do objeto referenciado.</span></label>
+                <label class="option-label"><input type="radio" name="q9" value="D"> <span>D) É o processo de agrupar funcionalidades relacionadas em pacotes ou módulos independentes para reduzir a complexidade do sistema.</span></label>
+                <label class="option-label"><input type="radio" name="q9" value="E"> <span>E) É a técnica de garantir que uma classe tenha apenas uma instância ativa no sistema.</span></label>
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-card" id="q10-card">
+            <div class="question-header">Questão 10 | Disciplina: Eng. Software | Assunto: UML 2.0 - Visibilidade</div>
+            <div class="question-text">
+                No Diagrama de Classes da UML, os modificadores de acesso (visibilidade) dos atributos e operações são representados por símbolos específicos antes do nome do elemento. Assinale a alternativa que apresenta a correspondência correta entre o símbolo UML e o nível de visibilidade.
+            </div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q10" value="A"> <span>A) <code>+</code> (Público), <code>-</code> (Privado), <code>#</code> (Protegido), <code>~</code> (Pacote).</span></label>
+                <label class="option-label"><input type="radio" name="q10" value="B"> <span>B) <code>-</code> (Público), <code>+</code> (Privado), <code>*</code> (Protegido), <code>/</code> (Derivado).</span></label>
+                <label class="option-label"><input type="radio" name="q10" value="C"> <span>C) <code>#</code> (Público), <code>~</code> (Privado), <code>-</code> (Protegido), <code>+</code> (Pacote).</span></label>
+                <label class="option-label"><input type="radio" name="q10" value="D"> <span>D) <code>$</code> (Estático), <code>+</code> (Público), <code>-</code> (Protegido), <code>&</code> (Referência).</span></label>
+                <label class="option-label"><input type="radio" name="q10" value="E"> <span>E) <code>+</code> (Protegido), <code>-</code> (Pacote), <code>#</code> (Privado), <code>~</code> (Público).</span></label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button type="button" id="finish-btn">Finalizar e Ver Gabarito</button>
+        </div>
+    </form>
+
+    <!-- RESULTADOS E RESOLUÇÕES -->
+    <div id="result-section">
+        <div class="score-board">
+            <h2>Resultado</h2>
+            <div class="score-number" id="score-display">0 / 10</div>
+            <p id="score-message">Responda as questões acima.</p>
+        </div>
+
+        <h2>Gabarito e Resoluções Analíticas Exaustivas</h2>
+        <p style="margin-bottom: 30px;">Abaixo encontra-se a análise profunda e pormenorizada de cada questão.</p>
+
+        <!-- Resolução 1 -->
+        <div class="resolution-card">
+            <span class="resolution-title">Resolução da Questão 1</span>
+            <div class="correct-answer-display">Gabarito Oficial: Errado</div>
+            <h3>Análise Conceitual Profunda: A Natureza da Abstração</h3>
+            <p>A questão toca no cerne epistemológico da Ciência da Computação e da Análise de Sistemas. A abstração é, fundamentalmente, um processo de <strong>filtragem cognitiva</strong>. Ao contrário do que a assertiva propõe — que abstrair seria "retirar ou capturar todas as informações" — a abstração é a arte de <em>ignorar</em>.</p>
+            <p>Segundo os princípios da Orientação a Objetos, a abstração consiste em identificar as características essenciais de um objeto que o distinguem de todos os outros tipos de objetos e que fornecem fronteiras conceituais bem definidas, <em>relativamente à perspectiva do observador</em>.</p>
+            <p><strong>Erro da Assertiva:</strong> A questão afirma que se deve capturar informações <em>"independentemente se serão usadas posteriormente na análise ou não"</em>. Isso é a antítese da engenharia eficiente. Um modelo que contém tudo é um modelo que falhou em abstrair.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Característica</th>
+                        <th>Conceito Correto de Abstração (OO)</th>
+                        <th>Conceito Errôneo (Apresentado na Questão)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Foco</strong></td>
+                        <td>Características essenciais e relevantes.</td>
+                        <td>Totalidade dos dados brutos observáveis.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tratamento de Detalhes</strong></td>
+                        <td>Ignora detalhes irrelevantes para o contexto.</td>
+                        <td>Captura tudo, independente do uso.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Objetivo</strong></td>
+                        <td>Reduzir a complexidade e focar no negócio.</td>
+                        <td>Criar uma cópia exata da realidade (inviável).</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Portanto, a afirmação é <strong>ERRADA</strong> porque a abstração exige a exclusão deliberada de informações não pertinentes.</p>
+        </div>
+
+        <!-- Resolução 2 -->
+        <div class="resolution-card">
+            <span class="resolution-title">Resolução da Questão 2</span>
+            <div class="correct-answer-display">Gabarito Oficial: Certo</div>
+            <h3>Análise Conceitual: Diagramas de Implantação</h3>
+            <p>A questão exige conhecimento específico sobre a taxonomia dos elementos nos Diagramas de Implantação (<em>Deployment Diagrams</em>). Na UML 2.0, a unidade básica é o <strong>Nó</strong> (<em>Node</em>), subdividido em:</p>
+            <ul>
+                <li><strong>Device (<code>&lt;&lt;device&gt;&gt;</code>):</strong> Representa um recurso de hardware físico. É algo que você pode tocar (Servidor, Notebook, Roteador).</li>
+                <li><strong>Execution Environment (<code>&lt;&lt;executionEnvironment&gt;&gt;</code>):</strong> Representa um nó de software (JVM, SO, Docker).</li>
+            </ul>
+            <p>A questão declara: <em>"O elemento Device representa um dispositivo computacional... recurso físico com capacidade de processamento... diferencia-se dos ambientes de execução por corresponder ao hardware tangível."</em> Esta declaração está tecnicamente correta e alinhada com as especificações da OMG.</p>
+        </div>
+
+        <!-- Resolução 3 -->
+        <div class="resolution-card">
+            <span class="resolution-title">Resolução da Questão 3</span>
+            <div class="correct-answer-display">Gabarito Oficial: B) Singleton</div>
+            <h3>Análise Conceitual: Padrão Singleton</h3>
+            <p><strong>Intenção:</strong> Garantir que uma classe tenha somente uma instância e fornecer um ponto global de acesso para a mesma.</p>
+            <p><strong>Motivação:</strong> Conexões de banco de dados são recursos caros. Se cada parte do sistema criasse sua própria conexão, causaria esgotamento de recursos. O Singleton resolve isso centralizando o controle.</p>
+            <p><strong>Análise dos Distratores:</strong></p>
+            <ul>
+                <li><strong>Adapter:</strong> Converte interfaces incompatíveis (não controla instância).</li>
+                <li><strong>Facade:</strong> Simplifica interfaces de subsistemas (não impede múltiplas instâncias).</li>
+                <li><strong>Decorator:</strong> Adiciona responsabilidades dinâmicas.</li>
+                <li><strong>Observer:</strong> Notificação de eventos (um-para-muitos).</li>
+            </ul>
+        </div>
+
+        <!-- Resolução 4 -->
+        <div class="resolution-card">
+            <span class="resolution-title">Resolução da Questão 4</span>
+            <div class="correct-answer-display">Gabarito Oficial: C) Requisitos Funcionais</div>
+            <h3>Análise Conceitual: Taxonomia de Requisitos</h3>
+            <p><strong>Requisitos Funcionais (RF):</strong> Descrevem o que o sistema deve fazer, suas funções, cálculos e interações. O enunciado fala explicitamente em "declarações dos serviços que o sistema deve executar" e "reações a entradas".</p>
+            <p><strong>Contraste com Não Funcionais (RNF):</strong> RNF são restrições ou atributos de qualidade (performance, segurança). A questão foca no comportamento (função), logo é um Requisito Funcional.</p>
+        </div>
+
+        <!-- Resolução 5 -->
+        <div class="resolution-card">
+            <span class="resolution-title">Resolução da Questão 5</span>
+            <div class="correct-answer-display">Gabarito Oficial: B) Representa as interações... ordem temporal...</div>
+            <h3>Análise Conceitual: Diagrama de Sequência</h3>
+            <p>O Diagrama de Sequência é um Diagrama de Interação.</p>
+            <ul>
+                <li><strong>Eixo Vertical:</strong> Representa o <strong>tempo</strong> (fluxo de cima para baixo).</li>
+                <li><strong>Eixo Horizontal:</strong> Representa os <strong>objetos</strong>.</li>
+                <li><strong>Mensagens:</strong> Representam a comunicação entre as Linhas de Vida (Lifelines).</li>
+            </ul>
+            <p>A alternativa B captura os três pilares: Interação, Mensagens e Ênfase na Ordem Temporal. As outras alternativas descrevem incorretamente Diagramas de Classes (A), Implantação (D) ou Máquina de Estados (E).</p>
+        </div>
+
+        <!-- Resolução 6 -->
+        <div class="resolution-card">
+            <span class="resolution-title">Resolução da Questão 6</span>
+            <div class="correct-answer-display">Gabarito Oficial: B) Facade (Fachada)</div>
+            <h3>Análise Conceitual: Padrão Facade</h3>
+            <p><strong>Problema:</strong> Sistemas complexos com muitas classes inter-relacionadas geram alto acoplamento se acessadas diretamente.</p>
+            <p><strong>Solução (Facade):</strong> Criar uma classe "Fachada" que oferece uma interface simples para as funcionalidades comuns, delegando as chamadas para as classes internas. A questão cita "interface unificada" e "ocultar complexidade", que são as definições clássicas do Facade.</p>
+            <p><em>Diferença do Adapter:</em> O Adapter converte interfaces incompatíveis; o Facade simplifica uma interface complexa.</p>
+        </div>
+
+        <!-- Resolução 7 -->
+        <div class="resolution-card">
+            <span class="resolution-title">Resolução da Questão 7</span>
+            <div class="correct-answer-display">Gabarito Oficial: C) Extensão (<code>&lt;&lt;extend&gt;&gt;</code>)</div>
+            <h3>Análise Conceitual: Relacionamentos de Casos de Uso</h3>
+            <p><strong>Lógica do Extend:</strong> A característica definidora é a <strong>opcionalidade</strong>. O caso de uso base funciona sozinho, e a extensão só ocorre sob determinada condição (ponto de extensão).</p>
+            <p>O cenário da questão diz: <em>"situações específicas e opcionais"</em>. Isso elimina o <code>&lt;&lt;include&gt;&gt;</code> (que é obrigatório/reuso incondicional). A seta no Extend aponta do Acessório para o Base.</p>
+        </div>
+
+        <!-- Resolução 8 -->
+        <div class="resolution-card">
+            <span class="resolution-title">Resolução da Questão 8</span>
+            <div class="correct-answer-display">Gabarito Oficial: C) Etnografia</div>
+            <h3>Análise Conceitual: Técnicas de Elicitação</h3>
+            <p>A questão descreve uma técnica <strong>observacional</strong> de <strong>imersão</strong> no ambiente de trabalho para captar requisitos tácitos e interações sociais.</p>
+            <ul>
+                <li><strong>Etnografia:</strong> O analista observa o trabalho real "no chão de fábrica". Descobre o que o usuário faz, não só o que ele diz que faz.</li>
+                <li><strong>Brainstorming:</strong> Foca em gerar novas ideias (criatividade).</li>
+                <li><strong>JAD:</strong> Workshop intensivo em sala de reunião.</li>
+            </ul>
+        </div>
+
+        <!-- Resolução 9 -->
+        <div class="resolution-card">
+            <span class="resolution-title">Resolução da Questão 9</span>
+            <div class="correct-answer-display">Gabarito Oficial: C) É a capacidade de uma referência...</div>
+            <h3>Análise Conceitual: Polimorfismo</h3>
+            <p>O Polimorfismo (especificamente de inclusão) permite que uma referência de um tipo genérico (Superclasse) aponte para objetos de tipos específicos (Subclasses). O método executado é decidido em tempo de execução (Dynamic Binding) baseando-se no tipo real do objeto.</p>
+            <p>A alternativa C descreve exatamente isso: referência genérica, objetos de diferentes tipos, comportamentos distintos.</p>
+            <ul>
+                <li>A descreve Encapsulamento.</li>
+                <li>B descreve Herança.</li>
+            </ul>
+        </div>
+
+        <!-- Resolução 10 -->
+        <div class="resolution-card">
+            <span class="resolution-title">Resolução da Questão 10</span>
+            <div class="correct-answer-display">Gabarito Oficial: A) + (Público), - (Privado), # (Protegido), ~ (Pacote)</div>
+            <h3>Análise Conceitual: Sintaxe UML</h3>
+            <p>É imperativo memorizar a tabela padrão de visibilidade da UML:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="text-align: center;">Símbolo</th>
+                        <th>Nome</th>
+                        <th>Descrição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align: center;"><strong>+</strong></td>
+                        <td>Public</td>
+                        <td>Acesso total.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;"><strong>-</strong></td>
+                        <td>Private</td>
+                        <td>Apenas a própria classe.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;"><strong>#</strong></td>
+                        <td>Protected</td>
+                        <td>Própria classe e subclasses (Herança).</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;"><strong>~</strong></td>
+                        <td>Package</td>
+                        <td>Classes do mesmo pacote.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>A alternativa A é a única que apresenta a correspondência correta.</p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Gabarito correto
+    const correctAnswers = {
+        q1: 'E',
+        q2: 'C',
+        q3: 'B',
+        q4: 'C',
+        q5: 'B',
+        q6: 'B',
+        q7: 'C',
+        q8: 'C',
+        q9: 'C',
+        q10: 'A'
+    };
+
+    document.getElementById('finish-btn').addEventListener('click', function() {
+        let score = 0;
+        let total = 10;
+        const form = document.getElementById('quiz-form');
+        const formData = new FormData(form);
+
+        // Resetar estilos anteriores
+        document.querySelectorAll('.question-card').forEach(card => {
+            card.classList.remove('q-correct', 'q-incorrect');
+        });
+
+        // Iterar sobre as questões
+        for (let i = 1; i <= total; i++) {
+            const qKey = 'q' + i;
+            const userAnswer = formData.get(qKey);
+            const card = document.getElementById(qKey + '-card');
+
+            if (userAnswer) {
+                if (userAnswer === correctAnswers[qKey]) {
+                    score++;
+                    card.classList.add('q-correct');
+                } else {
+                    card.classList.add('q-incorrect');
+                }
+            } else {
+                // Se não respondeu, marca como incorreto visualmente
+                card.classList.add('q-incorrect');
+            }
+        }
+
+        // Mostrar resultados
+        const resultSection = document.getElementById('result-section');
+        const scoreDisplay = document.getElementById('score-display');
+        const scoreMessage = document.getElementById('score-message');
+
+        scoreDisplay.textContent = `${score} / ${total}`;
+        
+        if (score === total) {
+            scoreMessage.textContent = "Parabéns! Você gabaritou a prova!";
+            scoreDisplay.style.color = "#38a169";
+        } else if (score >= 7) {
+            scoreMessage.textContent = "Muito bom! Você tem um ótimo domínio do conteúdo.";
+            scoreDisplay.style.color = "#3182ce";
+        } else {
+            scoreMessage.textContent = "Continue estudando! Revise as resoluções abaixo.";
+            scoreDisplay.style.color = "#e53e3e";
+        }
+
+        resultSection.style.display = 'block';
+        
+        // Scroll suave até o resultado
+        resultSection.scrollIntoView({ behavior: 'smooth' });
+
+        // Desabilitar o botão para evitar múltiplos cliques ou reenvios confusos
+        this.textContent = "Prova Finalizada";
+        this.disabled = true;
+        this.style.backgroundColor = "#cbd5e0";
+        this.style.cursor = "default";
+        
+        // Desabilitar inputs
+        const inputs = document.querySelectorAll('input[type="radio"]');
+        inputs.forEach(input => input.disabled = true);
+    });
+</script>
+
+</body>
+</html>
